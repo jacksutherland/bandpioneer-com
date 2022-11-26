@@ -1,0 +1,103 @@
+let BandPioneer = {
+	Site: class {
+		constructor(tempVar)
+		{
+			this.tempVar = tempVar;
+
+			this.search = {
+				ele: document.querySelector('#search'),
+				icon: document.querySelector('#search svg'),
+				input: document.querySelector('#search input')
+			};
+
+			this.addHeaderEvents();
+			this.addMenuEvents();
+			this.addSearchEvents();
+		}
+
+		showSearch(show)
+		{
+			if(show)
+			{
+				this.search.input.value = "";
+				this.search.ele.classList.add('show');
+				this.search.input.focus();
+			}
+			else
+			{
+				this.search.ele.classList.remove('show');
+			}
+		}
+
+		addHeaderEvents()
+		{
+			const header = document.querySelector('header');
+			const pageHeader = document.querySelector('.page-header');
+
+			const observer = new window.IntersectionObserver((entries) => {
+
+				if (!entries[0].isIntersecting)
+				{
+					header.classList.add('sticky');
+				}
+				else
+				{
+					header.classList.remove('sticky');
+				}
+			});
+
+			observer.observe(pageHeader)
+		}
+
+		addMenuEvents()
+		{
+			let menu = document.querySelector('#main-menu');
+			let open = document.querySelector('#open-menu');
+			let close = document.querySelector('#close-menu');
+
+
+			open.addEventListener('click', function(e)
+			{
+				e.preventDefault();
+				menu.classList.add('show');
+			});
+
+			close.addEventListener('click', function(e)
+			{
+				e.preventDefault();
+				menu.classList.remove('show');
+			});
+		}
+
+		addSearchEvents()
+		{
+			this.search.icon.addEventListener('click', function(e)
+			{
+				e.preventDefault();
+
+				if(this.search.ele.classList.contains('show'))
+				{
+					this.showSearch(false);
+				}
+				else
+				{
+					this.showSearch(true);
+				}
+			}.bind(this));
+
+			this.search.input.addEventListener('blur', function(e)
+			{
+				this.showSearch(false);
+			}.bind(this));
+
+			this.search.input.addEventListener('keyup', function(e)
+			{
+				e = e || window.event;
+			    if (e.keyCode == 27 || e.keyCode == 13)
+			    {
+			        this.showSearch(false);
+			    }
+			}.bind(this));
+		}
+	}
+}

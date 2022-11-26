@@ -1,0 +1,12 @@
+defaultPlacement: end
+enableVersioning: true
+handle: blog
+name: 'Blog Post'
+propagationMethod: all
+siteSettings:
+  1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer
+    enabledByDefault: true
+    hasUrls: true
+    template: blog/_entry
+    uriFormat: '{object.categories.one().slug}/{slug}'
+type: channel

@@ -1,0 +1,11 @@
+{% set showLink = showLink is defined ? showLink : true %}
+{% if blog.fullName | length %} 
+	<address rel="author">
+		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% endif %}
+			{% if blog.writerPicture.count %}
+				<img src="{{ blog.writerPicture.one().url('writerPicture') }}" alt="{{ blog.writerPicture.count }}">
+			{% endif %}
+			<span>By {{ blog.fullName }} on {{ blog.postDate | date("M d, Y") }}</span>
+		{% if showLink and blog.websiteUrl %}</a>{% endif %}
+	</address>
+{% endif %}

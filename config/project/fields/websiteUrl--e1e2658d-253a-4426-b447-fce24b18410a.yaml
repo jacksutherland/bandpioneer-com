@@ -1,0 +1,14 @@
+columnSuffix: ysesehfe
+contentColumnType: string(255)
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: websiteUrl
+instructions: null
+name: 'Website URL'
+searchable: false
+settings:
+  maxLength: 255
+  types:
+    - url
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

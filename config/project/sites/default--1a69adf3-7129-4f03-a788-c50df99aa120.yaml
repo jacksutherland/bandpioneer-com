@@ -1,0 +1,8 @@
+baseUrl: $PRIMARY_SITE_URL
+handle: default
+hasUrls: true
+language: en-US
+name: 'Band Pioneer'
+primary: true
+siteGroup: d868a59a-8531-43b1-88a2-eb8eea29254c # Band Pioneer
+sortOrder: 1

@@ -1,0 +1,9 @@
+format: webp
+handle: writerPicture
+height: 40
+interlace: none
+mode: crop
+name: 'Writer Picture'
+position: center-center
+quality: 80
+width: 40

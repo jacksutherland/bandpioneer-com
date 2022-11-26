@@ -1,0 +1,36 @@
+$site-width: 1100px;
+
+$primary-color: #45adda;
+$primary-dark: #131b28;
+$primary-dark-lighter: lighten($primary-dark, 25%);
+$alternate-color: #0a79a4;
+$secondary-color: #f90215;
+$secondary-dark: #d0000e;
+$dark-gray: #6e6e6e;
+$light-gray: darken(#f1f3f4, 5%);
+$white: #FFFFFF;
+$gunmetal: #021215;
+
+$font-color: #4f4f4f;
+$link-color: $alternate-color;
+$link-hover-color: $secondary-color; //lighten($primary-dark, 12%);
+
+$font-size-normal: 1rem;
+$font-size-small: 0.875rem;
+
+$semi-bold: 600;
+
+$breakpoint-md: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$mobile-gutter-width: 15px;
+$header-logo-width: 200px;
+$page-header-height: 300px;
+
+$transition-time: 0.3s;
+$transition-default: $transition-time ease-in-out;
+
+$small-shadow: 0 .125rem .25rem rgba(0,0,0,.15);
+$medium-shadow: 0 .25rem .5rem rgba(0,0,0,.15);

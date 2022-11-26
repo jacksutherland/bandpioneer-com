@@ -1,0 +1,49 @@
+{
+  "name": "craftcms/html-field",
+  "description": "Base class for Craft CMS field types with HTML values.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pixel & Tonic",
+      "homepage": "https://pixelandtonic.com/"
+    }
+  ],
+  "support": {
+    "email": "support@craftcms.com",
+    "issues": "https://github.com/craftcms/html-field/issues?state=open",
+    "source": "https://github.com/craftcms/html-field",
+    "docs": "https://github.com/craftcms/html-field/blob/main/README.md",
+    "rss": "https://github.com/craftcms/html-field/commits/main.atom"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.0.2",
+    "craftcms/cms": "^4.0.0-alpha.1"
+  },
+  "require-dev": {
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main",
+    "craftcms/rector": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "craft\\htmlfield\\": "src/"
+    }
+  },
+  "scripts": {
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
+    "phpstan": "phpstan --memory-limit=1G"
+  },
+  "config": {
+    "platform": {
+      "php": "8.0.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

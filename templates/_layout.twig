@@ -1,0 +1,78 @@
+{% set categories = craft.entries.section('category') %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Band Pioneer</title>
+
+    {% block styles %}
+        <link rel="stylesheet" href="{{ url('css/site.css') }}" /> 
+    {% endblock %}
+    </head>
+
+    <body id="{{ entry.slug }}">
+
+        <div class="page-header">
+            <header>
+                <div class="container">
+                    <a href="/" class="logo">
+                        <img src="{{ url('assets/images/bp-logo.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+                    </a>
+                    <a id="open-menu" href="/" class="bars">
+                        {% include '_includes/icons' with { type: 'bars' } %}
+                    </a>
+                    <nav id="main-menu" class="main-menu" role="navigation" aria-label="Secondary Navigation">
+                        <a id="close-menu" href="/" class="close-menu">
+                            {% include '_includes/icons' with { type: 'close' } %}
+                        </a>
+                        <ul>
+                            <li><a class="underline" href="#">About Us</a></li>
+                            <li><a class="underline" href="#">Articles</a></li>
+                            <li><a class="underline" href="#">Contact</a></li>
+                            {% for cat in categories.all() %}
+                                <li class="hide-md">
+                                    <a class="underline" href="{{ cat.url }}">{{ cat.title }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="display-md">
+                                <a id="search" href="#">
+                                    {% include '_includes/icons' with { type: 'search' } %}
+                                    <input type="text" name="q" placeholder="Enter your search...">
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+        </div>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="container">
+                <a href="/" class="logo">
+                    <img src="{{ url('assets/images/bp-logo.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+                </a>
+                <nav>
+                    <ul>
+                        <li><a class="underline" href="#">About Us</a></li>
+                        <li><a class="underline" href="#">Articles</a></li>
+                        <li><a class="underline" href="#">Contact</a></li>
+                        <li><a class="underline" href="#">Search</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+        
+        <script src="{{ url('js/site.min.js') }}"></script>
+        <script>
+            new BandPioneer.Site('temp var val');
+        </script>
+        {% block scripts %}{% endblock %}
+
+    </body>
+</html>

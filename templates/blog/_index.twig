@@ -1,0 +1,115 @@
+{% extends '_layout' %}
+
+{% set postsPerPage = 8 %}
+
+{% set categorySlug = craft.app.request.segments | last %}
+{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
+{% set showAllPosts = categorySlug | length == 0 or categoryEntry.count == 0 %}
+{% set categories = craft.entries.section('category') %}
+
+{% if showAllPosts %}
+	{% set blogQuery = craft.entries.section('blog') %}
+{% else %}
+	{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
+{% endif %}
+
+{% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
+
+{% if firstPageInfo.currentPage == 1 %}
+	{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+{% else %}
+	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
+{% endif %}
+
+{% block content %}
+
+	<div class="container display-md">
+		<nav class="categories" role="navigation" aria-label="Primary Navigation">
+			<ul>
+				{% for cat in categories.all() %}
+					<li>
+						<a class="underline" href="{{ cat.url() }}">{{ cat.title }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</div>
+
+	<div class="container">
+		{% if showAllPosts and pageInfo.currentPage == 1 %}
+			{% set featured = posts[0] %}
+
+			<h3 class="section-title"><span>Featured Article</span></h3>
+
+			<article class="featured">
+				<a class="blog-image" href="{{ featured.url }}">
+					{% if featured.blogImage.count %}
+						<img src="{{ featured.blogImage.one().url('featuredPost') }}" alt="{{ featured.blogImage.one().title }}">
+					{% endif %}
+					<div class="blog-image-info display-md">
+						<h2>
+							{{ featured.title }}
+						</h2>
+						{% include '_includes/author' with { blog: featured, showLink: false } %}
+						<p>{{ featured.shortDescription }}</p>
+					</div>
+				</a>
+				<div class="blog-info">
+					<ul>
+	            		{% for cat in featured.categories.all() %}
+	            			<li>
+	            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+	            			</li>
+	            		{% endfor %}
+	            	</ul>
+					<div class="hide-md">
+						<h3>
+							{{ featured.title }}
+						</h3>
+						{% include '_includes/author' with { blog: featured } %}
+						<p>{{ featured.shortDescription }}</p>
+					</div>
+				</div>
+			</article>
+		{% endif %}
+
+		<h3 class="section-title"><span>Recent Articles</span></h3>
+
+		<div class="blog-posts">
+			{% for blog in (showAllPosts and pageInfo.currentPage == 1 ? posts[1:] : posts) %}
+	            <article>
+					<a class="blog-image" href="{{ blog.url }}">
+						{% if blog.blogImage.count %}
+							<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}">
+						{% endif %}
+					</a>
+					<div class="blog-info">
+						<ul>
+		            		{% for cat in blog.categories.all() %}
+		            			<li>
+		            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+		            			</li>
+		            		{% endfor %}
+		            	</ul>
+						<h3>
+							<a href="{{ blog.url }}">
+								{{ blog.title }}
+							</a>
+						</h3>
+						
+						{% include '_includes/author' %}
+
+						<p>{{ blog.shortDescription }}</p>
+					</div>
+				</article>
+	        {% endfor %}
+          </div>
+	</div>
+
+	{% if pageInfo.total > (postsPerPage + 1) %}
+		<div class="container">
+	    	{% include '_includes/pagination' %}
+	    </div>
+	{% endif %}
+
+{% endblock %}

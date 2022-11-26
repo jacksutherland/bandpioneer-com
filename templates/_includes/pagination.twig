@@ -1,0 +1,33 @@
+<div class="pagination">
+	{% if pageInfo.prevUrl %}
+		<a href="{{ pageInfo.firstUrl }}" class="page-arrow first d-none d-sm-inline">
+			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
+		</a>
+		<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
+			{% include '_includes/icons' with { type: 'arrow' } %}
+		</a>
+	{% else %}
+		<span class="page-arrow first d-none d-sm-inline">
+			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
+		</span>
+		<span class="page-arrow prev">
+			{% include '_includes/icons' with { type: 'arrow' } %}
+		</span>
+	{% endif %}
+	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
+	{% if pageInfo.nextUrl %}
+		<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
+			{% include '_includes/icons' with { type: 'arrow' } %}
+		</a>
+		<a href="{{ pageInfo.lastUrl }}" class="page-arrow last d-none d-sm-inline">
+			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
+		</a>
+	{% else %}
+		<span class="page-arrow next">
+			{% include '_includes/icons' with { type: 'arrow' } %}
+		</span>
+		<span class="page-arrow last d-none d-sm-inline">
+			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
+		</span>
+	{% endif %}
+</div>
