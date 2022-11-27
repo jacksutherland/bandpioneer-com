@@ -1,4 +1,4 @@
-dateModified: 1669416274
+dateModified: 1669497205
 elementSources:
   craft\elements\Entry:
     -
@@ -84,7 +84,7 @@ meta:
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Video # Video
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
-    76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture'
+    76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description

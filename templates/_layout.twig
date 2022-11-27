@@ -1,4 +1,4 @@
-{% set categories = craft.entries.section('category') %}
+{% set fixedHeader = fixedHeader is defined ? fixedHeader : false %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,42 +11,19 @@
     {% endblock %}
     </head>
 
-    <body id="{{ entry.slug }}">
+    <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
 
-        <div class="page-header">
-            <header>
-                <div class="container">
-                    <a href="/" class="logo">
-                        <img src="{{ url('assets/images/bp-logo.png') }}" alt="Band Pioneer" title="Band Pioneer" />
-                    </a>
-                    <a id="open-menu" href="/" class="bars">
-                        {% include '_includes/icons' with { type: 'bars' } %}
-                    </a>
-                    <nav id="main-menu" class="main-menu" role="navigation" aria-label="Secondary Navigation">
-                        <a id="close-menu" href="/" class="close-menu">
-                            {% include '_includes/icons' with { type: 'close' } %}
-                        </a>
-                        <ul>
-                            <li><a class="underline" href="#">About Us</a></li>
-                            <li><a class="underline" href="#">Articles</a></li>
-                            <li><a class="underline" href="#">Contact</a></li>
-                            {% for cat in categories.all() %}
-                                <li class="hide-md">
-                                    <a class="underline" href="{{ cat.url }}">{{ cat.title }}</a>
-                                </li>
-                            {% endfor %}
-                            <li class="display-md">
-                                <a id="search" href="#">
-                                    {% include '_includes/icons' with { type: 'search' } %}
-                                    <input type="text" name="q" placeholder="Enter your search...">
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-        </div>
-
+        {% if fixedHeader %}
+            {% include '_includes/header' %}
+        {% else %}
+            <div class="page-header">
+                {% include '_includes/header' %}
+                {% if pageTitle is defined and pageTitle | length %}
+                    <h1>{{ pageTitle }}</h1>
+                {% endif %}
+            </div>
+        {% endif %}
+        
         <main>
             {% block content %}
             {% endblock %}

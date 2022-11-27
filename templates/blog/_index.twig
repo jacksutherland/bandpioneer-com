@@ -21,19 +21,13 @@
 	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
 {% endif %}
 
+{% if entry.section.handle != 'homepage' %}
+	{% set pageTitle = entry.title %}
+{% endif %}
+
 {% block content %}
 
-	<div class="container display-md">
-		<nav class="categories" role="navigation" aria-label="Primary Navigation">
-			<ul>
-				{% for cat in categories.all() %}
-					<li>
-						<a class="underline" href="{{ cat.url() }}">{{ cat.title }}</a>
-					</li>
-				{% endfor %}
-			</ul>
-		</nav>
-	</div>
+	{% include '_includes/categories' with { categories: categories } %}
 
 	<div class="container">
 		{% if showAllPosts and pageInfo.currentPage == 1 %}

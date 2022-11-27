@@ -1,7 +1,24 @@
 {% extends '_layout' %}
 
+{% set fixedHeader = true %}
+{% set categories = craft.entries.section('category') %}
+
 {% block content %}
 
-	Blog Entry Page
+	{% include '_includes/categories' with { categories: categories } %}
+
+	<div class="container blog-container">
+		<h1>{{ entry.title }}</h1>
+
+		{% include '_includes/author' with { blog: entry } %}
+
+		{% if entry.blogImage.count %}
+			<img class="blog-image" src="{{ entry.blogImage.one().url }}" alt="{{ entry.blogImage.one().title }}">
+		{% endif %}
+	</div>
+
+	<div class="container blog-container">
+		{% include '_includes/blog-module' %}
+	</div>
 
 {% endblock %}

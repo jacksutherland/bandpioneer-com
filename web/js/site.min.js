@@ -32,21 +32,24 @@ let BandPioneer = {
 		addHeaderEvents()
 		{
 			const header = document.querySelector('header');
-			const pageHeader = document.querySelector('.page-header');
 
-			const observer = new window.IntersectionObserver((entries) => {
+			if(!header.classList.contains('fixed'))
+			{
+				const pageHeader = document.querySelector('.page-header');
+				const observer = new window.IntersectionObserver((entries) => {
 
-				if (!entries[0].isIntersecting)
-				{
-					header.classList.add('sticky');
-				}
-				else
-				{
-					header.classList.remove('sticky');
-				}
-			});
+					if (!entries[0].isIntersecting)
+					{
+						header.classList.add('sticky');
+					}
+					else
+					{
+						header.classList.remove('sticky');
+					}
+				});
 
-			observer.observe(pageHeader)
+				observer.observe(pageHeader);
+			}
 		}
 
 		addMenuEvents()

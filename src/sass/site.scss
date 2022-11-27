@@ -1,6 +1,7 @@
 html {
 	font-family: sans-serif;
 	font-size: 16px;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -14,16 +15,23 @@ body {
 	box-sizing: border-box;
 }
 
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 15px 0;
 
 	&.section-title {
 		text-transform: uppercase;
 		position: relative;
-		margin: 30px 0;
+		//margin: 30px 0;
+		margin: 0 0 30px 0;
 
 		&:after {
-			background: linear-gradient(to left, lighten($light-gray, 8%), $light-gray);
+			background: $gradient-border;
 		    content: "";
 		    height: 1px;
 		    display: block;
@@ -43,8 +51,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 2rem;
-	line-height: 2.7rem;
+	font-size: 1.75rem;
+	line-height: 2.5rem;
+	// font-size: 2rem;
+	// line-height: 2.7rem;
 }
 
 h2 {
@@ -111,7 +121,7 @@ a {
 	img {
 		width: 100%;
 		border: solid 2px $primary-color;
-		border-radius: 5px;
+		border-radius: $small-border-radius;
 	}
 }
 
@@ -124,37 +134,51 @@ a {
 	}
 }
 
-.page-header {
-	background-color: $primary-dark;
-	height: $page-header-height; 
-	overflow: auto;
+header {
+	padding: 10px 0;
 
-	header {
-		padding: 10px 0;
+	.container {
+		display: grid;
+		grid-template-columns: 30% 70%;
 
-		&.sticky {
-			position: fixed;
-			z-index: 100;
-			top: 0;
-			left: 0;
-			width: 100%;
-			background-color: $primary-dark;
-			box-shadow: $medium-shadow;
+		.bars {
+			width: 30px;
+			height: 30px;
+			align-self: start;
+			justify-self: end;
 
-			animation-name: slide-down-header;
-			animation-duration: 0.5s;
-			animation-iteration-count: 1;
+			&:hover {
+				svg {
+					fill: $primary-color;
+				}
+			}
+
+			svg {
+				width: 100%;
+				fill: $white;
+				transition: fill $transition-default;
+			}
 		}
 
-		.container {
-			display: grid;
-			grid-template-columns: 30% 70%;
+		nav.main-menu {
+			position: fixed;
+			z-index: 200;
+			top: 0;
+			right: 0;
+			text-align: right;
+			padding: 20px;
+			background-color: lighten($primary-dark, 3%);
+			border-radius: 0 0 0 $small-border-radius;
+			display: none;
 
-			.bars {
-				width: 30px;
-				height: 30px;
-				align-self: start;
-				justify-self: end;
+			&.show {
+				display: block;
+			}
+
+			.close-menu {
+				display: inline-block;
+				width: 25px;
+				height: 25px;
 
 				&:hover {
 					svg {
@@ -163,60 +187,58 @@ a {
 				}
 
 				svg {
-					width: 100%;
 					fill: $white;
-					transition: fill $transition-default;
+					width: 100%;
 				}
 			}
 
-			nav.main-menu {
-				position: fixed;
-				z-index: 200;
-				top: 0;
-				right: 0;
-				text-align: right;
-				padding: 20px;
-				background-color: lighten($primary-dark, 3%);
-				border-radius: 0 0 0 6px;
-				display: none;
-
-				&.show {
-					display: block;
-				}
-
-				.close-menu {
-					display: inline-block;
-					width: 25px;
-					height: 25px;
-
-					&:hover {
-						svg {
-							fill: $primary-color;
-						}
-					}
-
-					svg {
-						fill: $white;
-						width: 100%;
-					}
-				}
-
-				ul {
-					list-style: none;
-				    margin: 0;
-				    padding: 0;
-
-				    li {
-				    	margin: 15px 0;
-
-				    	a {
-				    		color: $white;
-				    	}
-				    }
-				}
+			ul {
+			    li {
+			    	margin: 15px 0;
+			    	a {
+			    		color: $white;
+			    	}
+			    }
 			}
 		}
 	}
+}
+
+body.fixed-header {
+	main {
+		margin-top: 85px;
+	}
+}
+
+body.fixed-header header,
+header.sticky {
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: $primary-dark;
+	box-shadow: $medium-shadow;
+
+	animation-name: slide-down-header;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+}
+
+.page-header {
+	background-color: $primary-dark;
+	height: $page-header-height; 
+	overflow: auto;
+	display: grid;
+
+	h1 {
+		color: $white;
+		text-align: center;
+		align-self: start;
+		margin: -30px 0 0 0;
+	}
+
+	
 }
 
 footer {
@@ -230,12 +252,8 @@ footer {
 	    nav {
 	    	align-self: center;
 	    	text-align: right;
-	    	
-	    	ul {
-	    		list-style: none;
-	    		margin: 0;
-	    		padding: 0;
 
+	    	ul {
 	    		li {
 	    			display: inline;
 	    			margin: 0 0 0 30px;
@@ -330,96 +348,95 @@ footer {
 	.hide-md {
 		display: none;
 	}
+	h1 {
+		font-size: 2rem;
+		line-height: 2.85rem;
+	}
 	#homepage {
 		.page-header {
 			height: 500px;
 		}
 	}
-	.page-header {
-		header {
-			.container {
-				.bars {
-					display: none;
-				}
-				nav.main-menu {
-					display: flex;
-					position: static;
-					background-color: transparent;
-				    align-items: center;
-				    justify-content: end;
+	header {
+		.container {
+			.bars {
+				display: none;
+			}
+			nav.main-menu {
+				display: flex;
+				position: static;
+				background-color: transparent;
+			    align-items: center;
+			    justify-content: end;
 
-				    .close-menu {
-				    	display: none;
-				    }
+			    .close-menu {
+			    	display: none;
+			    }
 
-				    ul {
-						display: inline-block;
-						list-style: none;
-					    margin: 0;
-					    padding: 0;
+			    ul {
+					display: inline-block;
 
-					    li {
-					    	display: inline-block;
-					    	margin: 0 10px;
-					    	vertical-align: top;
+				    li {
+				    	display: inline-block;
+				    	margin: 0 10px;
+				    	vertical-align: top;
 
-					    	&.hide-md {
-					    		display: none;
-					    	}
+				    	&.hide-md {
+				    		display: none;
+				    	}
 
-					    	a {
-					    		color: $white;
-					    		text-decoration: none;
-					    		font-size: $font-size-small;
-					    		text-transform: uppercase;
-		    					font-weight: $semi-bold;
+				    	a {
+				    		color: $white;
+				    		text-decoration: none;
+				    		font-size: $font-size-small;
+				    		text-transform: uppercase;
+	    					font-weight: $semi-bold;
 
-					    		&:after {
-								    background-color: $link-hover-color; // $primary-color;
-								}
+				    		&:after {
+							    background-color: $link-hover-color; // $primary-color;
+							}
 
-					    		&#search {
-					    			&.show {
-					    				svg {
-						    				margin: 0 -17px -1px 0;
-						    				fill: $primary-color;
-						    			}
-						    			input {
-						    				width: 180px;
-						    				padding: 3px 0 3px 20px;
-						    			}
-					    			}
-					    			svg {
-					    				margin: 0 0 -1px 0;
-					    				transition: fill $transition-default;
+				    		&#search {
+				    			&.show {
+				    				svg {
+					    				margin: 0 -17px -1px 0;
+					    				fill: $primary-color;
 					    			}
 					    			input {
-					    				transition: width $transition-default;
-					    				width: 0;
-					    				background: transparent;
-									    border: 0;
-									    border-bottom: solid 2px $primary-color;
-									    padding: 3px 0;
-									    outline: 0;
-									    font-size: $font-size-small;
-									    color: $white;
-									    caret-color: $white;
-
-									    &::placeholder {
-									    	color: $primary-color;
-									    }
+					    				width: 180px;
+					    				padding: 3px 0 3px 20px;
 					    			}
-					    		}
+				    			}
+				    			svg {
+				    				margin: 0 0 -1px 0;
+				    				transition: fill $transition-default;
+				    			}
+				    			input {
+				    				transition: width $transition-default;
+				    				width: 0;
+				    				background: transparent;
+								    border: 0;
+								    border-bottom: solid 2px $primary-color;
+								    padding: 3px 0;
+								    outline: 0;
+								    font-size: $font-size-small;
+								    color: $white;
+								    caret-color: $white;
 
-					    		svg {
-					    			height: 15px;
-		    						width: 15px;
-		    						fill: $white;
-					    		}
+								    &::placeholder {
+								    	color: $primary-color;
+								    }
+				    			}
+				    		}
 
-					    	}
-					    }
-					}
+				    		svg {
+				    			height: 15px;
+	    						width: 15px;
+	    						fill: $white;
+				    		}
+
+				    	}
+				    }
 				}
 			}
 		}

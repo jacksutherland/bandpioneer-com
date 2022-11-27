@@ -1,0 +1,11 @@
+<div class="container display-md">
+	<nav class="categories" role="navigation" aria-label="Primary Navigation">
+		<ul>
+			{% for cat in categories.all() %}
+				<li>
+					<a class="underline" href="{{ cat.url() }}">{{ cat.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+</div>

@@ -1,0 +1,73 @@
+{% set sectionTitle = entry.title %}
+
+{% set tocLinks = [] %}
+
+{% for module in entry.blogContent.all() %}
+	{% if module.type == 'sectionTitle' %}
+		{% set tocLinks = tocLinks | merge([{ id: module.id, headline: module.headline }]) %}
+	{% endif %}
+{% endfor %}
+
+{% if tocLinks | length > 1 %}
+	<div class="table-of-contents">
+		<h3 class="section-title"><span>Table of Contents</span></h3>
+		<ul>
+			{% for tl in tocLinks %}
+				<li>
+					{% if tl.headline | first matches '/^\\d+$/' %}
+						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+					{% else %}
+						<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}
+
+{% for module in entry.blogContent.all() %}
+	{% switch module.type %}
+
+		{% case "sectionTitle" %}
+
+			{% set sectionTitle = module.headline %}
+			<section>
+				<div id="section-{{ module.id }}" class="section-anchor"></div>
+				<h2>{{ module.headline }}</h2>
+				{% if module.subheadline | length %}
+					<h4>{{ module.headline }}</h4>
+				{% endif %}
+			</section>
+
+		{% case "image" %}
+
+			<section>
+				<figure class="image">
+					<img src="{{ module.blogImage.one().url }}" alt="{{ module.blogImage.one().title }}">
+					{% if module.caption | length %}
+						<figcaption>{{ module.caption }}</figcaption>
+					{% endif %}
+				</figure>
+			</section>
+
+		{% case "text" %}
+
+			<section class="rich-text">
+				{{ module.richText }}
+			</section>
+
+		{% case "video" %}
+
+			<section>
+				<figure class="video">
+					<div class="player">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.youtubeId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+					{% if module.caption | length %}
+						<figcaption>{{ module.caption }}</figcaption>
+					{% endif %}
+				</figure>
+			</section>
+
+	{% endswitch %}
+{% endfor %}
