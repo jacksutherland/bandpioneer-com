@@ -13,6 +13,8 @@ let BandPioneer = {
 			this.addHeaderEvents();
 			this.addMenuEvents();
 			this.addSearchEvents();
+
+			this.readingProgress();
 		}
 
 		showSearch(show)
@@ -31,24 +33,28 @@ let BandPioneer = {
 
 		addHeaderEvents()
 		{
-			const header = document.querySelector('header');
+			const pageHeader = document.querySelector('.page-header');
 
-			if(!header.classList.contains('fixed'))
+			if(pageHeader)
 			{
-				const pageHeader = document.querySelector('.page-header');
-				const observer = new window.IntersectionObserver((entries) => {
+				const header = document.querySelector('header');
 
-					if (!entries[0].isIntersecting)
-					{
-						header.classList.add('sticky');
-					}
-					else
-					{
-						header.classList.remove('sticky');
-					}
-				});
+				if(!header.classList.contains('fixed'))
+				{
+					const observer = new window.IntersectionObserver((entries) => {
 
-				observer.observe(pageHeader);
+						if (!entries[0].isIntersecting)
+						{
+							header.classList.add('sticky');
+						}
+						else
+						{
+							header.classList.remove('sticky');
+						}
+					});
+
+					observer.observe(pageHeader);
+				}
 			}
 		}
 
@@ -101,6 +107,48 @@ let BandPioneer = {
 			        this.showSearch(false);
 			    }
 			}.bind(this));
+		}
+
+		readingProgress()
+		{
+			const progress = document.getElementById('reading-progress');
+
+			if(progress)
+			{
+		    	// const lastArticleSection = Array.from(
+				// 	  document.querySelectorAll('section')
+				// 	).pop();
+
+		    	const lastArticleSection = Array.from(
+					  document.querySelectorAll('.section-title')
+					).pop();
+
+				const readableHeight = lastArticleSection.offsetTop + lastArticleSection.offsetHeight + 100;
+
+		    	function getScrollPercent()
+		    	{
+				    const h = document.documentElement, 
+				          b = document.body,
+				          st = 'scrollTop';
+
+				    const pct = Math.floor((h[st]||b[st]) / (readableHeight - h.clientHeight) * 100);
+
+				    return pct > 100 ? 100 : pct;
+				}
+
+				function setReadingProgress()
+				{
+					let pct = getScrollPercent() + '%';
+					progress.style.width = pct;
+					progress.parentElement.title = 'Reading Progress: ' + pct;
+				}
+
+		    	window.addEventListener("scroll", () => {
+		      		setReadingProgress();
+		    	});
+
+		    	setReadingProgress();
+		    }
 		}
 	}
 }

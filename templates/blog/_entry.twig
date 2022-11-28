@@ -13,12 +13,37 @@
 		{% include '_includes/author' with { blog: entry } %}
 
 		{% if entry.blogImage.count %}
-			<img class="blog-image" src="{{ entry.blogImage.one().url }}" alt="{{ entry.blogImage.one().title }}">
+			<img class="featured-image" src="{{ entry.blogImage.one().url }}" alt="{{ entry.blogImage.one().title }}">
 		{% endif %}
 	</div>
 
 	<div class="container blog-container">
 		{% include '_includes/blog-module' %}
+
+		<h3 class="section-title"><span>Keep Reading!</span></h3>
+
+		<div class="related-content blog-posts">
+			{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).limit(6) %}
+			{% for rp in relatedPosts.all() %}
+				<article>
+					<a class="blog-image" href="{{ rp.url }}">
+						<img src="{{ rp.blogImage.one().url('relatedPost') }}">
+					</a>
+					<div class="blog-info">
+						<h4>
+							<a href="{{ rp.url }}">{{ rp.title }}</a>
+						</h4>
+					</div>
+				</article>
+			{% endfor %}
+		</div>
+
+		<div class="related-categories">
+			{% for rc in entry.categories.all() %}
+				<a href="{{ rc.url }}">{{ rc.title }}</a>
+			{% endfor %}
+		</div>
+
 	</div>
 
 {% endblock %}

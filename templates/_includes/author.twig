@@ -5,7 +5,8 @@
 			{% if blog.writerPicture.count %}
 				<img src="{{ blog.writerPicture.one().url('writerPicture') }}" alt="{{ blog.writerPicture.count }}">
 			{% endif %}
-			<span>By {{ blog.fullName }} on {{ blog.postDate | date("M d, Y") }}</span>
+			<span>By {{ blog.fullName }}</span>
 		{% if showLink and blog.websiteUrl %}</a>{% endif %}
+		<span> on {{ blog.postDate | date("M d, Y") }}</span>
 	</address>
 {% endif %}

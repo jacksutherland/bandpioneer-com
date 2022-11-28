@@ -1,16 +1,52 @@
-nav.categories {
-	ul {
-		padding: 40px 0;
-		text-align: center;
-		li {
-			display: inline-block;
-			margin: 0 15px;
-			a {
-				display: table-cell;
-				border-radius: 20px;
-				text-decoration: none;
-				text-transform: uppercase;
-				transition: background-color $transition-default, color $transition-default;
+.categories {
+	margin: 0 0 40px 0;
+	background-color: $light-gray; //$primary-dark;
+
+	nav {
+		ul {
+			text-align: center;
+			li {
+				display: inline-block;
+				a {
+					border-radius: 20px;
+					text-decoration: none;
+					text-transform: uppercase;
+					transition: background-color $transition-default, color $transition-default;
+					
+					color: lighten($font-color, 5%);
+					font-size: $font-size-small;
+					font-weight: $semi-bold;
+					display: flex;
+					align-items: center;
+					height: 60px;
+					position: relative;
+					padding: 0 15px;
+
+					&:hover {
+						color: $alternate-color;
+					}
+
+					&:after {
+						position: absolute;
+						right: 0;
+						height: 3px;
+						bottom: 0;
+						z-index: 0;
+						background-color: $primary-color;
+					}
+
+					&.active {
+						color: $primary-dark;
+						cursor: default;
+						&:after {
+							display: none;
+						}
+					}
+
+					span {
+						z-index: 1;
+					}
+				}
 			}
 		}
 	}
@@ -47,18 +83,10 @@ article {
 		margin: 0 0 60px 0;
 
 		.blog-image {
-			display: block;
-			line-height: 0;
 			position: relative;
 			box-shadow: $small-shadow;
 			border-radius: $small-border-radius;
 			overflow: hidden;
-
-			// &:hover {
-			// 	img {
-			// 		transform: scale(1.02);
-			// 	}
-			// }
 
 			.blog-image-info {
 				position: absolute;
@@ -85,6 +113,9 @@ article {
 	}
 
 	.blog-image {
+		display: block;
+		line-height: 0;
+
 		&:hover {
 			img {
 				filter: brightness(110%);
@@ -134,7 +165,7 @@ article {
 		max-width: $blog-width;
 	}
 
-	.blog-image {
+	.featured-image {
 		width: 100%;
 		box-shadow: $medium-shadow;
 		border-radius: $small-border-radius;
@@ -164,6 +195,42 @@ article {
 				a {
 					text-transform: capitalize;
 				}
+			}
+		}
+	}
+
+	.related-content {
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 25px;
+
+		article {
+			img {
+				width: 100%;
+			}
+			.blog-info {
+				margin: 10px 15px;
+			}
+		}
+	}
+
+	.related-categories {
+		margin: 40px 0;
+		text-align: center;
+		text-transform: uppercase;
+
+		a {
+			display: inline-flex;
+			margin: 10px;
+			padding: 0 25px;
+			border-radius: 20px;
+			height: 40px;
+			align-items: center;
+			background-color: $light-gray;
+
+			&:hover	{
+				background-color: $alternate-color;
+				color: $white;
+				transition: background-color $transition-default, color $transition-default;
 			}
 		}
 	}
@@ -226,6 +293,7 @@ article {
 			font-size: $font-size-small;
 			color: $light-font-color;
 			margin: 5px 0 0 0;
+			text-align: center;
 		}
 	}
 }

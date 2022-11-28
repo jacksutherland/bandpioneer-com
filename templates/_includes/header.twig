@@ -30,4 +30,7 @@
             </ul>
         </nav>
     </div>
+    {% if entry.section.handle == 'blog' %}
+        <div class="reading-time"><div id="reading-progress" class="reading-progress"></div></div>
+    {% endif %}
 </header>

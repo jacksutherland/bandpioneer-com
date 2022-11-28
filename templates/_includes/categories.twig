@@ -1,11 +1,15 @@
-<div class="container display-md">
-	<nav class="categories" role="navigation" aria-label="Primary Navigation">
-		<ul>
-			{% for cat in categories.all() %}
-				<li>
-					<a class="underline" href="{{ cat.url() }}">{{ cat.title }}</a>
-				</li>
-			{% endfor %}
-		</ul>
-	</nav>
+<div class="categories display-md">
+	<div class="container">
+		<nav role="navigation" aria-label="Primary Navigation">
+			<ul>
+				{% for cat in categories.all() %}
+					<li>
+						<a class="underline{% if entry.slug == cat.slug %} active{% endif %}" href="{{ cat.url() }}">
+							<span>{{ cat.title }}</span>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</div>
 </div>
