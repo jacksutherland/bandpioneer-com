@@ -106,12 +106,10 @@ a.underline:hover:after {
 
 .logo {
   display: block;
-  width: 200px;
+  width: 210px;
 }
 .logo img {
   width: 100%;
-  border: solid 2px #45adda;
-  border-radius: 4px;
 }
 
 @keyframes slide-down-header {
@@ -220,6 +218,11 @@ header.sticky {
   align-self: start;
   margin: -30px 0 0 0;
 }
+.page-header .main-logo {
+  justify-self: center;
+  width: 100%;
+  max-width: 550px;
+}
 
 footer {
   background-color: #131b28;
@@ -228,7 +231,8 @@ footer {
 }
 footer .container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
 }
 footer .container nav {
   align-self: center;
@@ -237,6 +241,7 @@ footer .container nav {
 footer .container nav ul li {
   display: inline;
   margin: 0 0 0 30px;
+  text-align: center;
 }
 footer .container nav ul li a {
   color: #FFFFFF !important;
@@ -283,13 +288,55 @@ footer .container nav ul li a {
   margin: 0 -13px;
 }
 
-#homepage .page-header {
+#homepage .page-header,
+.category .page-header {
   height: 350px;
   background-color: #021215;
-  background-image: url(/assets/images/band-pioneer-bkg.jpg);
-  background-position: center center;
-  background-size: contain;
+  background-image: url(/assets/images/bp-music-studio.jpg);
   background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+#homepage .page-header header,
+.category .page-header header {
+  z-index: 100;
+}
+#homepage .page-header h1,
+.category .page-header h1 {
+  z-index: 20;
+}
+#homepage .page-header .main-logo,
+.category .page-header .main-logo {
+  z-index: 10;
+}
+#homepage .page-header:after,
+.category .page-header:after {
+  content: " ";
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#homepage .page-header {
+  height: 350px;
+  background-image: url(/assets/images/bp-music-studio.jpg);
+  background-position: center top;
+}
+#homepage .page-header header.sticky .logo img {
+  display: inline;
+}
+#homepage .page-header header .logo img {
+  display: none;
+}
+
+.category .page-header {
+  height: 350px;
+  background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+  background-position: center center;
 }
 
 @media (min-width: 1130px) {
@@ -385,6 +432,13 @@ footer .container nav ul li a {
 @media (min-width: 992px) {
   #homepage .page-header {
     height: 700px;
+  }
+  footer .container {
+    grid-template-columns: 200px 1fr;
+    padding: 0 10px;
+  }
+  footer .container nav {
+    justify-self: end;
   }
 }
 @media (min-width: 1200px) {
