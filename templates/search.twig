@@ -1,0 +1,54 @@
+{% extends '_layout' %}
+
+{% set postsPerPage = 8 %}
+{% set pageTitle = 'Search' %}
+{% set entry = { slug: 'search-results', section: { handle: 'searchResults' } } %}
+{% set qry = craft.app.request.getQueryParam('q') ?? '' %}
+
+{% paginate craft.entries.section('blog').search({query: qry}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+
+{% block content %}
+
+	<div class="container">
+
+		<h2><span>{{ pageInfo.total }} search result{{ pageInfo.total == 0 or pageInfo.total > 1 ? 's' : '' }} found for "{{ qry }}"</span></h2>
+
+		<div class="blog-posts">
+			{% for blog in posts %}
+	            <article>
+					<a class="blog-image" href="{{ blog.url }}">
+						{% if blog.blogImage.count %}
+							<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}">
+						{% endif %}
+					</a>
+					<div class="blog-info">
+						<ul>
+		            		{% for cat in blog.categories.all() %}
+		            			<li>
+		            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+		            			</li>
+		            		{% endfor %}
+		            	</ul>
+						<h3>
+							<a href="{{ blog.url }}">
+								{{ blog.title }}
+							</a>
+						</h3>
+						
+						{% include '_includes/author' %}
+
+						<p>{{ blog.shortDescription }}</p>
+					</div>
+				</article>
+	        {% endfor %}
+	      </div>
+
+	    {% if pageInfo.total > postsPerPage %}
+			<div class="container">
+		    	{% include '_includes/pagination' %}
+		    </div>
+		{% endif %}
+
+      </div>
+
+{% endblock %}

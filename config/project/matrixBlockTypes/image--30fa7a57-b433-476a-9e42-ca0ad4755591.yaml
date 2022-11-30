@@ -52,7 +52,7 @@ fields:
     handle: caption
     instructions: null
     name: Caption
-    searchable: false
+    searchable: true
     settings:
       byteLimit: null
       charLimit: null
@@ -102,7 +102,7 @@ fields:
             - class
             - craft\elements\conditions\assets\AssetCondition
       selectionLabel: null
-      showSiteMenu: false
+      showSiteMenu: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       source: null

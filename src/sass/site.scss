@@ -26,8 +26,13 @@ ul {
 	padding: 0;
 }
 
+h1, .section-title {
+	font-family: 'Michroma', sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 15px 0;
+
 
 	&.section-title {
 		text-transform: uppercase;
@@ -55,15 +60,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 1.75rem;
-	line-height: 2.5rem;
 	// font-size: 2rem;
 	// line-height: 2.7rem;
+
+	// Michroma Google Font
+	font-size: 1.6rem;
+    line-height: 2.5rem;
 }
 
 h2 {
-	font-size: 1.75rem;
-	line-height: 2.5rem;
+	// font-size: 1.75rem;
+	// line-height: 2.5rem;
+
+	font-size: 1.4rem;
+	line-height: 2rem;
 }
 
 h3 {
@@ -251,7 +261,7 @@ header.sticky {
 	display: grid;
 
 	h1 {
-		color: $white;
+		color: $primary-color;
 		text-align: center;
 		align-self: start;
 		margin: -30px 0 0 0;
@@ -259,8 +269,8 @@ header.sticky {
 
 	.main-logo {
 		justify-self: center;
-		width: 100%;
-    	max-width: 550px;
+		width: 70%;
+    	max-width: 420px;
 	}	
 }
 
@@ -286,6 +296,13 @@ footer {
 
 	    			a {
 	    				color: $white !important;
+	    				font-size: $font-size-small;
+					    text-transform: uppercase;
+					    font-weight: $semi-bold;
+
+				    	&:after {
+				    		background-color: $primary-color;
+				    	}
 	    			}
 	    		}
 	    	}
@@ -371,7 +388,7 @@ footer {
 
     	&:after {
     		content: " ";
-    		background-color: rgba(0, 0, 0, 0.5);
+    		background-color: rgba(0, 0, 0, 0.7);
     		position: absolute;
     		z-index: 1;
     		top: 0;
@@ -382,11 +399,22 @@ footer {
 	}
 }
 
+#search-results {
+	h2 {
+		margin: 40px 0;
+	}
+}
+
 #homepage {
 	.page-header {
 		height: 350px;
-		background-image: url(/assets/images/bp-music-studio.jpg);
-		background-position: center top;
+		// background-image: url(/assets/images/bp-music-studio.jpg);
+		background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+		background-position: center 30%;
+
+		&:after {
+    		background-color: rgba(0, 0, 0, 0.25);
+    	}
 
 		header {
     		&.sticky {
@@ -416,6 +444,14 @@ footer {
 	}
 }
 
+@media (min-width: $breakpoint-sm) {
+	#homepage {
+		.page-header {
+			height: 450px;
+		}
+	}
+}
+
 @media (max-width: $breakpoint-md) {
 	.display-md {
 		display: none;
@@ -427,8 +463,16 @@ footer {
 		display: none;
 	}
 	h1 {
-		font-size: 2rem;
-		line-height: 2.85rem;
+		// font-size: 2.6rem;
+		// line-height: 3.3rem;
+
+		// Michroma Google Font
+		font-size: 2.4rem;
+    	line-height: 3.7rem;
+	}
+	h2 {
+		font-size: 1.75rem;
+    	line-height: 2.6rem;
 	}
 	#homepage {
 		.page-header {
@@ -494,7 +538,8 @@ footer {
 				    				width: 0;
 				    				background: transparent;
 								    border: 0;
-								    border-bottom: solid 2px darken($light-gray, 30%);
+								    // border-bottom: solid 2px darken($light-gray, 30%);
+								    border-bottom: solid 2px $primary-color;
 								    padding: 3px 0;
 								    outline: 0;
 								    font-size: $font-size-small;
@@ -502,7 +547,8 @@ footer {
 								    caret-color: $white;
 
 								    &::placeholder {
-								    	color: darken($light-gray, 30%);
+								    	// color: darken($light-gray, 30%);
+								    	color: $primary-color;
 								    }
 				    			}
 				    		}
@@ -530,6 +576,7 @@ footer {
 	footer {
 		.container {
 		    grid-template-columns: 200px 1fr;
+		    grid-template-rows: none;
 		    padding: 0 10px;
 
 		    nav {
@@ -539,10 +586,10 @@ footer {
 	}
 }
 
-@media (min-width: $breakpoint-xl) {
-	#homepage {
-		.page-header {
-			height: 800px;
-		}
-	}
-}
+// @media (min-width: $breakpoint-xl) {
+// 	#homepage {
+// 		.page-header {
+// 			height: 800px;
+// 		}
+// 	}
+// }

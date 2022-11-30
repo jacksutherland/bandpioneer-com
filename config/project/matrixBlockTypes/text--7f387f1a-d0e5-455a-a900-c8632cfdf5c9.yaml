@@ -28,7 +28,7 @@ fields:
     handle: richText
     instructions: null
     name: 'Rich Text'
-    searchable: false
+    searchable: true
     settings:
       availableTransforms: ''
       availableVolumes: ''

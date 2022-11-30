@@ -40,7 +40,7 @@ fields:
     handle: subheadline
     instructions: null
     name: Subheadline
-    searchable: false
+    searchable: true
     settings:
       byteLimit: null
       charLimit: null
@@ -60,7 +60,7 @@ fields:
     handle: headline
     instructions: null
     name: Headline
-    searchable: false
+    searchable: true
     settings:
       byteLimit: null
       charLimit: null

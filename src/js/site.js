@@ -80,6 +80,8 @@ let BandPioneer = {
 
 		addSearchEvents()
 		{
+			console.log(this.search.icon);
+
 			this.search.icon.addEventListener('click', function(e)
 			{
 				e.preventDefault();

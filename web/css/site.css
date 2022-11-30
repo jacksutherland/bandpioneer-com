@@ -21,6 +21,10 @@ ul {
   padding: 0;
 }
 
+h1, .section-title {
+  font-family: "Michroma", sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 15px 0;
 }
@@ -47,13 +51,13 @@ h1.section-title span, h2.section-title span, h3.section-title span, h4.section-
 }
 
 h1 {
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
 h2 {
-  font-size: 1.75rem;
-  line-height: 2.5rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
 }
 
 h3 {
@@ -106,7 +110,7 @@ a.underline:hover:after {
 
 .logo {
   display: block;
-  width: 210px;
+  width: 180px;
 }
 .logo img {
   width: 100%;
@@ -213,15 +217,15 @@ header.sticky {
   display: grid;
 }
 .page-header h1 {
-  color: #FFFFFF;
+  color: #45adda;
   text-align: center;
   align-self: start;
   margin: -30px 0 0 0;
 }
 .page-header .main-logo {
   justify-self: center;
-  width: 100%;
-  max-width: 550px;
+  width: 70%;
+  max-width: 420px;
 }
 
 footer {
@@ -245,6 +249,12 @@ footer .container nav ul li {
 }
 footer .container nav ul li a {
   color: #FFFFFF !important;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+footer .container nav ul li a:after {
+  background-color: #45adda;
 }
 
 .pagination {
@@ -312,7 +322,7 @@ footer .container nav ul li a {
 #homepage .page-header:after,
 .category .page-header:after {
   content: " ";
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   z-index: 1;
   top: 0;
@@ -321,10 +331,17 @@ footer .container nav ul li a {
   height: 100%;
 }
 
+#search-results h2 {
+  margin: 40px 0;
+}
+
 #homepage .page-header {
   height: 350px;
-  background-image: url(/assets/images/bp-music-studio.jpg);
-  background-position: center top;
+  background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+  background-position: center 30%;
+}
+#homepage .page-header:after {
+  background-color: rgba(0, 0, 0, 0.25);
 }
 #homepage .page-header header.sticky .logo img {
   display: inline;
@@ -344,6 +361,11 @@ footer .container nav ul li a {
     margin: 0 auto;
   }
 }
+@media (min-width: 576px) {
+  #homepage .page-header {
+    height: 450px;
+  }
+}
 @media (max-width: 768px) {
   .display-md {
     display: none;
@@ -354,8 +376,12 @@ footer .container nav ul li a {
     display: none;
   }
   h1 {
-    font-size: 2rem;
-    line-height: 2.85rem;
+    font-size: 2.4rem;
+    line-height: 3.7rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+    line-height: 2.6rem;
   }
   #homepage .page-header {
     height: 500px;
@@ -410,7 +436,7 @@ footer .container nav ul li a {
     width: 0;
     background: transparent;
     border: 0;
-    border-bottom: solid 2px #92a4a8;
+    border-bottom: solid 2px #45adda;
     padding: 3px 0;
     outline: 0;
     font-size: 0.875rem;
@@ -418,10 +444,10 @@ footer .container nav ul li a {
     caret-color: #FFFFFF;
   }
   header .container nav.main-menu ul li a#search input::-moz-placeholder {
-    color: #92a4a8;
+    color: #45adda;
   }
   header .container nav.main-menu ul li a#search input::placeholder {
-    color: #92a4a8;
+    color: #45adda;
   }
   header .container nav.main-menu ul li a svg {
     height: 15px;
@@ -435,15 +461,11 @@ footer .container nav ul li a {
   }
   footer .container {
     grid-template-columns: 200px 1fr;
+    grid-template-rows: none;
     padding: 0 10px;
   }
   footer .container nav {
     justify-self: end;
-  }
-}
-@media (min-width: 1200px) {
-  #homepage .page-header {
-    height: 800px;
   }
 }
 .categories {
@@ -574,6 +596,7 @@ article .blog-info ul li a {
 .blog-posts article {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  overflow: hidden;
 }
 .blog-posts article .blog-info {
   margin: 20px 25px;
@@ -652,8 +675,9 @@ article .blog-info ul li a {
 }
 .blog h1 {
   text-transform: capitalize;
-  font-size: 2.75rem;
-  line-height: 3.75rem;
+  margin: 25px 0;
+  font-size: 2.1rem;
+  line-height: 3rem;
 }
 .blog h2 {
   text-transform: capitalize;
