@@ -406,7 +406,7 @@ form textarea {
 form input:not([type=submit]):focus,
 form textarea:focus {
   border-color: #d5dbde;
-  background-color: #f0f2f3;
+  background-color: #edf0f1;
 }
 form textarea {
   padding-top: 12px;

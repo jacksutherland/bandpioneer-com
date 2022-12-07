@@ -484,7 +484,7 @@ form {
 
 		&:focus {
 			border-color: darken($border-color, 5%);
-			background-color: lighten($light-gray, 3%);
+			background-color: lighten($light-gray, 2%);
 		}
 	}
 
