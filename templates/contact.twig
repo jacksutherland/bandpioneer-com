@@ -28,7 +28,7 @@
 				console.log(response.text());
 				if (response.ok)
 				{
-					return response;
+					return response.text();
 				}
 				return Promise.reject(response);
 			}).then(function (data) 
