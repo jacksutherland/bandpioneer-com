@@ -1,7 +1,7 @@
 <?php
 
 
-echo '{"status":"success"}';
+echo '{"statusText":"success"}';
 exit();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
@@ -79,6 +79,6 @@ $headers = 'From: '.$email_from."\r\n".
 'X-Mailer: PHP/' . phpversion();
 @mail($email_to, $email_subject, $email_message, $headers);  
 
-echo "success"
+echo '{"statusText":"success"}';
 
 ?>
