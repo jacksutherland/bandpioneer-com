@@ -25,10 +25,10 @@
 				body: data 
 			}).then(function (response) {
 				console.log('response');
-				console.log(response.text());
+				console.log(response.json());
 				if (response.ok)
 				{
-					return response.text();
+					return response.json();
 				}
 				return Promise.reject(response);
 			}).then(function (data) 
