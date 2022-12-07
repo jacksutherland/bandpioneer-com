@@ -24,11 +24,12 @@
 				}, 
 				body: data 
 			}).then(function (response) {
+				console.log('response');
+				console.log(response);
 				if (response.ok)
 				{
 					return response;
 				}
-				console.log('response');
 				return Promise.reject(response);
 			}).then(function (data) 
 			{
