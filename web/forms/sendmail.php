@@ -1,8 +1,8 @@
 <?php
 
 
-echo '{"status":"successs"}';
-die();
+// echo '{"status":"success"}';
+// die();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
 $email_to = "jack@realitygems.com";
@@ -12,7 +12,7 @@ function died($error) {
     // your error code can go here
     //echo "We are very sorry, but there were error(s) found with the form you submitted. ";
     //echo "These errors appear below.<br /><br />";
-    echo '{"error":"' . $error . '"}';
+    echo '{"message":"' . $error . '"}';
     // echo $error;
     //echo "Please go back and fix these errors.<br /><br />";
     die();
