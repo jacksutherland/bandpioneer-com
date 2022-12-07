@@ -548,7 +548,7 @@ form.contact-form .errors {
     margin: 60px auto;
     display: grid;
     gap: 20px;
-    grid-template-areas: "h3 h3 h3 h3" "fn fn fn fn" "pn pn em em" "cm cm cm cm" "er er er bt";
+    grid-template-areas: "h3 h3 h3 h3" "fn fn fn fn" "em em pn pn" "cm cm cm cm" "er er er bt";
   }
   form.contact-form button {
     justify-self: end;
