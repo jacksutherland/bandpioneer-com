@@ -461,7 +461,8 @@ input[type="submit"],
 	width: fit-content;
 	height: $input-height;
 	min-width: 120px;
-	padding: 0 25px
+	padding: 0 25px;
+	cursor: pointer;
 }
 
 form {
