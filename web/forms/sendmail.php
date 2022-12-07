@@ -1,7 +1,7 @@
 <?php
 
 
-echo "success";
+echo '{"status":"success"}';
 exit();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
