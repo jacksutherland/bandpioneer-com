@@ -42,11 +42,11 @@
 				}
 				else 
 				{
-					errors.innerText = error;
+					errors.innerText = data.message;
 				}
 			}).catch(function (error)
 			{
-				errors.innerText = error;
+				errors.innerText = error.message;
 				console.log('error');
 				console.warn(error.message);
 			});
