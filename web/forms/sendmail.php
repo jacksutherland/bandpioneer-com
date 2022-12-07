@@ -2,7 +2,7 @@
 
 
 echo '{"status":"successs"}';
-exit();
+
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
 $email_to = "jack@realitygems.com";
