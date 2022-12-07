@@ -1,5 +1,9 @@
 <?php
- 
+
+
+echo "success";
+exit();
+
 // EDIT THE 2 LINES BELOW AS REQUIRED
 $email_to = "jack@realitygems.com";
 $email_subject = "Band Pioneer Contact";
