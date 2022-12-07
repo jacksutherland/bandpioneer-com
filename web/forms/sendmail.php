@@ -82,10 +82,9 @@ function clean_string($string) {
   return str_replace($bad,"",$string);
 }
 
-$email_message .= "First Name: ".clean_string($first_name)."\n";
-$email_message .= "Last Name: ".clean_string($last_name)."\n";
-$email_message .= "Email: ".clean_string($email_from)."\n";
-$email_message .= "Telephone: ".clean_string($telephone)."\n";
+$email_message .= "Name: ".clean_string($name)."\n";
+$email_message .= "Email: ".clean_string($email)."\n";
+$email_message .= "Telephone: ".clean_string($phone)."\n";
 $email_message .= "Comments: ".clean_string($comments)."\n";
  
 // create email headers
