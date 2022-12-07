@@ -1,6 +1,5 @@
 <?php
 
-
 // echo '{"status":"success"}';
 // die();
 
@@ -9,36 +8,29 @@ $email_to = "jack@realitygems.com";
 $email_subject = "Band Pioneer Contact";
 
 function died($error) {
-    // your error code can go here
-    //echo "We are very sorry, but there were error(s) found with the form you submitted. ";
-    //echo "These errors appear below.<br /><br />";
     echo '{"message":"' . $error . '"}';
-    // echo $error;
-    //echo "Please go back and fix these errors.<br /><br />";
     die();
 }
-
-died('name is ' . $_POST['name']); 
 
 if(strlen($_POST['poobear']) > 0) // Simple HPot Logic
 {
     died('We are sorry, but there appears to be a problem with the form you submitted.');  
 }
 
-if(strlen(trim($_POST['name'])) <= 0) // Simple HPot Logic
-{
-    died('A name is required');  
-}
+// if(strlen(trim($_POST['name'])) <= 0) // Simple HPot Logic
+// {
+//     died('A name is required');  
+// }
 
-if(strlen(trim($_POST['email'])) <= 0 || strlen(trim($_POST['phone'])) <= 0) // Simple HPot Logic
-{
-    died('An email or phone number is required');  
-}
+// if(strlen(trim($_POST['email'])) <= 0 && strlen(trim($_POST['phone'])) <= 0) // Simple HPot Logic
+// {
+//     died('An email or phone number is required');  
+// }
 
-if(strlen(trim($_POST['comments'])) <= 0) // Simple HPot Logic
-{
-    died('A comment is required');  
-}
+// if(strlen(trim($_POST['comments'])) <= 0) // Simple HPot Logic
+// {
+//     died('A comment is required');  
+// }
 
 // // validation expected data exists
 // if(!isset($_POST['name']) ||
@@ -56,21 +48,26 @@ $comments = $_POST['comments']; // required
 $error_message = "";
 $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
 
-if(!preg_match($email_exp, $email))
+if(strlen(trim($email)) > 0 && !preg_match($email_exp, $email))
 {
-  $error_message .= 'The Email Address you entered is invalid.<br />';
+  $error_message .= 'The email you entered is invalid.<br />';
+}
+elseif(strlen(trim($email)) <= 0 && strlen(trim($phone)) <= 0)
+{
+  $error_message .= 'An email or phone number is required.<br />';
 }
 
-  $string_exp = "/^[A-Za-z .'-]+$/";
+$string_exp = "/^[A-Za-z .'-]+$/";
 
 if(!preg_match($string_exp, $name))
 {
-  $error_message .= 'A valid Name is required.<br />';
+  $error_message .= 'A valid name is required.<br />';
 }
 
-// if(strlen($comments) < 2) {
-//   $error_message .= 'The Comments you entered are invalid.<br />';
-// }
+if(strlen(trim($comments)) <= 0)
+{
+  $error_message .= 'A comment is required.<br />';
+}
 
 if(strlen($error_message) > 0)
 {
@@ -97,7 +94,7 @@ $headers = 'From: '.$email_from."\r\n".
 'X-Mailer: PHP/' . phpversion();
 @mail($email_to, $email_subject, $email_message, $headers);  
 
-echo '{"status":"successs"}';
+echo '{"status":"success"}';
 die();
 
 ?>

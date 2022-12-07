@@ -13,14 +13,31 @@
 		{
 			e.preventDefault();
 
+			errors.innerHTML = "";
+
 			var data = new FormData(e.target);
 
-			console.log('submit');
-			console.log(data);
+			// Get Form Data
+			
+			// for (var i = 0, element; element = e.target.elements[i++];)
+			// {
+			// 	if (element.type !== "submit")
+			// 	{
+			// 		data.append(element.name, element.value);
+			// 		console.log('type = ' + element.type + ", " + element.name + ", " + element.value);
+			// 	}
+			// }
+
+			// for (let [key, val] of data.entries()) {
+            //     console.log(key, val);
+            // }
+
+			// console.log('submiting form');
+			// console.log(data);
 
 			fetch("/forms/sendmail.php", {
 				method: 'POST',
-				headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"}, 
+				// headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"}, 
 				body: data 
 			}).then(function (response)
 			{
@@ -42,11 +59,11 @@
 				}
 				else 
 				{
-					errors.innerText = data.message;
+					errors.innerHTML = data.message;
 				}
 			}).catch(function (error)
 			{
-				errors.innerText = error.message;
+				errors.innerHTML = error.message;
 				console.log('error');
 				console.warn(error.message);
 			});
