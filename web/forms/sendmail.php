@@ -18,6 +18,8 @@ function died($error) {
     die();
 }
 
+died('name is ' . $_POST['name']); 
+
 if(strlen($_POST['poobear']) > 0) // Simple HPot Logic
 {
     died('We are sorry, but there appears to be a problem with the form you submitted.');  
