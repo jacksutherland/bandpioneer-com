@@ -5,7 +5,7 @@
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
 $email_to = "jack@realitygems.com";
-$email_subject = "Band Pioneer Contact";
+$email_subject = "Website Contact";
 
 function died($error) {
     echo '{"message":"' . $error . '"}';
