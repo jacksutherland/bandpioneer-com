@@ -2,7 +2,7 @@
 
 
 echo '{"status":"successs"}';
-
+die();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
 $email_to = "jack@realitygems.com";
@@ -81,5 +81,6 @@ $headers = 'From: '.$email_from."\r\n".
 @mail($email_to, $email_subject, $email_message, $headers);  
 
 echo '{"status":"successs"}';
+die();
 
 ?>
