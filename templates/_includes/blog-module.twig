@@ -42,12 +42,20 @@
 		{% case "image" %}
 
 			<section>
+				{% if module.linkUrl | length %}<a href="{{ module.linkUrl }}">{% endif %}
 				<figure class="image">
 					<img src="{{ module.blogImage.one().url }}" alt="{{ module.blogImage.one().title }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
 					{% endif %}
 				</figure>
+				{% if module.linkUrl | length %}</a>{% endif %}
+			</section>
+
+		{% case "embedCode" %}
+
+			<section class="rich-text">
+				{{ module.markup | raw }}
 			</section>
 
 		{% case "text" %}

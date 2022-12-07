@@ -51,4 +51,4 @@ fields:
     type: craft\redactor\Field
 handle: text
 name: Text
-sortOrder: 3
+sortOrder: 2

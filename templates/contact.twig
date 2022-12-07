@@ -1,0 +1,72 @@
+{% extends '_layout' %}
+
+{% set pageTitle = "Let's Connect!" %}
+{% set entry = { slug: 'contact', section: { handle: 'contact' } } %}
+
+{% block scripts %}
+	<script>
+		const form = document.querySelector('#contact-form');
+		const errors = document.querySelector('#form-errors');
+		const info = document.querySelector('#form-info');
+
+		form.addEventListener("submit", function(e)
+		{
+			e.preventDefault();
+			console.log('submit');
+
+			let data = new FormData(e.target);
+
+			fetch("/forms/sendmail.php", {
+				method: 'POST',
+				headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+				}, 
+				body: data 
+			}).then(function (response) {
+				if (response.ok)
+				{
+					return response.json();
+				}
+				console.log('response');
+				return Promise.reject(response);
+			}).then(function (data) 
+			{
+				console.log('data');
+				console.log(data);
+				if (data == "success")
+				{
+					info.innerText = "Thank you! Your message has been sent, and we will be in contact soon.";
+					e.target.reset();
+				}
+			}).catch(function (error)
+			{
+				errors.innerText = error;
+				console.log('error');
+				console.warn(error);
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+
+		<form id="contact-form" class="contact-form" action="/forms/sendmail.php">
+
+			<h3 id="form-info">
+				Got a question you'd like answered on Band Pioneer? Comments, concerns or well wishes? Let us know in the form below!
+			</h3>
+
+			<input name="name" type="text" placeholder="Full Name">
+			<input name="email" type="email" placeholder="Email">
+			<input name="phone" type="text" placeholder="Phone Number">
+			<textarea name="comments" placeholder="Comments"></textarea>
+			<div id="form-errors" class="errors"></div>
+			<button class="btn">Send</button>
+		</form>
+
+	</div>
+
+{% endblock %}

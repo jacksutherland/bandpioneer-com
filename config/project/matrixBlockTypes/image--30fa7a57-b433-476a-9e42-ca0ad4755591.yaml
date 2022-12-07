@@ -131,4 +131,4 @@ fields:
     type: craft\fields\Url
 handle: image
 name: Image
-sortOrder: 2
+sortOrder: 3

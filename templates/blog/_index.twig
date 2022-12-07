@@ -40,7 +40,7 @@
 					{% if featured.blogImage.count %}
 						<img src="{{ featured.blogImage.one().url('featuredPost') }}" alt="{{ featured.blogImage.one().title }}">
 					{% endif %}
-					<div class="blog-image-info display-md">
+					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
 						<h2>
 							{{ featured.title }}
 						</h2>

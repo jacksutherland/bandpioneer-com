@@ -17,6 +17,9 @@ $light-font-color: lighten($font-color, 16%);
 $link-color: $alternate-color;
 $link-hover-color: $secondary-color; //lighten($primary-dark, 12%);
 
+$border-color: #e3e7e9;
+$gradient-border: linear-gradient(to left, #fafafb, #e3e7e9);
+
 $font-size-normal: 1rem;
 $font-size-small: 0.875rem;
 
@@ -30,13 +33,15 @@ $breakpoint-xl: 1200px;
 $mobile-gutter-width: 15px;
 $header-logo-width: 180px;
 $page-header-height: 200px;
+$input-height: 40px;
 
 $transition-time: 0.3s;
 $transition-default: $transition-time ease-in-out;
 
 $small-border-radius: 4px;
 
-$gradient-border: linear-gradient(to left, #fafafb, #e3e7e9);
-
 $small-shadow: 0 .125rem .25rem rgba(0,0,0,.15);
 $medium-shadow: 0 .25rem .5rem rgba(0,0,0,.15);
+
+$font-family: helvetica, sans-serif;
+$header-font-family: 'Michroma', sans-serif;

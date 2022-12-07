@@ -1,5 +1,5 @@
 html {
-	font-family: sans-serif;
+	font-family: $font-family;
 	font-size: 16px;
 	scroll-behavior: smooth;
 }
@@ -9,12 +9,7 @@ body {
 	font-size: 1rem;
 	color: $font-color;
 	-webkit-font-smoothing: antialiased;
-	// background-color: $primary-dark;
 }
-
-// main {
-// 	background-color: $white;
-// }
 
 * {
 	box-sizing: border-box;
@@ -24,10 +19,13 @@ ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	li {
+		margin: 10px 0;
+	}
 }
 
 h1, .section-title {
-	font-family: 'Michroma', sans-serif;
+	font-family: $header-font-family;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -287,11 +285,14 @@ footer {
 	    nav {
 	    	align-self: center;
 	    	text-align: right;
+	    	margin: 25px 0 0 0;
 
 	    	ul {
+	    		text-align: center;
 	    		li {
 	    			display: inline;
-	    			margin: 0 0 0 30px;
+	    			// margin: 0 0 0 30px;
+	    			margin: 0 10px;
 	    			text-align: center;
 
 	    			a {
@@ -305,6 +306,18 @@ footer {
 				    	}
 	    			}
 	    		}
+	    	}
+
+	    	.copyright {
+	    		color: $white;
+	    		font-size: $font-size-small;
+	    		opacity: 0.65;
+
+			    li {
+			    	text-align: center;
+			    	display: block;
+			    	margin: 25px 0 0 0;
+			    }
 	    	}
 	    }
 	}
@@ -438,6 +451,92 @@ footer {
 	}
 }
 
+button,
+input[type="submit"],
+.btn {
+	border: none;
+	border-radius: $small-border-radius;
+	background-color: $alternate-color;
+	color: $white;
+	width: fit-content;
+	height: $input-height;
+	min-width: 120px;
+	padding: 0 25px
+}
+
+form {
+	input,
+	textarea,
+	button,
+	.btn {
+		padding: 0 25px;
+		height: $input-height;
+		border-radius: $small-border-radius;
+		font-family: $font-family;
+	}
+
+	input:not([type="submit"]),
+	textarea {
+		border: 0;
+		outline: 0;
+		border-bottom: solid 2px $border-color;
+		background-color: lighten($light-gray, 5%);
+
+		&:focus {
+			border-color: darken($border-color, 5%);
+			background-color: lighten($light-gray, 3%);
+		}
+	}
+
+	textarea {
+		padding-top: 12px;
+		height: 150px;
+	}
+
+	&.contact-form {
+		max-width: $blog-width;
+		margin: 60px auto;
+		display: grid;
+		gap: 20px;
+		grid-template-areas: 
+			"h3"
+			"fn"
+			"em"
+			"pn"
+			"cm"
+			"er"
+			"bt";
+
+		h3 {
+			grid-area: h3;
+			text-align: center;
+		}
+
+		input[name="name"] {
+			grid-area: fn;
+		}
+		input[name="email"] {
+			grid-area: em;
+		}
+		input[name="phone"] {
+			grid-area: pn;
+		}
+		textarea {
+			grid-area: cm;
+		}
+		button {
+			grid-area: bt;
+			// justify-self: end;
+		}
+
+		.errors {
+			grid-area: er;
+			color: $secondary-color;
+			font-weight: $semi-bold;
+		}
+	}
+}
+
 @media (min-width: ($site-width + $mobile-gutter-width + $mobile-gutter-width)) {
 	.container {
 		margin: 0 auto;
@@ -565,6 +664,26 @@ footer {
 			}
 		}
 	}
+	form.contact-form {
+		max-width: $blog-width;
+		margin: 60px auto;
+		display: grid;
+		gap: 20px;
+		grid-template-areas: 
+			"h3 h3 h3 h3"
+			"fn fn fn fn"
+			"pn pn em em"
+			"cm cm cm cm"
+			"er er er bt";
+
+		button {
+			justify-self: end;
+		}
+
+		.errors {
+			align-self: center;
+		}
+	}
 }
 
 @media (min-width: $breakpoint-lg) {
@@ -581,6 +700,20 @@ footer {
 
 		    nav {
 		    	justify-self: end;
+		    	margin: 0;
+
+		    	ul {
+		    		li {
+		    			margin: 0 0 0 25px;
+		    		}
+		    	}
+
+		    	.copyright {
+		    		li {
+					    text-align: right;
+					    margin: 18px 0 0 0;
+					}
+		    	}
 		    }
 		}
 	}
