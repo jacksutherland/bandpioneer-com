@@ -23,7 +23,7 @@
 		<h3 class="section-title"><span>Keep Reading!</span></h3>
 
 		<div class="related-content blog-posts">
-			{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).limit(6) %}
+			{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
 			{% for rp in relatedPosts.all() %}
 				<article>
 					<a class="blog-image" href="{{ rp.url }}">
