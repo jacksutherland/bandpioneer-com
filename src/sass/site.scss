@@ -2,6 +2,8 @@ html {
 	font-family: $font-family;
 	font-size: 16px;
 	scroll-behavior: smooth;
+
+	height: 100vh;
 }
 
 body {
@@ -9,10 +11,23 @@ body {
 	font-size: 1rem;
 	color: $font-color;
 	-webkit-font-smoothing: antialiased;
+
+	height: 100%;
+	display: grid;
+
+	footer {
+		align-self: end;
+	}
 }
 
 * {
 	box-sizing: border-box;
+}
+
+.narrow-container {
+	max-width: $blog-width !important;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 ul {
@@ -125,6 +140,15 @@ a {
 .container {
 	max-width: $site-width;
 	margin: 0 $mobile-gutter-width;
+
+	&.page {
+		margin: $page-vertical-mobile-margin $mobile-gutter-width;
+
+		p + figure,
+		figure + p {
+			margin-top: 30px;
+		}
+	}
 }
 
 .logo {
@@ -377,6 +401,41 @@ footer {
 	}
 }
 
+figure {
+	margin: 0 auto;
+
+	&.image {
+		img {
+			width: 100%;
+			border-radius: $small-border-radius;
+		}
+	}
+
+	&.video {
+		.player {
+			position: relative;
+				padding-bottom: 56.25%;
+
+				iframe {
+					position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				aspect-ratio: 16 / 9;
+				}
+		}
+	}
+
+	figcaption {
+		font-size: $font-size-small;
+		line-height: 1.35rem;
+		color: $light-font-color;
+		margin: 5px 0 0 0;
+		text-align: center;
+	}
+}
+
 #homepage,
 .category {
 	.page-header {
@@ -466,7 +525,7 @@ input[type="submit"],
 }
 
 form {
-	input,
+	input:not([name="q"]),
 	textarea,
 	button,
 	.btn {
@@ -496,7 +555,7 @@ form {
 
 	&.contact-form {
 		max-width: $blog-width;
-		margin: 60px auto;
+		margin: 0 auto;
 		display: grid;
 		gap: 20px;
 		grid-template-areas: 
@@ -578,6 +637,9 @@ form {
 		.page-header {
 			height: 500px;
 		}
+	}
+	.container.page {
+		margin: $page-vertical-margin auto;
 	}
 	header {
 		.container {

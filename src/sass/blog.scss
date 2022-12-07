@@ -167,11 +167,9 @@ article {
 /***** BLOG DETAIL PAGES *****/
 /*****************************/
 
-.blog {
-	.blog-container {
-		max-width: $blog-width;
-	}
 
+.blog {
+	
 	.featured-image {
 		width: 100%;
 		box-shadow: $medium-shadow;
@@ -276,39 +274,6 @@ article {
 		margin: -5px 0 25px 0;
 	}
 
-	figure {
-		margin: 0 auto;
-
-		&.image {
-			img {
-				width: 100%;
-				border-radius: $small-border-radius;
-			}
-		}
-
-		&.video {
-			.player {
-				position: relative;
-  				padding-bottom: 56.25%;
-
-  				iframe {
-  					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					aspect-ratio: 16 / 9;
-  				}
-			}
-		}
-
-		figcaption {
-			font-size: $font-size-small;
-			color: $light-font-color;
-			margin: 5px 0 0 0;
-			text-align: center;
-		}
-	}
 }
 
 

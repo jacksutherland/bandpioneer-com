@@ -2,6 +2,7 @@ html {
   font-family: helvetica, sans-serif;
   font-size: 16px;
   scroll-behavior: smooth;
+  height: 100vh;
 }
 
 body {
@@ -9,10 +10,21 @@ body {
   font-size: 1rem;
   color: #4f4f4f;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
+  display: grid;
+}
+body footer {
+  align-self: end;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.narrow-container {
+  max-width: 750px !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ul {
@@ -109,6 +121,13 @@ a.underline:hover:after {
 .container {
   max-width: 1100px;
   margin: 0 15px;
+}
+.container.page {
+  margin: 40px 15px;
+}
+.container.page p + figure,
+.container.page figure + p {
+  margin-top: 30px;
 }
 
 .logo {
@@ -315,6 +334,33 @@ footer .container nav .copyright li {
   margin: 0 -13px;
 }
 
+figure {
+  margin: 0 auto;
+}
+figure.image img {
+  width: 100%;
+  border-radius: 4px;
+}
+figure.video .player {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+figure.video .player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+}
+figure figcaption {
+  font-size: 0.875rem;
+  line-height: 1.35rem;
+  color: #787878;
+  margin: 5px 0 0 0;
+  text-align: center;
+}
+
 #homepage .page-header,
 .category .page-header {
   height: 350px;
@@ -388,7 +434,7 @@ input[type=submit],
   cursor: pointer;
 }
 
-form input,
+form input:not([name=q]),
 form textarea,
 form button,
 form .btn {
@@ -415,7 +461,7 @@ form textarea {
 }
 form.contact-form {
   max-width: 750px;
-  margin: 60px auto;
+  margin: 0 auto;
   display: grid;
   gap: 20px;
   grid-template-areas: "h3" "fn" "em" "pn" "cm" "er" "bt";
@@ -474,6 +520,9 @@ form.contact-form .errors {
   }
   #homepage .page-header {
     height: 500px;
+  }
+  .container.page {
+    margin: 70px auto;
   }
   header .container .bars {
     display: none;
@@ -721,9 +770,6 @@ article .blog-info ul li a {
 /*****************************/
 /***** BLOG DETAIL PAGES *****/
 /*****************************/
-.blog .blog-container {
-  max-width: 750px;
-}
 .blog .featured-image {
   width: 100%;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
@@ -800,31 +846,6 @@ article .blog-info ul li a {
 }
 .blog address {
   margin: -5px 0 25px 0;
-}
-.blog figure {
-  margin: 0 auto;
-}
-.blog figure.image img {
-  width: 100%;
-  border-radius: 4px;
-}
-.blog figure.video .player {
-  position: relative;
-  padding-bottom: 56.25%;
-}
-.blog figure.video .player iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 16/9;
-}
-.blog figure figcaption {
-  font-size: 0.875rem;
-  color: #787878;
-  margin: 5px 0 0 0;
-  text-align: center;
 }
 
 /*************************/

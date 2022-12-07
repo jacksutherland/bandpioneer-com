@@ -7,7 +7,7 @@
 
 	{% include '_includes/categories' with { categories: categories } %}
 
-	<div class="container blog-container">
+	<div class="container narrow-container">
 		<h1>{{ entry.title }}</h1>
 
 		{% include '_includes/author' with { blog: entry } %}
@@ -17,7 +17,7 @@
 		{% endif %}
 	</div>
 
-	<div class="container blog-container">
+	<div class="container narrow-container">
 		{% include '_includes/blog-module' %}
 
 		<h3 class="section-title"><span>Keep Reading!</span></h3>

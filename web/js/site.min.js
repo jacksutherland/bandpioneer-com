@@ -80,11 +80,17 @@ let BandPioneer = {
 
 		addSearchEvents()
 		{
-			console.log(this.search.icon);
+			// this is needed to avoid a refresh bug, but not sure why?!?!??
+			document.querySelector('input[name="q"]').addEventListener('click', function(e)
+			{
+				e.preventDefault();
+			});
 
 			this.search.icon.addEventListener('click', function(e)
 			{
 				e.preventDefault();
+
+				// console.log('search click');
 
 				if(this.search.ele.classList.contains('show'))
 				{
@@ -98,11 +104,13 @@ let BandPioneer = {
 
 			this.search.input.addEventListener('blur', function(e)
 			{
+				// console.log('search blur');
 				this.showSearch(false);
 			}.bind(this));
 
 			this.search.input.addEventListener('keyup', function(e)
 			{
+				// console.log('search keyup');
 				e = e || window.event;
 			    if (e.keyCode == 27 || e.keyCode == 13)
 			    {
@@ -117,10 +125,6 @@ let BandPioneer = {
 
 			if(progress)
 			{
-		    	// const lastArticleSection = Array.from(
-				// 	  document.querySelectorAll('section')
-				// 	).pop();
-
 		    	const lastArticleSection = Array.from(
 					  document.querySelectorAll('.section-title')
 					).pop();
