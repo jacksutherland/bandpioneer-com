@@ -12,7 +12,8 @@ function died($error) {
     // your error code can go here
     //echo "We are very sorry, but there were error(s) found with the form you submitted. ";
     //echo "These errors appear below.<br /><br />";
-    echo $error;
+    echo '{"error":"' . $error . '"}';
+    // echo $error;
     //echo "Please go back and fix these errors.<br /><br />";
     die();
 }
