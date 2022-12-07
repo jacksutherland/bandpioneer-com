@@ -40,6 +40,10 @@
 					info.innerText = "Thank you! Your message has been sent, and we will be in contact soon.";
 					e.target.reset();
 				}
+				else 
+				{
+					errors.innerText = error;
+				}
 			}).catch(function (error)
 			{
 				errors.innerText = error;
@@ -60,6 +64,7 @@
 				Got a question you'd like answered on Band Pioneer?<br />Any other comments, concerns or well wishes?<br />Let us know in the form below!
 			</h3>
 
+			<input name="poobear" type="hidden" value="">
 			<input name="name" type="text" placeholder="Full Name">
 			<input name="email" type="email" placeholder="Email">
 			<input name="phone" type="text" placeholder="Phone Number">

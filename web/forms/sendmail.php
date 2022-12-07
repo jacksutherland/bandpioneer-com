@@ -18,18 +18,33 @@ function died($error) {
     die();
 }
 
-if(strlen($_POST['firstname']) > 0) // Simple HPot Logic
+if(strlen($_POST['poobear']) > 0) // Simple HPot Logic
 {
     died('We are sorry, but there appears to be a problem with the form you submitted.');  
 }
 
-// validation expected data exists
-if(!isset($_POST['name']) ||
-    !isset($_POST['email']) ||
-    !isset($_POST['phone']) ||
-    !isset($_POST['comments'])) {
-    died('We are sorry, but there appears to be a problem with the form you submitted.');       
+if(strlen(trim($_POST['name'])) <= 0) // Simple HPot Logic
+{
+    died('A name is required');  
 }
+
+if(strlen(trim($_POST['email'])) <= 0 || strlen(trim($_POST['phone'])) <= 0) // Simple HPot Logic
+{
+    died('An email or phone number is required');  
+}
+
+if(strlen(trim($_POST['comments'])) <= 0) // Simple HPot Logic
+{
+    died('A comment is required');  
+}
+
+// // validation expected data exists
+// if(!isset($_POST['name']) ||
+//     !isset($_POST['email']) ||
+//     !isset($_POST['phone']) ||
+//     !isset($_POST['comments'])) {
+//     died('We are sorry, but there appears to be a problem with the form you submitted.');       
+// }
 
 $name = $_POST['name']; // required
 $email = $_POST['email']; // required
