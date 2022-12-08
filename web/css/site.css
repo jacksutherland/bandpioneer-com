@@ -132,10 +132,10 @@ a.underline:hover:after {
 
 .logo {
   display: block;
-  width: 180px;
+  height: 65px;
 }
 .logo img {
-  width: 100%;
+  height: 100%;
 }
 
 @keyframes slide-down-header {
@@ -148,6 +148,36 @@ a.underline:hover:after {
 }
 header {
   padding: 10px 0;
+}
+@keyframes floating {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 4px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+header.sticky .logo img.logo-alt {
+  display: inline;
+}
+header.sticky .logo img.logo-mark {
+  display: none;
+}
+header .logo:hover img.logo-mark {
+  transform: translate(0, 10px) !important;
+}
+header .logo img.logo-alt {
+  display: none;
+}
+header .logo img.logo-mark {
+  display: inline;
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 header .container {
   display: grid;
@@ -405,12 +435,6 @@ figure figcaption {
 }
 #homepage .page-header:after {
   background-color: rgba(0, 0, 0, 0.25);
-}
-#homepage .page-header header.sticky .logo img {
-  display: inline;
-}
-#homepage .page-header header .logo img {
-  display: none;
 }
 
 .category .page-header {

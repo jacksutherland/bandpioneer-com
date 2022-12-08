@@ -153,9 +153,9 @@ a {
 
 .logo {
 	display: block;
-	width: $header-logo-width;
+	height: $header-logo-height;
 	img {
-		width: 100%;
+		height: 100%;
 	}
 }
 
@@ -170,6 +170,57 @@ a {
 
 header {
 	padding: 10px 0;
+
+	// @keyframes floating {
+	// 	0% { transform: translate(0, 0); opacity: 0.5; }
+	// 	10%  { transform: translate(1px, 2px); opacity: 0.6; }
+	// 	20%  { transform: translate(2px, -1px); opacity: 0.7; }
+	// 	30%  { transform: translate(3px, 3px); opacity: 0.8; }
+	// 	40%  { transform: translate(2px, -2px); opacity: 0.7; }
+	// 	50%  { transform: translate(1px, 4px); opacity: 0.5; }
+	// 	60%  { transform: translate(0, -3px); opacity: 0.7; }
+	// 	70%  { transform: translate(-1px, 3px); opacity: 0.6; }
+	// 	80%  { transform: translate(-2px, -2px); opacity: 0.5; }
+	// 	90%  { transform: translate(-1px, 2px); }
+	// 	100%   { transform: translate(0, 0); }   
+	// }
+
+	@keyframes floating {
+		0% { transform: translate(0, 0); }
+		50%  { transform: translate(0, 4px);}
+		100%   { transform: translate(0, 0); }   
+	}
+
+	&.sticky {
+		.logo img {
+			&.logo-alt {
+    			display: inline;
+    		}
+    		&.logo-mark {
+    			display: none;
+    		}
+		}
+	}
+
+	.logo {
+		&:hover {
+			img.logo-mark {
+				transform: translate(0, 10px) !important;
+			}
+		}
+		img {
+			&.logo-alt {
+    			display: none;
+    		}
+    		&.logo-mark {
+    			display: inline;
+    			animation-name: floating;
+			    animation-duration: 3s;
+			    animation-iteration-count: infinite;
+			    animation-timing-function: ease-in-out;
+    		}
+    	}
+	}
 
 	.container {
 		display: grid;
@@ -486,18 +537,6 @@ figure {
 
 		&:after {
     		background-color: rgba(0, 0, 0, 0.25);
-    	}
-
-		header {
-    		&.sticky {
-    			.logo img {
-	    			display: inline;
-	    		}
-    		}
-
-    		.logo img {
-    			display: none;
-    		}
     	}
 	}
 }
