@@ -285,6 +285,9 @@ footer {
   padding: 80px 0;
   margin: 80px 0 0 0;
 }
+footer .logo {
+  height: 140px;
+}
 footer .container {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -642,6 +645,9 @@ form.contact-form .errors {
   footer .container nav {
     justify-self: end;
     margin: 0;
+  }
+  footer .container nav ul {
+    text-align: right;
   }
   footer .container nav ul li {
     margin: 0 0 0 25px;
