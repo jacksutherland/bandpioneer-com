@@ -169,6 +169,19 @@ article {
 
 
 .blog {
+
+	header {
+		.logo {
+			img {
+				&.logo-alt {
+	    			display: inline !important;
+	    		}
+	    		&.logo-mark {
+	    			display: none;
+	    		}
+	    	}
+		}
+	}
 	
 	.featured-image {
 		width: 100%;

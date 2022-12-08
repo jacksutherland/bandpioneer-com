@@ -171,20 +171,6 @@ a {
 header {
 	padding: 10px 0;
 
-	// @keyframes floating {
-	// 	0% { transform: translate(0, 0); opacity: 0.5; }
-	// 	10%  { transform: translate(1px, 2px); opacity: 0.6; }
-	// 	20%  { transform: translate(2px, -1px); opacity: 0.7; }
-	// 	30%  { transform: translate(3px, 3px); opacity: 0.8; }
-	// 	40%  { transform: translate(2px, -2px); opacity: 0.7; }
-	// 	50%  { transform: translate(1px, 4px); opacity: 0.5; }
-	// 	60%  { transform: translate(0, -3px); opacity: 0.7; }
-	// 	70%  { transform: translate(-1px, 3px); opacity: 0.6; }
-	// 	80%  { transform: translate(-2px, -2px); opacity: 0.5; }
-	// 	90%  { transform: translate(-1px, 2px); }
-	// 	100%   { transform: translate(0, 0); }   
-	// }
-
 	@keyframes floating {
 		0% { transform: translate(0, 0); }
 		50%  { transform: translate(0, 4px);}
@@ -289,7 +275,7 @@ header {
 	}
 
 	.reading-time {
-		background-color: $alternate-color;
+		background-color: $light-gray;
 		// background: linear-gradient(to top, lighten($primary-dark, 30%), lighten($primary-dark, 10%));
 	    position: absolute;
 	    bottom: 0;
