@@ -171,11 +171,11 @@ a {
 header {
 	padding: 10px 0;
 
-	@keyframes floating {
-		0% { transform: translate(0, 0); }
-		50%  { transform: translate(0, 4px);}
-		100%   { transform: translate(0, 0); }   
-	}
+	// @keyframes floating {
+	// 	0% { transform: translate(0, 0); }
+	// 	50%  { transform: translate(0, 4px);}
+	// 	100%   { transform: translate(0, 0); }   
+	// }
 
 	&.sticky {
 		.logo img {
@@ -200,10 +200,10 @@ header {
     		}
     		&.logo-mark {
     			display: inline;
-    			animation-name: floating;
-			    animation-duration: 3s;
-			    animation-iteration-count: infinite;
-			    animation-timing-function: ease-in-out;
+    			// animation-name: floating;
+			    // animation-duration: 3s;
+			    // animation-iteration-count: infinite;
+			    // animation-timing-function: ease-in-out;
     		}
     	}
 	}
@@ -494,8 +494,48 @@ figure {
     		z-index: 20;
     	}
 
+    	@keyframes markfloating {
+			0% { transform: translate(0, 0); }
+			50%  { transform: translate(0, 4px);}
+			100%   { transform: translate(0, 0); }   
+		}
+
+    	@keyframes logointro {
+			0% { transform: scale(0.2); opacity: 0; }
+			60%   { transform: scale(0.2); opacity: 0.1; }
+			90%   { transform: scale(1.1); }
+			100%   { transform: scale(1); opacity: 1; }
+		}
+
+    	@keyframes markintro {
+			0% { transform: translate(-500px, 0); }
+			30% { transform: translate(-500px, 0); }
+			100% { transform: translate(0, 0); }
+		}
+
     	.main-logo {
     		z-index: 10;
+    		opacity: 1;
+    		transform: scale(1);
+    		animation-name: logointro;
+		    animation-duration: 1700ms;
+		    animation-timing-function: ease-in-out;
+    	}
+
+    	.logo {
+    		transform: translate(0, 0);
+    		animation-name: markintro;
+		    animation-duration: 1000ms;
+		    animation-timing-function: ease-in-out;
+
+		    img {
+	    		&.logo-mark {
+	    			animation-name: markfloating;
+				    animation-duration: 3s;
+				    animation-iteration-count: infinite;
+				    animation-timing-function: ease-in-out;
+	    		}
+	    	}
     	}
 
     	&:after {

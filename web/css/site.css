@@ -149,17 +149,6 @@ a.underline:hover:after {
 header {
   padding: 10px 0;
 }
-@keyframes floating {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, 4px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 header.sticky .logo img.logo-alt {
   display: inline;
 }
@@ -174,10 +163,6 @@ header .logo img.logo-alt {
 }
 header .logo img.logo-mark {
   display: inline;
-  animation-name: floating;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
 }
 header .container {
   display: grid;
@@ -411,9 +396,67 @@ figure figcaption {
 .category .page-header h1 {
   z-index: 20;
 }
+@keyframes markfloating {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 4px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes logointro {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.2);
+    opacity: 0.1;
+  }
+  90% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes markintro {
+  0% {
+    transform: translate(-500px, 0);
+  }
+  30% {
+    transform: translate(-500px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
 #homepage .page-header .main-logo,
 .category .page-header .main-logo {
   z-index: 10;
+  opacity: 1;
+  transform: scale(1);
+  animation-name: logointro;
+  animation-duration: 1700ms;
+  animation-timing-function: ease-in-out;
+}
+#homepage .page-header .logo,
+.category .page-header .logo {
+  transform: translate(0, 0);
+  animation-name: markintro;
+  animation-duration: 1000ms;
+  animation-timing-function: ease-in-out;
+}
+#homepage .page-header .logo img.logo-mark,
+.category .page-header .logo img.logo-mark {
+  animation-name: markfloating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 #homepage .page-header:after,
 .category .page-header:after {
