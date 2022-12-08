@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+{% set homepage = craft.entries.section("homepage").one() %}
+{% set blogs = craft.entries.section("blog").all() %}
+{% set categories = craft.entries.section("category").all() %}
+
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+   <url>
+      <loc>https://bandpioneer.com/</loc>
+      <lastmod>{{ homepage.dateUpdated | date("Y-m-d") }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   <url>
+      <loc>https://bandpioneer.com/about</loc>
+      <lastmod>2022-12-08</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   <url>
+      <loc>https://bandpioneer.com/contact</loc>
+      <lastmod>2022-12-08</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   {% for cat in categories %}
+    <url>
+      <loc>{{ cat.url }}</loc>
+      <lastmod>{{ cat.dateUpdated | date("Y-m-d") }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  {% endfor %}
+
+  {% for blog in blogs %}
+    <url>
+      <loc>{{ blog.url }}</loc>
+      <lastmod>{{ blog.dateUpdated | date("Y-m-d") }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  {% endfor %}
+
+</urlset>
