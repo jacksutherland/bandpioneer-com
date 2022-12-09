@@ -10,6 +10,7 @@ body {
   font-size: 1rem;
   color: #4f4f4f;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01rem;
   height: 100%;
   display: grid;
 }
@@ -75,7 +76,7 @@ h2 {
   line-height: 2rem;
 }
 
-h3 {
+h3, h4 {
   font-size: 1.2rem;
   line-height: 1.7rem;
 }
@@ -427,12 +428,15 @@ figure figcaption {
 @keyframes markintro {
   0% {
     transform: translate(-500px, 0);
+    opacity: 0;
   }
   30% {
     transform: translate(-500px, 0);
+    opacity: 0;
   }
   100% {
     transform: translate(0, 0);
+    opacity: 1;
   }
 }
 #homepage .page-header .main-logo,
@@ -745,6 +749,21 @@ form.contact-form .errors {
 }
 .categories nav ul li a span {
   z-index: 1;
+}
+.categories #category-description {
+  display: flex;
+  align-items: center;
+  background-color: #f5f7f7;
+  text-align: center;
+  font-size: 0.875rem;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.categories #category-description.show {
+  height: 60px;
+  opacity: 1;
 }
 
 address[rel=author] {

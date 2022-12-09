@@ -35,14 +35,16 @@
 				<div id="section-{{ module.id }}" class="section-anchor"></div>
 				<h2>{{ module.headline }}</h2>
 				{% if module.subheadline | length %}
-					<h4>{{ module.headline }}</h4>
+					<h3>{{ module.headline }}</h3>
 				{% endif %}
 			</section>
 
 		{% case "image" %}
 
 			<section>
-				{% if module.linkUrl | length %}<a href="{{ module.linkUrl }}">{% endif %}
+				{% if module.linkUrl | length %}
+					<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
+				{% endif %}
 				<figure class="image">
 					<img src="{{ module.blogImage.one().url }}" alt="{{ module.blogImage.one().title }}">
 					{% if module.caption | length %}

@@ -29,7 +29,19 @@ fieldLayouts:
             uid: 4a5f8367-c8cf-4a93-ad10-1e3d96f2656c
             userCondition: null
             warning: null
-            width: 100
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
+            instructions: null
+            label: 'Show In Menu'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d684a2d0-5d7c-4a8e-b6ce-7bfcee2d6d30
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description

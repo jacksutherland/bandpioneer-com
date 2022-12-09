@@ -1,8 +1,33 @@
 let BandPioneer = {
-	Site: class {
-		constructor(tempVar)
+
+	each: function(elements, callback)
+	{
+		// Helper function to loop through a collection
+
+		elements = BandPioneer.getCollection(elements);
+
+		for(var i=0; i<elements.length; i++)
 		{
-			this.tempVar = tempVar;
+			(callback.bind(elements[i]))(i, elements[i]);
+		}
+	},
+
+	getCollection: function(obj)
+	{
+		// Makes sure elements are iterable
+
+		return typeof(obj[Symbol.iterator]) === "function"
+			? obj : [obj];
+	},
+
+	Site: class
+	{
+		// Primary Class for Website UX
+
+		static hoveringOverCategory = false;
+
+		constructor()
+		{
 
 			this.search = {
 				ele: document.querySelector('#search'),
@@ -13,7 +38,6 @@ let BandPioneer = {
 			this.addHeaderEvents();
 			this.addMenuEvents();
 			this.addSearchEvents();
-
 			this.readingProgress();
 		}
 
@@ -63,7 +87,7 @@ let BandPioneer = {
 			let menu = document.querySelector('#main-menu');
 			let open = document.querySelector('#open-menu');
 			let close = document.querySelector('#close-menu');
-
+			let categories = document.querySelectorAll('.categories nav ul li a');
 
 			open.addEventListener('click', function(e)
 			{
@@ -76,6 +100,46 @@ let BandPioneer = {
 				e.preventDefault();
 				menu.classList.remove('show');
 			});
+
+			BandPioneer.each(categories, function()
+			{
+				this.addEventListener('mouseover', function(e)
+				{
+					e.preventDefault();
+
+					BandPioneer.hoveringOverCategory = true;
+					BandPioneer.categoryId = this.dataset.id;
+
+					let categoryDescription = document.querySelector('#category-description');
+					categoryDescription.querySelector('.container').innerText = this.dataset.description;
+
+					BandPioneer.categoryTimeout = setTimeout(function()
+					{
+						if(BandPioneer.hoveringOverCategory && this.catId == BandPioneer.categoryId)
+						{
+							this.catDesc.classList.add('show');
+						}
+					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 1000);
+				});
+
+				this.addEventListener('mouseleave', function(e)
+				{
+					e.preventDefault();
+
+					BandPioneer.categoryId = 0;
+					BandPioneer.hoveringOverCategory = false;
+					clearTimeout(BandPioneer.categoryTimeout);
+
+					setTimeout(function()
+					{
+						if(!BandPioneer.hoveringOverCategory)
+						{
+							document.querySelector('#category-description').classList.remove('show');
+						}
+					}, 500);
+				});
+			});
+
 		}
 
 		addSearchEvents()

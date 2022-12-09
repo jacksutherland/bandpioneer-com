@@ -3,13 +3,19 @@
 		<nav role="navigation" aria-label="Primary Navigation">
 			<ul>
 				{% for cat in categories.all() %}
-					<li>
-						<a class="underline{% if entry.slug == cat.slug %} active{% endif %}" href="{{ cat.url() }}">
-							<span>{{ cat.title }}</span>
-						</a>
-					</li>
+					{% if cat.show %}
+						<li>
+							<a class="underline{% if entry.slug == cat.slug %} active{% endif %}" href="{{ cat.url() }}" data-id="{{ cat.id }}" data-description="{{ cat.shortDescription }}">
+								<span>{{ cat.title }}</span>
+							</a>
+						</li>
+					{% endif %}
 				{% endfor %}
 			</ul>
 		</nav>
+	</div>
+	<div id="category-description">
+		<div class="container">
+		</div>
 	</div>
 </div>

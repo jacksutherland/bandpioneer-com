@@ -51,6 +51,23 @@
 			}
 		}
 	}
+
+	#category-description {
+		display: flex;
+    	align-items: center;
+		background-color: lighten($light-gray, 5%);
+		text-align: center;
+		font-size: $font-size-small;
+		overflow: hidden;
+		height: 0;
+		opacity: 0;
+		transition: height $transition-default, opacity $transition-default;
+
+		&.show {
+			height: 60px;
+			opacity: 1;
+		}
+	}
 }
 
 address[rel="author"] {
