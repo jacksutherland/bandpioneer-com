@@ -577,7 +577,7 @@ form.contact-form .errors {
 }
 @media (max-width: 768px) {
   .display-md {
-    display: none;
+    display: none !important;
   }
 }
 @media (min-width: 768px) {
@@ -801,11 +801,10 @@ article.featured .blog-image {
 article.featured .blog-image .blog-image-info {
   position: absolute;
   z-index: 20;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 25px 35px 25px;
+  padding: 27px 25px 35px 25px;
   display: flex;
   flex-direction: column;
   justify-content: end;

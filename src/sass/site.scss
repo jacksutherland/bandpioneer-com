@@ -680,7 +680,7 @@ form {
 
 @media (max-width: $breakpoint-md) {
 	.display-md {
-		display: none;
+		display: none !important;
 	}
 }
 
