@@ -953,6 +953,7 @@ article .blog-info ul li a {
   margin: 25px 0;
   font-size: 2.1rem;
   line-height: 3rem;
+  letter-spacing: 0.04rem;
 }
 .blog h2 {
   text-transform: capitalize;
