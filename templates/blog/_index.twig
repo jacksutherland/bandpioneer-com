@@ -67,7 +67,9 @@
 			</article>
 		{% endif %}
 
-		<h3 class="section-title"><span>Recent Articles</span></h3>
+		{% if showAllPosts %}
+			<h3 class="section-title"><span>Recent Articles</span></h3>
+		{% endif %}
 
 		<div class="blog-posts">
 			{% for blog in (showAllPosts and pageInfo.currentPage == 1 ? posts[1:] : posts) %}
