@@ -589,6 +589,11 @@ input[type="submit"],
 	min-width: 120px;
 	padding: 0 25px;
 	cursor: pointer;
+	transition: background-color $transition-default;
+
+	&:hover {
+		background-color: $secondary-color;
+	}
 }
 
 form {
@@ -616,7 +621,7 @@ form {
 	}
 
 	textarea {
-		padding-top: 12px;
+		padding-top: 18px;
 		height: 150px;
 	}
 

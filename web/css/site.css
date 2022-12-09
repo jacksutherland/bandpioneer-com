@@ -502,10 +502,16 @@ input[type=submit],
   color: #FFFFFF;
   width: -moz-fit-content;
   width: fit-content;
-  height: 40px;
+  height: 50px;
   min-width: 120px;
   padding: 0 25px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+button:hover,
+input[type=submit]:hover,
+.btn:hover {
+  background-color: #f90215;
 }
 
 form input:not([name=q]),
@@ -513,7 +519,7 @@ form textarea,
 form button,
 form .btn {
   padding: 0 25px;
-  height: 40px;
+  height: 50px;
   border-radius: 4px;
   font-family: helvetica, sans-serif;
 }
@@ -530,7 +536,7 @@ form textarea:focus {
   background-color: #edf0f1;
 }
 form textarea {
-  padding-top: 12px;
+  padding-top: 18px;
   height: 150px;
 }
 form.contact-form {
