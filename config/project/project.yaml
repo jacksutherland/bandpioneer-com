@@ -1,4 +1,4 @@
-dateModified: 1670544343
+dateModified: 1670601535
 elementSources:
   craft\elements\Entry:
     -
@@ -78,6 +78,7 @@ meta:
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
+    16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header'
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
     26e93876-a78a-402d-b49e-a55f7d4e5374: 'Link URL' # Link URL
