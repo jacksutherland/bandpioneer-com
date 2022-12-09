@@ -590,6 +590,8 @@ input[type="submit"],
 	padding: 0 25px;
 	cursor: pointer;
 	transition: background-color $transition-default;
+	font-weight: 600;
+    text-transform: uppercase;
 
 	&:hover {
 		background-color: $secondary-color;

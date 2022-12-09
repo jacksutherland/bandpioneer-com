@@ -507,6 +507,8 @@ input[type=submit],
   padding: 0 25px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 button:hover,
 input[type=submit]:hover,
