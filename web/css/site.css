@@ -797,6 +797,13 @@ article.featured .blog-image {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   overflow: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+article.featured .blog-image:hover {
+  opacity: 0.95;
+}
+article.featured .blog-image img {
+  filter: brightness(100%);
 }
 article.featured .blog-image .blog-image-info {
   position: absolute;

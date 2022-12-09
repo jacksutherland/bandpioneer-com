@@ -105,6 +105,15 @@ article {
 			box-shadow: $small-shadow;
 			border-radius: $small-border-radius;
 			overflow: hidden;
+			transition: opacity $transition-default;
+
+			&:hover {
+				opacity: 0.95;
+			}
+
+			img {
+				filter: brightness(100%);
+			}
 
 			.blog-image-info {
 				position: absolute;
