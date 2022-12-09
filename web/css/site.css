@@ -756,6 +756,7 @@ form.contact-form .errors {
   background-color: #f5f7f7;
   text-align: center;
   font-size: 0.875rem;
+  line-height: 1.25rem;
   overflow: hidden;
   height: 0;
   opacity: 0;
