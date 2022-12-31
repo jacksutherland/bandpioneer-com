@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TSXPZGR');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Band Pioneer</title>
@@ -22,6 +29,11 @@
     </head>
 
     <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSXPZGR"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
 
         {% if fixedHeader %}
             {% include '_includes/header' %}
@@ -55,7 +67,7 @@
                     </ul>
                     <ul class="copyright">
                         <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
-                        <li>Website Created by <a href="https://www.jacksutherland.com" title="Jack Sutherland" target="_blank">Jack</a> at <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
+                        <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
                     </ul>
                 </nav>
             </div>
