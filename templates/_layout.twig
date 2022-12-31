@@ -1,31 +1,88 @@
+{% set siteName = 'Band Pioneer' %}
+{% set metaTitle = siteName %}
+{% set rootSiteUrl = 'https://bandpioneer.com' %}
+{% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
 {% set fixedHeader = fixedHeader is defined ? fixedHeader : false %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TSXPZGR');</script>
-    <!-- End Google Tag Manager -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Band Pioneer</title>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TSXPZGR');</script>
+        <!-- End Google Tag Manager -->
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/assets/images/favicon/site.webmanifest">
-    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+        {% apply spaceless %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+        {% set metaDesc = '' %}
+        {% if entry is defined %}
+            {% if entry.section.handle != 'homepage' %}
+                {% set metaTitle = entry.title ~ ' | ' ~ metaTitle %}
+            {% endif %}
+            {% if entry.metaDescription is defined %}
+                {% set metaDesc = entry.metaDescription %}
+            {% endif %}
+        {% endif %}
 
-    {% block styles %}
-        <link rel="stylesheet" href="{{ url('css/site.css') }}" /> 
-    {% endblock %}
+        {# Meta Tags #}
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ metaTitle }}</title>
+        {% if metaDesc | length > 0 %}<meta name="description" content="{{ metaDesc }}">{% endif %}
+        <meta name="robots" content="all">
+
+        {% if entry is defined %}
+
+            {# Open Graph Tags #}
+
+            <meta property="og:type" content="{{ entry.section.handle == 'blog' ? 'article' : 'website' }}" />
+            <meta property="og:title" content="{{ entry.title }}" />
+            {% if metaDesc | length > 0 %}
+                <meta property="og:description" content="{{ metaDesc }}" />
+            {% endif %}
+            {% if entry.seoImage is defined and entry.seoImage.count %}
+                <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url }}" />
+            {% endif %}
+            <meta property="og:url" content="{{ pageUrl }}" />
+            <meta property="og:site_name" content="{{ siteName }}" />
+
+            {# Twitter Cards #}
+
+            <meta name="twitter:title" content="{{ entry.title }}">
+            {% if metaDesc | length > 0 %}
+                <meta name="twitter:description" content="{{ metaDesc }}">
+            {% endif %}
+            {% if entry.seoImage is defined and entry.seoImage.count %}
+                <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url }}">
+            {% endif %}
+            <meta name="twitter:site" content="@jacksutherland">
+            <meta name="twitter:creator" content="@jacksutherland">
+
+        {% endif %}
+
+        {% endapply %}
+
+        {% apply spaceless %}
+
+        <link rel="canonical" href="{{ pageUrl }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+        <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+
+        {% block styles %}
+            <link rel="stylesheet" href="{{ url('css/site.css') }}" /> 
+        {% endblock %}
+
+        {% endapply %}
+
     </head>
 
     <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
@@ -34,6 +91,8 @@
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSXPZGR"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
+
+        {% apply spaceless %}
 
         {% if fixedHeader %}
             {% include '_includes/header' %}
@@ -72,6 +131,8 @@
                 </nav>
             </div>
         </footer>
+
+        {% endapply %}
         
         <script src="{{ url('js/site.min.js') }}"></script>
         <script>

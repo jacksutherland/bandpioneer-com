@@ -141,6 +141,36 @@ fieldLayouts:
         name: Content
         uid: 110acc79-1949-492b-a52f-6a8cb4ec79b1
         userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d6e040b5-5d02-4a7d-9583-db231ab8997a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0539ed3e-d5c6-4c9b-b004-5f693bfba4e7
+            userCondition: null
+            warning: null
+            width: 100
+        name: SEO
+        uid: 5a3d013c-7b39-4c20-9443-7cdc345c29c6
+        userCondition: null
 handle: default
 hasTitleField: true
 name: Default

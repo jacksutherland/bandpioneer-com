@@ -33,6 +33,36 @@ fieldLayouts:
         name: Content
         uid: 67f925c7-9b91-4a95-b700-1b99ee38057f
         userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7852defc-9888-452e-8535-4d7f4d7570b2
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d31e5458-1229-4a16-ab66-1e0f3fb952f6
+            userCondition: null
+            warning: null
+            width: 100
+        name: SEO
+        uid: e7651b06-b1bb-453f-857b-e90fb27deca7
+        userCondition: null
 handle: homepage
 hasTitleField: false
 name: Homepage

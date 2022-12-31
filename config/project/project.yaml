@@ -1,4 +1,4 @@
-dateModified: 1670601535
+dateModified: 1672522035
 elementSources:
   craft\elements\Entry:
     -
@@ -77,8 +77,9 @@ meta:
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Image' # Blog Image
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
+    8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
-    16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header'
+    16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
     26e93876-a78a-402d-b49e-a55f7d4e5374: 'Link URL' # Link URL
@@ -105,6 +106,7 @@ meta:
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default
     de2bb280-3465-478f-a8b2-bb03f3c7be35: Caption # Caption
     e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
+    e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
     ee13e705-afd8-41c1-a111-b472a62a15f2: Headline # Headline

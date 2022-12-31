@@ -2,7 +2,7 @@
 
 {% set postsPerPage = 8 %}
 {% set pageTitle = 'Search' %}
-{% set entry = { slug: 'search-results', section: { handle: 'searchResults' } } %}
+{% set entry = { slug: 'search-results', title: 'Search', section: { handle: 'searchResults' } } %}
 {% set qry = craft.app.request.getQueryParam('q') ?? '' %}
 
 {% paginate craft.entries.section('blog').search({query: qry}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
