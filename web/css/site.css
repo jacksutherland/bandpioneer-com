@@ -945,6 +945,11 @@ article .blog-info ul li a {
 .blog section.rich-text + .rich-text {
   margin-top: -20px;
 }
+.blog section.rich-text ul {
+  list-style: disc;
+  list-style-position: outside;
+  margin-left: 32px;
+}
 .blog section .section-anchor {
   transform: translateY(-120px);
 }

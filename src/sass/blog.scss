@@ -289,6 +289,12 @@ article {
 			& + .rich-text {
 				margin-top: -20px;
 			}
+
+			ul {
+				list-style: disc;
+			    list-style-position: outside;
+			    margin-left: 32px;
+			}
 		}
 
 		.section-anchor {
