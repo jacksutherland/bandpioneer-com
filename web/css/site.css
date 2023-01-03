@@ -960,6 +960,11 @@ article .blog-info ul li a {
   line-height: 3rem;
   letter-spacing: 0.04rem;
 }
+.blog h1 + h2 {
+  margin: -20px 0 25px 0;
+  font-weight: 400;
+  font-family: "Michroma", sans-serif;
+}
 .blog h2 {
   text-transform: capitalize;
 }
