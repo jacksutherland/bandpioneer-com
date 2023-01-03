@@ -306,14 +306,17 @@ article {
 		text-transform: capitalize;
 		margin: 25px 0;
 
-		// font-size: 2.75rem;
-		// line-height: 3.75rem;
-
 		// Michroma Google Font
 		font-size: 2.1rem;
     	line-height: 3rem;
 
     	letter-spacing: 0.04rem;
+
+    	& + h2 {
+    		margin: -20px 0 25px 0;
+		    font-weight: 400;
+		    font-family: $header-font-family;
+    	}
 	}
 
 	h2 {
