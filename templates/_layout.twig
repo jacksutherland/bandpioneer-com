@@ -94,8 +94,6 @@
 
     <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
 
-        <h2>{{ craft.app.sites.primarySite.baseUrl }}</h2>
-
         {% if craft.app.config.env == 'production' %}
             <!-- Google Tag Manager (noscript) -->
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSXPZGR"
