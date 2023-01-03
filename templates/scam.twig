@@ -1,4 +1,4 @@
-{% if 'bandpioneer.com'  in craft.app.sites.primarySite.baseUrl %}
+{% if 'bandpioneer.com'  in craft.app.request.absoluteUrl %}
     {% redirect '/' %}
 {% endif %}
 

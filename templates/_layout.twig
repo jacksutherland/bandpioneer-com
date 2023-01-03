@@ -1,4 +1,4 @@
-{% if 'bandpioneer.com' not in craft.app.sites.primarySite.baseUrl and 'localhost' not in craft.app.sites.primarySite.baseUrl %}
+{% if 'bandpioneer.com' not in craft.app.request.absoluteUrl and 'localhost' not in craft.app.request.absoluteUrl %}
     {% redirect '/scam' %}
 {% endif %}
 
@@ -93,8 +93,6 @@
     </head>
 
     <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
-
-        <h2>{{ craft.app.request.absoluteUrl }}</h2>
 
         {% if craft.app.config.env == 'production' %}
             <!-- Google Tag Manager (noscript) -->
