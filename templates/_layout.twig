@@ -1,8 +1,13 @@
+{% if 'bandpioneer.com' not in craft.app.sites.primarySite.baseUrl and 'localhost' not in craft.app.sites.primarySite.baseUrl %}
+    {% redirect '/scam' %}
+{% endif %}
+
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
 {% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
 {% set fixedHeader = fixedHeader is defined ? fixedHeader : false %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -88,7 +93,7 @@
     </head>
 
     <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
-        
+
         {% if craft.app.config.env == 'production' %}
             <!-- Google Tag Manager (noscript) -->
             <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TSXPZGR"

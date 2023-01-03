@@ -1,0 +1,59 @@
+{% if 'bandpioneer.com'  in craft.app.sites.primarySite.baseUrl %}
+    {% redirect '/' %}
+{% endif %}
+
+{% set title = craft.app.sites.primarySite.baseUrl | replace({'http://': ''}) | replace({'https://': ''}) | replace({'/': ''}) %}
+{% set title = title ~ ' Is a Scam Website!' %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ title }}</title>
+        <meta name="description" content="{{ title }}">
+        <meta property="og:title" content="{{ title }}" />
+        <meta property="og:description" content="{{ title }}" />
+        <meta name="twitter:title" content="{{ title }}">
+        <meta name="twitter:description" content="{{ title }}">
+
+        <style type="text/css">
+            body {
+                font-family: sans-serif;
+                letter-spacing: 1px; 
+            }
+            .container {
+                max-width: 600px;
+                border: solid 1px #000;
+                margin: 0 auto;
+                text-align: center;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+            .warning {
+                padding: 40px 0;
+            }
+            h2 {
+                margin: 0;
+                padding: 40px 0;
+                background-color: #fa3718;
+                color: #fff;
+                font-size: 40px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h2>WARNING!</h2>
+            <div class="warning">
+                <h1>{{ title }}</h1>
+                <h3>This website has been copying and impersonating other websites without permission</h3>
+                <p><a href="https://www.wikihow.com/Report-a-Website" target="_blank">CLICK HERE</a> to learn how to report this website to the appropriate authorities.</p>
+            </div>
+        </div>
+
+    </body>
+</html>
