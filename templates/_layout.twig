@@ -41,7 +41,7 @@
             {# Open Graph Tags #}
 
             <meta property="og:type" content="{{ entry.section.handle == 'blog' ? 'article' : 'website' }}" />
-            <meta property="og:title" content="{{ entry.title }}" />
+            <meta property="og:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}" />
             {% if metaDesc | length > 0 %}
                 <meta property="og:description" content="{{ metaDesc }}" />
             {% endif %}
@@ -53,7 +53,7 @@
 
             {# Twitter Cards #}
 
-            <meta name="twitter:title" content="{{ entry.title }}">
+            <meta name="twitter:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}">
             {% if metaDesc | length > 0 %}
                 <meta name="twitter:description" content="{{ metaDesc }}">
             {% endif %}
