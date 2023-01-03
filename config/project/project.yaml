@@ -1,4 +1,4 @@
-dateModified: 1672522035
+dateModified: 1672715476
 elementSources:
   craft\elements\Entry:
     -
@@ -91,6 +91,7 @@ meta:
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
+    7338fd63-9ce2-4696-a9b3-113b5d6015c3: Subheadline # Subheadline
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show

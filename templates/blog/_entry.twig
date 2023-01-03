@@ -9,6 +9,9 @@
 
 	<div class="container narrow-container">
 		<h1>{{ entry.title }}</h1>
+		{% if entry.subheadline | length %}
+			<h2>{{ entry.title }}</h2>
+		{% endif %}
 
 		{% include '_includes/author' with { blog: entry } %}
 
