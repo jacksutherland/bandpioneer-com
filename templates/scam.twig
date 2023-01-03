@@ -2,7 +2,7 @@
     {% redirect '/' %}
 {% endif %}
 
-{% set title = craft.app.sites.primarySite.baseUrl | replace({'http://': ''}) | replace({'https://': ''}) | replace({'/': ''}) %}
+{% set title = craft.app.request.absoluteUrl | replace({'http://': ''}) | replace({'https://': ''}) | replace({'/': ''}) %}
 {% set title = title ~ ' Is a Scam Website!' %}
 
 <!DOCTYPE html>
