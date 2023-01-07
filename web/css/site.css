@@ -609,6 +609,9 @@ form.contact-form .errors {
   .container.page {
     margin: 70px auto;
   }
+  figure.image.smaller {
+    width: 80%;
+  }
   header .container .bars {
     display: none;
   }
@@ -713,11 +716,6 @@ form.contact-form .errors {
   footer .container nav .copyright li {
     text-align: right;
     margin: 18px 0 0 0;
-  }
-}
-@media (min-width: 1200px) {
-  figure.image.smaller {
-    width: 80%;
   }
 }
 .categories {

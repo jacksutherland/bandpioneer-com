@@ -718,6 +718,13 @@ form {
 	.container.page {
 		margin: $page-vertical-margin auto;
 	}
+	figure {
+		&.image {
+			&.smaller {
+				width: 80%;
+			}
+		}
+	}
 	header {
 		.container {
 			.bars {
@@ -860,12 +867,12 @@ form {
 	}
 }
 
-@media (min-width: $breakpoint-xl) {
-	figure {
-		&.image {
-			&.smaller {
-				width: 80%;
-			}
-		}
-	}
-}
+// @media (min-width: $breakpoint-xl) {
+// 	figure {
+// 		&.image {
+// 			&.smaller {
+// 				width: 80%;
+// 			}
+// 		}
+// 	}
+// }
