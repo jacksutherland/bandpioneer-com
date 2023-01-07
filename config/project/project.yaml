@@ -1,4 +1,4 @@
-dateModified: 1672715476
+dateModified: 1673132875
 elementSources:
   craft\elements\Entry:
     -
@@ -78,6 +78,7 @@ meta:
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
+    09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Header' # Blog Header
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
     16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
@@ -89,6 +90,7 @@ meta:
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
+    82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
     7338fd63-9ce2-4696-a9b3-113b5d6015c3: Subheadline # Subheadline
@@ -106,6 +108,7 @@ meta:
     d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default
     de2bb280-3465-478f-a8b2-bb03f3c7be35: Caption # Caption
+    e0270692-1ca3-4ba6-8d52-cfca54ac634a: Smaller # Smaller
     e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage

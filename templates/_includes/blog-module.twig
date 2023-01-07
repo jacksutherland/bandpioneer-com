@@ -45,7 +45,7 @@
 				{% if module.linkUrl | length %}
 					<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
 				{% endif %}
-				<figure class="image">
+				<figure class="image {{ module.margins }}{{ module.smaller ? ' smaller' : '' }}">
 					<img src="{{ module.blogImage.one().url }}" alt="{{ module.blogImage.one().title }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>

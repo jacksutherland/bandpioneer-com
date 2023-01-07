@@ -16,6 +16,30 @@ fieldLayouts:
             uid: 9aaf9382-7cfe-4e14-baf5-0b5ff5f5e202
             userCondition: null
             warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc # Margins
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4b9889d7-1bb4-41a8-9ca4-25beccda29f5
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Smaller
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8abe46ae-628c-4f71-9268-d707f5ab4d34
+            userCondition: null
+            warning: null
             width: 25
           -
             elementCondition: null
@@ -40,7 +64,7 @@ fieldLayouts:
             uid: 463a190e-9b2b-46c6-8afc-6cf3c4477d65
             userCondition: null
             warning: null
-            width: 25
+            width: 50
         name: Content
         uid: 763c3c27-d89d-4fc6-ac15-ab0e8b3fbd37
         userCondition: null
@@ -129,6 +153,56 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Url
+  82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: # Margins
+    columnSuffix: nyiemkxc
+    contentColumnType: string
+    fieldGroup: null
+    handle: margins
+    instructions: null
+    name: Margins
+    searchable: false
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - Default
+            -
+              - value
+              - default
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Top Margin'
+            -
+              - value
+              - top-margin
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  e0270692-1ca3-4ba6-8d52-cfca54ac634a: # Smaller
+    columnSuffix: ncvbdlpf
+    contentColumnType: boolean
+    fieldGroup: null
+    handle: smaller
+    instructions: null
+    name: Smaller
+    searchable: false
+    settings:
+      default: false
+      offLabel: null
+      onLabel: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Lightswitch
 handle: image
 name: Image
 sortOrder: 3

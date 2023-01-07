@@ -444,6 +444,9 @@ figure {
 	margin: 0 auto;
 
 	&.image {
+		&.top-margin {
+			margin-top: 100px;
+		}
 		img {
 			width: 100%;
 			border-radius: $small-border-radius;
@@ -857,10 +860,12 @@ form {
 	}
 }
 
-// @media (min-width: $breakpoint-xl) {
-// 	#homepage {
-// 		.page-header {
-// 			height: 800px;
-// 		}
-// 	}
-// }
+@media (min-width: $breakpoint-xl) {
+	figure {
+		&.image {
+			&.smaller {
+				width: 80%;
+			}
+		}
+	}
+}

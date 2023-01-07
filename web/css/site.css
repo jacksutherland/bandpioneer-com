@@ -356,6 +356,9 @@ footer .container nav .copyright li {
 figure {
   margin: 0 auto;
 }
+figure.image.top-margin {
+  margin-top: 100px;
+}
 figure.image img {
   width: 100%;
   border-radius: 4px;
@@ -710,6 +713,11 @@ form.contact-form .errors {
   footer .container nav .copyright li {
     text-align: right;
     margin: 18px 0 0 0;
+  }
+}
+@media (min-width: 1200px) {
+  figure.image.smaller {
+    width: 80%;
   }
 }
 .categories {
