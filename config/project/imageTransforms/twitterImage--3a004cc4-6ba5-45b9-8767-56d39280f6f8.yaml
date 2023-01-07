@@ -1,0 +1,9 @@
+format: null
+handle: twitterImage
+height: 900
+interlace: none
+mode: crop
+name: 'Twitter Image'
+position: center-center
+quality: null
+width: 1600

@@ -51,7 +51,7 @@
                 <meta property="og:description" content="{{ metaDesc }}" />
             {% endif %}
             {% if entry.seoImage is defined and entry.seoImage.count %}
-                <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url }}" />
+                <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('ogImage') }}" />
             {% endif %}
             <meta property="og:url" content="{{ pageUrl }}" />
             <meta property="og:site_name" content="{{ siteName }}" />
@@ -63,7 +63,7 @@
                 <meta name="twitter:description" content="{{ metaDesc }}">
             {% endif %}
             {% if entry.seoImage is defined and entry.seoImage.count %}
-                <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url }}">
+                <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('twitterImage') }}">
             {% endif %}
             <meta name="twitter:site" content="@jacksutherland">
             <meta name="twitter:creator" content="@jacksutherland">

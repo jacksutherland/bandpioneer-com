@@ -1,4 +1,4 @@
-dateModified: 1673132875
+dateModified: 1673135335
 elementSources:
   craft\elements\Entry:
     -
@@ -75,10 +75,11 @@ meta:
     1a69adf3-7129-4f03-a788-c50df99aa120: 'Band Pioneer' # Band Pioneer
     1c1054c9-4810-4918-b3c1-3bd0d6a13675: Caption # Caption
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Image' # Blog Image
+    3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image'
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
-    09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Header' # Blog Header
+    09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
     16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
@@ -100,6 +101,7 @@ meta:
     04623371-fa0e-4ff7-84f9-93dcf4e31080: Category # Category
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
+    a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Categories # Categories
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post

@@ -1,0 +1,9 @@
+format: null
+handle: ogImage
+height: 630
+interlace: none
+mode: crop
+name: 'OG Image'
+position: center-center
+quality: null
+width: 1200

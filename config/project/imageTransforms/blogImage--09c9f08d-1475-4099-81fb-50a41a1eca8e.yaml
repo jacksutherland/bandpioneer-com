@@ -1,9 +1,9 @@
 format: webp
-handle: blogHeader
+handle: blogImage
 height: null
 interlace: none
 mode: fit
-name: 'Blog Header'
+name: 'Blog Image'
 position: center-center
 quality: 80
 width: 750
