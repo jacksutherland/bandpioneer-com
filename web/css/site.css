@@ -976,6 +976,9 @@ article .blog-info ul li a {
 /***** MEDIA QUERIES *****/
 /*************************/
 @media (min-width: 768px) {
+  .blog .container {
+    margin: 0 auto;
+  }
   .blog-posts {
     grid-template-columns: 1fr 1fr;
   }

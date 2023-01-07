@@ -335,6 +335,11 @@ article {
 /*************************/
 
 @media (min-width: $breakpoint-md) {
+	.blog {
+		.container {
+			margin: 0 auto;
+		}
+	}
 	.blog-posts {
 		grid-template-columns: 1fr 1fr;
 	}
