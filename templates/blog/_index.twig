@@ -3,14 +3,16 @@
 {% set postsPerPage = 8 %}
 
 {% set categorySlug = craft.app.request.segments | last %}
-{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
-{% set showAllPosts = categorySlug | length == 0 or categoryEntry.count == 0 %}
+{% set isHomepage = categorySlug | length == 0 %}
 {% set categories = craft.entries.section('category') %}
 
-{% if showAllPosts %}
+{% if isHomepage %}
 	{% set blogQuery = craft.entries.section('blog') %}
 {% else %}
-	{% redirect '/' %}
+	{% if not entry.show %}
+		{% redirect '/' %}
+	{% endif %}
+	{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
 	{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
 {% endif %}
 
@@ -31,7 +33,7 @@
 	{% include '_includes/categories' with { categories: categories } %}
 
 	<div class="container">
-		{% if showAllPosts and pageInfo.currentPage == 1 %}
+		{% if isHomepage and pageInfo.currentPage == 1 %}
 			{% set featured = posts[0] %}
 
 			<h3 class="section-title"><span>Featured Article</span></h3>
@@ -68,12 +70,12 @@
 			</article>
 		{% endif %}
 
-		{% if showAllPosts %}
+		{% if isHomepage %}
 			<h3 class="section-title"><span>Recent Articles</span></h3>
 		{% endif %}
 
 		<div class="blog-posts">
-			{% for blog in (showAllPosts and pageInfo.currentPage == 1 ? posts[1:] : posts) %}
+			{% for blog in (isHomepage and pageInfo.currentPage == 1 ? posts[1:] : posts) %}
 	            <article>
 					<a class="blog-image" href="{{ blog.url }}">
 						{% if blog.blogImage.count %}

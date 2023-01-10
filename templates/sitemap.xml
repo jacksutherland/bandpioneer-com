@@ -28,12 +28,14 @@
    </url>
 
    {% for cat in categories %}
-    <url>
-      <loc>{{ cat.url }}</loc>
-      <lastmod>{{ cat.dateUpdated | date("Y-m-d") }}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.5</priority>
-    </url>
+      {% if cat.show %}
+       <url>
+         <loc>{{ cat.url }}</loc>
+         <lastmod>{{ cat.dateUpdated | date("Y-m-d") }}</lastmod>
+         <changefreq>weekly</changefreq>
+         <priority>0.5</priority>
+       </url>
+      {% endif %}
   {% endfor %}
 
   {% for blog in blogs %}
