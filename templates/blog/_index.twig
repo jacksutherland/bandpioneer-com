@@ -10,6 +10,7 @@
 {% if showAllPosts %}
 	{% set blogQuery = craft.entries.section('blog') %}
 {% else %}
+	{% redirect '/' %}
 	{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
 {% endif %}
 

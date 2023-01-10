@@ -43,7 +43,9 @@
 
 		<div class="related-categories">
 			{% for rc in entry.categories.all() %}
-				<a href="{{ rc.url }}">{{ rc.title }}</a>
+				{% if rc.show %}
+					<a href="{{ rc.url }}">{{ rc.title }}</a>
+				{% endif %}
 			{% endfor %}
 		</div>
 
