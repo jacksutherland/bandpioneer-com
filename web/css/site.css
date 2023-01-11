@@ -865,6 +865,10 @@ article .blog-info ul li {
 article .blog-info ul li a {
   font-size: 0.875rem;
 }
+article .blog-info ul li span {
+  font-size: 0.875rem;
+  color: #0a79a4;
+}
 
 .blog-posts {
   display: grid;

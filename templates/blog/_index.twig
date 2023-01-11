@@ -55,7 +55,8 @@
 					<ul>
 	            		{% for cat in featured.categories.all() %}
 	            			<li>
-	            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+	            				{# <a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %} #}
+	            				<span>{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
 	            			</li>
 	            		{% endfor %}
 	            	</ul>
@@ -85,9 +86,16 @@
 					<div class="blog-info">
 						<ul>
 		            		{% for cat in blog.categories.all() %}
-		            			<li>
-		            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
-		            			</li>
+		            			{% apply spaceless %}
+			            			<li>
+			            				{% if cat.show %}
+			            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+			            				{% else %}
+			            					<span href="{{ cat.url }}">{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+			            				{% endif %}
+			            				
+			            			</li>
+			            		{% endapply %}
 		            		{% endfor %}
 		            	</ul>
 						<h3>

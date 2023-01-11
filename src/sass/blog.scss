@@ -171,6 +171,10 @@ article {
 				a {
 					font-size: $font-size-small;
 				}
+				span {
+					font-size: $font-size-small;
+					color: $link-color;
+				}
 			}
 		}
 	}
