@@ -55,8 +55,11 @@
 					<ul>
 	            		{% for cat in featured.categories.all() %}
 	            			<li>
-	            				{# <a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %} #}
-	            				<span>{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+			            		{% if cat.show %}
+	            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+	            				{% else %}
+	            					<span>{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+	            				{% endif %}
 	            			</li>
 	            		{% endfor %}
 	            	</ul>
