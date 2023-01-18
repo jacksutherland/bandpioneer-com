@@ -170,42 +170,44 @@ a {
 	}
 }
 
+#homepage {
+	header {
+		&.sticky {
+			.logo img {
+				&.logo-alt {
+	    			display: inline;
+	    		}
+	    		&.logo-mark {
+	    			display: none;
+	    		}
+			}
+		}
+
+		.logo {
+			&:hover {
+				img.logo-mark {
+					transform: translate(0, 10px) !important;
+				}
+			}
+			img {
+				&.logo-alt {
+	    			display: none;
+	    		}
+	    		&.logo-mark {
+	    			display: inline;
+	    		}
+	    	}
+		}
+	}
+}
+
 header {
 	padding: 10px 0;
 
-	// @keyframes floating {
-	// 	0% { transform: translate(0, 0); }
-	// 	50%  { transform: translate(0, 4px);}
-	// 	100%   { transform: translate(0, 0); }   
-	// }
-
-	&.sticky {
-		.logo img {
-			&.logo-alt {
-    			display: inline;
-    		}
-    		&.logo-mark {
-    			display: none;
-    		}
-		}
-	}
-
 	.logo {
-		&:hover {
-			img.logo-mark {
-				transform: translate(0, 10px) !important;
-			}
-		}
 		img {
 			&.logo-alt {
-    			display: none;
-    		}
-    		&.logo-mark {
     			display: inline;
-    			// animation-name: floating;
-			    // animation-duration: 3s;
-			    // animation-iteration-count: infinite;
-			    // animation-timing-function: ease-in-out;
     		}
     	}
 	}

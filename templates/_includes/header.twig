@@ -3,8 +3,10 @@
 <header>
     <div class="container">
         <a href="/" class="logo">
-            <img class="logo-alt" src="{{ entry.section.handle == 'homepage' ? url('assets/images/bp-mark.png') : url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" />
-            <img class="logo-mark" src="{{ url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+            <img class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+            {% if entry.section.handle == 'homepage' %}
+                <img class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+            {% endif %}
         </a>
         <a id="open-menu" href="/" class="bars">
             {% include '_includes/icons' with { type: 'bars' } %}

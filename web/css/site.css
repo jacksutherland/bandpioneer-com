@@ -150,22 +150,26 @@ a.underline:hover:after {
     top: 0;
   }
 }
+#homepage header.sticky .logo img.logo-alt {
+  display: inline;
+}
+#homepage header.sticky .logo img.logo-mark {
+  display: none;
+}
+#homepage header .logo:hover img.logo-mark {
+  transform: translate(0, 10px) !important;
+}
+#homepage header .logo img.logo-alt {
+  display: none;
+}
+#homepage header .logo img.logo-mark {
+  display: inline;
+}
+
 header {
   padding: 10px 0;
 }
-header.sticky .logo img.logo-alt {
-  display: inline;
-}
-header.sticky .logo img.logo-mark {
-  display: none;
-}
-header .logo:hover img.logo-mark {
-  transform: translate(0, 10px) !important;
-}
 header .logo img.logo-alt {
-  display: none;
-}
-header .logo img.logo-mark {
   display: inline;
 }
 header .container {
