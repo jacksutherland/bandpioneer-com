@@ -1,4 +1,4 @@
-dateModified: 1673999865
+dateModified: 1674066601
 elementSources:
   craft\elements\Entry:
     -
@@ -99,6 +99,7 @@ meta:
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
     04623371-fa0e-4ff7-84f9-93dcf4e31080: Category # Category
+    6025339c-6b5a-4573-bfec-83f93d0f041a: Percent
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
