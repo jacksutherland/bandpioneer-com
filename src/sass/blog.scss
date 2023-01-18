@@ -294,10 +294,14 @@ article {
 				margin-top: -20px;
 			}
 
-			ul {
+			ul, ol {
 				list-style: disc;
 			    list-style-position: outside;
 			    margin-left: 32px;
+
+			    li {
+			    	line-height: 1.5rem;
+			    }
 			}
 		}
 

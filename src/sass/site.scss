@@ -29,13 +29,16 @@ body {
 	margin-right: auto;
 }
 
-ul {
-	list-style: none;
+ul, ol {
 	margin: 0;
 	padding: 0;
 	li {
 		margin: 10px 0;
 	}
+}
+
+ul {
+	list-style: none;
 }
 
 h1, .section-title {
