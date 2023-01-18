@@ -1,4 +1,4 @@
-dateModified: 1674066601
+dateModified: 1674067048
 elementSources:
   craft\elements\Entry:
     -
@@ -99,7 +99,7 @@ meta:
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
     04623371-fa0e-4ff7-84f9-93dcf4e31080: Category # Category
-    6025339c-6b5a-4573-bfec-83f93d0f041a: Percent
+    6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
@@ -111,7 +111,7 @@ meta:
     d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default
     de2bb280-3465-478f-a8b2-bb03f3c7be35: Caption # Caption
-    e0270692-1ca3-4ba6-8d52-cfca54ac634a: Smaller # Smaller
+    e0270692-1ca3-4ba6-8d52-cfca54ac634a: Size # Smaller
     e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage

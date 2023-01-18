@@ -34,7 +34,7 @@ fieldLayouts:
             fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Smaller
             instructions: null
             label: null
-            required: false
+            required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 8abe46ae-628c-4f71-9268-d707f5ab4d34
@@ -190,19 +190,25 @@ fields:
     type: craft\fields\Dropdown
   e0270692-1ca3-4ba6-8d52-cfca54ac634a: # Smaller
     columnSuffix: ncvbdlpf
-    contentColumnType: boolean
+    contentColumnType: smallint(3)
     fieldGroup: null
-    handle: smaller
+    handle: size
     instructions: null
-    name: Smaller
+    name: Size
     searchable: false
     settings:
-      default: false
-      offLabel: null
-      onLabel: null
+      decimals: 0
+      defaultValue: 100
+      max: 100
+      min: 1
+      prefix: null
+      previewCurrency: null
+      previewFormat: decimal
+      size: null
+      suffix: '%'
     translationKeyFormat: null
     translationMethod: none
-    type: craft\fields\Lightswitch
+    type: craft\fields\Number
 handle: image
 name: Image
 sortOrder: 3
