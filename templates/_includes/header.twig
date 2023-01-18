@@ -3,7 +3,7 @@
 <header>
     <div class="container">
         <a href="/" class="logo">
-            <img class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" />
+            <img class="logo-alt" src="{{ entry.section.handle == 'category' ? url('assets/images/bp-mark.png') : url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" />
             <img class="logo-mark" src="{{ url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" />
         </a>
         <a id="open-menu" href="/" class="bars">
