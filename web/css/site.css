@@ -609,9 +609,6 @@ form.contact-form .errors {
   .container.page {
     margin: 70px auto;
   }
-  figure.image.smaller {
-    width: 65%;
-  }
   header .container .bars {
     display: none;
   }

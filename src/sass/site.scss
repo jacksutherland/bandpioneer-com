@@ -718,13 +718,13 @@ form {
 	.container.page {
 		margin: $page-vertical-margin auto;
 	}
-	figure {
-		&.image {
-			&.smaller {
-				width: 65%;
-			}
-		}
-	}
+	// figure {
+	// 	&.image {
+	// 		&.smaller {
+	// 			width: 65%;
+	// 		}
+	// 	}
+	// }
 	header {
 		.container {
 			.bars {
