@@ -1,4 +1,4 @@
-dateModified: 1674067048
+dateModified: 1674251221
 elementSources:
   craft\elements\Entry:
     -
@@ -36,6 +36,7 @@ elementSources:
         - 'field:80a9c5e0-fb80-420c-a7df-676f56ac600d' # Blog Image
         - dateUpdated
         - postDate
+        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # SEO Indexed
         - link
       type: native
     -
@@ -81,6 +82,7 @@ meta:
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
     09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
+    9fb102dd-839a-4229-82ce-229ed6669f92: Indexed # SEO Indexed
     16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
@@ -111,7 +113,7 @@ meta:
     d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default
     de2bb280-3465-478f-a8b2-bb03f3c7be35: Caption # Caption
-    e0270692-1ca3-4ba6-8d52-cfca54ac634a: Size # Smaller
+    e0270692-1ca3-4ba6-8d52-cfca54ac634a: Size # Size
     e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
