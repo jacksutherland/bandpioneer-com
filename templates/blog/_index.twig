@@ -102,7 +102,7 @@
 		            	</ul>
 						<h3>
 							<a href="{{ blog.url }}">
-								{{ blog.title ~ (blog.subheadline | length ? ' - '  ~ blog.subheadline : '') }}
+								{{ blog.title ~ (blog.subheadline | length > 8 ? ' - '  ~ blog.subheadline : '') }}
 							</a>
 						</h3>
 						
