@@ -878,6 +878,7 @@ article .blog-info ul li span {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
+  margin-top: 40px;
 }
 .blog-posts article {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);

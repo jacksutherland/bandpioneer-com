@@ -65,7 +65,9 @@
 	            	</ul>
 					<div class="hide-md">
 						<h3>
-							{{ featured.title ~ (featured.subheadline | length ? ' '  ~ featured.subheadline : '') }}
+							<a href="{{ featured.url }}">
+								{{ featured.title ~ (featured.subheadline | length ? ' '  ~ featured.subheadline : '') }}
+							</a>
 						</h3>
 						{% include '_includes/author' with { blog: featured } %}
 						<p>{{ featured.shortDescription }}</p>
