@@ -29,6 +29,13 @@ body {
 	margin-right: auto;
 }
 
+.text-center {
+	text-align: center;
+}
+.text-dark-blue {
+	color: $primary-dark;
+}
+
 ul, ol {
 	margin: 0;
 	padding: 0;
@@ -323,7 +330,7 @@ header.sticky {
 	overflow: auto;
 	display: grid;
 
-	h1 {
+	h1, h2 {
 		color: $primary-color;
 		text-align: center;
 		align-self: start;
@@ -585,6 +592,12 @@ figure {
 	}
 }
 
+.btn {
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+}
+
 button,
 input[type="submit"],
 .btn {
@@ -603,6 +616,7 @@ input[type="submit"],
 
 	&:hover {
 		background-color: $secondary-color;
+		color: $white;
 	}
 }
 

@@ -28,6 +28,14 @@ body footer {
   margin-right: auto;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-dark-blue {
+  color: #131b28;
+}
+
 ul, ol {
   margin: 0;
   padding: 0;
@@ -261,7 +269,7 @@ header.sticky {
   overflow: auto;
   display: grid;
 }
-.page-header h1 {
+.page-header h1, .page-header h2 {
   color: #45adda;
   text-align: center;
   align-self: start;
@@ -503,6 +511,12 @@ figure figcaption {
   background-position: center center;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
 button,
 input[type=submit],
 .btn {
@@ -524,6 +538,7 @@ button:hover,
 input[type=submit]:hover,
 .btn:hover {
   background-color: #f90215;
+  color: #FFFFFF;
 }
 
 form input:not([name=q]),

@@ -110,6 +110,9 @@
                 {% include '_includes/header' %}
                 {% if pageTitle is defined and pageTitle | length %}
                     <h1>{{ pageTitle }}</h1>
+                    {% if pageSubtitle is defined and pageSubtitle | length %}
+                        <h2>{{ pageSubtitle }}</h2>
+                    {% endif %}
                 {% elseif entry.section.handle == 'homepage' %}
                     <img class="main-logo" src="/assets/images/bp-logo.png">
                 {% endif %}
