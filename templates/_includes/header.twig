@@ -23,9 +23,11 @@
                 <li><a class="underline" href="/privacy" title="Privacy Policy">Privacy</a></li>
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% for cat in categories.all() %}
-                    <li class="hide-md">
-                        <a class="underline" href="{{ cat.url }}">{{ cat.title }}</a>
-                    </li>
+                    {% if cat.show %}
+                        <li class="hide-md">
+                            <a class="underline" href="{{ cat.url }}">{{ cat.title }}</a>
+                        </li>
+                    {% endif %}
                 {% endfor %}
                 <li class="display-md">
                     <form method="get" action="/search">
