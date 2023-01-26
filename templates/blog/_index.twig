@@ -78,6 +78,12 @@
 
 		{% if isHomepage %}
 			<h3 class="section-title"><span>Recent Articles</span></h3>
+		{% elseif entry.shortDescription | length > 0 %}
+			<div class="page container">
+				<div class="narrow-container text-center">
+					<h4>{{ entry.shortDescription }}</h4>
+				</div>
+			</div>
 		{% endif %}
 
 		<div class="blog-posts">
