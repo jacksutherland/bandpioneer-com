@@ -248,9 +248,11 @@ header {
 			top: 0;
 			right: 0;
 			text-align: right;
-			padding: 20px;
+			padding: 20px 28px;
 			background-color: $primary-dark-lighter;
+			// background-color: $light-gray;
 			border-radius: 0 0 0 $small-border-radius;
+			// box-shadow: $medium-shadow;
 			display: none;
 
 			&.show {
@@ -277,8 +279,62 @@ header {
 			ul {
 			    li {
 			    	margin: 15px 0;
+
+			    	&.dropdown-menu {
+			    		position: relative;
+			    		a {
+			    			svg {
+			    				width: 12px;
+			    			}
+			    		}
+			    		ul {
+			    			display: none;
+			    			position: absolute;
+							top: 35px;
+						    left: 50%;
+						    transform: translateX(-50%);
+							text-align: center;
+							padding: 15px 20px;
+							background-color: $alternate-color;
+							border-radius: $small-border-radius;
+							box-shadow: $medium-shadow;
+
+							&.show {
+								display: block;
+							}
+
+							&:before {
+								content: " ";
+								display: block;
+								width: 0;
+								height: 0;
+								border: 10px solid transparent;
+								border-top: 0;
+								border-bottom: 10px solid #0a79a4;
+								position: absolute;
+								top: -9px;
+								left: 50%;
+								transform: translateX(-50%);
+							}
+
+							li {
+								margin: 10px 0;
+								a {
+									white-space: nowrap;
+									// &:after {
+									// 	background-color: $primary-color;
+									// }
+								}
+							}
+			    		}
+			    	}
+
 			    	a {
 			    		color: $white;
+
+			    		svg {
+			    			vertical-align: text-top;
+			    		}
 			    	}
 			    }
 			}
@@ -327,7 +383,7 @@ header.sticky {
 .page-header {
 	background-color: $primary-dark;
 	height: $page-header-height; 
-	overflow: auto;
+	// overflow: auto;
 	display: grid;
 
 	h1, h2 {
@@ -365,6 +421,11 @@ footer {
 
 	    	ul {
 	    		text-align: center;
+
+	    		&.blog-categories {
+	    			margin-top: 18px;
+	    		}
+
 	    		li {
 	    			display: inline;
 	    			margin: 0 10px;
@@ -375,6 +436,7 @@ footer {
 	    				font-size: $font-size-small;
 					    text-transform: uppercase;
 					    font-weight: $semi-bold;
+					    white-space: nowrap;
 
 				    	&:after {
 				    		background-color: $primary-color;
@@ -392,6 +454,10 @@ footer {
 			    	text-align: center;
 			    	display: block;
 			    	margin: 25px 0 0 0;
+
+			    	&:not(:first-child) {
+			    		margin: 6px 0 0 0;
+			    	}
 			    }
 	    	}
 	    }
@@ -709,6 +775,9 @@ form {
 
 @media (max-width: $breakpoint-md) {
 	.display-md {
+		display: none !important;
+	}
+	.hide-mobile {
 		display: none !important;
 	}
 }

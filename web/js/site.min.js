@@ -85,9 +85,45 @@ let BandPioneer = {
 		addMenuEvents()
 		{
 			let menu = document.querySelector('#main-menu');
+			let childMenus = menu.querySelectorAll('.dropdown-menu');
 			let open = document.querySelector('#open-menu');
 			let close = document.querySelector('#close-menu');
 			let categories = document.querySelectorAll('.categories nav ul li a');
+
+			BandPioneer.each(childMenus, function()
+			{
+				this.querySelector('a').addEventListener('click', function(e)
+				{
+					e.preventDefault();
+
+					let dropdown = this.nextElementSibling;
+
+					let dropdownListener = function(e)
+					{
+						if(e.target === dropdown && e.type === 'click')
+						{
+							return false;
+						}
+
+						this.classList.remove('show');
+						this.removeEventListener('mouseleave', dropdownListener);
+						document.body.removeEventListener('click', dropdownListener, true); 
+					}.bind(dropdown);
+
+					if(dropdown.classList.contains('show'))
+					{
+						dropdown.classList.remove('show');
+						dropdown.removeEventListener('mouseleave', dropdownListener);
+						document.body.removeEventListener('click', dropdownListener, true); 
+					}
+					else
+					{
+						dropdown.classList.add('show');
+						dropdown.addEventListener('mouseleave', dropdownListener);
+						document.body.addEventListener('click', dropdownListener, true); 
+					}
+				});
+			});
 
 			open.addEventListener('click', function(e)
 			{

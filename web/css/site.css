@@ -204,7 +204,7 @@ header .container nav.main-menu {
   top: 0;
   right: 0;
   text-align: right;
-  padding: 20px;
+  padding: 20px 28px;
   background-color: #23324b;
   border-radius: 0 0 0 4px;
   display: none;
@@ -227,8 +227,51 @@ header .container nav.main-menu .close-menu svg {
 header .container nav.main-menu ul li {
   margin: 15px 0;
 }
+header .container nav.main-menu ul li.dropdown-menu {
+  position: relative;
+}
+header .container nav.main-menu ul li.dropdown-menu a svg {
+  width: 12px;
+}
+header .container nav.main-menu ul li.dropdown-menu ul {
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 15px 20px;
+  background-color: #0a79a4;
+  border-radius: 4px;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+header .container nav.main-menu ul li.dropdown-menu ul.show {
+  display: block;
+}
+header .container nav.main-menu ul li.dropdown-menu ul:before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top: 0;
+  border-bottom: 10px solid #0a79a4;
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+header .container nav.main-menu ul li.dropdown-menu ul li {
+  margin: 10px 0;
+}
+header .container nav.main-menu ul li.dropdown-menu ul li a {
+  white-space: nowrap;
+}
 header .container nav.main-menu ul li a {
   color: #FFFFFF;
+}
+header .container nav.main-menu ul li a svg {
+  vertical-align: text-top;
 }
 header .reading-time {
   background-color: #e7ebec;
@@ -266,7 +309,6 @@ header.sticky {
 .page-header {
   background-color: #131b28;
   height: 200px;
-  overflow: auto;
   display: grid;
 }
 .page-header h1, .page-header h2 {
@@ -302,6 +344,9 @@ footer .container nav {
 footer .container nav ul {
   text-align: center;
 }
+footer .container nav ul.blog-categories {
+  margin-top: 18px;
+}
 footer .container nav ul li {
   display: inline;
   margin: 0 10px;
@@ -312,6 +357,7 @@ footer .container nav ul li a {
   font-size: 0.875rem;
   text-transform: uppercase;
   font-weight: 600;
+  white-space: nowrap;
 }
 footer .container nav ul li a:after {
   background-color: #45adda;
@@ -325,6 +371,9 @@ footer .container nav .copyright li {
   text-align: center;
   display: block;
   margin: 25px 0 0 0;
+}
+footer .container nav .copyright li:not(:first-child) {
+  margin: 6px 0 0 0;
 }
 
 .pagination {
@@ -610,6 +659,9 @@ form.contact-form .errors {
 }
 @media (max-width: 768px) {
   .display-md {
+    display: none !important;
+  }
+  .hide-mobile {
     display: none !important;
   }
 }
