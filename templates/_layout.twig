@@ -2,6 +2,7 @@
     {% redirect '/scam' %}
 {% endif %} #}
 
+{% set versionNumber = '1.0' %}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
@@ -86,7 +87,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
 
         {% block styles %}
-            <link rel="stylesheet" href="{{ url('css/site.css') }}" /> 
+            <link rel="stylesheet" href="{{ url('css/site.css') }}?version={{ versionNumber }}" /> 
         {% endblock %}
 
         {% endapply %}
@@ -154,7 +155,7 @@
 
         {% endapply %}
         
-        <script src="{{ url('js/site.min.js') }}"></script>
+        <script src="{{ url('js/site.min.js') }}?version={{ versionNumber }}"></script>
         <script>
             new BandPioneer.Site('temp var val');
         </script>
