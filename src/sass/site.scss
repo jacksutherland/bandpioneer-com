@@ -170,13 +170,15 @@ a {
 }
 
 section {
-	&.description {
-		padding: 10px 0;
+	&.content-container {
+		background-color: $light-gray;
+		padding: 30px 40px;
+		// box-shadow: $small-shadow;
+		border-radius: $small-border-radius;
 		text-align: center;
 		h2, h3, h4 {
 			text-transform: capitalize;
 			color: $alternate-color;
-			margin-bottom: 20px;
 		}
 	}
 }
@@ -821,6 +823,13 @@ form {
 	.container.page {
 		margin: $page-vertical-margin auto;
 	}
+	// figure {
+	// 	&.image {
+	// 		&.smaller {
+	// 			width: 65%;
+	// 		}
+	// 	}
+	// }
 	header {
 		.container {
 			.bars {
@@ -933,40 +942,6 @@ form {
 	#homepage {
 		.page-header {
 			height: 700px;
-		}
-	}
-	section {
-		&.description {
-			padding: 10px 0;
-			// text-align: center;
-			h2, h3, h4 {
-				position: relative;
-
-				&:before,
-				&:after  {
-					background-color: $light-gray;
-				    content: "";
-				    display: block;
-				    position: absolute;
-				    z-index: -1;
-				    top: 50%;
-				    transform: translateY(-50%);
-				    width: 48%;
-		   			height: 4px;
-				}
-				&:before {
-					left: 0;
-				}
-				&:after {
-				    left: 50%;
-				}
-
-				span {
-					background-color: $white;
-					padding: 0 15px;
-				}
-			
-			}
 		}
 	}
 	footer {

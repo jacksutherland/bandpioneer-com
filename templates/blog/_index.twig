@@ -80,22 +80,14 @@
 			<h3 class="section-title"><span>Recent Articles</span></h3>
 		{% elseif entry.headline | length > 0 or entry.shortDescription | length > 0 %}
 			<div class="page container">
-				<section class="description">
+				<section class="content-container">
 					{% if entry.headline | length > 0 %}
-						<h2><span>{{ entry.headline }}</span></h2>
+						<h2>{{ entry.headline }}</h2>
 					{% endif %}
 					{% if entry.shortDescription | length > 0 %}
 						<p>{{ entry.shortDescription }}</p>
 					{% endif %}
 				</section>
-				{# <div class="table-of-contents">
-					{% if entry.headline | length > 0 %}
-						<h3 class="section-title"><span>{{ entry.headline }}</span></h3>
-					{% endif %}
-					{% if entry.shortDescription | length > 0 %}
-						<p>{{ entry.shortDescription }}</p>
-					{% endif %}
-				</div> #}
 			</div>
 		{% endif %}
 

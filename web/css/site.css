@@ -150,14 +150,15 @@ a.underline:hover:after {
   height: 100%;
 }
 
-section.description {
-  padding: 10px 0;
+section.content-container {
+  background-color: #e7ebec;
+  padding: 30px 40px;
+  border-radius: 4px;
   text-align: center;
 }
-section.description h2, section.description h3, section.description h4 {
+section.content-container h2, section.content-container h3, section.content-container h4 {
   text-transform: capitalize;
   color: #0a79a4;
-  margin-bottom: 20px;
 }
 
 @keyframes slide-down-header {
@@ -783,33 +784,6 @@ form.contact-form .errors {
 @media (min-width: 992px) {
   #homepage .page-header {
     height: 700px;
-  }
-  section.description {
-    padding: 10px 0;
-  }
-  section.description h2, section.description h3, section.description h4 {
-    position: relative;
-  }
-  section.description h2:before, section.description h2:after, section.description h3:before, section.description h3:after, section.description h4:before, section.description h4:after {
-    background-color: #e7ebec;
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48%;
-    height: 4px;
-  }
-  section.description h2:before, section.description h3:before, section.description h4:before {
-    left: 0;
-  }
-  section.description h2:after, section.description h3:after, section.description h4:after {
-    left: 50%;
-  }
-  section.description h2 span, section.description h3 span, section.description h4 span {
-    background-color: #FFFFFF;
-    padding: 0 15px;
   }
   footer .container {
     grid-template-columns: 200px 1fr;
