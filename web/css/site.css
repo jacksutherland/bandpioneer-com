@@ -349,7 +349,6 @@ footer .container nav {
 }
 footer .container nav ul {
   text-align: center;
-  white-space: break-spaces;
 }
 footer .container nav ul.blog-categories {
   margin-top: 18px;
@@ -358,14 +357,12 @@ footer .container nav ul li {
   display: inline;
   margin: 0 10px;
   text-align: center;
-  white-space: break-spaces;
 }
 footer .container nav ul li a {
   color: #FFFFFF !important;
   font-size: 0.875rem;
   text-transform: uppercase;
   font-weight: 600;
-  white-space: nowrap;
 }
 footer .container nav ul li a:after {
   background-color: #45adda;
