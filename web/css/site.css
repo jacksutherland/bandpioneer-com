@@ -345,7 +345,7 @@ footer .container {
 footer .container nav {
   align-self: center;
   text-align: right;
-  margin: 25px 30px 0 30px;
+  margin: 25px 30px 0 10px;
 }
 footer .container nav ul {
   text-align: center;
@@ -363,7 +363,6 @@ footer .container nav ul li a {
   font-size: 0.875rem;
   text-transform: uppercase;
   font-weight: 600;
-  white-space: nowrap;
 }
 footer .container nav ul li a:after {
   background-color: #45adda;
