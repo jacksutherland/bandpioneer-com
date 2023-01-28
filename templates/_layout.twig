@@ -104,7 +104,7 @@
 
         {% apply spaceless %}
 
-        {% if fixedHeader %}
+        {# {% if fixedHeader %}
             {% include '_includes/header' %}
         {% else %}
             <div class="page-header">
@@ -118,14 +118,14 @@
                     <img class="main-logo" src="/assets/images/bp-logo.png">
                 {% endif %}
             </div>
-        {% endif %}
+        {% endif %} #}
         
-        {# <main>
+        <main>
             {% block content %}
             {% endblock %}
-        </main> #}
+        </main>
 
-        <footer>
+        {# <footer>
             <div class="container">
                 <a href="/" class="logo">
                     <img src="{{ url('assets/images/bp-logo.png') }}" alt="Band Pioneer" title="Band Pioneer" />
@@ -150,7 +150,7 @@
                     </ul>
                 </nav>
             </div>
-        </footer>
+        </footer> #}
 
         {% endapply %}
         
