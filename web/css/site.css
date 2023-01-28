@@ -785,7 +785,7 @@ form.contact-form .errors {
     height: 700px;
   }
   section.description {
-    padding: 10px 5%;
+    padding: 1px 5% 8px 5%;
   }
   section.description h2, section.description h3, section.description h4 {
     position: relative;
