@@ -363,7 +363,6 @@ footer .container nav ul li a {
   font-size: 0.875rem;
   text-transform: uppercase;
   font-weight: 600;
-  white-space: nowrap;
 }
 footer .container nav ul li a:after {
   background-color: #45adda;
