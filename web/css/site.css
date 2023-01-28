@@ -600,7 +600,8 @@ figure figcaption {
   margin: 0 0 -110px 0;
 }
 #homepage section.bands .band-carousel .band-slider .slide img {
-  height: 150px;
+  height: 200px;
+  filter: grayscale(100%) brightness(1.1) contrast(0.9);
 }
 
 .category .page-header {
