@@ -12,7 +12,6 @@ body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.01rem;
   height: 100%;
-  display: grid;
 }
 body footer {
   align-self: end;
@@ -154,10 +153,39 @@ section.description {
   padding: 10px 0;
   text-align: center;
 }
-section.description h2, section.description h3, section.description h4 {
+section.description h2, section.description h3 {
   text-transform: capitalize;
   color: #0a79a4;
   margin-bottom: 20px;
+}
+section.bands .band-carousel {
+  padding: 12px 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+section.bands .band-carousel .band-slider {
+  position: relative;
+}
+section.bands .band-carousel .band-slider .slide {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  padding: 0 6px;
+}
+section.bands .band-carousel .band-slider .slide img {
+  height: 200px;
+  width: auto;
+  border-radius: 2px;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  border: solid 5px #FFFFFF;
+}
+
+#about section.bands {
+  margin: -50px 0 0 0;
+}
+#about section.bands .band-carousel {
+  padding: 30px 0;
 }
 
 @keyframes slide-down-header {
@@ -253,7 +281,7 @@ header .container nav.main-menu ul li.dropdown-menu ul {
   padding: 15px 20px;
   background-color: #0a79a4;
   border-radius: 4px;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 header .container nav.main-menu ul li.dropdown-menu ul.show {
   display: block;
@@ -316,7 +344,7 @@ header.sticky {
   left: 0;
   width: 100%;
   background-color: #131b28;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   animation-name: slide-down-header;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
@@ -568,6 +596,12 @@ figure figcaption {
 #homepage .page-header:after {
   background-color: rgba(0, 0, 0, 0.25);
 }
+#homepage section.bands {
+  margin: 0 0 -110px 0;
+}
+#homepage section.bands .band-carousel .band-slider .slide img {
+  height: 150px;
+}
 
 .category .page-header {
   height: 350px;
@@ -779,6 +813,9 @@ form.contact-form .errors {
   form.contact-form .errors {
     align-self: center;
   }
+  body:not(#homepage) section.bands .band-carousel .band-slider .slide img {
+    height: 300px;
+  }
 }
 @media (min-width: 992px) {
   #homepage .page-header {
@@ -787,10 +824,10 @@ form.contact-form .errors {
   section.description {
     padding: 1px 5% 8px 5%;
   }
-  section.description h2, section.description h3, section.description h4 {
+  section.description h2, section.description h3 {
     position: relative;
   }
-  section.description h2:before, section.description h2:after, section.description h3:before, section.description h3:after, section.description h4:before, section.description h4:after {
+  section.description h2:before, section.description h2:after, section.description h3:before, section.description h3:after {
     background-color: #e7ebec;
     content: "";
     display: block;
@@ -801,13 +838,13 @@ form.contact-form .errors {
     width: 48%;
     height: 4px;
   }
-  section.description h2:before, section.description h3:before, section.description h4:before {
+  section.description h2:before, section.description h3:before {
     left: 0;
   }
-  section.description h2:after, section.description h3:after, section.description h4:after {
+  section.description h2:after, section.description h3:after {
     left: 50%;
   }
-  section.description h2 span, section.description h3 span, section.description h4 span {
+  section.description h2 span, section.description h3 span {
     background-color: #FFFFFF;
     padding: 0 16px;
   }
@@ -1009,7 +1046,7 @@ article .blog-info ul li span {
 }
 .blog .featured-image {
   width: 100%;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 }
 .blog .table-of-contents {

@@ -110,7 +110,7 @@ fields:
       minRelations: 1
       previewMode: full
       restrictFiles: true
-      restrictLocation: true
+      restrictLocation: false
       restrictedDefaultUploadSubpath: null
       restrictedLocationSource: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
       restrictedLocationSubpath: null
@@ -130,8 +130,7 @@ fields:
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       source: null
-      sources:
-        - 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
+      sources: '*'
       targetSiteId: null
       validateRelatedElements: false
       viewMode: list

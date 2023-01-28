@@ -157,7 +157,7 @@
         
         <script src="{{ url('js/site.min.js') }}?version={{ versionNumber }}"></script>
         <script>
-            new BandPioneer.Site('temp var val');
+            var bp = new BandPioneer.Site();
         </script>
         {% block scripts %}{% endblock %}
 

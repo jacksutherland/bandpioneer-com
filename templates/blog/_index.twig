@@ -28,6 +28,17 @@
 	{% set pageTitle = entry.title %}
 {% endif %}
 
+{% block scripts %}
+	{% if isHomepage %}
+		<script type="text/javascript">
+			if (typeof(bp) === 'object')
+			{
+				bp.createBandCarousels();
+			}
+		</script>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
 
 	{% include '_includes/categories' with { categories: categories } %}
@@ -85,7 +96,9 @@
 						<h2><span>{{ entry.headline }}</span></h2>
 					{% endif %}
 					{% if entry.shortDescription | length > 0 %}
-						<p>{{ entry.shortDescription }}</p>
+						<div class="narrow-container">
+							<h4>{{ entry.shortDescription }}</h4>
+						</div>
 					{% endif %}
 				</section>
 			</div>
@@ -132,6 +145,10 @@
 		<div class="container">
 	    	{% include '_includes/pagination' %}
 	    </div>
+	{% endif %}
+
+	{% if isHomepage %}
+		{% include '_includes/band-carousel' %}
 	{% endif %}
 
 {% endblock %}
