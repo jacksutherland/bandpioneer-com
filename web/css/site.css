@@ -3,6 +3,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 body {
@@ -205,7 +206,7 @@ header .container nav.main-menu {
   right: 0;
   text-align: right;
   padding: 20px 28px;
-  background-color: #23324b;
+  background-color: #0a79a4;
   border-radius: 0 0 0 4px;
   display: none;
 }
@@ -269,6 +270,12 @@ header .container nav.main-menu ul li.dropdown-menu ul li a {
 }
 header .container nav.main-menu ul li a {
   color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+header .container nav.main-menu ul li a:after {
+  background-color: #45adda;
 }
 header .container nav.main-menu ul li a svg {
   vertical-align: text-top;

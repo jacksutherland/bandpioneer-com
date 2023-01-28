@@ -3,6 +3,7 @@ html {
 	font-size: 16px;
 	scroll-behavior: smooth;
 	height: 100vh;
+	overflow-x: hidden;
 }
 
 body {
@@ -249,8 +250,8 @@ header {
 			right: 0;
 			text-align: right;
 			padding: 20px 28px;
-			background-color: $primary-dark-lighter;
-			// background-color: $light-gray;
+			// background-color: $primary-dark-lighter;
+			background-color: $alternate-color;
 			border-radius: 0 0 0 $small-border-radius;
 			// box-shadow: $medium-shadow;
 			display: none;
@@ -321,9 +322,6 @@ header {
 								margin: 10px 0;
 								a {
 									white-space: nowrap;
-									// &:after {
-									// 	background-color: $primary-color;
-									// }
 								}
 							}
 			    		}
@@ -331,7 +329,12 @@ header {
 
 			    	a {
 			    		color: $white;
-
+			    		text-transform: uppercase;
+			    		font-size: $font-size-small;
+			    		font-weight: $semi-bold;
+			    		&:after {
+							background-color: $primary-color;
+						}
 			    		svg {
 			    			vertical-align: text-top;
 			    		}
