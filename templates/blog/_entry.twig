@@ -44,7 +44,7 @@
 		<div class="related-categories">
 			{% for rc in entry.categories.all() %}
 				{% if rc.show %}
-					<a href="{{ rc.url }}">{{ rc.title }}</a>
+					<a href="{{ rc.url }}">More {{ rc.title }}</a>
 				{% endif %}
 			{% endfor %}
 		</div>
