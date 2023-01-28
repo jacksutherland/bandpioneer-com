@@ -3,7 +3,6 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   height: 100vh;
-  overflow-x: hidden;
 }
 
 body {
@@ -14,7 +13,6 @@ body {
   letter-spacing: 0.01rem;
   height: 100%;
   display: grid;
-  overflow-x: hidden;
 }
 body footer {
   align-self: end;
