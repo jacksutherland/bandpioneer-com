@@ -419,7 +419,7 @@ footer {
 	    nav {
 	    	align-self: center;
 	    	text-align: right;
-	    	margin: 25px 0 0 0;
+	    	margin: 25px 30px 0 30px;
 
 	    	ul {
 	    		text-align: center;
@@ -438,7 +438,7 @@ footer {
 	    				font-size: $font-size-small;
 					    text-transform: uppercase;
 					    font-weight: $semi-bold;
-					    // white-space: nowrap;
+					    white-space: nowrap;
 
 				    	&:after {
 				    		background-color: $primary-color;
