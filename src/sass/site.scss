@@ -423,6 +423,7 @@ footer {
 
 	    	ul {
 	    		text-align: center;
+	    		white-space: break-spaces;
 
 	    		&.blog-categories {
 	    			margin-top: 18px;
@@ -432,13 +433,14 @@ footer {
 	    			display: inline;
 	    			margin: 0 10px;
 	    			text-align: center;
+	    			white-space: break-spaces;
 
 	    			a {
 	    				color: $white !important;
 	    				font-size: $font-size-small;
 					    text-transform: uppercase;
 					    font-weight: $semi-bold;
-					    // white-space: nowrap;
+					    white-space: nowrap;
 
 				    	&:after {
 				    		background-color: $primary-color;
