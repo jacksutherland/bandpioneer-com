@@ -44,9 +44,21 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
+            fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
+            instructions: null
+            label: 'Description Headline'
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3a879e4b-10da-4528-b595-0d878c19bc75
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
             fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
             instructions: null
-            label: null
+            label: 'Description Text'
             required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField

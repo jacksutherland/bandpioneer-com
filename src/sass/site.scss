@@ -146,6 +146,7 @@ a {
 	}
 }
 
+
 .container {
 	max-width: $site-width;
 	margin: 0 $mobile-gutter-width;
@@ -165,6 +166,20 @@ a {
 	height: $header-logo-height;
 	img {
 		height: 100%;
+	}
+}
+
+section {
+	&.content-container {
+		background-color: $light-gray;
+		padding: 30px 40px;
+		// box-shadow: $small-shadow;
+		border-radius: $small-border-radius;
+		text-align: center;
+		h2, h3, h4 {
+			text-transform: capitalize;
+			color: $alternate-color;
+		}
 	}
 }
 

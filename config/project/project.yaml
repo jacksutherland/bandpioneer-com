@@ -1,4 +1,4 @@
-dateModified: 1674251221
+dateModified: 1674878456
 elementSources:
   craft\elements\Entry:
     -
@@ -32,11 +32,11 @@ elementSources:
       disabled: false
       key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
       tableAttributes:
+        - 'field:7338fd63-9ce2-4696-a9b3-113b5d6015c3' # Subheadline
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
-        - 'field:80a9c5e0-fb80-420c-a7df-676f56ac600d' # Blog Image
-        - dateUpdated
+        - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
-        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # SEO Indexed
+        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Indexed
         - link
       type: native
     -
@@ -82,7 +82,7 @@ meta:
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
     09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
-    9fb102dd-839a-4229-82ce-229ed6669f92: Indexed # SEO Indexed
+    9fb102dd-839a-4229-82ce-229ed6669f92: Indexed # Indexed
     16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
@@ -118,6 +118,7 @@ meta:
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
+    ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline
     ee13e705-afd8-41c1-a111-b472a62a15f2: Headline # Headline
     f0b910e3-c8e6-448c-b884-50e6ab61d4da: 'Writer Pictures' # Writer Pictures
     f56dcf7f-956d-4a14-b4e8-8bfd842d5b72: 'Embed Code' # Embed Code
