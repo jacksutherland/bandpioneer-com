@@ -5,7 +5,7 @@
 			<div class="band-slider">
 				{% for band in bands.all() %}
 					<div class="slide">
-						<img loading="eager" src="{{ band.bandImage.one().url('bandCarousel') }}" width="{{ band.bandImage.one().width('bandCarousel') }}" height="{{ band.bandImage.one().height('bandCarousel') }}" title="{% if band.shortDescription | length %}{{ band.shortDescription }}{% else%}{{ band.title }}"{% endif %}>
+						<img loading="eager" src="{{ band.bandImage.one().url('bandCarousel') }}" width="{{ band.bandImage.one().width('bandCarousel') }}" height="{{ band.bandImage.one().height('bandCarousel') }}"{% if band.shortDescription | length %} title="{{ band.shortDescription }}"{% endif %}>
 					</div>
 				{% endfor %}
 			</div>
