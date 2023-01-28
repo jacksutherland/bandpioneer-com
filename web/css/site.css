@@ -809,7 +809,7 @@ form.contact-form .errors {
   }
   section.description h2 span, section.description h3 span, section.description h4 span {
     background-color: #FFFFFF;
-    padding: 0 15px;
+    padding: 0 16px;
   }
   footer .container {
     grid-template-columns: 200px 1fr;
