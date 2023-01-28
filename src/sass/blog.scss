@@ -252,7 +252,7 @@ article {
 	}
 
 	.related-content {
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: 25px;
 
 		article {
@@ -343,10 +343,29 @@ article {
 /***** MEDIA QUERIES *****/
 /*************************/
 
+@media (min-width: $breakpoint-xs) {
+	.blog {
+		.related-content {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+}
+
+@media (min-width: $breakpoint-sm) {
+	.blog {
+		.blog-posts {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+}
+
 @media (min-width: $breakpoint-md) {
 	.blog {
 		.container {
 			margin: 0 auto;
+		}
+		.related-content {
+			grid-template-columns: 1fr 1fr 1fr;
 		}
 	}
 	.blog-posts {

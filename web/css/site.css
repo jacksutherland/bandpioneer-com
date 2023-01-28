@@ -785,7 +785,7 @@ form.contact-form .errors {
     height: 700px;
   }
   section.description {
-    padding: 10px 0;
+    padding: 10px 5%;
   }
   section.description h2, section.description h3, section.description h4 {
     position: relative;
@@ -1035,7 +1035,7 @@ article .blog-info ul li span {
   text-transform: capitalize;
 }
 .blog .related-content {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 25px;
 }
 .blog .related-content article img {
@@ -1102,9 +1102,22 @@ article .blog-info ul li span {
 /*************************/
 /***** MEDIA QUERIES *****/
 /*************************/
+@media (min-width: 375px) {
+  .blog .related-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 576px) {
+  .blog .blog-posts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 @media (min-width: 768px) {
   .blog .container {
     margin: 0 auto;
+  }
+  .blog .related-content {
+    grid-template-columns: 1fr 1fr 1fr;
   }
   .blog-posts {
     grid-template-columns: 1fr 1fr;
