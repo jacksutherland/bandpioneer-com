@@ -289,7 +289,7 @@ let BandPioneer = {
 
 			BandPioneer.each(this.slides, function(idx, slide)
 			{
-				let min = -6, max = 6;
+				let min = -4, max = 4;
 				let deg = Math.random() * (max - min) + min;
 				slide.style.transform = 'rotate(' + deg + 'deg)';
 
