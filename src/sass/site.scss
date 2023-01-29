@@ -216,7 +216,11 @@ section {
 				padding: 30px 0;
 			}
 		}
+		&.blog {
+			margin-top: 80px;
+		}
 	}
+
 }
 
 @keyframes slide-down-header {
@@ -724,6 +728,7 @@ figure {
 
 .btn {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
 }

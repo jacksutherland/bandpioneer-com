@@ -2,6 +2,8 @@
 
 {% set pageTitle = "About Us" %}
 {% set entry = { slug: 'about', title: 'About Us', section: { handle: 'about' } } %}
+{% set articles = craft.entries.section('blog').limit(6).orderBy('postDate DESC') %}
+{% set categories = craft.entries.section('category') %}
 
 {% block scripts %}
 	<script type="text/javascript">
@@ -31,27 +33,38 @@
 
 		<div class="narrow-container">
 
-			<p>
-				We're here to provide answers to all of your music related questions, whether it's branding, website development, finding and sustaining gigs, selecting the right equipment, learning to compose music, social media & digital marketing, or anything else standing in your way. 
-				You can <a href="/contact">submit questions</a>, search for an answer, or browse through our library of articles on various topics.
-			</p>
+			<section>
+				<p>
+					We're here to provide answers to all of your music related questions, whether it's branding, website development, finding and sustaining gigs, selecting the right equipment, learning to compose music, social media & digital marketing, or anything else standing in your way. 
+					You can <a href="/contact">submit questions</a>, search for an answer, or browse through our library of articles on various topics.
+				</p>
+				<p>
+					Band Pioneer's founders, contributors and writers, have professional experience in the music industry, dating back over 30 years. We've been here since the pre-internet days, when you had to learn how to play without the assistance of YouTube tutorials. When recording required buying studio time to get access to extrememly expensive equipment. We've evolved alongside the industry, as modern computer hardware and software made recording and performing accessible to anyone, and as revenue and rights shifted from greedy record labels to independent artists. And we're documenting all of it, to create this database of music information to you.
+				</p>
+				<p>
+					We strive to be the number one online resource for musicians and bands of all genres and skill levels. We are constantly adding new content to our library of music how to’s, tips and tricks, and DIY music solutions, so make sure to check back often.
+				</p>
+				<p>
+					The internet has provided each one of us with endless resources, and access to a global fanbase. Today more than ever, no musician should be a "starving artist". 
+					You've worked hard to master your craft. Now Band Pioneer will help you master the marketing and business aspects that most overlook.
+				</p>
+				<p>
+					Welcome to Band Pioneer! If you can't find what you're looking for or have questions in general, please <a href="/contact">click here to contact us</a>.
+				</p>
+			</section>
 
-			<p>
-				Band Pioneer's founders, contributors and writers, have professional experience in the music industry, dating back over 30 years. We've been here since the pre-internet days, when you had to learn how to play without the assistance of YouTube tutorials. When recording required buying studio time to get access to extrememly expensive equipment. We've evolved alongside the industry, as modern computer hardware and software made recording and performing accessible to anyone, and as revenue and rights shifted from greedy record labels to independent artists. And we're documenting all of it, to create this database of music information to you.
-			</p>
 
-			<p>
-				We strive to be the number one online resource for musicians and bands of all genres and skill levels. We are constantly adding new content to our library of music how to’s, tips and tricks, and DIY music solutions, so make sure to check back often.
-			</p>
+			<section class="blog">
 
-			<p>
-				The internet has provided each one of us with endless resources, and access to a global fanbase. Today more than ever, no musician should be a "starving artist". 
-				You've worked hard to master your craft. Now Band Pioneer will help you master the marketing and business aspects that most overlook.
-			</p>
+				<h3 class="section-title">
+					<span>Jump In!</span>
+				</h3>
+				
+				{% include '_includes/related-content' with { articles: articles } %}
 
-			<p>
-				Welcome to Band Pioneer! If you can't find what you're looking for or have questions in general, please <a href="/contact">click here to contact us</a>.
-			</p>
+				{% include '_includes/related-categories' with { categories: categories } %}
+
+			</section>
 
 		</div>
 

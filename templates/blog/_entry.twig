@@ -2,6 +2,7 @@
 
 {% set fixedHeader = true %}
 {% set categories = craft.entries.section('category') %}
+{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
 
 {% block content %}
 
@@ -25,7 +26,11 @@
 
 		<h3 class="section-title"><span>Keep Reading!</span></h3>
 
-		<div class="related-content blog-posts">
+		{% include '_includes/related-content' with { articles: relatedPosts } %}
+
+		{% include '_includes/related-categories' with { categories: entry.categories } %}
+
+		{# <div class="related-content blog-posts">
 			{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
 			{% for rp in relatedPosts.all() %}
 				<article>
@@ -47,7 +52,7 @@
 					<a href="{{ rc.url }}">More {{ rc.title }}</a>
 				{% endif %}
 			{% endfor %}
-		</div>
+		</div> #}
 
 	</div>
 

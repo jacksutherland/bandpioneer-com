@@ -1,0 +1,14 @@
+<div class="related-content blog-posts">
+	{% for article in articles.all() %}
+		<article>
+			<a class="blog-image" href="{{ article.url }}">
+				<img src="{{ article.blogImage.one().url('relatedPost') }}">
+			</a>
+			<div class="blog-info">
+				<h4>
+					<a href="{{ article.url }}">{{ article.title }}</a>
+				</h4>
+			</div>
+		</article>
+	{% endfor %}
+</div>

@@ -2,6 +2,8 @@
 
 {% set pageTitle = "Let's Connect!" %}
 {% set entry = { slug: 'contact', title: 'Contact Us', section: { handle: 'contact' } } %}
+{% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
+{% set categories = craft.entries.section('category') %}
 
 {% block scripts %}
 	<script>
@@ -55,7 +57,7 @@
 		<form id="contact-form" class="contact-form" action="/forms/sendmail.php">
 
 			<h3 id="form-info">
-				Got a question you'd like answered on Band Pioneer?<br />Use the form below to contact us.
+				Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know. Or just send us some good vibes.
 			</h3>
 
 			<input name="poobear" type="hidden" value="">
@@ -66,6 +68,19 @@
 			<div id="form-errors" class="errors"></div>
 			<button class="btn">Send</button>
 		</form>
+
+		<section class="blog">
+
+			<div class="container narrow-container">
+
+				<h3 class="section-title"><span>Ready To Jump Back In?</span></h3>
+
+				{% include '_includes/related-content' with { articles: articles } %}
+
+				{% include '_includes/related-categories' with { categories: categories } %}
+			</div>
+
+		</div>
 
 	</div>
 
