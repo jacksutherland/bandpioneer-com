@@ -53,7 +53,7 @@
 				<a class="blog-image" href="{{ featured.url }}">
 					{% if featured.blogImage.count %}
 						<img src="{{ featured.blogImage.one().url('featuredPost') }}" alt="{{ featured.blogImage.one().title }}" 
-							width="{{ featured.blogImage.one().width('featuredPost') 
+							width="{{ featured.blogImage.one().width('featuredPost') }}" 
 							height="{{ featured.blogImage.one().height('featuredPost') }}">
 					{% endif %}
 					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
@@ -112,8 +112,8 @@
 					<a class="blog-image" href="{{ blog.url }}">
 						{% if blog.blogImage.count %}
 							<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}"
-								width="{{ blog.blogImage.one().width('blogPost') 
-								height="{{ blog.blogImage.one().height('blogPost')>
+								width="{{ blog.blogImage.one().width('blogPost') }}" 
+								height="{{ blog.blogImage.one().height('blogPost') }}">
 						{% endif %}
 					</a>
 					<div class="blog-info">
