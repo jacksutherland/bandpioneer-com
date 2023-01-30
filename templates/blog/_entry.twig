@@ -30,30 +30,6 @@
 
 		{% include '_includes/related-categories' with { categories: entry.categories } %}
 
-		{# <div class="related-content blog-posts">
-			{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
-			{% for rp in relatedPosts.all() %}
-				<article>
-					<a class="blog-image" href="{{ rp.url }}">
-						<img src="{{ rp.blogImage.one().url('relatedPost') }}">
-					</a>
-					<div class="blog-info">
-						<h4>
-							<a href="{{ rp.url }}">{{ rp.title }}</a>
-						</h4>
-					</div>
-				</article>
-			{% endfor %}
-		</div>
-
-		<div class="related-categories">
-			{% for rc in entry.categories.all() %}
-				{% if rc.show %}
-					<a href="{{ rc.url }}">More {{ rc.title }}</a>
-				{% endif %}
-			{% endfor %}
-		</div> #}
-
 	</div>
 
 {% endblock %}
