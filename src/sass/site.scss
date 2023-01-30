@@ -448,6 +448,7 @@ header.sticky {
 
 	.main-logo {
 		justify-self: center;
+		height: auto;
 		width: 70%;
     	max-width: 420px;
 	}	
@@ -580,6 +581,7 @@ figure {
 		}
 		img {
 			width: 100%;
+			height: auto;
 			border-radius: $small-border-radius;
 		}
 	}

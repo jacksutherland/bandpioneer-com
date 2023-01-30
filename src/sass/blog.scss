@@ -157,6 +157,7 @@ article {
 		}
 		img {
 			width: 100%;
+			height: auto;
 			filter: brightness(95%);
 			transition: filter $transition-default;
 		}

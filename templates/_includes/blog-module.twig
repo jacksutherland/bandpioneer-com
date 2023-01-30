@@ -60,7 +60,7 @@
 					</style>
 				{% endif %}
 				<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
-					<img src="{{ module.blogImage.one().url('blogImage') }}" alt="{{ module.blogImage.one().title }}">
+					<img src="{{ module.blogImage.one().url('blogImage') }}" alt="{{ module.blogImage.one().title }}" width="{{ module.blogImage.one().width('blogImage') }}" height="{{ module.blogImage.one().height('blogImage') }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
 					{% endif %}

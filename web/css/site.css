@@ -366,6 +366,7 @@ header.sticky {
 }
 .page-header .main-logo {
   justify-self: center;
+  height: auto;
   width: 70%;
   max-width: 420px;
 }
@@ -471,6 +472,7 @@ figure.image.top-margin {
 }
 figure.image img {
   width: 100%;
+  height: auto;
   border-radius: 4px;
 }
 figure.video .player {
@@ -1007,6 +1009,7 @@ article .blog-image:hover img {
 }
 article .blog-image img {
   width: 100%;
+  height: auto;
   filter: brightness(95%);
   transition: filter 0.3s ease-in-out;
 }
