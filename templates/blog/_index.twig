@@ -151,7 +151,7 @@
 	    </div>
 	{% endif %}
 
-	{% if isHomepage %}
+	{% if isHomepage and pageInfo.currentPage == 1 %}
 		{% include '_includes/band-carousel' %}
 	{% endif %}
 
