@@ -1,4 +1,4 @@
-dateModified: 1674945412
+dateModified: 1675369495
 elementSources:
   craft\elements\Entry:
     -
@@ -116,6 +116,7 @@ meta:
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
+    260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text'
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
@@ -127,7 +128,7 @@ meta:
     6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
-    a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel'
+    a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
@@ -151,6 +152,83 @@ meta:
     fa511e02-7c6f-4081-9701-b14c76ecf31a: Common # Common
     fd86eaf9-b505-4c30-8bd9-37be31ad6209: Default # Default
 plugins:
+  comments:
+    edition: standard
+    enabled: true
+    licenseKey: BBH82OI6SFY4ZXR0TIXEYSUT
+    schemaVersion: 1.1.7
+    settings:
+      allowFlagging: true
+      allowGuest: true
+      allowGuestFlagging: false
+      allowGuestVoting: false
+      allowVoting: false
+      autoCloseDays: null
+      closed: false
+      defaultQueryStatus:
+        - approved
+      downvoteCommentLimit: 5
+      enableGravatar: false
+      enableSpamChecks: true
+      flaggedCommentLimit: 5
+      guestNotice: null
+      guestRequireEmailName: true
+      guestShowEmailName: true
+      hideVotingForThreshold: false
+      indexSidebarGroup: true
+      indexSidebarIndividualElements: false
+      indexSidebarLimit: 25
+      maxReplyDepth: null
+      maxUserComments: null
+      moderatorUserGroup: null
+      notificationAdminEnabled: false
+      notificationAuthorEnabled: true
+      notificationFlaggedEnabled: false
+      notificationModeratorApprovedEnabled: false
+      notificationModeratorEnabled: false
+      notificationReplyEnabled: true
+      notificationSubscribeAuto: false
+      notificationSubscribeCommentEnabled: false
+      notificationSubscribeDefault: true
+      notificationSubscribeEnabled: false
+      outputDefaultCss: true
+      outputDefaultJs: true
+      permissions:
+        __assoc__:
+          -
+            - craft\elements\Asset
+            - '*'
+          -
+            - craft\elements\Category
+            - '*'
+          -
+            - craft\elements\Entry
+            - '*'
+          -
+            - craft\elements\User
+            - '*'
+      placeholderAvatar: null
+      recaptchaEnabled: false
+      recaptchaKey: null
+      recaptchaMinScore: 0.5
+      recaptchaSecret: null
+      requireModeration: true
+      securityBanned: null
+      securityFlooding: null
+      securityMatchExact: false
+      securityMaxLength: null
+      securityModeration: null
+      securitySpamlist: null
+      showAvatar: true
+      showCustomFieldInstructions: false
+      showCustomFieldNames: false
+      showTimeAgo: true
+      sortDefaultDirection: asc
+      sortDefaultKey: structure
+      structureUid: 4cf07fcd-fffb-4883-8066-1202ee8c9ea8
+      templateEmail: null
+      templateFolderOverride: null
+      useQueueForNotifications: false
   redactor:
     edition: standard
     enabled: true

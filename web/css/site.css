@@ -1145,6 +1145,64 @@ article .blog-info ul li span {
 }
 
 /*************************/
+/***** BLOG COMMENTS *****/
+/*************************/
+.blog-comments {
+  background-color: #e7ebec;
+  padding: 60px 0;
+  margin: 60px 0;
+}
+.blog-comments h2, .blog-comments h3 {
+  margin: 0 0 50px 0;
+  font-family: "Michroma", sans-serif;
+}
+.blog-comments h4 {
+  margin: 0 0 10px 0;
+  font-weight: 400;
+}
+.blog-comments .cc-w input, .blog-comments .cc-w textarea {
+  font-size: 1rem;
+  font-family: helvetica, sans-serif;
+  border-color: #d5dbde;
+}
+.blog-comments .cc-w input:focus, .blog-comments .cc-w textarea:focus {
+  background-color: #FFFFFF;
+}
+.blog-comments .cc-w a, .blog-comments .cc-w .cc-i-delete {
+  color: #0a79a4;
+  font-weight: 600;
+  text-transform: uppercase;
+  min-width: auto;
+}
+.blog-comments .cc-w a:hover, .blog-comments .cc-w .cc-i-delete:hover {
+  color: #f90215;
+}
+.blog-comments .cc-w button {
+  font-family: helvetica, sans-serif;
+}
+.blog-comments .cc-w button.cc-f-btn {
+  font-size: 0.875rem;
+  border: none;
+  background-color: #45adda;
+  color: #e7ebec;
+  padding: 0 25px;
+}
+.blog-comments .cc-w button.cc-f-btn:hover {
+  background-color: #f90215;
+}
+.blog-comments .cc-w .cc-i {
+  border-width: 2px;
+  border-color: #d5dbde;
+}
+.blog-comments .cc-w .cc-ll-i:before {
+  content: " ";
+}
+.blog-comments .cc-w .cc-i-image-icon:after {
+  background-color: transparent;
+  background-image: url(https://bandpioneer.com/assets/images/bp-mark.png);
+}
+
+/*************************/
 /***** MEDIA QUERIES *****/
 /*************************/
 @media (min-width: 375px) {

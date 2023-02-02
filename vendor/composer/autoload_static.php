@@ -54,6 +54,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         array (
             'voku\\helper\\' => 12,
             'voku\\' => 5,
+            'verbb\\comments\\' => 15,
+            'verbb\\base\\' => 11,
         ),
         's' => 
         array (
@@ -260,15 +262,23 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'voku\\helper\\' => 
         array (
-            0 => __DIR__ . '/..' . '/voku/urlify/src/voku/helper',
+            0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
             1 => __DIR__ . '/..' . '/voku/email-check/src/voku/helper',
-            2 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
+            2 => __DIR__ . '/..' . '/voku/urlify/src/voku/helper',
         ),
         'voku\\' => 
         array (
-            0 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
-            1 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+            0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+            1 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
             2 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
+        ),
+        'verbb\\comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/verbb/comments/src',
+        ),
+        'verbb\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/verbb/base/src',
         ),
         'samdark\\log\\tests\\' => 
         array (
@@ -281,8 +291,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'modules\\' => 
         array (
@@ -459,8 +469,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -546,7 +556,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+            0 => __DIR__ . '/..' . '/doctrine/lexer/src',
         ),
         'Doctrine\\Common\\Collections\\' => 
         array (

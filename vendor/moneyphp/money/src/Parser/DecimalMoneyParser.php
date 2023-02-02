@@ -24,7 +24,7 @@ use function trim;
  */
 final class DecimalMoneyParser implements MoneyParser
 {
-    public const DECIMAL_PATTERN = '/^(?P<sign>-)?(?P<digits>0|[1-9]\d*)?\.?(?P<fraction>\d+)?$/';
+    public const DECIMAL_PATTERN = '/^(?P<sign>-)?(?P<digits>\d+)?\.?(?P<fraction>\d+)?$/';
 
     private Currencies $currencies;
 
@@ -36,7 +36,7 @@ final class DecimalMoneyParser implements MoneyParser
     public function parse(string $money, Currency|null $fallbackCurrency = null): Money
     {
         if ($fallbackCurrency === null) {
-            throw new ParserException('DecimalMoneyParser cannot parse currency symbols. Use forceCurrency argument');
+            throw new ParserException('DecimalMoneyParser cannot parse currency symbols. Use fallbackCurrency argument');
         }
 
         $decimal = trim($money);

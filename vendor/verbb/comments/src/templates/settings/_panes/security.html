@@ -1,0 +1,120 @@
+{% import '_includes/forms' as forms %}
+{% import 'verbb-base/_macros' as macros %}
+
+{{ forms.lightswitchField({
+    first: true,
+    label: 'Enable reCAPTCHA?' | t('comments'),
+    instructions: 'Whether to use reCAPTCHA to protect against spam submissions.' | t('comments'),
+    name: 'recaptchaEnabled',
+    on: settings.recaptchaEnabled,
+    toggle: 'recaptcha-fields',
+    warning: macros.configWarning('recaptchaEnabled', 'comments'),
+}) }}
+
+<div id="recaptcha-fields" class="field {{ not settings.recaptchaEnabled ? 'hidden' }}">
+    {{ forms.autosuggestField({
+        label: 'reCAPTCHA Site Key' | t('comments'),
+        name: 'recaptchaKey',
+        required: true,
+        suggestEnvVars: true,
+        value: settings.recaptchaKey,
+        warning: macros.configWarning('recaptchaKey', 'comments'),
+    }) }}
+
+    {{ forms.autosuggestField({
+        label: 'reCAPTCHA Secret Key' | t('comments'),
+        name: 'recaptchaSecret',
+        required: true,
+        suggestEnvVars: true,
+        value: settings.recaptchaSecret,
+        warning: macros.configWarning('recaptchaSecret', 'comments'),
+    }) }}
+
+    {{ forms.selectField({
+        label: 'Minimum Score' | t('comments'),
+        instructions: 'Enter the minimum score needed to pass the reCAPTCHA test.' | t('comments'),
+        name: 'recaptchaMinScore',
+        value: settings.recaptchaMinScore ?? '0.5',
+        options: {
+            '0.0': '0.0',
+            '0.1': '0.1',
+            '0.2': '0.2',
+            '0.3': '0.3',
+            '0.4': '0.4',
+            '0.5': '0.5',
+            '0.6': '0.6',
+            '0.7': '0.7',
+            '0.8': '0.8',
+            '0.9': '0.9',
+            '1.0': '1.0',
+        },
+        warning: macros.configWarning('minScore', 'comments'),
+    }) }}
+</div>
+
+<hr>
+
+{{ forms.lightswitchField({
+    label: 'Enable Spam Checks' | t('comments'),
+    instructions: 'Whether to enable spam checks for form-based comments.' | t('comments'),
+    name: 'enableSpamChecks',
+    on: settings.enableSpamChecks,
+    warning: macros.configWarning('enableSpamChecks', 'comments'),
+}) }}
+
+<hr>
+
+{{ forms.textField({
+    label: 'Maximum Comment Length' | t('comments'),
+    instructions: 'Limit the number of characters a comment can have.' | t('comments'),
+    name: 'securityMaxLength',
+    value: settings.securityMaxLength,
+    warning: macros.configWarning('securityMaxLength', 'comments'),
+}) }}
+
+<hr>
+
+{{ forms.textField({
+    label: 'Minimum Time Between Comments' | t('comments'),
+    instructions: 'The number of seconds between commenting. Helps to prevent comment flooding.' | t('comments'),
+    name: 'securityFlooding',
+    value: settings.securityFlooding,
+    warning: macros.configWarning('securityFlooding', 'comments'),
+}) }}
+
+<hr>
+
+{{ forms.textareaField({
+    label: 'Moderated Keywords' | t('comments'),
+    name: 'securityModeration',
+    instructions: 'If a comment contains any of these words in its content, name, email, or IP, it will be marked as pending. One word or IP per line. Case insensitive.' | t('comments'),
+    rows: 10,
+    value: settings.securityModeration,
+    warning: macros.configWarning('securityModeration', 'comments'),
+}) }}
+
+{{ forms.textareaField({
+    label: 'Spam Keywords' | t('comments'),
+    name: 'securitySpamlist',
+    instructions: 'If a comment contains any of these words in its content, name, email, or IP, it will be marked as spam. One word or IP per line. Case insensitive.' | t('comments'),
+    rows: 10,
+    value: settings.securitySpamlist,
+    warning: macros.configWarning('securitySpamlist', 'comments'),
+}) }}
+
+{{ forms.textareaField({
+    label: 'Banned Keywords' | t('comments'),
+    name: 'securityBanned',
+    instructions: 'If a comment contains any of these words in its content, name, email, or IP, it will not be submitted. One word or IP per line. Case insensitive.' | t('comments'),
+    rows: 10,
+    value: settings.securityBanned,
+    warning: macros.configWarning('securityBanned', 'comments'),
+}) }}
+
+{{ forms.lightswitchField({
+    label: 'Enable Exact Keyword Matching' | t('comments'),
+    instructions: 'Whether to enable exact keyword matching. With this turned on, it will no longer match words within other words (eg. ‘craft’ will not match ‘crafty’).' | t('comments'),
+    name: 'securityMatchExact',
+    on: settings.securityMatchExact,
+    warning: macros.configWarning('securityMatchExact', 'comments'),
+}) }}

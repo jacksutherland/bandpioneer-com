@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Get Started",
+        "collapsable": false,
+        "children": [
+            "get-started/installation-setup",
+            "get-started/requirements",
+            "get-started/configuration",
+            "get-started/upgrading-from-v1"
+        ]
+    },
+    {
+        "title": "Feature Tour",
+        "collapsable": false,
+        "children": [
+            "feature-tour/control-panel",
+            "feature-tour/anti-spam",
+            "feature-tour/security",
+            "feature-tour/permissions"
+        ]
+    },
+    {
+        "title": "Template Guides",
+        "collapsable": false,
+        "children": [
+            "template-guides/available-variables",
+            "template-guides/rendering-comments",
+            "template-guides/custom-templates",
+            "template-guides/custom-fields"
+        ]
+    },
+    {
+        "title": "Getting Elements",
+        "collapsable": false,
+        "children": [
+            "getting-elements/comment-queries"
+        ]
+    },
+    {
+        "title": "Developers",
+        "collapsable": false,
+        "children": [
+            "developers/comment",
+            "developers/flag",
+            "developers/vote",
+            "developers/events",
+            "developers/graphql"
+        ]
+    }
+]

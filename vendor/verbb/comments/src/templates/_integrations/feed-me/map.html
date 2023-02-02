@@ -1,0 +1,173 @@
+{% import '_includes/forms' as forms %}
+{% import 'feed-me/_macros' as feedMeMacro %}
+
+{% set fields = [{
+    name: 'Comment',
+    handle: 'comment',
+    instructions: 'The contents of the comment.'|t('feed-me'),
+    required: true,
+    default: {
+        type: 'text',
+    },
+}, {
+    type: 'element',
+    name: 'Owner',
+    handle: 'ownerId',
+    instructions: 'The element this comment was made on.'|t('feed-me'),
+    required: true,
+    default: {
+        type: 'text',
+    },
+}, {
+    type: 'nested-node',
+    name: 'Children',
+    handle: 'children',
+    instructions: 'The starting node for nested child comments.'|t('feed-me'),
+}, {
+    type: 'date',
+    name: 'Comment Date',
+    handle: 'commentDate',
+    instructions: 'Accepts Unix timestamp, or just about any English textual datetime description.'|t('feed-me'),
+    default: {
+        type: 'dateTime',
+    },
+}, {
+    name: 'Name',
+    handle: 'name',
+    instructions: 'The name of the commenter.'|t('feed-me'),
+    default: {
+        type: 'text',
+    },
+}, {
+    name: 'Email',
+    handle: 'email',
+    instructions: 'The email of the commenter.'|t('feed-me'),
+    default: {
+        type: 'text',
+    },
+}, {
+    name: 'URL',
+    handle: 'url',
+    instructions: 'The url the comment was made on.'|t('feed-me'),
+    default: {
+        type: 'text',
+    },
+}, {
+    name: 'IP Address',
+    handle: 'ipAddress',
+    default: {
+        type: 'text',
+    },
+}, {
+    name: 'User Agent',
+    handle: 'userAgent',
+    default: {
+        type: 'text',
+    },
+}, {
+    name: 'Status',
+    handle: 'status',
+    instructions: 'Choose the status for this comment.'|t('feed-me'),
+    default: {
+        type: 'select',
+        options: [
+            { label: 'Don’t import'|t('feed-me'), value: '' },
+            { label: 'Approved', value: 'approved' },
+            { label: 'Pending', value: 'pending' },
+            { label: 'Spam', value: 'spam' },
+            { label: 'Trashed', value: 'trashed' },
+        ],
+    },
+}, {
+    type: 'users',
+    name: 'Author',
+    handle: 'authorId',
+    instructions: 'Comments will be assigned to the user in this field. If the field does not match any existing member, the default author will be assigned.'|t('feed-me'),
+    default: {
+        type: 'elementselect',
+        options: {
+            elementType: 'craft\\elements\\User',
+            selectionLabel: "Default Author"|t('feed-me'),
+            limit: 1,
+        },
+    },
+}, {
+    name: 'Comment ID',
+    handle: 'id',
+    instructions: '<strong class="error">Warning: </strong>This should only be used for an existing Comment ID.'|t('feed-me'),
+    default: {
+        type: 'text',
+    },
+}] %}
+
+<h2>{{ 'Comment Fields'|t('feed-me') }}</h2>
+
+<table class="feedme-mapping data fullwidth collapsible">
+    <thead>
+        <th>{{ 'Field'|t('feed-me') }}</th>
+        <th>{{ 'Feed Element'|t('feed-me') }}</th>
+        <th>{{ 'Default Value'|t('feed-me') }}</th>
+    </thead>
+    <tbody>
+        {% for field in fields %}
+            {% set template = field.type ?? 'default' %}
+            {% set variables = field | merge({ feed: feed, feedData: feedData, attribute: true }) %}
+
+            {% include [
+                'comments/_integrations/feed-me/fields/' ~ template,
+                'feed-me/_includes/fields/' ~ template
+            ] ignore missing with variables only %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% set tabs = craft.app.fields.getLayoutByType('verbb\\comments\\elements\\Comment').getTabs() %}
+
+{% for tab in tabs %}
+    <hr>
+
+    <h2>{{ tab.name }} Fields</h2>
+
+    <table class="feedme-mapping data fullwidth collapsible">
+        <thead>
+            <th>{{ 'Field'|t('feed-me') }}</th>
+            <th>{{ 'Feed Element'|t('feed-me') }}</th>
+            <th>{{ 'Default Value'|t('feed-me') }}</th>
+        </thead>
+        <tbody>
+            {% for layoutField in tab.getElements() | filter(e => e is instance of('craft\\fieldlayoutelements\\CustomField')) %}
+                {% set field = layoutField.getField() %}
+                {% set fieldClass = craft.feedme.fields.getRegisteredField(className(field)) %}
+                {% set template = fieldClass.getMappingTemplate() %}
+
+                {% set variables = { name: field.name, handle: field.handle, feed: feed, feedData: feedData, field: field, fieldClass: fieldClass } %}
+
+                {% include template ignore missing with variables only %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+<hr>
+
+<h2 id="comment-uniques-label">{{ "Set a unique identifier to match against existing elements" | t('feed-me') }}</h2>
+<p>{{ "Select the fields you want to use to check for existing elements. When selected, Feed Me will look for existing elements that match the fields provided below and either update, or skip depending on your choice of Import Strategy."|t('feed-me') }}</p>
+
+{% for tab in tabs %}
+    {% for layoutField in tab.getElements() | filter(e => e is instance of('craft\\fieldlayoutelements\\CustomField')) %}
+        {% set field = layoutField.getField() %}
+        {% set fields = fields | merge([{ name: field.name, handle: field.handle, type: className(field) }]) %}
+    {% endfor %}
+{% endfor %}
+
+<fieldset class="feedme-uniques" aria-labelledby="comment-uniques-label">
+    {% for field in fields %}
+        {% if field and craft.feedme.fieldCanBeUniqueId(field) %}
+            {{ forms.checkboxField({
+                name: 'fieldUnique[' ~ field.handle ~ ']',
+                label: field.name,
+                checked: feed.fieldUnique[field.handle] ?? '',
+            }) }}
+        {% endif %}
+    {% endfor %}
+</fieldset>

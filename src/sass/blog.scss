@@ -339,6 +339,85 @@ article {
 
 }
 
+/*************************/
+/***** BLOG COMMENTS *****/
+/*************************/
+
+.blog-comments {
+
+	background-color: $light-gray;
+	padding: 60px 0;
+	margin: 60px 0;
+
+	h2, h3 {
+		margin: 0 0 50px 0;
+		font-family: $header-font-family;
+		// text-transform: uppercase;
+	}
+	h4 {
+		margin: 0 0 10px 0;
+		font-weight: $normal-weight;
+	}
+
+	// comment plugin CSS
+
+	.cc-w {
+		input, textarea {
+			// height: auto;
+			font-size: $font-size-normal;
+			font-family: $font-family;
+			border-color: darken($border-color, 5%);
+
+			&:focus {
+				background-color: $white;
+			}
+		}
+		a, .cc-i-delete {
+			color: $link-color;
+			font-weight: $semi-bold;
+			text-transform: uppercase;
+			min-width: auto;
+
+			&:hover {
+				color: $link-hover-color;
+			}
+		}
+		button {
+			// height: auto;
+			font-family: $font-family;
+
+			&.cc-f-btn {
+				font-size: $font-size-small;
+				border: none;
+			    background-color: $primary-color;
+			    color: $light-gray;
+			    padding: 0 25px;
+
+			    &:hover {
+			    	background-color: $secondary-color;
+			    }
+			}
+		}
+		.cc-i {
+			border-width: 2px;
+			border-color: darken($border-color, 5%);
+		}
+		.cc-ll-i {
+			&:before {
+				content: ' ';
+			}
+		}
+		.cc-i-image-icon {
+			&:after {
+				background-color: transparent;
+				background-image: url(https://bandpioneer.com/assets/images/bp-mark.png);
+			}
+
+		}
+	}
+
+}
+
 
 /*************************/
 /***** MEDIA QUERIES *****/
