@@ -1,4 +1,4 @@
-dateModified: 1675369495
+dateModified: 1675372495
 elementSources:
   craft\elements\Entry:
     -
@@ -116,7 +116,7 @@ meta:
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
-    260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text'
+    260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text' # Single Line Text
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
@@ -173,7 +173,7 @@ plugins:
       flaggedCommentLimit: 5
       guestNotice: null
       guestRequireEmailName: true
-      guestShowEmailName: true
+      guestShowEmailName: false
       hideVotingForThreshold: false
       indexSidebarGroup: true
       indexSidebarIndividualElements: false
@@ -227,7 +227,7 @@ plugins:
       sortDefaultKey: structure
       structureUid: 4cf07fcd-fffb-4883-8066-1202ee8c9ea8
       templateEmail: null
-      templateFolderOverride: null
+      templateFolderOverride: _comments
       useQueueForNotifications: false
   redactor:
     edition: standard

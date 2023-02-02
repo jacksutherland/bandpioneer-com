@@ -233,7 +233,7 @@ section {
 }
 
 #homepage {
-	header {
+	header.site-header {
 		&.sticky {
 			.logo img {
 				&.logo-alt {
@@ -263,7 +263,7 @@ section {
 	}
 }
 
-header {
+header.site-header {
 	padding: 10px 0;
 
 	.logo {
@@ -419,7 +419,7 @@ body.fixed-header {
 	}
 }
 
-body.fixed-header header,
+body.fixed-header header.site-header,
 header.sticky {
 	position: fixed;
 	z-index: 100;
@@ -621,7 +621,7 @@ figure {
     	background-size: cover;
     	position: relative;
 
-    	header {
+    	header.site-header {
     		z-index: 100;
     	}
 
@@ -877,7 +877,7 @@ form {
 	.container.page {
 		margin: $page-vertical-margin auto;
 	}
-	header {
+	header.site-header {
 		.container {
 			.bars {
 				display: none;
