@@ -22,4 +22,19 @@ return GeneralConfig::create()
     ->allowAdminChanges(App::env('ALLOW_ADMIN_CHANGES') ?? false)
     // Disallow robots
     ->disallowRobots(App::env('DISALLOW_ROBOTS') ?? false)
+    
+    // Front End Authentication
+    ->useEmailAsUsername(true)
+    //The URI Craft should redirect users to after setting their password from the front end.
+    ->setPasswordSuccessPath('bands/login') 
+    //The URI that users without access to the control panel should be redirected to after verifying a new email address.
+    ->verifyEmailSuccessPath('bands/login') 
+    //The URI that users without access to the control panel should be redirected to after activating their account.
+    ->activateAccountSuccessPath('welcome')
+    //The path users should be redirected to after logging in from the front-end site.
+    ->postLoginRedirect('/')
+    //The path that users should be redirected to after logging out from the front-end site.
+    ->postLogoutRedirect('/')
+    //The URI to the page where users can request to change their password.
+    ->setPasswordRequestPath('reset')
 ;

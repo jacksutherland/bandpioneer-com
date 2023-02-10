@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'Singles' => 'Pages',
+    'Singles' => 'Homepage',
     'New {section} entry' => 'New {section}',
 ];

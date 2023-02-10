@@ -1,0 +1,32 @@
+{% extends '_layout' %}
+
+{% set pageTitle = "Password Reset" %}
+{% set entry = { slug: 'band-reset', title: 'Password Reset', section: { handle: 'reset' } } %}
+
+{% block content %}
+
+	<div class="page container">
+
+		<form method="post" class="login-form" accept-charset="UTF-8">
+			{{ csrfInput() }}
+  			{{ actionInput('users/send-password-reset-email') }}
+
+			<h3 id="form-info">
+				Reset Your Password
+			</h3>
+
+			{{ input('text', 'loginName', loginName ?? craft.app.user.rememberedUsername, { id: 'loginName', autocomplete: 'username', placeholder: 'Enter Your Email Address' }) }}
+
+			{% if errors is defined %}
+				{{ ul(errors, {class: 'errors'}) }}
+			{% endif %}
+
+			<button class="btn">Submit</button>
+
+			<label><a href="/bands/login">Return to Login</a></label>
+
+		</form>
+
+	</div>
+
+{% endblock %}

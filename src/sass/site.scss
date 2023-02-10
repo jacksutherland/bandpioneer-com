@@ -32,6 +32,9 @@ body {
 .text-center {
 	text-align: center;
 }
+.text-right {
+	text-align: right;
+}
 .text-dark-blue {
 	color: $primary-dark;
 }
@@ -170,6 +173,9 @@ a {
 }
 
 section {
+	&.blog {
+		margin-top: 80px;
+	}
 	&.description {
 		padding: 10px 0;
 		text-align: center;
@@ -216,9 +222,9 @@ section {
 				padding: 30px 0;
 			}
 		}
-		&.blog {
-			margin-top: 80px;
-		}
+		// &.blog {
+		// 	margin-top: 80px;
+		// }
 	}
 
 }
@@ -452,6 +458,30 @@ header.sticky {
 		width: 70%;
     	max-width: 420px;
 	}	
+
+	&.hero {
+		height: $small-hero-height;
+		background-position: center center;
+		background-repeat: no-repeat;
+    	background-size: cover;
+		position: relative;
+		header.site-header {
+    		z-index: 100;
+    	}
+    	h1 {
+    		z-index: 20;
+    	}
+		&:after {
+    		content: " ";
+    		background-color: rgba(0, 0, 0, 0.5) !important;
+    		position: absolute;
+    		z-index: 1;
+    		top: 0;
+    		left: 0;
+    		width: 100%;
+    		height: 100%;
+    	}
+	}
 }
 
 footer {
@@ -614,7 +644,7 @@ figure {
 #homepage,
 .category {
 	.page-header {
-		height: 350px;
+		height: $small-hero-height;
 		background-color: $gunmetal;
 		background-image: url(/assets/images/bp-music-studio.jpg);
 	    background-repeat: no-repeat;
@@ -694,7 +724,7 @@ figure {
 
 #homepage {
 	.page-header {
-		height: 350px;
+		height: $small-hero-height;
 		// background-image: url(/assets/images/bp-music-studio.jpg);
 		background-image: url(/assets/images/free-playing-jazz-bass.jpg);
 		background-position: center 30%;
@@ -722,9 +752,21 @@ figure {
 
 .category {
 	.page-header {
-		height: 350px;
-		background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+		height: $small-hero-height;
 		background-position: center center;
+		background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+	}
+}
+
+.pages {
+	section {
+		margin: 60px 0;
+		figure {
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
 	}
 }
 
@@ -758,7 +800,7 @@ input[type="submit"],
 }
 
 form {
-	input:not([name="q"]),
+	input:not([name="q"]):not([type=checkbox]),
 	textarea,
 	button,
 	.btn {
@@ -784,6 +826,42 @@ form {
 	textarea {
 		padding-top: 18px;
 		height: 150px;
+	}
+
+	.errors {
+		color: $error-color;
+		font-weight: $semi-bold;
+		font-size: $font-size-small;
+	}
+
+	&.login-form {
+		display: block;
+		max-width: 400px;
+		margin: 0 auto;
+		border: solid 1px $border-color;
+		border-radius: $small-border-radius;
+		padding: 35px;
+		h3 {
+			margin: 0 0 35px 0;
+		}
+		input {
+			margin-bottom: 35px;
+			display: block;
+			width: 100%;
+		}
+		.errors {
+			text-align: center;
+			margin: -25px 0 20px 0;
+		}
+		button {
+			width: 100%;
+		}
+		label {
+			font-size: $font-size-small;
+			display: block;
+			margin: 25px 0 0 0;
+			text-align: center;
+		}
 	}
 
 	&.contact-form {
@@ -898,7 +976,7 @@ form {
 
 				    li {
 				    	display: inline-block;
-				    	margin: 0 10px;
+				    	margin: 0 6px;
 				    	vertical-align: top;
 
 				    	&.hide-md {
@@ -1005,6 +1083,21 @@ form {
 	#homepage {
 		.page-header {
 			height: 700px;
+		}
+	}
+	header {
+		&.site-header {
+			.container {
+				nav {
+					&.main-menu {
+						ul {
+							li {
+								margin: 0 10px;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	section {

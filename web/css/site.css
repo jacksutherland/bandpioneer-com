@@ -31,6 +31,10 @@ body footer {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .text-dark-blue {
   color: #131b28;
 }
@@ -149,6 +153,9 @@ a.underline:hover:after {
   height: 100%;
 }
 
+section.blog {
+  margin-top: 80px;
+}
 section.description {
   padding: 10px 0;
   text-align: center;
@@ -186,9 +193,6 @@ section.bands .band-carousel .band-slider .slide img {
 }
 #about section.bands .band-carousel {
   padding: 30px 0;
-}
-#about section.blog {
-  margin-top: 80px;
 }
 
 @keyframes slide-down-header {
@@ -369,6 +373,29 @@ header.sticky {
   height: auto;
   width: 70%;
   max-width: 420px;
+}
+.page-header.hero {
+  height: 350px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.page-header.hero header.site-header {
+  z-index: 100;
+}
+.page-header.hero h1 {
+  z-index: 20;
+}
+.page-header.hero:after {
+  content: " ";
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 footer {
@@ -611,8 +638,16 @@ figure figcaption {
 
 .category .page-header {
   height: 350px;
-  background-image: url(/assets/images/free-playing-jazz-bass.jpg);
   background-position: center center;
+  background-image: url(/assets/images/free-playing-jazz-bass.jpg);
+}
+
+.pages section {
+  margin: 60px 0;
+}
+.pages section figure img {
+  width: 100%;
+  height: auto;
 }
 
 .btn {
@@ -646,7 +681,7 @@ input[type=submit]:hover,
   color: #FFFFFF;
 }
 
-form input:not([name=q]),
+form input:not([name=q]):not([type=checkbox]),
 form textarea,
 form button,
 form .btn {
@@ -670,6 +705,40 @@ form textarea:focus {
 form textarea {
   padding-top: 18px;
   height: 150px;
+}
+form .errors {
+  color: #f90215;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+form.login-form {
+  display: block;
+  max-width: 400px;
+  margin: 0 auto;
+  border: solid 1px #e3e7e9;
+  border-radius: 4px;
+  padding: 35px;
+}
+form.login-form h3 {
+  margin: 0 0 35px 0;
+}
+form.login-form input {
+  margin-bottom: 35px;
+  display: block;
+  width: 100%;
+}
+form.login-form .errors {
+  text-align: center;
+  margin: -25px 0 20px 0;
+}
+form.login-form button {
+  width: 100%;
+}
+form.login-form label {
+  font-size: 0.875rem;
+  display: block;
+  margin: 25px 0 0 0;
+  text-align: center;
 }
 form.contact-form {
   max-width: 750px;
@@ -757,7 +826,7 @@ form.contact-form .errors {
   }
   header.site-header .container nav.main-menu ul li {
     display: inline-block;
-    margin: 0 10px;
+    margin: 0 6px;
     vertical-align: top;
   }
   header.site-header .container nav.main-menu ul li.hide-md {
@@ -827,6 +896,9 @@ form.contact-form .errors {
 @media (min-width: 992px) {
   #homepage .page-header {
     height: 700px;
+  }
+  header.site-header .container nav.main-menu ul li {
+    margin: 0 10px;
   }
   section.description {
     padding: 1px 5% 8px 5%;

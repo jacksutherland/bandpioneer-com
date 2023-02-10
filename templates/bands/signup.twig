@@ -1,0 +1,59 @@
+{% extends '_layout' %}
+
+{% set pageTitle = "Signup" %}
+{% set entry = { slug: 'band-signup', title: 'Signup', section: { handle: 'signup' } } %}
+
+{% macro errorList(errors) %}
+	{% if errors %}
+		{{ ul(errors, {class: 'errors'}) }}
+	{% endif %}
+{% endmacro %}
+
+{# `user` is defined if the form returns validation errors. #}
+{% set user = user ?? null %}
+
+{% block content %}
+
+	<div class="page container">
+
+		<form method="post" class="login-form" accept-charset="UTF-8">
+			{{ csrfInput() }}
+  			{{ actionInput('users/save-user') }}
+  			{{ redirectInput('bands/signup?verify=email') }}
+
+			
+
+			{% if craft.app.request.getQueryParam('verify') == 'email' %}
+				<h3 id="form-info" class="text-center">
+					Verify Your Email
+				</h3>
+				<p class="text-center">Check your email and click the verification link in it to activate your account.</p>
+				<p class="text-center">If it is not present in your Inbox, please check your Spam folder.</p>
+			{% else %}
+				<h3 id="form-info">
+					Sign up for Band Pioneer
+				</h3>
+
+				{% if user != null %}
+					<p>You have a valid user!</p>
+				{% endif %}
+
+				{{ input('text', 'fullName', user.fullName ?? null, { id: 'full-name', autocomplete: 'name', placeholder: 'Full Name' }) }}
+				{{ user ? _self.errorList(user.getErrors('fullName')) }}
+
+				{{ input('email', 'email', user.email ?? null, { id: 'email', autocomplete: 'email', placeholder: 'Email' }) }}
+				{{ user ? _self.errorList(user.getErrors('email')) }}
+
+				{{ input('password', 'password', null, { id: 'password', placeholder: 'Password' }) }}
+				{{ user ? _self.errorList(user.getErrors('password')) }}
+
+				<button class="btn">Sign Up</button>
+			{% endif %}
+
+			<label><a href="/bands/login">Return to Login</a></label>
+
+		</form>
+
+	</div>
+
+{% endblock %}

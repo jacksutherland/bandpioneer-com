@@ -44,6 +44,18 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
+            fieldUid: 1b12d4c8-a449-4b45-99db-cdcf801d8fa4 # Hero Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0ef4719b-4b8e-43d7-bc48-6e658ab6d1f0
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
             fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
             instructions: null
             label: 'Description Headline'

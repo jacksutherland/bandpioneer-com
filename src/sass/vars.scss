@@ -1,6 +1,8 @@
 $site-width: 1100px;
 $blog-width: 750px;
 
+$small-hero-height: 350px;
+
 $carousel-image-homepage-height: 130px;
 $carousel-image-mobile-height: 130px;
 $carousel-image-desktop-height: 300px;
@@ -20,6 +22,7 @@ $font-color: #4f4f4f;
 $light-font-color: lighten($font-color, 16%);
 $link-color: $alternate-color;
 $link-hover-color: $secondary-color; //lighten($primary-dark, 12%);
+$error-color: $secondary-color;
 
 $border-color: #e3e7e9;
 $gradient-border: linear-gradient(to left, #fafafb, #e3e7e9);
