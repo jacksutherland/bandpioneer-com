@@ -59,7 +59,7 @@
 					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
 						<h2>
 							{# {{ featured.title }} #}
-							{{ featured.title ~ (featured.subheadline | length ? ' '  ~ featured.subheadline : '') }}
+							{{ featured.title ~ (featured.subheadline | length ? ' - '  ~ featured.subheadline : '') }}
 						</h2>
 						{% include '_includes/author' with { blog: featured, showLink: false } %}
 						<p>{{ featured.shortDescription }}</p>
