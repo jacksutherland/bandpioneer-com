@@ -56,7 +56,7 @@ h1, .section-title {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 15px 0;
+  margin: 20px 0 10px 0;
 }
 h1.section-title, h2.section-title, h3.section-title, h4.section-title, h5.section-title, h6.section-title {
   text-transform: uppercase;
@@ -1181,7 +1181,7 @@ article .blog-info ul li span {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 .blog section {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 .blog section.rich-text + .rich-text {
   margin-top: -20px;
@@ -1211,6 +1211,7 @@ article .blog-info ul li span {
 }
 .blog h2 {
   text-transform: capitalize;
+  margin: 40px 0 0 0;
 }
 .blog address {
   margin: -5px 0 25px 0;
