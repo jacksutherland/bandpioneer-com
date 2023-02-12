@@ -14,7 +14,7 @@
 			{% include '_includes/icons' with { type: 'arrow' } %}
 		</span>
 	{% endif %}
-	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }} ...</span>
+	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.currentPage == 1 ? (pageInfo.totalPages + 1) : pageInfo.totalPages }} ...</span>
 	{% if pageInfo.nextUrl %}
 		<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
 			{% include '_includes/icons' with { type: 'arrow' } %}
