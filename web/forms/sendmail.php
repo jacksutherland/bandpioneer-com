@@ -1,13 +1,13 @@
 <?php
 
 // required for sendgrid api code
-require 'vendor/autoload.php';
-
+// require 'vendor/autoload.php';
+// require 'vendor/composer/autoload_real.php';
 
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
-// $email_to = "jack@realitygems.com";
-$email_to = "realitygems@zohomail.com";
+$email_to = "jack@realitygems.com";
+// $email_to = "realitygems@zohomail.com";
 // $email_from = "no-reply@bandpioneer.com";
 $email_from = "support@realitygems.com";
 $email_subject = "Website Contact";
@@ -71,32 +71,32 @@ $email_message .= "Comments: ".clean_string($comments)."\n";
  
 // PHP SENDMAIL CODE
 
-// $headers = 'From: Band Pioneer <' . $email_from . '>' . "\r\n".
-// 'X-Mailer: PHP/' . phpversion();
-// @mail($email_to, $email_subject, $email_message, $headers);  
+$headers = 'From: Band Pioneer <' . $email_from . '>' . "\r\n".
+'X-Mailer: PHP/' . phpversion();
+@mail($email_to, $email_subject, $email_message, $headers);  
 
 
 
 
-// PHP SENDGRID API CODE
+// // PHP SENDGRID API CODE
 
-$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom($email_from, "Band Pioneer");
-$email->setSubject($email_subject);
-$email->addTo($email_to, "Band Pioneer");
-$email->addContent("text/plain", $email_message);
-// $email->addContent(
-//     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-// );
-$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-try {
-    $response = $sendgrid->send($email);
-    print $response->statusCode() . "\n";
-    print_r($response->headers());
-    print $response->body() . "\n";
-} catch (Exception $e) {
-    echo 'Caught exception: '. $e->getMessage() ."\n";
-}
+// $email = new \SendGrid\Mail\Mail(); 
+// $email->setFrom($email_from, "Band Pioneer");
+// $email->setSubject($email_subject);
+// $email->addTo($email_to, "Band Pioneer");
+// $email->addContent("text/plain", $email_message);
+// // $email->addContent(
+// //     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+// // );
+// $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+// try {
+//     $response = $sendgrid->send($email);
+//     print $response->statusCode() . "\n";
+//     print_r($response->headers());
+//     print $response->body() . "\n";
+// } catch (Exception $e) {
+//     echo 'Caught exception: '. $e->getMessage() ."\n";
+// }
 
 
 
