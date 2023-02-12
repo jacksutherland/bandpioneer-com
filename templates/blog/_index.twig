@@ -18,10 +18,14 @@
 
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
-{% if firstPageInfo.currentPage == 1 and isHomepage %}
-	{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+{% if isHomepage %}
+	{% if firstPageInfo.currentPage == 1 %}
+		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% else %}
+		{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% endif %}
 {% else %}
-	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 {% endif %}
 
 {% if entry.section.handle != 'homepage' %}
