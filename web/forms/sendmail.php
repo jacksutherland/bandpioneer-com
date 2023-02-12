@@ -4,8 +4,8 @@
 // die();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
-$email_to = "jack@realitygems.com";
-// $email_to = "realitygems@zohomail.com";
+// $email_to = "jack@realitygems.com";
+$email_to = "realitygems@zohomail.com";
 // $email_from = "no-reply@bandpioneer.com";
 $email_from = "support@realitygems.com";
 $email_subject = "Website Contact";
