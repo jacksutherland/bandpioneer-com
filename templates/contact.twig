@@ -24,6 +24,8 @@
 				body: data 
 			}).then(function (response)
 			{
+				console.log('response');
+				console.warn(response);
 				if (response.ok)
 				{
 					return response.json();
@@ -44,6 +46,7 @@
 			{
 				errors.innerHTML = error.message;
 				console.log('error');
+				console.warn(error);
 				console.warn(error.message);
 			});
 		});

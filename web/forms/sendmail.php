@@ -12,8 +12,6 @@ $email_to = "realitygems@zohomail.com";
 $email_from = "support@realitygems.com";
 $email_subject = "Website Contact";
 
-$sendgrid_key = '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';
-
 function died($error) {
     echo '{"message":"' . $error . '"}';
     die();
