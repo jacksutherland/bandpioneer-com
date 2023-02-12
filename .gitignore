@@ -16,3 +16,4 @@
 /web/assets/images/*
 /web/assets/images/blog/*
 /web/assets/images/writers/*
+sendgrid.env

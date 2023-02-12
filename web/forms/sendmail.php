@@ -1,7 +1,9 @@
 <?php
 
-// echo '{"status":"success"}';
-// die();
+// required for sendgrid api code
+require 'vendor/autoload.php';
+
+
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
 // $email_to = "jack@realitygems.com";
@@ -9,6 +11,8 @@ $email_to = "realitygems@zohomail.com";
 // $email_from = "no-reply@bandpioneer.com";
 $email_from = "support@realitygems.com";
 $email_subject = "Website Contact";
+
+$sendgrid_key = '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';
 
 function died($error) {
     echo '{"message":"' . $error . '"}';
@@ -19,29 +23,6 @@ if(strlen($_POST['poobear']) > 0) // Simple HPot Logic
 {
     died('We are sorry, but there appears to be a problem with the form you submitted.');  
 }
-
-// if(strlen(trim($_POST['name'])) <= 0) // Simple HPot Logic
-// {
-//     died('A name is required');  
-// }
-
-// if(strlen(trim($_POST['email'])) <= 0 && strlen(trim($_POST['phone'])) <= 0) // Simple HPot Logic
-// {
-//     died('An email or phone number is required');  
-// }
-
-// if(strlen(trim($_POST['comments'])) <= 0) // Simple HPot Logic
-// {
-//     died('A comment is required');  
-// }
-
-// // validation expected data exists
-// if(!isset($_POST['name']) ||
-//     !isset($_POST['email']) ||
-//     !isset($_POST['phone']) ||
-//     !isset($_POST['comments'])) {
-//     died('We are sorry, but there appears to be a problem with the form you submitted.');       
-// }
 
 $name = $_POST['name']; // required
 $email = $_POST['email']; // required
@@ -90,12 +71,36 @@ $email_message .= "Email: ".clean_string($email)."\n";
 $email_message .= "Telephone: ".clean_string($phone)."\n";
 $email_message .= "Comments: ".clean_string($comments)."\n";
  
-// create email headers
-// $headers = 'From: Band Pioneer <no-reply@bandpioneer.com>' . "\r\n".
-$headers = 'From: Band Pioneer <' . $email_from . '>' . "\r\n".
-// 'Reply-To: '.$email_from."\r\n" .
-'X-Mailer: PHP/' . phpversion();
-@mail($email_to, $email_subject, $email_message, $headers);  
+// PHP SENDMAIL CODE
+
+// $headers = 'From: Band Pioneer <' . $email_from . '>' . "\r\n".
+// 'X-Mailer: PHP/' . phpversion();
+// @mail($email_to, $email_subject, $email_message, $headers);  
+
+
+
+
+// PHP SENDGRID API CODE
+
+$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom($email_from, "Band Pioneer");
+$email->setSubject($email_subject);
+$email->addTo($email_to, "Band Pioneer");
+$email->addContent("text/plain", $email_message);
+// $email->addContent(
+//     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+// );
+$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+try {
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+}
+
+
 
 echo '{"status":"success"}';
 die();

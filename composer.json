@@ -3,7 +3,8 @@
     "craftcms/cms": "^4.2.7",
     "craftcms/redactor": "3.0.2",
     "verbb/comments": "2.0.5",
-    "vlucas/phpdotenv": "^5.4.0"
+    "vlucas/phpdotenv": "^5.4.0",
+    "sendgrid/sendgrid": "~7"
   },
   "require-dev": {
     "yiisoft/yii2-shell": "^2.0.3"
