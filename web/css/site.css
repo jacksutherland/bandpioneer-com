@@ -307,6 +307,7 @@ header.site-header .container nav.main-menu ul li.dropdown-menu ul:before {
   transform: translateX(-50%);
 }
 header.site-header .container nav.main-menu ul li.dropdown-menu ul li {
+  display: block;
   margin: 10px 0;
 }
 header.site-header .container nav.main-menu ul li.dropdown-menu ul li a {
