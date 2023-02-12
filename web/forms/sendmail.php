@@ -4,8 +4,10 @@
 // die();
 
 // EDIT THE 2 LINES BELOW AS REQUIRED
-// $email_to = "jack@realitygems.com";
-$email_to = "realitygems@zohomail.com";
+$email_to = "jack@realitygems.com";
+// $email_to = "realitygems@zohomail.com";
+// $email_from = "no-reply@bandpioneer.com";
+$email_from = "support@realitygems.com";
 $email_subject = "Website Contact";
 
 function died($error) {
@@ -89,7 +91,8 @@ $email_message .= "Telephone: ".clean_string($phone)."\n";
 $email_message .= "Comments: ".clean_string($comments)."\n";
  
 // create email headers
-$headers = 'From: Band Pioneer <no-reply@bandpioneer.com>' . "\r\n".
+// $headers = 'From: Band Pioneer <no-reply@bandpioneer.com>' . "\r\n".
+$headers = 'From: Band Pioneer <' . $email_from . '>' . "\r\n".
 // 'Reply-To: '.$email_from."\r\n" .
 'X-Mailer: PHP/' . phpversion();
 @mail($email_to, $email_subject, $email_message, $headers);  
