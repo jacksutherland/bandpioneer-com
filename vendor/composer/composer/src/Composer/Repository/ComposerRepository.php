@@ -168,7 +168,7 @@ class ComposerRepository extends ArrayRepository implements ConfigurableReposito
 
         $this->baseUrl = rtrim(Preg::replace('{(?:/[^/\\\\]+\.json)?(?:[?#].*)?$}', '', $this->url), '/');
         $this->io = $io;
-        $this->cache = new Cache($io, $config->get('cache-repo-dir').'/'.Preg::replace('{[^a-z0-9.]}i', '-', Url::sanitize($this->url)), 'a-z0-9.$~');
+        $this->cache = new Cache($io, $config->get('cache-repo-dir').'/'.Preg::replace('{[^a-z0-9.]}i', '-', Url::sanitize($this->url)), 'a-z0-9.$~_');
         $this->cache->setReadOnly($config->get('cache-read-only'));
         $this->versionParser = new VersionParser();
         $this->loader = new ArrayLoader($this->versionParser);
@@ -607,7 +607,14 @@ class ComposerRepository extends ArrayRepository implements ConfigurableReposito
         $result = array();
 
         if ($this->providersApiUrl) {
-            $apiResult = $this->httpDownloader->get(str_replace('%package%', $packageName, $this->providersApiUrl), $this->options)->decodeJson();
+            try {
+                $apiResult = $this->httpDownloader->get(str_replace('%package%', $packageName, $this->providersApiUrl), $this->options)->decodeJson();
+            } catch (TransportException $e) {
+                if ($e->getStatusCode() === 404) {
+                    return $result;
+                }
+                throw $e;
+            }
 
             foreach ($apiResult['providers'] as $provider) {
                 $result[$provider['name']] = $provider;

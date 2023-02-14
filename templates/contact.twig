@@ -5,86 +5,136 @@
 {% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
 {% set categories = craft.entries.section('category') %}
 
-{% block scripts %}
-	<script>
-		const form = document.querySelector('#contact-form');
-		const errors = document.querySelector('#form-errors');
-		const info = document.querySelector('#form-info');
+{% macro errorList(errors) %}
+    {% if errors %}
+        {{ ul(errors, {class: 'errors'}) }}
+    {% endif %}
+{% endmacro %}
 
-		form.addEventListener("submit", function(e)
-		{
-			e.preventDefault();
-
-			errors.innerHTML = "";
-
-			var data = new FormData(e.target);
-
-			fetch("/forms/sendmail.php", {
-				method: 'POST',
-				body: data 
-			}).then(function (response)
-			{
-				console.log('response');
-				console.warn(response);
-				if (response.ok)
-				{
-					return response.json();
-				}
-				return Promise.reject(response);
-			}).then(function (data) 
-			{
-				if (data.status == "success")
-				{
-					info.innerText = "Thank you! Your message has been sent, and we will be in contact soon.";
-					e.target.reset();
-				}
-				else 
-				{
-					errors.innerHTML = data.message;
-				}
-			}).catch(function (error)
-			{
-				errors.innerHTML = error.message;
-				console.log('error');
-				console.warn(error);
-				console.warn(error.message);
-			});
-		});
-	</script>
-{% endblock %}
+{% set submission = submission ?? null %}
 
 {% block content %}
 
-	<div class="page container">
+    <div class="page container">
 
-		<form id="contact-form" class="contact-form" action="/forms/sendmail.php">
+        <form method="post" action="" accept-charset="UTF-8" class="contact-form">
+            {{ csrfInput() }}
+            {{ actionInput('contact-form/send') }}
+            {# {{ redirectInput('contact/thanks') }} #}
+            {# {{ input('hidden', 'subject', 'Website Contact', { id: 'subject',}) }} #}
 
-			<h3 id="form-info">
-				Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know. Or just send us some good vibes.
-			</h3>
+            <h3 id="form-info">
+                Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know. Or just send us some good vibes.
+            </h3>
 
-			<input name="poobear" type="hidden" value="">
-			<input name="name" type="text" placeholder="Full Name">
-			<input name="email" type="email" placeholder="Email">
-			<input name="phone" type="text" placeholder="Phone Number">
-			<textarea name="comments" placeholder="Comments"></textarea>
-			<div id="form-errors" class="errors"></div>
-			<button class="btn">Send</button>
-		</form>
+            {{ input('text', 'fromName', submission.fromName ?? '', {
+                id: 'from-name',
+                autocomplete: 'name',
+                placeholder: 'Full Name'
+            }) }}
+            {# {{ submission ? _self.errorList(submission.getErrors('fromName')) }} #}
 
-		<section class="blog">
+            {{ input('email', 'fromEmail', submission.fromEmail ?? '', {
+                id: 'from-email',
+                autocomplete: 'email',
+                placeholder: 'Email'
+            }) }}
+            {# {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }} #}
 
-			<div class="container narrow-container">
+            <input type="text" name="phone" placeholder="Phone Number">
 
-				<h3 class="section-title"><span>Ready To Jump Back In?</span></h3>
+            {{ tag('textarea', {
+                text: submission.message ?? '',
+                id: 'message',
+                name: 'message',
+                placeholder: 'Comments'
+            }) }}
 
-				{% include '_includes/related-content' with { articles: articles } %}
+            {% set errors = [] %}
+            
+            {% if craft.app.session.hasFlash('notice') %}
+                {# <p class="message notice">{{ craft.app.session.getFlash('notice') }}</p> #}
+                {# {{ _self.errorList(craft.app.session.getFlash('notice')) }} #}
+                {% set errors = [craft.app.session.getFlash('notice')] %}
+            {% endif %}
+            {% if submission %}
+                {% if submission.hasErrors('fromName') %}
+                    {% set errors = errors | merge(submission.getErrors('fromName')) %}
+                {% endif %}
+                {% if submission.hasErrors('fromEmail') %}
+                    {% set errors = errors | merge(submission.getErrors('fromEmail')) %}
+                {% endif %}
+                {% if submission.hasErrors('message') %}
+                    {% set errors = errors | merge(submission.getErrors('message')) %}
+                {% endif %}
+            {% endif %}
 
-				{% include '_includes/related-categories' with { categories: categories } %}
-			</div>
+            {% if errors | length %}
+                {{ _self.errorList(errors) }}
+            {% endif %}
 
-		</div>
+            {# {{ submission ? _self.errorList(submission.getErrors('fromName')) }}
+            {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }}
+            {{ submission ? _self.errorList(submission.getErrors('message')) }} #}
 
-	</div>
+            <button class="btn" type="submit">Send</button>
+        </form>
+
+        <section class="blog">
+
+            <div class="container narrow-container">
+
+                <h3 class="section-title"><span>Ready To Jump Back In?</span></h3>
+
+                {% include '_includes/related-content' with { articles: articles } %}
+
+                {% include '_includes/related-categories' with { categories: categories } %}
+            </div>
+
+        </section>
+
+    </div>
+
+{#
+        
+
+<form method="post" action="" accept-charset="UTF-8">
+    {{ csrfInput() }}
+    {{ actionInput('contact-form/send') }}
+    {{ redirectInput('contact/thanks') }}
+
+    <h3><label for="from-name">Your Name</label></h3>
+    {{ input('text', 'fromName', submission.fromName ?? '', {
+        id: 'from-name',
+        autocomplete: 'name',
+    }) }}
+    {{ submission ? _self.errorList(submission.getErrors('fromName')) }}
+
+    <h3><label for="from-email">Your Email</label></h3>
+    {{ input('email', 'fromEmail', submission.fromEmail ?? '', {
+        id: 'from-email',
+        autocomplete: 'email',
+    }) }}
+    {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }}
+
+    <h3><label for="subject">Subject</label></h3>
+    {{ input('text', 'subject', submission.subject ?? '', {
+        id: 'subject',
+    }) }}
+    {{ submission ? _self.errorList(submission.getErrors('subject')) }}
+
+    <h3><label for="message">Message</label></h3>
+    {{ tag('textarea', {
+        text: submission.message ?? '',
+        id: 'message',
+        name: 'message',
+        rows: 10,
+        cols: 40,
+    }) }}
+    {{ submission ? _self.errorList(submission.getErrors('message')) }}
+
+    <button type="submit">Send</button>
+</form>
+#}
 
 {% endblock %}

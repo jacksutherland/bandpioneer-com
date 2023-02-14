@@ -28,6 +28,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         '60799491728b879e74601d83e38b2cad' => __DIR__ . '/..' . '/illuminate/collections/helpers.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'c88a6f0dbb89a32bf4e283d3a7d626ab' => __DIR__ . '/..' . '/voku/stringy/src/Create.php',
+        '79f66bc0a1900f77abe4a9a299057a0a' => __DIR__ . '/..' . '/starkbank/ecdsa/src/ellipticcurve.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -64,6 +65,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'p' => 
         array (
+            'putyourlightson\\sendgrid\\' => 25,
             'phpDocumentor\\Reflection\\' => 25,
         ),
         'm' => 
@@ -81,6 +83,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'craftcms\\oauth2\\client\\' => 23,
             'craft\\redactor\\' => 15,
             'craft\\htmlfield\\' => 16,
+            'craft\\contactform\\' => 18,
             'craft\\composer\\' => 15,
             'craft\\' => 6,
             'cebe\\markdown\\' => 14,
@@ -113,6 +116,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Mime\\' => 23,
+            'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\' => 41,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\HttpClient\\' => 29,
             'Symfony\\Component\\Finder\\' => 25,
@@ -120,6 +124,12 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\Console\\' => 26,
             'Stringy\\' => 8,
+            'SendGrid\\Stats\\' => 15,
+            'SendGrid\\Mail\\' => 14,
+            'SendGrid\\Helper\\' => 16,
+            'SendGrid\\EventWebhook\\' => 22,
+            'SendGrid\\Contacts\\' => 18,
+            'SendGrid\\' => 9,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
             'Seld\\CliPrompt\\' => 15,
@@ -269,8 +279,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
-            1 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
-            2 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
+            1 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
+            2 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
         ),
         'verbb\\comments\\' => 
         array (
@@ -287,6 +297,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'samdark\\log\\' => 
         array (
             0 => __DIR__ . '/..' . '/samdark/yii2-psr-log-target/src',
+        ),
+        'putyourlightson\\sendgrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/putyourlightson/craft-sendgrid/src',
         ),
         'phpDocumentor\\Reflection\\' => 
         array (
@@ -321,6 +335,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\htmlfield\\' => 
         array (
             0 => __DIR__ . '/..' . '/craftcms/html-field/src',
+        ),
+        'craft\\contactform\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/craftcms/contact-form/src',
         ),
         'craft\\composer\\' => 
         array (
@@ -415,6 +433,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
+        'Symfony\\Component\\Mailer\\Bridge\\Sendgrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/sendgrid-mailer',
+        ),
         'Symfony\\Component\\Mailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
@@ -442,6 +464,30 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Stringy\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/stringy/src',
+        ),
+        'SendGrid\\Stats\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/stats',
+        ),
+        'SendGrid\\Mail\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/mail',
+        ),
+        'SendGrid\\Helper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/helper',
+        ),
+        'SendGrid\\EventWebhook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/eventwebhook',
+        ),
+        'SendGrid\\Contacts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/contacts',
+        ),
+        'SendGrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
         ),
         'Seld\\PharUtils\\' => 
         array (
@@ -514,9 +560,9 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
         ),
         'Illuminate\\Contracts\\' => 
         array (
@@ -616,12 +662,15 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'BaseSendGridClientInterface' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/BaseSendGridClientInterface.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'RequirementsChecker' => __DIR__ . '/..' . '/craftcms/server-check/server/requirements/RequirementsChecker.php',
+        'SendGrid' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/SendGrid.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'TwilioEmail' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/TwilioEmail.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );

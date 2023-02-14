@@ -1,4 +1,4 @@
-dateModified: 1676180070
+dateModified: 1676333620
 elementSources:
   craft\elements\Entry:
     -
@@ -61,6 +61,7 @@ elementSources:
       disabled: false
       key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Category
       tableAttributes:
+        - 'field:ed962f96-407c-48ee-9fe2-daccbb4b7a16' # Headline
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
         - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
         - slug
@@ -83,7 +84,12 @@ elementSources:
 email:
   fromEmail: jack@realitygems.com
   fromName: 'Band Pioneer'
-  transportType: craft\mail\transportadapters\Sendmail
+  replyToEmail: null
+  template: ''
+  transportSettings:
+    apiKey: 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
+    categories: ''
+  transportType: putyourlightson\sendgrid\mail\SendgridAdapter
 fs:
   bandImages:
     hasUrls: true
@@ -270,10 +276,25 @@ plugins:
       templateEmail: null
       templateFolderOverride: _comments
       useQueueForNotifications: false
+  contact-form:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+    settings:
+      allowAttachments: ''
+      allowedMessageFields: null
+      prependSender: 'Band Pioneer'
+      prependSubject: 'Website Contact'
+      successFlashMessage: 'Thank you! Your message has been sent.'
+      toEmail: jack@realitygems.com
   redactor:
     edition: standard
     enabled: true
     schemaVersion: 2.3.0
+  sendgrid:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
 system:
   edition: pro
   live: true

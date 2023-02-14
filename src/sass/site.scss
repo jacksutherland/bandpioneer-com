@@ -884,10 +884,10 @@ form {
 			text-align: center;
 		}
 
-		input[name="name"] {
+		input[name="fromName"] {
 			grid-area: fn;
 		}
-		input[name="email"] {
+		input[name="fromEmail"] {
 			grid-area: em;
 		}
 		input[name="phone"] {
@@ -899,6 +899,7 @@ form {
 		button {
 			grid-area: bt;
 			// justify-self: end;
+			width: 100%;
 		}
 
 		.errors {

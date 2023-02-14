@@ -752,10 +752,10 @@ form.contact-form h3 {
   grid-area: h3;
   text-align: center;
 }
-form.contact-form input[name=name] {
+form.contact-form input[name=fromName] {
   grid-area: fn;
 }
-form.contact-form input[name=email] {
+form.contact-form input[name=fromEmail] {
   grid-area: em;
 }
 form.contact-form input[name=phone] {
@@ -766,6 +766,7 @@ form.contact-form textarea {
 }
 form.contact-form button {
   grid-area: bt;
+  width: 100%;
 }
 form.contact-form .errors {
   grid-area: er;

@@ -1,3 +1,31 @@
+### [2.2.19] 2023-02-04
+
+  * Fixed URL sanitizer to handle new GitHub personal access tokens format (#11137)
+  * Fixed cache keys to allow `_` to avoid conflicts between package names like `a-b` and `a_b` (#11229)
+  * Fixed handling of --ignore-platform-req with upper-bound ignores to not apply to conflict rules (#11037)
+  * Fixed handling of `COMPOSER_DISCARD_CHANGES` when set to `0`
+
+### [2.2.18] 2022-08-20
+
+  * Fixed `COMPOSER_NO_DEV` so it also works with `require` and `remove`'s `--update-no-dev` (#10995)
+  * Fixed duplicate missing extension warnings being displayed (#10938)
+  * Fixed hg version detection (#10955)
+  * Fixed git cache invalidation issue when a git tag gets created after the cache has loaded a given reference (#11004)
+
+### [2.2.17] 2022-07-13
+
+  * Fixed plugins from CWD/vendor being loaded in some cases like create-project or validate even though the target directory is outside of CWD (#10935)
+  * Fixed support for legacy (Composer 1.x, e.g. hirak/prestissimo) plugins which will not warn/error anymore if not in allow-plugins, as they are anyway not loaded (#10928)
+  * Fixed pre-install check for allowed plugins not taking --no-plugins into account (#10925)
+  * Fixed support for disable_functions containing disk_free_space (#10936)
+  * Fixed RootPackageRepository usages to always clone the root package to avoid interoperability issues with plugins (#10940)
+
+### [2.2.16] 2022-07-05
+
+  * Fixed non-interactive behavior of allow-plugins to throw instead of continue with a warning to avoid broken installs (#10920)
+  * Fixed allow-plugins BC mode to ensure old lock files created pre-2.2 can be installed with only a warning but plugins fully loaded (#10920)
+  * Fixed deprecation notice (#10921)
+
 ### [2.2.15] 2022-07-01
 
   * Fixed support for `cache-read-only` where the filesystem is not writable (#10906)
@@ -1455,6 +1483,10 @@
 
   * Initial release
 
+[2.2.19]: https://github.com/composer/composer/compare/2.2.18...2.2.19
+[2.2.18]: https://github.com/composer/composer/compare/2.2.17...2.2.18
+[2.2.17]: https://github.com/composer/composer/compare/2.2.16...2.2.17
+[2.2.16]: https://github.com/composer/composer/compare/2.2.15...2.2.16
 [2.2.15]: https://github.com/composer/composer/compare/2.2.14...2.2.15
 [2.2.14]: https://github.com/composer/composer/compare/2.2.13...2.2.14
 [2.2.13]: https://github.com/composer/composer/compare/2.2.12...2.2.13

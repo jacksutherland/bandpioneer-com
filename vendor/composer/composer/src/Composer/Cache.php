@@ -48,7 +48,7 @@ class Cache
      * @param Filesystem  $filesystem optional filesystem instance
      * @param bool        $readOnly   whether the cache is in readOnly mode
      */
-    public function __construct(IOInterface $io, $cacheDir, $allowlist = 'a-z0-9.', Filesystem $filesystem = null, $readOnly = false)
+    public function __construct(IOInterface $io, $cacheDir, $allowlist = 'a-z0-9._', Filesystem $filesystem = null, $readOnly = false)
     {
         $this->io = $io;
         $this->root = rtrim($cacheDir, '/\\') . '/';
@@ -162,11 +162,11 @@ class Cache
                     unlink($tempFileName);
 
                     $message = sprintf(
-                        '<warning>Writing %1$s into cache failed after %2$u of %3$u bytes written, only %4$u bytes of free space available</warning>',
+                        '<warning>Writing %1$s into cache failed after %2$u of %3$u bytes written, only %4$s bytes of free space available</warning>',
                         $tempFileName,
                         $m[1],
                         $m[2],
-                        @disk_free_space(dirname($tempFileName))
+                        function_exists('disk_free_space') ? @disk_free_space(dirname($tempFileName)) : 'unknown'
                     );
 
                     $this->io->writeError($message);
