@@ -21,7 +21,7 @@
             {{ csrfInput() }}
             {{ actionInput('contact-form/send') }}
             {# {{ redirectInput('contact/thanks') }} #}
-            {# {{ input('hidden', 'subject', 'Website Contact', { id: 'subject',}) }} #}
+            {{ input('hidden', 'subject', 'Contact', { id: 'subject',}) }}
 
             <h3 id="form-info">
                 Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know. Or just send us some good vibes.
@@ -53,10 +53,9 @@
             {% set errors = [] %}
             
             {% if craft.app.session.hasFlash('notice') %}
-                {# <p class="message notice">{{ craft.app.session.getFlash('notice') }}</p> #}
-                {# {{ _self.errorList(craft.app.session.getFlash('notice')) }} #}
                 {% set errors = [craft.app.session.getFlash('notice')] %}
             {% endif %}
+
             {% if submission %}
                 {% if submission.hasErrors('fromName') %}
                     {% set errors = errors | merge(submission.getErrors('fromName')) %}
@@ -72,10 +71,6 @@
             {% if errors | length %}
                 {{ _self.errorList(errors) }}
             {% endif %}
-
-            {# {{ submission ? _self.errorList(submission.getErrors('fromName')) }}
-            {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }}
-            {{ submission ? _self.errorList(submission.getErrors('message')) }} #}
 
             <button class="btn" type="submit">Send</button>
         </form>

@@ -1,4 +1,4 @@
-dateModified: 1676333620
+dateModified: 1676337918
 elementSources:
   craft\elements\Entry:
     -
@@ -282,9 +282,10 @@ plugins:
     schemaVersion: 1.0.0
     settings:
       allowAttachments: ''
-      allowedMessageFields: null
+      allowedMessageFields:
+        - Phone
       prependSender: 'Band Pioneer'
-      prependSubject: 'Website Contact'
+      prependSubject: 'Band Pioneer'
       successFlashMessage: 'Thank you! Your message has been sent.'
       toEmail: jack@realitygems.com
   redactor:
