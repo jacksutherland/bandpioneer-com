@@ -165,11 +165,21 @@ a {
 }
 
 .ezoic-ad {
-	margin: 40px 0;
+	margin: 40px auto !important;
+	width: fit-content;
+	background-color: $light-gray;
+	.ezoic-ad {
+	    transform: scale(.95);
+	    margin: 20px auto !important;
+	}
 }
 .ezmob-footer {
 	.ezoic-ad {
 		margin: 0 0 !important;
+		background-color: transparent;
+		.ezoic-ad {
+			margin: 0 0 !important;
+		}
 	}
 }
 
