@@ -145,17 +145,6 @@ a.underline:hover:after {
   margin-top: 30px;
 }
 
-.ezoic-ad {
-  margin: 40px auto !important;
-}
-
-.ezmob-footer .ezoic-ad {
-  margin: 0 0 !important;
-}
-.ezmob-footer .ezoic-ad .ezoic-ad {
-  margin: 0 0 !important;
-}
-
 .logo {
   display: block;
   height: 60px;
@@ -1324,4 +1313,18 @@ article .blog-info ul li span {
   article.featured .blog-image .blog-image-info p {
     width: 65%;
   }
+}
+.ezoic-ad {
+  margin: 40px auto !important;
+}
+
+.ezmob-footer .ezoic-ad {
+  margin: 0 0 !important;
+}
+.ezmob-footer .ezoic-ad .ezoic-ad {
+  margin: 0 0 !important;
+}
+
+#ezoic-pub-ad-placeholder-900 {
+  display: none !important;
 }
