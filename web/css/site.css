@@ -1314,3 +1314,13 @@ article .blog-info ul li span {
     width: 65%;
   }
 }
+.ezoic-ad {
+  margin: 40px auto !important;
+}
+
+.ezmob-footer .ezoic-ad {
+  margin: 0 0 !important;
+}
+.ezmob-footer .ezoic-ad .ezoic-ad {
+  margin: 0 0 !important;
+}
