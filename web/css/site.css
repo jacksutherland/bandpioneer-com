@@ -1325,6 +1325,13 @@ article .blog-info ul li span {
   margin: 0 0 !important;
 }
 
-#ezoic-pub-ad-placeholder-900 {
+#ezoic-pub-ad-placeholder-900,
+#ezoic-pub-ad-placeholder-902,
+#ezoic-pub-ad-placeholder-910 {
+  display: none !important;
+}
+#ezoic-pub-ad-placeholder-900 + .ezoic-ad,
+#ezoic-pub-ad-placeholder-902 + .ezoic-ad,
+#ezoic-pub-ad-placeholder-910 + .ezoic-ad {
   display: none !important;
 }
