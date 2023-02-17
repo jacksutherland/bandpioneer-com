@@ -1329,13 +1329,15 @@ article .blog-info ul li span {
 #ezoic-pub-ad-placeholder-901,
 #ezoic-pub-ad-placeholder-902,
 #ezoic-pub-ad-placeholder-909,
-#ezoic-pub-ad-placeholder-910 {
+#ezoic-pub-ad-placeholder-910,
+#ezoic-pub-ad-placeholder-911 {
   display: none !important;
 }
 #ezoic-pub-ad-placeholder-900 + .ezoic-ad,
 #ezoic-pub-ad-placeholder-901 + .ezoic-ad,
 #ezoic-pub-ad-placeholder-902 + .ezoic-ad,
 #ezoic-pub-ad-placeholder-909 + .ezoic-ad,
-#ezoic-pub-ad-placeholder-910 + .ezoic-ad {
+#ezoic-pub-ad-placeholder-910 + .ezoic-ad,
+#ezoic-pub-ad-placeholder-911 + .ezoic-ad {
   display: none !important;
 }
