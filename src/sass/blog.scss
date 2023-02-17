@@ -334,6 +334,20 @@ article {
 		margin: 40px 0 0 0;
 	}
 
+	.ordered-title {
+		margin: 40px 0 0 0;
+		h2, h4 {
+			margin: 0;
+			display: inline;
+		}
+	}
+
+	// .section-order {
+	// 	& + h2 {
+	// 		display: inline-block;
+	// 	}
+	// }
+
 	address {
 		margin: -5px 0 25px 0;
 	}

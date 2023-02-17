@@ -1,4 +1,4 @@
-dateModified: 1676338675
+dateModified: 1676660040
 elementSources:
   craft\elements\Entry:
     -
@@ -178,6 +178,7 @@ meta:
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
+    b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
     cb12ca30-b685-4547-a81e-f978eb629278: Default # Default
@@ -302,4 +303,3 @@ system:
   name: 'Band Pioneer'
   schemaVersion: 4.0.0.9
   timeZone: America/Los_Angeles
-
