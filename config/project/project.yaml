@@ -1,4 +1,4 @@
-dateModified: 1676337918
+dateModified: 1676338675
 elementSources:
   craft\elements\Entry:
     -
@@ -87,7 +87,7 @@ email:
   replyToEmail: null
   template: ''
   transportSettings:
-    apiKey: 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
+    apiKey: $SENDGRID_API_KEY
     categories: ''
   transportType: putyourlightson\sendgrid\mail\SendgridAdapter
 fs:
