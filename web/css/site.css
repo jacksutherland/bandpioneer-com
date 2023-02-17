@@ -147,18 +147,10 @@ a.underline:hover:after {
 
 .ezoic-ad {
   margin: 40px auto !important;
-  width: -moz-fit-content;
-  width: fit-content;
-  background-color: #e7ebec;
-}
-.ezoic-ad .ezoic-ad {
-  transform: scale(0.95);
-  margin: 20px auto !important;
 }
 
 .ezmob-footer .ezoic-ad {
   margin: 0 0 !important;
-  background-color: transparent;
 }
 .ezmob-footer .ezoic-ad .ezoic-ad {
   margin: 0 0 !important;
