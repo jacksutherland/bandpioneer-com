@@ -5,8 +5,8 @@
         <h2>Got Music Questions?</h2>
     {% endif %}
     <h2>Let Us Do the Research for You!</h2>
-    <p>{{ text }}</p>
-    {% if showButton %}
+    <p>{{ text | raw }}</p>
+    {% if showButton %} 
         <a class="btn" href="/contact?ask=question">Ask a Question</a>
     {% endif %}
 </div>
