@@ -4,6 +4,7 @@
 {% set entry = { slug: 'contact', title: 'Contact Us', section: { handle: 'contact' } } %}
 {% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
 {% set categories = craft.entries.section('category') %}
+{% set topicIdea = craft.app.request.getQueryParam('ask') == 'question' %}
 
 {% macro errorList(errors) %}
     {% if errors %}
@@ -17,15 +18,20 @@
 
     <div class="page container">
 
+        {% if topicIdea %}
+            {% include '_includes/ask-a-question' with { showButton: false, useH1: false, text: "If you have a questions that we haven't already covered, let us know in the comments below. We'll either reply with an answer, or have one of our seasoned musician bloggers write an article about it." } %}
+        {% endif %}
+
         <form method="post" action="" accept-charset="UTF-8" class="contact-form">
             {{ csrfInput() }}
             {{ actionInput('contact-form/send') }}
-            {# {{ redirectInput('contact/thanks') }} #}
-            {{ input('hidden', 'subject', 'Contact', { id: 'subject',}) }}
+            {{ input('hidden', 'subject', (topicIdea ? 'Topic Idea' : 'Contact'), { id: 'subject',}) }}
 
-            <h3 id="form-info">
-                Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know. Or just send us some good vibes.
-            </h3>
+            {% if not topicIdea %}
+                <h3 id="form-info">
+                    Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know.<br /><br />Or just send us some good vibes.
+                </h3>
+            {% endif %}
 
             {{ input('text', 'fromName', submission.fromName ?? '', {
                 id: 'from-name',

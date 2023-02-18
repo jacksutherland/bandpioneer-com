@@ -98,7 +98,7 @@ h3, h4 {
 
 p {
   font-size: 1rem;
-  line-height: 1.5rem;
+  line-height: 1.55rem;
 }
 
 a {
@@ -218,6 +218,26 @@ section.bands .band-carousel .band-slider .slide img {
 }
 #homepage header.site-header .logo img.logo-mark {
   display: inline;
+}
+
+#contact .ask-a-question {
+  margin: 0 10% 0 10%;
+}
+
+.ask-a-question {
+  text-align: center;
+}
+.ask-a-question h1 {
+  margin: 40px 0 15px 0;
+  color: #0a79a4;
+}
+.ask-a-question h2 {
+  margin: 0 0 15px 0;
+  font-weight: 400;
+  color: #0a79a4;
+}
+.ask-a-question .btn {
+  margin-top: 25px;
 }
 
 header.site-header {
@@ -374,7 +394,7 @@ header.sticky {
   justify-self: center;
   height: auto;
   width: 70%;
-  max-width: 420px;
+  max-width: 360px;
 }
 .page-header.hero {
   height: 350px;
@@ -899,7 +919,18 @@ form.contact-form .errors {
 }
 @media (min-width: 992px) {
   #homepage .page-header {
-    height: 700px;
+    height: 450px;
+  }
+  #contact .ask-a-question {
+    margin-bottom: -90px;
+  }
+  .ask-a-question {
+    height: 400px;
+    margin: 0 0 -90px 0;
+    padding: 0 30% 0 10%;
+    background-image: url(/assets/images/guy-thinking.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
   }
   header.site-header .container nav.main-menu ul li {
     margin: 0 10px;

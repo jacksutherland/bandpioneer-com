@@ -51,6 +51,8 @@
 		{% if isHomepage and pageInfo.currentPage == 1 %}
 			{% set featured = posts[0] %}
 
+			{% include '_includes/ask-a-question' with { showButton: true, useH1: true, text: "We're here to provide answers to all of your music related questions. If it's not already here, click the button below to let us know and we'll get one of our music savants on it. Your quandary could be the next article posted on Band Pioneer!" } %}
+
 			<h3 class="section-title"><span>Featured Article</span></h3>
 
 			<article class="featured">
@@ -95,8 +97,11 @@
 		{% endif %}
 
 		{% if isHomepage %}
-			<h3 class="section-title"><span>Recent Articles</span></h3>
+
+			<h3 class="section-title"><span>{% if pageInfo.currentPage > 1 %}Page {{ pageInfo.currentPage }} of {% endif %}Recent Articles</span></h3>
+
 		{% elseif entry.headline | length > 0 or entry.shortDescription | length > 0 %}
+
 			<div class="page container">
 				<section class="description">
 					{% if entry.headline | length > 0 %}
@@ -109,6 +114,7 @@
 					{% endif %}
 				</section>
 			</div>
+
 		{% endif %}
 
 		<div class="blog-posts">

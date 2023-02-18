@@ -110,7 +110,7 @@ h3, h4 {
 
 p {
 	font-size: 1rem;
-	line-height: 1.5rem;
+	line-height: 1.55rem;
 }
 
 a {
@@ -269,6 +269,28 @@ section {
 	    	}
 		}
 	}
+}
+
+#contact {
+	.ask-a-question {
+		margin: 0 10% 0 10%;
+	}
+}
+
+.ask-a-question {
+    text-align: center;
+    h1 {
+    	margin: 40px 0 15px 0;
+    	color: $alternate-color;
+    }
+    h2 {
+    	margin: 0 0 15px 0;
+    	font-weight: $normal-weight;
+    	color: $alternate-color;
+    }
+    .btn {
+    	margin-top: 25px;
+    }
 }
 
 header.site-header {
@@ -459,7 +481,7 @@ header.sticky {
 		justify-self: center;
 		height: auto;
 		width: 70%;
-    	max-width: 420px;
+    	max-width: 360px;
 	}	
 
 	&.hero {
@@ -1087,8 +1109,21 @@ form {
 @media (min-width: $breakpoint-lg) {
 	#homepage {
 		.page-header {
-			height: 700px;
+			height: $large-hero-height;
 		}
+	}
+	#contact {
+		.ask-a-question {
+			margin-bottom: -90px;
+		}
+	}
+	.ask-a-question {
+		height: 400px;
+		margin: 0 0 -90px 0;
+		padding: 0 30% 0 10%;
+		background-image: url(/assets/images/guy-thinking.png);
+	    background-repeat: no-repeat;
+	    background-position: bottom right;
 	}
 	header {
 		&.site-header {
