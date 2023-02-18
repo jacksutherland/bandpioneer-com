@@ -1,11 +1,11 @@
 <div class="ask-a-question">
     {% if useH1 %}
-        <h1>Got Music Questions?</h1>
+        <h1>{{ headline }}</h1>
     {% else %}
-        <h2>Got Music Questions?</h2>
+        <h2>{{ headline }}</h2>
     {% endif %}
-    <h2>Let Us Do the Research for You!</h2>
-    <p>{{ text | raw }}</p>
+    <h2>{{ subheadline }}</h2>
+    <p>{{ text | nl2br }}</p>
     {% if showButton %} 
         <a class="btn" href="/contact?ask=question">Ask a Question</a>
     {% endif %}

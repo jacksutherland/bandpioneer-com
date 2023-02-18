@@ -273,7 +273,6 @@ section {
 
 #contact {
 	.ask-a-question {
-		// margin: 0 10% 0 10%;
 		margin: 0 13% 0 10%;
 	}
 }
@@ -973,7 +972,7 @@ form {
 	h2,
 	.ordered-title h4 {
 		font-size: 1.75rem;
-    	line-height: 2.6rem;
+    	line-height: 2.3rem;
 	}
 	#homepage {
 		.page-header {
@@ -1116,12 +1115,14 @@ form {
 	#contact {
 		.ask-a-question {
 			margin-bottom: -90px;
+			padding: 0 33% 0 6%;
+			height: 400px;
 		}
 	}
 	.ask-a-question {
-		height: 400px;
+		height: 470px;
 		margin: 0 0 -90px 0;
-		padding: 0 30% 0 10%;
+		padding: 0 33% 0 7%;
 		background-image: url(/assets/images/guy-thinking.png);
 	    background-repeat: no-repeat;
 	    background-position: bottom right;

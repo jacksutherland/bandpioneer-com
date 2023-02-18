@@ -19,7 +19,8 @@
     <div class="page container">
 
         {% if topicIdea %}
-            {% include '_includes/ask-a-question' with { showButton: false, useH1: false, text: "Are you a musician with a question we haven't already covered? Let us know in the comments below, and we'll either reply with an answer, or have one of our seasoned musician bloggers write an article about it.<br><br>Your quandary could be the next featured article on Band Pioneer!" } %}
+            {% set homepage = craft.entries.section('homepage').one() %}
+            {% include '_includes/ask-a-question' with { showButton: false, useH1: false, headline: homepage.headline, subheadline: homepage.subheadline, text: homepage.shortDescription } %}
         {% endif %}
 
         <form method="post" action="" accept-charset="UTF-8" class="contact-form">
