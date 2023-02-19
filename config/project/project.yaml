@@ -1,4 +1,4 @@
-dateModified: 1676760719
+dateModified: 1676777975
 elementSources:
   craft\elements\Entry:
     -
@@ -177,6 +177,7 @@ meta:
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
+    ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post

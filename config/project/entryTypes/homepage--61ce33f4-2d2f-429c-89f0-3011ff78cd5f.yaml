@@ -110,6 +110,18 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
+            fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d670be16-05fa-4a27-9168-5e34585afb6b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
             instructions: null
             label: null
