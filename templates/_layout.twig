@@ -53,7 +53,7 @@
 
             <meta property="og:type" content="{{ entry.section.handle == 'blog' ? 'article' : 'website' }}" />
             {% if entry.metaTitle is defined and entry.metaTitle | length %}
-                <meta property="og:title" content="{{ entry.metaTitle }}" />
+                <meta property="og:title" content="{{ entry.metaTitle }}{% if entry.section.handle == 'homepage' %} | {{ siteName }}{% endif %}" />
             {% else %}
                 <meta property="og:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}" />
             {% endif %}
