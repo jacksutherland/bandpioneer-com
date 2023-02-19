@@ -29,7 +29,7 @@
 
         {% set metaDesc = '' %}
         {% if entry is defined %}
-            {% if entry.metaTitle is defined %}
+            {% if entry.metaTitle is defined and entry.metaTitle | length %}
                 {% set metaTitle = entry.metaTitle ~ ' | ' ~ metaTitle %}
             {% elseif entry.section.handle != 'homepage' %}
                 {% set metaTitle = entry.title ~ ' | ' ~ metaTitle %}
@@ -52,7 +52,11 @@
             {# Open Graph Tags #}
 
             <meta property="og:type" content="{{ entry.section.handle == 'blog' ? 'article' : 'website' }}" />
-            <meta property="og:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}" />
+            {% if entry.metaTitle is defined and entry.metaTitle | length %}
+                <meta property="og:title" content="{{ entry.metaTitle }}" />
+            {% else %}
+                <meta property="og:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}" />
+            {% endif %}
             {% if metaDesc | length > 0 %}
                 <meta property="og:description" content="{{ metaDesc }}" />
             {% endif %}
