@@ -10,6 +10,8 @@
 {% set fixedHeader = fixedHeader is defined ? fixedHeader : false %}
 {% set categories = craft.entries.section('category') %}
 
+{% import '_includes/macros' as macros %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,7 +29,9 @@
 
         {% set metaDesc = '' %}
         {% if entry is defined %}
-            {% if entry.section.handle != 'homepage' %}
+            {% if entry.metaTitle is defined %}
+                {% set metaTitle = entry.metaTitle ~ ' | ' ~ metaTitle %}
+            {% elseif entry.section.handle != 'homepage' %}
                 {% set metaTitle = entry.title ~ ' | ' ~ metaTitle %}
             {% endif %}
             {% if entry.metaDescription is defined %}

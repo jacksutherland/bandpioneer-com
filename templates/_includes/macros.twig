@@ -1,0 +1,3 @@
+{% macro blogTitle(blog) %}
+	{{ blog.title ~ (blog.subheadline | length > 10 ? ' - '  ~ blog.subheadline : '') }}
+{% endmacro %}

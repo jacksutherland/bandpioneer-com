@@ -1,5 +1,7 @@
 {% extends '_layout' %}
 
+{% import '_includes/macros' as macros %}
+
 {% set postsPerPage = 8 %}
 
 {% set categorySlug = craft.app.request.segments | last %}
@@ -67,7 +69,8 @@
 					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
 						<h2>
 							{# {{ featured.title }} #}
-							{{ featured.title ~ (featured.subheadline | length ? ' - '  ~ featured.subheadline : '') }}
+							{# {{ featured.title ~ (featured.subheadline | length ? ' - '  ~ featured.subheadline : '') }} #}
+							{{ macros.blogTitle(featured) }}
 						</h2>
 						{% include '_includes/author' with { blog: featured, showLink: false } %}
 						<p>{{ featured.shortDescription }}</p>
@@ -145,7 +148,7 @@
 		            	</ul>
 						<h3>
 							<a href="{{ blog.url }}">
-								{{ blog.title ~ (blog.subheadline | length > 8 ? ' - '  ~ blog.subheadline : '') }}
+								{{ macros.blogTitle(blog) }}
 							</a>
 						</h3>
 						
