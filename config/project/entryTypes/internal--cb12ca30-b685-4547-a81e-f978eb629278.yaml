@@ -219,9 +219,9 @@ fieldLayouts:
         name: SEO
         uid: 5a3d013c-7b39-4c20-9443-7cdc345c29c6
         userCondition: null
-handle: default
+handle: internal
 hasTitleField: true
-name: Default
+name: Internal
 section: ed3ddcd0-5218-490f-a4b7-d5000594dcf2 # Blog Post
 sortOrder: 1
 titleFormat: null

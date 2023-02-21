@@ -77,4 +77,21 @@ return array (
       'mailer' => 'craft\\contactform\\Mailer',
     ),
   ),
+  'bandpioneer/rockstar' => 
+  array (
+    'class' => 'bandpioneer\\rockstar\\Rockstar',
+    'basePath' => 'bandpioneer/rockstar/src',
+    'handle' => 'rockstar',
+    'aliases' => 
+    array (
+      '@bandpioneer/rockstar' => $vendorDir . '/bandpioneer/rockstar/src',
+    ),
+    'name' => 'Band Pioneer',
+    'version' => '1.0.0',
+    'description' => 'Band Pioneer plugin for base website design properties.',
+    'developer' => 'Band Pioneer',
+    'developerUrl' => 'https://bandpioneer.com',
+    'documentationUrl' => 'https://bandpioneer.com',
+    'changelogUrl' => 'https://bandpioneer.com',
+  ),
 );

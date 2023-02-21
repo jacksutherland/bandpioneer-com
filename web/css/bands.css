@@ -1,0 +1,90 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The SCSS stylesheet for the authenticated bands site
+ */
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The SCSS variables stylesheet
+ */
+body {
+  padding-top: 80px;
+  background-color: #e7ebec;
+}
+body main {
+  margin-top: 20px !important;
+}
+
+.bands-container {
+  max-width: 800px;
+  margin: 0 20px;
+}
+.bands-container.dashboard {
+  display: grid;
+  gap: 20px;
+  grid-template-areas: "s1" "s2";
+}
+.bands-container.dashboard section {
+  position: relative;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #bcc7ca;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 4px;
+}
+.bands-container.dashboard section:first-child {
+  grid-area: s1;
+}
+.bands-container.dashboard section:nth-child(2) {
+  grid-area: s2;
+}
+.bands-container.dashboard section h3 {
+  font-family: "Michroma", sans-serif;
+  margin: 0 0 20px 0;
+  color: #0a79a4;
+}
+.bands-container.dashboard section .btn,
+.bands-container.dashboard section button {
+  margin: 0;
+  height: 40px;
+  font-size: 0.875rem;
+}
+.bands-container.dashboard section .btn.alt-btn,
+.bands-container.dashboard section button.alt-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+.bands-container.dashboard section form {
+  display: none;
+}
+.bands-container.dashboard section form.show {
+  display: block;
+}
+.bands-container.dashboard section form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.bands-container.dashboard section form input {
+  height: 40px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  body main {
+    margin-top: 40px !important;
+  }
+  .bands-container {
+    margin: 0 auto;
+  }
+  .bands-container.dashboard {
+    grid-template-areas: "s1 s2";
+  }
+}

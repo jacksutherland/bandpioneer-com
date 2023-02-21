@@ -1,4 +1,4 @@
-dateModified: 1676777975
+dateModified: 1677021009
 elementSources:
   craft\elements\Entry:
     -
@@ -48,6 +48,7 @@ elementSources:
       key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
       tableAttributes:
         - 'field:7338fd63-9ce2-4696-a9b3-113b5d6015c3' # Subheadline
+        - type
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
@@ -82,9 +83,9 @@ elementSources:
         - dateUpdated
       type: native
 email:
-  fromEmail: jack@realitygems.com
+  fromEmail: support@realitygems.com
   fromName: 'Band Pioneer'
-  replyToEmail: null
+  replyToEmail: support@realitygems.com
   template: ''
   transportSettings:
     apiKey: $SENDGRID_API_KEY
@@ -139,6 +140,7 @@ meta:
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
+    6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: External # External
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
@@ -182,7 +184,7 @@ meta:
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
-    cb12ca30-b685-4547-a81e-f978eb629278: Default # Default
+    cb12ca30-b685-4547-a81e-f978eb629278: Internal # Internal
     d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default
     de2bb280-3465-478f-a8b2-bb03f3c7be35: Caption # Caption

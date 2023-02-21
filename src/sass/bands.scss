@@ -1,0 +1,106 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The SCSS stylesheet for the authenticated bands site
+ */
+
+@import 'vars';
+
+$bands-gap: 20px;
+
+body {
+	padding-top: $fixed-header-height;
+	background-color: $light-gray;
+
+	main {
+		margin-top: $bands-gap !important;
+	}
+}
+
+.bands-container {
+	max-width: 800px;
+	margin: 0 $bands-gap;
+
+	&.dashboard {
+		display: grid;
+		gap: $bands-gap;
+		grid-template-areas: 
+			"s1"
+			"s2";
+
+		section {
+			position: relative;
+			border-style: solid;
+			border-width: 2px;
+			border-color: darken($light-gray, 15%);
+			background-color: lighten($light-gray, 6%);
+			padding: $bands-gap;
+			border-radius: 4px;
+
+			&:first-child {
+				grid-area: s1;
+			}
+			&:nth-child(2) {
+				grid-area: s2;
+			}
+
+			h3 {
+				font-family: $header-font-family;
+				margin: 0 0 $bands-gap 0;
+				color: $alternate-color; // $primary-dark;
+			}
+
+			.btn,
+			button {
+				margin: 0;
+				height: 40px;
+				font-size: $font-size-small;
+
+				&.alt-btn {
+					position: absolute;
+				    right: $bands-gap;
+				    bottom: $bands-gap;
+				}
+			}
+
+			form {
+				display: none;
+
+				&.show {
+					display: block;
+				}
+
+				label {
+					display: block;
+					font-size: $font-size-small;
+					font-weight: $semi-bold;
+					margin-bottom: 5px;
+				}
+
+				input {
+					height: 40px;
+					width: 100%;
+					padding: 0 15px;
+					font-size: $font-size-small;
+					margin-bottom: $bands-gap;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: $breakpoint-md) {
+	
+	body main {
+		margin-top: 40px !important;
+	}
+
+	.bands-container {
+		margin: 0 auto;
+
+		&.dashboard {
+			grid-template-areas: 
+				"s1 s2";
+		}
+	}
+}

@@ -1,0 +1,29 @@
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">
+            <img class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
+            {% if entry.section.handle == 'homepage' %}
+                <img class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
+            {% endif %}
+        </a>
+        <a id="open-menu" href="/" class="bars">
+            {% include '_includes/icons' with { type: 'bars' } %}
+        </a>
+        <nav id="main-menu" class="main-menu" role="navigation" aria-label="Secondary Navigation">
+            <a id="close-menu" href="/" class="close-menu">
+                {% include '_includes/icons' with { type: 'close' } %}
+            </a>
+            <ul>
+                <li>
+                    <a href="/" class="underline" title="Band Pioneer Homepage">Home</a>
+                </li>
+                <li>
+                    <a href="{{ url('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% if entry.section.handle == 'blog' %}
+        <div class="reading-time"><div id="reading-progress" class="reading-progress"></div></div>
+    {% endif %}
+</header>

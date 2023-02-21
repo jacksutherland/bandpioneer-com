@@ -1,5 +1,6 @@
 {
   "require": {
+    "bandpioneer/rockstar": "^1.0",
     "craftcms/cms": "^4.2.7",
     "craftcms/contact-form": "3.0.0",
     "craftcms/redactor": "3.0.2",
@@ -8,6 +9,15 @@
     "verbb/comments": "2.0.5",
     "vlucas/phpdotenv": "^5.4.0"
   },
+  "repositories": [
+      {
+          "type": "path",
+          "url": "bandpioneer/rockstar",
+          "options": {
+              "symlink": true
+          }
+      }
+  ],
   "require-dev": {
     "yiisoft/yii2-shell": "^2.0.3"
   },

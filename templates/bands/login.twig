@@ -2,14 +2,25 @@
 
 {% set pageTitle = "Band Login" %}
 {% set entry = { slug: 'band-login', title: 'Login', section: { handle: 'login' } } %}
+{% set rockstar = craft.app.request.getQueryParam('rockstar') %}
 
 {% block content %}
 
+	
+
 	<div class="page container">
+
+		{% if rockstar == 'welcome' %}
+			<div class="text-center mb-40">
+				<h2>Congratulations!</h2>
+				<p>Your account has successfully been created.<br>Login below to continue.</p>
+			</div>
+		{% endif %}
 
 		<form method="post" class="login-form" accept-charset="UTF-8">
 			{{ csrfInput() }}
 			{{ actionInput('users/login') }}
+  			{{ redirectInput('bands/dashboard') }}
 
 			<h3 id="form-info">
 				Login to Band Pioneer
@@ -24,7 +35,7 @@
 
 			<button class="btn">Login</button>
 
-			<label>{#Need an account? #}<a href="/bands/signup">Sign up</a> | <a href="/bands/reset">Forgot password?</a></label>
+			<label><a href="/bands/signup">Sign up</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/bands/reset">Forgot password?</a></label>
 
 		</form>
 

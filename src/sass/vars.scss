@@ -1,8 +1,22 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The SCSS variables stylesheet
+ */
+
 $site-width: 1100px;
 $blog-width: 750px;
+$mobile-gutter-width: 15px;
 
 $small-hero-height: 350px;
 $large-hero-height: 450px;
+$fixed-header-height: 80px; // This is not manually hardcoded
+$header-logo-height: 50px;
+$page-header-height: 200px;
+$input-height: 50px;
+
+$page-vertical-margin: 70px;
+$page-vertical-mobile-margin: 40px;
 
 $carousel-image-homepage-height: 130px;
 $carousel-image-mobile-height: 130px;
@@ -15,7 +29,7 @@ $secondary-color: #f90215;
 $secondary-dark: #d0000e;
 $alternate-color: #0a79a4;
 $dark-gray: #6e6e6e;
-$light-gray: #e7ebec; //darken(#f1f3f4, 5%);
+$light-gray: #e7ebec; //darken(#f1f3f4, 5%); //#f1f3f4
 $white: #FFFFFF;
 $gunmetal: #021215;
 
@@ -39,13 +53,6 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
-
-$page-vertical-margin: 70px;
-$page-vertical-mobile-margin: 40px;
-$mobile-gutter-width: 15px;
-$header-logo-height: 60px;
-$page-header-height: 200px;
-$input-height: 50px;
 
 $transition-time: 0.3s;
 $transition-default: $transition-time ease-in-out;

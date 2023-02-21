@@ -1,3 +1,9 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The primary JS file for the public website
+ */
+
 let BandPioneer = {
 
 	each: function(elements, callback)
@@ -180,8 +186,12 @@ let BandPioneer = {
 
 		addSearchEvents()
 		{
+			const searchInput = document.querySelector('input[name="q"]');
+
+			if (searchInput == null) return false;
+
 			// this is needed to avoid a refresh bug, but not sure why?!?!??
-			document.querySelector('input[name="q"]').addEventListener('click', function(e)
+			searchInput.addEventListener('click', function(e)
 			{
 				e.preventDefault();
 			});

@@ -1,0 +1,32 @@
+{% extends 'bands/_layout' %}
+
+{% set pageTitle = "Band Dashboard" %}
+{% set entry = { slug: 'band-dashboard', title: 'Dashboard', section: { handle: 'dashboard' } } %}
+
+
+{% block content %}
+
+	<div class="bands-container dashboard">
+
+		<section>
+			<h3>Account Info</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<form id="edit-account">
+				<label>Full Name of Band or Artist</label>
+				<input type="text" name="bandName" placeholder="">
+				<label>Website URL</label>
+				<input type="url" name="bandName" placeholder="https://mybandsite.com">
+				<button type="submit">Save</button>
+			</form>
+			<a class="btn" data-edit="edit-account" href="/">Edit</a>
+		</section>
+
+		<section>
+			<h3>Electronic Press Kit</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<a class="btn" href="/">Edit</a>
+		</section>
+
+	</div>
+
+{% endblock %}

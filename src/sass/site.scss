@@ -1,3 +1,9 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The primary SCSS stylesheet for the public website
+ */
+
 html {
 	font-family: $font-family;
 	font-size: 16px;
@@ -37,6 +43,10 @@ body {
 }
 .text-dark-blue {
 	color: $primary-dark;
+}
+
+.mb-40 {
+	margin-bottom: 40px;
 }
 
 ul, ol {
@@ -167,8 +177,9 @@ a {
 }
 
 .logo {
-	display: block;
+	display: flex; //block;
 	height: $header-logo-height;
+    align-self: center;
 	img {
 		height: 100%;
 	}
@@ -176,7 +187,7 @@ a {
 
 section {
 	&.blog {
-		margin-top: 80px;
+		margin-top: $fixed-header-height;
 	}
 	&.description {
 		padding: 10px 0;
@@ -446,7 +457,7 @@ header.site-header {
 
 body.fixed-header {
 	main {
-		margin-top: 85px;
+		margin-top: 85px; // DO NOT CHANGE (messes up blog article page)
 	}
 }
 
@@ -818,9 +829,16 @@ input[type="submit"],
 	font-weight: 600;
     text-transform: uppercase;
 
+    &.alt-btn {
+    	background-color: transparent;
+    	border: solid 2px $alternate-color;
+    	color: $alternate-color;
+    }
+
 	&:hover {
 		background-color: $secondary-color;
 		color: $white;
+		border-color: $secondary-color;
 	}
 }
 
@@ -840,11 +858,11 @@ form {
 		border: 0;
 		outline: 0;
 		border-bottom: solid 2px $border-color;
-		background-color: lighten($light-gray, 5%);
+		background-color: lighten($light-gray, 2%);
 
 		&:focus {
 			border-color: darken($border-color, 5%);
-			background-color: lighten($light-gray, 2%);
+			background-color: lighten($light-gray, 0%);
 		}
 	}
 

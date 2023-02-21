@@ -1,4 +1,7 @@
 {% set showLink = showLink is defined ? showLink : true %}
+{% if blog.type == "external" %}
+	{% set showLink = false %}
+{% endif %}
 {% if blog.fullName | length %} 
 	<address rel="author">
 		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% endif %}

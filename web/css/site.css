@@ -1,3 +1,13 @@
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The SCSS variables stylesheet
+ */
+/**
+ * Band Pioneer, LLC 2023
+ * 
+ * The primary SCSS stylesheet for the public website
+ */
 html {
   font-family: helvetica, sans-serif;
   font-size: 16px;
@@ -37,6 +47,10 @@ body footer {
 
 .text-dark-blue {
   color: #131b28;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
 }
 
 ul, ol {
@@ -147,8 +161,9 @@ a.underline:hover:after {
 }
 
 .logo {
-  display: block;
-  height: 60px;
+  display: flex;
+  height: 50px;
+  align-self: center;
 }
 .logo img {
   height: 100%;
@@ -696,11 +711,19 @@ input[type=submit],
   font-weight: 600;
   text-transform: uppercase;
 }
+button.alt-btn,
+input[type=submit].alt-btn,
+.btn.alt-btn {
+  background-color: transparent;
+  border: solid 2px #0a79a4;
+  color: #0a79a4;
+}
 button:hover,
 input[type=submit]:hover,
 .btn:hover {
   background-color: #f90215;
   color: #FFFFFF;
+  border-color: #f90215;
 }
 
 form input:not([name=q]):not([type=checkbox]),
@@ -717,12 +740,12 @@ form textarea {
   border: 0;
   outline: 0;
   border-bottom: solid 2px #e3e7e9;
-  background-color: #f5f7f7;
+  background-color: #edf0f1;
 }
 form input:not([type=submit]):focus,
 form textarea:focus {
   border-color: #d5dbde;
-  background-color: #edf0f1;
+  background-color: #e7ebec;
 }
 form textarea {
   padding-top: 18px;

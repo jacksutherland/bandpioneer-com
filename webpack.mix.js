@@ -1,6 +1,8 @@
 const mix = require('laravel-mix')
 const baseUrl = process.env.BASE_URL
 
+//*** PUBLIC WEBSITE ***//
+
 mix.setPublicPath('./web')
 .sass('src/sass/import.scss', 'web/css/site.css')
 .options({
@@ -12,5 +14,16 @@ mix.setPublicPath('./web')
   proxy: baseUrl,
   notify: false,
 })
+.version()
+.disableNotifications()
+
+//*** AUTHENTICATED BAND WEBSITE ***//
+
+mix.setPublicPath('./web')
+.sass('src/sass/bands.scss', 'web/css/bands.css')
+.options({
+  processCssUrls: false,
+})
+.minify('src/js/bands.js', 'web/js/bands.min.js')
 .version()
 .disableNotifications()

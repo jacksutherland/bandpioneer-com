@@ -1,0 +1,43 @@
+{
+    "name": "bandpioneer/rockstar",
+    "description": "Band Pioneer plugin for base website design properties.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "bandpioneer"
+    ],
+    "support": {
+        "docs": "???",
+        "issues": "???"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Band Pioneer",
+            "homepage": "https://bandpioneer.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^4.0.0",
+        "firebase/php-jwt": "*"
+    },
+    "autoload": {
+        "psr-4": {
+          "bandpioneer\\rockstar\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Band Pioneer",
+        "handle": "rockstar",
+        "developer": "Band Pioneer",
+        "developerUrl": "https://bandpioneer.com",
+        "documentationUrl": "https://bandpioneer.com",
+        "changelogUrl": "https://bandpioneer.com",
+        "basePath": "bandpioneer/rockstar/src",
+        "class": "bandpioneer\\rockstar\\Rockstar"
+    }
+}
