@@ -17,7 +17,7 @@ body main {
 }
 
 .bands-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 20px;
 }
 .bands-container.dashboard {
@@ -27,12 +27,10 @@ body main {
 }
 .bands-container.dashboard section {
   position: relative;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #bcc7ca;
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
 }
 .bands-container.dashboard section:first-child {
   grid-area: s1;
@@ -45,9 +43,19 @@ body main {
   margin: 0 0 20px 0;
   color: #0a79a4;
 }
+.bands-container.dashboard section a.link-symbol {
+  font-size: 1.05rem;
+  font-weight: bold;
+  vertical-align: middle;
+  transform: rotate(90deg);
+  display: inline-block;
+}
+.bands-container.dashboard section p {
+  margin: 10px 0;
+}
 .bands-container.dashboard section .btn,
 .bands-container.dashboard section button {
-  margin: 0;
+  margin: 10px 0 0 0;
   height: 40px;
   font-size: 0.875rem;
 }
@@ -56,6 +64,19 @@ body main {
   position: absolute;
   right: 20px;
   bottom: 20px;
+}
+.bands-container.dashboard section .data-view {
+  display: none;
+}
+.bands-container.dashboard section .data-view.show {
+  display: block;
+}
+.bands-container.dashboard section .data-view h4 {
+  margin: 20px 0 10px 0;
+}
+.bands-container.dashboard section .data-view img {
+  max-width: 100%;
+  max-height: 100px;
 }
 .bands-container.dashboard section form {
   display: none;
@@ -67,14 +88,37 @@ body main {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin: 20px 0 5px 0;
+}
+.bands-container.dashboard section form label + p {
+  font-size: 0.875rem;
+  line-height: 1.1rem;
+  margin: 5px 0;
 }
 .bands-container.dashboard section form input {
+  display: block;
   height: 40px;
   width: 100%;
   padding: 0 15px;
+  margin: 5px 0 20px 0;
   font-size: 0.875rem;
-  margin-bottom: 20px;
+}
+.bands-container.dashboard section form textarea {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 0 0 20px 0;
+  font-size: 0.875rem;
+  resize: none;
+}
+.bands-container.dashboard section form .file-upload input {
+  display: none;
+}
+.bands-container.dashboard section form .file-upload label span {
+  font-weight: 400;
+}
+.bands-container.dashboard section form .file-upload .btn {
+  display: inline-flex;
 }
 
 @media (min-width: 768px) {

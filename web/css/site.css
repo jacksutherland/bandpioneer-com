@@ -53,6 +53,10 @@ body footer {
   margin-bottom: 40px;
 }
 
+.hide {
+  display: none !important;
+}
+
 ul, ol {
   margin: 0;
   padding: 0;
@@ -718,12 +722,24 @@ input[type=submit].alt-btn,
   border: solid 2px #0a79a4;
   color: #0a79a4;
 }
+button.gray-btn,
+input[type=submit].gray-btn,
+.btn.gray-btn {
+  background-color: #e7ebec;
+  color: #4f4f4f;
+}
 button:hover,
 input[type=submit]:hover,
 .btn:hover {
   background-color: #f90215;
   color: #FFFFFF;
   border-color: #f90215;
+}
+button:hover.gray-btn,
+input[type=submit]:hover.gray-btn,
+.btn:hover.gray-btn {
+  background-color: #cbd3d5;
+  color: #4f4f4f;
 }
 
 form input:not([name=q]):not([type=checkbox]),

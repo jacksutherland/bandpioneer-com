@@ -10,12 +10,17 @@
 
 namespace bandpioneer\rockstar\controllers;
 
-use bandpioneer\rockstar\Bands;
+use bandpioneer\rockstar\Rockstar;
+use bandpioneer\rockstar\services\RockstarService;
 
 use Craft;
 use craft\web\Controller;
+use craft\web\UploadedFile;
 use craft\helpers\Json;
+use craft\helpers\Image;
+use craft\helpers\Assets;
 
+// use yii\web\UploadedFile;
 use yii\web\Response;
 use yii\log\Logger;
 
@@ -27,43 +32,79 @@ use yii\log\Logger;
 class BandsController extends Controller
 {
     protected array|bool|int $allowAnonymous = [
-        'public'
+        'public-action', 'dashboard'
     ];
 
-    public function actionPublic()
+    public function actionDashboard(): Response
     {
-        return 'public controller action test';
+        $this->requireLogin();
+
+        $service = Rockstar::$plugin->getService();
+        $record = $service->getCurrentUserBand();
+        $band = [
+            'name' => $record->name,
+            'websiteUrl' => $record->websiteUrl,
+            'phone' => $record->phone,
+            'email' => $record->email,
+            'description' => $record->description,
+            'logo' => $record->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($record->logoId) ?? null)
+        ];
+
+        return $this->renderTemplate('bands/dashboard', [
+            'band' => $band
+        ]);
     }
 
-    public function actionPrivate()
+    public function actionSaveBand(): ?Response
     {
-        return 'private controller action test';
+        $this->requirePostRequest();
+
+        $request = Craft::$app->getRequest();
+        $session = Craft::$app->getSession();
+        $service = Rockstar::$plugin->getService();
+        $logoId = null;
+        
+
+        if($logo = UploadedFile::getInstanceByName('logo'))
+        {
+            $logoLocation = Assets::tempFilePath($logo->getExtension());
+            move_uploaded_file($logo->tempName, $logoLocation);
+
+            $logoId = $service->saveCurrentUserBandLogo($logoLocation, $logo->name);
+        }
+
+        $band = [
+            'name' => $request->getParam('name'),
+            'websiteUrl' => $request->getParam('websiteUrl'),
+            'phone' => $request->getParam('phone'),
+            'email' => $request->getParam('email'),
+            'description' => $request->getParam('description'),
+            'logoId' => $logoId
+        ];
+
+        $service->saveCurrentUserBand($band);
+
+        return $this->redirect('bands/dashboard');
     }
 
-    // public function actionLog(?string $method = null, ?string $firstname = null, ?string $lastname = null, ?string $email = null, ?string $phone = null, ?string $company = null): Response
-    // {
-    //     // $this->requireAcceptsJson();
-    //     // $this->requirePostRequest();
-    //     // $request = Craft::$app->getRequest();
-    //     // $method = $request->getParam("method");
+    public function actionDeleteLogo()
+    {
+        $this->requirePostRequest();
 
-    //     $message = "method={$method}";
 
-    //     if($method == 'onFormSubmit')
-    //     {
-    //         // $company = $request->getParam("company");
-    //         // $firstname = $request->getParam("firstname");
-    //         // $lastname = $request->getParam("lastname");
-    //         // $phone = $request->getParam("phone");
-    //         // $email = $request->getParam("email");
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $logoId = $request->getParam('id');
 
-    //         $message .= ",firstname={$firstname},lastname={$lastname},phone={$phone},email={$email},company={$company}";
-    //     }
+        if($service->deleteBandLogo($logoId))
+        {
+            return $this->asJson([
+                'result' => 'success'
+            ]);
+        }
 
-    //     Craft::getLogger()->log('GO TEAM: ' . $message, \yii\log\Logger::LEVEL_INFO, 'bandpioneer\rockstar');
-
-    //     return $this->asJson([
-    //         'success' => true
-    //     ]);
-    // }
+        return $this->asJson([
+            'result' => 'error'
+        ]);
+    }
 }

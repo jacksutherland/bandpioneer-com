@@ -7,14 +7,14 @@ use craft\records\Site;
 use craft\records\User;
 use yii\db\ActiveQueryInterface;
 
-class BandRecord extends ActiveRecord
+class EpkRecord extends ActiveRecord
 {
     // Public Methods
     // =========================================================================
 
     public static function tableName(): string
     {
-        return '{{%rockstar_bands}}';
+        return '{{%rockstar_epks}}';
     }
 
     public function getElement(): ActiveQueryInterface

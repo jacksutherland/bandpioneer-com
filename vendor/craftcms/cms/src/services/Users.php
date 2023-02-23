@@ -521,7 +521,7 @@ class Users extends Component
             $volume = $this->_userPhotoVolume();
             $folderId = $this->_userPhotoFolderId($user, $volume);
             $filename = $assetsService->getNameReplacementInFolder($filename, $folderId);
-
+            
             $photo = new Asset();
             $photo->setScenario(Asset::SCENARIO_CREATE);
             $photo->tempFilePath = $fileLocation;

@@ -49,6 +49,10 @@ body {
 	margin-bottom: 40px;
 }
 
+.hide {
+	display: none !important;
+}
+
 ul, ol {
 	margin: 0;
 	padding: 0;
@@ -835,10 +839,20 @@ input[type="submit"],
     	color: $alternate-color;
     }
 
+    &.gray-btn {
+    	background-color: $light-gray;
+    	color: $font-color;
+    }
+
 	&:hover {
 		background-color: $secondary-color;
 		color: $white;
 		border-color: $secondary-color;
+
+		&.gray-btn {
+	    	background-color: darken($light-gray, 10%);
+	    	color: $font-color;
+	    }
 	}
 }
 
