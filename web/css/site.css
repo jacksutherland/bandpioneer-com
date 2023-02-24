@@ -1086,6 +1086,9 @@ form.contact-form .errors {
   height: 80px;
   opacity: 1;
 }
+.categories #category-description .container {
+  max-width: 800px;
+}
 
 address[rel=author] {
   font-size: 0.875rem;
