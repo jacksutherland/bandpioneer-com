@@ -1083,7 +1083,7 @@ form.contact-form .errors {
   transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .categories #category-description.show {
-  height: 60px;
+  height: 80px;
   opacity: 1;
 }
 

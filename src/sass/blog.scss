@@ -65,7 +65,7 @@
 		transition: height $transition-default, opacity $transition-default;
 
 		&.show {
-			height: 60px;
+			height: 80px;
 			opacity: 1;
 		}
 	}
