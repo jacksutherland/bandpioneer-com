@@ -19,7 +19,7 @@ body {
 }
 
 .bands-container {
-	max-width: 900px;
+	max-width: 1000px;
 	margin: 0 $bands-gap;
 
 	&.dashboard {
@@ -30,18 +30,10 @@ body {
 			"s2";
 
 		section {
-			position: relative;
 			background-color: lighten($light-gray, 6%);
 			padding: $bands-gap;
 			border-radius: 4px;
 			box-shadow: $bands-box-shadow;
-
-			&:first-child {
-				grid-area: s1;
-			}
-			&:nth-child(2) {
-				grid-area: s2;
-			}
 
 			h3 {
 				font-family: $header-font-family;
@@ -63,85 +55,112 @@ body {
 				margin: 10px 0;
 			}
 
-			.btn,
-			button {
-				margin: 10px 0 0 0;
-				height: 40px;
-				font-size: $font-size-small;
+			.data-container {
+				position: relative;
+				margin: $bands-gap 0 0 0;
 
-				&.alt-btn {
-					position: absolute;
-				    right: $bands-gap;
-				    bottom: $bands-gap;
-				}
-			}
-
-			.data-view {
-				display: none;
-
-				&.show {
-					display: block;
+				&+.data-container {					
+					border-top: solid 2px $light-gray;
+					padding: $bands-gap 0 0 0;
 				}
 
-				h4 {
-					margin: $bands-gap 0 10px 0;
+				&:first-child {
+					grid-area: s1;
+				}
+				&:nth-child(2) {
+					grid-area: s2;
 				}
 
-				img {
-					max-width: 100%;
-    				max-height: 100px;
-				}
-			}
-
-			form {
-				display: none;
-
-				&.show {
-					display: block;
-				}
-
-				label {
-					display: block;
-					font-size: $font-size-small;
-					font-weight: $semi-bold;
-					margin: $bands-gap 0 5px 0;
-
-					& + p {
-						font-size: $font-size-small;
-						line-height: 1.1rem;
-						margin: 5px 0;
+				a {
+					&.link-symbol {
+						font-size: 1.05rem;
+						font-weight: bold;
+	    				vertical-align: middle;
+	    				transform: rotate(90deg);
+	    				display: inline-block;
 					}
 				}
 
-				input {
-					display: block;
+				.btn,
+				button {
+					margin: 10px 0 0 0;
 					height: 40px;
-					width: 100%;
-					padding: 0 15px;
-					margin: 5px 0 $bands-gap 0;
 					font-size: $font-size-small;
-				}
 
-				textarea {
-					display: block;
-    				width: 100%;
-					padding: 15px;
-					margin: 0 0 $bands-gap 0;
-					font-size: $font-size-small;
-					resize: none;
-				}
-
-				.file-upload {
-					input {
-						display: none;
+					&.alt-btn {
+						position: absolute;
+					    right: 0; //$bands-gap;
+					    bottom: 0; //$bands-gap;
 					}
+				}
+
+				.data-view {
+					display: none;
+
+					&.show {
+						display: block;
+					}
+
+					h4 {
+						margin: $bands-gap 0 10px 0;
+					}
+
+					img {
+						max-width: 100%;
+	    				max-height: 100px;
+					}
+				}
+
+				form {
+					display: none;
+
+					&.show {
+						display: block;
+					}
+
 					label {
-						span {
-							font-weight: $normal-weight;
+						display: block;
+						font-size: $font-size-small;
+						font-weight: $semi-bold;
+						margin: $bands-gap 0 5px 0;
+
+						& + p {
+							font-size: $font-size-small;
+							line-height: 1.1rem;
+							margin: 5px 0;
 						}
 					}
-					.btn {
-						display: inline-flex;
+
+					input {
+						display: block;
+						height: 40px;
+						width: 100%;
+						padding: 0 15px;
+						margin: 5px 0 $bands-gap 0;
+						font-size: $font-size-small;
+					}
+
+					textarea {
+						display: block;
+	    				width: 100%;
+						padding: 15px;
+						margin: 0 0 $bands-gap 0;
+						font-size: $font-size-small;
+						resize: none;
+					}
+
+					.file-upload {
+						input {
+							display: none;
+						}
+						label {
+							span {
+								font-weight: $normal-weight;
+							}
+						}
+						.btn {
+							display: inline-flex;
+						}
 					}
 				}
 			}
@@ -160,7 +179,7 @@ body {
 
 		&.dashboard {
 			grid-template-areas: 
-				"s1 s2";
+				"s1 s2 s2 s2";
 		}
 	}
 }

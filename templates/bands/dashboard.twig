@@ -18,86 +18,123 @@
 			<h3>Band Information</h3>
 			<p>This is public information for your band (or solo artist), that you would share with fans, scouts, venues, etc.</p>
 
-			<div id="account-details" class="data-view show">
-				{# <h4>Band or Artist Details</h4> #}
-				
-				{% if band.logo %}
-					<p>
-						<img src="{{ url(band.logo.url()) }}" alt="Band Logo" title="Band Logo" />
-					</p>
-				{% endif %}
-				{% if band.name | trim | length %}
-					<p>
-						<strong>Name:</strong> 
-						{{ band.name }} 
-					</p>
-				{% endif %}
-				{% if band.phone | trim | length %}
-					<p>
-						<strong>Phone Number:</strong>
-						{{ band.phone }} 
-					</p>
-				{% endif %}
-				{% if band.email | trim | length %}
-					<p>
-						<strong>Email Address:</strong>
-						{{ band.email }} 
-						<a class="link-symbol" target="_blank" href="mailto:{{ band.email }}">⎋</a>
-					</p>
-				{% endif %}
-				{% if band.websiteUrl | trim | length %}
-					<p>
-						<strong>Website URL:</strong>
-						{{ band.websiteUrl }} 
-						<a class="link-symbol" target="_blank" href="{{ band.websiteUrl }}">⎋</a>
-					</p>
-				{% endif %}
-			</div>
-			
-			<form id="edit-account" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
-				{# <input type="hidden" name="action" value="/bands/save-band"> #}
-	            {{ csrfInput() }}
-				
-				<label>Full Name of Band or Artist</label>
-				<input type="text" name="name" placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
-				
-				<label>Phone Number</label>
-				<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
-				
-				<label>Email Address</label>
-				<input type="email" name="email" placeholder="me@mybandsite.com"{% if band.email | trim | length %} value="{{ band.email }}"{% endif %}>
-				
-				<label>Website URL</label>
-				<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
-				
-				<label>Description</label>
-				<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
-				<textarea name="description">{% if band.description | trim | length %}{{ band.description }}{% endif %}</textarea>
+			<div class="data-container">
 
-				<div class="file-upload">
+				<div id="account-details" class="data-view show">
+					{# <h4>Band or Artist Details</h4> #}
+					
 					{% if band.logo %}
-						<label>Logo: <span>{{ band.logo.filename }}</span></label>
-						<input type="file" name="logo" class="hide" />
-						<a class="btn gray-btn upload-btn" href="/">Replace logo image</a>
-						<a class="btn gray-btn delete-btn" href="/bands/dashboard" data-logo="{{ band.logo.id }}">Delete logo?</a>
-					{% else %}
-						<label>Logo</label>
-						<input type="file" name="logo" class="hide" />
-						<a class="btn gray-btn upload-btn" href="/">Upload a logo image</a>
+						<p>
+							<img src="{{ url(band.logo.url()) }}" alt="Band Logo" title="Band Logo" />
+						</p>
 					{% endif %}
-					<br><br>
+					{% if band.name | trim | length %}
+						<p>
+							<strong>Name:</strong> 
+							{{ band.name }} 
+						</p>
+					{% endif %}
+					{% if band.phone | trim | length %}
+						<p>
+							<strong>Phone Number:</strong>
+							{{ band.phone }} 
+						</p>
+					{% endif %}
+					{% if band.email | trim | length %}
+						<p>
+							<strong>Email Address:</strong>
+							{{ band.email }} 
+							<a class="link-symbol" target="_blank" href="mailto:{{ band.email }}">⎋</a>
+						</p>
+					{% endif %}
+					{% if band.websiteUrl | trim | length %}
+						<p>
+							<strong>Website URL:</strong>
+							{{ band.websiteUrl }} 
+							<a class="link-symbol" target="_blank" href="{{ band.websiteUrl }}">⎋</a>
+						</p>
+					{% endif %}
 				</div>
+				
+				<form id="edit-account" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
+					{# <input type="hidden" name="action" value="/bands/save-band"> #}
+		            {{ csrfInput() }}
+					
+					<label>Full Name of Band or Artist</label>
+					<input type="text" name="name" placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
+					
+					<label>Phone Number</label>
+					<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
+					
+					<label>Email Address</label>
+					<input type="email" name="email" placeholder="me@mybandsite.com"{% if band.email | trim | length %} value="{{ band.email }}"{% endif %}>
+					
+					<label>Website URL</label>
+					<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
+					
+					<label>Description</label>
+					<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
+					<textarea name="description">{% if band.description | trim | length %}{{ band.description }}{% endif %}</textarea>
 
-				<button type="submit">Save</button>
-			</form>
+					<div class="file-upload">
+						{% if band.logo %}
+							<label>Logo: <span>{{ band.logo.filename }} <a class="link-symbol" target="_blank" href="{{ band.logo.url() }}">⎋</a></span></label>
+							<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg" />
+							<a class="btn gray-btn upload-btn" href="/">Replace</a>
+							<a class="btn gray-btn delete-btn" href="/bands/dashboard" data-logo="{{ band.logo.id }}">Delete</a>
+						{% else %}
+							<label>Logo</label>
+							<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+							<a class="btn gray-btn upload-btn" href="/">Upload an image</a>
+						{% endif %}
+						<br><br>
+					</div>
 
-			<a class="btn" data-view="account-details" data-edit="edit-account" href="/">Edit</a>
+					<button type="submit">Save</button>
+				</form>
+
+				<a class="btn" data-view="account-details" data-edit="edit-account" href="/">Edit</a>
+
+			</div>
 		</section>
 
 		<section>
 			<h3>Electronic Press Kit</h3>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			<a class="btn" href="/">Edit</a>
+			
+			<div class="data-container">
+				<div id="epk-videos" class="data-view show">
+					EPK Videos
+				</div>
+
+				<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
+					{{ csrfInput() }}
+
+					<label>Video Title</label>
+					<input type="text" name="name" placeholder="">
+
+					<label>Video URL</label>
+					<input type="text" name="name" placeholder="">
+
+					<button type="submit">Save</button>
+				</form>
+
+				<a class="btn" data-view="epk-videos" data-edit="edit-videos" href="/">Add a Video</a>
+			</div>
+
+			<div class="data-container">
+				<div id="epk-images" class="data-view show">
+					EPK Images
+				</div>
+
+				<form id="edit-images" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
+					Edit Images
+					<button type="submit">Add</button>
+				</form>
+
+				<a class="btn" data-view="epk-images" data-edit="edit-images" href="/">Edit</a>
+			</div>
+
 		</section>
 
 	</div>

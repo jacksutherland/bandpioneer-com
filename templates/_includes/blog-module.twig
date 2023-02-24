@@ -3,8 +3,9 @@
 {% set tocLinks = [] %}
 
 {% for module in entry.blogContent.all() %}
-	{% if module.type == 'sectionTitle' %}
-		{% set tocLinks = tocLinks | merge([{ id: module.id, headline: module.headline }]) %}
+	{% if module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
+		{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+		{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
 	{% endif %}
 {% endfor %}
 
@@ -14,11 +15,11 @@
 		<ul>
 			{% for tl in tocLinks %}
 				<li>
-					{% if tl.headline | first matches '/^\\d+$/' %}
+					{# {% if tl.headline | first matches '/^\\d+$/' %}
 						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
-					{% else %}
+					{% else %} #}
 						<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
-					{% endif %}
+					{# {% endif %} #}
 				</li>
 			{% endfor %}
 		</ul>
@@ -40,13 +41,15 @@
 				<div id="section-{{ module.id }}" class="section-anchor"></div>
 				{% if entry.change %}
 					<div class="ordered-title">
-						<h4>{{ sectionCounter }}. </h4><h2>{{ module.headline }}</h2>
+						<h4>{{ sectionCounter }}. </h4><h2>{{ module.headline | length ? module.headline : module.subheadline }}</h2>
 					</div>
 				{% else %}
-					<h2>{{ module.headline }}</h2>
-				{% endif %}
-				{% if module.subheadline | length %}
-					<h3>{{ module.subheadline }}</h3>
+					{% if  module.headline | length %}
+						<h2>{{ module.headline }}</h2>
+					{% endif %}
+					{% if  module.subheadline | length %}
+						<h3>{{ module.subheadline }}</h3>
+					{% endif %}
 				{% endif %}
 			</section>
 

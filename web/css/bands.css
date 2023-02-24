@@ -17,7 +17,7 @@ body main {
 }
 
 .bands-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 20px;
 }
 .bands-container.dashboard {
@@ -26,17 +26,10 @@ body main {
   grid-template-areas: "s1" "s2";
 }
 .bands-container.dashboard section {
-  position: relative;
   background-color: #f8f9fa;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
-}
-.bands-container.dashboard section:first-child {
-  grid-area: s1;
-}
-.bands-container.dashboard section:nth-child(2) {
-  grid-area: s2;
 }
 .bands-container.dashboard section h3 {
   font-family: "Michroma", sans-serif;
@@ -53,49 +46,70 @@ body main {
 .bands-container.dashboard section p {
   margin: 10px 0;
 }
-.bands-container.dashboard section .btn,
-.bands-container.dashboard section button {
+.bands-container.dashboard section .data-container {
+  position: relative;
+  margin: 20px 0 0 0;
+}
+.bands-container.dashboard section .data-container + .data-container {
+  border-top: solid 2px #e7ebec;
+  padding: 20px 0 0 0;
+}
+.bands-container.dashboard section .data-container:first-child {
+  grid-area: s1;
+}
+.bands-container.dashboard section .data-container:nth-child(2) {
+  grid-area: s2;
+}
+.bands-container.dashboard section .data-container a.link-symbol {
+  font-size: 1.05rem;
+  font-weight: bold;
+  vertical-align: middle;
+  transform: rotate(90deg);
+  display: inline-block;
+}
+.bands-container.dashboard section .data-container .btn,
+.bands-container.dashboard section .data-container button {
   margin: 10px 0 0 0;
   height: 40px;
   font-size: 0.875rem;
 }
-.bands-container.dashboard section .btn.alt-btn,
-.bands-container.dashboard section button.alt-btn {
+.bands-container.dashboard section .data-container .btn.alt-btn,
+.bands-container.dashboard section .data-container button.alt-btn {
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  right: 0;
+  bottom: 0;
 }
-.bands-container.dashboard section .data-view {
+.bands-container.dashboard section .data-container .data-view {
   display: none;
 }
-.bands-container.dashboard section .data-view.show {
+.bands-container.dashboard section .data-container .data-view.show {
   display: block;
 }
-.bands-container.dashboard section .data-view h4 {
+.bands-container.dashboard section .data-container .data-view h4 {
   margin: 20px 0 10px 0;
 }
-.bands-container.dashboard section .data-view img {
+.bands-container.dashboard section .data-container .data-view img {
   max-width: 100%;
   max-height: 100px;
 }
-.bands-container.dashboard section form {
+.bands-container.dashboard section .data-container form {
   display: none;
 }
-.bands-container.dashboard section form.show {
+.bands-container.dashboard section .data-container form.show {
   display: block;
 }
-.bands-container.dashboard section form label {
+.bands-container.dashboard section .data-container form label {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
   margin: 20px 0 5px 0;
 }
-.bands-container.dashboard section form label + p {
+.bands-container.dashboard section .data-container form label + p {
   font-size: 0.875rem;
   line-height: 1.1rem;
   margin: 5px 0;
 }
-.bands-container.dashboard section form input {
+.bands-container.dashboard section .data-container form input {
   display: block;
   height: 40px;
   width: 100%;
@@ -103,7 +117,7 @@ body main {
   margin: 5px 0 20px 0;
   font-size: 0.875rem;
 }
-.bands-container.dashboard section form textarea {
+.bands-container.dashboard section .data-container form textarea {
   display: block;
   width: 100%;
   padding: 15px;
@@ -111,13 +125,13 @@ body main {
   font-size: 0.875rem;
   resize: none;
 }
-.bands-container.dashboard section form .file-upload input {
+.bands-container.dashboard section .data-container form .file-upload input {
   display: none;
 }
-.bands-container.dashboard section form .file-upload label span {
+.bands-container.dashboard section .data-container form .file-upload label span {
   font-weight: 400;
 }
-.bands-container.dashboard section form .file-upload .btn {
+.bands-container.dashboard section .data-container form .file-upload .btn {
   display: inline-flex;
 }
 
@@ -129,6 +143,6 @@ body main {
     margin: 0 auto;
   }
   .bands-container.dashboard {
-    grid-template-areas: "s1 s2";
+    grid-template-areas: "s1 s2 s2 s2";
   }
 }
