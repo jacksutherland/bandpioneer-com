@@ -1,6 +1,6 @@
 format: null
 handle: twitterImage
-height: 900
+height: 800
 interlace: none
 mode: crop
 name: 'Twitter Image'
