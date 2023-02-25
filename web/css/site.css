@@ -1243,10 +1243,10 @@ article .blog-info ul li span {
   width: 115%;
 }
 .blog .related-content article .blog-info {
-  margin: 10px 15px;
+  margin: 12px 15px;
 }
 .blog .related-content article .blog-info h4 {
-  margin: 0;
+  margin: 12px 0 6px 0;
 }
 .blog .related-content article .blog-info h4 a span {
   display: block;
