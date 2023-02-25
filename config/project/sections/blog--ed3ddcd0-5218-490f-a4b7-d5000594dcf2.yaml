@@ -2,6 +2,18 @@ defaultPlacement: end
 enableVersioning: true
 handle: blog
 name: 'Blog Post'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Blog Post Preview'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer

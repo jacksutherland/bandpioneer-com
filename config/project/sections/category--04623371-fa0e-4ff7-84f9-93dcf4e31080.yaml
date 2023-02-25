@@ -2,13 +2,25 @@ defaultPlacement: end
 enableVersioning: true
 handle: category
 name: Category
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Category Preview'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer
     enabledByDefault: true
     hasUrls: true
     template: blog/_index
-    uriFormat: '{parent.uri}/{slug}'
+    uriFormat: '{% if object.show %}{parent.uri}/{slug}{% endif %}'
 structure:
   maxLevels: null
   uid: a71742ce-85ac-412c-bede-548fa670a9d0

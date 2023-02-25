@@ -1,12 +1,12 @@
 {
   "require": {
     "bandpioneer/rockstar": "^1.0",
-    "craftcms/cms": "^4.2.7",
+    "craftcms/cms": "4.3.10",
     "craftcms/contact-form": "3.0.0",
-    "craftcms/redactor": "3.0.2",
+    "craftcms/redactor": "3.0.3",
     "putyourlightson/craft-sendgrid": "2.0.1",
     "sendgrid/sendgrid": "~7",
-    "verbb/comments": "2.0.5",
+    "verbb/comments": "2.0.6",
     "vlucas/phpdotenv": "^5.4.0"
   },
   "repositories": [

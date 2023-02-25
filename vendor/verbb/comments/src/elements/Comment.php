@@ -336,6 +336,8 @@ class Comment extends Element
             'comment' => ['label' => Craft::t('comments', 'Comment')],
             'commentDate' => ['label' => Craft::t('comments', 'Date')],
             'ownerId' => ['label' => Craft::t('comments', 'Element')],
+            'email' => ['label' => Craft::t('comments', 'Email')],
+            'name' => ['label' => Craft::t('comments', 'Name')],
             'voteCount' => ['label' => Craft::t('comments', 'Votes')],
             'flagCount' => ['label' => Craft::t('comments', 'Flagged')],
         ];
@@ -587,20 +589,7 @@ class Comment extends Element
             // If this wasn't a registered user...
             $author = new User();
             $author->email = $this->email;
-
-            // We only store guest users full name, so we need to split it for Craft.
-            // Best results using a library - particularly when we're dealing with worldwide names.
-            if ($this->name) {
-                $parser = new Parser();
-                $nameInfo = $parser->parse($this->name);
-
-                $author->firstName = $nameInfo->getFirstname();
-                $author->lastName = $nameInfo->getLastname();
-            }
-
-            if (!$author->firstName && !$author->lastName) {
-                $author->firstName = Craft::t('comments', 'Guest');
-            }
+            $author->fullName = $this->name ?: Craft::t('comments', 'Guest');
 
             $this->_author = $author;
 
@@ -614,8 +603,7 @@ class Comment extends Element
         if (!$user) {
             $author = new User();
             $author->email = null;
-            $author->firstName = Craft::t('comments', '[Deleted');
-            $author->lastName = Craft::t('comments', 'User]');
+            $author->fullName = Craft::t('comments', '[Deleted User]');
 
             $this->_author = $author;
 
@@ -917,7 +905,7 @@ class Comment extends Element
             }
 
             // Is someone sneakily making a comment on a non-allowed element through some black magic POST-ing?
-            if (!Comments::$plugin->getComments()->checkPermissions($this->owner)) {
+            if (!Comments::$plugin->getComments()->checkPermissions($this->getOwner())) {
                 $this->addError('comment', Craft::t('comments', 'Comments are disabled for this element.'));
             }
 
@@ -968,7 +956,7 @@ class Comment extends Element
             }
 
             // Is someone sneakily making a comment on a non-allowed element through some black magic POST-ing?
-            if (!Comments::$plugin->getComments()->checkPermissions($this->owner)) {
+            if (!Comments::$plugin->getComments()->checkPermissions($this->getOwner())) {
                 $this->addError('comment', Craft::t('comments', 'Comments are disabled for this element.'));
             }
 
@@ -1183,6 +1171,14 @@ class Comment extends Element
 
                 return Craft::t('comments', '[Deleted element]');
             }
+            case 'name':
+            {
+                return Html::encode($this->getAuthorName()) ?? '-';
+            }
+            case 'email':
+            {
+                return Html::encode($this->getAuthorEmail()) ?? '-';
+            }
             case 'voteCount':
             {
                 return $this->getVotes();
@@ -1190,6 +1186,10 @@ class Comment extends Element
             case 'flagCount':
             {
                 return $this->hasFlagged() ? '<span class="status off"></span>' : '<span class="status"></span>';
+            }
+            case 'comment':
+            {
+                return Html::encode($this->comment);
             }
             default:
             {

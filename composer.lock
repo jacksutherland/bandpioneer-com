@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93ea4fe240ec121808a88e43349a475a",
+    "content-hash": "8079708015639a98113fcf7b2c7b3236",
     "packages": [
         {
             "name": "bandpioneer/rockstar",
@@ -111,15 +111,15 @@
         },
         {
             "name": "commerceguys/addressing",
-            "version": "v1.4.1",
+            "version": "v1.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/8b1bcd45971733e8f4224e539cb92838f18c4d06",
-                "reference": "8b1bcd45971733e8f4224e539cb92838f18c4d06",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/406c7b5f0fbe4f6a64155c0fe03b1adb34d01308",
+                "reference": "406c7b5f0fbe4f6a64155c0fe03b1adb34d01308",
                 "shasum": ""
             },
             "require": {
-                "doctrine/collections": "^1.2",
+                "doctrine/collections": "^1.2 || ^2.0",
                 "php": ">=7.3"
             },
             "suggest": {
@@ -154,7 +154,7 @@
                 "localization",
                 "postal"
             ],
-            "time": "2022-08-09T11:42:51+00:00"
+            "time": "2023-02-15T10:11:14+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -494,11 +494,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "4.3.8.2",
+            "version": "4.3.10",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/a75b1b09e4b6c50f0783b86b2e7dacd0682d75da",
-                "reference": "a75b1b09e4b6c50f0783b86b2e7dacd0682d75da",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/af40a2d6e0557f6a600a22f29f1660639cd11b81",
+                "reference": "af40a2d6e0557f6a600a22f29f1660639cd11b81",
                 "shasum": ""
             },
             "require": {
@@ -589,7 +589,7 @@
                 "docs": "https://docs.craftcms.com/v3/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2023-02-09T00:17:53+00:00"
+            "time": "2023-02-17T22:32:58+00:00"
         },
         {
             "name": "craftcms/contact-form",
@@ -760,11 +760,11 @@
         },
         {
             "name": "craftcms/redactor",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/redactor/zipball/c9c152be7a75813ba193f30cb3effed3f005d03e",
-                "reference": "c9c152be7a75813ba193f30cb3effed3f005d03e",
+                "url": "https://api.github.com/repos/craftcms/redactor/zipball/19578a713a06aedd4e0efb5dd80cb3947a5849c4",
+                "reference": "19578a713a06aedd4e0efb5dd80cb3947a5849c4",
                 "shasum": ""
             },
             "require": {
@@ -807,7 +807,7 @@
                 "docs": "https://github.com/craftcms/redactor/blob/v2/README.md",
                 "rss": "https://github.com/craftcms/redactor/commits/v2.atom"
             },
-            "time": "2022-06-30T22:14:03+00:00"
+            "time": "2023-01-01T01:36:37+00:00"
         },
         {
             "name": "craftcms/server-check",
@@ -1578,11 +1578,11 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v9.51.0",
+            "version": "v9.52.4",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/e0bb46f59239c787574d5a202d91982327737459",
-                "reference": "e0bb46f59239c787574d5a202d91982327737459",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/0168d0e44ea0c4fe5451fe08cde7049b9e9f9741",
+                "reference": "0168d0e44ea0c4fe5451fe08cde7049b9e9f9741",
                 "shasum": ""
             },
             "require": {
@@ -1619,11 +1619,11 @@
             ],
             "description": "The Illuminate Collections package.",
             "homepage": "https://laravel.com",
-            "time": "2023-02-03T19:27:44+00:00"
+            "time": "2023-02-22T11:32:27+00:00"
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v9.51.0",
+            "version": "v9.52.4",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/conditionable/zipball/bea24daa0fa84b7e7b0d5b84f62c71b7e2dc3364",
@@ -1659,11 +1659,11 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v9.51.0",
+            "version": "v9.52.4",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/d731949dd1deff07c5a9d01379b1c1918bfd0672",
-                "reference": "d731949dd1deff07c5a9d01379b1c1918bfd0672",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/44f65d723b13823baa02ff69751a5948bde60c22",
+                "reference": "44f65d723b13823baa02ff69751a5948bde60c22",
                 "shasum": ""
             },
             "require": {
@@ -1693,11 +1693,11 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
-            "time": "2023-01-27T22:43:58+00:00"
+            "time": "2023-02-08T14:36:30+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v9.51.0",
+            "version": "v9.52.4",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/macroable/zipball/e3bfaf6401742a9c6abca61b9b10e998e5b6449a",
@@ -4437,11 +4437,11 @@
         },
         {
             "name": "verbb/comments",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verbb/comments/zipball/946cf88d75bb0178ee403bca38b4a4b2ca98e649",
-                "reference": "946cf88d75bb0178ee403bca38b4a4b2ca98e649",
+                "url": "https://api.github.com/repos/verbb/comments/zipball/82c6ae9c6356c90c9c19d08c4c5460309dcb56ba",
+                "reference": "82c6ae9c6356c90c9c19d08c4c5460309dcb56ba",
                 "shasum": ""
             },
             "require": {
@@ -4471,7 +4471,7 @@
                     "homepage": "https://verbb.io"
                 }
             ],
-            "description": "A Craft CMS plugin for managing comments directly within the CMS.",
+            "description": "Add comments to your site.",
             "keywords": [
                 "cms",
                 "comments",
@@ -4486,7 +4486,7 @@
                 "docs": "https://github.com/verbb/comments",
                 "rss": "https://github.com/verbb/comments/commits/v2.atom"
             },
-            "time": "2022-12-30T01:34:16+00:00"
+            "time": "2023-02-22T02:26:28+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5564,5 +5564,5 @@
     "platform-overrides": {
         "php": "8.0.2"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
