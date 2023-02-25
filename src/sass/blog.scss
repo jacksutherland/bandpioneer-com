@@ -262,10 +262,23 @@ article {
 
 		article {
 			img {
-				width: 100%;
+				width: 115%;
 			}
 			.blog-info {
 				margin: 10px 15px;
+
+				h4 {
+					margin: 0;
+					a {
+						span {
+							display: block;
+							font-size: $font-size-normal;
+							font-weight: $normal-weight;
+							line-height: 1.55rem;
+							margin: 5px 0 0 0;
+						}
+					}
+				}
 			}
 		}
 	}

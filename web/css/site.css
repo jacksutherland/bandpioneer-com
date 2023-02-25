@@ -1240,10 +1240,20 @@ article .blog-info ul li span {
   gap: 25px;
 }
 .blog .related-content article img {
-  width: 100%;
+  width: 115%;
 }
 .blog .related-content article .blog-info {
   margin: 10px 15px;
+}
+.blog .related-content article .blog-info h4 {
+  margin: 0;
+}
+.blog .related-content article .blog-info h4 a span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.55rem;
+  margin: 5px 0 0 0;
 }
 .blog .related-categories {
   margin: 40px 0;
