@@ -53,6 +53,10 @@ body {
 	display: none !important;
 }
 
+.font-normal {
+	font-weight: $normal-weight;
+}
+
 ul, ol {
 	margin: 0;
 	padding: 0;

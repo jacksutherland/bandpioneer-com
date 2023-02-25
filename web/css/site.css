@@ -57,6 +57,10 @@ body footer {
   display: none !important;
 }
 
+.font-normal {
+  font-weight: 400;
+}
+
 ul, ol {
   margin: 0;
   padding: 0;
