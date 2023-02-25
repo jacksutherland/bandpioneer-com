@@ -161,7 +161,7 @@ let BandPioneer = {
 						{
 							this.catDesc.classList.add('show');
 						}
-					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 500);
+					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 750);
 				});
 
 				this.addEventListener('mouseleave', function(e)
