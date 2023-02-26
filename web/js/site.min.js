@@ -94,7 +94,9 @@ let BandPioneer = {
 			let childMenus = menu.querySelectorAll('.dropdown-menu');
 			let open = document.querySelector('#open-menu');
 			let close = document.querySelector('#close-menu');
-			let categories = document.querySelectorAll('.categories nav ul li a');
+
+			let categoryMenu = document.querySelector('#category-menu');
+			let categories = document.querySelectorAll('#category-menu nav ul li a');
 
 			BandPioneer.each(childMenus, function()
 			{
@@ -143,6 +145,23 @@ let BandPioneer = {
 				menu.classList.remove('show');
 			});
 
+			categoryMenu.addEventListener('mouseleave', function(e)
+			{
+				e.preventDefault();
+
+				BandPioneer.categoryId = 0;
+				BandPioneer.hoveringOverCategory = false;
+				clearTimeout(BandPioneer.categoryTimeout);
+
+				// setTimeout(function()
+				// {
+					// if(!BandPioneer.hoveringOverCategory)
+					// {
+						document.querySelector('#category-description').classList.remove('show');
+					// }
+				// }, 500);
+			});
+
 			BandPioneer.each(categories, function()
 			{
 				this.addEventListener('mouseover', function(e)
@@ -153,7 +172,7 @@ let BandPioneer = {
 					BandPioneer.categoryId = this.dataset.id;
 
 					let categoryDescription = document.querySelector('#category-description');
-					categoryDescription.querySelector('.container').innerText = this.dataset.description;
+					categoryDescription.querySelector('.container').innerHTML = this.dataset.description;
 
 					BandPioneer.categoryTimeout = setTimeout(function()
 					{
@@ -161,25 +180,25 @@ let BandPioneer = {
 						{
 							this.catDesc.classList.add('show');
 						}
-					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 750);
+					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 500);
 				});
 
-				this.addEventListener('mouseleave', function(e)
-				{
-					e.preventDefault();
+				// this.addEventListener('mouseleave', function(e)
+				// {
+				// 	e.preventDefault();
 
-					BandPioneer.categoryId = 0;
-					BandPioneer.hoveringOverCategory = false;
-					clearTimeout(BandPioneer.categoryTimeout);
+				// 	BandPioneer.categoryId = 0;
+				// 	BandPioneer.hoveringOverCategory = false;
+				// 	clearTimeout(BandPioneer.categoryTimeout);
 
-					setTimeout(function()
-					{
-						if(!BandPioneer.hoveringOverCategory)
-						{
-							document.querySelector('#category-description').classList.remove('show');
-						}
-					}, 500);
-				});
+				// 	setTimeout(function()
+				// 	{
+				// 		if(!BandPioneer.hoveringOverCategory)
+				// 		{
+				// 			document.querySelector('#category-description').classList.remove('show');
+				// 		}
+				// 	}, 500);
+				// });
 			});
 
 		}

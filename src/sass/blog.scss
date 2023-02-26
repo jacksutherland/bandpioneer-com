@@ -33,7 +33,7 @@
 						height: 3px;
 						bottom: 0;
 						z-index: 0;
-						background-color: $primary-color;
+						background-color: $alternate-color;
 					}
 
 					&.active {
@@ -64,13 +64,24 @@
 		opacity: 0;
 		transition: height $transition-default, opacity $transition-default;
 
+		background-color: $primary-color;
+		color: $white;
+
 		&.show {
-			height: 80px;
+			height: 130px;
 			opacity: 1;
 		}
 
 		.container {
 			max-width: 800px;
+
+			h3 {
+				margin: -5px 0 10px 0;
+			}
+
+			a {
+				color: $white;
+			}
 		}
 	}
 }

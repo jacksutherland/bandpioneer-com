@@ -1005,8 +1005,10 @@ form.contact-form .errors {
     left: 50%;
   }
   section.description h2 span, section.description h3 span {
+    font-family: "Michroma", sans-serif;
     background-color: #FFFFFF;
     padding: 0 16px;
+    font-weight: 400;
   }
   footer .container {
     grid-template-columns: 200px 1fr;
@@ -1062,7 +1064,7 @@ form.contact-form .errors {
   height: 3px;
   bottom: 0;
   z-index: 0;
-  background-color: #45adda;
+  background-color: #0a79a4;
 }
 .categories nav ul li a.active {
   color: #131b28;
@@ -1085,13 +1087,21 @@ form.contact-form .errors {
   height: 0;
   opacity: 0;
   transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #45adda;
+  color: #FFFFFF;
 }
 .categories #category-description.show {
-  height: 80px;
+  height: 130px;
   opacity: 1;
 }
 .categories #category-description .container {
   max-width: 800px;
+}
+.categories #category-description .container h3 {
+  margin: -5px 0 10px 0;
+}
+.categories #category-description .container a {
+  color: #FFFFFF;
 }
 
 address[rel=author] {

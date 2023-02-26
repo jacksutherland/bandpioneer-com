@@ -1,11 +1,11 @@
-<div class="categories display-md">
+<div id="category-menu" class="categories display-md">
 	<div class="container">
 		<nav role="navigation" aria-label="Primary Navigation">
 			<ul>
 				{% for cat in categories.all() %}
 					{% if cat.show %}
 						<li>
-							<a class="underline{% if entry.slug == cat.slug %} active{% endif %}" href="{{ cat.url() }}" data-id="{{ cat.id }}" data-description="{{ cat.shortDescription }}">
+							<a class="underline{% if entry.slug == cat.slug %} active{% endif %}" href="{{ cat.url() }}" data-id="{{ cat.id }}" data-description="<a href={{ cat.url }}><h3>{{ cat.headline }}</h3>{{ cat.shortDescription }}</a>">
 								<span>{{ cat.title }}</span>
 							</a>
 						</li>

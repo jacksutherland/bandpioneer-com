@@ -1204,8 +1204,10 @@ form {
 				}
 
 				span {
+					font-family: $header-font-family;
 					background-color: $white;
 					padding: 0 16px;
+					font-weight: $normal-weight;
 				}
 			}
 		}
