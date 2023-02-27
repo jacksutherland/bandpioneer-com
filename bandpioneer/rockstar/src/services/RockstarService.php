@@ -26,6 +26,7 @@ use craft\errors\ImageException;
 
 use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\records\BandRecord as BandRecord;
+use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
 
 /**
  * @author    Band Pioneer
@@ -41,6 +42,27 @@ class RockstarService extends Component
         $bandRecord = BandRecord::findOne(['userId' => $currentUser->id]) ?? new BandRecord();
 
         return $bandRecord;
+    }
+
+    public function getCurrentUserEpk()
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+
+        if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+        {
+            $epkVideos = json_decode($epkRecord->videos, false);
+            $videos = [];
+            foreach($epkVideos as &$jsonVideo)
+            {
+                array_push($videos, json_decode($jsonVideo));
+            }
+
+            return [
+                'videos' => $videos
+            ];
+        }
+
+        return [];
     }
 
     public function saveCurrentUserBand($band)
@@ -141,7 +163,9 @@ class RockstarService extends Component
             {
                 if($bandRecord = BandRecord::findOne(['logoId' => $logoId]))
                 {
+                    $now = Db::prepareDateForDb(DateTimeHelper::now());
                     $bandRecord->logoId = null;
+                    $bandRecord->dateUpdated = $now;
                     $bandRecord->save();                    
                 }
             }
@@ -158,6 +182,85 @@ class RockstarService extends Component
         }
 
         return true;
+    }
+
+    public function saveCurrentUserBandVideo($videoTitle, $videoUrl)
+    {
+        $videoId = $this->getYoutubeIdFromUrl($videoUrl);
+
+        if($videoId)
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+
+            if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $videos = empty($epkRecord->videos) ? [] : json_decode($epkRecord->videos);
+            }
+            else
+            {
+                $videos = [];
+            }
+
+            array_push($videos, json_encode(array("title"=>$videoTitle, "id"=>$videoId)));
+
+            $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
+        }
+    }
+
+    private function updateCurrentUserEpkProperty($propName, $propVal)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try 
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $now = Db::prepareDateForDb(DateTimeHelper::now());
+            $epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]) ?? new EpkRecord();
+
+            if($epkRecord->getIsNewRecord())
+            {
+                $epkRecord->dateCreated = $now;
+                $epkRecord->userId = $currentUser->id;
+            }
+            $epkRecord->dateUpdated = $now;
+
+            $epkRecord->{$propName} = $propVal;
+            $epkRecord->save();
+
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+    }
+
+    private function getYoutubeIdFromUrl($url)
+    {
+        // preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
+        // preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $link, $matches);
+
+        $parts = parse_url($url);
+        if(isset($parts['query']))
+        {
+            parse_str($parts['query'], $qs);
+            if(isset($qs['v']))
+            {
+                return $qs['v'];
+            }
+            else if(isset($qs['vi']))
+            {
+                return $qs['vi'];
+            }
+        }
+        if(isset($parts['path']))
+        {
+            $path = explode('/', trim($parts['path'], '/'));
+            return $path[count($path)-1];
+        }
+        return false;
     }
 
 }

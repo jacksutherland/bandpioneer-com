@@ -104,17 +104,23 @@
 			
 			<div class="data-container">
 				<div id="epk-videos" class="data-view show">
-					EPK Videos
+					<strong>EPK Videos:</strong>
+					{% for video in epk.videos %}
+						<div>
+							{{ video.title }}
+							<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						</div>
+					{% endfor %}
 				</div>
 
 				<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
 					{{ csrfInput() }}
 
 					<label>Video Title</label>
-					<input type="text" name="name" placeholder="">
+					<input type="text" name="title" placeholder="">
 
 					<label>Video URL</label>
-					<input type="text" name="name" placeholder="">
+					<input type="text" name="url" placeholder="">
 
 					<button type="submit">Save</button>
 				</form>
@@ -124,7 +130,7 @@
 
 			<div class="data-container">
 				<div id="epk-images" class="data-view show">
-					EPK Images
+					<strong>EPK Images</strong>
 				</div>
 
 				<form id="edit-images" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">

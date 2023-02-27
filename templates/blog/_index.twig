@@ -68,15 +68,14 @@
 					{% endif %}
 					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
 						<h2>
-							{# {{ featured.title }} #}
-							{# {{ featured.title ~ (featured.subheadline | length ? ' - '  ~ featured.subheadline : '') }} #}
 							{{ macros.blogTitle(featured) }}
 						</h2>
-						{% include '_includes/author' with { blog: featured, showLink: false } %}
+						{# {% include '_includes/author' with { blog: featured, showLink: false } %} #}
 						<p>{{ featured.shortDescription }}</p>
 					</div>
 				</a>
 				<div class="blog-info">
+					{% include '_includes/icons' with { type: 'tag' } %}
 					<ul>
 	            		{% for cat in featured.categories.all() %}
 	            			<li>
@@ -90,11 +89,11 @@
 	            	</ul>
 					<div class="hide-md">
 						<h3>
-							<a href="{{ featured.url }}">
-								{{ featured.title ~ (featured.subheadline | length ? ' '  ~ featured.subheadline : '') }}
+							<a {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
+								{{ macros.blogTitle(featured) }}
 							</a>
 						</h3>
-						{% include '_includes/author' with { blog: featured } %}
+						{# {% include '_includes/author' with { blog: featured } %} #}
 						<p>{{ featured.shortDescription }}</p>
 					</div>
 				</div>
@@ -103,7 +102,9 @@
 
 		{% if isHomepage %}
 
-			<h3 class="section-title"><span>{% if pageInfo.currentPage > 1 %}Page {{ pageInfo.currentPage }} of {% endif %}Recent Articles</span></h3>
+			<h3 class="section-title">
+				<span>{% if pageInfo.currentPage > 1 %}Page {{ pageInfo.currentPage }} of {% endif %}Recent Articles</span>
+			</h3>
 
 		{% elseif entry.headline | length > 0 or entry.shortDescription | length > 0 %}
 
@@ -133,6 +134,7 @@
 						{% endif %}
 					</a>
 					<div class="blog-info">
+						{% include '_includes/icons' with { type: 'tag' } %}
 						<ul>
 		            		{% for cat in blog.categories.all() %}
 		            			{% apply spaceless %}
@@ -147,12 +149,12 @@
 		            		{% endfor %}
 		            	</ul>
 						<h3>
-							<a href="{{ blog.url }}">
+							<a {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 								{{ macros.blogTitle(blog) }}
 							</a>
 						</h3>
 						
-						{% include '_includes/author' %}
+						{# {% include '_includes/author' %} #}
 
 						<p>{{ blog.shortDescription }}</p>
 					</div>

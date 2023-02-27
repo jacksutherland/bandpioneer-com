@@ -40,18 +40,19 @@ class BandsController extends Controller
         $this->requireLogin();
 
         $service = Rockstar::$plugin->getService();
-        $record = $service->getCurrentUserBand();
-        $band = [
-            'name' => $record->name,
-            'websiteUrl' => $record->websiteUrl,
-            'phone' => $record->phone,
-            'email' => $record->email,
-            'description' => $record->description,
-            'logo' => $record->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($record->logoId) ?? null)
-        ];
+        $bandRecord = $service->getCurrentUserBand();
+        $epkRecord = $service->getCurrentUserEpk();
 
         return $this->renderTemplate('bands/dashboard', [
-            'band' => $band
+            'band' => [
+                'name' => $bandRecord->name,
+                'websiteUrl' => $bandRecord->websiteUrl,
+                'phone' => $bandRecord->phone,
+                'email' => $bandRecord->email,
+                'description' => $bandRecord->description,
+                'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null)
+            ],
+            'epk' => $epkRecord
         ]);
     }
 
@@ -83,6 +84,24 @@ class BandsController extends Controller
         ];
 
         $service->saveCurrentUserBand($band);
+
+        return $this->redirect('bands/dashboard');
+    }
+
+    public function actionSaveVideo(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $request = Craft::$app->getRequest();
+        $title = $request->getParam('title');
+        $url = $request->getParam('url');
+
+        if(!empty($title) && !empty($url))
+        {
+            $service = Rockstar::$plugin->getService();
+
+            $service->saveCurrentUserBandVideo($title, $url);
+        }
 
         return $this->redirect('bands/dashboard');
     }

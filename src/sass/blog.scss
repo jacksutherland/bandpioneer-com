@@ -180,7 +180,18 @@ article {
 
 	.blog-info {
 		margin: 20px 0;
+		position: relative;
+		svg {
+    		position: absolute;
+    		top: 1px;
+			width: 15px;
+    		fill: $link-color;
+		}
+		h3 {
+			margin-top: 15px;
+		}
 		ul {
+			padding: 0 0 0 20px;
 			li {
 				margin: 0;
 				display: inline;

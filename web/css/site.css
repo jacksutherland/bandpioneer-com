@@ -1181,6 +1181,19 @@ article .blog-image img {
 }
 article .blog-info {
   margin: 20px 0;
+  position: relative;
+}
+article .blog-info svg {
+  position: absolute;
+  top: 1px;
+  width: 15px;
+  fill: #0a79a4;
+}
+article .blog-info h3 {
+  margin-top: 15px;
+}
+article .blog-info ul {
+  padding: 0 0 0 20px;
 }
 article .blog-info ul li {
   margin: 0;
