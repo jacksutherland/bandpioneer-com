@@ -16,6 +16,18 @@ body main {
   margin-top: 20px !important;
 }
 
+.vhs-player {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+.vhs-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .bands-container {
   max-width: 1000px;
   margin: 0 20px;
@@ -24,6 +36,12 @@ body main {
   display: grid;
   gap: 20px;
   grid-template-areas: "s1" "s2";
+}
+.bands-container.dashboard section {
+  grid-area: s1;
+}
+.bands-container.dashboard section + section {
+  grid-area: s2;
 }
 .bands-container.dashboard section {
   background-color: #f8f9fa;
@@ -42,6 +60,11 @@ body main {
   vertical-align: middle;
   transform: rotate(90deg);
   display: inline-block;
+}
+.bands-container.dashboard section .action-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #0a79a4;
 }
 .bands-container.dashboard section p {
   margin: 10px 0;
@@ -133,6 +156,22 @@ body main {
 }
 .bands-container.dashboard section .data-container form .file-upload .btn {
   display: inline-flex;
+}
+.bands-container.dashboard section .data-container #epk-videos > strong {
+  display: block;
+}
+.bands-container.dashboard section .data-container #epk-videos > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+.bands-container.dashboard section .data-container #epk-videos > div > div label {
+  display: block;
+  margin: 0 0 10px 0;
+}
+.bands-container.dashboard section .data-container #epk-videos > div > div label .action-icon {
+  float: right;
 }
 
 @media (min-width: 768px) {

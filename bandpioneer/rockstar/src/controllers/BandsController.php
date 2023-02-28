@@ -100,16 +100,28 @@ class BandsController extends Controller
         {
             $service = Rockstar::$plugin->getService();
 
-            $service->saveCurrentUserBandVideo($title, $url);
+            $service->saveCurrentUserEpkVideo($title, $url);
         }
 
+        return $this->redirect('bands/dashboard');
+    }
+
+    public function actionDeleteVideo(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $videoId = $request->getParam('id');
+
+        $service->deleteCurrentUserEpkVideo($videoId);
+        
         return $this->redirect('bands/dashboard');
     }
 
     public function actionDeleteLogo()
     {
         $this->requirePostRequest();
-
 
         $service = Rockstar::$plugin->getService();
         $request = Craft::$app->getRequest();

@@ -47,22 +47,20 @@ class RockstarService extends Component
     public function getCurrentUserEpk()
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
+        $videos = [];
 
         if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
         {
             $epkVideos = json_decode($epkRecord->videos, false);
-            $videos = [];
             foreach($epkVideos as &$jsonVideo)
             {
                 array_push($videos, json_decode($jsonVideo));
             }
-
-            return [
-                'videos' => $videos
-            ];
         }
 
-        return [];
+        return [
+            'videos' => $videos
+        ];
     }
 
     public function saveCurrentUserBand($band)
@@ -184,7 +182,7 @@ class RockstarService extends Component
         return true;
     }
 
-    public function saveCurrentUserBandVideo($videoTitle, $videoUrl)
+    public function saveCurrentUserEpkVideo($videoTitle, $videoUrl)
     {
         $videoId = $this->getYoutubeIdFromUrl($videoUrl);
 
@@ -206,6 +204,40 @@ class RockstarService extends Component
             $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
         }
     }
+
+    public function deleteCurrentUserEpkVideo($videoId)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $videos = [];
+
+            if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $epkVideos = empty($epkRecord->videos) ? [] : json_decode($epkRecord->videos);
+
+                foreach($epkVideos as &$video)
+                {
+                    if(json_decode($video)->id != $videoId)
+                    {
+                        array_push($videos, $video);
+                    }
+                }
+            }
+
+            $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+    }
+
 
     private function updateCurrentUserEpkProperty($propName, $propVal)
     {

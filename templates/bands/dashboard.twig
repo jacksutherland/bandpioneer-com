@@ -105,12 +105,23 @@
 			<div class="data-container">
 				<div id="epk-videos" class="data-view show">
 					<strong>EPK Videos:</strong>
-					{% for video in epk.videos %}
-						<div>
-							{{ video.title }}
-							<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-						</div>
-					{% endfor %}
+					<div>
+						{% for video in epk.videos %}
+							<div>
+								<label>
+									{{ video.title }}
+									<form id="delete-video" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/delete-video" style="display: inline;">
+		            					{{ csrfInput() }}
+		            					<input type="hidden" name="id" value="{{ video.id }}">
+										<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the video: {{ video.title }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
+									</form>
+								</label>
+								<div class="vhs-player">
+									<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 
 				<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
