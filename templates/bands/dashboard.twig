@@ -7,6 +7,10 @@
 	<script type="text/javascript">
 	    window.csrfTokenName = "{{ craft.app.config.general.csrfTokenName|e('js') }}";
 	    window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
+
+	    {% if craft.app.request.segments | last != 'dashboard' %}
+	    	BandPioneerBands.openView('{{ craft.app.request.segments | last }}');
+	    {% endif %}
 	</script>
 {% endblock %}
 
@@ -17,7 +21,13 @@
 		{# BAND ACCOUNT INFORMATION #}
 
 		<section>
-			<h3>Band Information</h3>
+
+			{% if not band.exists %}
+				<h3>Welcome to Band Pioneer!</h3>
+				<p>To get started, click "EDIT" and tell us about your band or solo act. Once we have this initial information you'll be read to create your Electronic Press Kit.</p>
+			{% else %}
+				<h3>Band Information</h3>
+			{% endif %}
 			<p>This is public information for your band (or solo artist), that you would share with fans, scouts, venues, etc.</p>
 
 			<div class="data-container">
@@ -54,6 +64,14 @@
 							<a class="link-symbol" target="_blank" href="{{ band.websiteUrl }}">⎋</a>
 						</p>
 					{% endif %}
+					{% if band.genres | length %}
+						<p>
+							<strong>Genre:</strong>
+							{% for genre in band.genres %}
+								{{ genre.title ~ (not loop.last ? ', ') }}
+							{% endfor %}
+						</p>
+					{% endif %}
 				</div>
 				
 				<form id="edit-account" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
@@ -61,7 +79,7 @@
 		            {{ csrfInput() }}
 					
 					<label>Full Name of Band or Artist</label>
-					<input type="text" name="name" placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
+					<input type="text" name="name" required placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
 					
 					<label>Phone Number</label>
 					<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
@@ -71,6 +89,19 @@
 					
 					<label>Website URL</label>
 					<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
+
+					{% if band.allGenres | length %}
+						<label>Genre</label>
+						<p>Select up to 5 genres that best describe your sound.</p>
+						<div class="checkboxes">
+							{% for genre in band.allGenres %}
+								<label>
+									<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
+									{{ genre.title }}
+								</label>
+							{% endfor %}
+						</div>
+					{% endif %}
 					
 					<label>Description</label>
 					<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
@@ -93,192 +124,193 @@
 					<button type="submit">Save</button>
 				</form>
 
-				<a class="btn" data-view="account-details" data-edit="edit-account" href="/">Edit</a>
+				<a class="btn" data-segment="band" data-view="account-details" data-edit="edit-account" href="/">Edit</a>
 
 			</div>
 		</section>
 
 		{# EPK INFORMATION #}
 
-		<section>
-			<h3>Electronic Press Kit</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+		{% if band.exists %}
 
-			<div class="data-container">
+			<section>
+				<h3>Electronic Press Kit</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-				<h4>General Info</h4>
+				<div class="data-container">
 
-				<div id="epk-info" class="data-view show">
-					{% if epk.price.min | trim | length or epk.price.max | trim | length %}
-						<p>
-							<strong>Price Range:</strong>
-							{{ epk.price.min | currency }} to {{ epk.price.max | currency }}
-						</p>
-					{% endif %}
-					{% if epk.length.min | trim | length or epk.length.max | trim | length %}
-						<p>
-							<strong>Gig Length:</strong>
-							{{ epk.length.min }} to {{ epk.length.max }} hours
-						</p>
-					{% endif %}
-					{% if epk.insurance.amount | trim | length or epk.insurance.description | trim | length %}
-						<p>
-							<strong>Insurance:</strong>
-							{{ epk.insurance.amount | currency }} {{ epk.insurance.description }}
-						</p>
-					{% endif %}
-					{% if epk.bio | trim | length %}
-						<label>Bio:</label>
-						<p>
-							{% set bioWords = epk.bio | split(' ')%}
-							{{ (bioWords | length > 50 ? (bioWords | slice(0, 30) | join(' ') ~ '...') : epk.bio) | nl2br }}
-						</p>
-					{% endif %}
-					{% if epk.requirements | trim | length %}
-						<label>Requirements:</label>
-						<p>
-							{% set reqWords = epk.requirements | split(' ')%}
-							{{ (reqWords | length > 50 ? (reqWords | slice(0, 30) | join(' ') ~ '...') : epk.requirements) | nl2br }}
-						</p>
-					{% endif %}
+					<h4>General Info</h4>
+
+					<div id="epk-info" class="data-view show">
+						{% if epk.price.min | trim | length or epk.price.max | trim | length %}
+							<p>
+								<strong>Price Range:</strong>
+								{{ epk.price.min | currency }} to {{ epk.price.max | currency }}
+							</p>
+						{% endif %}
+						{% if epk.length.min | trim | length or epk.length.max | trim | length %}
+							<p>
+								<strong>Gig Length:</strong>
+								{{ epk.length.min }} to {{ epk.length.max }} hours
+							</p>
+						{% endif %}
+						{% if epk.insurance.amount | trim | length or epk.insurance.description | trim | length %}
+							<p>
+								<strong>Insurance:</strong>
+								{{ epk.insurance.amount | currency }} {{ epk.insurance.description }}
+							</p>
+						{% endif %}
+						{% if epk.cta | trim | length %}
+							<p>
+								<strong>CTA:</strong>
+								{{ epk.cta }}
+							</p>
+						{% endif %}
+						{% if epk.bio | trim | length %}
+							<label>Bio:</label>
+							<p>
+								{% set bioWords = epk.bio | split(' ')%}
+								{{ (bioWords | length > 50 ? (bioWords | slice(0, 30) | join(' ') ~ '...') : epk.bio) | nl2br }}
+							</p>
+						{% endif %}
+						{% if epk.requirements | trim | length %}
+							<label>Requirements:</label>
+							<p>
+								{% set reqWords = epk.requirements | split(' ')%}
+								{{ (reqWords | length > 50 ? (reqWords | slice(0, 30) | join(' ') ~ '...') : epk.requirements) | nl2br }}
+							</p>
+						{% endif %}
+					</div>
+					
+					<form id="edit-epk-info" method="post"  accept-charset="UTF-8" action="/bands/save-epk-info">
+			            {{ csrfInput() }}
+						
+						<label>Bio</label>
+						<p>Descibe who you are, your style, and what audiences and listeners should expect. This is the first thing potential clients will read about you, so make sure it's accurate and compelling.</p>
+						<textarea name="bio">{% if epk.bio | trim | length %}{{ epk.bio }}{% endif %}</textarea>
+
+						<label>Call to Action (CTA)</label>
+						<p>One sentence slogan or marketing phrase to encourage potential clients to hire you.</p>
+						<input type="text" name="cta" maxlength="100" value="{{ epk.cta }}">
+
+						<label>Insurance Description</label>
+						<p>If you have liability insurance, list it here.</p>
+						<input type="text" name="insurance[description]" maxlength="100" value="{{ epk.insurance.description }}">
+						<label>Insurance Coverage Amount</label>
+						<div data-prefix="$">
+							<input type="number" min="0" max="100000000" name="insurance[amount]" placeholder="1000.00" value="{{ epk.insurance.amount }}">
+						</div>
+
+						<label>Price Range</label>
+						<p>Performance rates can vary depending on gig size, how long you play, and travel and equipment requirements. Include the full range for all types of events you accept.</p>
+						<div class="dual-inputs">
+							<input type="number" name="price[min]" min="0" max="10000000000" value="{{ epk.price.min }}">
+							<span>to</span>
+							<input type="number" name="price[max]" min="0" max="10000000000" value="{{ epk.price.max }}">
+							<span>dollars</span>
+						</div>
+
+						<label>Gig Length</label>
+						<p>The amount of time you prefer to perform, and how long you can play based on the amount of material you have.</p>
+						<div class="dual-inputs">
+							<input type="number" name="length[min]" min="0" max="100" value="{{ epk.length.min }}">
+							<span>to</span>
+							<input type="number" name="length[max]" min="0" max="100" value="{{ epk.length.max }}">
+							<span>hours</span>
+						</div>
+
+						<label>Requirements</label>
+						<p>Put notes, technical information, and setup requirements here. Anything potential clients might need to know, like what equipment and lighting you will be bringing, and what you would need them to provide.</p>
+						<textarea name="requirements">{% if epk.requirements | trim | length %}{{ epk.requirements }}{% endif %}</textarea>
+
+						<button type="submit">Save</button>
+					</form>
+
+					<a class="btn" data-view="epk-info" data-edit="edit-epk-info" href="/">Edit</a>
+
 				</div>
 				
-				<form id="edit-epk-info" method="post"  accept-charset="UTF-8" action="/bands/save-epk-info">
-		            {{ csrfInput() }}
-					
-					{% if epk.genres | length %}
-						<label>Genre</label>
-						<p>Select up to 3 genres that best describe your sound.</p>
-						<div class="checkboxes">
-							{% for genre in epk.genres %}
-								<label>
-									<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
-									{{ genre.title }}
-								</label>
-							{% endfor %}
-						</div>
-					{% endif %}
+				<div class="data-container">
 
-					<label>Bio</label>
-					<p>Descibe who you are, your style, and what audiences and listeners should expect. This is the first thing potential clients will read about you, so make sure it's accurate and compelling.</p>
-					<textarea name="bio">{% if epk.bio | trim | length %}{{ epk.bio }}{% endif %}</textarea>
+					{# EPK DISPLAY VIDEOS  #}
 
-					<label>Insurance Description</label>
-					<p>If you have liability insurance, list it here.</p>
-					<input type="text" name="insurance[description]" maxlength="100" value="{{ epk.insurance.description }}">
-					<label>Insurance Coverage Amount</label>
-					<div data-prefix="$">
-						<input type="number" min="0" max="100000000" name="insurance[amount]" placeholder="1000.00" value="{{ epk.insurance.amount }}">
-					</div>
-
-					<label>Price Range</label>
-					<p>Performance rates can vary depending on gig size, how long you play, and travel and equipment requirements. Include the full range for all types of events you accept.</p>
-					<div class="dual-inputs">
-						<input type="number" name="price[min]" min="0" max="10000000000" value="{{ epk.price.min }}">
-						<span>to</span>
-						<input type="number" name="price[max]" min="0" max="10000000000" value="{{ epk.price.max }}">
-						<span>dollars</span>
-					</div>
-
-					<label>Gig Length</label>
-					<p>The amount of time you prefer to perform, and how long you can play based on the amount of material you have.</p>
-					<div class="dual-inputs">
-						<input type="number" name="length[min]" min="0" max="100" value="{{ epk.length.min }}">
-						<span>to</span>
-						<input type="number" name="length[max]" min="0" max="100" value="{{ epk.length.max }}">
-						<span>hours</span>
-					</div>
-
-					<label>Requirements</label>
-					<p>Put notes, technical information, and setup requirements here. Anything potential clients might need to know, like what equipment and lighting you will be bringing, and what you would need them to provide.</p>
-					<textarea name="requirements">{% if epk.requirements | trim | length %}{{ epk.requirements }}{% endif %}</textarea>
-
-					<button type="submit">Save</button>
-				</form>
-
-				<a class="btn" data-view="epk-info" data-edit="edit-epk-info" href="/">Edit</a>
-
-			</div>
-			
-			<div class="data-container">
-
-				{# EPK DISPLAY VIDEOS  #}
-
-				<div id="epk-videos" class="data-view show">
-					<h4>EPK Videos</h4>
-					<div>
-						{% for video in epk.videos %}
-							<div>
-								<label>
-									{{ video.title }}
-									<form id="delete-video" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/delete-video" style="display: inline;">
-		            					{{ csrfInput() }}
-		            					<input type="hidden" name="id" value="{{ video.id }}">
-										<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the video: {{ video.title }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
-									</form>
-								</label>
-								<div class="vhs-player">
-									<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-								</div>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-
-				{# EPK EDIT VIDEOS #}
-
-				<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
-					{{ csrfInput() }}
-
-					<label>Video Title</label>
-					<input type="text" name="title" placeholder="">
-
-					<label>Video URL</label>
-					<input type="text" name="url" placeholder="">
-
-					<button type="submit">Save</button>
-				</form>
-
-				<a class="btn" data-view="epk-videos" data-edit="edit-videos" href="/">Add a Video</a>
-			</div>
-
-			<div class="data-container">
-
-				{# EPK DISPLAY IMAGES #}
-
-				<div id="epk-images" class="data-view show">
-					<h4>EPK Images</h4>
-					{% if epk.images %}
+					<div id="epk-videos" class="data-view show">
+						<h4>EPK Videos</h4>
 						<div>
-							{% for img in epk.images %}
+							{% for video in epk.videos %}
 								<div>
-									<form id="delete-image" method="post" action="/bands/delete-image" style="display: inline;">
-		            					{{ csrfInput() }}
-		            					<input type="hidden" name="id" value="{{ img.image.id }}">
-										<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the image: {{ img.caption }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
-									</form>
-									<img src="{{ img.image.url }}">
 									<label>
-										{{ img.caption }}
+										{{ video.title }}
+										<form id="delete-video" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/delete-video" style="display: inline;">
+			            					{{ csrfInput() }}
+			            					<input type="hidden" name="id" value="{{ video.id }}">
+											<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the video: {{ video.title }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
+										</form>
 									</label>
+									<div class="vhs-player">
+										<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+									</div>
 								</div>
 							{% endfor %}
 						</div>
-					{% endif %}
+					</div>
+
+					{# EPK EDIT VIDEOS #}
+
+					<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
+						{{ csrfInput() }}
+
+						<label>Video Title</label>
+						<input type="text" name="title" placeholder="">
+
+						<label>Video URL</label>
+						<input type="text" name="url" placeholder="">
+
+						<button type="submit">Save</button>
+					</form>
+
+					<a class="btn" data-view="epk-videos" data-edit="edit-videos" href="/">Add a Video</a>
 				</div>
 
-				{# EPK EDIT IMAGES #}
+				<div class="data-container">
 
-				<form class="file-upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-image">
-					{{ csrfInput() }}
-					<label data-name="Image"></label>
-					<input type="file" name="image" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
-					<input type="hidden" name="caption">
-					<a class="btn upload-btn" href="/">Upload an image</a>
-				</form>
-			</div>
+					{# EPK DISPLAY IMAGES #}
 
-		</section>
+					<div id="epk-images" class="data-view show">
+						<h4>EPK Images</h4>
+						{% if epk.images %}
+							<div>
+								{% for img in epk.images %}
+									<div>
+										<form id="delete-image" method="post" action="/bands/delete-image" style="display: inline;">
+			            					{{ csrfInput() }}
+			            					<input type="hidden" name="id" value="{{ img.image.id }}">
+											<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the image: {{ img.caption }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
+										</form>
+										<img src="{{ img.image.url }}">
+										<label>
+											{{ img.caption }}
+										</label>
+									</div>
+								{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+
+					{# EPK EDIT IMAGES #}
+
+					<form class="file-upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-image">
+						{{ csrfInput() }}
+						<label data-name="Image"></label>
+						<input type="file" name="image" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+						<input type="hidden" name="caption">
+						<a class="btn upload-btn" href="/">Upload an image</a>
+					</form>
+				</div>
+
+			</section>
+
+		{% endif %}
 
 	</div>
 

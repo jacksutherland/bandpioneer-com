@@ -106,24 +106,48 @@ class RockstarService extends Component
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
         $bandRecord = BandRecord::findOne(['userId' => $currentUser->id]) ?? new BandRecord();
+        $genreEntries = Entry::find()->section('genres')->orderBy('title');
+        $bandRecordGenres = [];
+        $allGenres = [];
+        $genres = [];
+
+        if($bandRecordExists = !$bandRecord->getIsNewRecord())
+        {
+            $bandRecordGenres = json_decode($bandRecord->genres, true) ?? [];
+        }
+
+        foreach($genreEntries as &$ge)
+        {
+            if($checked = in_array($ge->id, $bandRecordGenres))
+            {
+                array_push($genres, $ge);
+            }
+            array_push($allGenres, [
+                'id' => $ge->id,
+                'title' => $ge->title,
+                'checked' => $checked
+            ]);
+        }
 
         return [
+            'exists' => $bandRecordExists,
             'name' => $bandRecord->name,
             'websiteUrl' => $bandRecord->websiteUrl,
             'phone' => $bandRecord->phone,
             'email' => $bandRecord->email,
             'description' => $bandRecord->description,
-            'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null)
+            'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null),
+            'genres' => $genres,
+            'allGenres' => $allGenres
         ];
     }
 
     public function getCurrentUserEpk()
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $genreEntries = Entry::find()->section('genres')->orderBy('title');
-        $epkGenres = [];
-        $genres = [];
+        $epkRecordExists = false;
         $bio = '';
+        $cta = '';
         $requirements = '';
         $videos = [];
         $images = [];
@@ -142,13 +166,15 @@ class RockstarService extends Component
 
         if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
         {
+            $epkRecordExists = true;
+
             $bio = $epkRecord->bio ?? $bio;
+            $cta = $epkRecord->cta ?? $cta;
             $requirements = $epkRecord->requirements ?? $requirements;
 
             $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
             $price = json_decode($epkRecord->priceRange, false) ?? $price;
             $length = json_decode($epkRecord->gigLength, false) ?? $length;
-            $epkGenres = json_decode($epkRecord->genres, true) ?? [];
 
             $epkVideos = json_decode($epkRecord->videos, false);
             foreach($epkVideos as &$jsonVideo)
@@ -168,20 +194,12 @@ class RockstarService extends Component
             }
         }
         
-        foreach($genreEntries as &$ge)
-        {
-            array_push($genres, [
-                'id' => $ge->id,
-                'title' => $ge->title,
-                'checked' => in_array($ge->id, $epkGenres)
-            ]);
-        }
-
         return [
-            'genres' => $genres,
+            'exists' => $epkRecordExists,
             'videos' => $videos,
             'images' => $images,
             'bio' => $bio,
+            'cta' => $cta,
             'requirements' => $requirements,
             'insurance' => $insurance,
             'price' => $price,
@@ -247,6 +265,7 @@ class RockstarService extends Component
             $epkRecord->dateUpdated = $now;
             $epkRecord->genres = json_encode($epk['genres']);
             $epkRecord->bio = $epk['bio'];
+            $epkRecord->cta = $epk['cta'];
             $epkRecord->requirements = $epk['requirements'];
             $epkRecord->insurance = (empty(trim($epk['insurance']['amount'])) && empty(trim($epk['insurance']['description']))) ? "" : json_encode($epk['insurance']);
             $epkRecord->priceRange = (empty(trim($epk['price']['min'])) && empty(trim($epk['price']['max']))) ? "" : json_encode($epk['price']);

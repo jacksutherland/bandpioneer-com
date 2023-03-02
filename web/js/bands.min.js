@@ -10,6 +10,17 @@ const BandPioneerBands = {
 	init: function ()
 	{
 		this.addEventListeners();
+
+
+	},
+
+	openView: function(view)
+	{
+		switch(view)
+		{
+			case 'band':
+				document.querySelector('[data-segment="band"]').click();
+		}
 	},
 
 	deleteLogo: async function(logoId)
@@ -52,12 +63,12 @@ const BandPioneerBands = {
 
 					BandPioneer.each(checks, function()
 					{
-						this.disabled = checked.length >= 3 ? !this.checked : false;
+						this.disabled = checked.length >= 5 ? !this.checked : false;
 					});
 				});
 			});
 
-			if(checkedCount >= 3)
+			if(checkedCount >= 5)
 			{
 				BandPioneer.each(checkboxes, function()
 				{

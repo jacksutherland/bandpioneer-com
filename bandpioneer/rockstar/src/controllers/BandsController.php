@@ -35,6 +35,26 @@ class BandsController extends Controller
         'public-action', 'dashboard'
     ];
 
+    private function validate(array $vals, $msg = ""):bool
+    {
+        $isValid = true;
+
+        foreach($vals as &$val)
+        {
+            if(trim($val) != '' && $val != strip_tags($val))
+            {
+                $isValid = false;
+            }
+        }
+
+        if(!$isValid)
+        {
+            Craft::$app->getSession()->setError("Invalid characters detected. $msg");
+        }
+
+        return $isValid;
+    }
+
     public function actionDashboard(): Response
     {
         $this->requireLogin();
@@ -54,6 +74,27 @@ class BandsController extends Controller
         $this->requirePostRequest();
 
         $request = Craft::$app->getRequest();
+        $name = trim($request->getParam('name'));
+        $websiteUrl = trim($request->getParam('websiteUrl'));
+        $phone = trim($request->getParam('phone'));
+        $email = trim($request->getParam('email'));
+        $description = trim($request->getParam('description'));
+
+        /*** VALIDATION ***/
+
+        if(empty($name))
+        {
+            Craft::$app->getSession()->setError("A band name is required");
+            return $this->redirect('bands/dashboard/edit/band');
+        }
+
+        if(!$this->validate([$name, $websiteUrl, $phone, $email, $description], 'Band not saved.'))
+        {
+            return $this->redirect('bands/dashboard/edit/band');
+        }
+
+        /*** SAVE ***/
+
         $session = Craft::$app->getSession();
         $service = Rockstar::$plugin->getService();
         $logoId = null;
@@ -67,15 +108,17 @@ class BandsController extends Controller
         }
 
         $band = [
-            'name' => $request->getParam('name'),
-            'websiteUrl' => $request->getParam('websiteUrl'),
-            'phone' => $request->getParam('phone'),
-            'email' => $request->getParam('email'),
-            'description' => $request->getParam('description'),
+            'name' => $name,
+            'websiteUrl' => $websiteUrl,
+            'phone' => $phone,
+            'email' => $email,
+            'description' => $description,
             'logoId' => $logoId
         ];
 
         $service->saveCurrentUserBand($band);
+
+        Craft::$app->getSession()->setNotice("Band saved successfully.");
 
         return $this->redirect('bands/dashboard');
     }
@@ -91,6 +134,7 @@ class BandsController extends Controller
         $epk = [
             'genres' => $request->getParam('genres'),
             'bio' => $request->getParam('bio'),
+            'cta' => $request->getParam('cta'),
             'requirements' => $request->getParam('requirements'),
             'insurance' => [
                 'amount' => $request->getParam('insurance[amount]'),
@@ -107,6 +151,8 @@ class BandsController extends Controller
         ];
 
         $service->saveCurrentUserEpk($epk);
+
+        Craft::$app->getSession()->setNotice("EPK saved successfully.");
 
         return $this->redirect('bands/dashboard');
     }

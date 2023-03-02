@@ -18,6 +18,43 @@ body {
 	}
 }
 
+
+.flash-error, .flash-notice {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	position: fixed;
+	z-index: 90; // right under header
+    top: 78px;
+    left: 0;
+    height: 35px;
+    width: 100%;
+    color: $white;
+    text-align: center;
+    font-weight: $semi-bold;
+    opacity: 0.8;
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 25%);
+
+    @keyframes fade-flash-error {
+	    from { opacity :0.8; }
+	    to { opacity :0; }
+	}
+
+	animation: fade-flash-error 1s 1;
+	animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+
+    &.flash-error {
+    	background-color: $secondary-dark;
+    	animation-delay: 8s;
+    }
+    &.flash-notice {
+    	background-color: $dark-gray;
+    	animation-delay: 3s;
+    }
+} 
+
+
 .vhs-player {
 	position: relative;
   	padding-bottom: 56.25%;
@@ -329,7 +366,7 @@ body {
 
 		&.dashboard {
 			grid-template-areas: 
-				"s1 s2 s2 s2 s2";
+				"s1 s2 s2";
 		}
 	}
 }

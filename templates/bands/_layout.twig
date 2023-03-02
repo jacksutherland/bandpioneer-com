@@ -1,6 +1,8 @@
 {% requireLogin %}
 
 {% set versionNumber = '1.05' %}
+{% set error = craft.app.session.getFlash('error') %}
+{% set notice = craft.app.session.getFlash('notice') %}
 
 {% import '_includes/macros' as macros %}
 
@@ -40,7 +42,16 @@
 
 
         {% include 'bands/_includes/header' %}
-
+        
+        {% if error %}
+            <div class="flash-error">
+                <span>{{ error }}</span>
+            </div>
+        {% elseif notice %}
+            <div class="flash-notice">
+                <span>{{ notice }}</span>
+            </div>
+        {% endif %}
         
         <main>
             {% block content %}

@@ -72,6 +72,7 @@ class Rockstar extends craft\base\Plugin
             function(RegisterUrlRulesEvent $event)
             {
                 $event->rules['bands/dashboard'] = 'rockstar/bands/dashboard';
+                $event->rules['bands/dashboard/edit/<slug>'] = 'rockstar/bands/dashboard';
                 $event->rules['bands/save-band'] = 'rockstar/bands/save-band';
                 $event->rules['bands/save-epk-info'] = 'rockstar/bands/save-epk-info';
                 $event->rules['bands/save-video'] = 'rockstar/bands/save-video';
