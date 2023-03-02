@@ -145,22 +145,19 @@ let BandPioneer = {
 				menu.classList.remove('show');
 			});
 
-			categoryMenu.addEventListener('mouseleave', function(e)
+			if(categoryMenu)
 			{
-				e.preventDefault();
+				categoryMenu.addEventListener('mouseleave', function(e)
+				{
+					e.preventDefault();
 
-				BandPioneer.categoryId = 0;
-				BandPioneer.hoveringOverCategory = false;
-				clearTimeout(BandPioneer.categoryTimeout);
+					BandPioneer.categoryId = 0;
+					BandPioneer.hoveringOverCategory = false;
+					clearTimeout(BandPioneer.categoryTimeout);
 
-				// setTimeout(function()
-				// {
-					// if(!BandPioneer.hoveringOverCategory)
-					// {
-						document.querySelector('#category-description').classList.remove('show');
-					// }
-				// }, 500);
-			});
+					document.querySelector('#category-description').classList.remove('show');
+				});
+			}
 
 			BandPioneer.each(categories, function()
 			{

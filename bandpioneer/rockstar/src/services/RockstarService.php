@@ -34,7 +34,72 @@ use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
  */
 class RockstarService extends Component
 {
-    const LOGO_VOLUME_HANDLE = 'rockstarImages';
+    const IMAGE_VOLUME_HANDLE = 'rockstarAssets';
+
+    /*** PRIVATE MEMBERS ***/
+
+    private function getUserVolumePath($user)
+    {
+        return "user-$user->id/images";
+    }
+
+    private function getYoutubeIdFromUrl($url)
+    {
+        // preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
+        // preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $link, $matches);
+
+        $parts = parse_url($url);
+        if(isset($parts['query']))
+        {
+            parse_str($parts['query'], $qs);
+            if(isset($qs['v']))
+            {
+                return $qs['v'];
+            }
+            else if(isset($qs['vi']))
+            {
+                return $qs['vi'];
+            }
+        }
+        if(isset($parts['path']))
+        {
+            $path = explode('/', trim($parts['path'], '/'));
+            return $path[count($path)-1];
+        }
+        return false;
+    }
+
+    private function updateCurrentUserEpkProperty($propName, $propVal)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try 
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $now = Db::prepareDateForDb(DateTimeHelper::now());
+            $epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]) ?? new EpkRecord();
+
+            if($epkRecord->getIsNewRecord())
+            {
+                $epkRecord->dateCreated = $now;
+                $epkRecord->userId = $currentUser->id;
+            }
+            $epkRecord->dateUpdated = $now;
+
+            $epkRecord->{$propName} = $propVal;
+            $epkRecord->save();
+
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+    }
+
+    /*** PUBLIC MEMBERS ***/
 
     public function getCurrentUserBand()
     {
@@ -48,18 +113,52 @@ class RockstarService extends Component
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
         $videos = [];
+        $images = [];
+        $insurance = [
+            'amount' => '',
+            'description' => ''
+        ];
+        $price = [
+            'min' => '',
+            'max' => ''
+        ];
+        $length = [
+            'min' => '',
+            'max' => ''
+        ];
 
         if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
         {
+            $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
+            $price = json_decode($epkRecord->priceRange, false) ?? $price;
+            $length = json_decode($epkRecord->gigLength, false) ?? $length;
+
             $epkVideos = json_decode($epkRecord->videos, false);
             foreach($epkVideos as &$jsonVideo)
             {
                 array_push($videos, json_decode($jsonVideo));
             }
+
+            $epkImages = json_decode($epkRecord->images, false);
+            foreach($epkImages as &$jsonImg)
+            {
+                $img = json_decode($jsonImg);
+                $img->image = Craft::$app->getAssets()->getAssetById(json_decode($jsonImg)->id) ?? false;
+                if($img->image)
+                {
+                    array_push($images, $img);
+                }
+            }
         }
 
         return [
-            'videos' => $videos
+            'videos' => $videos,
+            'images' => $images,
+            'bio' => $epkRecord->bio,
+            'requirements' => $epkRecord->requirements,
+            'insurance' => $insurance,
+            'price' => $price,
+            'length' => $length
         ];
     }
 
@@ -103,6 +202,42 @@ class RockstarService extends Component
         return true;
     }
 
+    public function saveCurrentUserEpk($epk)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try {
+
+            $now = Db::prepareDateForDb(DateTimeHelper::now());
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]) ?? new EpkRecord();
+
+            if($epkRecord->getIsNewRecord())
+            {
+                $epkRecord->dateCreated = $now;
+                $epkRecord->userId = $currentUser->id;
+            }
+            $epkRecord->dateUpdated = $now;
+            $epkRecord->bio = $epk['bio'];
+            $epkRecord->requirements = $epk['requirements'];
+            $epkRecord->insurance = (empty(trim($epk['insurance']['amount'])) && empty(trim($epk['insurance']['description']))) ? "" : json_encode($epk['insurance']);
+            $epkRecord->priceRange = (empty(trim($epk['price']['min'])) && empty(trim($epk['price']['max']))) ? "" : json_encode($epk['price']);
+            $epkRecord->gigLength = (empty(trim($epk['length']['min'])) && empty(trim($epk['length']['max']))) ? "" : json_encode($epk['length']);
+            
+            $epkRecord->save();
+
+            $transaction->commit();
+
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+        return true;
+    }
+
     public function saveCurrentUserBandLogo($fileLocation, $filename)
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
@@ -129,8 +264,9 @@ class RockstarService extends Component
         }
         else
         {
-            $volume = Craft::$app->getVolumes()->getVolumeByHandle(self::LOGO_VOLUME_HANDLE);
-            $folderId = Craft::$app->getAssets()->ensureFolderByFullPathAndVolume("", $volume)->id;
+            $volume = Craft::$app->getVolumes()->getVolumeByHandle(self::IMAGE_VOLUME_HANDLE);
+
+            $folderId = Craft::$app->getAssets()->ensureFolderByFullPathAndVolume($this->getUserVolumePath($currentUser), $volume)->id;
             $filename = $assetsService->getNameReplacementInFolder($filename, $folderId);
 
             $logo = new Asset();
@@ -180,6 +316,104 @@ class RockstarService extends Component
         }
 
         return true;
+    }
+
+    public function saveCurrentUserEpkImage($fileLocation, $filename, $caption)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $filename = AssetsHelper::prepareAssetName($filename ?? pathinfo($fileLocation, PATHINFO_BASENAME), true, true);
+            $assetsService = Craft::$app->getAssets();
+
+            if (!Image::canManipulateAsImage(pathinfo($fileLocation, PATHINFO_EXTENSION)))
+            {
+                throw new ImageException(Craft::t('app', 'User photo must be an image that Craft can manipulate.'));
+            }
+
+            if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $images = empty($epkRecord->images) ? [] : json_decode($epkRecord->images);
+            }
+            else
+            {
+                $images = [];
+            }
+
+            $assetsService = Craft::$app->getAssets();
+            $volume = Craft::$app->getVolumes()->getVolumeByHandle(self::IMAGE_VOLUME_HANDLE);
+            $folderId = Craft::$app->getAssets()->ensureFolderByFullPathAndVolume($this->getUserVolumePath($currentUser), $volume)->id;
+            $filename = $assetsService->getNameReplacementInFolder($filename, $folderId);
+
+            $img = new Asset();
+            $img->setScenario(Asset::SCENARIO_CREATE);
+            $img->tempFilePath = $fileLocation;
+            $img->setFilename($filename);
+            $img->newFolderId = $folderId;
+            $img->setVolumeId($volume->id);
+
+            $elementsService = Craft::$app->getElements();
+            $elementsService->saveElement($img);
+
+            array_push($images, json_encode(array("caption"=>$caption, "id"=>$img->id)));
+                
+            $this->updateCurrentUserEpkProperty('images', json_encode($images));
+
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+
+    }
+
+    public function deleteCurrentUserEpkImage($imgId)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $images = [];
+            $epkImageFound = false;
+
+            if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $epkImages = empty($epkRecord->images) ? [] : json_decode($epkRecord->images);
+
+                foreach($epkImages as &$img)
+                {
+                    if(json_decode($img)->id == $imgId)
+                    {
+                        $epkImageFound = true;
+                    }
+                    else
+                    {
+                        array_push($images, $img);
+                    }
+                }
+            }
+
+            // Don't remove images unless found in THIS user's collection
+            if($epkImageFound)
+            {
+                $imgDeleted = Craft::$app->getElements()->deleteElementById($imgId, Asset::class);
+            }
+
+            $this->updateCurrentUserEpkProperty('images', json_encode($images));
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
     }
 
     public function saveCurrentUserEpkVideo($videoTitle, $videoUrl)
@@ -239,60 +473,6 @@ class RockstarService extends Component
     }
 
 
-    private function updateCurrentUserEpkProperty($propName, $propVal)
-    {
-        $transaction = Craft::$app->getDb()->beginTransaction();
-
-        try 
-        {
-            $currentUser = Craft::$app->getUser()->getIdentity();
-            $now = Db::prepareDateForDb(DateTimeHelper::now());
-            $epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]) ?? new EpkRecord();
-
-            if($epkRecord->getIsNewRecord())
-            {
-                $epkRecord->dateCreated = $now;
-                $epkRecord->userId = $currentUser->id;
-            }
-            $epkRecord->dateUpdated = $now;
-
-            $epkRecord->{$propName} = $propVal;
-            $epkRecord->save();
-
-            $transaction->commit();
-        }
-        catch (Throwable $e)
-        {
-            $transaction->rollBack();
-            throw $e;
-            return false;
-        }
-    }
-
-    private function getYoutubeIdFromUrl($url)
-    {
-        // preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
-        // preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $link, $matches);
-
-        $parts = parse_url($url);
-        if(isset($parts['query']))
-        {
-            parse_str($parts['query'], $qs);
-            if(isset($qs['v']))
-            {
-                return $qs['v'];
-            }
-            else if(isset($qs['vi']))
-            {
-                return $qs['vi'];
-            }
-        }
-        if(isset($parts['path']))
-        {
-            $path = explode('/', trim($parts['path'], '/'));
-            return $path[count($path)-1];
-        }
-        return false;
-    }
+    
 
 }

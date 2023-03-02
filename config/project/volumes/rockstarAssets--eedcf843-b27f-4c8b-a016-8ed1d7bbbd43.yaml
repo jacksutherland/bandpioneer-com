@@ -33,9 +33,9 @@ fieldLayouts:
         name: Content
         uid: ae49f2cc-e45e-4e19-82c1-daba4b38c67f
         userCondition: null
-fs: rockstarImages
-handle: rockstarImages
-name: 'Rockstars Images'
+fs: rockstarFiles
+handle: rockstarAssets
+name: 'Rockstars Assets'
 sortOrder: 4
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

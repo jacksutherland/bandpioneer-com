@@ -64,7 +64,6 @@ class BandsController extends Controller
         $session = Craft::$app->getSession();
         $service = Rockstar::$plugin->getService();
         $logoId = null;
-        
 
         if($logo = UploadedFile::getInstanceByName('logo'))
         {
@@ -84,6 +83,69 @@ class BandsController extends Controller
         ];
 
         $service->saveCurrentUserBand($band);
+
+        return $this->redirect('bands/dashboard');
+    }
+
+    public function actionSaveEpkInfo(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $request = Craft::$app->getRequest();
+        $session = Craft::$app->getSession();
+        $service = Rockstar::$plugin->getService();
+
+        $epk = [
+            'bio' => $request->getParam('bio'),
+            'requirements' => $request->getParam('requirements'),
+            'insurance' => [
+                'amount' => $request->getParam('insurance[amount]'),
+                'description' => $request->getParam('insurance[description]')
+            ],
+            'price' => [
+                'min' => $request->getParam('price[min]'),
+                'max' => $request->getParam('price[max]')
+            ],
+            'length' => [
+                'min' => $request->getParam('length[min]'),
+                'max' => $request->getParam('length[max]')
+            ]
+        ];
+
+        $service->saveCurrentUserEpk($epk);
+
+        return $this->redirect('bands/dashboard');
+    }
+
+    public function actionSaveImage(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $request = Craft::$app->getRequest();
+        $service = Rockstar::$plugin->getService();
+
+        $caption = $request->getParam('caption');
+        
+        if($img = UploadedFile::getInstanceByName('image'))
+        {
+            $imgLocation = Assets::tempFilePath($img->getExtension());
+            move_uploaded_file($img->tempName, $imgLocation);
+
+            $imgId = $service->saveCurrentUserEpkImage($imgLocation, $img->name, $caption);
+        }
+
+        return $this->redirect('bands/dashboard');
+    }
+
+    public function actionDeleteImage(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $imgId = $request->getParam('id');
+
+        $service->deleteCurrentUserEpkImage($imgId);
 
         return $this->redirect('bands/dashboard');
     }
@@ -115,7 +177,7 @@ class BandsController extends Controller
         $videoId = $request->getParam('id');
 
         $service->deleteCurrentUserEpkVideo($videoId);
-        
+
         return $this->redirect('bands/dashboard');
     }
 

@@ -1,5 +1,40 @@
-dateModified: 1677355133
+dateModified: 1677698798
 elementSources:
+  craft\elements\Asset:
+    -
+      key: 'folder:4f837d0a-f4ae-450a-b862-c89db9245dd0'
+      type: native
+    -
+      heading: Website
+      type: heading
+    -
+      key: 'volume:3098d7ae-88a8-4d10-9c0f-b138a839a277' # Band Images
+      type: native
+    -
+      key: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
+      type: native
+    -
+      key: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
+      type: native
+    -
+      key: 'volume:f0b910e3-c8e6-448c-b884-50e6ab61d4da' # Writer Pictures
+      type: native
+    -
+      heading: Rockstars
+      type: heading
+    -
+      defaultSort:
+        - dateCreated
+        - desc
+      disabled: false
+      key: 'volume:eedcf843-b27f-4c8b-a016-8ed1d7bbbd43' # Rockstars Assets
+      tableAttributes:
+        - filename
+        - size
+        - dateModified
+        - uploader
+        - link
+      type: native
   craft\elements\Entry:
     -
       defaultSort:
@@ -82,6 +117,17 @@ elementSources:
         - 'field:37ff1ae6-ced2-4eaf-b107-93e6e3dd94be' # Band Image
         - dateUpdated
       type: native
+    -
+      heading: Rockstars
+      type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
+      tableAttributes: '-'
+      type: native
 email:
   fromEmail: support@realitygems.com
   fromName: 'Band Pioneer'
@@ -113,13 +159,13 @@ fs:
       path: assets/images/pages
     type: craft\fs\Local
     url: /assets/images/pages
-  rockstarImages:
+  rockstarFiles:
     hasUrls: true
-    name: 'Rockstar Images'
+    name: 'Rockstar Files'
     settings:
-      path: assets/images/rockstars
+      path: assets/rockstars
     type: craft\fs\Local
-    url: /assets/images/rockstars
+    url: /assets/rockstars
   writerPictures:
     hasUrls: true
     name: 'Writer Pictures'
@@ -144,6 +190,7 @@ meta:
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
+    8c0e4ec9-bf67-46e2-9302-82d3a602160c: Default # Default
     9a6940a2-21f7-479b-89de-7b12ff94ad18: 'Long Text' # Long Text
     09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
@@ -179,6 +226,7 @@ meta:
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
+    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
@@ -195,7 +243,7 @@ meta:
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
     ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline
     ee13e705-afd8-41c1-a111-b472a62a15f2: Headline # Headline
-    eedcf843-b27f-4c8b-a016-8ed1d7bbbd43: 'Rockstars Images' # Rockstars Images
+    eedcf843-b27f-4c8b-a016-8ed1d7bbbd43: 'Rockstars Assets' # Rockstars Assets
     f0b910e3-c8e6-448c-b884-50e6ab61d4da: 'Writer Pictures' # Writer Pictures
     f56dcf7f-956d-4a14-b4e8-8bfd842d5b72: 'Embed Code' # Embed Code
     f85c3fd3-04eb-4069-a712-f8725e5c5fac: 'Full Name' # Full Name

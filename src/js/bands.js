@@ -27,7 +27,7 @@ const BandPioneerBands = {
 		})
 	   .then(response => response.json());
 
-	   return response.result == "success";
+	   	return response.result == "success";
 	},
 
 	addEventListeners: function()
@@ -68,19 +68,32 @@ const BandPioneerBands = {
 			const deleteLink = this.querySelector('a.delete-btn');
 			const label = this.querySelector('label');
 			const file = this.querySelector('input[type="file"]');
+			const caption = this.querySelector('input[name="caption"]');
+			const isForm = (this.nodeName === "FORM");
 
 			file.addEventListener('change', function()
 			{
-				if (this.file.files.length > 0)
+				if(this.isForm)
+				{
+					let caption = prompt("Enter a caption you'd like displayed with this image", "");
+
+					if(caption != null)
+					{
+						this.caption.value = caption;
+
+						this.parent.submit();
+					}
+				}
+				else if (this.file.files.length > 0)
   				{
-  					this.label.innerHTML = "Logo: <span>" + this.file.files[0].name + "</span>";
+  					this.label.innerHTML = this.label.dataset.name + ": <span>" + this.file.files[0].name + "</span>";
   				}
   				else
   				{
-  					this.label.innerHTML = "Logo";
+  					this.label.innerHTML = this.label.dataset.name;
   				}
 
-			}.bind({ file:file, label:label }));
+			}.bind({ file:file, label:label, isForm: isForm, parent: this, caption: caption }));
 
 			uploadLink.addEventListener("click", function(e)
 			{
@@ -88,19 +101,28 @@ const BandPioneerBands = {
 				this.click();
 			}.bind(file));
 
-			deleteLink.addEventListener("click", function(e)
+			if(deleteLink)
 			{
-				if(!confirm("Are you sure you want to delete this logo?"))
+				deleteLink.addEventListener("click", function(e)
 				{
 					e.preventDefault();
-					return false;
-				}
-				if(!BandPioneerBands.deleteLogo(this.dataset.logo))
-				{
-					e.preventDefault();
-					return false;
-				}
-			})
+
+					if(confirm(`Are you sure you want to delete this ${this.label.dataset.name.toLowerCase()}?`))
+					{
+						BandPioneerBands.deleteLogo(this.deleteLink.dataset.logo).then(function(deleted)
+						{
+							if(deleted)
+							{
+								window.location.reload();
+							}
+							else
+							{
+								alert("Error: We ran into a problem deleting this file");
+							}
+						});
+					}
+				}.bind({ deleteLink: deleteLink, label:label }))
+			}
 		});
 	}
 
