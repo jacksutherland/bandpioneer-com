@@ -136,6 +136,18 @@ body main {
 .bands-container.dashboard section .data-container .dual-inputs span:last-child {
   grid-area: s2;
 }
+.bands-container.dashboard section .data-container .checkboxes label {
+  display: inline-block;
+  margin: 8px 0 0 0;
+  width: 125px;
+  white-space: nowrap;
+}
+.bands-container.dashboard section .data-container .checkboxes label input[type=checkbox] {
+  display: inline;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
 .bands-container.dashboard section .data-container .data-view {
   display: none;
 }

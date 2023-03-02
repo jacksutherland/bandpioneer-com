@@ -32,6 +32,40 @@ const BandPioneerBands = {
 
 	addEventListeners: function()
 	{
+		// const checkboxes = document.querySelectorAll('.checkboxes input[type=checkbox]');
+		const checkboxGroups = document.querySelectorAll('.checkboxes');
+
+		BandPioneer.each(checkboxGroups, function()
+		{ 
+			const checkboxes = this.querySelectorAll('input[type=checkbox]');
+			let checkedCount = 0;
+			
+			BandPioneer.each(checkboxes, function()
+			{
+				if(this.checked) checkedCount++;
+
+				this.addEventListener("change", function(e)
+				{
+					let name = this.getAttribute("name").split('[')[0];
+					let checks = document.querySelectorAll('input[name*="' + name + '"]');
+					let checked = document.querySelectorAll('input[name*="' + name + '"]:checked');
+
+					BandPioneer.each(checks, function()
+					{
+						this.disabled = checked.length >= 3 ? !this.checked : false;
+					});
+				});
+			});
+
+			if(checkedCount >= 3)
+			{
+				BandPioneer.each(checkboxes, function()
+				{
+					this.disabled = !this.checked;
+				});
+			}
+		});
+
 		const editBtns = document.querySelectorAll('[data-edit]');
 
 		BandPioneer.each(editBtns, function()

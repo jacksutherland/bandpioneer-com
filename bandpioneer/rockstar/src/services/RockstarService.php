@@ -21,6 +21,7 @@ use craft\helpers\Db;
 use craft\helpers\Image;
 use craft\helpers\Assets as AssetsHelper;
 
+use craft\elements\Entry;
 use craft\elements\Asset;
 use craft\errors\ImageException;
 
@@ -106,12 +107,24 @@ class RockstarService extends Component
         $currentUser = Craft::$app->getUser()->getIdentity();
         $bandRecord = BandRecord::findOne(['userId' => $currentUser->id]) ?? new BandRecord();
 
-        return $bandRecord;
+        return [
+            'name' => $bandRecord->name,
+            'websiteUrl' => $bandRecord->websiteUrl,
+            'phone' => $bandRecord->phone,
+            'email' => $bandRecord->email,
+            'description' => $bandRecord->description,
+            'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null)
+        ];
     }
 
     public function getCurrentUserEpk()
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
+        $genreEntries = Entry::find()->section('genres')->orderBy('title');
+        $epkGenres = [];
+        $genres = [];
+        $bio = '';
+        $requirements = '';
         $videos = [];
         $images = [];
         $insurance = [
@@ -129,9 +142,13 @@ class RockstarService extends Component
 
         if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
         {
+            $bio = $epkRecord->bio ?? $bio;
+            $requirements = $epkRecord->requirements ?? $requirements;
+
             $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
             $price = json_decode($epkRecord->priceRange, false) ?? $price;
             $length = json_decode($epkRecord->gigLength, false) ?? $length;
+            $epkGenres = json_decode($epkRecord->genres, true) ?? [];
 
             $epkVideos = json_decode($epkRecord->videos, false);
             foreach($epkVideos as &$jsonVideo)
@@ -150,12 +167,22 @@ class RockstarService extends Component
                 }
             }
         }
+        
+        foreach($genreEntries as &$ge)
+        {
+            array_push($genres, [
+                'id' => $ge->id,
+                'title' => $ge->title,
+                'checked' => in_array($ge->id, $epkGenres)
+            ]);
+        }
 
         return [
+            'genres' => $genres,
             'videos' => $videos,
             'images' => $images,
-            'bio' => $epkRecord->bio,
-            'requirements' => $epkRecord->requirements,
+            'bio' => $bio,
+            'requirements' => $requirements,
             'insurance' => $insurance,
             'price' => $price,
             'length' => $length
@@ -218,6 +245,7 @@ class RockstarService extends Component
                 $epkRecord->userId = $currentUser->id;
             }
             $epkRecord->dateUpdated = $now;
+            $epkRecord->genres = json_encode($epk['genres']);
             $epkRecord->bio = $epk['bio'];
             $epkRecord->requirements = $epk['requirements'];
             $epkRecord->insurance = (empty(trim($epk['insurance']['amount'])) && empty(trim($epk['insurance']['description']))) ? "" : json_encode($epk['insurance']);

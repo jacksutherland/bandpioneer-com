@@ -44,14 +44,7 @@ class BandsController extends Controller
         $epkRecord = $service->getCurrentUserEpk();
 
         return $this->renderTemplate('bands/dashboard', [
-            'band' => [
-                'name' => $bandRecord->name,
-                'websiteUrl' => $bandRecord->websiteUrl,
-                'phone' => $bandRecord->phone,
-                'email' => $bandRecord->email,
-                'description' => $bandRecord->description,
-                'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null)
-            ],
+            'band' => $bandRecord,
             'epk' => $epkRecord
         ]);
     }
@@ -96,6 +89,7 @@ class BandsController extends Controller
         $service = Rockstar::$plugin->getService();
 
         $epk = [
+            'genres' => $request->getParam('genres'),
             'bio' => $request->getParam('bio'),
             'requirements' => $request->getParam('requirements'),
             'insurance' => [

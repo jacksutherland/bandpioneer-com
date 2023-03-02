@@ -146,6 +146,19 @@
 				<form id="edit-epk-info" method="post"  accept-charset="UTF-8" action="/bands/save-epk-info">
 		            {{ csrfInput() }}
 					
+					{% if epk.genres | length %}
+						<label>Genre</label>
+						<p>Select up to 3 genres that best describe your sound.</p>
+						<div class="checkboxes">
+							{% for genre in epk.genres %}
+								<label>
+									<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
+									{{ genre.title }}
+								</label>
+							{% endfor %}
+						</div>
+					{% endif %}
+
 					<label>Bio</label>
 					<p>Descibe who you are, your style, and what audiences and listeners should expect. This is the first thing potential clients will read about you, so make sure it's accurate and compelling.</p>
 					<textarea name="bio">{% if epk.bio | trim | length %}{{ epk.bio }}{% endif %}</textarea>
