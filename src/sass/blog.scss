@@ -346,6 +346,28 @@ article {
 			}
 		}
 
+		&.embed-code {
+
+			// USAGE: <div class="table" style="--columns: 4;">
+			.table {
+				display: grid;
+				grid-template-columns: repeat(var(--columns), 1fr);
+				gap: 3px;
+
+				> div {
+					padding: 12px;
+					background-color: lighten($light-gray, 4%);
+					&.title {
+						background-color: $light-gray;
+						font-weight: $semi-bold;
+					}
+					&.subtitle {
+						font-weight: $semi-bold;	
+					}
+				}
+			}
+		}
+
 		.section-anchor {
 			transform: translateY(-120px);
 		}

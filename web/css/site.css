@@ -1311,6 +1311,22 @@ article .blog-info ul li span {
 .blog section.rich-text ul li, .blog section.rich-text ol li {
   line-height: 1.5rem;
 }
+.blog section.embed-code .table {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 3px;
+}
+.blog section.embed-code .table > div {
+  padding: 12px;
+  background-color: #f2f4f5;
+}
+.blog section.embed-code .table > div.title {
+  background-color: #e7ebec;
+  font-weight: 600;
+}
+.blog section.embed-code .table > div.subtitle {
+  font-weight: 600;
+}
 .blog section .section-anchor {
   transform: translateY(-120px);
 }
