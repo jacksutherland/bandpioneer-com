@@ -353,6 +353,8 @@ article {
 				display: grid;
 				grid-template-columns: repeat(var(--columns), 1fr);
 				gap: 3px;
+				border-radius: $small-border-radius;
+    			overflow: hidden;
 
 				> div {
 					padding: 12px;

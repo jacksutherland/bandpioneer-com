@@ -1315,6 +1315,8 @@ article .blog-info ul li span {
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);
   gap: 3px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 .blog section.embed-code .table > div {
   padding: 12px;
