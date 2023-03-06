@@ -17,7 +17,7 @@
 		{% include '_includes/author' with { blog: entry } %}
 
 		{% if entry.blogImage.count %}
-			<img class="featured-image" src="{{ entry.blogImage.one().url('blogHeader') }}" alt="{{ entry.blogImage.one().title }}">
+			<img loading="eager" class="featured-image" src="{{ entry.blogImage.one().url('blogHeader') }}" alt="{{ entry.blogImage.one().title }}">
 		{% endif %}
 	</div>
 

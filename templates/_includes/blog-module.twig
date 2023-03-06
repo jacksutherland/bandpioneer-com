@@ -15,11 +15,7 @@
 		<ul>
 			{% for tl in tocLinks %}
 				<li>
-					{# {% if tl.headline | first matches '/^\\d+$/' %}
-						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
-					{% else %} #}
-						<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
-					{# {% endif %} #}
+					<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
 				</li>
 			{% endfor %}
 		</ul>
@@ -74,7 +70,7 @@
 					</style>
 				{% endif %}
 				<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
-					<img src="{{ module.blogImage.one().url('blogImage') }}" alt="{{ module.blogImage.one().title }}" width="{{ module.blogImage.one().width('blogImage') }}" height="{{ module.blogImage.one().height('blogImage') }}">
+					<img loading="lazy" src="{{ module.blogImage.one().url('blogImage') }}" alt="{{ module.blogImage.one().title }}" width="{{ module.blogImage.one().width('blogImage') }}" height="{{ module.blogImage.one().height('blogImage') }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
 					{% endif %}

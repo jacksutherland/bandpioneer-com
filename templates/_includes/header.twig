@@ -1,9 +1,9 @@
 <header class="site-header">
     <div class="container">
         <a href="/" class="logo">
-            <img class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
+            <img loading="eager" class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
             {% if entry.section.handle == 'homepage' %}
-                <img class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
+                <img loading="eager" class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
             {% endif %}
         </a>
         <a id="open-menu" href="/" class="bars">
