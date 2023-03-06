@@ -35,26 +35,6 @@ class BandsController extends Controller
         'public-action', 'dashboard'
     ];
 
-    private function validate(array $vals, $msg = ""):bool
-    {
-        $isValid = true;
-
-        foreach($vals as &$val)
-        {
-            if(trim($val) != '' && $val != strip_tags($val))
-            {
-                $isValid = false;
-            }
-        }
-
-        if(!$isValid)
-        {
-            Craft::$app->getSession()->setError("Invalid characters detected. $msg");
-        }
-
-        return $isValid;
-    }
-
     public function actionDashboard(): Response
     {
         $this->requireLogin();
@@ -73,12 +53,14 @@ class BandsController extends Controller
     {
         $this->requirePostRequest();
 
+        $service = Rockstar::$plugin->getService();
         $request = Craft::$app->getRequest();
         $name = trim($request->getParam('name'));
         $websiteUrl = trim($request->getParam('websiteUrl'));
         $phone = trim($request->getParam('phone'));
         $email = trim($request->getParam('email'));
         $description = trim($request->getParam('description'));
+        $genres = $request->getParam('genres');
 
         /*** VALIDATION ***/
 
@@ -88,7 +70,7 @@ class BandsController extends Controller
             return $this->redirect('bands/dashboard/edit/band');
         }
 
-        if(!$this->validate([$name, $websiteUrl, $phone, $email, $description], 'Band not saved.'))
+        if(!$service->validateText([$name, $websiteUrl, $phone, $email, $description], 'Band not saved.'))
         {
             return $this->redirect('bands/dashboard/edit/band');
         }
@@ -96,11 +78,15 @@ class BandsController extends Controller
         /*** SAVE ***/
 
         $session = Craft::$app->getSession();
-        $service = Rockstar::$plugin->getService();
         $logoId = null;
 
         if($logo = UploadedFile::getInstanceByName('logo'))
         {
+            if(!$service->validateImage([$logo]))
+            {
+                return $this->redirect('bands/dashboard/edit/band');
+            }
+
             $logoLocation = Assets::tempFilePath($logo->getExtension());
             move_uploaded_file($logo->tempName, $logoLocation);
 
@@ -113,7 +99,8 @@ class BandsController extends Controller
             'phone' => $phone,
             'email' => $email,
             'description' => $description,
-            'logoId' => $logoId
+            'logoId' => $logoId,
+            'genres' => $genres
         ];
 
         $service->saveCurrentUserBand($band);
@@ -168,6 +155,11 @@ class BandsController extends Controller
         
         if($img = UploadedFile::getInstanceByName('image'))
         {
+            if(!$service->validateImage([$img]))
+            {
+                return $this->redirect('bands/dashboard/edit/band');
+            }
+
             $imgLocation = Assets::tempFilePath($img->getExtension());
             move_uploaded_file($img->tempName, $imgLocation);
 

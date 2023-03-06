@@ -16,6 +16,10 @@ body main {
   margin-top: 20px !important;
 }
 
+header.site-header .container nav.main-menu ul li a svg {
+  transform: scale(1.3);
+}
+
 .flash-error, .flash-notice {
   display: flex;
   align-items: center;

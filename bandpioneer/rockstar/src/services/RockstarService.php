@@ -35,6 +35,7 @@ use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
  */
 class RockstarService extends Component
 {
+    const MAX_IMAGE_SIZE = 500000; // (0.5 MB) in bytes
     const IMAGE_VOLUME_HANDLE = 'rockstarAssets';
 
     /*** PRIVATE MEMBERS ***/
@@ -176,20 +177,26 @@ class RockstarService extends Component
             $price = json_decode($epkRecord->priceRange, false) ?? $price;
             $length = json_decode($epkRecord->gigLength, false) ?? $length;
 
-            $epkVideos = json_decode($epkRecord->videos, false);
-            foreach($epkVideos as &$jsonVideo)
+            if($epkRecord->videos)
             {
-                array_push($videos, json_decode($jsonVideo));
+                $epkVideos = json_decode($epkRecord->videos, false);
+                foreach($epkVideos as &$jsonVideo)
+                {
+                    array_push($videos, json_decode($jsonVideo));
+                }
             }
 
-            $epkImages = json_decode($epkRecord->images, false);
-            foreach($epkImages as &$jsonImg)
+            if($epkRecord->images)
             {
-                $img = json_decode($jsonImg);
-                $img->image = Craft::$app->getAssets()->getAssetById(json_decode($jsonImg)->id) ?? false;
-                if($img->image)
+                $epkImages = json_decode($epkRecord->images, false);
+                foreach($epkImages as &$jsonImg)
                 {
-                    array_push($images, $img);
+                    $img = json_decode($jsonImg);
+                    $img->image = Craft::$app->getAssets()->getAssetById(json_decode($jsonImg)->id) ?? false;
+                    if($img->image)
+                    {
+                        array_push($images, $img);
+                    }
                 }
             }
         }
@@ -228,6 +235,7 @@ class RockstarService extends Component
             $bandRecord->phone = $band['phone'];
             $bandRecord->email = $band['email'];
             $bandRecord->description = $band['description'];
+            $bandRecord->genres = json_encode($band['genres']);
             if($band['logoId'])
             {
                 $bandRecord->logoId = $band['logoId'];
@@ -263,7 +271,7 @@ class RockstarService extends Component
                 $epkRecord->userId = $currentUser->id;
             }
             $epkRecord->dateUpdated = $now;
-            $epkRecord->genres = json_encode($epk['genres']);
+            // $epkRecord->genres = json_encode($epk['genres']);
             $epkRecord->bio = $epk['bio'];
             $epkRecord->cta = $epk['cta'];
             $epkRecord->requirements = $epk['requirements'];
@@ -480,7 +488,9 @@ class RockstarService extends Component
                 $videos = [];
             }
 
-            array_push($videos, json_encode(array("title"=>$videoTitle, "id"=>$videoId)));
+            $cleanTitle = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), ' ', $videoTitle);
+
+            array_push($videos, json_encode(array("title"=>$cleanTitle, "id"=>$videoId)));
 
             $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
         }
@@ -519,7 +529,45 @@ class RockstarService extends Component
         }
     }
 
+    public function validateText(array $vals, $msg = ""):bool
+    {
+        $isValid = true;
 
+        foreach($vals as &$val)
+        {
+            if(trim($val) != '' && $val != strip_tags($val))
+            {
+                $isValid = false;
+            }
+        }
+
+        if(!$isValid)
+        {
+            Craft::$app->getSession()->setError("Invalid characters detected. $msg");
+        }
+
+        return $isValid;
+    }
+
+    public function validateImage(array $imgs, $msg = ""):bool
+    {
+        $isValid = true;
+
+        foreach($imgs as &$img)
+        {
+            if($img->size > self::MAX_IMAGE_SIZE)
+            {
+                $isValid = false;
+            }
+        }
+
+        if(!$isValid)
+        {
+            Craft::$app->getSession()->setError("That's a big file! Images may not be over 0.5 MB. $msg");
+        }
+
+        return $isValid;
+    }
     
 
 }

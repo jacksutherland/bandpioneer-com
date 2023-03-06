@@ -14,12 +14,16 @@
                 {% include '_includes/icons' with { type: 'close' } %}
             </a>
             <ul>
-                <li>
-                    <a href="/" class="underline" title="Band Pioneer Homepage">Home</a>
-                </li>
-                <li>
-                    <a href="{{ url('logout') }}">Logout</a>
-                </li>
+                {% if currentUser %}
+                    <li>
+                        <a href="/bands" title="{{ currentUser.fullName ~ ' (' ~ currentUser.email ~ ')' }}">
+                            {% include '_includes/icons' with { type: 'user' } %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('logout') }}">Logout</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>
