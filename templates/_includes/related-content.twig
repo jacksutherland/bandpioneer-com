@@ -4,11 +4,12 @@
 		{% set subheadlength = article.subheadline | length %}
 		<article>
 			<a class="blog-image" href="{{ article.url }}">
-				<img src="{{ article.blogImage.one().url('relatedPost') }}">
+				{% if article.blogImage.count %}
+					<img src="{{ article.blogImage.one().url('relatedPost') }}">
+				{% endif %}
 			</a>
 			<div class="blog-info">
 				<h4>
-					{# <a href="{{ article.url }}">{{ macros.blogTitle(article) }}</a> #}
 					<a href="{{ article.url }}">
 						{{ article.title }}
 						{% if subheadlength > 10 %}

@@ -5,6 +5,7 @@
 {% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
 {% set categories = craft.entries.section('category') %}
 {% set topicIdea = craft.app.request.getQueryParam('ask') == 'question' %}
+{% set epkSignUp = craft.app.request.getQueryParam('ask') == 'epk' %}
 
 {% macro errorList(errors) %}
     {% if errors %}
@@ -13,6 +14,24 @@
 {% endmacro %}
 
 {% set submission = submission ?? null %}
+
+{% block scripts %}
+    {% if topicIdea %}
+        <script>
+            document.getElementById('message').value = 'I have an idea for your next article... ';
+            document.getElementById('message').focus();
+        </script>
+    {% elseif epkSignUp %}
+        <script>
+            document.getElementById('message').value = "Sign me up to become a Band Pioneer EPK beta member! ";
+            document.getElementById('from-name').focus();
+        </script>
+    {% else %}
+        <script>
+            document.getElementById('from-name').focus();
+        </script>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -26,9 +45,19 @@
         <form method="post" action="" accept-charset="UTF-8" class="contact-form">
             {{ csrfInput() }}
             {{ actionInput('contact-form/send') }}
-            {{ input('hidden', 'subject', (topicIdea ? 'Topic Idea' : 'Contact'), { id: 'subject',}) }}
+            {% if topicIdea %}
+                {{ input('hidden', 'subject', 'Topic Idea', { id: 'subject',}) }}
+            {% elseif epkSignUp %}
+                {{ input('hidden', 'subject', 'EPK', { id: 'subject',}) }}
+            {% else %}
+                {{ input('hidden', 'subject', 'Contact', { id: 'subject',}) }}
+            {% endif %}
 
-            {% if not topicIdea %}
+            {% if epkSignUp %}
+                <h3 id="form-info">
+                    Interested in signing up for Band Pioneer's new EPK builder?<br /><br />Use the form below to let us know.<br />And you'll be on our list for early access.
+                </h3>
+            {% elseif not topicIdea %}
                 <h3 id="form-info">
                     Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know.<br /><br />Or just send us some good vibes.
                 </h3>
@@ -39,14 +68,12 @@
                 autocomplete: 'name',
                 placeholder: 'Full Name'
             }) }}
-            {# {{ submission ? _self.errorList(submission.getErrors('fromName')) }} #}
 
             {{ input('email', 'fromEmail', submission.fromEmail ?? '', {
                 id: 'from-email',
                 autocomplete: 'email',
                 placeholder: 'Email'
             }) }}
-            {# {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }} #}
 
             <input type="text" name="phone" placeholder="Phone Number">
 
@@ -96,47 +123,5 @@
         </section>
 
     </div>
-
-{#
-        
-
-<form method="post" action="" accept-charset="UTF-8">
-    {{ csrfInput() }}
-    {{ actionInput('contact-form/send') }}
-    {{ redirectInput('contact/thanks') }}
-
-    <h3><label for="from-name">Your Name</label></h3>
-    {{ input('text', 'fromName', submission.fromName ?? '', {
-        id: 'from-name',
-        autocomplete: 'name',
-    }) }}
-    {{ submission ? _self.errorList(submission.getErrors('fromName')) }}
-
-    <h3><label for="from-email">Your Email</label></h3>
-    {{ input('email', 'fromEmail', submission.fromEmail ?? '', {
-        id: 'from-email',
-        autocomplete: 'email',
-    }) }}
-    {{ submission ? _self.errorList(submission.getErrors('fromEmail')) }}
-
-    <h3><label for="subject">Subject</label></h3>
-    {{ input('text', 'subject', submission.subject ?? '', {
-        id: 'subject',
-    }) }}
-    {{ submission ? _self.errorList(submission.getErrors('subject')) }}
-
-    <h3><label for="message">Message</label></h3>
-    {{ tag('textarea', {
-        text: submission.message ?? '',
-        id: 'message',
-        name: 'message',
-        rows: 10,
-        cols: 40,
-    }) }}
-    {{ submission ? _self.errorList(submission.getErrors('message')) }}
-
-    <button type="submit">Send</button>
-</form>
-#}
 
 {% endblock %}
