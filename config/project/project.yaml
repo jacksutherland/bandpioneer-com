@@ -1,4 +1,4 @@
-dateModified: 1678293476
+dateModified: 1678293699
 elementSources:
   craft\elements\Asset:
     -
@@ -176,7 +176,6 @@ fs:
 meta:
   __names__:
     00db73da-9688-48d8-b88d-cf5fc233f346: 'Show Image Carousel' # Show Image Carousel
-    0feafcb6-252e-43c0-b931-8f16582b0843: EPK # EPK
     1a69adf3-7129-4f03-a788-c50df99aa120: 'Band Pioneer' # Band Pioneer
     1b12d4c8-a449-4b45-99db-cdcf801d8fa4: 'Hero Image' # Hero Image
     1c1054c9-4810-4918-b3c1-3bd0d6a13675: Caption # Caption
@@ -210,7 +209,6 @@ meta:
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text' # Single Line Text
-    651d957a-7941-45d8-8585-8f63b71d5320: EPK # EPK
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
