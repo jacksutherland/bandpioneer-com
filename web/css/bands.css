@@ -49,7 +49,7 @@ header.site-header .container nav.main-menu ul li a svg {
 }
 .flash-error.flash-error, .flash-notice.flash-error {
   background-color: #d0000e;
-  animation-delay: 8s;
+  animation-delay: 12s;
 }
 .flash-error.flash-notice, .flash-notice.flash-notice {
   background-color: #6e6e6e;
@@ -71,6 +71,7 @@ header.site-header .container nav.main-menu ul li a svg {
 .bands-container {
   max-width: 1100px;
   margin: 0 20px;
+  padding-bottom: 80px;
 }
 .bands-container.dashboard {
   display: grid;
@@ -157,32 +158,32 @@ header.site-header .container nav.main-menu ul li a svg {
   right: 0;
   bottom: 0;
 }
-.bands-container.dashboard section .data-container .dual-inputs {
+.bands-container.dashboard section .data-container .edit-field .dual-inputs {
   display: grid;
   gap: 10px;
   grid-template-areas: "i1 s1 i2 s2";
   grid-template-columns: auto min-content auto min-content;
   align-items: baseline;
 }
-.bands-container.dashboard section .data-container .dual-inputs input {
+.bands-container.dashboard section .data-container .edit-field .dual-inputs input {
   grid-area: i2;
 }
-.bands-container.dashboard section .data-container .dual-inputs input:first-child {
+.bands-container.dashboard section .data-container .edit-field .dual-inputs input:first-child {
   grid-area: i1;
 }
-.bands-container.dashboard section .data-container .dual-inputs span {
+.bands-container.dashboard section .data-container .edit-field .dual-inputs span {
   grid-area: s1;
 }
-.bands-container.dashboard section .data-container .dual-inputs span:last-child {
+.bands-container.dashboard section .data-container .edit-field .dual-inputs span:last-child {
   grid-area: s2;
 }
-.bands-container.dashboard section .data-container .checkboxes label {
+.bands-container.dashboard section .data-container .edit-field .checkboxes label {
   display: inline-block;
   margin: 8px 0 0 0;
   width: 125px;
   white-space: nowrap;
 }
-.bands-container.dashboard section .data-container .checkboxes label input[type=checkbox] {
+.bands-container.dashboard section .data-container .edit-field .checkboxes label input[type=checkbox] {
   display: inline;
   width: auto;
   height: auto;
@@ -201,7 +202,6 @@ header.site-header .container nav.main-menu ul li a svg {
 .bands-container.dashboard section .data-container .data-view label {
   display: block;
   font-weight: 600;
-  margin: 10px 0;
 }
 .bands-container.dashboard section .data-container form {
   display: none;
@@ -209,33 +209,36 @@ header.site-header .container nav.main-menu ul li a svg {
 .bands-container.dashboard section .data-container form.show {
   display: block;
 }
-.bands-container.dashboard section .data-container form label {
+.bands-container.dashboard section .data-container form .edit-field {
+  padding: 20px 0;
+  border-top: solid 2px #e7ebec;
+}
+.bands-container.dashboard section .data-container form .edit-field label {
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  margin: 20px 0 5px 0;
 }
-.bands-container.dashboard section .data-container form label + p {
+.bands-container.dashboard section .data-container form .edit-field label + p {
   font-size: 0.875rem;
   line-height: 1.1rem;
   margin: 5px 0;
 }
-.bands-container.dashboard section .data-container form input {
+.bands-container.dashboard section .data-container form .edit-field input {
   display: block;
   height: 40px;
   width: 100%;
   padding: 0 15px;
-  margin: 5px 0 20px 0;
+  margin: 5px 0 0 0;
   font-size: 0.875rem;
 }
-.bands-container.dashboard section .data-container form [data-prefix] {
+.bands-container.dashboard section .data-container form .edit-field [data-prefix] {
   width: 50%;
   padding-left: 20px;
   position: relative;
   background-color: #e7ebec;
   border-radius: 4px;
 }
-.bands-container.dashboard section .data-container form [data-prefix]:before {
+.bands-container.dashboard section .data-container form .edit-field [data-prefix]:before {
   display: block;
   content: attr(data-prefix);
   position: absolute;
@@ -243,7 +246,7 @@ header.site-header .container nav.main-menu ul li a svg {
   top: 50%;
   transform: translateY(-50%);
 }
-.bands-container.dashboard section .data-container form textarea {
+.bands-container.dashboard section .data-container form .edit-field textarea {
   display: block;
   width: 100%;
   padding: 15px;

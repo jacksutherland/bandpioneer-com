@@ -78,47 +78,61 @@
 					{# <input type="hidden" name="action" value="/bands/save-band"> #}
 		            {{ csrfInput() }}
 					
-					<label>Full Name of Band or Artist</label>
-					<input type="text" name="name" required placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
-					
-					<label>Phone Number</label>
-					<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
-					
-					<label>Email Address</label>
-					<input type="email" name="email" placeholder="me@mybandsite.com"{% if band.email | trim | length %} value="{{ band.email }}"{% endif %}>
-					
-					<label>Website URL</label>
-					<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
+					<div class="edit-field">
+						<label>Full Name of Band or Artist</label>
+						<input type="text" name="name" required placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
+					</div>
+
+					<div class="edit-field">
+						<label>Phone Number</label>
+						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
+					</div>
+
+					<div class="edit-field">
+						<label>Email Address</label>
+						<input type="email" name="email" placeholder="me@mybandsite.com"{% if band.email | trim | length %} value="{{ band.email }}"{% endif %}>
+					</div>
+
+					<div class="edit-field">
+						<label>Website URL</label>
+						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
+					</div>
 
 					{% if band.allGenres | length %}
-						<label>Genre</label>
-						<p>Select up to 5 genres that best describe your sound.</p>
-						<div class="checkboxes">
-							{% for genre in band.allGenres %}
-								<label>
-									<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
-									{{ genre.title }}
-								</label>
-							{% endfor %}
+						<div class="edit-field">
+							<label>Genre</label>
+							<p>Select up to 5 genres that best describe your sound.</p>
+							<div class="checkboxes">
+								{% for genre in band.allGenres %}
+									<label>
+										<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
+										{{ genre.title }}
+									</label>
+								{% endfor %}
+							</div>
 						</div>
 					{% endif %}
 					
-					<label>Description</label>
-					<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
-					<textarea name="description">{% if band.description | trim | length %}{{ band.description }}{% endif %}</textarea>
+					<div class="edit-field">
+						<label>Description</label>
+						<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
+						<textarea name="description">{% if band.description | trim | length %}{{ band.description }}{% endif %}</textarea>
+					</div>
 
-					<div class="file-upload">
-						{% if band.logo %}
-							<label data-name="Logo">Logo: <span>{{ band.logo.filename }} <a class="link-symbol" target="_blank" href="{{ band.logo.url() }}">⎋</a></span></label>
-							<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
-							<a class="btn gray-btn upload-btn" href="/">Replace</a>
-							<a class="btn gray-btn delete-btn" href="/bands/dashboard" data-logo="{{ band.logo.id }}">Delete</a>
-						{% else %}
-							<label data-name="Logo">Logo</label>
-							<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
-							<a class="btn gray-btn upload-btn" href="/">Upload an image</a>
-						{% endif %}
-						<br><br>
+					<div class="edit-field">
+						<div class="file-upload">
+							{% if band.logo %}
+								<label data-name="Logo">Logo: <span>{{ band.logo.filename }} <a class="link-symbol" target="_blank" href="{{ band.logo.url() }}">⎋</a></span></label>
+								<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+								<a class="btn gray-btn upload-btn" href="/">Replace</a>
+								<a class="btn gray-btn delete-btn" href="/bands/dashboard" data-logo="{{ band.logo.id }}">Delete</a>
+							{% else %}
+								<label data-name="Logo">Logo</label>
+								<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+								<a class="btn gray-btn upload-btn" href="/">Upload an image</a>
+							{% endif %}
+							<br><br>
+						</div>
 					</div>
 
 					<button type="submit">Save</button>
@@ -184,44 +198,71 @@
 					
 					<form id="edit-epk-info" method="post"  accept-charset="UTF-8" action="/bands/save-epk-info">
 			            {{ csrfInput() }}
-						
-						<label>Bio</label>
-						<p>Descibe who you are, your style, and what audiences and listeners should expect. This is the first thing potential clients will read about you, so make sure it's accurate and compelling.</p>
-						<textarea name="bio">{% if epk.bio | trim | length %}{{ epk.bio }}{% endif %}</textarea>
 
-						<label>Call to Action (CTA)</label>
-						<p>One sentence slogan or marketing phrase to encourage potential clients to hire you.</p>
-						<input type="text" name="cta" maxlength="100" value="{{ epk.cta }}">
-
-						<label>Insurance Description</label>
-						<p>If you have liability insurance, list it here.</p>
-						<input type="text" name="insurance[description]" maxlength="100" value="{{ epk.insurance.description }}">
-						<label>Insurance Coverage Amount</label>
-						<div data-prefix="$">
-							<input type="number" min="0" max="100000000" name="insurance[amount]" placeholder="1000.00" value="{{ epk.insurance.amount }}">
+						<div class="edit-field">
+							<label>Call to Action (CTA)</label>
+							<p>One sentence slogan or marketing phrase to encourage potential clients to hire you.</p>
+							<input type="text" name="cta" maxlength="100" value="{{ epk.cta }}">
 						</div>
 
-						<label>Price Range</label>
-						<p>Performance rates can vary depending on gig size, how long you play, and travel and equipment requirements. Include the full range for all types of events you accept.</p>
-						<div class="dual-inputs">
-							<input type="number" name="price[min]" min="0" max="10000000000" value="{{ epk.price.min }}">
-							<span>to</span>
-							<input type="number" name="price[max]" min="0" max="10000000000" value="{{ epk.price.max }}">
-							<span>dollars</span>
+						<div class="edit-field">
+							<label>Bio</label>
+							<p>Descibe who you are, your style, and what audiences and listeners should expect. This is the first thing potential clients will read about you, so make sure it's accurate and compelling.</p>
+							<textarea name="bio">{% if epk.bio | trim | length %}{{ epk.bio }}{% endif %}</textarea>
 						</div>
 
-						<label>Gig Length</label>
-						<p>The amount of time you prefer to perform, and how long you can play based on the amount of material you have.</p>
-						<div class="dual-inputs">
-							<input type="number" name="length[min]" min="0" max="100" value="{{ epk.length.min }}">
-							<span>to</span>
-							<input type="number" name="length[max]" min="0" max="100" value="{{ epk.length.max }}">
-							<span>hours</span>
+						<div class="edit-field">
+							<label>Requirements</label>
+							<p>Put notes, technical information, and setup requirements here. Anything potential clients might need to know, like what equipment and lighting you will be bringing, and what you would need them to provide.</p>
+							<textarea name="requirements">{% if epk.requirements | trim | length %}{{ epk.requirements }}{% endif %}</textarea>
 						</div>
 
-						<label>Requirements</label>
-						<p>Put notes, technical information, and setup requirements here. Anything potential clients might need to know, like what equipment and lighting you will be bringing, and what you would need them to provide.</p>
-						<textarea name="requirements">{% if epk.requirements | trim | length %}{{ epk.requirements }}{% endif %}</textarea>
+						<div class="edit-field">
+							<label>Insurance Description</label>
+							<p>If you have liability insurance, list it here.</p>
+							<input type="text" name="insurance[description]" maxlength="100" value="{{ epk.insurance.description }}">
+						</div>
+
+						<div class="edit-field">
+							<label>Insurance Coverage Amount</label>
+							<div data-prefix="$">
+								<input type="number" min="0" max="100000000" name="insurance[amount]" placeholder="1000.00" value="{{ epk.insurance.amount }}">
+							</div>
+						</div>
+
+						<div class="edit-field">
+							<label>Price Range</label>
+							<p>Performance rates can vary depending on gig size, how long you play, and travel and equipment requirements. Include the full range for all types of events you accept.</p>
+							<div class="dual-inputs">
+								<input type="number" name="price[min]" min="0" max="10000000000" value="{{ epk.price.min }}">
+								<span>to</span>
+								<input type="number" name="price[max]" min="0" max="10000000000" value="{{ epk.price.max }}">
+								<span>dollars</span>
+							</div>
+						</div>
+
+						<div class="edit-field">
+							<label>Gig Length</label>
+							<p>The amount of time you prefer to perform, and how long you can play based on the amount of material you have.</p>
+								<div class="dual-inputs">
+								<input type="number" name="length[min]" min="0" max="100" value="{{ epk.length.min }}">
+								<span>to</span>
+								<input type="number" name="length[max]" min="0" max="100" value="{{ epk.length.max }}">
+								<span>hours</span>
+							</div>
+						</div>
+
+						<div class="edit-field">
+							<label>Social Media URLs</label>
+							<p>Add the URLs of your band's social media pages.</p>
+							<input type="text" placeholder="Bandcamp (i.e. https://myband.bandcamp.com)" name="social[bandcamp]" maxlength="100" value="{{ epk.social.bandcamp ?? '' }}">
+							<input type="text" placeholder="Facebook (i.e. https://www.facebook.com/myband)" name="social[facebook]" maxlength="100" value="{{ epk.social.facebook ?? '' }}">
+							<input type="text" placeholder="Instagram (i.e. https://www.instagram.com/myband)" name="social[instagram]" maxlength="100" value="{{ epk.social.instagram ?? '' }}">
+							<input type="text" placeholder="SoundCloud (i.e. https://soundcloud.com/myband)" name="social[soundcloud]" maxlength="100" value="{{ epk.social.soundcloud ?? '' }}">
+							<input type="text" placeholder="TikTok (i.e. https://www.tiktok.com/@myband)" name="social[tiktok]" maxlength="100" value="{{ epk.social.tiktok ?? '' }}">
+							<input type="text" placeholder="Twitter (i.e. https://twitter.com/myband)" name="social[twitter]" maxlength="100" value="{{ epk.social.twitter ?? '' }}">
+							<input type="text" placeholder="YouTube (i.e. https://www.youtube.com/@myband)" name="social[youtube]" maxlength="100" value="{{ epk.social.youtube ?? '' }}">
+						</div>
 
 						<button type="submit">Save</button>
 					</form>

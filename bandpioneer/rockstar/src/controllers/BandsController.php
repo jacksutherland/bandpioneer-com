@@ -134,8 +134,22 @@ class BandsController extends Controller
             'length' => [
                 'min' => $request->getParam('length[min]'),
                 'max' => $request->getParam('length[max]')
+            ],
+            'social' => [
+                'bandcamp' => $request->getParam('social[bandcamp]'),
+                'facebook' => $request->getParam('social[facebook]'),
+                'instagram' => $request->getParam('social[instagram]'),
+                'soundcloud' => $request->getParam('social[soundcloud]'),
+                'tiktok' => $request->getParam('social[tiktok]'),
+                'twitter' => $request->getParam('social[twitter]'),
+                'youtube' => $request->getParam('social[youtube]')
             ]
         ];
+
+        if(!$service->validateUrl([$epk['social']['bandcamp'], $epk['social']['facebook'], $epk['social']['instagram'], $epk['social']['soundcloud'], $epk['social']['tiktok'], $epk['social']['twitter'], $epk['social']['youtube']], 'EPK not saved.'))
+        {
+            return $this->redirect('bands/dashboard/edit/epk');
+        }
 
         $service->saveCurrentUserEpk($epk);
 

@@ -176,6 +176,7 @@ class RockstarService extends Component
             $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
             $price = json_decode($epkRecord->priceRange, false) ?? $price;
             $length = json_decode($epkRecord->gigLength, false) ?? $length;
+            $social = json_decode($epkRecord->socialMedia, false) ?? [];
 
             if($epkRecord->videos)
             {
@@ -210,7 +211,8 @@ class RockstarService extends Component
             'requirements' => $requirements,
             'insurance' => $insurance,
             'price' => $price,
-            'length' => $length
+            'length' => $length,
+            'social' => $social
         ];
     }
 
@@ -263,6 +265,7 @@ class RockstarService extends Component
 
             $now = Db::prepareDateForDb(DateTimeHelper::now());
             $currentUser = Craft::$app->getUser()->getIdentity();
+            $bandRecord = BandRecord::findOne(['userId' => $currentUser->id]);
             $epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]) ?? new EpkRecord();
 
             if($epkRecord->getIsNewRecord())
@@ -270,15 +273,16 @@ class RockstarService extends Component
                 $epkRecord->dateCreated = $now;
                 $epkRecord->userId = $currentUser->id;
             }
+            if($bandRecord) $epkRecord->bandId = $bandRecord->id;
             $epkRecord->dateUpdated = $now;
-            // $epkRecord->genres = json_encode($epk['genres']);
             $epkRecord->bio = $epk['bio'];
             $epkRecord->cta = $epk['cta'];
             $epkRecord->requirements = $epk['requirements'];
             $epkRecord->insurance = (empty(trim($epk['insurance']['amount'])) && empty(trim($epk['insurance']['description']))) ? "" : json_encode($epk['insurance']);
             $epkRecord->priceRange = (empty(trim($epk['price']['min'])) && empty(trim($epk['price']['max']))) ? "" : json_encode($epk['price']);
             $epkRecord->gigLength = (empty(trim($epk['length']['min'])) && empty(trim($epk['length']['max']))) ? "" : json_encode($epk['length']);
-            
+            $epkRecord->socialMedia = json_encode($epk['social']);
+
             $epkRecord->save();
 
             $transaction->commit();
@@ -544,6 +548,26 @@ class RockstarService extends Component
         if(!$isValid)
         {
             Craft::$app->getSession()->setError("Invalid characters detected. $msg");
+        }
+
+        return $isValid;
+    }
+
+    public function validateUrl(array $urls, $msg = ""):bool
+    {
+        $isValid = true;
+
+        foreach($urls as &$url)
+        {
+            if(strlen(trim($url)) > 0 && !str_starts_with($url, 'http'))
+            {
+                $isValid = false;
+            }
+        }
+
+        if(!$isValid)
+        {
+            Craft::$app->getSession()->setError("URL must start with https:// or http:// $msg");
         }
 
         return $isValid;
