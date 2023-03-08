@@ -1,6 +1,7 @@
 {% if 'bandpioneer.com' not in craft.app.request.absoluteUrl and 'localhost' not in craft.app.request.absoluteUrl %}
     {% redirect 404 %}
     {# {% redirect '/scam' %} #}
+    {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
 {% set versionNumber = '1.07' %}
