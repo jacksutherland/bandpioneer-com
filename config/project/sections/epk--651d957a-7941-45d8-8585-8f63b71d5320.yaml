@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: epk
+name: EPK
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  e8ce77e6-c957-4290-8a2d-87ba28953701: # Bands Media
+    enabledByDefault: true
+    hasUrls: true
+    template: bands/_public/epk
+    uriFormat: epk
+type: single
