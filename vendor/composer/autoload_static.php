@@ -287,8 +287,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
-            1 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
-            2 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
+            1 => __DIR__ . '/..' . '/voku/stop-words/src/voku',
+            2 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
         ),
         'verbb\\comments\\' => 
         array (
@@ -572,9 +572,9 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/conditionable',
-            1 => __DIR__ . '/..' . '/illuminate/macroable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
+            1 => __DIR__ . '/..' . '/illuminate/conditionable',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
         ),
         'Illuminate\\Contracts\\' => 
         array (

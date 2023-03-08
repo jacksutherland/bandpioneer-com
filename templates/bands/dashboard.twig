@@ -155,7 +155,7 @@
 
 					<h4>General Info</h4>
 
-					<div id="epk-info" class="data-view show">
+					<div id="epk-info" class="data-view show">						
 						{% if epk.price.min | trim | length or epk.price.max | trim | length %}
 							<p>
 								<strong>Price Range:</strong>
@@ -198,6 +198,16 @@
 					
 					<form id="edit-epk-info" method="post"  accept-charset="UTF-8" action="/bands/save-epk-info">
 			            {{ csrfInput() }}
+
+			            <div class="edit-field">
+							<div class="checkboxes">
+								<label>
+									<input type="checkbox" name="enabled" value="1"{% if epk.enabled %} checked=true{% endif %}>
+									Enabled
+								</label>
+								<p>Enabling your EPK will create a public URL for you to share your music with the world. Make sure you've included all of the information you want on it first.</p>
+							</div>
+						</div>
 
 						<div class="edit-field">
 							<label>Call to Action (CTA)</label>

@@ -119,6 +119,7 @@ class BandsController extends Controller
         $service = Rockstar::$plugin->getService();
 
         $epk = [
+            'enabled' => $request->getParam('enabled'),
             'genres' => $request->getParam('genres'),
             'bio' => $request->getParam('bio'),
             'cta' => $request->getParam('cta'),

@@ -152,6 +152,7 @@ class RockstarService extends Component
         $requirements = '';
         $videos = [];
         $images = [];
+        $enabled = false;
         $insurance = [
             'amount' => '',
             'description' => ''
@@ -169,6 +170,7 @@ class RockstarService extends Component
         {
             $epkRecordExists = true;
 
+            $enabled = $epkRecord->enabled ?? false;
             $bio = $epkRecord->bio ?? $bio;
             $cta = $epkRecord->cta ?? $cta;
             $requirements = $epkRecord->requirements ?? $requirements;
@@ -212,7 +214,8 @@ class RockstarService extends Component
             'insurance' => $insurance,
             'price' => $price,
             'length' => $length,
-            'social' => $social
+            'social' => $social,
+            'enabled' => $enabled
         ];
     }
 
@@ -275,6 +278,7 @@ class RockstarService extends Component
             }
             if($bandRecord) $epkRecord->bandId = $bandRecord->id;
             $epkRecord->dateUpdated = $now;
+            $epkRecord->enabled = $epk['enabled'] ?? false;
             $epkRecord->bio = $epk['bio'];
             $epkRecord->cta = $epk['cta'];
             $epkRecord->requirements = $epk['requirements'];
