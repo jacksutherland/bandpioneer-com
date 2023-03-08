@@ -1,6 +1,7 @@
-{# {% if 'bandpioneer.com' not in craft.app.request.absoluteUrl and 'localhost' not in craft.app.request.absoluteUrl %}
-    {% redirect '/scam' %}
-{% endif %} #}
+{% if 'bandpioneer.com' not in craft.app.request.absoluteUrl and 'localhost' not in craft.app.request.absoluteUrl %}
+    {% redirect 404 %}
+    {# {% redirect '/scam' %} #}
+{% endif %}
 
 {% set versionNumber = '1.07' %}
 {% set siteName = 'Band Pioneer' %}
