@@ -20,5 +20,5 @@ siteSettings:
     enabledByDefault: true
     hasUrls: true
     template: bands/_public/epk
-    uriFormat: epk
+    uriFormat: 'epk/{slug}'
 type: single

@@ -9,9 +9,4 @@ siteSettings:
     hasUrls: true
     template: index
     uriFormat: __home__
-  e8ce77e6-c957-4290-8a2d-87ba28953701: # Bands Media
-    enabledByDefault: true
-    hasUrls: true
-    template: bands/_public/epk.twig
-    uriFormat: __home__
 type: single
