@@ -1,11 +1,21 @@
 {% extends 'bands/_public/layout' %}
 
 {% set slug = craft.app.request.segments | last %}
-{% set band = craft.bands.getBand(slug) %}
-{% set title = 'EPK | ' ~ band.name %}
+{% set epk = craft.bands.getEpk(slug) %}
+
+{% if epk == null or not epk.enabled %}
+	{% redirect 404 %}
+{% endif %}
+
+{% set title = 'EPK | ' ~ epk.bandName %}
 
 {% block content %}
 
-	EPK for {{ slug }}, Name: {{ band.name }}
+	EPK for {{ slug }}, Name: {{ epk.bandName }}, CTA: {{ epk.cta }}
+
+	{% if epk.logo %}
+		<br>
+		<img width="200" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+	{% endif %}
 
 {% endblock %}

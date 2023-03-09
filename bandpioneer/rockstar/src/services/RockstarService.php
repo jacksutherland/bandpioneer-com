@@ -28,6 +28,7 @@ use craft\errors\ImageException;
 use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\records\BandRecord as BandRecord;
 use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
+use bandpioneer\rockstar\models\EpkModel as EpkModel;
 
 /**
  * @author    Band Pioneer
@@ -47,9 +48,6 @@ class RockstarService extends Component
 
     private function getYoutubeIdFromUrl($url)
     {
-        // preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
-        // preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $link, $matches);
-
         $parts = parse_url($url);
         if(isset($parts['query']))
         {
@@ -103,28 +101,19 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
-    public function getBandBySlug($slug)
+    public function getEpkBySlug($slug)
     {
-        $band = null;
+        $epk = null;
 
         if($epkRecord = EpkRecord::findOne(['slug' => $slug]))
         {
             if($bandRecord = BandRecord::findOne(['id' => $epkRecord->bandId]))
             {
-                $band = [
-                    'name' => $bandRecord->name,
-                    'websiteUrl' => $bandRecord->websiteUrl,
-                    'phone' => $bandRecord->phone,
-                    'email' => $bandRecord->email,
-                    'description' => $bandRecord->description,
-                    'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null),
-                    // 'genres' => $genres,
-                    // 'allGenres' => $allGenres
-                ];
+                $epk = new EpkModel($bandRecord, $epkRecord);
             }
         }
 
-        return $band;
+        return $epk;
     }
 
     public function getCurrentUserBand()
@@ -167,94 +156,27 @@ class RockstarService extends Component
         ];
     }
 
-    public function getCurrentUserEpk()
+    public function getCurrentUserEpkModel()
     {
+        $epk = null;
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $epkRecordExists = false;
-        $bio = '';
-        $cta = '';
-        $slug = '';
-        $requirements = '';
-        $videos = [];
-        $images = [];
-        $enabled = false;
-        $insurance = [
-            'amount' => '',
-            'description' => ''
-        ];
-        $price = [
-            'min' => '',
-            'max' => ''
-        ];
-        $length = [
-            'min' => '',
-            'max' => ''
-        ];
 
         if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
         {
-            $epkRecordExists = true;
-
-            $enabled = $epkRecord->enabled ?? false;
-            $bio = $epkRecord->bio ?? $bio;
-            $cta = $epkRecord->cta ?? $cta;
-            $slug = $epkRecord->slug ?? $slug;
-            $requirements = $epkRecord->requirements ?? $requirements;
-
-            $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
-            $price = json_decode($epkRecord->priceRange, false) ?? $price;
-            $length = json_decode($epkRecord->gigLength, false) ?? $length;
-            $social = json_decode($epkRecord->socialMedia, false) ?? [];
-
-            if($epkRecord->videos)
+            if($bandRecord = BandRecord::findOne(['id' => $epkRecord->bandId]))
             {
-                $epkVideos = json_decode($epkRecord->videos, false);
-                foreach($epkVideos as &$jsonVideo)
-                {
-                    array_push($videos, json_decode($jsonVideo));
-                }
-            }
+                $epk = new EpkModel($bandRecord, $epkRecord, true);
 
-            if($epkRecord->images)
-            {
-                $epkImages = json_decode($epkRecord->images, false);
-                foreach($epkImages as &$jsonImg)
+                // if slug doesn't exist, generate one from band name
+
+                if(trim(strlen($epk->slug)) == 0 && trim(strlen($bandRecord->name)) > 0)
                 {
-                    $img = json_decode($jsonImg);
-                    $img->image = Craft::$app->getAssets()->getAssetById(json_decode($jsonImg)->id) ?? false;
-                    if($img->image)
-                    {
-                        array_push($images, $img);
-                    }
+                    $epk->slug = ElementHelper::generateSlug($bandRecord->name, null, 'en');
                 }
             }
         }
 
-        if(trim(strlen($slug)) == 0)
-        {
-            if($bandRecord = BandRecord::findOne(['userId' => $currentUser->id]))
-            {
-                if(trim(strlen($bandRecord->name)) > 0)
-                {
-                    $slug = ElementHelper::generateSlug($bandRecord->name, null, 'en');
-                }
-            }
-        }
-
-        return [
-            'exists' => $epkRecordExists,
-            'videos' => $videos,
-            'images' => $images,
-            'bio' => $bio,
-            'cta' => $cta,
-            'slug' => $slug,
-            'requirements' => $requirements,
-            'insurance' => $insurance,
-            'price' => $price,
-            'length' => $length,
-            'social' => $social,
-            'enabled' => $enabled
-        ];
+        return $epk;
     }
 
     public function saveCurrentUserBand($band)

@@ -155,7 +155,16 @@
 
 					<h4>General Info</h4>
 
-					<div id="epk-info" class="data-view show">						
+					<div id="epk-info" class="data-view show">
+						{% if epk.enabled %}
+							<p>
+								<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
+							</p>
+						{% else %}
+							<p>
+								Your EPK is disabled. Click "Edit" and enable it to view it.
+							</p>
+						{% endif %}
 						{% if epk.price.min | trim | length or epk.price.max | trim | length %}
 							<p>
 								<strong>Price Range:</strong>

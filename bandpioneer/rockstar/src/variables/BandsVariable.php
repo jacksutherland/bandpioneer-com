@@ -8,6 +8,7 @@
 namespace bandpioneer\rockstar\variables;
 
 use bandpioneer\rockstar\Rockstar;
+// use bandpioneer\rockstar\models\EpkModel as EpkModel;
 
 use Craft;
 use craft\elements\Asset;
@@ -22,8 +23,8 @@ use Twig\Markup;
 
 class BandsVariable
 {
-	public function getBand($slug)
+	public function getEpk($slug)
     {
-        return Rockstar::$plugin->getService()->getBandBySlug($slug);
+    	return Rockstar::$plugin->getService()->getEpkBySlug($slug);
     }
 }

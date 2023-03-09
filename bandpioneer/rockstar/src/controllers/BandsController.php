@@ -41,11 +41,11 @@ class BandsController extends Controller
 
         $service = Rockstar::$plugin->getService();
         $bandRecord = $service->getCurrentUserBand();
-        $epkRecord = $service->getCurrentUserEpk();
+        $epkModel = $service->getCurrentUserEpkModel();
 
         return $this->renderTemplate('bands/dashboard', [
             'band' => $bandRecord,
-            'epk' => $epkRecord
+            'epk' => $epkModel
         ]);
     }
 

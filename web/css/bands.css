@@ -139,7 +139,7 @@ header.site-header .container nav.main-menu ul li a svg {
 .bands-container.dashboard section .data-container h4 {
   color: #6e6e6e;
 }
-.bands-container.dashboard section .data-container a.link-symbol {
+.bands-container.dashboard section .data-container .link-symbol {
   font-size: 1.05rem;
   font-weight: bold;
   vertical-align: middle;

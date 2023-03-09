@@ -176,15 +176,15 @@ header {
 					// text-transform: uppercase;
 				}
 
-				a {
-					&.link-symbol {
+				// a {
+					.link-symbol {
 						font-size: 1.05rem;
 						font-weight: bold;
 	    				vertical-align: middle;
 	    				transform: rotate(90deg);
 	    				display: inline-block;
 					}
-				}
+				// }
 
 				.btn,
 				button {
