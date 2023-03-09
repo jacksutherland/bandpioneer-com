@@ -10,20 +10,14 @@
 
 namespace bandpioneer\rockstar;
 
-// use craft\events\RegisterComponentTypesEvent;
-// use craft\services\Fields;
-// use craft\web\twig\variables\CraftVariable;
-// use bandpioneer\rockstar\models\Settings;
 use Craft;
 
-// use craft\services\Plugins;
-// use craft\events\PluginEvent;
 use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\twig\variables\CraftVariable;
 
-// use bandpioneer\rockstar\controllers\RockstarController;
 use bandpioneer\rockstar\services\RockstarService;
-// use bandpioneer\rockstar\variables\RockstarVariable;
+use bandpioneer\rockstar\variables\BandsVariable;
 use yii\base\Event;
 
 /**
@@ -82,6 +76,16 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';
             });
         }
+
+        // Event::on(BandsVariable::class, CraftVariable::EVENT_INIT,function(Event $e)
+        // {
+        //     $variable = $e->sender;
+        //     $variable -> set('rockstar', BandsVariable::class);
+        // });
+        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event)
+        {
+            $event->sender->set('bands', BandsVariable::class);
+        });
     }
 
     public function getService(): RockstarService

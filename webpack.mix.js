@@ -21,9 +21,11 @@ mix.setPublicPath('./web')
 
 mix.setPublicPath('./web')
 .sass('src/sass/bands.scss', 'web/css/bands.css')
+.sass('src/sass/epk.scss', 'web/css/epk.css')
 .options({
   processCssUrls: false,
 })
 .minify('src/js/bands.js', 'web/js/bands.min.js')
+.minify('src/js/epk.js', 'web/js/epk.min.js')
 .version()
 .disableNotifications()

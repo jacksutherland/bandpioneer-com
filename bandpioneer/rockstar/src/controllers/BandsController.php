@@ -123,6 +123,7 @@ class BandsController extends Controller
             'genres' => $request->getParam('genres'),
             'bio' => $request->getParam('bio'),
             'cta' => $request->getParam('cta'),
+            'slug' => $request->getParam('slug'),
             'requirements' => $request->getParam('requirements'),
             'insurance' => [
                 'amount' => $request->getParam('insurance[amount]'),
@@ -146,6 +147,11 @@ class BandsController extends Controller
                 'youtube' => $request->getParam('social[youtube]')
             ]
         ];
+
+        if(!$service->validateSlug($epk['slug'], 'EPK not saved.'))
+        {
+            return $this->redirect('bands/dashboard/edit/epk');
+        }
 
         if(!$service->validateUrl([$epk['social']['bandcamp'], $epk['social']['facebook'], $epk['social']['instagram'], $epk['social']['soundcloud'], $epk['social']['tiktok'], $epk['social']['twitter'], $epk['social']['youtube']], 'EPK not saved.'))
         {

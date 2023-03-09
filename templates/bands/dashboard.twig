@@ -210,6 +210,12 @@
 						</div>
 
 						<div class="edit-field">
+							<label>URL Slug</label>
+							<p>A slug is the part of a webpage URL that represents your band's name. It can only contain letters, numbers and dashes, but no spaces or special characters. (i.e. guns-n-roses)</p>
+							<input type="text" name="slug" maxlength="100" value="{{ epk.slug ?? '' }}">
+						</div>
+
+						<div class="edit-field">
 							<label>Call to Action (CTA)</label>
 							<p>One sentence slogan or marketing phrase to encourage potential clients to hire you.</p>
 							<input type="text" name="cta" maxlength="100" value="{{ epk.cta }}">

@@ -1,1 +1,11 @@
-A Public EPK
+{% extends 'bands/_public/layout' %}
+
+{% set slug = craft.app.request.segments | last %}
+{% set band = craft.bands.getBand(slug) %}
+{% set title = 'EPK | ' ~ band.name %}
+
+{% block content %}
+
+	EPK for {{ slug }}, Name: {{ band.name }}
+
+{% endblock %}

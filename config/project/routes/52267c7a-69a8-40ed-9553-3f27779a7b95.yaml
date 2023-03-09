@@ -1,0 +1,9 @@
+siteUid: 1a69adf3-7129-4f03-a788-c50df99aa120 # Band Pioneer
+sortOrder: 2
+template: bands/_public/epk
+uriParts:
+  - epk/
+  -
+    - slug
+    - '[^\/]+'
+uriPattern: 'epk/<slug:[^\/]+>'

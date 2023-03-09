@@ -103,6 +103,30 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
+    public function getBandBySlug($slug)
+    {
+        $band = null;
+
+        if($epkRecord = EpkRecord::findOne(['slug' => $slug]))
+        {
+            if($bandRecord = BandRecord::findOne(['id' => $epkRecord->bandId]))
+            {
+                $band = [
+                    'name' => $bandRecord->name,
+                    'websiteUrl' => $bandRecord->websiteUrl,
+                    'phone' => $bandRecord->phone,
+                    'email' => $bandRecord->email,
+                    'description' => $bandRecord->description,
+                    'logo' => $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null),
+                    // 'genres' => $genres,
+                    // 'allGenres' => $allGenres
+                ];
+            }
+        }
+
+        return $band;
+    }
+
     public function getCurrentUserBand()
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
@@ -149,6 +173,7 @@ class RockstarService extends Component
         $epkRecordExists = false;
         $bio = '';
         $cta = '';
+        $slug = '';
         $requirements = '';
         $videos = [];
         $images = [];
@@ -173,6 +198,7 @@ class RockstarService extends Component
             $enabled = $epkRecord->enabled ?? false;
             $bio = $epkRecord->bio ?? $bio;
             $cta = $epkRecord->cta ?? $cta;
+            $slug = $epkRecord->slug ?? $slug;
             $requirements = $epkRecord->requirements ?? $requirements;
 
             $insurance = json_decode($epkRecord->insurance, false) ?? $insurance;
@@ -203,13 +229,25 @@ class RockstarService extends Component
                 }
             }
         }
-        
+
+        if(trim(strlen($slug)) == 0)
+        {
+            if($bandRecord = BandRecord::findOne(['userId' => $currentUser->id]))
+            {
+                if(trim(strlen($bandRecord->name)) > 0)
+                {
+                    $slug = ElementHelper::generateSlug($bandRecord->name, null, 'en');
+                }
+            }
+        }
+
         return [
             'exists' => $epkRecordExists,
             'videos' => $videos,
             'images' => $images,
             'bio' => $bio,
             'cta' => $cta,
+            'slug' => $slug,
             'requirements' => $requirements,
             'insurance' => $insurance,
             'price' => $price,
@@ -281,6 +319,7 @@ class RockstarService extends Component
             $epkRecord->enabled = $epk['enabled'] ?? false;
             $epkRecord->bio = $epk['bio'];
             $epkRecord->cta = $epk['cta'];
+            $epkRecord->slug = $epk['slug'];
             $epkRecord->requirements = $epk['requirements'];
             $epkRecord->insurance = (empty(trim($epk['insurance']['amount'])) && empty(trim($epk['insurance']['description']))) ? "" : json_encode($epk['insurance']);
             $epkRecord->priceRange = (empty(trim($epk['price']['min'])) && empty(trim($epk['price']['max']))) ? "" : json_encode($epk['price']);
@@ -555,6 +594,12 @@ class RockstarService extends Component
         }
 
         return $isValid;
+    }
+
+    public function validateSlug($slug)
+    {
+        //$this->validateSlug($uniqueSlug);
+        return true;
     }
 
     public function validateUrl(array $urls, $msg = ""):bool

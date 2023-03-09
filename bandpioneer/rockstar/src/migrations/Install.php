@@ -61,6 +61,7 @@ class Install extends Migration
             'gigLength' => $this->string(),
             'insurance' => $this->string(),
             'cta' => $this->string(),
+            'slug' => $this->string(),
             'bio' => $this->text(),
             'requirements' => $this->text(),
             'socialMedia' => $this->text(),
