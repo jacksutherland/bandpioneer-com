@@ -23,7 +23,9 @@
 
 	<div class="container narrow-container">
 		{% if entry.featuredSnippet | length %}
-			{{ entry.featuredSnippet }}
+			<div class="featured-snippet">
+				{{ entry.featuredSnippet }}
+			</div>
 		{% endif %}
 		{% include '_includes/blog-module' %}
 	</div>
