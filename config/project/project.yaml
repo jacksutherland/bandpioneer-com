@@ -1,4 +1,4 @@
-dateModified: 1678318175
+dateModified: 1678895473
 elementSources:
   craft\elements\Asset:
     -
@@ -250,6 +250,7 @@ meta:
     f85c3fd3-04eb-4069-a712-f8725e5c5fac: 'Full Name' # Full Name
     f663d014-30ef-4783-b5bd-8c974833fe36: Opacity # Opacity
     fa511e02-7c6f-4081-9701-b14c76ecf31a: Common # Common
+    fab3405a-11f1-4389-b8fb-d7f3fae15087: 'Featured Snippet' # Featured Snippet
     fd86eaf9-b505-4c30-8bd9-37be31ad6209: Default # Default
 plugins:
   comments:

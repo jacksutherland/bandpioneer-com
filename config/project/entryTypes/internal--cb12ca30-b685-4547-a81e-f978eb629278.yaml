@@ -56,6 +56,18 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
+            fieldUid: fab3405a-11f1-4389-b8fb-d7f3fae15087 # Featured Snippet
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4a6190aa-ac9c-4ba0-82b2-2bf66f2de212
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
             fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Category
             instructions: null
             label: null
