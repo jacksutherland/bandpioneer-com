@@ -1236,6 +1236,11 @@ article .blog-info ul li span {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 }
+.blog address + .social-sharing {
+  margin: 20px 0;
+  height: 32px;
+  text-align: left !important;
+}
 .blog .featured-snippet {
   margin: 50px 0;
   padding: 30px;
@@ -1447,6 +1452,10 @@ article .blog-info ul li span {
   }
   .blog .related-content {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  .blog address + .social-sharing {
+    margin: -50px 0 15px 0;
+    text-align: right !important;
   }
   .blog-posts {
     grid-template-columns: 1fr 1fr;

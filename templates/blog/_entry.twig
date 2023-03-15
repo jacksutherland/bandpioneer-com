@@ -4,6 +4,10 @@
 {% set categories = craft.entries.section('category') %}
 {% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
 
+{% block headerScripts %}
+	<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=60f99a793b1d5d001213a396&product=inline-share-buttons' async='async'></script>
+{% endblock %}
+
 {% block content %}
 
 	{% include '_includes/categories' with { categories: categories } %}
@@ -16,18 +20,21 @@
 
 		{% include '_includes/author' with { blog: entry } %}
 
+		<div class="social-sharing sharethis-inline-share-buttons"></div>
+
 		{% if entry.blogImage.count %}
 			<img loading="eager" class="featured-image" src="{{ entry.blogImage.one().url('blogHeader') }}" alt="{{ entry.blogImage.one().title }}">
 		{% endif %}
 	</div>
 
-	<div class="container narrow-container">
+	<div class="container narrow-container">		
 		{% if entry.featuredSnippet | length %}
 			<div class="featured-snippet">
 				{{ entry.featuredSnippet }}
 			</div>
 		{% endif %}
 		{% include '_includes/blog-module' %}
+		<div class="social-sharing sharethis-inline-share-buttons"></div>
 	</div>
 
 	

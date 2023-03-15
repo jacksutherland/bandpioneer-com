@@ -250,6 +250,12 @@ article {
 		border-radius: $small-border-radius;
 	}
 
+	address + .social-sharing {
+		margin: 20px 0;
+		height: 32px;
+		text-align: left !important;
+	}
+
 	.featured-snippet {
 		margin: 50px 0;
 	    padding: 30px;
@@ -537,6 +543,10 @@ article {
 		}
 		.related-content {
 			grid-template-columns: 1fr 1fr 1fr;
+		}
+		address + .social-sharing {
+			margin: -50px 0 15px 0;
+			text-align: right !important;
 		}
 	}
 	.blog-posts {
