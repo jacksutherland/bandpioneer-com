@@ -101,6 +101,16 @@ class EpkModel extends Model
             $this->length = json_decode($this->epkRecord->gigLength, false) ?? $this->length;
             $this->social = json_decode($this->epkRecord->socialMedia, false) ?? [];
 
+            $this->social->count = 0;
+            
+            if($this->social->bandcamp) $this->social->count++;
+            if($this->social->facebook) $this->social->count++;
+            if($this->social->instagram) $this->social->count++;
+            if($this->social->soundcloud) $this->social->count++;
+            if($this->social->tiktok) $this->social->count++;
+            if($this->social->twitter) $this->social->count++;
+            if($this->social->youtube) $this->social->count++;
+
             if($this->epkRecord->videos)
             {
                 $epkVideos = json_decode($this->epkRecord->videos, false);

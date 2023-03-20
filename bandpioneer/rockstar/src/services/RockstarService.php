@@ -109,7 +109,17 @@ class RockstarService extends Component
         {
             if($bandRecord = BandRecord::findOne(['id' => $epkRecord->bandId]))
             {
-                $epk = new EpkModel($bandRecord, $epkRecord);
+                $epk = new EpkModel($bandRecord, $epkRecord, true);
+
+                if($bandRecord->genres)
+                {
+                    $genreIds = json_decode($bandRecord->genres);
+                    foreach($genreIds as &$genreId)
+                    {
+                        $genreEntry = Entry::find()->id($genreId)->one();
+                        array_push($epk->genres, $genreEntry->title);
+                    }
+                }
             }
         }
 
@@ -127,7 +137,7 @@ class RockstarService extends Component
 
         if($bandRecordExists = !$bandRecord->getIsNewRecord())
         {
-            $bandRecordGenres = json_decode($bandRecord->genres, true) ?? [];
+            $bandRecordGenres = json_decode($bandRecord->genres ?? null, true) ?? [];
         }
 
         foreach($genreEntries as &$ge)

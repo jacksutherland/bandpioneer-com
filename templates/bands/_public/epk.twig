@@ -2,6 +2,7 @@
 
 {% set slug = craft.app.request.segments | last %}
 {% set epk = craft.bands.getEpk(slug) %}
+{% set featureType = "" %}
 
 {% if epk == null or not epk.enabled %}
 	{% redirect 404 %}
@@ -9,13 +10,221 @@
 
 {% set title = 'EPK | ' ~ epk.bandName %}
 
+{% block scripts %}
+	{% if epk.images %}
+		<script type="text/javascript">
+			EPK.ImageModals();
+		</script>
+	{% endif %}
+{% endblock %}
+
+{% macro social(social) %}
+	{% if social.count > 0 %}
+		<div class="social-media">
+			{% if social.bandcamp %}
+				<a target="_blank" href="{{ social.bandcamp }}" title="Bandcamp">{% include 'bands/_public/social' with { type: 'bandcamp' } %}</a>
+			{% endif %}
+			{% if social.facebook %}
+				<a target="_blank" href="{{ social.facebook }}" title="Facebook">{% include 'bands/_public/social' with { type: 'facebook' } %}</a>
+			{% endif %}
+			{% if social.instagram %}
+				<a target="_blank" href="{{ social.instagram }}" title="Instagram">{% include 'bands/_public/social' with { type: 'instagram' } %}</a>
+			{% endif %}
+			{% if social.soundcloud %}
+				<a target="_blank" href="{{ social.soundcloud }}" title="SoundCloud">{% include 'bands/_public/social' with { type: 'soundcloud' } %}</a>
+			{% endif %}
+			{% if social.tiktok %}
+				<a target="_blank" href="{{ social.tiktok }}" title="TikTok">{% include 'bands/_public/social' with { type: 'tiktok' } %}</a>
+			{% endif %}
+			{% if social.twitter %}
+				<a target="_blank" href="{{ social.twitter }}" title="Twitter">{% include 'bands/_public/social' with { type: 'twitter' } %}</a>
+			{% endif %}
+			{% if social.youtube %}
+				<a target="_blank" href="{{ social.youtube }}" title="YouTube">{% include 'bands/_public/social' with { type: 'youtube' } %}</a>
+			{% endif %}
+		</div>
+	{% endif %}
+{% endmacro %}
+
 {% block content %}
 
-	EPK for {{ slug }}, Name: {{ epk.bandName }}, CTA: {{ epk.cta }}
+	{# HEADER #}
 
-	{% if epk.logo %}
-		<br>
-		<img width="200" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+	<header>
+		<section>
+			<div class="container">
+				<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				<div>
+					<h1>{{ epk.bandName }}</h1>
+					{% if epk.genres %}
+						<h3>{{ epk.genres | join(', ') }}</h3>
+					{% endif %}
+					{% if epk.websiteUrl %}
+						<div class="website">
+							<a href="{{ epk.websiteUrl }}" target="_blank" title="Visit Our Website">{{ epk.websiteUrl | replace('http://', '') | replace('https://', '') }}</a>
+						</div>
+					{% endif %}
+					{{ _self.social(epk.social) }}
+				</div>
+			</div>
+		</section>
+	</header>
+	
+	{# CTA #}
+
+	{% if epk.cta or epk.email %}
+		<section>
+			<div class="container">
+				<div class="cta">
+					{% if epk.cta %}
+						<h2>{{ epk.cta }}</h2>
+					{% endif %}
+					{% if epk.email %}
+						<a class="button" href="mailto:{{ epk.email }}" title="Contact {{ epk.bandName }}">Book Us Today!</a>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+	{# FEATURED MEDIA (video or image) #}
+
+	{% if epk.videos | length > 0 %}
+		{% set featureType = "video" %}
+		{% set featuredVideo = epk.videos[0] %}
+		<section>
+			<div class="container">
+				<div class="video-player">
+					<iframe src="https://www.youtube.com/embed/{{ featuredVideo.id }}" title="{{ featuredVideo.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+			</div>
+		</section>
+	{% elseif epk.images | length %}
+		{% set featureType = "image" %}
+		<section>
+			<div class="container">
+				<img class="featured" src="{{ epk.images[0].image.url }}" title="{{ epk.images[0].caption }}">
+			</div>
+		</section>
+	{% endif %}
+
+	{% if epk.bio %}
+		<section>
+			<div class="container">
+				<h2>Overview</h2>
+				<p>{{ epk.bio | nl2br}}</p>
+			</div>
+		</section>
+	{% endif %}
+
+	{# IMAGES #}
+
+	{% if (featureType == "video" and epk.images | length) or (featureType == "image" and epk.images | length > 1) %}
+		<section class="background">
+			<div class="container">
+				<h2>Images</h2>
+				<div class="images">
+					{% for image in epk.images %}
+						{% if loop.index > 1 or featureType != "image" %}
+							<img data-modal src="{{ image.image.url }}" title="{{ image.caption }}">
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+	{# BOOKING DETAILS #}
+
+	{% if epk.genres or epk.price or epk.length or epk.insurance or epk.requirements %}
+		<section class="background">
+			<div class="container">
+				<h2>Booking Details</h2>
+				{% if epk.genres %}
+					<p>
+						<strong>Genres:</strong> 
+						<span>{{ epk.genres | join(', ') }}</span>
+					</p>
+				{% endif %}
+				{% if epk.price %}
+					<p>
+						<strong>Price Range:</strong> 
+						<span>{{ epk.price.min | currency }} to {{ epk.price.max | currency }}</span>
+					</p>
+				{% endif %}
+				{% if epk.length %}
+					<p>
+						<strong>Performance Length:</strong> 
+						<span>{{ epk.length.min }} to {{ epk.length.max }} hours</span>
+					</p>
+				{% endif %}
+				{% if epk.insurance %}
+					<p>
+						<strong>Insurance:</strong> 
+						<span>{{ epk.insurance.amount | currency }} {{ epk.insurance.description }}</span>
+					</p>
+				{% endif %}
+
+				{% if epk.requirements %}
+					<strong>Setup & Performance Requirements:</strong>
+					<p>{{ epk.requirements }}</p>
+				{% endif %}
+			</div>
+		</section>
+	{% endif %}
+
+	{# VIDEOS #}
+
+	{% if epk.videos | length > 1 %}
+		<section>
+			<div class="container">
+				<h2>Videos</h2>
+				<div class="videos">
+					{% for video in epk.videos %}
+						{% if loop.index > 1 %}
+							<div class="video-player">
+								<iframe src="https://www.youtube.com/embed/{{ video.id }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
+	{# FOOTER #}
+
+	<footer>
+		<section>
+			<div class="container">
+				<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				<div>
+					<h2>{{ epk.bandName }}</h2>
+					{% if epk.email or epk.websiteUrl %}
+						<div class="contact">
+							{% if epk.email %}
+								<a class="button" href="mailto:{{ epk.email }}" title="Contact {{ epk.bandName }}">Contact Us</a>
+							{% endif %}
+							{% if epk.websiteUrl %}
+								<a class="button" href="{{ epk.websiteUrl }}" target="_blank" title="{{ epk.bandName }} Website">Visit Our Website</a>
+							{% endif %}
+						</div>
+					{% endif %}
+					{{ _self.social(epk.social) }}
+				</div>
+			</div>
+		</section>
+	</footer>
+
+	{# MODAL POPUP #}
+
+	{% if epk.images %}
+		<div id="modal" class="overlay">
+			<div class="modal">
+				<a class="close" href="/">&#10006;</a>
+				<div class="content"></div>
+			</div>
+		</div>
 	{% endif %}
 
 {% endblock %}
