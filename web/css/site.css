@@ -870,6 +870,10 @@ form.contact-form .errors {
     font-size: 1.9rem;
     line-height: 2.65rem;
   }
+  h1 + h2 {
+    font-size: 1.7rem;
+    line-height: 2.5rem;
+  }
   h3 {
     font-size: 1.5rem;
     line-height: 1.9rem;
