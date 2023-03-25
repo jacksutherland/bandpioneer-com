@@ -1473,6 +1473,9 @@ article .blog-info ul li span {
   .blog h2 {
     margin: 65px 0 0 0;
   }
+  .blog h3 {
+    margin: 45px 0 20px 0;
+  }
   .blog-posts {
     grid-template-columns: 1fr 1fr;
   }
