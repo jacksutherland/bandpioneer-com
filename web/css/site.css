@@ -1470,6 +1470,9 @@ article .blog-info ul li span {
   }
 }
 @media (min-width: 992px) {
+  .blog h2 {
+    margin: 65px 0 0 0;
+  }
   .blog-posts {
     grid-template-columns: 1fr 1fr;
   }
