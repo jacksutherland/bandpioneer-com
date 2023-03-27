@@ -546,9 +546,6 @@ figure.image.top-margin {
 figure.image.bottom-margin {
   margin-bottom: 100px;
 }
-figure.image.y-margin {
-  margin-bottom: 100px;
-}
 figure.image img {
   width: 100%;
   height: auto;

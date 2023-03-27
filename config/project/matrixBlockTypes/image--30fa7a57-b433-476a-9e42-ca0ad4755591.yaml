@@ -214,7 +214,7 @@ fields:
               - 'Top & Bottom Margin'
             -
               - value
-              - y-margin
+              - 'top-margin bottom-margin'
             -
               - default
               - ''
