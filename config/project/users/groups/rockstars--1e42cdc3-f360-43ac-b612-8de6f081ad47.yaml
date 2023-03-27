@@ -1,3 +1,7 @@
 description: 'Front-end users without CP access, to login, create EPK''s, etc.'
 handle: rockstars
 name: Rockstars
+permissions:
+  - accesscp
+  - accesscpwhensystemisoff
+  - accesssitewhensystemisoff

@@ -16,7 +16,19 @@ fieldLayouts:
             uid: 9aaf9382-7cfe-4e14-baf5-0b5ff5f5e202
             userCondition: null
             warning: null
-            width: 50
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: d99087f8-d76e-43c8-86f5-afc78b3f4430 # No Transform
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: aadab461-22e3-4473-a681-ab14e0fe878e
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             fieldUid: 82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc # Margins
@@ -184,9 +196,46 @@ fields:
             -
               - default
               - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Bottom Margin'
+            -
+              - value
+              - bottom-margin
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Top & Bottom Margin'
+            -
+              - value
+              - y-margin
+            -
+              - default
+              - ''
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
+  d99087f8-d76e-43c8-86f5-afc78b3f4430: # No Transform
+    columnSuffix: zmtpeewv
+    contentColumnType: boolean
+    fieldGroup: null
+    handle: noTransform
+    instructions: null
+    name: 'No Transform'
+    searchable: false
+    settings:
+      default: false
+      offLabel: null
+      onLabel: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Lightswitch
   e0270692-1ca3-4ba6-8d52-cfca54ac634a: # Size
     columnSuffix: ncvbdlpf
     contentColumnType: smallint(3)

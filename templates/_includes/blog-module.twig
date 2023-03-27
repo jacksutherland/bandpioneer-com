@@ -70,7 +70,16 @@
 					</style>
 				{% endif %}
 				<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
-					<img loading="lazy" src="{{ module.blogImage.one().url('blogImage') }}" alt="{{ module.blogImage.one().title }}" width="{{ module.blogImage.one().width('blogImage') }}" height="{{ module.blogImage.one().height('blogImage') }}">
+					{% if module.noTransform %}
+						{% set imgUrl = module.blogImage.one().url() %}
+						{% set imgWid = module.blogImage.one().width() %}
+						{% set imgHei = module.blogImage.one().height() %}
+					{% else %}
+						{% set imgUrl = module.blogImage.one().url('blogImage') %}
+						{% set imgWid = module.blogImage.one().width('blogImage') %}
+						{% set imgHei = module.blogImage.one().height('blogImage') %}
+					{% endif %}
+					<img loading="lazy" src="{{ imgUrl }}" alt="{{ module.blogImage.one().title }}" width="{{ imgWid }}" height="{{ imgHei }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
 					{% endif %}

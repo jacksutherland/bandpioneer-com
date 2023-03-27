@@ -543,6 +543,12 @@ figure {
 figure.image.top-margin {
   margin-top: 100px;
 }
+figure.image.bottom-margin {
+  margin-bottom: 100px;
+}
+figure.image.y-margin {
+  margin-bottom: 100px;
+}
 figure.image img {
   width: 100%;
   height: auto;
