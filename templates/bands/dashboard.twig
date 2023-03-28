@@ -2,7 +2,7 @@
 
 {% set pageTitle = "Band Dashboard" %}
 {% set entry = { slug: 'band-dashboard', title: 'Dashboard', section: { handle: 'dashboard' } } %}
-{% set initialEPKTab = (epk.songs and epk.songs | length > 0) ? "songs" : "info" %}
+{% set initialEPKTab = (epk and epk.songs and epk.songs | length > 0) ? "songs" : "info" %}
 {% set selectedTab = craft.app.request.getQueryParam('tab') %}
 
 {% if selectedTab | length %}
@@ -86,22 +86,22 @@
 					
 					<div class="edit-field">
 						<label>Full Name of Band or Artist</label>
-						<input type="text" name="name" required placeholder=""{% if band.name | trim | length %} value="{{ band.name }}"{% endif %}>
+						<input type="text" name="name" required placeholder="" value="{{ craft.app.session.getFlash('name') }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Phone Number</label>
-						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX"{% if band.phone | trim | length %} value="{{ band.phone }}"{% endif %}>
+						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX" value="{{ craft.app.session.getFlash('phone') }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Email Address</label>
-						<input type="email" name="email" placeholder="me@mybandsite.com"{% if band.email | trim | length %} value="{{ band.email }}"{% endif %}>
+						<input type="email" name="email" placeholder="me@mybandsite.com" value="{{ craft.app.session.getFlash('email') }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Website URL</label>
-						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com"{% if band.websiteUrl | trim | length %} value="{{ band.websiteUrl }}"{% endif %}>
+						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com" value="{{ craft.app.session.getFlash('websiteUrl') }}">
 					</div>
 
 					{% if band.allGenres | length %}
@@ -122,7 +122,7 @@
 					<div class="edit-field">
 						<label>Description</label>
 						<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
-						<textarea name="description">{% if band.description | trim | length %}{{ band.description }}{% endif %}</textarea>
+						<textarea name="description">{{ craft.app.session.getFlash('description') }}</textarea>
 					</div>
 
 					<div class="edit-field">
@@ -157,7 +157,7 @@
 				<h3>Electronic Press Kit</h3>
 				<p>
 					Update your EPK with the latest information, music, images, and videos by selecting a section below and filling out the fields. Review your EPK carefully, ensuring that all text and media are high quality and professional, before releasing it to the public to showcase your best work.
-					{% if epk.enabled %}
+					{% if epk and epk.enabled %}
 						<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
 					{% endif %}
 				</p>

@@ -62,6 +62,14 @@ class BandsController extends Controller
         $description = trim($request->getParam('description'));
         $genres = $request->getParam('genres');
 
+        // Store the submitted values in session flash data
+        Craft::$app->getSession()->setFlash('name', $name);
+        Craft::$app->getSession()->setFlash('websiteUrl', $websiteUrl);
+        Craft::$app->getSession()->setFlash('phone', $phone);
+        Craft::$app->getSession()->setFlash('email', $email);
+        Craft::$app->getSession()->setFlash('description', $description);
+        Craft::$app->getSession()->setFlash('genres', $genres);
+
         /*** VALIDATION ***/
 
         if(empty($name))

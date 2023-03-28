@@ -24,7 +24,7 @@ class BandRecord extends ActiveRecord
 
     public function getUser(): ActiveQueryInterface
     {
-        return $this->hasOne(User::class, ['id' => 'userId']);
+        return $this->hasOne(BandRecord::class, ['id' => 'userId']);
     }
 
 }

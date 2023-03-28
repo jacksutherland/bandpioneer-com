@@ -53,9 +53,13 @@
 	<header>
 		<section>
 			<div class="container">
-				<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				{% if epk.logo %}
+					<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				{% endif %}
 				<div>
-					<h1>{{ epk.bandName }}</h1>
+					{% if epk.bandName %}
+						<h1>{{ epk.bandName }}</h1>
+					{% endif %}
 					{% if epk.genres %}
 						<h3>{{ epk.genres | join(', ') }}</h3>
 					{% endif %}
@@ -136,7 +140,7 @@
 
 	{# BOOKING DETAILS #}
 
-	{% if epk.genres or epk.price or epk.length or epk.insurance or epk.requirements %}
+	{% if epk.genres or (epk.price and epk.price.min and epk.price.max) or (epk.length and epk.length.min and epk.length.max) or (epk.insurance and (epk.insurance.amount or epk.insurance.description)) or epk.requirements %}
 		<section class="background">
 			<div class="container">
 				<h2>Booking Details</h2>
@@ -146,22 +150,22 @@
 						<span>{{ epk.genres | join(', ') }}</span>
 					</p>
 				{% endif %}
-				{% if epk.price %}
+				{% if epk.price and epk.price.min and epk.price.max %}
 					<p>
 						<strong>Price Range:</strong> 
 						<span>{{ epk.price.min | currency }} to {{ epk.price.max | currency }}</span>
 					</p>
 				{% endif %}
-				{% if epk.length %}
+				{% if epk.length and epk.length.min and epk.length.max %}
 					<p>
 						<strong>Performance Length:</strong> 
 						<span>{{ epk.length.min }} to {{ epk.length.max }} hours</span>
 					</p>
 				{% endif %}
-				{% if epk.insurance %}
+				{% if epk.insurance and (epk.insurance.amount or epk.insurance.description) %}
 					<p>
 						<strong>Insurance:</strong> 
-						<span>{{ epk.insurance.amount | currency }} {{ epk.insurance.description }}</span>
+						<span>{{ epk.insurance.amount ? (epk.insurance.amount | currency) : '' }} {{ epk.insurance.description ?? '' }}</span>
 					</p>
 				{% endif %}
 
@@ -197,9 +201,13 @@
 	<footer>
 		<section>
 			<div class="container">
-				<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				{% if epk.logo %}
+					<img class="logo" src="{{ epk.logo.url }}" alt="{{ epk.logo.title }}" title="{{ epk.logo.title }}">
+				{% endif %}
 				<div>
-					<h2>{{ epk.bandName }}</h2>
+					{% if epk.bandName %}
+						<h2>{{ epk.bandName }}</h2>
+					{% endif %}
 					{% if epk.email or epk.websiteUrl %}
 						<div class="contact">
 							{% if epk.email %}

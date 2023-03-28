@@ -142,11 +142,13 @@ class RockstarService extends Component
 
                 if($bandRecord->genres)
                 {
-                    $genreIds = json_decode($bandRecord->genres);
-                    foreach($genreIds as &$genreId)
+                    if($genreIds = json_decode($bandRecord->genres))
                     {
-                        $genreEntry = Entry::find()->id($genreId)->one();
-                        array_push($epk->genres, $genreEntry->title);
+                        foreach($genreIds as &$genreId)
+                        {
+                            $genreEntry = Entry::find()->id($genreId)->one();
+                            array_push($epk->genres, $genreEntry->title);
+                        }
                     }
                 }
             }
@@ -213,6 +215,10 @@ class RockstarService extends Component
                     $epk->slug = ElementHelper::generateSlug($bandRecord->name, null, 'en');
                 }
             }
+        }
+        else if($bandRecord = BandRecord::findOne(['userId' => $currentUser->id]))
+        {
+            $epk = new EpkModel($bandRecord);
         }
 
         return $epk;

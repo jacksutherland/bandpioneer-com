@@ -55,7 +55,7 @@ class EpkModel extends Model
         'max' => ''
     ];
 
-    public function __construct($bandRecord, $epkRecord, $forceLoadAll = false)
+    public function __construct($bandRecord, $epkRecord = null, $forceLoadAll = false)
     {
         if($bandRecord && $epkRecord && ($forceLoadAll || $epkRecord->enabled))
         {
@@ -68,15 +68,18 @@ class EpkModel extends Model
             $this->websiteUrl = $bandRecord->websiteUrl;
             $this->logo = $bandRecord->logoId == null ? null : (Craft::$app->getAssets()->getAssetById($bandRecord->logoId) ?? null);
             
-            $this->enabled = $epkRecord->enabled;
-            $this->slug = $epkRecord->slug;
-            $this->cta = $epkRecord->cta;
-            $this->bio = $epkRecord->bio;
-            $this->requirements = $epkRecord->requirements;
-
-            if($forceLoadAll)
+            if($epkRecord)
             {
-                $this->loadAdditionalProperties();
+                $this->enabled = $epkRecord->enabled;
+                $this->slug = $epkRecord->slug;
+                $this->cta = $epkRecord->cta;
+                $this->bio = $epkRecord->bio;
+                $this->requirements = $epkRecord->requirements;
+
+                if($forceLoadAll)
+                {
+                    $this->loadAdditionalProperties();
+                }
             }
         }
     }
