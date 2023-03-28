@@ -75,6 +75,7 @@ ul {
 
 h1, .section-title {
   font-family: "Michroma", sans-serif;
+  letter-spacing: 0.05rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1017,6 +1018,7 @@ form.contact-form .errors {
   }
   section.description h2 span, section.description h3 span {
     font-family: "Michroma", sans-serif;
+    letter-spacing: 0.05rem;
     background-color: #FFFFFF;
     padding: 0 16px;
     font-weight: 400;
@@ -1370,6 +1372,7 @@ article .blog-info ul li span {
   margin: -20px 0 25px 0;
   font-weight: 400;
   font-family: "Michroma", sans-serif;
+  letter-spacing: 0.05rem;
 }
 .blog h2 {
   text-transform: capitalize;
@@ -1397,6 +1400,7 @@ article .blog-info ul li span {
 .blog-comments h2, .blog-comments h3 {
   margin: 0 0 50px 0;
   font-family: "Michroma", sans-serif;
+  letter-spacing: 0.05rem;
 }
 .blog-comments h4 {
   margin: 0 0 10px 0;

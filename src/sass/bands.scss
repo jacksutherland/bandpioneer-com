@@ -74,6 +74,57 @@ header {
     }
 } 
 
+nav.tab-menu {
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+
+		li {
+			&:first-child {
+				label {
+					border-left: none;
+				}
+			}
+
+			label {
+				color: $link-color;
+				display: block;
+				padding: ($bands-gap / 2) 0;
+				text-align: center;
+				border-left: solid 2px $border-color;
+				text-transform: uppercase;
+			    font-size: 0.8rem;
+			    font-weight: 700;
+			    font-family: $header-font-family;
+			    letter-spacing: $header-font-spacing;
+			    cursor: pointer;
+
+			    &.active {
+			    	color: $link-hover-color;
+			    }
+			}
+		}
+	}
+}
+
+[data-container] {
+	display: none;
+
+	&:checked {
+		+ .data-container {
+			display: block;
+		}
+	}
+
+	+ .data-container {
+		display: none;
+	}
+}
+
 
 .vhs-player {
 	position: relative;
@@ -114,8 +165,9 @@ header {
 
 			h3 {
 				font-family: $header-font-family;
+				letter-spacing: $header-font-spacing;
 				margin: 0 0 $bands-gap 0;
-				color: $alternate-color; // $primary-dark;
+				color: $alternate-color;
 			}
 
 			p {
@@ -176,7 +228,6 @@ header {
 					// text-transform: uppercase;
 				}
 
-				// a {
 					.link-symbol {
 						font-size: 1.05rem;
 						font-weight: bold;
@@ -184,7 +235,15 @@ header {
 	    				transform: rotate(90deg);
 	    				display: inline-block;
 					}
-				// }
+
+				ol, ul {
+					font-size: $font-size-small;
+					list-style-position: inside;
+					margin: 0 0 30px 20px;
+					li {
+						margin: 6px 0;
+					}
+				}
 
 				.btn,
 				button {
@@ -241,6 +300,10 @@ header {
 
 					&.show {
 						display: block;
+					}
+
+					p {
+						font-size: $font-size-small;
 					}
 
 					img {
@@ -315,7 +378,15 @@ header {
 					}
 				}
 
-				#epk-videos {
+				#edit-videos,
+				#edit-songs {
+					.edit-field {
+						border: none !important;
+					}
+				}
+
+				#epk-videos,
+				#epk-songs {
 					> strong {
 						display: block;
 					}
@@ -371,6 +442,14 @@ header {
 				}
 
 			}
+		}
+	}
+}
+
+@media (min-width: 380px) {
+	nav.tab-menu {
+		ul {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 	}
 }

@@ -66,6 +66,7 @@ class Install extends Migration
             'requirements' => $this->text(),
             'socialMedia' => $this->text(),
             'videos' => $this->text(),
+            'songs' => $this->text(),
             'images' => $this->text(),
             'settings' => $this->text(),
             'dateCreated' => $this->dateTime()->notNull(),

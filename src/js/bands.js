@@ -43,7 +43,23 @@ const BandPioneerBands = {
 
 	addEventListeners: function()
 	{
-		// const checkboxes = document.querySelectorAll('.checkboxes input[type=checkbox]');
+		const epkNavItems = document.querySelectorAll('.tab-menu li label');
+		BandPioneer.each(epkNavItems, function()
+		{
+			this.addEventListener("click", function(e)
+			{
+				BandPioneer.each(epkNavItems, function()
+				{
+					this.classList.remove('active');
+					document.getElementById(this.dataset.tab).checked = false;
+					
+				});
+				this.classList.add('active');
+			});
+		});
+
+
+
 		const checkboxGroups = document.querySelectorAll('.checkboxes');
 
 		BandPioneer.each(checkboxGroups, function()

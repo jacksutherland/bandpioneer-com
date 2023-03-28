@@ -40,6 +40,7 @@ class EpkModel extends Model
 
     public $social = [];
     public $videos = [];
+    public $songs = [];
     public $images = [];
     public $insurance = [
         'amount' => '',
@@ -117,6 +118,15 @@ class EpkModel extends Model
                 foreach($epkVideos as &$jsonVideo)
                 {
                     array_push($this->videos, json_decode($jsonVideo));
+                }
+            }
+
+            if($this->epkRecord->songs)
+            {
+                $epkSongs = json_decode($this->epkRecord->songs, false);
+                foreach($epkSongs as &$jsonSong)
+                {
+                    array_push($this->songs, json_decode($jsonSong));
                 }
             }
 

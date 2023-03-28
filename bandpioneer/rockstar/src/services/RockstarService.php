@@ -99,6 +99,35 @@ class RockstarService extends Component
         }
     }
 
+    private function cleanTitle($title)
+    {
+        return str_replace( array( '\'', '"', ',' , ';', '<', '>' ), ' ', $title);
+    }
+
+    private function extractIframe($html)
+    {
+        // remove all script tags
+        $html = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $html);
+
+        // remove all iframe tags that don't have a valid source
+        $html = preg_replace('/<iframe\b([^>]*) src="((https?):\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})([^"]*)"([^>]*)>(.*?)<\/iframe>/is', '<iframe$1 src="$2$4"$5></iframe>', $html);
+
+        // remove any other HTML tags except for iframe and embed
+        // $html = strip_tags($html, '<iframe><embed>');
+        $allowed_tags = '<iframe><iframe scrolling><iframe width><iframe frameborder><iframe src><iframe allow>';
+        $html = strip_tags($html, $allowed_tags);
+
+        // in case anything else remaining, return iframe only
+        $start = strpos($html, '<iframe');
+        $end = strpos($html, '</iframe>');
+        if ($start === false || $end === false)
+        {
+            return null;
+        }
+
+        return substr($html, $start, $end - $start + 9); // +9 to include closing </iframe> tag
+    }
+
     /*** PUBLIC MEMBERS ***/
 
     public function getEpkBySlug($slug)
@@ -467,7 +496,7 @@ class RockstarService extends Component
                 $videos = [];
             }
 
-            $cleanTitle = str_replace( array( '\'', '"', ',' , ';', '<', '>' ), ' ', $videoTitle);
+            $cleanTitle = $this->cleanTitle($videoTitle);
 
             array_push($videos, json_encode(array("title"=>$cleanTitle, "id"=>$videoId)));
 
@@ -482,22 +511,80 @@ class RockstarService extends Component
         try
         {
             $currentUser = Craft::$app->getUser()->getIdentity();
-            $videos = [];
+
+            if ($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $videos = empty($epkRecord->videos) ? [] : json_decode($epkRecord->videos, true);
+                
+                $videos = array_filter($videos, function ($filteredVideo) use ($videoId)
+                {
+                    return json_decode($filteredVideo, true)['id'] !== $videoId;
+                });
+
+                $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
+                $transaction->commit();
+            }
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+    }
+
+    public function saveCurrentUserEpkSong($songTitle, $songEmbedCode)
+    {
+        $songId = uniqid();
+        $songTitle = trim($this->cleanTitle($songTitle));
+        $songEmbedCode = trim($this->extractIframe($songEmbedCode));
+
+        if(strlen($songTitle) > 0 && strlen($songEmbedCode) > 0)
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
 
             if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
             {
-                $epkVideos = empty($epkRecord->videos) ? [] : json_decode($epkRecord->videos);
+                $songs = empty($epkRecord->songs) ? [] : json_decode($epkRecord->songs);
+            }
+            else
+            {
+                $songs = [];
+            }
 
-                foreach($epkVideos as &$video)
+            array_push($songs, json_encode(array("id"=>$songId, "title"=>$songTitle, "embed"=>$songEmbedCode)));
+
+            $this->updateCurrentUserEpkProperty('songs', json_encode($songs));
+        }
+        else
+        {
+            Craft::$app->getSession()->setError("Song title or embed code were missing or invalid. $msg");
+        }
+    }
+
+    public function deleteCurrentUserEpkSong($songId)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $songs = [];
+
+            if($epkRecord = EpkRecord::findOne(['userId' => $currentUser->id]))
+            {
+                $epkSongs = empty($epkRecord->songs) ? [] : json_decode($epkRecord->songs);
+
+                foreach($epkSongs as &$song)
                 {
-                    if(json_decode($video)->id != $videoId)
+                    if(json_decode($song)->id != $songId)
                     {
-                        array_push($videos, $video);
+                        array_push($songs, $song);
                     }
                 }
             }
 
-            $this->updateCurrentUserEpkProperty('videos', json_encode($videos));
+            $this->updateCurrentUserEpkProperty('songs', json_encode($songs));
             $transaction->commit();
         }
         catch (Throwable $e)
@@ -508,9 +595,10 @@ class RockstarService extends Component
         }
     }
 
-    public function validateText(array $vals, $msg = ""):bool
+    public function validateText(array $vals, $msg = "", $required = false):bool
     {
         $isValid = true;
+        $numberOfEmpty = 0;
 
         foreach($vals as &$val)
         {
@@ -518,11 +606,20 @@ class RockstarService extends Component
             {
                 $isValid = false;
             }
+            else if($required && strlen(trim($val)) == 0)
+            {
+                $numberOfEmpty++;
+            }
         }
 
         if(!$isValid)
         {
             Craft::$app->getSession()->setError("Invalid characters detected. $msg");
+        }
+        else if($required && $numberOfEmpty > 0)
+        {
+            $isValid = false;
+            Craft::$app->getSession()->setError("Required fields were empty. $msg");
         }
 
         return $isValid;

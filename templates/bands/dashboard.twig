@@ -2,6 +2,12 @@
 
 {% set pageTitle = "Band Dashboard" %}
 {% set entry = { slug: 'band-dashboard', title: 'Dashboard', section: { handle: 'dashboard' } } %}
+{% set initialEPKTab = (epk.songs and epk.songs | length > 0) ? "songs" : "info" %}
+{% set selectedTab = craft.app.request.getQueryParam('tab') %}
+
+{% if selectedTab | length %}
+	{% set initialEPKTab = selectedTab %}
+{% endif %}
 
 {% block scripts %}
 	<script type="text/javascript">
@@ -149,20 +155,34 @@
 
 			<section>
 				<h3>Electronic Press Kit</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<p>
+					Update your EPK with the latest information, music, images, and videos by selecting a section below and filling out the fields. Review your EPK carefully, ensuring that all text and media are high quality and professional, before releasing it to the public to showcase your best work.
+					{% if epk.enabled %}
+						<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
+					{% endif %}
+				</p>
+
+				<nav class="tab-menu">
+					<ul>
+						<li><label for="info" data-tab="info"{% if initialEPKTab == 'info' %} class="active"{% endif %}>Info</label></li>
+						<li><label for="songs" data-tab="songs"{% if initialEPKTab == 'songs' %} class="active"{% endif %}>Songs</label></li>
+						<li><label for="videos" data-tab="videos"{% if initialEPKTab == 'videos' %} class="active"{% endif %}>Videos</label></li>
+						<li><label for="images" data-tab="images"{% if initialEPKTab == 'images' %} class="active"{% endif %}>Images</label></li>
+					</ul>
+				</nav>
 
 				{% if epk %}
 					
+					<input data-container="info" type="checkbox" id="info"{% if initialEPKTab == 'info' %} checked=true{% endif %}>
 					<div class="data-container">
-
-						<h4>General Info</h4>
-
+						
 						<div id="epk-info" class="data-view show">
-							{% if epk.enabled %}
-								<p>
-									<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
-								</p>
-							{% else %}
+							<h4>General Info</h4>
+
+							<p>Click "edit" to add your bio, social media links, setup requirements and other important information about your band or music project. Make sure all content is respectful and professional in order to showcase your music project in the best possible way.</p>
+
+						
+							{% if not epk.enabled %}
 								<p>
 									Your EPK is disabled. Click "Edit" and enable it to view it.
 								</p>
@@ -297,44 +317,79 @@
 						<a class="btn" data-view="epk-info" data-edit="edit-epk-info" href="/">Edit</a>
 
 					</div>
-					
-					<div class="data-container">
 
-						
+					<input data-container="songs" type="checkbox" id="songs"{% if initialEPKTab == 'songs' %} checked=true{% endif %}>
+					<div class="data-container">
 
 						{# EPK DISPLAY SONGS  #}
 
-						<div id="epk-videos" class="data-view show">
-							<h4>EPK Songs</h4>
+						<div id="epk-songs" class="data-view show">
+							<h4>SoundCloud Songs</h4>
+							<p>Add songs to your EPK using SoundCloud by following these steps:</p>
+							<ol>
+								<li><a href="https://soundcloud.com/signin" target="_blank">Login or sign up for a free SoundCloud account</a></li>
+								<li>Upload your songs.</li>
+								<li>Go to a SoundCloud track or playlist you want on your EPK and click the "Share" button.</li>
+								<li>Click "Embed" and copy the provided code.</li>
+								<li>Return to your EPK and click "Add Song".</li>
+								<li>Paste the code into the "Embed Code" field and click "Save"</li>
+							</ol>
+
 							<div>
-								{# {% for video in epk.videos %} #}
+								{% for song in epk.songs %}
 									<div>
 										<label>
-											adsfsdfsd sadf 
-											<form id="delete-video" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/delete-video" style="display: inline;">
+											{{ song.title }}
+											<form id="delete-song" method="post"  accept-charset="UTF-8" action="/bands/delete-song" style="display: inline;">
 				            					{{ csrfInput() }}
-				            					<input type="hidden" name="id" value="{{ '34343' }}">
-												<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the video: {{ "video.title" }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
+				            					<input type="hidden" name="id" value="{{ song.id }}">
+												<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the song: {{ song.title }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
 											</form>
 										</label>
 										<div>
-											<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/253592525&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+											{{ song.embed | raw }}
 										</div>
 									</div>
-								{# {% endfor %} #}
+								{% endfor %}
 							</div>
 						</div>
+
+						{# EPK EDIT SONGS #}
+
+						<form id="edit-songs" method="post"  accept-charset="UTF-8" action="/bands/save-song">
+							{{ csrfInput() }}
+
+							<div class="edit-field">
+								<label>Song Title</label>
+								<input type="text" name="title" placeholder="">
+							</div>
+
+							<div class="edit-field">
+								<label>Embed Code</label>
+								<textarea name="embedCode"></textarea>
+							</div>
+
+							<button type="submit">Save</button>
+						</form>
+
+						<a class="btn" data-view="epk-songs" data-edit="edit-songs" href="/">Add a Song</a>
+
+					</div>
+					
+					<input data-container="videos" type="checkbox" id="videos"{% if initialEPKTab == 'videos' %} checked=true{% endif %}>
+					<div class="data-container">
 
 						{# EPK DISPLAY VIDEOS  #}
 
 						<div id="epk-videos" class="data-view show">
 							<h4>EPK Videos</h4>
+							<p>Click "Add a Video" to provide a YouTube video for your EPK. Make sure the video is high resolution, has clear audio, and showcases your best work.</p>
 							<div>
 								{% for video in epk.videos %}
 									<div>
 										<label>
 											{{ video.title }}
-											<form id="delete-video" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/delete-video" style="display: inline;">
+											<form id="delete-video" method="post"  accept-charset="UTF-8" action="/bands/delete-video" style="display: inline;">
 				            					{{ csrfInput() }}
 				            					<input type="hidden" name="id" value="{{ video.id }}">
 												<a class="action-icon" href="/" onclick="if(confirm('Are you sure you want to delete the video: {{ video.title }}?')){ this.parentNode.submit(); }; return false;">{% include "_includes/icons" with { type: 'delete' } %}</a>
@@ -353,11 +408,15 @@
 						<form id="edit-videos" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-video">
 							{{ csrfInput() }}
 
-							<label>Video Title</label>
-							<input type="text" name="title" placeholder="">
+							<div class="edit-field">
+								<label>Video Title</label>
+								<input type="text" name="title" placeholder="">
+							</div>
 
-							<label>Video URL</label>
-							<input type="text" name="url" placeholder="">
+							<div class="edit-field">
+								<label>Video URL</label>
+								<input type="text" name="url" placeholder="">
+							</div>
 
 							<button type="submit">Save</button>
 						</form>
@@ -365,12 +424,14 @@
 						<a class="btn" data-view="epk-videos" data-edit="edit-videos" href="/">Add a Video</a>
 					</div>
 
+					<input data-container="images" type="checkbox" id="images"{% if initialEPKTab == 'images' %} checked=true{% endif %}>
 					<div class="data-container">
 
 						{# EPK DISPLAY IMAGES #}
 
 						<div id="epk-images" class="data-view show">
 							<h4>EPK Images</h4>
+							<p>Upload images up to 0.5 MB for your EPK. Click the "Upload An Image" button, select your image, give it a short caption and click "OK".</p>
 							{% if epk.images %}
 								<div>
 									{% for img in epk.images %}

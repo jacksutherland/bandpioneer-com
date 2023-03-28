@@ -71,6 +71,7 @@ ul {
 
 h1, .section-title {
 	font-family: $header-font-family;
+	letter-spacing: $header-font-spacing;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1216,6 +1217,7 @@ form {
 
 				span {
 					font-family: $header-font-family;
+					letter-spacing: $header-font-spacing;
 					background-color: $white;
 					padding: 0 16px;
 					font-weight: $normal-weight;

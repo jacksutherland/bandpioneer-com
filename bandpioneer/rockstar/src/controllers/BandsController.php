@@ -162,7 +162,7 @@ class BandsController extends Controller
 
         Craft::$app->getSession()->setNotice("EPK saved successfully.");
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('bands/dashboard?tab=imfo');
     }
 
     public function actionSaveImage(): ?Response
@@ -187,7 +187,7 @@ class BandsController extends Controller
             $imgId = $service->saveCurrentUserEpkImage($imgLocation, $img->name, $caption);
         }
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('bands/dashboard?tab=images');
     }
 
     public function actionDeleteImage(): ?Response
@@ -200,16 +200,22 @@ class BandsController extends Controller
 
         $service->deleteCurrentUserEpkImage($imgId);
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('bands/dashboard?tab=images');
     }
 
     public function actionSaveVideo(): ?Response
     {
         $this->requirePostRequest();
 
+        $service = Rockstar::$plugin->getService();
         $request = Craft::$app->getRequest();
         $title = $request->getParam('title');
         $url = $request->getParam('url');
+
+        if(!$service->validateText([$title], 'Band not saved.', true) || !$service->validateUrl([$url]))
+        {
+            return $this->redirect('bands/dashboard?tab=videos');
+        }
 
         if(!empty($title) && !empty($url))
         {
@@ -218,7 +224,7 @@ class BandsController extends Controller
             $service->saveCurrentUserEpkVideo($title, $url);
         }
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('bands/dashboard?tab=videos');
     }
 
     public function actionDeleteVideo(): ?Response
@@ -231,7 +237,44 @@ class BandsController extends Controller
 
         $service->deleteCurrentUserEpkVideo($videoId);
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('bands/dashboard?tab=videos');
+    }
+
+    public function actionSaveSong(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $title = $request->getParam('title');
+        $embedCode = $request->getParam('embedCode');
+
+        if(!$service->validateText([$title], 'Band not saved.', true))
+        {
+            return $this->redirect('bands/dashboard?tab=songs');
+        }
+
+        if(!empty($title) && !empty($embedCode))
+        {
+            $service = Rockstar::$plugin->getService();
+
+            $service->saveCurrentUserEpkSong($title, $embedCode);
+        }
+
+        return $this->redirect('bands/dashboard?tab=songs');
+    }
+
+    public function actionDeleteSong(): ?Response
+    {
+        $this->requirePostRequest();
+
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $songId = $request->getParam('id');
+
+        $service->deleteCurrentUserEpkSong($songId);
+
+        return $this->redirect('bands/dashboard?tab=songs');
     }
 
     public function actionDeleteLogo()

@@ -66,14 +66,17 @@ class Rockstar extends craft\base\Plugin
             function(RegisterUrlRulesEvent $event)
             {
                 $event->rules['bands/dashboard'] = 'rockstar/bands/dashboard';
+
                 $event->rules['bands/dashboard/edit/<slug>'] = 'rockstar/bands/dashboard';
                 $event->rules['bands/save-band'] = 'rockstar/bands/save-band';
                 $event->rules['bands/save-epk-info'] = 'rockstar/bands/save-epk-info';
                 $event->rules['bands/save-video'] = 'rockstar/bands/save-video';
+                $event->rules['bands/save-song'] = 'rockstar/bands/save-song';
                 $event->rules['bands/save-image'] = 'rockstar/bands/save-image';
                 $event->rules['bands/delete-video'] = 'rockstar/bands/delete-video';
                 $event->rules['bands/delete-logo'] = 'rockstar/bands/delete-logo';
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';
+                $event->rules['bands/delete-song'] = 'rockstar/bands/delete-song';
             });
         }
 

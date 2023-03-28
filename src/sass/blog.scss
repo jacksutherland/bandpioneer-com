@@ -408,6 +408,7 @@ article {
     		margin: -20px 0 25px 0;
 		    font-weight: 400;
 		    font-family: $header-font-family;
+		    letter-spacing: $header-font-spacing;
     	}
 	}
 
@@ -449,7 +450,7 @@ article {
 	h2, h3 {
 		margin: 0 0 50px 0;
 		font-family: $header-font-family;
-		// text-transform: uppercase;
+		letter-spacing: $header-font-spacing;
 	}
 	h4 {
 		margin: 0 0 10px 0;
