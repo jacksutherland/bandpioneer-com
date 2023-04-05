@@ -36,9 +36,15 @@
 			<section>
 				<div id="section-{{ module.id }}" class="section-anchor"></div>
 				{% if entry.change %}
-					<div class="ordered-title">
-						<h4>{{ sectionCounter }}. </h4><h2>{{ module.headline | length ? module.headline : module.subheadline }}</h2>
-					</div>
+					{% if  module.headline | length %}
+						<div class="ordered-title">
+							<h4>{{ sectionCounter }}. </h4><h2>{{ module.headline }}</h2>
+						</div>
+					{% elseif  module.subheadline | length %}
+						<div class="ordered-subtitle">
+							<h4>{{ sectionCounter }}. </h4><h3>{{ module.subheadline }}</h3>
+						</div>
+					{% endif %}
 				{% else %}
 					{% if  module.headline | length %}
 						<h2>{{ module.headline }}</h2>

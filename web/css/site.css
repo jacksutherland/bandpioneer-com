@@ -1385,6 +1385,13 @@ article .blog-info ul li span {
   margin: 0;
   display: inline;
 }
+.blog .ordered-subtitle {
+  margin: 40px 0 0 0;
+}
+.blog .ordered-subtitle h3, .blog .ordered-subtitle h4 {
+  margin: 0;
+  display: inline;
+}
 .blog address {
   margin: -5px 0 25px 0;
 }
