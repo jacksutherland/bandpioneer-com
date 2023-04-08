@@ -12,16 +12,25 @@
 {# `user` is defined if the form returns validation errors. #}
 {% set user = user ?? null %}
 
+{% block scripts %}
+
+	<script type="text/javascript">
+		if(typeof(bp) === 'object')
+		{
+			bp.loginForm('login-form');
+		}
+	</script>
+
+{% endblock %}
+
 {% block content %}
 
 	<div class="page container">
 
-		<form method="post" class="login-form" accept-charset="UTF-8">
+		<form method="post" id="login-form" class="login-form" accept-charset="UTF-8">
 			{{ csrfInput() }}
   			{{ actionInput('users/save-user') }}
   			{{ redirectInput('bands/signup?verify=email') }}
-
-			
 
 			{% if craft.app.request.getQueryParam('verify') == 'email' %}
 				<h3 id="form-info" class="text-center">
@@ -46,6 +55,8 @@
 
 				{{ input('password', 'password', null, { id: 'password', placeholder: 'Password' }) }}
 				{{ user ? _self.errorList(user.getErrors('password')) }}
+
+				{{ input('password', 'confirmPassword', null, { id: 'confirm-password', placeholder: 'Confirm Password' }) }}
 
 				<button class="btn">Sign Up</button>
 			{% endif %}

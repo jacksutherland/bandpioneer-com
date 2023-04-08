@@ -293,6 +293,27 @@ let BandPioneer = {
 
 			}.bind(this));
 		}
+
+		loginForm(formId)
+		{
+			document.getElementById(formId).addEventListener('submit', function(e)
+			{
+				const password = e.target.password;
+				const confirmPassword = e.target.confirmPassword;
+				const confirmPasswordError = document.getElementById('confirm-password-error');
+
+				if(confirmPasswordError)
+				{
+					confirmPasswordError.remove();
+				}
+
+				if (password.value !== confirmPassword.value)
+				{
+					e.preventDefault();
+					confirmPassword.insertAdjacentHTML('afterend', '<div id="confirm-password-error" class="errors" style="margin: -25px 0 20px 0;">Passwords do not match.</div>');
+				}
+			});
+		}
 	},
 
 	BandCarousel: class
@@ -421,7 +442,7 @@ let BandPioneer = {
 				if (this.carouselAnimationRequest % 1000 === 0) 
 				{
 					this.resize();
-			        console.log(this.carouselAnimationRequest +' iterations have passed')
+			        // console.log(this.carouselAnimationRequest +' iterations have passed')
 			    }
 
 				let box = this.slider.getBoundingClientRect();
