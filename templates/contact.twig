@@ -6,6 +6,7 @@
 {% set categories = craft.entries.section('category') %}
 {% set topicIdea = craft.app.request.getQueryParam('ask') == 'question' %}
 {% set epkSignUp = craft.app.request.getQueryParam('ask') == 'epk' %}
+{% set betaUser = craft.app.request.getQueryParam('ask') == 'beta' %}
 
 {% macro errorList(errors) %}
     {% if errors %}
@@ -24,6 +25,11 @@
     {% elseif epkSignUp %}
         <script>
             document.getElementById('message').value = "Sign me up to become a Band Pioneer EPK beta member! ";
+            document.getElementById('from-name').focus();
+        </script>
+    {% elseif betaUser %}
+        <script>
+            document.getElementById('message').value = "I'm an EPK user and have feedback I'd like to share. ";
             document.getElementById('from-name').focus();
         </script>
     {% else %}
@@ -48,7 +54,9 @@
             {% if topicIdea %}
                 {{ input('hidden', 'subject', 'Topic Idea', { id: 'subject',}) }}
             {% elseif epkSignUp %}
-                {{ input('hidden', 'subject', 'EPK', { id: 'subject',}) }}
+                {{ input('hidden', 'subject', 'EPK Sign Up', { id: 'subject',}) }}
+            {% elseif betaUser %}
+                {{ input('hidden', 'subject', 'Beta User Feedback', { id: 'subject',}) }}
             {% else %}
                 {{ input('hidden', 'subject', 'Contact', { id: 'subject',}) }}
             {% endif %}
@@ -56,6 +64,10 @@
             {% if epkSignUp %}
                 <h3 id="form-info">
                     Interested in signing up for Band Pioneer's new EPK builder?<br /><br />Use the form below to let us know.<br />And you'll be on our list for early access.
+                </h3>
+            {% elseif not betaUser %}
+                <h3 id="form-info">
+                    Got a question you'd like answered on Band Pioneer?<br />Use the form below to let us know.<br /><br />Or just send us some good vibes.
                 </h3>
             {% elseif not topicIdea %}
                 <h3 id="form-info">

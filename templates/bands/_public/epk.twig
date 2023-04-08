@@ -121,6 +121,25 @@
 		</section>
 	{% endif %}
 
+	{# SOUNDCLOUD SONGS #}
+
+	{% if epk.songs %}
+		<section>
+			<div class="container">
+				<h2>Music</h2>
+				<div class="songs">
+					{% for song in epk.songs %}
+						{% if song.embed and song.embed | length %}
+							<div>
+								{{ song.embed | raw }}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
+
 	{# IMAGES #}
 
 	{% if (featureType == "video" and epk.images | length) or (featureType == "image" and epk.images | length > 1) %}

@@ -156,11 +156,13 @@
 			<section>
 				<h3>Electronic Press Kit</h3>
 				<p>
-					Update your EPK with the latest information, music, images, and videos by selecting a section below and filling out the fields. Review your EPK carefully, ensuring that all text and media are high quality and professional, before releasing it to the public to showcase your best work.
-					{% if epk and epk.enabled %}
-						<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
-					{% endif %}
+					Update your EPK with the latest information, music, images, and videos by selecting a section below and filling out the fields. Review your EPK carefully, ensuring that all text and media are high quality and professional, before releasing it to the public to showcase your best work. If you experience any issues or have feedback, <a target="_blank" href="/contact?ask=beta">click here to contact us</a>.
 				</p>
+				{% if epk and epk.enabled %}
+					<p>
+						<a target="_blank" href="{{ epk.url }}">Click here to view your EPK <span class="link-symbol">⎋</span></a> 
+					</p>
+				{% endif %}
 
 				<nav class="tab-menu">
 					<ul>
