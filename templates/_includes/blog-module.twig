@@ -10,7 +10,7 @@
 {% endfor %}
 
 {% if tocLinks | length > 1 %}
-	<div class="table-of-contents {% if tocLinks | length > 8 %} compressed-list{% endif %}">
+	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
 		<h3 class="section-title"><span>Table of Contents</span></h3>
 		<ul>
 			{% for tl in tocLinks %}
