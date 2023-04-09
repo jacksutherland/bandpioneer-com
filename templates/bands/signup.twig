@@ -13,14 +13,12 @@
 {% set user = user ?? null %}
 
 {% block scripts %}
-
 	<script type="text/javascript">
 		if(typeof(bp) === 'object')
 		{
 			bp.loginForm('login-form');
 		}
 	</script>
-
 {% endblock %}
 
 {% block content %}

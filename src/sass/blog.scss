@@ -286,6 +286,14 @@ article {
 		    height: 5px;
 		}
 
+		&.compressed-list {
+			ul {
+				li {
+					margin: 8px 30px;
+				}
+			}
+		}
+
 		ul {
 			li {
 				margin: 15px 30px;
