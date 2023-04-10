@@ -202,7 +202,7 @@
 		<section>
 			<div class="container">
 				<h2>Videos</h2>
-				<div class="videos">
+				<div class="videos{% if epk.videos | length > 2 %} large-library{% endif %}">
 					{% for video in epk.videos %}
 						{% if loop.index > 1 %}
 							<div class="video-player">

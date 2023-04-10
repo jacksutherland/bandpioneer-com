@@ -284,7 +284,7 @@ section {
 		}
 	}
 
-	.videos {
+	.videos.large-library {
 		display: grid;
 	    grid-template-columns: repeat(1, 1fr);
 	    gap: $mobile-content-gap;
@@ -429,7 +429,7 @@ section {
 		}
 	}
 	section {
-		.videos {
+		.videos.videos.large-library {
 		    grid-template-columns: repeat(2, 1fr);
 		    max-width: none;
 		}

@@ -213,7 +213,7 @@ section .cta .button {
   padding-left: 0;
   padding-right: 0;
 }
-section .videos {
+section .videos.large-library {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 15px;
@@ -319,7 +319,7 @@ section .images img {
   header .container .social-media a svg {
     height: 30px;
   }
-  section .videos {
+  section .videos.videos.large-library {
     grid-template-columns: repeat(2, 1fr);
     max-width: none;
   }
