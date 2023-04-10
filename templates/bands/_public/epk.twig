@@ -78,7 +78,7 @@
 
 	{% if epk.cta or epk.email %}
 		<section>
-			<div class="container">
+			<div class="container small-container">
 				<div class="cta">
 					{% if epk.cta %}
 						<h2>{{ epk.cta }}</h2>
@@ -97,7 +97,7 @@
 		{% set featureType = "video" %}
 		{% set featuredVideo = epk.videos[0] %}
 		<section>
-			<div class="container">
+			<div class="container small-container">
 				<div class="video-player">
 					<iframe src="https://www.youtube.com/embed/{{ featuredVideo.id }}" title="{{ featuredVideo.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				</div>
@@ -106,7 +106,7 @@
 	{% elseif epk.images | length %}
 		{% set featureType = "image" %}
 		<section>
-			<div class="container">
+			<div class="container small-container">
 				<img class="featured" src="{{ epk.images[0].image.url }}" title="{{ epk.images[0].caption }}">
 			</div>
 		</section>
@@ -114,7 +114,7 @@
 
 	{% if epk.bio %}
 		<section>
-			<div class="container">
+			<div class="container small-container">
 				<h2>Overview</h2>
 				<p>{{ epk.bio | nl2br}}</p>
 			</div>
@@ -125,7 +125,7 @@
 
 	{% if epk.songs %}
 		<section>
-			<div class="container">
+			<div class="container small-container">
 				<h2>Music</h2>
 				<div class="songs">
 					{% for song in epk.songs %}

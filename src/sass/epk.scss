@@ -11,6 +11,7 @@ $desktop-content-gap: 20px;
 $mobile-content-gap: 15px;
 
 $container-width: 950px;
+$small-container-width: 750px;
 $wide-container-width: 1150px;
 $mobile-logo-size: 300px;
 $desktop-logo-size: 400px;
@@ -360,6 +361,10 @@ section {
 	.container {
 		max-width: $container-width;
 		margin: 0 auto;
+
+		&.small-container {
+			max-width: $small-container-width;
+		}
 	}
 
 	header {

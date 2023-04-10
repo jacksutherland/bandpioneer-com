@@ -272,6 +272,9 @@ section .images img {
     max-width: 950px;
     margin: 0 auto;
   }
+  .container.small-container {
+    max-width: 750px;
+  }
   header {
     margin: 0 0 130px 0;
   }
