@@ -78,6 +78,13 @@
 							{% endfor %}
 						</p>
 					{% endif %}
+					{% if band.description | trim | length %}
+						<p>
+							<strong>Description:</strong>
+							<br>
+							{{ band.description }} 
+						</p>
+					{% endif %}
 				</div>
 				
 				<form id="edit-account" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
@@ -86,22 +93,22 @@
 					
 					<div class="edit-field">
 						<label>Full Name of Band or Artist</label>
-						<input type="text" name="name" required placeholder="" value="{{ craft.app.session.getFlash('name') }}">
+						<input type="text" name="name" required placeholder="" value="{{ band.name ?? '' }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Phone Number</label>
-						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX" value="{{ craft.app.session.getFlash('phone') }}">
+						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX" value="{{ band.phone ?? '' }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Email Address</label>
-						<input type="email" name="email" placeholder="me@mybandsite.com" value="{{ craft.app.session.getFlash('email') }}">
+						<input type="email" name="email" placeholder="me@mybandsite.com" value="{{ band.email ?? '' }}">
 					</div>
 
 					<div class="edit-field">
 						<label>Website URL</label>
-						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com" value="{{ craft.app.session.getFlash('websiteUrl') }}">
+						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com" value="{{ band.websiteUrl ?? '' }}">
 					</div>
 
 					{% if band.allGenres | length %}
@@ -122,7 +129,7 @@
 					<div class="edit-field">
 						<label>Description</label>
 						<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
-						<textarea name="description">{{ craft.app.session.getFlash('description') }}</textarea>
+						<textarea name="description">{{ band.description ?? '' }}</textarea>
 					</div>
 
 					<div class="edit-field">
