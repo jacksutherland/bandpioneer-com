@@ -273,7 +273,7 @@ section .images img {
     margin: 0 auto;
   }
   header {
-    margin: 0 0 100px 0;
+    margin: 0 0 130px 0;
   }
   header section {
     padding: 0;
@@ -281,7 +281,7 @@ section .images img {
   }
   header .container {
     background-color: #EEEEEE;
-    padding: 50px;
+    padding: 65px;
     border-radius: 0 0 12px 12px;
     max-width: 1150px;
     display: grid;
@@ -291,19 +291,19 @@ section .images img {
   header .container .logo {
     max-width: 300px;
     max-height: 300px;
-    margin-bottom: -100px;
+    margin-bottom: -130px;
   }
   header .container .website {
     margin: 10px 0 0 0;
   }
   section {
-    margin: 50px 0;
+    margin: 65px 0;
   }
   section.background {
-    padding: 50px 0;
+    padding: 65px 0;
   }
   section.background + .background {
-    margin-top: -100px;
+    margin-top: -130px;
   }
   section .cta .button {
     width: -moz-fit-content;
@@ -328,7 +328,7 @@ section .images img {
     grid-template-columns: 300px 1fr;
     align-items: center;
     justify-items: end;
-    padding: 0 50px;
+    padding: 0 65px;
     max-width: 1150px;
   }
   footer section .container .logo {
