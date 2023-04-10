@@ -213,6 +213,13 @@ section .cta .button {
   padding-left: 0;
   padding-right: 0;
 }
+section .videos {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 15px;
+  max-width: 650px;
+  margin: 0 auto;
+}
 section .video-player {
   position: relative;
   padding-bottom: 56.25%;
@@ -311,6 +318,10 @@ section .images img {
 @media (min-width: 992px) {
   header .container .social-media a svg {
     height: 30px;
+  }
+  section .videos {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
   }
   footer section .container {
     display: grid;

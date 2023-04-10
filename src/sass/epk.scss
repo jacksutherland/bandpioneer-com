@@ -284,6 +284,14 @@ section {
 		}
 	}
 
+	.videos {
+		display: grid;
+	    grid-template-columns: repeat(1, 1fr);
+	    gap: $mobile-content-gap;
+	    max-width: 650px;
+	    margin: 0 auto;
+	}
+
 	.video-player {
 		position: relative;
 	  	padding-bottom: 56.25%;
@@ -418,6 +426,12 @@ section {
 					}
 				}
 			}
+		}
+	}
+	section {
+		.videos {
+		    grid-template-columns: repeat(2, 1fr);
+		    max-width: none;
 		}
 	}
 	footer {
