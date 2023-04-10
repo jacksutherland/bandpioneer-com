@@ -269,7 +269,7 @@ section .images img {
 }
 @media (min-width: 768px) {
   .container {
-    max-width: 800px;
+    max-width: 950px;
     margin: 0 auto;
   }
   header {
