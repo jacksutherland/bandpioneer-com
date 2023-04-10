@@ -56,6 +56,11 @@ const BandPioneerBands = {
 				});
 				this.classList.add('active');
 			});
+
+			if(this.classList.contains('active'))
+			{
+				this.click();
+			}
 		});
 
 
