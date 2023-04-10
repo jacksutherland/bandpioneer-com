@@ -163,6 +163,10 @@
 		<section class="background">
 			<div class="container">
 				<h2>Booking Details</h2>
+				{% if epk.requirements %}
+					{# <strong>Setup & Performance Requirements:</strong> #}
+					<p>{{ epk.requirements }}</p>
+				{% endif %}
 				{% if epk.genres %}
 					<p>
 						<strong>Genres:</strong> 
@@ -186,11 +190,6 @@
 						<strong>Insurance:</strong> 
 						<span>{{ epk.insurance.amount ? (epk.insurance.amount | currency) : '' }} {{ epk.insurance.description ?? '' }}</span>
 					</p>
-				{% endif %}
-
-				{% if epk.requirements %}
-					<strong>Setup & Performance Requirements:</strong>
-					<p>{{ epk.requirements }}</p>
 				{% endif %}
 			</div>
 		</section>
