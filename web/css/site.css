@@ -162,7 +162,7 @@ a.underline:hover:after {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1050px;
   margin: 0 15px;
 }
 .container.page {
@@ -879,7 +879,7 @@ form.contact-form .errors {
   font-weight: 600;
 }
 
-@media (min-width: 1130px) {
+@media (min-width: 1080px) {
   .container {
     margin: 0 auto;
   }
