@@ -3,15 +3,52 @@
 {% set postsPerPage = 8 %}
 {% set pageTitle = 'Search' %}
 {% set entry = { slug: 'search-results', title: 'Search', section: { handle: 'searchResults' } } %}
-{% set qry = craft.app.request.getQueryParam('q') ?? '' %}
+{% set searchQuery = craft.app.request.getQueryParam('q') ?? '' %}
 
-{% paginate craft.entries.section('blog').search({query: qry}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+{% paginate craft.entries.section('blog').search({query: searchQuery}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+
+{# {% set chatQuery = 'A music distribution service is a platform that helps music artists and record labels distribute their music to various digital stores and streaming platforms. It provides a way for independent artists to get their music out to the public without the need for a major record label. Some examples of music distribution services include DistroKid, TuneCore, and CD Baby. These services typically charge a fee for their services but offer a range of features such as global distribution, revenue sharing, and artist support.' %} #}
+
+{% set chatQuery = '' %}
+{% if (pageInfo.currentPage == 1) and (searchQuery | split(' ') | length > 1) %}
+	{% set chatQuery =  craft.bands.chatQuery(searchQuery ~ ' (respond in less than 6 sentences)') %}
+{% endif %}
+
+{# {% if pageInfo.total == 0 %}
+	{% set posts = craft.entries.section('blog').limit(6).orderBy('postDate DESC') %}
+	{% set pageInfo = { total: 6, currentPage: 1 } %}
+	{% set pageTotal = 0 %}
+{% else %} #}
+	{% set pageTotal = pageInfo.total %}
+{# {% endif %} #}
 
 {% block content %}
 
-	<div class="container">
+	<div class="container narrow-container">
 
-		<h2><span>{{ pageInfo.total }} search result{{ pageInfo.total == 0 or pageInfo.total > 1 ? 's' : '' }} found for "{{ qry }}"</span></h2>
+		<h2 class="alternate-color">{{ pageTotal }} search result{{ pageTotal == 0 or pageTotal > 1 ? 's' : '' }} for <i>"{{ searchQuery }}"</i></h2>
+
+		{% if chatQuery | length %}
+			<p>
+				{{ chatQuery }}
+				{# <br> #}
+				<span style="color:#777;"><i>(AI Response Powered by Chat GPT)</i></span>
+			</p>
+		{% endif %}
+
+		<div class="search-box">
+
+		            <form action="/search" method="get">
+		                <input type="text" name="q" placeholder="Your Question">
+		                <button type="submit" class="btn">Search Again</button>
+		                <a class="btn" href="/contact?ask=question">Ask a Pro</a>
+		            </form>
+
+		</div>
+
+	</div>
+
+	<div class="container">
 
 		<div class="blog-posts">
 			{% for blog in posts %}

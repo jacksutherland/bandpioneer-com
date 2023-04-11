@@ -170,7 +170,7 @@ class BandsController extends Controller
 
         Craft::$app->getSession()->setNotice("EPK saved successfully.");
 
-        return $this->redirect('bands/dashboard?tab=imfo');
+        return $this->redirect('bands/dashboard?tab=info');
     }
 
     public function actionSaveImage(): ?Response

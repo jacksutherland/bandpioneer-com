@@ -6,6 +6,7 @@
     "craftcms/redactor": "3.0.3",
     "putyourlightson/craft-sendgrid": "2.0.1",
     "sendgrid/sendgrid": "~7",
+    "tectalic/openai": "^1.4",
     "verbb/comments": "2.0.6",
     "vlucas/phpdotenv": "^5.4.0"
   },
@@ -29,7 +30,8 @@
   "config": {
     "allow-plugins": {
       "craftcms/plugin-installer": true,
-      "yiisoft/yii2-composer": true
+      "yiisoft/yii2-composer": true,
+      "php-http/discovery": true
     },
     "sort-packages": true,
     "optimize-autoloader": true,

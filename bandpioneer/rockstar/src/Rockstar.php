@@ -17,6 +17,7 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\CraftVariable;
 
 use bandpioneer\rockstar\services\RockstarService;
+use bandpioneer\rockstar\services\AIService;
 use bandpioneer\rockstar\variables\BandsVariable;
 use yii\base\Event;
 
@@ -96,6 +97,11 @@ class Rockstar extends craft\base\Plugin
         return $this->get('service');
     }
 
+    public function getAIService(): AIService
+    {
+        return $this->get('aiService');
+    }
+
 
     // Private Methods
     // =========================================================================
@@ -103,7 +109,8 @@ class Rockstar extends craft\base\Plugin
     private function registerComponents(): void
     {
         $this->setComponents([
-            'service' => RockstarService::class
+            'service' => RockstarService::class,
+            'aiService' => AIService::class
         ]);
     }
 
