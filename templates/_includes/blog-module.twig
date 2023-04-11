@@ -66,7 +66,8 @@
 											{% set childCount = childCount + 1 %}
 											<a href="#section-{{ child.id }}">{{ childCount }}. {{ child.headline }}</a>
 										{% else %}
-											{% set liText = (child.headline[0] is numeric or child.headline[0] == '#') ? child.headline : (loop.index ~ '. ' ~ child.headline) %}
+											{% set firstCharacter = child.headline | slice(0, 1) %}
+											{% set liText = (firstCharacter is numeric or firstCharacter == '#') ? child.headline : (loop.index ~ '. ' ~ child.headline) %}
 											<a href="#section-{{ child.id }}">{{ liText }}</a>
 										{% endif %}
 									</li>
