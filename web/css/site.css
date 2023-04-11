@@ -286,14 +286,17 @@ section.bands .band-carousel .band-slider .slide img {
 }
 .ask-a-question form {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 20px;
   max-width: 645px;
-  margin: 0 auto;
+  margin: 35px auto 50px auto;
+}
+.ask-a-question form button {
+  margin-top: 0 !important;
+  width: 100%;
 }
 .ask-a-question form input {
   height: 50px;
-  margin-top: 25px;
   border-radius: 4px;
   padding: 0 15px;
 }
@@ -925,6 +928,12 @@ form.contact-form .errors {
     grid-template-columns: 1fr auto auto;
   }
   .search-box form button, .search-box form a {
+    width: auto;
+  }
+  .ask-a-question form {
+    grid-template-columns: 1fr auto;
+  }
+  .ask-a-question form button {
     width: auto;
   }
   header.site-header .container .bars {

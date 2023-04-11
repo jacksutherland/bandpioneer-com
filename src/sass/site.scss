@@ -334,14 +334,18 @@ section {
     }
     form {
     	display: grid;
-    	grid-template-columns: 1fr auto;
+    	grid-template-columns: 1fr;
     	gap: 20px;
     	max-width: 645px;
-    	margin: 0 auto;
+    	margin: 35px auto 50px auto;
+
+    	button {
+    		margin-top: 0 !important;
+    		width: 100%;
+    	}
 
     	input {
     		height: 50px;
-    		margin-top: 25px;
     		border-radius: $small-border-radius;
     		padding: 0 15px;
     	}
@@ -1072,6 +1076,14 @@ form {
 	    	button, a {
 	    		width: auto;
 	    	}
+	    }
+	}
+	.ask-a-question {
+	    form {
+    		grid-template-columns: 1fr auto;
+    		button {
+    			width: auto;
+    		}
 	    }
 	}
 	header.site-header {
