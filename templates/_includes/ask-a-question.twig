@@ -7,7 +7,7 @@
     <h2>{{ subheadline }}</h2>
     <p>{{ text | nl2br }}</p>
     {% if showButton %}
-        {% if ctaUrl == 'ai-api' %}
+        {% if ctaUrl == 'http://ai-api' %}
             <form action="/search" method="get">
                 <input type="text" name="q" placeholder="Your Question">
                 <button type="submit" class="btn">Ask a Question</button>
