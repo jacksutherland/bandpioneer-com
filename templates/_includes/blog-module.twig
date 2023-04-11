@@ -2,7 +2,7 @@
 
 {% set tocLinks = [] %}
 
-{% if entry.tocStyle == 'nested-list' %}
+{% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
 
 	{% set parent = null %}
 	{% set children = [] %}
@@ -48,6 +48,7 @@
 {% endif %}
 
 {% if tocLinks | length > 1 %}
+	{% set childCount = 0 %}
 	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
 		<h3 class="section-title"><span>Table of Contents</span></h3>
 		<ul>
@@ -61,7 +62,12 @@
 							<ul>
 								{% for child in tl.children %}
 									<li>
-										<a href="#section-{{ child.id }}">{{ loop.index }}. {{ child.headline }}</a>
+										{% if entry.tocStyle == 'nested-ordered-list' %}
+											{% set childCount = childCount + 1 %}
+											<a href="#section-{{ child.id }}">{{ childCount }}. {{ child.headline }}</a>
+										{% else %}
+											<a href="#section-{{ child.id }}">{{ loop.index }}. {{ child.headline }}</a>
+										{% endif %}
 									</li>
 								{% endfor %}
 							</ul>

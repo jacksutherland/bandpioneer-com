@@ -40,6 +40,17 @@ settings:
         -
           - default
           - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Nested Ordered List'
+        -
+          - value
+          - nested-ordered-list
+        -
+          - default
+          - ''
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Dropdown
