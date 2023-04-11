@@ -301,6 +301,60 @@ article {
 				a {
 					text-transform: capitalize;
 				}
+
+				input {
+					display: none;
+
+					&:checked {
+						+ label {
+
+							&:hover {
+								svg {
+									transform: rotate(160deg);
+								}
+							}
+
+							+ ul {
+								display: block;
+							}
+
+							svg {
+								transform: rotate(180deg);
+							}
+						}
+					}
+
+					+ label {
+						cursor: pointer;
+						margin: 0 0 0 10px;
+
+						&:hover {
+							svg {
+								transform: rotate(20deg);
+
+								path {
+									fill: $link-hover-color;
+								}
+							}
+						}
+
+						+ ul {
+							display: none;
+						}
+
+						svg {
+							height: 16px;
+							width: 16px;
+							vertical-align: middle;
+							transition: transform $transition-default;
+
+							path {
+								fill: $link-color;
+							}
+						}
+
+					}
+				}
 			}
 		}
 	}

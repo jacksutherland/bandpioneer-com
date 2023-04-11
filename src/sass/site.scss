@@ -342,12 +342,14 @@ section {
     	button {
     		margin-top: 0 !important;
     		width: 100%;
+    		font-size: 0.9rem;
     	}
 
     	input {
     		height: 50px;
     		border-radius: $small-border-radius;
     		padding: 0 15px;
+    		font-size: 0.9rem;
     	}
     }
 }
@@ -1224,7 +1226,7 @@ form {
 		}
 	}
 	.ask-a-question {
-		height: 470px;
+		height: 550px;
 		margin: 0 0 -90px 0;
 		padding: 0 33% 0 7%;
 		background-image: url(/assets/images/guy-thinking.png);
@@ -1308,12 +1310,11 @@ form {
 	}
 }
 
-// @media (min-width: $breakpoint-xl) {
-// 	figure {
-// 		&.image {
-// 			&.smaller {
-// 				width: 80%;
-// 			}
-// 		}
-// 	}
-// }
+// This is used on ask a question on hompage only
+@media (min-width: 1048px) {
+	.ask-a-question {
+		height: 500px;
+	}
+}
+
+

@@ -294,11 +294,13 @@ section.bands .band-carousel .band-slider .slide img {
 .ask-a-question form button {
   margin-top: 0 !important;
   width: 100%;
+  font-size: 0.9rem;
 }
 .ask-a-question form input {
   height: 50px;
   border-radius: 4px;
   padding: 0 15px;
+  font-size: 0.9rem;
 }
 
 header.site-header {
@@ -1031,7 +1033,7 @@ form.contact-form .errors {
     height: 400px;
   }
   .ask-a-question {
-    height: 470px;
+    height: 550px;
     margin: 0 0 -90px 0;
     padding: 0 33% 0 7%;
     background-image: url(/assets/images/guy-thinking.png);
@@ -1089,6 +1091,11 @@ form.contact-form .errors {
   footer .container nav .copyright li {
     text-align: right;
     margin: 18px 0 0 0;
+  }
+}
+@media (min-width: 1048px) {
+  .ask-a-question {
+    height: 500px;
   }
 }
 .categories {
@@ -1337,6 +1344,40 @@ article .blog-info ul li span {
 }
 .blog .table-of-contents ul li a {
   text-transform: capitalize;
+}
+.blog .table-of-contents ul li input {
+  display: none;
+}
+.blog .table-of-contents ul li input:checked + label:hover svg {
+  transform: rotate(160deg);
+}
+.blog .table-of-contents ul li input:checked + label + ul {
+  display: block;
+}
+.blog .table-of-contents ul li input:checked + label svg {
+  transform: rotate(180deg);
+}
+.blog .table-of-contents ul li input + label {
+  cursor: pointer;
+  margin: 0 0 0 10px;
+}
+.blog .table-of-contents ul li input + label:hover svg {
+  transform: rotate(20deg);
+}
+.blog .table-of-contents ul li input + label:hover svg path {
+  fill: #f90215;
+}
+.blog .table-of-contents ul li input + label + ul {
+  display: none;
+}
+.blog .table-of-contents ul li input + label svg {
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+  transition: transform 0.3s ease-in-out;
+}
+.blog .table-of-contents ul li input + label svg path {
+  fill: #0a79a4;
 }
 .blog .related-content {
   grid-template-columns: 1fr;

@@ -1,4 +1,4 @@
-dateModified: 1680986879
+dateModified: 1681236014
 elementSources:
   craft\elements\Asset:
     -
@@ -213,6 +213,7 @@ meta:
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
+    7149d8a6-d74b-4e10-b59b-80f37708aaa0: 'TOC Style' # TOC Style
     7338fd63-9ce2-4696-a9b3-113b5d6015c3: Subheadline # Subheadline
     7713ee4e-e1ca-4aeb-a2c4-ef6b725b1a18: 'Page Image' # Page Image
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
@@ -342,7 +343,7 @@ plugins:
       prependSender: 'Band Pioneer'
       prependSubject: 'Band Pioneer'
       successFlashMessage: 'Thank you! Your message has been sent.'
-      toEmail: jack@realitygems.com
+      toEmail: jack@bandpioneer.com
   redactor:
     edition: standard
     enabled: true
@@ -359,5 +360,6 @@ system:
   edition: pro
   live: true
   name: 'Band Pioneer'
+  retryDuration: null
   schemaVersion: 4.0.0.9
-  timeZone: America/Los_Angeles
+  timeZone: America/New_York

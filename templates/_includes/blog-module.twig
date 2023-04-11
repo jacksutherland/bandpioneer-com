@@ -2,12 +2,50 @@
 
 {% set tocLinks = [] %}
 
-{% for module in entry.blogContent.all() %}
-	{% if module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
-		{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
-		{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
+{% if entry.tocStyle == 'nested-list' %}
+
+	{% set parent = null %}
+	{% set children = [] %}
+
+	{% for module in entry.blogContent.all() %}
+		{% if module.type == 'sectionTitle' %}
+
+			{% set isParent = (module.headline | trim | length) %}
+
+			{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+
+			{% if isParent %}
+
+				{% if parent != null %}
+					{% set tocLinks = tocLinks | merge([{ id: parent.id, headline: parent.headline, children: children }]) %}
+				{% endif %}
+
+				{% set parent = { id: module.id, headline: modHeadline } %}
+				{% set children = [] %}
+
+			{% else %}
+
+				{% set children = children | merge([{ id: module.id, headline: modHeadline }]) %}
+
+			{% endif %}
+
+		{% endif %}
+	{% endfor %}
+
+	{% if parent != null %}
+		{% set tocLinks = tocLinks | merge([{ id: parent.id, headline: parent.headline, children: children }]) %}
 	{% endif %}
-{% endfor %}
+
+{% else %}
+
+	{% for module in entry.blogContent.all() %}
+		{% if module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
+			{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+			{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
+		{% endif %}
+	{% endfor %}
+
+{% endif %}
 
 {% if tocLinks | length > 1 %}
 	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
@@ -15,7 +53,22 @@
 		<ul>
 			{% for tl in tocLinks %}
 				<li>
-					<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
+					{% if tl.children is defined %}
+						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+						{% if tl.children | length %}
+							<input type="checkbox" id="child-{{ tl.id }}">
+							<label for="child-{{ tl.id }}">{% include '_includes/icons' with { type: 'down' } %}</label>
+							<ul>
+								{% for child in tl.children %}
+									<li>
+										<a href="#section-{{ child.id }}">{{ loop.index }}. {{ child.headline }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					{% else %}
+						<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
+					{% endif %}
 				</li>
 			{% endfor %}
 		</ul>

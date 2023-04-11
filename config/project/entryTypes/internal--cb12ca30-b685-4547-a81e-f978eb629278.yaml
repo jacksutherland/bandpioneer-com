@@ -68,16 +68,10 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Category
-            instructions: null
-            label: null
-            required: true
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: a374434b-f32e-4f6b-8916-514076b58a76
+            heading: 'Featured Image'
+            type: craft\fieldlayoutelements\Heading
+            uid: 6cebbf57-4789-4d03-8bba-f34179fbd26f
             userCondition: null
-            warning: null
-            width: 25
           -
             elementCondition: null
             fieldUid: 80a9c5e0-fb80-420c-a7df-676f56ac600d # Blog Image
@@ -104,6 +98,36 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
+            heading: 'Blog Info'
+            type: craft\fieldlayoutelements\Heading
+            uid: bb46acb6-edf5-4193-86ca-cabe8803f9d4
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Category
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a374434b-f32e-4f6b-8916-514076b58a76
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 7149d8a6-d74b-4e10-b59b-80f37708aaa0 # TOC Style
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 34de74b8-6d58-43eb-a6ed-eaaee46cb37e
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
             fieldUid: b7ec030d-fd66-4c86-be9c-5cec826a7638 # Change
             instructions: null
             label: 'Ordered Section Titles'
@@ -113,7 +137,7 @@ fieldLayouts:
             uid: 7a863ff7-e1c5-4895-8415-d1ea1350a481
             userCondition: null
             warning: null
-            width: 25
+            width: 50
           -
             elementCondition: null
             heading: Writer
@@ -131,7 +155,7 @@ fieldLayouts:
             uid: 19f13824-45fc-4b2c-8377-1f7c3f6905c2
             userCondition: null
             warning: null
-            width: 50
+            width: 25
           -
             elementCondition: null
             fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
@@ -143,7 +167,7 @@ fieldLayouts:
             uid: 66984b14-8117-49d4-b1a0-1fbf7eff29de
             userCondition: null
             warning: null
-            width: 50
+            width: 25
           -
             elementCondition: null
             fieldUid: 24792e71-a84c-4970-acf7-c69480e02e11 # Writer Picture
@@ -155,7 +179,7 @@ fieldLayouts:
             uid: 53853e16-3dcc-4c13-b0bc-5908819b9049
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Overview
         uid: 7bca1fad-2efb-46e6-b3ee-23cb201b0aa1
         userCondition: null
