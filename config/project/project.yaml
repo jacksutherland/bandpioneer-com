@@ -1,4 +1,4 @@
-dateModified: 1681248706
+dateModified: 1681310615
 elementSources:
   craft\elements\Asset:
     -
@@ -87,7 +87,7 @@ elementSources:
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
-        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Indexed
+        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Optimized
         - link
       type: native
     -
@@ -194,7 +194,7 @@ meta:
     9a6940a2-21f7-479b-89de-7b12ff94ad18: 'Long Text' # Long Text
     09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
     9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
-    9fb102dd-839a-4229-82ce-229ed6669f92: Indexed # Indexed
+    9fb102dd-839a-4229-82ce-229ed6669f92: Optimized # Optimized
     16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
     18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name

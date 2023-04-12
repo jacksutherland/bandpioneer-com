@@ -218,9 +218,9 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Indexed
+            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Optimized
             instructions: null
-            label: Indexed
+            label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
