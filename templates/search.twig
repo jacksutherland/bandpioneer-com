@@ -9,7 +9,7 @@
 
 {% set chatQuery = '' %}
 {% if (pageInfo.currentPage == 1) and (searchQuery | split(' ') | length > 1) %}
-	{% set chatQuery = searchQuery %}
+	{% set chatQuery = searchQuery | trim %}
 {% endif %}
 
 {% set pageTotal = pageInfo.total %}
@@ -29,12 +29,14 @@
 
 		<h2 class="alternate-color">{{ pageTotal }} search result{{ pageTotal == 0 or pageTotal > 1 ? 's' : '' }} for <i>"{{ searchQuery }}"</i></h2>
 
-		<div id="ai-response">
-			<span class="dark-gray-color">
-				<i>... Loading AI Response (Powered by Chat GPT)</i>
-				{% include '_includes/icons' with { type: 'spinner' } %}
-			</span>
-		</div>
+		{% if chatQuery | length %}
+			<div id="ai-response">
+				<span class="dark-gray-color">
+					<i>... Loading AI Response (Powered by Chat GPT)</i>
+					{% include '_includes/icons' with { type: 'spinner' } %}
+				</span>
+			</div>
+		{% endif %}
 
 		<div class="search-box">
             <form action="/search" method="get">
