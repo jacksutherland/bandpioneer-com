@@ -65,6 +65,10 @@ body footer {
   color: #0a79a4;
 }
 
+.dark-gray-color {
+  color: #6e6e6e;
+}
+
 ul, ol {
   margin: 0;
   padding: 0;
@@ -251,6 +255,40 @@ section.bands .band-carousel .band-slider .slide img {
 
 #contact .ask-a-question {
   margin: 0 13% 0 10%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.35;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+#ai-response {
+  height: auto;
+  max-height: 40px;
+  overflow: scroll;
+  transition: max-height 0.3s ease-in-out;
+}
+#ai-response.loaded {
+  height: auto;
+  max-height: 500px;
+}
+#ai-response svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+  margin: 0 0 0 20px;
+  animation: rotate 2s linear infinite;
+}
+#ai-response svg path {
+  fill: #6e6e6e;
 }
 
 .search-box form {

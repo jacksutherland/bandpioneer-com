@@ -179,23 +179,6 @@ let BandPioneer = {
 						}
 					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 500);
 				});
-
-				// this.addEventListener('mouseleave', function(e)
-				// {
-				// 	e.preventDefault();
-
-				// 	BandPioneer.categoryId = 0;
-				// 	BandPioneer.hoveringOverCategory = false;
-				// 	clearTimeout(BandPioneer.categoryTimeout);
-
-				// 	setTimeout(function()
-				// 	{
-				// 		if(!BandPioneer.hoveringOverCategory)
-				// 		{
-				// 			document.querySelector('#category-description').classList.remove('show');
-				// 		}
-				// 	}, 500);
-				// });
 			});
 
 		}
@@ -313,6 +296,31 @@ let BandPioneer = {
 					confirmPassword.insertAdjacentHTML('afterend', '<div id="confirm-password-error" class="errors" style="margin: -25px 0 20px 0;">Passwords do not match.</div>');
 				}
 			});
+		}
+
+		aiSearchQuery(searchQuery)
+		{
+			if(searchQuery.trim().length > 0)
+			{
+				const url = "/api/chat-query?q=" + searchQuery;
+				const responseContainer = document.getElementById("ai-response");
+
+				fetch(url).then((response) => {
+				    if (response.ok)
+				    {
+				    	return response.text();
+				    }
+				    else
+				    {
+				    	throw new Error("Failed to fetch HTML");
+				    }
+				}).then((html) => {
+				    responseContainer.innerHTML = html;
+				    responseContainer.classList.add('loaded');
+				}).catch((error) => {
+				    console.error("Error:", error);
+				});
+			}
 		}
 	},
 

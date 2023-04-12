@@ -61,6 +61,10 @@ body {
 	color: $alternate-color;
 }
 
+.dark-gray-color {	
+	color: $dark-gray;
+}
+
 ul, ol {
 	margin: 0;
 	padding: 0;
@@ -296,6 +300,44 @@ section {
 #contact {
 	.ask-a-question {
 		margin: 0 13% 0 10%;
+	}
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+  	opacity: 0.35;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+#ai-response {
+	height: auto;
+	max-height: 40px;
+	overflow: scroll;
+	transition: max-height $transition-default;
+
+	&.loaded {
+		height: auto;
+		max-height: 500px;
+	}
+
+	svg {
+		width: 25px;
+	    height: 25px;
+	    vertical-align: middle;
+	    margin: 0 0 0 20px;
+	    animation: rotate 2s linear infinite;
+
+	    path {
+	    	fill: $dark-gray;
+	    }
 	}
 }
 
