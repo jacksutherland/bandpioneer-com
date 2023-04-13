@@ -262,6 +262,7 @@ article {
 	    color: darken($font-color, 3%);
 	    background-color: lighten($light-gray, 3%);
 	    border-radius: $small-border-radius;
+	    line-height: 1.6rem;
 
 	    h2, h3, p {
 	    	display: inline;

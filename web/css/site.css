@@ -1353,6 +1353,7 @@ article .blog-info ul li span {
   color: #474747;
   background-color: #f0f2f3;
   border-radius: 4px;
+  line-height: 1.6rem;
 }
 .blog .featured-snippet h2, .blog .featured-snippet h3, .blog .featured-snippet p {
   display: inline;
