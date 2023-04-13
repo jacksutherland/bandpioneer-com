@@ -45,6 +45,90 @@ let BandPioneer = {
 			this.addMenuEvents();
 			this.addSearchEvents();
 			this.readingProgress();
+			this.questionValidation();
+		}
+
+		alert(message)
+		{
+			const modal = document.createElement('div');
+			modal.style.cssText = 'position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.5); display:flex; justify-content:center; align-items:center;';
+
+			const maxWidth = message.length > 100 ? '600px' : '400px';
+			const content = document.createElement('div');
+			content.style.cssText = 'background-color:white; font-weight:bold; text-align:center; max-width:' + maxWidth + '; padding:15px 20px; position:relative; border-radius:4px; box-shadow:rgba(0, 0, 0, 0.8) 1px 1px 10px';
+
+			const closeButton = document.createElement('a');
+			closeButton.innerHTML = 'x';
+			closeButton.href = '/';
+			closeButton.style.cssText = 'position:absolute; top:0; right:6px; border:solid 1px #888; border:none; font-weight:bold; font-size:1.25rem;';
+			closeButton.onclick = function(e)
+			{
+				e.preventDefault();
+				document.body.removeChild(modal);
+			};
+
+			const messageElem = document.createElement('p');
+			messageElem.innerHTML = message;
+
+			modal.onclick = function(event)
+			{
+				if (event.target === modal)
+				{
+					document.body.removeChild(modal);
+				}
+			};
+
+			content.appendChild(closeButton);
+			content.appendChild(messageElem);
+			modal.appendChild(content);
+			document.body.appendChild(modal);
+		}
+
+		questionValidation()
+		{
+			var form = document.getElementById("search-form");
+
+			var obj = this;
+
+			if(form == null) return false;
+
+			const badQuestions = [
+                "Hey, that's not even a question! Try again, and put some oomph into it!",
+                "Did you know questions have words? Give it another shot!",
+                "That question is shorter than a hiccup. Elaborate, please!",
+                "Is that a question or a sneeze? More characters, please!",
+                "Oops, that's not a question! Let's try again, but with some pizzazz!",
+                "Hold on, that's no question! Give it another shot, and spice it up!",
+                "Psst, the 'Question' field is lonely. It requires real words!",
+            ];
+            let usedMessages = [];
+            function getBadQuestion()
+            {
+                if (badQuestions.length === usedMessages.length)
+                {
+                    usedMessages = [];
+                }
+
+                let randomIndex;
+                
+                do
+                {
+                    randomIndex = Math.floor(Math.random() * badQuestions.length);
+                } while (usedMessages.includes(randomIndex));
+                
+                usedMessages.push(randomIndex);
+                
+                return badQuestions[randomIndex];
+            }
+
+			form.addEventListener('submit', function(e)
+			{
+				if(this.q.value.trim().length <= 2)
+				{
+					obj.alert(getBadQuestion());
+					e.preventDefault();
+				}
+			});
 		}
 
 		showSearch(show)
