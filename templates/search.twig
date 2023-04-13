@@ -2,7 +2,7 @@
 
 {% set postsPerPage = 8 %}
 {% set pageTitle = 'Search' %}
-{% set entry = { slug: 'search-results', title: 'Search', section: { handle: 'searchResults' } } %}
+{% set entry = { slug: 'search-results', title: 'Search', metaTitle: 'AI-Powered Search', section: { handle: 'searchResults' } } %}
 {% set searchQuery = craft.app.request.getQueryParam('q') ?? '' %}
 
 {% paginate craft.entries.section('blog').search({query: searchQuery}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
@@ -13,6 +13,14 @@
 {% endif %}
 
 {% set pageTotal = pageInfo.total %}
+
+{% block headerScripts %}
+	<meta name="description" content="Search results and comprehensive answers for all of your music-related inquiries, powered by Chat-GPT."/>
+	<meta property="og:description" content="Search results and comprehensive answers for all of your music-related inquiries, powered by Chat-GPT."/>
+	<meta name="twitter:description" content="Search results and comprehensive answers for all of your music-related inquiries, powered by Chat-GPT."/>
+	<meta property="og:image" content="https://bandpioneer.com/assets/images/blog/_ogImage/Band-Pioneer-rv-4-01.jpg"/>
+	<meta name="twitter:image" content="https://bandpioneer.com/assets/images/blog/_twitterImage/Band-Pioneer-rv-4-01.jpg"/>
+{% endblock %}
 
 {% block scripts %}
 	<script type="text/javascript">
