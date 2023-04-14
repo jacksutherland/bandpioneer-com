@@ -418,13 +418,20 @@ article {
 			}
 
 			ul, ol {
-				list-style: disc;
 			    list-style-position: outside;
 			    margin-left: 32px;
 
 			    li {
 			    	line-height: 1.5rem;
 			    }
+			}
+
+			ul {
+				list-style: disc;
+			}
+
+			ol {
+				list-style: auto;
 			}
 		}
 

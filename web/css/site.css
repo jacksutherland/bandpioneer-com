@@ -1464,12 +1464,17 @@ article .blog-info ul li span {
   margin-top: -20px;
 }
 .blog section.rich-text ul, .blog section.rich-text ol {
-  list-style: disc;
   list-style-position: outside;
   margin-left: 32px;
 }
 .blog section.rich-text ul li, .blog section.rich-text ol li {
   line-height: 1.5rem;
+}
+.blog section.rich-text ul {
+  list-style: disc;
+}
+.blog section.rich-text ol {
+  list-style: auto;
 }
 .blog section.embed-code .table {
   display: grid;
