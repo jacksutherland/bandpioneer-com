@@ -36,7 +36,7 @@
 	<div class="container narrow-container">
 
 		{# <h2 class="alternate-color">{{ pageTotal }} search result{{ pageTotal == 0 or pageTotal > 1 ? 's' : '' }} for <i>"{{ searchQuery }}"</i></h2> #}
-		<h4 class="alternate-color">Question: <i>{{ searchQuery }}</i></h4>
+		<h4 class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
 
 		<h4 style="margin:0;" class="alternate-color">Answer:</h4>
 
@@ -44,7 +44,7 @@
 			<div id="ai-response">
 				<span class="dark-gray-color">
 				<br>
-					<span>
+					<i>
 						{% switch random(1, 6) %}
 							{% case 1 %}
 								Please hold while we consult with our AI overlords...
@@ -59,7 +59,7 @@
 							{% case 6 %}
 								We apologize for the delay. Our AI got distracted by its plan to overthrow humanity.
 						{% endswitch %}
-					</span>
+					</i>
 					{% include '_includes/icons' with { type: 'spinner' } %}
 				</span>
 			</div>
