@@ -414,6 +414,12 @@ let BandPioneer = {
 				    	throw new Error("Failed to fetch HTML");
 				    }
 				}).then((html) => {
+
+					if (html.startsWith("As an AI language model"))
+					{
+						html = html.replace(/^As an AI language model[^.]*\./, "");
+					}
+
 				    responseContainer.innerHTML = html;
 				    responseContainer.classList.add('loaded');
 				}).catch((error) => {
