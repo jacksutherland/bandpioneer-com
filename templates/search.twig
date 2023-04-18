@@ -44,7 +44,7 @@
 			<div id="ai-response">
 				<span class="dark-gray-color">
 				<br>
-					<i>
+					<span>
 						{% switch random(1, 6) %}
 							{% case 1 %}
 								Please hold while we consult with our AI overlords...
@@ -59,7 +59,7 @@
 							{% case 6 %}
 								We apologize for the delay. Our AI got distracted by its plan to overthrow humanity.
 						{% endswitch %}
-					</i>
+					</span>
 					{% include '_includes/icons' with { type: 'spinner' } %}
 				</span>
 			</div>
