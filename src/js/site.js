@@ -382,6 +382,21 @@ let BandPioneer = {
 			});
 		}
 
+		loadSearchResponse(searchQuery)
+		{
+			const minDelay = 2000;
+			const maxDelay = 5000;
+
+			this.aiSearchQuery(searchQuery);
+
+			// Slightly delay search results so AI response doesn't seem so slow.
+			setTimeout(function()
+			{
+				document.getElementById("search-loading").remove();
+				document.getElementById("search-response").classList.add('loaded');
+			}, (Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay));
+		}
+
 		aiSearchQuery(searchQuery)
 		{
 			if(searchQuery.trim().length > 0)

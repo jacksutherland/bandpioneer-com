@@ -270,15 +270,22 @@ section.bands .band-carousel .band-slider .slide img {
     opacity: 1;
   }
 }
+#search-response {
+  display: none;
+}
+#search-response.loaded {
+  display: block;
+}
+
 #ai-response {
   height: auto;
   max-height: 40px;
-  overflow: scroll;
+  overflow: hidden;
   transition: max-height 0.3s ease-in-out;
 }
 #ai-response.loaded {
   height: auto;
-  max-height: 500px;
+  max-height: 600px;
 }
 #ai-response svg {
   width: 25px;

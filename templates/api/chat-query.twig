@@ -3,15 +3,15 @@
 {# {% set chatQuery = 'A music distribution service is a platform that helps music artists and record labels distribute their music to various digital stores and streaming platforms. It provides a way for independent artists to get their music out to the public without the need for a major record label. Some examples of music distribution services include DistroKid, TuneCore, and CD Baby. These services typically charge a fee for their services but offer a range of features such as global distribution, revenue sharing, and artist support.' %} #}
 
 {% if searchQuery | length > 1 %}
-	{% set chatQuery =  craft.bands.chatQuery(searchQuery ~ ' (respond in less than 6 sentences)') %}
+	{% set chatQuery =  craft.bands.chatQuery('Answer this in 1 or 2 paragraphs: ' ~ searchQuery) %}
 {% else %}
 	{% set chatQuery = '' %}
 {% endif %}
 
 {% if chatQuery | length %}
 	<p>
-		{{ chatQuery }}
-		<br>
-		<span class="dark-gray-color"><i>(AI Response Powered by Chat GPT)</i></span>
+		{{ chatQuery | nl2br }}
+		<br><br>
+		<span class="dark-gray-color"><i>- AI Response (Powered by Chat GPT)</i></span>
 	</p>
 {% endif %}

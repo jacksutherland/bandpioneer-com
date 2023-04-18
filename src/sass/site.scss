@@ -317,15 +317,29 @@ section {
   }
 }
 
+#search-response {
+	// height: auto;
+	// max-height: 0;
+	// overflow: hidden;
+	// transition: max-height $transition-default;
+	display: none;
+
+	&.loaded {
+		// height: auto;
+		// max-height: 4000px;
+		display: block;
+	}
+}
+
 #ai-response {
 	height: auto;
 	max-height: 40px;
-	overflow: scroll;
+	overflow: hidden;
 	transition: max-height $transition-default;
 
 	&.loaded {
 		height: auto;
-		max-height: 500px;
+		max-height: 600px;
 	}
 
 	svg {

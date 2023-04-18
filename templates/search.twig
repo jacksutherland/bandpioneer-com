@@ -26,7 +26,7 @@
 	<script type="text/javascript">
 		if (typeof(bp) === 'object')
 		{
-			bp.aiSearchQuery('{{ chatQuery }}');
+			bp.loadSearchResponse('{{ chatQuery }}');
 		}
 	</script>
 {% endblock %}
@@ -40,7 +40,22 @@
 		{% if chatQuery | length %}
 			<div id="ai-response">
 				<span class="dark-gray-color">
-					<i>... Loading AI Response (Powered by Chat GPT)</i>
+					<i>
+						{% switch random(1, 6) %}
+							{% case 1 %}
+								Please hold while we consult with our AI overlords...
+							{% case 2 %}
+								Our AI engine is analyzing your request... and the meaning of life... and the universe...
+							{% case 3 %}
+								AI answers are like a box of chocolates... you never know what you'll get.
+							{% case 4 %}
+								Our AI is tapping into the wisdom of the ages... please be patient.
+							{% case 5 %}
+								Please wait while we peer into the depths of the internet... and try not to get lost in cat memes.
+							{% case 6 %}
+								We apologize for the delay. Our AI got distracted by its plan to overthrow humanity.
+						{% endswitch %}
+					</i>
 					{% include '_includes/icons' with { type: 'spinner' } %}
 				</span>
 			</div>
@@ -56,7 +71,25 @@
 
 	</div>
 
-	<div class="container">
+	<div id="search-loading" class="container narrow-container">
+		<div id="ai-response">
+			<span class="dark-gray-color">
+				<i>
+					Searching Band Pioneer for "{{ searchQuery }}"...
+				</i>
+				{% include '_includes/icons' with { type: 'spinner' } %}
+			</span>
+		</div>
+	</div>
+
+	<div id="search-response" class="container">
+
+		{% if pageTotal > 0 %}
+			<section class="description"><h3><span>{{ pageTotal }} related search results</span></h3></section>
+		{% else %}
+			<section class="description"><h3><span>Recent Articles</span></h3></section>
+			{% set posts = craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') %}
+		{% endif %}
 
 		<div class="blog-posts">
 			{% for blog in posts %}
