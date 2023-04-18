@@ -128,6 +128,18 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
+            fieldUid: b5c7b937-2d08-4b03-a22e-83f2879773fe # TOC Default
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1f82400a-a390-4306-b0f0-2c66f55b982b
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
             fieldUid: b7ec030d-fd66-4c86-be9c-5cec826a7638 # Change
             instructions: null
             label: 'Ordered Section Titles'
@@ -137,7 +149,7 @@ fieldLayouts:
             uid: 7a863ff7-e1c5-4895-8415-d1ea1350a481
             userCondition: null
             warning: null
-            width: 50
+            width: 25
           -
             elementCondition: null
             heading: Writer
