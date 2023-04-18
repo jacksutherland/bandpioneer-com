@@ -77,9 +77,11 @@
 	<div id="search-loading" class="container narrow-container">
 		<div id="ai-response">
 			<span class="dark-gray-color">
-				<i>
-					Loading {{ pageTotal }} search results for "{{ searchQuery }}"...
-				</i>
+				{% if pageTotal > 0 %}
+				<i>Loading {{ pageTotal }} related articles for "{{ searchQuery }}"...</i>
+				{% else %}
+					<i>Loading related articles for "{{ searchQuery }}"...</i>
+				{% endif %}
 				{% include '_includes/icons' with { type: 'spinner' } %}
 			</span>
 		</div>
