@@ -38,7 +38,7 @@
 		{# <h2 class="alternate-color">{{ pageTotal }} search result{{ pageTotal == 0 or pageTotal > 1 ? 's' : '' }} for <i>"{{ searchQuery }}"</i></h2> #}
 		<h4 class="alternate-color">Question: <i>{{ searchQuery }}</i></h4>
 
-		<h4 class="alternate-color">Answer:</h4>
+		<h4 style="margin:0;" class="alternate-color">Answer:</h4>
 
 		{% if chatQuery | length %}
 			<div id="ai-response">
