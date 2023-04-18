@@ -106,6 +106,7 @@
 						{% endif %}
 					</a>
 					<div class="blog-info">
+						{% include '_includes/icons' with { type: 'tag' } %}
 						<ul>
 		            		{% for cat in blog.categories.all() %}
 		            			<li>
