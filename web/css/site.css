@@ -279,7 +279,7 @@ section.bands .band-carousel .band-slider .slide img {
 
 #ai-response {
   height: auto;
-  max-height: 50px;
+  max-height: 100px;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
 }
