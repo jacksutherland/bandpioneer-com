@@ -382,26 +382,26 @@ let BandPioneer = {
 			});
 		}
 
-		loadSearchResponse(searchQuery)
+		loadSearchResponse(searchQuery, numberOfResults)
 		{
 			const minDelay = 2000;
 			const maxDelay = 5000;
 
-			this.aiSearchQuery(searchQuery);
+			this.aiSearchQuery(searchQuery, numberOfResults);
 
 			// Slightly delay search results so AI response doesn't seem so slow.
 			setTimeout(function()
 			{
 				document.getElementById("search-loading").remove();
-				document.getElementById("search-response").classList.add('loaded');
+				document.getElementById("related-articles").classList.add('loaded');
 			}, (Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay));
 		}
 
-		aiSearchQuery(searchQuery)
+		aiSearchQuery(searchQuery, numberOfResults)
 		{
 			if(searchQuery.trim().length > 0)
 			{
-				const url = "/api/chat-query?q=" + searchQuery;
+				const url = "/api/chat-query?results=" + numberOfResults + "&q=" + searchQuery;
 				const responseContainer = document.getElementById("ai-response");
 
 				fetch(url).then((response) => {
@@ -414,12 +414,6 @@ let BandPioneer = {
 				    	throw new Error("Failed to fetch HTML");
 				    }
 				}).then((html) => {
-
-					if (html.startsWith("As an AI language model"))
-					{
-						html = html.replace(/^As an AI language model[^.]*\./, "");
-					}
-
 				    responseContainer.innerHTML = html;
 				    responseContainer.classList.add('loaded');
 				}).catch((error) => {
