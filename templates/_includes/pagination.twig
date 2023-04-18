@@ -1,3 +1,4 @@
+{% set totalPageIncrement = isHomepage is defined and isHomepage ? 1 : 0 %}
 <div class="pagination">
 	{% if pageInfo.prevUrl %}
 		<a href="{{ pageInfo.firstUrl }}" class="page-arrow first d-none d-sm-inline">
@@ -14,7 +15,7 @@
 			{% include '_includes/icons' with { type: 'arrow' } %}
 		</span>
 	{% endif %}
-	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.currentPage == 1 ? (pageInfo.totalPages + 1) : pageInfo.totalPages }}</span>
+	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.currentPage == 1 ? (pageInfo.totalPages + totalPageIncrement) : pageInfo.totalPages }}</span>
 	{% if pageInfo.nextUrl %}
 		<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
 			{% include '_includes/icons' with { type: 'arrow' } %}
