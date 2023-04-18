@@ -392,8 +392,14 @@ let BandPioneer = {
 			// Slightly delay search results so AI response doesn't seem so slow.
 			setTimeout(function()
 			{
-				document.getElementById("search-loading").remove();
-				document.getElementById("related-articles").classList.add('loaded');
+				let related = document.getElementById("related-articles");
+				let loading = document.getElementById("search-loading");
+
+				loading.remove();
+				if(related != null)
+				{
+					related.classList.add('loaded');
+				}
 			}, (Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay));
 		}
 

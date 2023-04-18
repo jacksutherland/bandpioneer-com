@@ -88,7 +88,7 @@
 		</div>
 	</div>
 
-	<div id="related-articles" class="container">
+	<div {% id pageInfo.currentPage == 1 %}id="related-articles" {% endif %}class="container">
 
 		{% if pageTotal > 0 %}
 			<section class="description"><h3><span>{{ pageTotal }} related search results</span></h3></section>
