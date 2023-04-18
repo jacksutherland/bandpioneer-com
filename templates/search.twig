@@ -75,20 +75,22 @@
 
 	</div>
 
-	<div id="search-loading" class="container narrow-container">
-		<div id="ai-response">
-			<span class="dark-gray-color">
-				{% if pageTotal > 0 %}
-				<i>Loading {{ pageTotal }} related articles for "{{ searchQuery }}"...</i>
-				{% else %}
-					<i>Loading related articles for "{{ searchQuery }}"...</i>
-				{% endif %}
-				{% include '_includes/icons' with { type: 'spinner' } %}
-			</span>
+	{% if pageInfo.currentPage == 1 %}
+		<div id="search-loading" class="container narrow-container">
+			<div id="ai-response">
+				<span class="dark-gray-color">
+					{% if pageTotal > 0 %}
+					<i>Loading {{ pageTotal }} related articles for "{{ searchQuery }}"...</i>
+					{% else %}
+						<i>Loading related articles for "{{ searchQuery }}"...</i>
+					{% endif %}
+					{% include '_includes/icons' with { type: 'spinner' } %}
+				</span>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 
-	<div {% id pageInfo.currentPage == 1 %}id="related-articles" {% endif %}class="container">
+	<div {% if pageInfo.currentPage == 1 %}id="related-articles" {% endif %}class="container">
 
 		{% if pageTotal > 0 %}
 			<section class="description"><h3><span>{{ pageTotal }} related search results</span></h3></section>
