@@ -11,9 +11,9 @@
 
 {% if chatQuery | length %}
 	<p>
-		{% if chatQuery starts with "As an AI language model" %}
+	{# 	{% if chatQuery starts with "As an AI language model" %}
 			{% set chatQuery = chatQuery | replace('/^As an AI language model[^.]*\\./', '') %}
-		{% endif %}
+		{% endif %} #}
 		{{ chatQuery | nl2br }}
 		<br><br>
 		{% if numberOfResults > 0 %}
