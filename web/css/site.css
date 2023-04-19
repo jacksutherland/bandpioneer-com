@@ -285,7 +285,7 @@ section.bands .band-carousel .band-slider .slide img {
 }
 #ai-response.loaded {
   height: auto;
-  max-height: 600px;
+  max-height: 1000px;
 }
 #ai-response svg {
   width: 25px;
