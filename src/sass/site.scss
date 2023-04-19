@@ -333,14 +333,14 @@ section {
 
 #ai-response {
 	height: auto;
-	max-height: 100px;
-	overflow: hidden;
-	transition: max-height $transition-default;
+	// max-height: 100px;
+	// overflow: hidden;
+	// transition: max-height $transition-default;
 
-	&.loaded {
-		height: auto;
-		max-height: 1000px;
-	}
+	// &.loaded {
+	// 	height: auto;
+	// 	max-height: 1000px;
+	// }
 
 	svg {
 		width: 25px;
