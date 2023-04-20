@@ -1,25 +1,26 @@
-{# {% import '_includes/macros' as macros %} #}
 <div class="related-content blog-posts">
-	{% for article in articles.all() %}
-		{% set subheadlength = article.subheadline | length %}
-		<article>
-			<a class="blog-image" href="{{ article.url }}">
-				{% if article.blogImage.count %}
-					<img src="{{ article.blogImage.one().url('relatedPost') }}">
-				{% endif %}
-			</a>
-			<div class="blog-info">
-				<h4>
-					<a href="{{ article.url }}">
-						{{ article.title }}
-						{% if subheadlength > 10 %}
-							<span>{{ article.subheadline }}</span>
-						{% elseif subheadlength > 0 %}
-							- {{ article.subheadline }}
-						{% endif %}
-					</a>
-				</h4>
-			</div>
-		</article>
-	{% endfor %}
+	{% cache %}
+		{% for article in articles.all() %}
+			{% set subheadlength = article.subheadline | length %}
+			<article>
+				<a class="blog-image" href="{{ article.url }}">
+					{% if article.blogImage.count %}
+						<img src="{{ article.blogImage.one().url('relatedPost') }}">
+					{% endif %}
+				</a>
+				<div class="blog-info">
+					<h4>
+						<a href="{{ article.url }}">
+							{{ article.title }}
+							{% if subheadlength > 10 %}
+								<span>{{ article.subheadline }}</span>
+							{% elseif subheadlength > 0 %}
+								- {{ article.subheadline }}
+							{% endif %}
+						</a>
+					</h4>
+				</div>
+			</article>
+		{% endfor %}
+	{% endcache %}
 </div>

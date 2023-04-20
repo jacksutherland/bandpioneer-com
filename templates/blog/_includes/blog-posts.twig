@@ -1,0 +1,54 @@
+{% import '_includes/macros' as macros %}
+
+{# {% set isHomepage = isHomepage is defined ? isHomepage : false %} #}
+
+{% if entry.section.handle != 'homepage' %}
+	{% set pageTitle = entry.title %}
+{% endif %}
+
+<div class="blog-posts">
+	{% cache %}
+	{% for blog in posts %}
+        <article>
+			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
+				{% if blog.blogImage.count %}
+					<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}"
+						width="{{ blog.blogImage.one().width('blogPost') }}" 
+						height="{{ blog.blogImage.one().height('blogPost') }}"
+						loading="lazy">
+				{% endif %}
+			</a>
+			<div class="blog-info">
+				{% include '_includes/icons' with { type: 'tag' } %}
+				<ul>
+            		{% for cat in blog.categories.all() %}
+            			{% apply spaceless %}
+	            			<li>
+	            				{% if cat.show %}
+	            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+	            				{% else %}
+	            					<span href="{{ cat.url }}">{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+	            				{% endif %}
+	            			</li>
+	            		{% endapply %}
+            		{% endfor %}
+            	</ul>
+				<h3>
+					<a {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
+						{{ macros.blogTitle(blog) }}
+					</a>
+				</h3>
+				
+
+				<p>{{ blog.shortDescription }}</p>
+			</div>
+		</article>
+    {% endfor %}
+    {% endcache %}
+</div>
+
+{% if pageInfo.total > (postsPerPage + 1) %}
+	<div class="container">
+    	{% include '_includes/pagination' %}
+    </div>
+{% endif %}

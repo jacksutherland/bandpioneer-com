@@ -8,6 +8,15 @@
 	<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=60f99a793b1d5d001213a396&product=inline-share-buttons' async='async'></script>
 {% endblock %}
 
+{% block scripts %}
+	<script type="text/javascript">
+		if (typeof(bp) === 'object')
+		{
+			bp.blogPost();
+		}
+	</script>
+{% endblock %}
+
 {% block content %}
 
 	{% include '_includes/categories' with { categories: categories } %}
@@ -33,7 +42,9 @@
 				{{ entry.featuredSnippet }}
 			</div>
 		{% endif %}
-		{% include '_includes/blog-module' %}
+		{% cache %}
+			{% include '_includes/blog-module' %}
+		{% endcache %}
 		<div class="social-sharing sharethis-inline-share-buttons"></div>
 	</div>
 

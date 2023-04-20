@@ -1,7 +1,9 @@
 <div class="related-categories">
-	{% for rc in categories.all() %}
-		{% if rc.show %}
-			<a href="{{ rc.url }}">{{ rc.title }}</a>
-		{% endif %}
-	{% endfor %}
+	{% cache %}
+		{% for rc in categories.all() %}
+			{% if rc.show %}
+				<a href="{{ rc.url }}">{{ rc.title }}</a>
+			{% endif %}
+		{% endfor %}
+	{% endcache %}
 </div>

@@ -1,4 +1,6 @@
 <header class="site-header">
+
+    {% cache globally %}
     <div class="container">
         <a href="/" class="logo">
             <img loading="eager" class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
@@ -51,6 +53,8 @@
             </ul>
         </nav>
     </div>
+    {% endcache %}
+
     {% if entry.section.handle == 'blog' %}
         <div class="reading-time"><div id="reading-progress" class="reading-progress"></div></div>
     {% endif %}

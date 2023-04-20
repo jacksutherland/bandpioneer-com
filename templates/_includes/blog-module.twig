@@ -49,7 +49,6 @@
 
 {% if tocLinks | length > 1 %}
 	{% set childCount = 0 %}
-	{# {% set openFirstChild = (tocLinks | length < 8) %} #}
 	{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
 	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
 		<h3 class="section-title"><span>Table of Contents</span></h3>

@@ -44,7 +44,6 @@ let BandPioneer = {
 			this.addHeaderEvents();
 			this.addMenuEvents();
 			this.addSearchEvents();
-			this.readingProgress();
 			this.questionValidation();
 		}
 
@@ -310,6 +309,15 @@ let BandPioneer = {
 			        this.showSearch(false);
 			    }
 			}.bind(this));
+		}
+
+		blogPost()
+		{
+			this.readingProgress();
+
+			window.onhashchange = function() {
+			  window.history.replaceState(null, null, window.location.pathname);
+			};
 		}
 
 		readingProgress()
