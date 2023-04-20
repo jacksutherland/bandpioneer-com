@@ -106,13 +106,13 @@ let BandPioneer = {
 			if(form == null) return false;
 
 			const badQuestions = [
-                "Hey, that's not even a question! Try again, and put some oomph into it!",
-                "Did you know questions have words? Give it another shot!",
-                "That question is shorter than a hiccup. Elaborate, please!",
-                "Is that a question or a sneeze? More characters, please!",
-                "Oops, that's not a question! Let's try again, but with some pizzazz!",
-                "Hold on, that's no question! Give it another shot, and spice it up!",
-                "Psst, the 'Question' field is lonely. It requires real words!",
+                "Hey, you didn't enter a question! Try again, and put some oomph into it!",
+                "Did you know questions have words? Try to actually enter some this time!",
+                "That question is shorter than a Ramones song. Elaborate, please!",
+                "Is that a question? Because I sure don't see anything. Enter more characters, please!",
+                "Nope! That's not a question. Try again, but with some letters and stuff.",
+                "That's no question! Fool me once, shame on you. Fool me twice... Oh, just don't fool me again!",
+                "Psst, the 'Question' field is very lonely. Entering some words would make it VERY happy.",
             ];
             let usedMessages = [];
             function getBadQuestion()
