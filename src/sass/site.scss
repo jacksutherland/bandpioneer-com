@@ -200,6 +200,45 @@ a {
 	}
 }
 
+.overlay {
+	position: fixed;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+  	background-color: white;
+    font-weight: bold;
+    text-align: center;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+    border-radius: $small-border-radius;
+    box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
+
+    .close-button {
+    	position: absolute;
+	    top: -1px;
+	    right: 6px;
+	    border: none;
+	    font-weight: bold;
+	    font-size: 1.25rem;
+    }
+
+    iframe {
+    	width: 350px;
+    	height: 440px;
+    	border: none;
+    }
+  }
+}
+
 section {
 	&.blog {
 		margin-top: $fixed-header-height;
@@ -239,7 +278,6 @@ section {
 		}
 	}
 }
-
 
 
 #about {
@@ -423,7 +461,7 @@ header.site-header {
 
 	.container {
 		display: grid;
-		grid-template-columns: 30% 70%;
+		grid-template-columns: auto 1fr;
 
 		.bars {
 			width: 30px;
@@ -450,7 +488,7 @@ header.site-header {
 			top: 0;
 			right: 0;
 			text-align: right;
-			padding: 20px 28px;
+			padding: 20px 28px 20px 0;
 			background-color: $alternate-color;
 			border-radius: 0 0 0 $small-border-radius;
 			display: none;
@@ -1095,6 +1133,12 @@ form {
 	}
 }
 
+@media (min-width: ($blog-width + $mobile-gutter-width + $mobile-gutter-width)) {
+	.container.page {
+		margin: $page-vertical-margin auto;
+	}
+}
+
 @media (min-width: $breakpoint-md) {
 	.hide-md {
 		display: none;
@@ -1124,9 +1168,6 @@ form {
 		.page-header {
 			height: 500px;
 		}
-	}
-	.container.page {
-		margin: $page-vertical-margin auto;
 	}
 	.search-box {
 		form {
@@ -1180,14 +1221,13 @@ form {
 	    					font-weight: $semi-bold;
 
 				    		&:after {
-							    background-color: $primary-color; //$link-hover-color; // $primary-color;
+							    background-color: $primary-color;
 							}
 
 				    		&#search {
 				    			&.show {
 				    				svg {
 					    				margin: 0 -17px -1px 0;
-					    				// fill: darken($light-gray, 30%); //$primary-color;
 					    			}
 					    			input {
 					    				width: 180px;
@@ -1203,7 +1243,6 @@ form {
 				    				width: 0;
 				    				background: transparent;
 								    border: 0;
-								    // border-bottom: solid 2px darken($light-gray, 30%);
 								    border-bottom: solid 2px $primary-color;
 								    padding: 3px 0;
 								    outline: 0;
@@ -1212,7 +1251,6 @@ form {
 								    caret-color: $white;
 
 								    &::placeholder {
-								    	// color: darken($light-gray, 30%);
 								    	color: $primary-color;
 								    }
 				    			}

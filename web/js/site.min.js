@@ -47,40 +47,54 @@ let BandPioneer = {
 			this.questionValidation();
 		}
 
+		isHTML(str)
+		{
+			return str.charAt(0) === '<';
+			// const regex = /<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)/gi;
+			// return regex.test(str);
+		}
+
+		signUp()
+		{
+			this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
+		}
+
 		alert(message)
 		{
-			const modal = document.createElement('div');
-			modal.style.cssText = 'position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.5); display:flex; justify-content:center; align-items:center;';
+			const overlay = document.createElement('div');
+			overlay.classList.add('overlay');
 
-			const maxWidth = message.length > 100 ? '600px' : '400px';
-			const content = document.createElement('div');
-			content.style.cssText = 'background-color:white; font-weight:bold; text-align:center; max-width:' + maxWidth + '; padding:15px 20px; position:relative; border-radius:4px; box-shadow:rgba(0, 0, 0, 0.8) 1px 1px 10px';
+			const messageIsHTML = this.isHTML(message);
+			const maxWidth = (message.length > 100 || messageIsHTML) ? '600px' : '400px';
+			const modal = document.createElement('div');
+			modal.classList.add('modal');
+			modal.style.cssText = 'max-width:' + maxWidth + ';';
 
 			const closeButton = document.createElement('a');
+			closeButton.classList.add('close-button');
 			closeButton.innerHTML = 'x';
 			closeButton.href = '/';
-			closeButton.style.cssText = 'position:absolute; top:0; right:6px; border:solid 1px #888; border:none; font-weight:bold; font-size:1.25rem;';
 			closeButton.onclick = function(e)
 			{
 				e.preventDefault();
-				document.body.removeChild(modal);
+				document.body.removeChild(overlay);
 			};
 
-			const messageElem = document.createElement('p');
+			const messageElem = document.createElement(messageIsHTML ? 'div' : 'p');
 			messageElem.innerHTML = message;
 
-			modal.onclick = function(event)
+			overlay.onclick = function(event)
 			{
-				if (event.target === modal)
+				if (event.target === overlay)
 				{
-					document.body.removeChild(modal);
+					document.body.removeChild(overlay);
 				}
 			};
 
-			content.appendChild(closeButton);
-			content.appendChild(messageElem);
-			modal.appendChild(content);
-			document.body.appendChild(modal);
+			modal.appendChild(closeButton);
+			modal.appendChild(messageElem);
+			overlay.appendChild(modal);
+			document.body.appendChild(overlay);
 		}
 
 		questionValidation()

@@ -32,7 +32,12 @@
 		<div class="social-sharing sharethis-inline-share-buttons"></div>
 
 		{% if entry.blogImage.count %}
-			<img loading="eager" class="featured-image" src="{{ entry.blogImage.one().url('blogHeader') }}" alt="{{ entry.blogImage.one().title }}">
+			{# <img loading="eager" class="featured-image" src="{{ entry.blogImage.one().url('blogHeader') }}" alt="{{ entry.blogImage.one().title }}"> #}
+			<img src="{{ entry.blogImage.one().url('blogHeaderMobile') }}"
+				class="featured-image"
+			 	alt="{{ entry.blogImage.one().title }}"
+				srcset="{{ entry.blogImage.one().url('blogHeaderMobile') }} 576w, {{ entry.blogImage.one().url('blogHeader') }} 800w" 
+				sizes="(max-width: 576px) 100vw, 800px">
 		{% endif %}
 	</div>
 

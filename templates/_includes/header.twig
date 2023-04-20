@@ -1,6 +1,5 @@
 <header class="site-header">
 
-    {% cache globally %}
     <div class="container">
         <a href="/" class="logo">
             <img loading="eager" class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
@@ -8,6 +7,7 @@
                 <img loading="eager" class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
             {% endif %}
         </a>
+        {% cache globally %}
         <a id="open-menu" href="/" class="bars">
             {% include '_includes/icons' with { type: 'bars' } %}
         </a>
@@ -18,8 +18,23 @@
             <ul>
                 <li>
                     <a href="/" class="underline" title="Band Pioneer Homepage">Home</a>
+                    {# <a href="/" class="underline" title="Band Pioneer Homepage">{% include '_includes/icons' with { type: 'home' } %}</a> #}
                 </li>
-                <li><a class="underline" href="/about" title="About Band Pioneer">About</a></li>
+                {# <li><a class="underline" href="/about" title="About Band Pioneer">About</a></li> #}
+                <li class="dropdown-menu">
+                    <a class="underline" href="/about" title="About Band Pioneer">About {% include '_includes/icons' with { type: 'down' } %}</a>
+                    <ul>
+                        <li>
+                            <a class="underline" href="/about">About Us</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/privacy">Privacy</a>
+                        </li>
+                        {# <li>
+                            <a class="underline" href="/contact">Contact</a>
+                        </li> #}
+                    </ul>
+                </li>
                 <li class="hide-mobile dropdown-menu">
                     <a class="underline" href="/" title="Blog Topics">Topics {% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul>
@@ -32,8 +47,9 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a class="underline" href="/electronic-press-kit" title="Privacy Policy">EPK</a></li>
-                <li><a class="underline" href="/privacy" title="Privacy Policy">Privacy</a></li>
+                <li><a class="underline" href="{{ currentUser ? '/bands' : '/electronic-press-kit' }}" title="Privacy Policy">EPK</a></li>
+                {# <li><a class="underline" href="/privacy" title="Privacy Policy">Privacy</a></li> #}
+                <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li>
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% for cat in categories.all() %}
                     {% if cat.show %}
@@ -46,14 +62,14 @@
                     <form method="get" action="/search">
                         <a id="search" href="/">
                             {% include '_includes/icons' with { type: 'search' } %}
-                            <input type="text" name="q" placeholder="Enter your search...">
+                            <input type="text" name="q" placeholder="Enter your question...">
                         </a>
                     </form>
                 </li>
             </ul>
         </nav>
+        {% endcache %}
     </div>
-    {% endcache %}
 
     {% if entry.section.handle == 'blog' %}
         <div class="reading-time"><div id="reading-progress" class="reading-progress"></div></div>
