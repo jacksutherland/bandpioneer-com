@@ -266,6 +266,7 @@ section {
 				    display: inline-flex;
 				    justify-content: center;
 				    padding: 0 6px;
+				    vertical-align: top;
 				    img {
 				    	height: $carousel-image-mobile-height;
 				    	width: auto;
@@ -1292,7 +1293,6 @@ form {
 		section {
 			&.bands {
 				.band-carousel {
-					// height: $carousel-image-desktop-height;
 					.band-slider {
 					    .slide {
 						    img {

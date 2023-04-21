@@ -249,6 +249,7 @@ section.bands .band-carousel .band-slider .slide {
   display: inline-flex;
   justify-content: center;
   padding: 0 6px;
+  vertical-align: top;
 }
 section.bands .band-carousel .band-slider .slide img {
   height: 130px;
