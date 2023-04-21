@@ -112,7 +112,7 @@ let BandPioneer = {
                 "Is that a question? Because I sure don't see anything. Enter more characters, please!",
                 "Nope! That's not a question. Try again, but with some letters and stuff.",
                 "That's no question! Fool me once, shame on you. Fool me twice... Oh, just don't fool me again!",
-                "Psst, the 'Question' field is very lonely. Entering some words would make it VERY happy.",
+                "Psst, the 'Question' field is lonely. Entering some words would make it VERY happy.",
             ];
             let usedMessages = [];
             function getBadQuestion()

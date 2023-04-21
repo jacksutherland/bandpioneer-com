@@ -148,11 +148,17 @@
 						{% set imgWid = module.blogImage.one().width() %}
 						{% set imgHei = module.blogImage.one().height() %}
 					{% else %}
-						{% set imgUrl = module.blogImage.one().url('blogImage') %}
-						{% set imgWid = module.blogImage.one().width('blogImage') %}
-						{% set imgHei = module.blogImage.one().height('blogImage') %}
+						{% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
+						{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
+						{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
 					{% endif %}
-					<img loading="lazy" src="{{ imgUrl }}" alt="{{ module.blogImage.one().title }}" width="{{ imgWid }}" height="{{ imgHei }}">
+					{# <img loading="lazy" src="{{ imgUrl }}" alt="{{ module.blogImage.one().title }}" width="{{ imgWid }}" height="{{ imgHei }}"> #}
+					<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
+						 	alt="{{ module.blogImage.one().title }}"
+						 	loading="lazy" 
+							srcset="{{ module.blogImage.one().url('blogImageMobile') }} 576w, {{ module.blogImage.one().url('blogImage') }} 800w" 
+							sizes="(max-width: 576px) 100vw, 800px"
+							width="{{ imgWid }}" height="{{ imgHei }}">
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
 					{% endif %}

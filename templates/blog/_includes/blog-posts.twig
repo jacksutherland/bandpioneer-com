@@ -12,10 +12,12 @@
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 				{% if blog.blogImage.count %}
-					<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}"
-						width="{{ blog.blogImage.one().width('blogPost') }}" 
-						height="{{ blog.blogImage.one().height('blogPost') }}"
-						loading="lazy">
+					<img src="{{ blog.blogImage.one().url('blogPostMobile') }}"
+					 	alt="{{ blog.blogImage.one().title }}"
+					 	loading="eager"
+						srcset="{{ blog.blogImage.one().url('blogPostMobile') }} 576w, {{ blog.blogImage.one().url('blogPost') }} 570w" 
+						sizes="(max-width: 576px) 100vw, 570px"
+						width="330" height="185">
 				{% endif %}
 			</a>
 			<div class="blog-info">

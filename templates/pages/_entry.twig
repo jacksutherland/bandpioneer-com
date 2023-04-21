@@ -49,7 +49,16 @@
 			{% for img in entry.pageImage.all() %}
 				<section>
 					<figure>
-						<img src="{{ img.url('blogImage') }}" alt="{{ img.title }}" width="{{ img.width('blogImage') }}" height="{{ img.height('blogImage') }}">
+						{# <img src="{{ img.url('blogImage') }}" alt="{{ img.title }}" width="{{ img.width('blogImage') }}" height="{{ img.height('blogImage') }}"> #}
+						{% set imgUrl = img.url('blogImageMobile') %}
+						{% set imgWid = img.width('blogImageMobile') %}
+						{% set imgHei = img.height('blogImageMobile') %}
+						<img src="{{ img.url('blogImageMobile') }}"
+						 	alt="{{ img.title }}"
+						 	loading="lazy"
+							srcset="{{ img.url('blogImageMobile') }} 576w, {{ img.url('blogImage') }} 800w" 
+							sizes="(max-width: 576px) 100vw, 800px"
+							width="{{ imgWid }}" height="{{ imgHei }}">
 					</figure>
 				</section>
 			{% endfor %}
