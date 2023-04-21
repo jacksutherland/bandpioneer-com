@@ -5,7 +5,11 @@
 			<article>
 				<a class="blog-image" href="{{ article.url }}">
 					{% if article.blogImage.count %}
-						<img src="{{ article.blogImage.one().url('relatedPost') }}">
+						{# <img src="{{ article.blogImage.one().url('relatedPost') }}"> #}
+						<img src="{{ article.blogImage.one().url('blogPostMobile') }}"
+					 	alt="{{ article.blogImage.one().title }}"
+					 	loading="lazy"
+						width="330" height="185">
 					{% endif %}
 				</a>
 				<div class="blog-info">

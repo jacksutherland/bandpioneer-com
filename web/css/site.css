@@ -1461,9 +1461,6 @@ article .blog-info ul li span {
   grid-template-columns: 1fr;
   gap: 25px;
 }
-.blog .related-content article img {
-  width: 115%;
-}
 .blog .related-content article .blog-info {
   margin: 12px 15px;
 }
