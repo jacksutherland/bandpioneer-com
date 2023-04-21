@@ -4,7 +4,7 @@
     {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
-{% set versionNumber = '1.51' %}
+{% set versionNumber = '1.52' %}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
@@ -142,11 +142,20 @@
 
         {% endapply %}
         
-        <script src="{{ url('js/site.min.js') }}?version={{ versionNumber }}"></script>
-        <script>
-            var bp = new BandPioneer.Site();
+        <script defer src="{{ url('js/site.min.js') }}?version={{ versionNumber }}"></script>
+        <script defer>
+            var bp = null; // global variable BandPioneer.Site JS
+            var uxFuncs = []; // Other templates can push functions to this to call once dom is loaded
+            document.addEventListener("DOMContentLoaded", function()
+            {
+                bp = new BandPioneer.Site();
+                BandPioneer.each(uxFuncs, function()
+                {
+                    this();
+                });
+            });
         </script>
-        {% block scripts %}{% endblock %}
+        {% block scripts %}{# Load template scripts here #}{% endblock %}
 
     </body>
 </html>

@@ -9,10 +9,13 @@
 {% endblock %}
 
 {% block scripts %}
-	<script type="text/javascript">
-		if (typeof(bp) === 'object')
+	<script defer type="text/javascript">
+		if (typeof(uxFuncs) === 'object')
 		{
-			bp.blogPost();
+			uxFuncs.push(function()
+            {
+                bp.blogPost();
+            });
 		}
 	</script>
 {% endblock %}

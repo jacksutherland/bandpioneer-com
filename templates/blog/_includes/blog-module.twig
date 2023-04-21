@@ -152,7 +152,6 @@
 						{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
 						{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
 					{% endif %}
-					{# <img loading="lazy" src="{{ imgUrl }}" alt="{{ module.blogImage.one().title }}" width="{{ imgWid }}" height="{{ imgHei }}"> #}
 					<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
 						 	alt="{{ module.blogImage.one().title }}"
 						 	loading="lazy" 

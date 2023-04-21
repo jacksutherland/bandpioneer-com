@@ -23,10 +23,13 @@
 {% endblock %}
 
 {% block scripts %}
-	<script type="text/javascript">
-		if (typeof(bp) === 'object')
+	<script defer type="text/javascript">
+		if (typeof(uxFuncs) === 'object')
 		{
-			bp.loadSearchResponse('{{ chatQuery }}', {{ pageTotal }});
+			uxFuncs.push(function()
+            {
+                bp.loadSearchResponse('{{ chatQuery }}', {{ pageTotal }});
+            });
 		}
 	</script>
 {% endblock %}

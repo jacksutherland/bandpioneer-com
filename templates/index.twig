@@ -13,10 +13,13 @@
 {% endif %}
 
 {% block scripts %}
-	<script type="text/javascript">
-		if (typeof(bp) === 'object')
+	<script defer type="text/javascript">
+		if (typeof(uxFuncs) === 'object')
 		{
-			bp.createBandCarousels();
+			uxFuncs.push(function()
+            {
+                bp.createBandCarousels();
+            });
 		}
 	</script>
 {% endblock %}
