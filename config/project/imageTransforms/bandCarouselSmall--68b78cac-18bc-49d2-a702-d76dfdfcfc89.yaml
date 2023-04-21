@@ -1,9 +1,9 @@
 format: webp
-handle: bandCarousel
-height: 300
+handle: bandCarouselSmall
+height: 130
 interlace: none
 mode: fit
-name: 'Band Carousel'
+name: 'Band Carousel Small'
 position: center-center
 quality: 80
 width: null

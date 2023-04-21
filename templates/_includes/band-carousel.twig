@@ -6,7 +6,30 @@
 				<div class="band-slider">
 					{% for band in bands.all() %}
 						<div class="slide">
-							<img loading="eager" src="{{ band.bandImage.one().url('bandCarousel') }}" width="{{ band.bandImage.one().width('bandCarousel') }}" height="{{ band.bandImage.one().height('bandCarousel') }}"{% if band.shortDescription | length %} title="{{ band.shortDescription }}"{% endif %}>
+							{# <img loading="eager" src="{{ band.bandImage.one().url('bandCarousel') }}" width="{{ band.bandImage.one().width('bandCarousel') }}" height="{{ band.bandImage.one().height('bandCarousel') }}"{% if band.shortDescription | length %} title="{{ band.shortDescription }}"{% endif %}> #}
+
+							{% set img = band.bandImage.one() %}
+							{% set transform = enlarged ? 'bandCarousel' : 'bandCarouselSmall' %}
+
+							{% set smallImgUrl = img.url('bandCarouselSmall') %}
+							{% set smallImgWid = img.width('bandCarouselSmall') %}
+							{% set smallImgHei = img.height('bandCarouselSmall') %}
+
+							{% if enlarged %}
+								{% set imgUrl = img.url('bandCarousel') %}
+								{% set imgWid = img.width('bandCarousel') %}
+								{% set imgHei = img.height('bandCarousel') %}
+								<img src="{{ smallImgUrl }}"
+									title="{{ band.shortDescription }}"
+								 	alt="{{ band.shortDescription }}"
+								 	loading="eager"
+									srcset="{{ smallImgUrl }} {{ smallImgWid }}w, {{ imgUrl }} {{ imgWid }}w" 
+									sizes="(max-width: 767px) {{ smallImgWid }}px, {{ imgWid }}px"
+									width="{{ imgWid }}" height="{{ imgHei }}">
+							{% else %}
+								<img src="{{ smallImgUrl }}" alt="{{ band.shortDescription }}" title="{{ band.shortDescription }}" loading="eager"
+									width="{{ smallImgWid }}" height="{{ smallImgHei }}">
+							{% endif %}
 						</div>
 					{% endfor %}
 				</div>

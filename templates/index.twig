@@ -38,11 +38,13 @@
 			<article class="featured">
 				<a class="blog-image"  {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
 					{% if featured.blogImage.count %}
+						{% set desktopWid = featured.blogImage.one().width('featuredPost') %}
+						{% set mobileWid = featured.blogImage.one().width('blogPostMobile') %}
 						<img src="{{ featured.blogImage.one().url('blogPostMobile') }}"
 						 	alt="{{ featured.blogImage.one().title }}"
 						 	loading="eager"
-							srcset="{{ featured.blogImage.one().url('blogPostMobile') }} 576w, {{ featured.blogImage.one().url('featuredPost') }} 1050w" 
-							sizes="(max-width: 576px) 100vw, 1050px"
+							srcset="{{ featured.blogImage.one().url('blogPostMobile') }} 576w, {{ featured.blogImage.one().url('featuredPost') }} {{ desktopWid }}w" 
+							sizes="(max-width: 576px) 100vw, (max-width: 1050px) 1050px"
 							width="330" height="185">
 					{% endif %}
 					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
@@ -88,7 +90,7 @@
 	</div>
 
 	{% if pageInfo.currentPage == 1 %}
-		{% include '_includes/band-carousel' %}
+		{% include '_includes/band-carousel' with { enlarged: false } %}
 	{% endif %}
 	
 {% endblock %}

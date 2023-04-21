@@ -33,7 +33,7 @@
 	{% endif %}
 
 	{% if entry.showImageCarousel %}
-		{% include '_includes/band-carousel' %}
+		{% include '_includes/band-carousel' with { enlarged: true } %}
 	{% endif %}
 
 	<div class="page container">
@@ -49,7 +49,6 @@
 			{% for img in entry.pageImage.all() %}
 				<section>
 					<figure>
-						{# <img src="{{ img.url('blogImage') }}" alt="{{ img.title }}" width="{{ img.width('blogImage') }}" height="{{ img.height('blogImage') }}"> #}
 						{% set imgUrl = img.url('blogImageMobile') %}
 						{% set imgWid = img.width('blogImageMobile') %}
 						{% set imgHei = img.height('blogImageMobile') %}

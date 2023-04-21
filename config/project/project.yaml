@@ -1,4 +1,4 @@
-dateModified: 1682037387
+dateModified: 1682042970
 elementSources:
   craft\elements\Asset:
     -
@@ -203,6 +203,7 @@ meta:
     37ff1ae6-ced2-4eaf-b107-93e6e3dd94be: 'Band Image' # Band Image
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Video # Video
+    68b78cac-18bc-49d2-a702-d76dfdfcfc89: 'Band Carousel Small' # Band Carousel Small
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
     69a773a9-c69f-4fe7-b975-b60c93c084a7: 'Show Recent Blogs' # Show Recent Blogs
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
