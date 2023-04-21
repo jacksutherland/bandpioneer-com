@@ -1,6 +1,7 @@
 {% extends '_layout' %}
 {% import '_includes/macros' as macros %}
 
+{% set pageTitle = entry.title %}
 {% set postsPerPage = 8 %}
 {% set categories = craft.entries.section('category') %}
 

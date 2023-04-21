@@ -1,11 +1,5 @@
 {% import '_includes/macros' as macros %}
 
-{# {% set isHomepage = isHomepage is defined ? isHomepage : false %} #}
-
-{% if entry.section.handle != 'homepage' %}
-	{% set pageTitle = entry.title %}
-{% endif %}
-
 <div class="blog-posts">
 	{% cache %}
 	{% for blog in posts %}
