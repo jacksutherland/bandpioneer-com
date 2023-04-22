@@ -120,11 +120,13 @@ h2,
 .ordered-title h4 {
   font-size: 1.6rem;
   line-height: 2.1rem;
+  color: #404040;
 }
 
 h3, h4 {
   font-size: 1.4rem;
   line-height: 1.9rem;
+  color: #5e5e5e;
 }
 
 p {

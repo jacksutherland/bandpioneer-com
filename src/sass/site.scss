@@ -125,11 +125,13 @@ h2,
 .ordered-title h4 {
 	font-size: 1.6rem;
 	line-height: 2.1rem;
+	color: darken($font-color, 6%);
 }
 
 h3, h4 {
 	font-size: 1.4rem;
 	line-height: 1.9rem;
+	color: lighten($font-color, 6%);
 }
 
 p {
