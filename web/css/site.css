@@ -570,13 +570,13 @@ footer .logo {
 }
 footer .container {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
   justify-items: center;
 }
 footer .container nav {
   align-self: center;
   text-align: right;
-  margin: 25px 30px 0 10px;
+  margin: 25px 10px 0 10px;
 }
 footer .container nav ul {
   text-align: center;
@@ -585,7 +585,7 @@ footer .container nav ul.blog-categories {
   margin-top: 18px;
 }
 footer .container nav ul li {
-  display: inline;
+  display: inline-block;
   margin: 0 10px;
   text-align: center;
 }
