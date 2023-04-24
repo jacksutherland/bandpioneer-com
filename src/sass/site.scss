@@ -491,7 +491,7 @@ header.site-header {
 			top: 0;
 			right: 0;
 			text-align: right;
-			padding: 20px 28px 20px 0;
+			padding: 20px 28px;
 			background-color: $alternate-color;
 			border-radius: 0 0 0 $small-border-radius;
 			display: none;
@@ -1132,6 +1132,12 @@ form {
 		display: none !important;
 	}
 	.hide-mobile {
+		display: none !important;
+	}
+}
+
+@media (min-width: $breakpoint-md) {
+	.hide-desktop {
 		display: none !important;
 	}
 }

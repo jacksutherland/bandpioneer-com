@@ -17,10 +17,8 @@
             <ul>
                 <li>
                     <a href="/" class="underline" title="Band Pioneer Homepage">Home</a>
-                    {# <a href="/" class="underline" title="Band Pioneer Homepage">{% include '_includes/icons' with { type: 'home' } %}</a> #}
                 </li>
-                {# <li><a class="underline" href="/about" title="About Band Pioneer">About</a></li> #}
-                <li class="dropdown-menu">
+                <li class="hide-mobile dropdown-menu">
                     <a class="underline" href="/about" title="About Band Pioneer">About {% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul>
                         <li>
@@ -30,6 +28,12 @@
                             <a class="underline" href="/privacy">Privacy</a>
                         </li>
                     </ul>
+                </li>
+                <li class="hide-desktop">
+                    <a href="/" class="underline" href="/about">About Us</a>
+                </li>
+                <li class="hide-desktop">
+                    <a href="/" class="underline" href="/privacy">Privacy Policy</a>
                 </li>
                 {% cache globally %}
                     <li class="hide-mobile dropdown-menu">
