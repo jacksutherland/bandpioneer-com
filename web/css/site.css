@@ -1631,6 +1631,9 @@ article .blog-info ul li span {
 .blog-comments .cc-w .cc-ll-i:before {
   content: " ";
 }
+.blog-comments .cc-w .cc-i-image-icon:after {
+  background-color: transparent;
+}
 
 /*************************/
 /***** MEDIA QUERIES *****/

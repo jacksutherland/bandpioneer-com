@@ -585,13 +585,13 @@ article {
 				content: ' ';
 			}
 		}
-		// .cc-i-image-icon {
-		// 	&:after {
-		// 		background-color: transparent;
-		// 		background-image: url(https://bandpioneer.com/assets/images/bp-mark.png);
-		// 	}
+		.cc-i-image-icon {
+			&:after {
+				background-color: transparent;
+				// background-image: url(https://bandpioneer.com/assets/images/bp-mark.png);
+			}
 
-		// }
+		}
 	}
 
 }
