@@ -1,0 +1,24 @@
+fieldLayouts:
+  6bd49627-963e-41b4-9514-220f72bdeaa7:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 82e52c13-cbb5-435e-936b-296b40cf8f27 # Featured Blog Post
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a58f0594-ea4a-448c-ac01-2c8c67446736
+            userCondition: null
+            warning: null
+            width: 100
+        name: Blog
+        uid: 3b2fe010-0f9d-4b22-98ac-206bb45c578c
+        userCondition: null
+handle: blog
+name: Blog
+sortOrder: 1

@@ -1,4 +1,4 @@
-dateModified: 1682042970
+dateModified: 1682536456
 elementSources:
   craft\elements\Asset:
     -
@@ -183,6 +183,7 @@ meta:
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Image' # Blog Image
     2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
     02fb6a1a-8498-4b48-ad99-b61ac895f168: 'CTA Text' # CTA Text
+    2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
@@ -209,6 +210,7 @@ meta:
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
+    82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
     260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text' # Single Line Text
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post

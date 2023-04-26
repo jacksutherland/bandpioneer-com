@@ -5,11 +5,19 @@
 {% set categories = craft.entries.section('category') %}
 {% set blogQuery = craft.entries.section('blog') %}
 
+{% set featured = null %}
+
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 {% if firstPageInfo.currentPage == 1 %}
-	{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% if blog.featuredBlogPost.count %}
+		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = blog.featuredBlogPost.one() %}
+	{% else %}		
+		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = posts[0] %}
+	{% endif %}
 {% else %}
-	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% paginate blogQuery.limit(postsPerPage).offset(blog.featuredBlogPost.count ? 0 : 1).orderBy('postDate DESC') as pageInfo, posts %}
 {% endif %}
 
 {% block scripts %}
@@ -29,8 +37,8 @@
 
 	<div class="container">
 
-		{% if pageInfo.currentPage == 1 %}
-			{% set featured = posts[0] %}
+		{% if pageInfo.currentPage == 1 and featured != null %}
+			{# {% set featured = posts[0] %} #}
 
 			{% if entry.show %}
 				{% include '_includes/ask-a-question' with { showButton: true, useH1: true, headline: entry.headline, subheadline: entry.subheadline, text: entry.ctaText, ctaUrl: entry.websiteUrl } %}
@@ -88,7 +96,7 @@
 			<span>Recent Articles{% if pageInfo.currentPage > 1 %}<span class="hide-mobile"> - Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>{% endif %}</span>
 		</h3>
 
-		{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: (pageInfo.currentPage == 1 ? posts[1:] : posts) } %}
+		{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: (pageInfo.currentPage == 1 and blog.featuredBlogPost.count == 0 ? posts[1:] : posts) } %}
 
 	</div>
 
