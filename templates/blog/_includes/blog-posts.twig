@@ -1,7 +1,7 @@
 {% import '_includes/macros' as macros %}
 
 <div class="blog-posts">
-
+	{% cache %}
 	{% for blog in posts %}
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
@@ -40,6 +40,7 @@
 			</div>
 		</article>
     {% endfor %}
+    {% endcache %}
 </div>
 
 {% if pageInfo.total > (postsPerPage + 1) %}
