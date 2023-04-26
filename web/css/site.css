@@ -1429,9 +1429,6 @@ article .blog-info ul li span {
 .blog .table-of-contents ul li {
   margin: 15px 30px;
 }
-.blog .table-of-contents ul li a {
-  text-transform: capitalize;
-}
 .blog .table-of-contents ul li input {
   display: none;
 }
@@ -1556,7 +1553,6 @@ article .blog-info ul li span {
   letter-spacing: 0.05rem;
 }
 .blog h2 {
-  text-transform: capitalize;
   margin: 55px 0 0 0;
 }
 .blog .ordered-title {
