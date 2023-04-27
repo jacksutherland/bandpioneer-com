@@ -1518,6 +1518,24 @@ article .blog-info ul li span {
 .blog section.rich-text ol {
   list-style: auto;
 }
+.blog section.embed-code .product-links {
+  display: flex;
+  align-items: end;
+  gap: 15px;
+  margin: -10px 0 40px 0;
+}
+.blog section.embed-code .product-links:before {
+  content: attr(data-title) ":";
+  display: block;
+  font-weight: bold;
+  border-bottom: solid 2px #e7ebec;
+  padding: 0 0 5px 0;
+}
+.blog section.embed-code .product-links + div {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+}
 .blog section.embed-code .table {
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);
