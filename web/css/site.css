@@ -1539,6 +1539,9 @@ article .blog-info ul li span {
   height: 60px;
   overflow: hidden;
 }
+.blog section.embed-code .product-links > div .amz-embed iframe {
+  margin-top: -180px;
+}
 .blog section.embed-code .table {
   display: grid;
   grid-template-columns: repeat(var(--columns), 1fr);
