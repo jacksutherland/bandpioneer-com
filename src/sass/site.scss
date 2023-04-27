@@ -177,6 +177,12 @@ a {
 	}
 }
 
+// Ezoic Overriddes
+
+.ez-video-container.ez-stuck {
+	position: static !important;
+}
+
 
 .container {
 	max-width: $site-width;
