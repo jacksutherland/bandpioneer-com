@@ -1664,6 +1664,11 @@ article .blog-info ul li span {
   .blog .blog-posts {
     grid-template-columns: 1fr 1fr;
   }
+  .blog section.embed-code .product-links > div {
+    display: flex;
+    align-items: end;
+    gap: 15px;
+  }
 }
 @media (min-width: 768px) {
   .blog .container {
@@ -1675,11 +1680,6 @@ article .blog-info ul li span {
   .blog address + .social-sharing {
     margin: -50px 0 15px 0;
     text-align: right !important;
-  }
-  .blog section.embed-code .product-links > div {
-    display: flex;
-    align-items: end;
-    gap: 15px;
   }
   .blog-posts {
     grid-template-columns: 1fr 1fr;
