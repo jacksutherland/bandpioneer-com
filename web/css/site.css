@@ -1527,13 +1527,12 @@ article .blog-info ul li span {
   margin: 0 0 18px 0;
 }
 .blog section.embed-code .product-links > div {
-  display: flex;
-  align-items: end;
-  gap: 15px;
   margin: -10px 0 40px 0;
 }
 .blog section.embed-code .product-links > div a {
+  display: block;
   font-weight: 600;
+  margin: 15px 0 0 0;
 }
 .blog section.embed-code .product-links > div .amz-embed {
   position: relative;
@@ -1676,6 +1675,11 @@ article .blog-info ul li span {
   .blog address + .social-sharing {
     margin: -50px 0 15px 0;
     text-align: right !important;
+  }
+  .blog section.embed-code .product-links > div {
+    display: flex;
+    align-items: end;
+    gap: 15px;
   }
   .blog-posts {
     grid-template-columns: 1fr 1fr;

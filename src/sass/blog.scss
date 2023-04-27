@@ -451,13 +451,12 @@ article {
 				}
 
 				> div {
-					display: flex;
-					align-items: end;
-					gap: 15px;
 					margin: -10px 0 40px 0;
 
 					a {
+						display: block;
 						font-weight: $semi-bold;
+						margin: 15px 0 0 0;
 					}
 
 					.amz-embed {
@@ -657,6 +656,17 @@ article {
 		address + .social-sharing {
 			margin: -50px 0 15px 0;
 			text-align: right !important;
+		}
+		section {
+			&.embed-code {
+				.product-links {
+					> div {
+						display: flex;
+						align-items: end;
+						gap: 15px;
+					}
+				}
+			}
 		}
 	}
 	.blog-posts {
