@@ -1525,13 +1525,13 @@ article .blog-info ul li span {
   border-bottom: solid 2px #e7ebec;
   padding: 0 0 5px 0;
 }
-.blog section.embed-code .product-links + div {
+.blog section.embed-code .product-links > div {
   display: flex;
   align-items: end;
   gap: 15px;
   margin: -10px 0 40px 0;
 }
-.blog section.embed-code .product-links + div .amz-embed {
+.blog section.embed-code .product-links > div .amz-embed {
   position: relative;
   height: 60px;
   overflow: hidden;

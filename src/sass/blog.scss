@@ -449,7 +449,7 @@ article {
 					padding: 0 0 5px 0;
 				}
 
-				& + div {
+				> div {
 					display: flex;
 					align-items: end;
 					gap: 15px;
