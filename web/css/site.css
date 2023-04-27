@@ -1523,13 +1523,17 @@ article .blog-info ul li span {
   display: block;
   font-weight: bold;
   border-bottom: solid 2px #e7ebec;
-  padding: 0 0 5px 0;
+  padding: 0 0 10px 0;
+  margin: 0 0 18px 0;
 }
 .blog section.embed-code .product-links > div {
   display: flex;
   align-items: end;
   gap: 15px;
   margin: -10px 0 40px 0;
+}
+.blog section.embed-code .product-links > div a {
+  font-weight: 600;
 }
 .blog section.embed-code .product-links > div .amz-embed {
   position: relative;
