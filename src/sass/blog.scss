@@ -440,23 +440,26 @@ article {
 		&.embed-code {
 
 			.product-links {
-				display:flex;
-				align-items:end;
-				gap:15px;
-				margin:-10px 0 40px 0;
-
+				
 				&:before {
-					content: attr(data-title) ":";
+					content: attr(data-title) "";
 					display: block;
 					font-weight: bold;
 					border-bottom: solid 2px $light-gray;
 					padding: 0 0 5px 0;
 				}
 
-				.amz-embed {
-					position:relative;
-					height:60px;
-					overflow:hidden;
+				+ div {
+					display: flex;
+					align-items: end;
+					gap: 15px;
+					margin: -10px 0 40px 0;
+
+					.amz-embed {
+						position:relative;
+						height:60px;
+						overflow:hidden;
+					}
 				}
 			}
 
