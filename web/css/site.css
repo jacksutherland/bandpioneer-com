@@ -1570,8 +1570,8 @@ article .blog-info ul li span {
 .blog h1 {
   text-transform: capitalize;
   margin: 25px 0;
-  font-size: 2.1rem;
-  line-height: 3.2rem;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
   letter-spacing: 0.04rem;
 }
 .blog h1 + h2 {
@@ -1668,6 +1668,10 @@ article .blog-info ul li span {
   }
 }
 @media (min-width: 576px) {
+  .blog h1 {
+    font-size: 2.1rem;
+    line-height: 3.2rem;
+  }
   .blog .blog-posts {
     grid-template-columns: 1fr 1fr;
   }

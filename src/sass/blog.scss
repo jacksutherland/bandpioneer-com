@@ -503,8 +503,10 @@ article {
 		margin: 25px 0;
 
 		// Michroma Google Font
-		font-size: 2.1rem;
-    	line-height: 3.2rem;
+		// font-size: 2.1rem;
+    	// line-height: 3.2rem;
+    	font-size: 1.8rem;
+    	line-height: 2.8rem;
 
     	letter-spacing: 0.04rem;
 
@@ -643,6 +645,10 @@ article {
 
 @media (min-width: $breakpoint-sm) {
 	.blog {
+		h1 {
+			font-size: 2.1rem;
+    		line-height: 3.2rem;
+		}
 		.blog-posts {
 			grid-template-columns: 1fr 1fr;
 		}
