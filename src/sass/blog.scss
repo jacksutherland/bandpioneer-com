@@ -89,6 +89,17 @@
 
 address[rel="author"] {
 	font-size: $font-size-small;
+	> a, > span {
+		display: grid;
+    	grid-template-columns: auto 1fr;
+    	align-items: center;
+	}
+	a {
+		color: $font-color;
+		&:hover {
+			color: $link-color;
+		}
+	}
 	img {
 		width: 40px !important;
 		height: 40px !important;
@@ -98,15 +109,6 @@ address[rel="author"] {
 	}
 	span {
 		vertical-align: sub;
-	}
-	a {
-		display: grid;
-    	grid-template-columns: auto 1fr;
-    	align-items: center;
-		color: $font-color;
-		&:hover {
-			color: $link-color;
-		}
 	}
 }
 

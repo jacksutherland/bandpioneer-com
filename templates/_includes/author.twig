@@ -4,7 +4,7 @@
 {% endif %}
 {% if blog.fullName | length %} 
 	<address rel="author">
-		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% endif %}
+		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% else %}<span>{% endif %}
 			{% if blog.writerPicture.count %}
 				{% set writerPic = blog.writerPicture.one() %}
 				<img src="{{ writerPic.url('writerPicture') }}" alt="{{ writerPic.title }}" title="{{ writerPic.title }}"{% if 'Band Pioneer' in writerPic.title %} style="border-radius:0;" {% endif %}>
@@ -16,6 +16,6 @@
 					<span>Updated on {{ blog.dateUpdated | date("M d, Y") }}</span>
 				{% endif %}
 			</span>
-		{% if showLink and blog.websiteUrl %}</a>{% endif %}
+		{% if showLink and blog.websiteUrl %}</a>{% else %}</span>{% endif %}
 	</address>
 {% endif %}

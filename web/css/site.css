@@ -1264,6 +1264,17 @@ form.contact-form .errors {
 address[rel=author] {
   font-size: 0.875rem;
 }
+address[rel=author] > a, address[rel=author] > span {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+address[rel=author] a {
+  color: #4f4f4f;
+}
+address[rel=author] a:hover {
+  color: #0a79a4;
+}
 address[rel=author] img {
   width: 40px !important;
   height: 40px !important;
@@ -1273,15 +1284,6 @@ address[rel=author] img {
 }
 address[rel=author] span {
   vertical-align: sub;
-}
-address[rel=author] a {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  color: #4f4f4f;
-}
-address[rel=author] a:hover {
-  color: #0a79a4;
 }
 
 /******************************/
