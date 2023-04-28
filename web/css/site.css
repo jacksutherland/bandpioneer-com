@@ -1269,12 +1269,15 @@ address[rel=author] img {
   height: 40px !important;
   border-radius: 20px;
   vertical-align: middle;
-  margin: 0 5px 0 0;
+  margin: 0 7px 0 0;
 }
 address[rel=author] span {
   vertical-align: sub;
 }
 address[rel=author] a {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
   color: #4f4f4f;
 }
 address[rel=author] a:hover {
@@ -1598,7 +1601,7 @@ article .blog-info ul li span {
   display: inline;
 }
 .blog address {
-  margin: -5px 0 25px 0;
+  margin: -5px 0 15px 0;
 }
 
 /*************************/
