@@ -5,7 +5,7 @@
 {% set entry = { slug: 'search-results', title: 'Search', metaTitle: 'AI-Powered Search', section: { handle: 'searchResults' } } %}
 {% set searchQuery = craft.app.request.getQueryParam('q') ?? '' %}
 
-{% paginate craft.entries.section('blog').search({query: searchQuery}).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+{% paginate craft.entries.section('blog').search({query: searchQuery}).limit(postsPerPage).orderBy('score') as pageInfo, posts %}
 
 {% set chatQuery = '' %}
 {% if (pageInfo.currentPage == 1) and (searchQuery | split(' ') | length > 1) %}
