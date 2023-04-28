@@ -406,8 +406,8 @@ let BandPioneer = {
 
 		loadSearchResponse(searchQuery, numberOfResults)
 		{
-			const minDelay = 2000;
-			const maxDelay = 5000;
+			const minDelay = 1000;
+			const maxDelay = 3500;
 
 			this.aiSearchQuery(searchQuery, numberOfResults);
 
