@@ -1,6 +1,6 @@
 {% set bands = craft.entries.section('bands').orderBy('lft ASC') %}
 {% if bands.count %}
-	{% cache globally %}
+	{% cache %}
 		<section class="bands">
 			<div class="band-carousel">
 				<div class="band-slider">
