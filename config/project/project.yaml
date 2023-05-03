@@ -1,4 +1,4 @@
-dateModified: 1682536456
+dateModified: 1683117847
 elementSources:
   craft\elements\Asset:
     -
@@ -118,6 +118,15 @@ elementSources:
         - dateUpdated
       type: native
     -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:63d793d3-b3e1-4701-9042-5ad2e0cde7df' # Roles
+      tableAttributes:
+        - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
+      type: native
+    -
       heading: Rockstars
       type: heading
     -
@@ -203,6 +212,7 @@ meta:
     30fa7a57-b433-476a-9e42-ca0ad4755591: Image # Image
     37ff1ae6-ced2-4eaf-b107-93e6e3dd94be: 'Band Image' # Band Image
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
+    63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Video # Video
     68b78cac-18bc-49d2-a702-d76dfdfcfc89: 'Band Carousel Small' # Band Carousel Small
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
@@ -236,6 +246,7 @@ meta:
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
     b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
+    b9eaa895-752b-4102-8fac-49d7662c399d: Default # Default
     bc9d16b4-6012-428a-b78c-758da4e7c8e9: 'Blog Image Mobile' # Blog Image Mobile
     c021f2dc-243d-458f-b0b4-c00db3a1a673: 'Blog Post Mobile' # Blog Post Mobile
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post

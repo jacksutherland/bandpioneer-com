@@ -1,0 +1,98 @@
+{% extends '/_layout' %}
+
+{% set versionNumber = 1.01 %}
+{% set pageTitle = "Choose Your Own Adventure" %}
+{% set entry = { slug: 'my-dventure', title: 'Choose Your Own Adventure', section: { handle: 'choose-your-own-dventure' } } %}
+
+{% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
+{% set roles = craft.entries.section('roles') %}
+
+{% block scripts %}
+	<script defer src="{{ url('js/adventure.min.js') }}?version={{ versionNumber }}"></script>
+	<script defer type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function()
+        {
+			new Adventure();
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+	
+	<div id="filters" class="categories">
+		<div class="container">
+			<nav role="navigation" aria-label="Primary Navigation">
+				<ul>
+					<li>
+						<label class="underline" data-filter="#filter-roles">1. Select a Role</label>
+					</li>
+					<li>
+						<label class="underline" data-filter="#filter-skills">2. Skill Level</label>
+					</li>
+					<li>
+						<label class="underline" data-filter="#filter-goals">3. Choose a Goal</label>
+					</li>
+					<li>
+						<label class="underline" data-filter="load-data">4. Go!</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<div id="category-description"{% if initialRole | length %} class="show"{% endif %}>
+			<div class="container">
+				<a id="close-filters" href="/" class="close-menu">
+   					{% include '_includes/icons' with { type: 'close' } %}
+  				</a>
+				<div id="filter-roles" class="filter-group{% if initialRole | length %} show{% endif %}">
+					<div class="filter-description">
+						<h4>Step 1: What Is Your Role in the Band?</h4>
+						<em>(Choose up to 3)</em>
+					</div>
+					<div class="filter-inputs" data-max="3">
+						{% for role in roles.all() %}
+							<label>
+								<input name="filter-roles" type="checkbox" value="{{ role.slug }}"{% if role.slug == initialRole %} checked="checked"{% endif %}>
+								<span>{{ role.title }}</span>
+							</label>
+						{% endfor %}
+					</div>
+				</div>
+				<div id="filter-skills" class="filter-group">
+					<div class="filter-description">
+						<h4>Step 2: What Is Your Skill Level?</h4>
+					</div>
+					<div class="filter-inputs" data-max="1">
+						<label><input name="filter-skill" type="checkbox" value="beginner">
+							<span>Beginner</span>
+							<em>(Little or no experience. You're just getting started)</em>
+						</label>
+						<br>
+						<label><input name="filter-skill" type="checkbox" value="intermediate">
+							<span>Intermediate</span>
+							<em>(Foundational skills. You're a competent performer)</em>
+						</label>
+						<br>
+						<label><input name="filter-skill" type="checkbox" value="professional">
+							<span>Professional</span>
+							<em>(Working musician, with extensive experience or formal training)</em>
+						</label>
+					</div>
+				</div>
+				<div id="filter-goals" class="filter-group">
+					<div class="filter-description">
+						<h4>What Are Your Primary Goals with Music?</h4>
+						<em>(Choose up to 2)</em>
+					</div>
+					<div class="filter-inputs" data-max="2">
+						<label><input name="filter-goals" type="checkbox" value="skill"><span>Improve Your Skill</span></label>
+						<label><input name="filter-goals" type="checkbox" value="finance"><span>Make More Money</span></label>
+						<label><input name="filter-goals" type="checkbox" value="marketing"><span>Market and Promote</span></label>
+						<label><input name="filter-goals" type="checkbox" value="social-media"><span>Social Media Influence</span></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

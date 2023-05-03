@@ -6,6 +6,8 @@
 
 let BandPioneer = {
 
+	ADVENTURE_DATA_KEY: 'BandPioneer-adventure-data',
+
 	each: function(elements, callback)
 	{
 		// Helper function to loop through a collection
@@ -45,6 +47,12 @@ let BandPioneer = {
 			this.addMenuEvents();
 			this.addSearchEvents();
 			this.questionValidation();
+
+			const data = JSON.parse(localStorage.getItem(BandPioneer.ADVENTURE_DATA_KEY));
+			if(data !== null)
+			{
+				document.getElementById('adventure-menu').classList.add('data-loaded');
+			}
 		}
 
 		isHTML(str)
@@ -191,7 +199,6 @@ let BandPioneer = {
 			let childMenus = menu.querySelectorAll('.dropdown-menu');
 			let open = document.querySelector('#open-menu');
 			let close = document.querySelector('#close-menu');
-
 			let categoryMenu = document.querySelector('#category-menu');
 			let categories = document.querySelectorAll('#category-menu nav ul li a');
 
@@ -277,7 +284,6 @@ let BandPioneer = {
 					}.bind({ catDesc: categoryDescription, catId: this.dataset.id }), 500);
 				});
 			});
-
 		}
 
 		addSearchEvents()

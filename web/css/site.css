@@ -142,13 +142,15 @@ a {
 a:hover {
   color: #f90215;
 }
-a.underline {
+
+a.underline, label.underline {
+  cursor: pointer;
   text-decoration: none;
   color: #0a79a4;
   transition: color 0.3s ease-in-out;
   position: relative;
 }
-a.underline:after {
+a.underline:after, label.underline:after {
   transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
   position: absolute;
   bottom: -7px;
@@ -159,10 +161,10 @@ a.underline:after {
   display: block;
   background-color: #f90215;
 }
-a.underline:hover {
+a.underline:hover, label.underline:hover {
   color: #f90215;
 }
-a.underline:hover:after {
+a.underline:hover:after, label.underline:hover:after {
   left: 0;
   width: 100%;
 }
@@ -471,12 +473,31 @@ header.site-header .container nav.main-menu ul li.dropdown-menu ul:before {
   left: 50%;
   transform: translateX(-50%);
 }
+header.site-header .container nav.main-menu ul li.dropdown-menu ul.data-loaded li {
+  display: none;
+}
+header.site-header .container nav.main-menu ul li.dropdown-menu ul.data-loaded li.data-loaded {
+  display: block;
+}
 header.site-header .container nav.main-menu ul li.dropdown-menu ul li {
   display: block;
   margin: 10px 0;
 }
+header.site-header .container nav.main-menu ul li.dropdown-menu ul li.data-loaded {
+  display: none;
+}
 header.site-header .container nav.main-menu ul li.dropdown-menu ul li a {
   white-space: nowrap;
+}
+header.site-header .container nav.main-menu ul li.dropdown-menu ul li h4 {
+  margin: 0;
+  white-space: nowrap;
+  color: #FFFFFF;
+}
+header.site-header .container nav.main-menu ul li.dropdown-menu ul li h4 + span {
+  display: inline-block;
+  margin: 0 0 10px 0;
+  color: #FFFFFF;
 }
 header.site-header .container nav.main-menu ul li a {
   color: #FFFFFF;
@@ -564,6 +585,157 @@ header.sticky {
   height: 100%;
 }
 
+.categories {
+  margin: 0 0 40px 0;
+  background-color: #e7ebec;
+}
+.categories nav ul {
+  text-align: center;
+}
+.categories nav ul li {
+  margin: 0;
+  display: inline-block;
+}
+.categories nav ul li a,
+.categories nav ul li label {
+  border-radius: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  color: #5c5c5c;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  position: relative;
+  padding: 0 15px;
+}
+.categories nav ul li a:hover,
+.categories nav ul li label:hover {
+  color: #0a79a4;
+}
+.categories nav ul li a:after,
+.categories nav ul li label:after {
+  position: absolute;
+  right: 0;
+  height: 3px;
+  bottom: 0;
+  z-index: 0;
+  background-color: #0a79a4;
+}
+.categories nav ul li a.active,
+.categories nav ul li label.active {
+  color: #131b28;
+  cursor: default;
+}
+.categories nav ul li a.active:after,
+.categories nav ul li label.active:after {
+  display: none;
+}
+.categories nav ul li a span,
+.categories nav ul li label span {
+  z-index: 1;
+}
+.categories #category-description {
+  display: flex;
+  align-items: center;
+  background-color: #f5f7f7;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #45adda;
+  color: #FFFFFF;
+}
+.categories #category-description.show {
+  height: 130px;
+  opacity: 1;
+}
+.categories #category-description .container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.categories #category-description .container h3 {
+  margin: -5px 0 10px 0;
+  color: #FFFFFF;
+}
+.categories #category-description .container a {
+  color: #FFFFFF;
+}
+.categories#filters nav ul li {
+  display: block;
+}
+.categories#filters nav ul li label {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  height: 40px;
+}
+.categories#filters #category-description {
+  position: relative;
+}
+.categories#filters #category-description.show {
+  height: auto;
+  padding: 20px 0;
+}
+.categories#filters #category-description .container {
+  width: 100%;
+}
+.categories#filters #category-description .close-menu {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  height: 18px;
+  width: 18px;
+  fill: #FFFFFF;
+}
+.categories#filters #category-description .filter-group {
+  display: none;
+}
+.categories#filters #category-description .filter-group.show {
+  display: block;
+}
+.categories#filters #category-description .filter-group .filter-description {
+  margin: 0 0 10px 0;
+}
+.categories#filters #category-description .filter-group .filter-description h4 {
+  display: block;
+  margin: 0 0 -5px 0;
+  color: #FFFFFF;
+}
+.categories#filters #category-description .filter-group .filter-description em {
+  opacity: 0.75;
+}
+.categories#filters #category-description .filter-group .filter-inputs label {
+  cursor: pointer;
+}
+.categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox] {
+  display: none;
+}
+.categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox]:checked + span {
+  color: #f90215;
+}
+.categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox] + span {
+  display: inline-block;
+  margin: 5px 15px;
+  font-weight: 600;
+}
+
+@media (min-width: 576px) {
+  .categories#filters nav ul li {
+    display: inline-block;
+  }
+  .categories#filters nav ul li label {
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    height: 60px;
+  }
+}
 footer {
   background-color: #131b28;
   padding: 80px 0;
@@ -1186,81 +1358,6 @@ form.contact-form .errors {
     height: 500px;
   }
 }
-.categories {
-  margin: 0 0 40px 0;
-  background-color: #e7ebec;
-}
-.categories nav ul {
-  text-align: center;
-}
-.categories nav ul li {
-  margin: 0;
-  display: inline-block;
-}
-.categories nav ul li a {
-  border-radius: 20px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  color: #5c5c5c;
-  font-size: 0.875rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  height: 60px;
-  position: relative;
-  padding: 0 15px;
-}
-.categories nav ul li a:hover {
-  color: #0a79a4;
-}
-.categories nav ul li a:after {
-  position: absolute;
-  right: 0;
-  height: 3px;
-  bottom: 0;
-  z-index: 0;
-  background-color: #0a79a4;
-}
-.categories nav ul li a.active {
-  color: #131b28;
-  cursor: default;
-}
-.categories nav ul li a.active:after {
-  display: none;
-}
-.categories nav ul li a span {
-  z-index: 1;
-}
-.categories #category-description {
-  display: flex;
-  align-items: center;
-  background-color: #f5f7f7;
-  text-align: center;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  overflow: hidden;
-  height: 0;
-  opacity: 0;
-  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  background-color: #45adda;
-  color: #FFFFFF;
-}
-.categories #category-description.show {
-  height: 130px;
-  opacity: 1;
-}
-.categories #category-description .container {
-  max-width: 800px;
-}
-.categories #category-description .container h3 {
-  margin: -5px 0 10px 0;
-  color: #FFFFFF;
-}
-.categories #category-description .container a {
-  color: #FFFFFF;
-}
-
 address[rel=author] {
   font-size: 0.875rem;
 }

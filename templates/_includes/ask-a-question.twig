@@ -4,7 +4,9 @@
     {# {% else %}
         <h2>{{ headline }}</h2> #}
     {% endif %}
-    <h2>{{ subheadline }}</h2>
+    {% if subheadline | length %}
+        <h2>{{ subheadline }}</h2>
+    {% endif %}
     <p>{{ text | nl2br }}</p>
     {% if showButton %}
         {% if ctaUrl == 'http://ai-api' %}
@@ -15,5 +17,12 @@
         {% else %}
             <a class="btn" href="{{ ctaUrl }}">Ask a Question</a>
         {% endif %}
+    {% endif %}
+    {% if subheadline | length == 0 %}
+        <h2>Or, Start Your Own Adventure!</h2>
+        <form action="/bands/my-adventure" method="get">
+            <input type="text" name="q" placeholder="Enter a Question (i.e. What is the best bass guitar?)">
+            <button type="submit" class="btn">Go!</button>
+        </form>
     {% endif %}
 </div>

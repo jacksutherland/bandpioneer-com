@@ -1,7 +1,7 @@
 {% extends '_layout' %}
 {% import '_includes/macros' as macros %}
 
-{% set pageTitle = entry.title %}
+{% set pageTitle = entry.headline %}
 {% set postsPerPage = 8 %}
 {% set categories = craft.entries.section('category') %}
 
@@ -18,13 +18,13 @@
 	{% include '_includes/categories' with { categories: categories } %}
 	<div class="container">
 
-		{% if entry.headline | length > 0 or entry.shortDescription | length > 0 %}
+		{% if entry.subheadline | length > 0 or entry.shortDescription | length > 0 %}
 
 			{% cache %}
 			<div class="page container">
 				<section class="description">
-					{% if entry.headline | length > 0 %}
-						<h2><span>{{ entry.headline }}</span></h2>
+					{% if entry.subheadline | length > 0 %}
+						<h2><span>{{ entry.subheadline }}</span></h2>
 					{% endif %}
 					{% if entry.shortDescription | length > 0 %}
 						<div class="narrow-container">
