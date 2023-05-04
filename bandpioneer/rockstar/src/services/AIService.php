@@ -28,6 +28,8 @@ use Tectalic\OpenAi\Manager;
  */
 class AIService extends Component
 {
+    const AI_MODEL = 'gpt-3.5-turbo'; // gpt-3.5-turbo text-davinci-003 text-davinci-002
+
     public function chatQuery($question)
     {
         $auth = new Authentication(getenv('OPENAI_API_KEY'));
@@ -36,7 +38,7 @@ class AIService extends Component
 
         $response = $client->chatCompletions()->create(
             new \Tectalic\OpenAi\Models\ChatCompletions\CreateRequest([
-                'model' => 'gpt-3.5-turbo',
+                'model' => self::AI_MODEL,
                 'messages' => [
                     [
                         'role' => 'user',

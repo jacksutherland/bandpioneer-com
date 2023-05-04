@@ -1,28 +1,37 @@
+{% apply spaceless %}
 {% set searchQuery = craft.app.request.getQueryParam('q') ?? '' %}
 {% set numberOfResults = craft.app.request.getQueryParam('results') ?? 0 %}
+{% set charLimit = craft.app.request.getQueryParam('limit') ?? 0 %}
+{% set renderHTML = craft.app.request.getQueryParam('html') == 'true' %}
 
 {# {% set chatQuery = 'A music distribution service is a platform that helps music artists and record labels distribute their music to various digital stores and streaming platforms. It provides a way for independent artists to get their music out to the public without the need for a major record label. Some examples of music distribution services include DistroKid, TuneCore, and CD Baby. These services typically charge a fee for their services but offer a range of features such as global distribution, revenue sharing, and artist support.' %} #}
 
 {% if searchQuery | length > 1 %}
-	{% set chatQuery =  craft.bands.chatQuery('Limit your response to 1000 characters or less: ' ~ searchQuery) %}
+	{% if charLimit | length > 1 %}
+		{% set chatQuery = craft.bands.chatQuery('Limit your response to ' ~ charLimit ~ ' characters or less: ' ~ searchQuery) %}
+	{% else %}
+		{% set chatQuery = craft.bands.chatQuery(searchQuery) %}
+	{% endif %}
 {% else %}
 	{% set chatQuery = '' %}
 {% endif %}
 
 {% if chatQuery | length %}
+	{% if renderHTML %}
 	<p>
-	{# 	{% if chatQuery starts with "As an AI language model" %}
-			{% set chatQuery = chatQuery | replace('/^As an AI language model[^.]*\\./', '') %}
-		{% endif %} #}
 		{{ chatQuery | nl2br }}
-		<br><br>
-		{% if numberOfResults > 0 %}
-			For a more in-depth analysis of this, please see the <a href="#related-articles">related articles listed below</a>.
+		{% if charLimit | length > 1 %}
 			<br><br>
-		{% else %}
-			No articles were found related to your question. If you'd like us to look into it, <a href="/contact?ask=question">contact us and let us know</a>, and we'll get one of our specialists on it.
-			<br><br>
+			{% if numberOfResults > 0 %}
+				For a more in-depth analysis of this, please see the <a href="#related-articles">related articles listed below</a>.
+				<br><br>
+			{% else %}
+				No articles were found related to your question. If you'd like us to look into it, <a href="/contact?ask=question">contact us and let us know</a>, and we'll get one of our specialists on it.
+				<br><br>
+			{% endif %}
+			<span class="dark-gray-color"><i>- AI Response (Powered by Chat GPT)</i></span>
 		{% endif %}
-		<span class="dark-gray-color"><i>- AI Response (Powered by Chat GPT)</i></span>
 	</p>
+	{% else %}{{ chatQuery | nl2br }}{% endif %}
 {% endif %}
+{% endapply %}

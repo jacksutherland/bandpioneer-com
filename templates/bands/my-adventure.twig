@@ -1,6 +1,9 @@
 {% extends '/_layout' %}
 
 {% set versionNumber = 1.01 %}
+{% set maxRoles = 3 %}
+{% set maxSkills = 1 %}
+{% set maxGoals = 2 %}
 {% set pageTitle = "Choose Your Own Adventure" %}
 {% set entry = { slug: 'my-dventure', title: 'Choose Your Own Adventure', section: { handle: 'choose-your-own-dventure' } } %}
 
@@ -12,7 +15,7 @@
 	<script defer type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function()
         {
-			new Adventure();
+			new Adventure({% if initialRole | length %}true{% else %}false{% endif %}, {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }});
 		});
 	</script>
 {% endblock %}
@@ -48,10 +51,10 @@
 						<h4>Step 1: What Is Your Role in the Band?</h4>
 						<em>(Choose up to 3)</em>
 					</div>
-					<div class="filter-inputs" data-max="3">
+					<div class="filter-inputs" data-max="{{ maxRoles }}">
 						{% for role in roles.all() %}
 							<label>
-								<input name="filter-roles" type="checkbox" value="{{ role.slug }}"{% if role.slug == initialRole %} checked="checked"{% endif %}>
+								<input name="filterRoles" type="checkbox" value="{{ role.slug }}"{% if role.slug == initialRole %} checked="checked"{% endif %}>
 								<span>{{ role.title }}</span>
 							</label>
 						{% endfor %}
@@ -61,18 +64,18 @@
 					<div class="filter-description">
 						<h4>Step 2: What Is Your Skill Level?</h4>
 					</div>
-					<div class="filter-inputs" data-max="1">
-						<label><input name="filter-skill" type="checkbox" value="beginner">
+					<div class="filter-inputs" data-max="{{ maxSkills }}">
+						<label><input name="filterSkill" type="checkbox" value="beginner">
 							<span>Beginner</span>
 							<em>(Little or no experience. You're just getting started)</em>
 						</label>
 						<br>
-						<label><input name="filter-skill" type="checkbox" value="intermediate">
+						<label><input name="filterSkill" type="checkbox" value="intermediate">
 							<span>Intermediate</span>
 							<em>(Foundational skills. You're a competent performer)</em>
 						</label>
 						<br>
-						<label><input name="filter-skill" type="checkbox" value="professional">
+						<label><input name="filterSkill" type="checkbox" value="professional">
 							<span>Professional</span>
 							<em>(Working musician, with extensive experience or formal training)</em>
 						</label>
@@ -83,16 +86,32 @@
 						<h4>What Are Your Primary Goals with Music?</h4>
 						<em>(Choose up to 2)</em>
 					</div>
-					<div class="filter-inputs" data-max="2">
-						<label><input name="filter-goals" type="checkbox" value="skill"><span>Improve Your Skill</span></label>
-						<label><input name="filter-goals" type="checkbox" value="finance"><span>Make More Money</span></label>
-						<label><input name="filter-goals" type="checkbox" value="marketing"><span>Market and Promote</span></label>
-						<label><input name="filter-goals" type="checkbox" value="social-media"><span>Social Media Influence</span></label>
+					<div class="filter-inputs" data-max="{{ maxGoals }}">
+						<label><input name="filterGoals" type="checkbox" value="improve my skill"><span>Improve Your Skill</span></label>
+						<label><input name="filterGoals" type="checkbox" value="make money with music"><span>Make More Money</span></label>
+						<label><input name="filterGoals" type="checkbox" value="market and promote my music"><span>Market and Promote</span></label>
+						<label><input name="filterGoals" type="checkbox" value="influence on social media"><span>Social Media Influence</span></label>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<div class="page container">
+		<div>
+			<section class="description">
+				<h2><span id="intro-role"></span></h2>
+				<div class="narrow-container">
+					<p id="intro-description"></p>
+					<div id="intro-spinner">
+						{% include '_includes/icons' with { type: 'spinner' } %}
+					</div>
+				</div>
+				<div id="intro-tips">
+					{% include '_includes/icons' with { type: 'spinner' } %}
+				</div>
+			</section>
+		</div>
+	</div>
 
 {% endblock %}

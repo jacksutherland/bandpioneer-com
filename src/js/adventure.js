@@ -2,11 +2,35 @@ class Adventure
 {
 	// static DATA_KEY = 'BandPioneer-adventure-data';
 
-	constructor()
+	constructor(initNewUX = false, maxRoles, maxSkills, maxGoals)
 	{
+		this.dirtyFilters = false;
+
 		this.createFilters();
 
-		this.loadUXDataObj();
+		// Load data stored in local storage
+
+		const filtersLoaded = this.loadCachedFilters();
+
+		// Since roles are checked in JS and TWIG, make sure the max is validated
+
+		const checkedRoles = document.querySelectorAll('input[name="filter-roles"]:checked');
+		if(checkedRoles.length > maxRoles)
+		{	
+			const idx = window.location.href.includes(checkedRoles[0].value) ? checkedRoles.length - 1 : 0;
+			checkedRoles[idx].checked = false;
+		}
+
+		// Save data to local storage if starting a new adventure
+
+		if(initNewUX && filtersLoaded)
+		{
+			this.saveFilterData();
+		}
+
+		// load dynamic UX data from local storage or AI
+
+		this.loadAIContent();
 	}
 
 	/*
@@ -14,43 +38,87 @@ class Adventure
 	 */
 	static get data()
 	{
-		return new Adventure().getData();
+		return new Adventure().getCachedData();
 	}
 
 	/*
 	 * Gets data from local storage
 	 */
-	getData()
+	getCachedData()
 	{
-		// const data = localStorage.getItem(Adventure.DATA_KEY);
-		const data = localStorage.getItem(BandPioneer.ADVENTURE_DATA_KEY);
-		return JSON.parse(data);
+		let obj = {
+			filters: {},
+			ai: {}
+		};
+
+		if(this.hasOwnProperty('filterData'))
+		{
+			obj.filters = this.filterData;
+		}
+		else
+		{
+			const storedFilters = localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY);
+			obj.filters = JSON.parse(storedFilters) ?? {};
+		}
+
+		if(this.hasOwnProperty('aiData'))
+		{
+			obj.ai = this.aiData;
+		}
+		else
+		{
+			const storedAIData = localStorage.getItem(BandPioneer.ADVENTURE_AI_KEY);
+			obj.ai = JSON.parse(storedAIData) ?? {};
+		}
+
+		return obj;
 	}
 
 	/*
-	 * Saves data to local storage
+	 * Saves filter data to local storage
 	 */
-	saveData()
+	saveFilterData()
 	{
-		const data = this.getUXDataObj();
-		// localStorage.setItem(Adventure.DATA_KEY, JSON.stringify(data));
-		localStorage.setItem(BandPioneer.ADVENTURE_DATA_KEY, JSON.stringify(data));
+		const data = this.getDataObjFromUX();
+
+		if (Object.keys(data).length === 0)
+		{
+			localStorage.removeItem(BandPioneer.ADVENTURE_FILTER_KEY);
+			localStorage.removeItem(BandPioneer.ADVENTURE_AI_KEY);
+		}
+		else
+		{
+			localStorage.setItem(BandPioneer.ADVENTURE_FILTER_KEY, JSON.stringify(data));
+		}
+	}
+
+	/*
+	 * Saves AI data to local storage
+	 */
+	saveAIData(title, intro)
+	{
+		const obj = {
+			intro: intro,
+			title: title
+		}
+
+		localStorage.setItem(BandPioneer.ADVENTURE_AI_KEY, JSON.stringify(obj));
 	}
 
 	/*
 	 * Returns a JS object from UX input selections
 	 */
-	getUXDataObj()
+	getDataObjFromUX()
 	{
-		const inputs = document.querySelectorAll('input[name="filter-roles"], input[name="filter-skill"], input[name="filter-goals"]');
+		const inputs = document.querySelectorAll('input[name="filterRoles"], input[name="filterSkill"], input[name="filterGoals"]');
 
 		const obj = Array.from(inputs).reduce((result, input) => {
-			if (!result.hasOwnProperty(input.name))
-			{
-				result[input.name] = [];
-			}
 			if(input.checked)
 			{
+				if (!result.hasOwnProperty(input.name))
+				{
+					result[input.name] = [];
+				}
 				result[input.name].push(input.value);
 			}
 			return result;
@@ -62,17 +130,17 @@ class Adventure
 	/*
 	 * Loads data from local storage into the UX
 	 */
-	loadUXDataObj()
+	loadCachedFilters()
 	{
-		const obj = this.getData();
+		const filters = this.getCachedData().filters;
 
-		if(obj !== null)
+		if (Object.keys(filters).length > 0)
 		{
-			for (const key in obj)
+			for (const key in filters)
 			{
-				if (obj.hasOwnProperty(key))
+				if (filters.hasOwnProperty(key))
 				{
-					obj[key].forEach((value) => {
+					filters[key].forEach((value) => {
 				
 						const input = document.querySelector(`input[name="${key}"][value="${value}"]`);
 
@@ -83,12 +151,122 @@ class Adventure
 					});
 				}
 			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	async aiRequest(query, callback)
+	{
+		const response = await BandPioneer.aiQuery(query);
+
+		if(typeof(callback) === 'function')
+		{
+			callback(response);
+		}
+		else
+		{
+			return response;
 		}
 	}
 
-	loadAI()
+	loadAIContent(reloadAI = false)
 	{
-		alert('load AI...');
+		const obj = this;
+		const cachedData = this.getCachedData();
+
+		if (!reloadAI && cachedData.ai.hasOwnProperty('title') && cachedData.ai.hasOwnProperty('intro'))
+		{
+			// load it from cache
+			document.getElementById('intro-role').innerHTML = cachedData.ai.title;
+			document.getElementById('intro-description').innerHTML = cachedData.ai.intro;
+		}
+		else
+		{
+			let introQuery = "I am a ";
+			let roles = "musician";
+			let goals = [];
+
+			if (cachedData.filters.hasOwnProperty('filterSkill'))
+			{
+				introQuery += (cachedData.filters.filterSkill.join(" to ") + " ");
+			}
+
+			if (cachedData.filters.hasOwnProperty('filterRoles'))
+			{
+				roles = cachedData.filters.filterRoles.join(" and ");
+				
+			}
+			introQuery += (roles + " ");
+
+			if (cachedData.filters.hasOwnProperty('filterGoals'))
+			{
+				goals = cachedData.filters.filterGoals;
+				introQuery += ("with goals to " + goals.join(" and ") + ". ");
+			}
+
+			document.getElementById('intro-role').innerText = 'Creating Your Music Persona';
+			document.getElementById('intro-description').innerHTML = '<h4>Something magical is happening!</h4>Through the power of BandPioneer and AI we are customizing this content, specifically for you...';
+			document.querySelector('#intro-spinner svg').style.display = 'inline';
+
+			(async () => {
+				
+				// load it from ai
+			  	
+			  	const titleResponse = await BandPioneer.aiQuery(`${introQuery} Create a job title for me using my roles or instruments. It must be less than 50 characters.`);
+			  	const introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
+
+				if(goals.length > 0)
+				{
+					function getAIGoal(idx)
+					{
+						let goalQuery = `I am a ${roles}. How can I ${goals[idx]}?`;
+
+						obj.aiRequest(goalQuery, function(response)
+						{
+							let tipsHtml = document.getElementById('intro-tips').innerHTML;
+							tipsHtml += `<h4>${this.goal}</h4><p>${response}</p>`;
+							document.getElementById('intro-tips').innerHTML = tipsHtml;
+							if(++idx < goals.length)
+							{
+								getAIGoal(idx);
+							}
+						}.bind({idx:idx, goal:goals[idx]}));
+					}
+
+					getAIGoal(0);
+				}
+
+			  	document.querySelector('#intro-spinner svg').style.display = 'none';
+				
+				if(titleResponse !== "error" )
+				{
+					document.getElementById('intro-role').innerHTML = titleResponse.trim();
+				}
+				if(introResponse !== "error" )
+				{
+					document.getElementById('intro-description').innerHTML = introResponse.trim();
+
+					obj.saveAIData(titleResponse, introResponse);
+				}
+				else
+				{
+					document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
+				}
+				
+				obj.dirtyFilters = false;
+			})();		
+		}
+	}
+
+	filtersUpdated()
+	{
+		if(this.dirtyFilters)
+		{
+			this.loadAIContent(true);
+		}
 	}
 
 	/*
@@ -108,6 +286,7 @@ class Adventure
 			{
 				e.preventDefault();
 				this.classList.remove('show');
+				obj.filtersUpdated();
 
 			}.bind(categoryDescription));
 
@@ -118,7 +297,7 @@ class Adventure
 					if(e.target.dataset.filter === 'load-data')
 					{
 						this.classList.remove('show');
-						obj.loadAI();
+						obj.filtersUpdated();
 					}
 					else
 					{
@@ -143,6 +322,9 @@ class Adventure
 					target1.addEventListener('change', function(e)
 					{
 						e.preventDefault();
+
+						obj.dirtyFilters = true;
+
 						const checked = Array.from(this.inputs).filter(function(checkbox)
 						{
 								return checkbox.checked;
@@ -165,7 +347,7 @@ class Adventure
 								}.bind(this));
 							}
 						}
-						obj.saveData();
+						obj.saveFilterData();
 					}.bind(this));
 				}.bind({inputs: this.filterInputs, max: filterMax}));
 			});

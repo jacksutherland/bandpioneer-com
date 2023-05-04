@@ -6,7 +6,11 @@
 
 let BandPioneer = {
 
-	ADVENTURE_DATA_KEY: 'BandPioneer-adventure-data',
+	ADVENTURE_FILTER_KEY: 'BandPioneer-3xp3d1t10n-filters',
+
+	ADVENTURE_AI_KEY: 'BandPioneer-3xp3d1t10n-ai',
+
+	AI_URL: '/api/chat-query',
 
 	each: function(elements, callback)
 	{
@@ -26,6 +30,38 @@ let BandPioneer = {
 
 		return typeof(obj[Symbol.iterator]) === "function"
 			? obj : [obj];
+	},
+
+	aiQuery: async function(searchQuery)
+	{
+		if(searchQuery.trim().length > 0)
+		{
+			const url = BandPioneer.AI_URL + "?q=" + searchQuery; // &limit=1000 for limiting character count
+
+			try {
+				const response = await fetch(url);
+				if (response.ok)
+				{
+					return await response.text();
+				}
+				else
+				{
+					// console.error('response');
+					// console.error(await response.text());
+					throw new Error("Failed to fetch HTML");
+					return "error";
+				}
+			}
+			catch (error)
+			{
+				console.error("Error:", error);
+				return "error";
+			}
+		}
+		else
+		{
+			return "error";
+		}
 	},
 
 	Site: class
@@ -48,10 +84,14 @@ let BandPioneer = {
 			this.addSearchEvents();
 			this.questionValidation();
 
-			const data = JSON.parse(localStorage.getItem(BandPioneer.ADVENTURE_DATA_KEY));
+			const data = JSON.parse(localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY));
 			if(data !== null)
 			{
-				document.getElementById('adventure-menu').classList.add('data-loaded');
+				const adventureMenu = document.getElementById('adventure-menu');
+				if(adventureMenu != null)
+				{
+					document.getElementById('adventure-menu').classList.add('data-loaded');
+				}
 			}
 		}
 
@@ -435,7 +475,7 @@ let BandPioneer = {
 		{
 			if(searchQuery.trim().length > 0)
 			{
-				const url = "/api/chat-query?results=" + numberOfResults + "&q=" + searchQuery;
+				const url = BandPioneer.AI_URL + "?limit=1000&html=true&results=" + numberOfResults + "&q=" + searchQuery;
 				const responseContainer = document.getElementById("ai-response");
 
 				fetch(url).then((response) => {

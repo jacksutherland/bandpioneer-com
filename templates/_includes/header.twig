@@ -19,7 +19,7 @@
                     <a href="/" class="underline" title="Band Pioneer Homepage">Home</a>
                 </li>
                 <li class="hide-mobile dropdown-menu">
-                    <a class="underline" href="/about" title="About Band Pioneer">About {% include '_includes/icons' with { type: 'down' } %}</a>
+                    <a class="underline" title="About Band Pioneer">About {% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul>
                         <li>
                             <a class="underline" href="/about">About Us</a>
@@ -37,7 +37,7 @@
                 </li>
                 {% cache globally %}
                     <li class="hide-mobile dropdown-menu">
-                        <a class="underline" href="/" title="Blog Topics">Topics {% include '_includes/icons' with { type: 'down' } %}</a>
+                        <a class="underline" title="Blog Topics">Topics {% include '_includes/icons' with { type: 'down' } %}</a>
                         <ul>
                             {% for cat in categories.all() %}
                                 {% if cat.show %}
@@ -49,19 +49,16 @@
                         </ul>
                     </li>
                 {% endcache %}
-                <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Privacy Policy">EPK</a></li>
-                {# <li class="hide-mobile dropdown-menu">
-                    <a class="underline" href="/bands/my-adventure" title="Choose Your Own Adventure">Band Explorer {% include '_includes/icons' with { type: 'down' } %}</a>
+                {# <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Privacy Policy">EPK</a></li> #}
+                <li class="hide-mobile dropdown-menu">
+                    <a class="underline" title="Choose Your Own Adventure">Instruments{% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul id="adventure-menu">
-                        <li class="data-loaded">
-                            <a class="underline" href="/bands/my-adventure">Resume Your Adventure</a>
-                        </li>
                         <li>
                             <h4>Choose Your Own Adventure</h4>
                             <span>Pick your primary role?</span>
                         </li>
                         <li>
-                            <a class="underline" href="/bands/my-adventure?role=vocalist">Vocalist</a>
+                            <a class="underline" href="/bands/my-adventure?role=singer">Vocalist</a>
                         </li>
                         <li>
                             <a class="underline" href="/bands/my-adventure?role=guitarist">Guitarist</a>
@@ -72,8 +69,11 @@
                         <li>
                             <a class="underline" href="/bands/my-adventure?role=drummer">Drummer</a>
                         </li>
+                        <li class="data-loaded">
+                            <a class="underline" href="/bands/my-adventure">Resume Your Adventure</a>
+                        </li>
                     </ul>
-                </li> #}
+                </li>
                 <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li>
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% cache globally %}

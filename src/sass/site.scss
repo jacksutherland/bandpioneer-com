@@ -368,40 +368,31 @@ section {
 }
 
 #related-articles {
-	// height: auto;
-	// max-height: 0;
-	// overflow: hidden;
-	// transition: max-height $transition-default;
 	display: none;
 
 	&.loaded {
-		// height: auto;
-		// max-height: 4000px;
 		display: block;
+	}
+}
+
+svg.spinner {
+	animation: rotate 2s linear infinite;
+	width: 25px;
+	height: 25px;
+	display: none;
+
+	path {
+		fill: $dark-gray;
 	}
 }
 
 #ai-response {
 	height: auto;
-	// max-height: 100px;
-	// overflow: hidden;
-	// transition: max-height $transition-default;
-
-	// &.loaded {
-	// 	height: auto;
-	// 	max-height: 1000px;
-	// }
 
 	svg {
-		width: 25px;
-	    height: 25px;
-	    vertical-align: middle;
-	    margin: 0 0 0 20px;
-	    animation: rotate 2s linear infinite;
-
-	    path {
-	    	fill: $dark-gray;
-	    }
+		display: inline;
+	   vertical-align: middle;
+	   margin: 0 0 0 20px;
 	}
 }
 
@@ -569,7 +560,7 @@ header.site-header {
 
 							&.data-loaded {
 								li {
-									display: none;
+									// display: none;
 
 									&.data-loaded {
 										display: block;
@@ -842,9 +833,6 @@ header.sticky {
 					}
 				}
 				.filter-inputs {
-					// display: grid;
-					// grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-					// gap: 20px;
 					label {
 						cursor: pointer;
 						input[type=checkbox] {
@@ -852,7 +840,7 @@ header.sticky {
 
 							&:checked {
 								+ span {
-									color: $secondary-color;
+									color: darken($alternate-color, 5%);
 								}
 							}
 
@@ -1365,7 +1353,8 @@ form {
 
 @media (min-width: ($blog-width + $mobile-gutter-width + $mobile-gutter-width)) {
 	.container.page {
-		margin: $page-vertical-margin auto;
+		// margin: $page-vertical-margin auto;
+		margin: 0 auto;
 	}
 }
 
