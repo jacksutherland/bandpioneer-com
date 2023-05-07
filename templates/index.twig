@@ -10,9 +10,9 @@
 
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 {% if firstPageInfo.currentPage == 1 %}
-	{% if not craft.app.request.isMobileBrowser(false) %}
+	{# {% if not craft.app.request.isMobileBrowser(false) %} #}
 		{% set popularPosts = blog.popularPosts.orderBy('postDate DESC') %}
-	{% endif %}
+	{# {% endif %} #}
 	{% if blog.featuredBlogPost.count %}
 		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set featured = blog.featuredBlogPost.one() %}
