@@ -48,7 +48,7 @@
 				{% include '_includes/ask-a-question' with { showButton: true, useH1: true, headline: entry.headline, subheadline: entry.subheadline, text: entry.ctaText, ctaUrl: entry.websiteUrl } %}
 			{% endif %}
 
-			<h3 class="section-title"><span>Featured Article</span></h3>
+			<h3 class="section-title"><span>Featured Articles</span></h3>
 
 			<article class="featured">
 				<a class="blog-image"  {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
