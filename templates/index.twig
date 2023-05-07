@@ -10,9 +10,9 @@
 
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 {% if firstPageInfo.currentPage == 1 %}
-	{# {% if not craft.app.request.isMobileBrowser(false) %} #}
+	{% if not craft.app.request.isMobileBrowser(false) %}
 		{% set popularPosts = blog.popularPosts.orderBy('postDate DESC') %}
-	{# {% endif %} #}
+	{% endif %}
 	{% if blog.featuredBlogPost.count %}
 		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set featured = blog.featuredBlogPost.one() %}
@@ -48,7 +48,7 @@
 				{% include '_includes/ask-a-question' with { showButton: true, useH1: true, headline: entry.headline, subheadline: entry.subheadline, text: entry.ctaText, ctaUrl: entry.websiteUrl } %}
 			{% endif %}
 
-			<h3 class="section-title"><span>Featured Articles</span></h3>
+			<h3 class="section-title"><span>Featured Article</span></h3>
 
 			<article class="featured">
 				<a class="blog-image"  {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
