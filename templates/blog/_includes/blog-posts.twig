@@ -5,7 +5,7 @@
 {% set desktopTransform = transform is defined ? transform : 'blogPost' %}
 
 <div class="blog-posts">
-	{% cache %}
+
 	{% for blog in posts %}
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
@@ -35,6 +35,7 @@
 	            		{% endfor %}
 	            	</ul>
 	            {% endif %}
+
 				<h3>
 					<a {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 						{{ macros.blogTitle(blog) }}
@@ -47,7 +48,7 @@
 			</div>
 		</article>
     {% endfor %}
-    {% endcache %}
+
 </div>
 
 {% if showPostDetails and pageInfo.total > (postsPerPage + 1) %}
