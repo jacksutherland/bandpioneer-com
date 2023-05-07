@@ -1,49 +1,56 @@
 {% import '_includes/macros' as macros %}
 
+{% set showPostDetails = (pageInfo is defined and pageInfo != null) %}
+{% set mobileTransform = transform is defined ? transform : 'blogPostMobile' %}
+{% set desktopTransform = transform is defined ? transform : 'blogPost' %}
+
 <div class="blog-posts">
 	{% cache %}
 	{% for blog in posts %}
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 				{% if blog.blogImage.count %}
-					<img src="{{ blog.blogImage.one().url('blogPostMobile') }}"
+					<img src="{{ blog.blogImage.one().url(mobileTransform) }}"
 					 	alt="{{ blog.blogImage.one().title }}"
 					 	loading="eager"
-						srcset="{{ blog.blogImage.one().url('blogPostMobile') }} 576w, {{ blog.blogImage.one().url('blogPost') }} 800w" 
+						srcset="{{ blog.blogImage.one().url(mobileTransform) }} 576w, {{ blog.blogImage.one().url(desktopTransform) }} 800w" 
 						sizes="(max-width: 576px) 100vw, 800px"
 						width="330" height="185">
 				{% endif %}
 			</a>
 			<div class="blog-info">
-				{% include '_includes/icons' with { type: 'tag' } %}
-				<ul>
-            		{% for cat in blog.categories.all() %}
-            			{% apply spaceless %}
-	            			<li>
-	            				{% if cat.show %}
-	            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
-	            				{% else %}
-	            					<span href="{{ cat.url }}">{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
-	            				{% endif %}
-	            			</li>
-	            		{% endapply %}
-            		{% endfor %}
-            	</ul>
+				{% if showPostDetails %}
+					{% include '_includes/icons' with { type: 'tag' } %}
+					<ul>
+	            		{% for cat in blog.categories.all() %}
+	            			{% apply spaceless %}
+		            			<li>
+		            				{% if cat.show %}
+		            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+		            				{% else %}
+		            					<span href="{{ cat.url }}">{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+		            				{% endif %}
+		            			</li>
+		            		{% endapply %}
+	            		{% endfor %}
+	            	</ul>
+	            {% endif %}
 				<h3>
 					<a {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 						{{ macros.blogTitle(blog) }}
 					</a>
 				</h3>
 				
-
-				<p>{{ blog.shortDescription }}</p>
+				{% if showPostDetails %}
+					<p>{{ blog.shortDescription }}</p>
+				{% endif %}
 			</div>
 		</article>
     {% endfor %}
     {% endcache %}
 </div>
 
-{% if pageInfo.total > (postsPerPage + 1) %}
+{% if showPostDetails and pageInfo.total > (postsPerPage + 1) %}
 	<div class="container">
     	{% include '_includes/pagination' %}
     </div>

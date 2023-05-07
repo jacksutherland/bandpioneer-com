@@ -16,6 +16,18 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: f83f237f-c63a-4b5a-a0d5-7c7c14b6748c # Popular Posts
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7f91db55-361e-44c4-84e2-724ed7bc9e4c
+            userCondition: null
+            warning: null
+            width: 100
         name: Blog
         uid: 3b2fe010-0f9d-4b22-98ac-206bb45c578c
         userCondition: null

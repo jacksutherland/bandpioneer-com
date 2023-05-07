@@ -49,8 +49,8 @@
                         </ul>
                     </li>
                 {% endcache %}
-                {# <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Privacy Policy">EPK</a></li> #}
-                <li class="hide-mobile dropdown-menu">
+                <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Privacy Policy">EPK</a></li>
+                {# <li class="hide-mobile dropdown-menu">
                     <a class="underline" title="Choose Your Own Adventure">Instruments{% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul id="adventure-menu">
                         <li>
@@ -73,7 +73,7 @@
                             <a class="underline" href="/bands/my-adventure">Resume Your Adventure</a>
                         </li>
                     </ul>
-                </li>
+                </li> #}
                 <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li>
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% cache globally %}

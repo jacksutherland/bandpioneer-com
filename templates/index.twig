@@ -6,9 +6,13 @@
 {% set blogQuery = craft.entries.section('blog') %}
 
 {% set featured = null %}
+{% set popularPosts = null %}
 
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 {% if firstPageInfo.currentPage == 1 %}
+	{% if not craft.app.request.isMobileBrowser(false) %}
+		{% set popularPosts = blog.popularPosts.orderBy('postDate DESC') %}
+	{% endif %}
 	{% if blog.featuredBlogPost.count %}
 		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set featured = blog.featuredBlogPost.one() %}
@@ -90,6 +94,14 @@
 					</div>
 				</div>
 			</article>
+		{% endif %}
+
+
+		{% if popularPosts != null and popularPosts.count %}
+			<div class="popular-articles">
+				<h3 class="section-title"><span>Popular Articles</span></span></h3>
+				{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: popularPosts, pageInfo: null, transform: 'popularPost' } %}
+			</div>
 		{% endif %}
 
 		<h3 class="section-title">

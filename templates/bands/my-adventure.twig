@@ -10,6 +10,14 @@
 {% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
 {% set roles = craft.entries.section('roles') %}
 
+{% if initialRole | length > 0 %}
+	{% set recentArticles = craft.entries.section('blog').search({query: initialRole}).limit(2).orderBy('score') %}
+{% endif %}
+{% set initialArticlesAreForRole = (initialRole | length > 0 and recentArticles.count > 0) %}
+{% if initialRole | length == 0 or recentArticles.count == 0 %}
+	{% set recentArticles = craft.entries.section('blog').limit(2).orderBy('postDate DESC') %}
+{% endif %}
+
 {% block scripts %}
 	<script defer src="{{ url('js/adventure.min.js') }}?version={{ versionNumber }}"></script>
 	<script defer type="text/javascript">
@@ -98,18 +106,31 @@
 	</div>
 
 	<div class="page container">
-		<div>
+		<div class="narrow-container">
 			<section class="description">
-				<h2><span id="intro-role"></span></h2>
-				<div class="narrow-container">
-					<p id="intro-description"></p>
+				<h2><span id="intro-role">Create Your Custom Music Persona</span></h2>
+			
+					<p id="intro-description">Follow the steps above to select <strong>your role</strong> as a musician or in the music industry, <strong>your skill level</strong>, and <strong>your music goals</strong>. Then click <strong>"Go!"</strong> to create your custom music journey map.</p>
 					<div id="intro-spinner">
 						{% include '_includes/icons' with { type: 'spinner' } %}
 					</div>
+				
+			</section>
+
+			<section id="role-articles">
+				<h3 class="section-title"><span>{{ initialArticlesAreForRole ? initialRole : 'Recent' }} Articles</span></h3>
+				<div>
+					{% include 'blog/_includes/blog-posts' with { posts: recentArticles } %}
 				</div>
-				<div id="intro-tips">
-					{% include '_includes/icons' with { type: 'spinner' } %}
-				</div>
+			</section>
+
+			<section>
+				
+					<div id="intro-tips"></div>
+					<div id="tips-spinner">
+						{% include '_includes/icons' with { type: 'spinner' } %}
+					</div>
+				
 			</section>
 		</div>
 	</div>

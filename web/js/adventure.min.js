@@ -30,7 +30,10 @@ class Adventure
 
 		// load dynamic UX data from local storage or AI
 
-		this.loadAIContent();
+		if(this.hasCachedData())
+		{
+			this.loadAIContent();
+		}
 	}
 
 	/*
@@ -74,6 +77,11 @@ class Adventure
 		return obj;
 	}
 
+	hasCachedData()
+	{
+		return (localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY) !== null);
+	}
+
 	/*
 	 * Saves filter data to local storage
 	 */
@@ -95,11 +103,12 @@ class Adventure
 	/*
 	 * Saves AI data to local storage
 	 */
-	saveAIData(title, intro)
+	saveAIData(title, intro, goalResponses)
 	{
 		const obj = {
 			intro: intro,
-			title: title
+			title: title,
+			goals: goalResponses
 		}
 
 		localStorage.setItem(BandPioneer.ADVENTURE_AI_KEY, JSON.stringify(obj));
@@ -176,35 +185,34 @@ class Adventure
 	{
 		const obj = this;
 		const cachedData = this.getCachedData();
+		const roles = cachedData.filters.hasOwnProperty('filterRoles')
+			? cachedData.filters.filterRoles.join(" and ")
+			: "musician";
+
+		// AI Intro Content
 
 		if (!reloadAI && cachedData.ai.hasOwnProperty('title') && cachedData.ai.hasOwnProperty('intro'))
 		{
 			// load it from cache
 			document.getElementById('intro-role').innerHTML = cachedData.ai.title;
 			document.getElementById('intro-description').innerHTML = cachedData.ai.intro;
+
+			obj.loadAITipsHtml(cachedData.ai.goals);
 		}
 		else
 		{
 			let introQuery = "I am a ";
-			let roles = "musician";
-			let goals = [];
 
 			if (cachedData.filters.hasOwnProperty('filterSkill'))
 			{
 				introQuery += (cachedData.filters.filterSkill.join(" to ") + " ");
 			}
 
-			if (cachedData.filters.hasOwnProperty('filterRoles'))
-			{
-				roles = cachedData.filters.filterRoles.join(" and ");
-				
-			}
 			introQuery += (roles + " ");
 
 			if (cachedData.filters.hasOwnProperty('filterGoals'))
 			{
-				goals = cachedData.filters.filterGoals;
-				introQuery += ("with goals to " + goals.join(" and ") + ". ");
+				introQuery += ("with goals to " + cachedData.filters.filterGoals.join(" and ") + ". ");
 			}
 
 			document.getElementById('intro-role').innerText = 'Creating Your Music Persona';
@@ -214,50 +222,97 @@ class Adventure
 			(async () => {
 				
 				// load it from ai
+
+				console.log(introQuery);
 			  	
-			  	const titleResponse = await BandPioneer.aiQuery(`${introQuery} Create a job title for me using my roles or instruments. It must be less than 50 characters.`);
-			  	const introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
+			  	let titleResponse = await BandPioneer.aiQuery(`${introQuery} Create a job title for me using my roles or instruments. It must be less than 50 characters.`);
+			  	let introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
 
-				if(goals.length > 0)
-				{
-					function getAIGoal(idx)
-					{
-						let goalQuery = `I am a ${roles}. How can I ${goals[idx]}?`;
-
-						obj.aiRequest(goalQuery, function(response)
-						{
-							let tipsHtml = document.getElementById('intro-tips').innerHTML;
-							tipsHtml += `<h4>${this.goal}</h4><p>${response}</p>`;
-							document.getElementById('intro-tips').innerHTML = tipsHtml;
-							if(++idx < goals.length)
-							{
-								getAIGoal(idx);
-							}
-						}.bind({idx:idx, goal:goals[idx]}));
-					}
-
-					getAIGoal(0);
-				}
+			  	titleResponse = titleResponse.trim().replace(/\.$/, '');
+			  	introResponse = introResponse.trim();
 
 			  	document.querySelector('#intro-spinner svg').style.display = 'none';
 				
 				if(titleResponse !== "error" )
 				{
-					document.getElementById('intro-role').innerHTML = titleResponse.trim();
+					document.getElementById('intro-role').innerHTML = titleResponse.trim().replace(/\.$/, '');
 				}
 				if(introResponse !== "error" )
 				{
 					document.getElementById('intro-description').innerHTML = introResponse.trim();
 
-					obj.saveAIData(titleResponse, introResponse);
+					// obj.saveAIData(titleResponse, introResponse);
 				}
 				else
 				{
 					document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
 				}
+
+				obj.loadAITips(cachedData, roles, titleResponse, introResponse);
 				
 				obj.dirtyFilters = false;
 			})();		
+		}
+
+		
+	}
+
+	loadAITipsHtml(goals)
+	{
+		const tipsEle = document.getElementById('intro-tips');
+		tipsEle.innerHTML = "";
+
+		BandPioneer.each(goals, function()
+		{
+			let tipsHtml = tipsEle.innerHTML;
+			tipsHtml += `<h4 class="section-title"><span>How to ${this.goal}</span></h4><p>${this.tips}</p>`;
+			tipsEle.innerHTML = tipsHtml;
+		});
+	}
+
+	loadAITips(cachedData, roles, titleResponse, introResponse)
+	{
+		// AI Goal Tips
+		const obj = this;
+		let goalResponses = [];
+
+		if (cachedData.filters.hasOwnProperty('filterGoals'))
+		{
+			const goals = cachedData.filters.filterGoals;
+
+			if(goals.length > 0)
+			{
+				document.querySelector('#tips-spinner svg').style.display = 'inline';
+
+				function getAIGoal(idx)
+				{
+					let goalQuery = `I am a ${roles}. Provide 3 best tips for how I can ${goals[idx]}?`;
+
+					obj.aiRequest(goalQuery, function(response)
+					{
+						goalResponses.push({ goal: this.goal, tips: response });
+
+						// let tipsHtml = document.getElementById('intro-tips').innerHTML;
+						// tipsHtml += `<h4>Tips to ${this.goal}:</h4><p>${response}</p>`;
+						// document.getElementById('intro-tips').innerHTML = tipsHtml;
+
+						if(++idx < goals.length)
+						{
+							getAIGoal(idx);
+						}
+						else
+						{
+							document.querySelector('#tips-spinner svg').style.display = 'none';
+
+							obj.loadAITipsHtml(goalResponses);
+
+							obj.saveAIData(titleResponse, introResponse, goalResponses);
+						}
+					}.bind({idx:idx, goal:goals[idx]}));
+				}
+
+				getAIGoal(0);
+			}
 		}
 	}
 
