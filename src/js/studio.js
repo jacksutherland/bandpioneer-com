@@ -362,14 +362,29 @@ class Studio
 
 			obj.loadRelatedPosts(Studio.FILTER_TYPES.goals, this.goal, function(html)
 			{
-				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : html;
+				let readMoreUrl = '/advice';
+
+				switch(this.goal)
+				{
+					case "make money with music":
+						readMoreUrl = '/finance';
+						break;
+					case "market and promote my music":
+					case "influence on social media":
+						readMoreUrl = '/marketing';
+						break;
+				}
+
+				const relatedHTML = `${html}<div style="margin-top:40px;text-align:center;"><a class="btn" href="${readMoreUrl}">Read More Like This</a></div>`;
+
+				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : relatedHTML;
 
 				if(counter >= goals.length)
 				{
 					document.querySelector('.studio-title').classList.add('show');
 				}
 
-			}.bind({id:tipId}));
+			}.bind({id:tipId, goal:this.goal}));
 		});
 	}
 
