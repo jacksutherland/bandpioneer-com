@@ -1,0 +1,19 @@
+{% apply spaceless %}
+
+	{% set searchType = craft.app.request.getQueryParam('type') ?? '' %}
+	{% set entries = null %}
+
+	{% switch searchType %}
+		{% case 'roles' %}
+			{% set roles = craft.app.request.getQueryParam('filters') | replace({'~': ' OR '}) %}
+			{% set entries = craft.entries.section('blog').search({query: roles}).limit(2).orderBy('score') %}
+		{% case 'goals' %}
+			{% set goal = craft.app.request.getQueryParam('filters') %}
+			{% set entries = craft.entries.section('blog').search({query: goal}).limit(2).orderBy('score') %}
+	{% endswitch %}
+
+	{% if entries != null and entries.count > 0 %}
+		{% include 'blog/_includes/blog-posts' with { posts: entries, showDetails: true } %}
+	{% endif %}
+
+{% endapply %}

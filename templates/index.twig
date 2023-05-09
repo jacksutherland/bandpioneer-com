@@ -100,7 +100,7 @@
 		{% if popularPosts != null and popularPosts.count %}
 			<div class="popular-articles">
 				<h3 class="section-title"><span>Popular Articles</span></span></h3>
-				{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: popularPosts, pageInfo: null, transform: 'popularPost' } %}
+				{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: popularPosts, pageInfo: null, transform: 'popularPost', showDetails: false } %}
 			</div>
 		{% endif %}
 

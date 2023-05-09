@@ -803,7 +803,7 @@ header.sticky {
 			
 			&.show {
 				height: auto;
-    			padding: 20px 0;
+    		padding: 35px 15px;
 			}
 
 			.container {
@@ -812,7 +812,7 @@ header.sticky {
 
 			.close-menu {
 				position: absolute;
-				top: 8px;
+				top: 7px;
 				right: 12px;
 				height: 18px;
 				width: 18px;
@@ -825,7 +825,7 @@ header.sticky {
 					display: block;
 				}
 				.filter-description {
-				 	margin: 0 0 10px 0;
+				 	margin: 0 0 25px 0;
 					h4 {
 						display: block;
     					margin: 0 0 -5px 0;
@@ -849,8 +849,12 @@ header.sticky {
 
 							+ span {
 								display: inline-block;
-								margin: 5px 15px;
+								margin: 8px 15px;
 								font-weight: $semi-bold;
+
+								+ em {
+									display: none;
+								}
 							}
 						}
 					}
@@ -871,6 +875,21 @@ header.sticky {
 							width: fit-content;
 	    					margin: 0 auto;
 	    					height: 60px;
+						}
+					}
+				}
+			}
+			#category-description {
+				.filter-group {
+					.filter-inputs {
+						label {
+							input[type=checkbox] {
+								+ span {
+									+ em {
+										display: inline;
+									}
+								}
+							}
 						}
 					}
 				}
@@ -1190,18 +1209,22 @@ input[type="submit"],
 	cursor: pointer;
 	transition: background-color $transition-default;
 	font-weight: 600;
-    text-transform: uppercase;
+   text-transform: uppercase;
 
-    &.alt-btn {
+   &.small-btn {
+   	height: 35px;
+   }
+
+   &.alt-btn {
     	background-color: transparent;
     	border: solid 2px $alternate-color;
     	color: $alternate-color;
-    }
+   }
 
-    &.gray-btn {
+   &.gray-btn {
     	background-color: $light-gray;
     	color: $font-color;
-    }
+   }
 
 	&:hover {
 		background-color: $secondary-color;
@@ -1490,6 +1513,40 @@ form {
 			}
 		}
 	}
+	section {
+		&.description {
+			padding: 1px 5% 8px 5%;
+			h2, h3 {
+				position: relative;
+				&:before,
+				&:after  {
+					background-color: $light-gray;
+				    content: "";
+				    display: block;
+				    position: absolute;
+				    z-index: -1;
+				    top: 50%;
+				    transform: translateY(-50%);
+				    width: 48%;
+		   			height: 4px;
+				}
+				&:before {
+					left: 0;
+				}
+				&:after {
+				    left: 50%;
+				}
+
+				span {
+					font-family: $header-font-family;
+					letter-spacing: $header-font-spacing;
+					background-color: $white;
+					padding: 0 16px;
+					font-weight: $normal-weight;
+				}
+			}
+		}
+	}
 	form.contact-form {
 		max-width: $blog-width;
 		margin: 60px auto;
@@ -1563,40 +1620,40 @@ form {
 			}
 		}
 	}
-	section {
-		&.description {
-			padding: 1px 5% 8px 5%;
-			h2, h3 {
-				position: relative;
-				&:before,
-				&:after  {
-					background-color: $light-gray;
-				    content: "";
-				    display: block;
-				    position: absolute;
-				    z-index: -1;
-				    top: 50%;
-				    transform: translateY(-50%);
-				    width: 48%;
-		   			height: 4px;
-				}
-				&:before {
-					left: 0;
-				}
-				&:after {
-				    left: 50%;
-				}
+	// section {
+	// 	&.description {
+	// 		padding: 1px 5% 8px 5%;
+	// 		h2, h3 {
+	// 			position: relative;
+	// 			&:before,
+	// 			&:after  {
+	// 				background-color: $light-gray;
+	// 			    content: "";
+	// 			    display: block;
+	// 			    position: absolute;
+	// 			    z-index: -1;
+	// 			    top: 50%;
+	// 			    transform: translateY(-50%);
+	// 			    width: 48%;
+	// 	   			height: 4px;
+	// 			}
+	// 			&:before {
+	// 				left: 0;
+	// 			}
+	// 			&:after {
+	// 			    left: 50%;
+	// 			}
 
-				span {
-					font-family: $header-font-family;
-					letter-spacing: $header-font-spacing;
-					background-color: $white;
-					padding: 0 16px;
-					font-weight: $normal-weight;
-				}
-			}
-		}
-	}
+	// 			span {
+	// 				font-family: $header-font-family;
+	// 				letter-spacing: $header-font-spacing;
+	// 				background-color: $white;
+	// 				padding: 0 16px;
+	// 				font-weight: $normal-weight;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	footer {
 		.container {
 		    grid-template-columns: 200px 1fr;

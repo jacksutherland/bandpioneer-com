@@ -1,10 +1,10 @@
 {% import '_includes/macros' as macros %}
 
-{% set showPostDetails = (pageInfo is defined and pageInfo != null) %}
+{% set showDetails = showDetails is defined ? showDetails : true %}
 {% set mobileTransform = transform is defined ? transform : 'blogPostMobile' %}
 {% set desktopTransform = transform is defined ? transform : 'blogPost' %}
 
-<div class="blog-posts">
+<div class="blog-posts" data-count="{{ posts.count }}">
 
 	{% for blog in posts %}
         <article>
@@ -19,7 +19,7 @@
 				{% endif %}
 			</a>
 			<div class="blog-info">
-				{% if showPostDetails %}
+				{% if showDetails %}
 					{% include '_includes/icons' with { type: 'tag' } %}
 					<ul>
 	            		{% for cat in blog.categories.all() %}
@@ -42,7 +42,7 @@
 					</a>
 				</h3>
 				
-				{% if showPostDetails %}
+				{% if showDetails %}
 					<p>{{ blog.shortDescription }}</p>
 				{% endif %}
 			</div>
@@ -51,7 +51,7 @@
 
 </div>
 
-{% if showPostDetails and pageInfo.total > (postsPerPage + 1) %}
+{% if pageInfo is defined and pageInfo != null and pageInfo.total > (postsPerPage + 1) %}
 	<div class="container">
     	{% include '_includes/pagination' %}
     </div>

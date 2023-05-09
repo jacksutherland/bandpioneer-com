@@ -686,14 +686,14 @@ header.sticky {
 }
 .categories#filters #category-description.show {
   height: auto;
-  padding: 20px 0;
+  padding: 35px 15px;
 }
 .categories#filters #category-description .container {
   width: 100%;
 }
 .categories#filters #category-description .close-menu {
   position: absolute;
-  top: 8px;
+  top: 7px;
   right: 12px;
   height: 18px;
   width: 18px;
@@ -706,7 +706,7 @@ header.sticky {
   display: block;
 }
 .categories#filters #category-description .filter-group .filter-description {
-  margin: 0 0 10px 0;
+  margin: 0 0 25px 0;
 }
 .categories#filters #category-description .filter-group .filter-description h4 {
   display: block;
@@ -727,8 +727,11 @@ header.sticky {
 }
 .categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox] + span {
   display: inline-block;
-  margin: 5px 15px;
+  margin: 8px 15px;
   font-weight: 600;
+}
+.categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox] + span + em {
+  display: none;
 }
 
 @media (min-width: 576px) {
@@ -740,6 +743,9 @@ header.sticky {
     width: fit-content;
     margin: 0 auto;
     height: 60px;
+  }
+  .categories#filters #category-description .filter-group .filter-inputs label input[type=checkbox] + span + em {
+    display: inline;
   }
 }
 footer {
@@ -1021,6 +1027,11 @@ input[type=submit],
   font-weight: 600;
   text-transform: uppercase;
 }
+button.small-btn,
+input[type=submit].small-btn,
+.btn.small-btn {
+  height: 35px;
+}
 button.alt-btn,
 input[type=submit].alt-btn,
 .btn.alt-btn {
@@ -1272,6 +1283,36 @@ form.contact-form .errors {
     width: 15px;
     fill: #FFFFFF;
   }
+  section.description {
+    padding: 1px 5% 8px 5%;
+  }
+  section.description h2, section.description h3 {
+    position: relative;
+  }
+  section.description h2:before, section.description h2:after, section.description h3:before, section.description h3:after {
+    background-color: #e7ebec;
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48%;
+    height: 4px;
+  }
+  section.description h2:before, section.description h3:before {
+    left: 0;
+  }
+  section.description h2:after, section.description h3:after {
+    left: 50%;
+  }
+  section.description h2 span, section.description h3 span {
+    font-family: "Michroma", sans-serif;
+    letter-spacing: 0.05rem;
+    background-color: #FFFFFF;
+    padding: 0 16px;
+    font-weight: 400;
+  }
   form.contact-form {
     max-width: 800px;
     margin: 60px auto;
@@ -1308,36 +1349,6 @@ form.contact-form .errors {
   }
   header.site-header .container nav.main-menu ul li {
     margin: 0 10px;
-  }
-  section.description {
-    padding: 1px 5% 8px 5%;
-  }
-  section.description h2, section.description h3 {
-    position: relative;
-  }
-  section.description h2:before, section.description h2:after, section.description h3:before, section.description h3:after {
-    background-color: #e7ebec;
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48%;
-    height: 4px;
-  }
-  section.description h2:before, section.description h3:before {
-    left: 0;
-  }
-  section.description h2:after, section.description h3:after {
-    left: 50%;
-  }
-  section.description h2 span, section.description h3 span {
-    font-family: "Michroma", sans-serif;
-    letter-spacing: 0.05rem;
-    background-color: #FFFFFF;
-    padding: 0 16px;
-    font-weight: 400;
   }
   footer .container {
     grid-template-columns: 200px 1fr;

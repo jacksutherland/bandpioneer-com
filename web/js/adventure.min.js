@@ -1,6 +1,25 @@
 class Adventure
 {
-	// static DATA_KEY = 'BandPioneer-adventure-data';
+	static RELATED_POSTS_URL = '/api/adventure-blog-search';
+
+	static FILTER_TYPES = {
+	    roles: "roles",
+	    skill: "skill",
+	    goals: "goals",
+	};
+
+	static LOAD_MESSAGES = [
+		"Fetching custom harmonic data...",
+		"Assembling your digital sound bytes...",
+		"Streaming melodic sequences, please wait...",
+		"Retrieving rhythmic patterns...",
+		"Disecting musical algorithms...",
+		"Please hold while we teach AI jazz theory...",
+		"Sorry for the delay, AI is tuning its guitar...",
+		"Composing binary symphonies...",
+		"Patience is bitter, but its fruit is sweet...",
+		"Rome wasn't built in a day. And neither was AI..."
+	];
 
 	constructor(initNewUX = false, maxRoles, maxSkills, maxGoals)
 	{
@@ -32,7 +51,7 @@ class Adventure
 
 		if(this.hasCachedData())
 		{
-			this.loadAIContent();
+			this.loadContent();
 		}
 	}
 
@@ -181,7 +200,15 @@ class Adventure
 		}
 	}
 
-	loadAIContent(reloadAI = false)
+	resetUI()
+	{
+		document.querySelector('#role-articles > div').innerHTML = '';
+		document.querySelector('#recent-articles').style.display = 'block';
+		document.querySelector('.adventure-title').classList.remove('show');
+		document.getElementById('intro-tips').innerHTML = '';
+	}
+
+	loadContent(reloadAI = false)
 	{
 		const obj = this;
 		const cachedData = this.getCachedData();
@@ -197,10 +224,12 @@ class Adventure
 			document.getElementById('intro-role').innerHTML = cachedData.ai.title;
 			document.getElementById('intro-description').innerHTML = cachedData.ai.intro;
 
-			obj.loadAITipsHtml(cachedData.ai.goals);
+			obj.loadAITipsHtml(cachedData.ai.goals, roles);
 		}
 		else
 		{
+			this.resetUI();
+
 			let introQuery = "I am a ";
 
 			if (cachedData.filters.hasOwnProperty('filterSkill'))
@@ -222,8 +251,6 @@ class Adventure
 			(async () => {
 				
 				// load it from ai
-
-				console.log(introQuery);
 			  	
 			  	let titleResponse = await BandPioneer.aiQuery(`${introQuery} Create a job title for me using my roles or instruments. It must be less than 50 characters.`);
 			  	let introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
@@ -254,20 +281,108 @@ class Adventure
 			})();		
 		}
 
+		if(roles != 'musician')
+		{
+			this.loadRelatedPosts(Adventure.FILTER_TYPES.roles, roles, function(html)
+			{
+				if(html.trim().length === 0)
+				{
+					document.querySelector('#role-articles > div').innerHTML = '';
+					document.querySelector('#recent-articles').style.display = 'block';
+				}
+				else
+				{
+					document.querySelector('#recent-articles').style.display = 'none';
+					document.querySelector('#role-articles > div').innerHTML = html;
+				}
+			});
+		}
 		
 	}
 
-	loadAITipsHtml(goals)
+	loadAITipsHtml(goals, roles)
 	{
+		const obj = this;
+		const verbs = ["How to", "Ways to", "How I can"];
+		let random = Math.floor(Math.random() * verbs.length);
+		let counter = 0;
 		const tipsEle = document.getElementById('intro-tips');
 		tipsEle.innerHTML = "";
 
 		BandPioneer.each(goals, function()
 		{
+			random = ++random > verbs.length - 1 ? 0 :random;
+
+			let rolesAry = roles.split(' and ');
+		    if (rolesAry.length > 2)
+		    {
+		        let lastRole = rolesAry.pop();
+		        roles = rolesAry.join(', ') + ' and ' + lastRole;
+		    }
+
+			const tipId = `tip-articles-${++counter}`;
 			let tipsHtml = tipsEle.innerHTML;
-			tipsHtml += `<h4 class="section-title"><span>How to ${this.goal}</span></h4><p>${this.tips}</p>`;
+
+			tipsHtml += `<section class="adventure-tips"><h3>${verbs[random]} ${this.goal}</h3><strong>As a ${roles}</strong><p>${this.tips}</p></section><div id="${tipId}"></div>`;
 			tipsEle.innerHTML = tipsHtml;
+
+			obj.loadRelatedPosts(Adventure.FILTER_TYPES.goals, this.goal, function(html)
+			{
+				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : html;
+
+				if(counter >= goals.length)
+				{
+					document.querySelector('.adventure-title').classList.add('show');
+				}
+
+			}.bind({id:tipId}));
 		});
+	}
+
+	startTipsSpinner(start)
+	{
+		// LOAD_MESSAGES
+
+		if(typeof(this.tipsy) === 'undefined')
+		{
+			this.tipsy = {
+				spinning: false,
+				spinner: document.querySelector('#tips-spinner'),
+				svg: document.querySelector('#tips-spinner svg'),
+				msg: document.querySelector('#tips-spinner strong'),
+				loadMsg: function()
+				{
+					if(this.tipsy.spinning)
+					{
+						this.tipsy.spinner.classList.remove('show');
+						setTimeout(function()
+						{
+							let random = Math.floor(Math.random() * Adventure.LOAD_MESSAGES.length);
+							this.tipsy.msg.innerText = Adventure.LOAD_MESSAGES[random];
+							this.tipsy.spinner.classList.add('show');
+							setTimeout(function()
+							{
+								this.tipsy.loadMsg();
+							}.bind(this), 5000);
+						}.bind(this), 750);
+					}
+				}.bind(this)
+			}
+		}
+
+		if(start)
+		{
+			this.tipsy.spinning = true;
+			this.tipsy.loadMsg();
+			this.tipsy.svg.style.display = 'inline';
+			this.tipsy.spinner.style.display = 'block';
+		}
+		else
+		{
+			this.tipsy.spinning = false;
+			this.tipsy.svg.style.display = 'none';
+			this.tipsy.spinner.style.display = 'none';
+		}
 	}
 
 	loadAITips(cachedData, roles, titleResponse, introResponse)
@@ -282,19 +397,15 @@ class Adventure
 
 			if(goals.length > 0)
 			{
-				document.querySelector('#tips-spinner svg').style.display = 'inline';
-
+				obj.startTipsSpinner(true);
+				
 				function getAIGoal(idx)
 				{
-					let goalQuery = `I am a ${roles}. Provide 3 best tips for how I can ${goals[idx]}?`;
+					let goalQuery = `I am a ${roles}. Provide a few best tips for how I can ${goals[idx]}?`;
 
 					obj.aiRequest(goalQuery, function(response)
 					{
 						goalResponses.push({ goal: this.goal, tips: response });
-
-						// let tipsHtml = document.getElementById('intro-tips').innerHTML;
-						// tipsHtml += `<h4>Tips to ${this.goal}:</h4><p>${response}</p>`;
-						// document.getElementById('intro-tips').innerHTML = tipsHtml;
 
 						if(++idx < goals.length)
 						{
@@ -302,9 +413,9 @@ class Adventure
 						}
 						else
 						{
-							document.querySelector('#tips-spinner svg').style.display = 'none';
-
-							obj.loadAITipsHtml(goalResponses);
+							obj.startTipsSpinner(false);
+							
+							obj.loadAITipsHtml(goalResponses, roles);
 
 							obj.saveAIData(titleResponse, introResponse, goalResponses);
 						}
@@ -316,11 +427,36 @@ class Adventure
 		}
 	}
 
+	loadRelatedPosts(type, filters, callback)
+	{
+		if(type === Adventure.FILTER_TYPES.roles)
+		{
+			filters = filters.replace(/ and /g, "~");
+		}
+
+		const url = `${Adventure.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
+
+		fetch(url).then((response) => {
+		    if (response.ok)
+		    {
+		    	return response.text();
+		    }
+		}).then((html) => {
+		    callback(html);
+		}).catch((error) => {
+		    console.error("Error:", error);
+		});
+	}
+
 	filtersUpdated()
 	{
 		if(this.dirtyFilters)
 		{
-			this.loadAIContent(true);
+			this.loadContent(true);
+		}
+		else
+		{
+			bp.alert("No changes made. Please select a different role, skill level or goal to update your results.");
 		}
 	}
 
@@ -331,6 +467,7 @@ class Adventure
 	{
 		const obj = this;
 		let filterLabels = document.querySelectorAll('#filters nav ul li label');
+		const nextFilterBtn = document.querySelector("#filter-next");
 
 		if(filterLabels.length)
 		{
@@ -345,6 +482,33 @@ class Adventure
 
 			}.bind(categoryDescription));
 
+			nextFilterBtn.addEventListener('click', function(e)
+			{
+				for (let i = 0; i < filterGroups.length; i++)
+				{
+					if(filterGroups[i].classList.contains('show'))
+					{
+						filterGroups[i].classList.remove('show');
+
+						if(i === filterGroups.length - 1)
+						{
+							//Go
+							categoryDescription.classList.remove('show');
+							obj.filtersUpdated();
+							break;
+						}
+						else if(i < filterGroups.length - 1)
+						{
+							//Next
+							e.target.innerText = ((i + 1) === filterGroups.length - 1) ? "GO!" : "Next";
+							filterGroups[i + 1].classList.add('show');
+							break;
+						}
+					}
+				}
+
+			}.bind(categoryDescription));
+
 			BandPioneer.each(filterLabels, function()
 			{
 				this.addEventListener('click', function(e)
@@ -356,6 +520,8 @@ class Adventure
 					}
 					else
 					{
+						nextFilterBtn.innerText = (e.target.dataset.filter === '#filter-goals') ? "GO!" : "Next";
+
 						BandPioneer.each(filterGroups, function()
 						{
 							this.classList.remove('show');
@@ -364,7 +530,6 @@ class Adventure
 						this.classList.add('show');
 					}
 				}.bind(categoryDescription));
-
 			});
 
 			BandPioneer.each(filterGroups, function()
@@ -372,6 +537,7 @@ class Adventure
 				let filterInputContainer = this.querySelector('.filter-inputs');
 				let filterMax = filterInputContainer.dataset.max;
 				this.filterInputs = filterInputContainer.querySelectorAll('label input[type="checkbox"]');
+
 				BandPioneer.each(this.filterInputs, function(idx, target1)
 				{
 					target1.addEventListener('change', function(e)
@@ -382,27 +548,34 @@ class Adventure
 
 						const checked = Array.from(this.inputs).filter(function(checkbox)
 						{
-								return checkbox.checked;
+							return checkbox.checked;
 						});
 
 						if(checked.length > this.max)
 						{
-							if(this.max > 1)
-							{
-								target1.checked = false;
-							}
-							else if(parseInt(this.max) === 1)
-							{
-								BandPioneer.each(this.inputs, function(idx, target2)
-								{
-									if(target1 !== target2)
-									{
-										target2.checked = false;
-									}
-								}.bind(this));
-							}
+							if(target1 === checked[0])
+								checked[1].checked = false;
+							else
+								checked[0].checked = false;
+
+							// if(this.max > 1)
+							// {
+							// 	target1.checked = false;
+							// }
+							// else if(parseInt(this.max) === 1)
+							// {
+							// 	BandPioneer.each(this.inputs, function(idx, target2)
+							// 	{
+							// 		if(target1 !== target2)
+							// 		{
+							// 			target2.checked = false;
+							// 		}
+							// 	}.bind(this));
+							// }
 						}
+
 						obj.saveFilterData();
+
 					}.bind(this));
 				}.bind({inputs: this.filterInputs, max: filterMax}));
 			});
