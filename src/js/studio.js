@@ -40,9 +40,14 @@ class Studio
 
 			history.replaceState({}, null, window.location.pathname);
 
-			this.deleteFilterData();
+			// this.deleteFilterData();
 
-			this.saveFilterData();
+			// this.saveFilterData();
+
+			if(this.hasCachedAIData())
+			{
+				this.loadContent();
+			}
 
 			this.openMenu();
 		}
@@ -506,17 +511,17 @@ class Studio
 
 		userAlert = userAlert.bind(this);
 
-		if(!areRolesChecked && !areGoalsChecked)
+		if(!areRolesChecked || !areGoalsChecked)
 		{
-			userAlert("You must at least select 1 role or goal.");
+			userAlert("You must at least select 1 role and goal.");
 		}
-		else if(this.dirtyFilters)
+		else if(this.dirtyFilters || !this.hasCachedAIData())
 		{
 			this.loadContent(true);
 		}
 		else
 		{
-			userAlert("You haven't changed any filters!<br>Select a different role, skill level<br>or goal to update your results.");
+			userAlert("Select a different role, skill level<br>or goal to update your results.");
 		}
 	}
 
