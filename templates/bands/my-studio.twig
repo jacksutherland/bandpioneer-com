@@ -4,8 +4,8 @@
 {% set maxRoles = 3 %}
 {% set maxSkills = 1 %}
 {% set maxGoals = 2 %}
-{% set pageTitle = "Choose Your Own Adventure" %}
-{% set entry = { slug: 'my-dventure', title: 'Choose Your Own Adventure', section: { handle: 'choose-your-own-dventure' } } %}
+{% set pageTitle = "My Studio" %}
+{% set entry = { slug: 'my-studio', title: 'Music Info Customized For You', section: { handle: 'my-studio' } } %}
 
 {% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
 {% set roles = craft.entries.section('roles') %}
@@ -20,14 +20,14 @@
 
 {% block headerScripts %}
 	<style type="text/css">
-		.adventure-title {
+		.studio-title {
 			display: none;
 			margin: 40px 0 -10px 0 !important;
 		}
-		.adventure-title.show {
+		.studio-title.show {
 			display: block
 		}
-		.adventure-tips {
+		.studio-tips {
 		    margin: 40px auto;
 		    padding: 25px;
 		    border: solid 2px #e7ebec;
@@ -35,16 +35,16 @@
 		    border-radius: 4px;
 		    max-width: 800px;
 		}
-		.adventure-tips h3 {
+		.studio-tips h3 {
 			margin: 0 auto 25px auto;
 			max-width: 800px;
 			text-transform: capitalize;
 		}
-		.adventure-tips h3 + strong {
+		.studio-tips h3 + strong {
 			display: block;
 			margin: -10px auto 25px auto;
 		}
-		.adventure-tips p {
+		.studio-tips p {
 			margin: 0 auto;
 			max-width: 800px;
 		}
@@ -81,7 +81,7 @@
 			max-width: 600px;
 		}
 		@media (min-width: 768px) {
-			.adventure-title {
+			.studio-title {
 				margin: 80px 0 10px 0 !important;
 			}
 		}
@@ -89,11 +89,11 @@
 {% endblock %}
 
 {% block scripts %}
-	<script defer src="{{ url('js/adventure.min.js') }}?version={{ versionNumber }}"></script>
+	<script defer src="{{ url('js/studio.min.js') }}?version={{ versionNumber }}"></script>
 	<script defer type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function()
         {
-			new Adventure({% if initialRole | length %}true{% else %}false{% endif %}, {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }});
+			new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }});
 		});
 	</script>
 {% endblock %}
@@ -182,13 +182,11 @@
 		<div class="container">
 			<section class="description">
 				<h2>
-					<span id="intro-role">
-						Create Your Custom Music Persona
-					</span>
+					<span id="intro-role">Your Custom Music Persona</span>
 				</h2>
 				
 				<div class="narrow-container">
-					<p id="intro-description">Follow the steps above to select <strong>your role</strong> as a musician or in the music industry, <strong>your skill level</strong>, and <strong>your music goals</strong>. Then click <strong>"Go!"</strong> to create your custom music journey map.</p>
+					<p id="intro-description"><strong>Customized music tips and info.</strong><br>Follow the steps above to select <strong>your instrument or role</strong>, <strong>your skill level</strong>, and <strong>your music goals</strong>. Then click <strong>"Go!"</strong> to create a custom music journey map, specifically for you.</p>
 					<div id="intro-spinner">
 						{% include '_includes/icons' with { type: 'spinner' } %}
 					</div>
@@ -200,13 +198,13 @@
 				<div></div>
 				<div id="recent-articles">
 					<h3>Recent Articles</h3>
-					{% include 'blog/_includes/blog-posts' with { posts: recentArticles } %}
+					{% include 'blog/_includes/blog-posts' with { posts: recentArticles.all() } %}
 				</div>
 			</section>
 
-			<div class="adventure-goals">
+			<div class="studio-goals">
 				<section class="description">
-					<h2 class="adventure-title">
+					<h2 class="studio-title">
 						<span id="intro-role">
 							Your Music Goals
 						</span>

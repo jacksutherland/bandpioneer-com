@@ -4,7 +4,7 @@
 {% set mobileTransform = transform is defined ? transform : 'blogPostMobile' %}
 {% set desktopTransform = transform is defined ? transform : 'blogPost' %}
 
-<div class="blog-posts" data-count="{{ posts.count }}">
+<div class="blog-posts" data-count="{{ posts | length }}">
 
 	{% for blog in posts %}
         <article>

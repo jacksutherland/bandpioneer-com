@@ -49,32 +49,53 @@
                         </ul>
                     </li>
                 {% endcache %}
-                <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Privacy Policy">EPK</a></li>
-                {# <li class="hide-mobile dropdown-menu">
-                    <a class="underline" title="Choose Your Own Adventure">Instruments{% include '_includes/icons' with { type: 'down' } %}</a>
-                    <ul id="adventure-menu">
+                <li class="hide-mobile dropdown-menu">
+                    <a class="underline" title="Music Info Customized For You">My Studio{% include '_includes/icons' with { type: 'down' } %}</a>
+                    <ul id="studio-menu">
                         <li>
-                            <h4>Choose Your Own Adventure</h4>
-                            <span>Pick your primary role?</span>
+                            <h4>Music Info Customized For You</h4>
+                            <span>What is your primary role?</span>
                         </li>
                         <li>
-                            <a class="underline" href="/bands/my-adventure?role=singer">Vocalist</a>
+                            <a class="underline" href="/bands/my-studio?role=singer">Vocalist</a>
                         </li>
                         <li>
-                            <a class="underline" href="/bands/my-adventure?role=guitarist">Guitarist</a>
+                            <a class="underline" href="/bands/my-studio?role=guitarist">Guitarist</a>
                         </li>
                         <li>
-                            <a class="underline" href="/bands/my-adventure?role=bassist">Bassist</a>
+                            <a class="underline" href="/bands/my-studio?role=bassist">Bassist</a>
                         </li>
                         <li>
-                            <a class="underline" href="/bands/my-adventure?role=drummer">Drummer</a>
+                            <a class="underline" href="/bands/my-studio?role=drummer">Drummer</a>
                         </li>
-                        <li class="data-loaded">
-                            <a class="underline" href="/bands/my-adventure">Resume Your Adventure</a>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=percussionist">Percussion</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=keyboardist">Keyboardist</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=brass-player">Brass Player</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=manager">Manager</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=producer">Producer</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=sound-engineer">Sound Engineer</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="/bands/my-studio?role=musician">Other</a>
+                        </li>
+                        <li class="data-loaded" style="margin-top:30px;">
+                            <a class="underline" href="/bands/my-studio">Return to Your Studio</a>
                         </li>
                     </ul>
-                </li> #}
-                <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li>
+                </li>
+                <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Electronic Press Kit">EPK</a></li>
+                {# <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li> #}
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% cache globally %}
                     {% for cat in categories.all() %}

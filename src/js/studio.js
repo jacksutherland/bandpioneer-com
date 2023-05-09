@@ -1,6 +1,6 @@
-class Adventure
+class Studio
 {
-	static RELATED_POSTS_URL = '/api/adventure-blog-search';
+	static RELATED_POSTS_URL = '/api/studio-blog-search';
 
 	static FILTER_TYPES = {
 	    roles: "roles",
@@ -9,58 +9,72 @@ class Adventure
 	};
 
 	static LOAD_MESSAGES = [
-		"Fetching custom harmonic data...",
-		"Assembling your digital sound bytes...",
+		"Customizing your goals with harmonic data...",
+		"Assembling digital sound bytes, specifically for you...",
 		"Streaming melodic sequences, please wait...",
-		"Retrieving rhythmic patterns...",
-		"Disecting musical algorithms...",
+		"Creating custom tips with rhythmic patterns...",
+		"Disecting your unique musical algorithm...",
 		"Please hold while we teach AI jazz theory...",
 		"Sorry for the delay, AI is tuning its guitar...",
-		"Composing binary symphonies...",
+		"Composing your custom binary symphonies...",
 		"Patience is bitter, but its fruit is sweet...",
-		"Rome wasn't built in a day. And neither was AI..."
+		"Rome wasn't built in a day, and apparently neither was AI..."
 	];
 
-	constructor(initNewUX = false, maxRoles, maxSkills, maxGoals)
+	constructor(initialRole, maxRoles, maxSkills, maxGoals)
 	{
+		const initialRoleSelected = initialRole.trim().length > 0;
+
 		this.dirtyFilters = false;
 
 		this.createFilters();
 
-		// Load data stored in local storage
-
-		const filtersLoaded = this.loadCachedFilters();
-
-		// Since roles are checked in JS and TWIG, make sure the max is validated
-
-		const checkedRoles = document.querySelectorAll('input[name="filter-roles"]:checked');
-		if(checkedRoles.length > maxRoles)
-		{	
-			const idx = window.location.href.includes(checkedRoles[0].value) ? checkedRoles.length - 1 : 0;
-			checkedRoles[idx].checked = false;
-		}
-
-		// Save data to local storage if starting a new adventure
-
-		if(initNewUX && filtersLoaded)
+		if(initialRoleSelected)
 		{
+			// Initial Role Selected - Start Over
+
+			this.dirtyFilters = true;
+
+			// Remove role from url
+			// If user copies/pastes it will reload every time
+
+			history.replaceState({}, null, window.location.pathname);
+
+			this.deleteFilterData();
+
 			this.saveFilterData();
+
+			this.openMenu();
 		}
-
-		// load dynamic UX data from local storage or AI
-
-		if(this.hasCachedData())
+		else if(this.hasCachedFilters())
 		{
-			this.loadContent();
+			// Initial Role NOT Selected - Has Previous Filters - Load Previous UX
+
+			this.loadCachedFilters();
+
+			if(this.hasCachedAIData())
+			{
+				this.loadContent();
+			}
+			else
+			{
+				this.openMenu();
+			}
+		}
+		else
+		{
+			// Initial Role NOT Selected - No Previous Filters - Open Menu
+
+			this.openMenu();
 		}
 	}
 
 	/*
-	 * Retrieve Adventure data statically: Adventure.data
+	 * Retrieve Studio data statically: Studio.data
 	 */
 	static get data()
 	{
-		return new Adventure().getCachedData();
+		return new Studio().getCachedData();
 	}
 
 	/*
@@ -78,8 +92,8 @@ class Adventure
 			obj.filters = this.filterData;
 		}
 		else
-		{
-			const storedFilters = localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY);
+		{ 
+			const storedFilters = localStorage.getItem(BandPioneer.STUDIO_FILTER_KEY);
 			obj.filters = JSON.parse(storedFilters) ?? {};
 		}
 
@@ -89,16 +103,21 @@ class Adventure
 		}
 		else
 		{
-			const storedAIData = localStorage.getItem(BandPioneer.ADVENTURE_AI_KEY);
+			const storedAIData = localStorage.getItem(BandPioneer.STUDIO_AI_KEY);
 			obj.ai = JSON.parse(storedAIData) ?? {};
 		}
 
 		return obj;
 	}
 
-	hasCachedData()
+	hasCachedFilters()
 	{
-		return (localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY) !== null);
+		return (localStorage.getItem(BandPioneer.STUDIO_FILTER_KEY) !== null);
+	}
+
+	hasCachedAIData()
+	{
+		return (localStorage.getItem(BandPioneer.STUDIO_AI_KEY) !== null);
 	}
 
 	/*
@@ -110,19 +129,24 @@ class Adventure
 
 		if (Object.keys(data).length === 0)
 		{
-			localStorage.removeItem(BandPioneer.ADVENTURE_FILTER_KEY);
-			localStorage.removeItem(BandPioneer.ADVENTURE_AI_KEY);
+			this.deleteFilterData();
 		}
 		else
 		{
-			localStorage.setItem(BandPioneer.ADVENTURE_FILTER_KEY, JSON.stringify(data));
+			localStorage.setItem(BandPioneer.STUDIO_FILTER_KEY, JSON.stringify(data));
 		}
+	}
+
+	deleteFilterData()
+	{
+		localStorage.removeItem(BandPioneer.STUDIO_FILTER_KEY);
+		localStorage.removeItem(BandPioneer.STUDIO_AI_KEY);
 	}
 
 	/*
 	 * Saves AI data to local storage
 	 */
-	saveAIData(title, intro, goalResponses)
+	saveAIData(title, intro, goalResponses = '')
 	{
 		const obj = {
 			intro: intro,
@@ -130,7 +154,7 @@ class Adventure
 			goals: goalResponses
 		}
 
-		localStorage.setItem(BandPioneer.ADVENTURE_AI_KEY, JSON.stringify(obj));
+		localStorage.setItem(BandPioneer.STUDIO_AI_KEY, JSON.stringify(obj));
 	}
 
 	/*
@@ -204,7 +228,7 @@ class Adventure
 	{
 		document.querySelector('#role-articles > div').innerHTML = '';
 		document.querySelector('#recent-articles').style.display = 'block';
-		document.querySelector('.adventure-title').classList.remove('show');
+		document.querySelector('.studio-title').classList.remove('show');
 		document.getElementById('intro-tips').innerHTML = '';
 	}
 
@@ -260,22 +284,27 @@ class Adventure
 
 			  	document.querySelector('#intro-spinner svg').style.display = 'none';
 				
-				if(titleResponse !== "error" )
+				if(titleResponse !== "error")
 				{
 					document.getElementById('intro-role').innerHTML = titleResponse.trim().replace(/\.$/, '');
 				}
-				if(introResponse !== "error" )
+				if(introResponse !== "error")
 				{
 					document.getElementById('intro-description').innerHTML = introResponse.trim();
-
-					// obj.saveAIData(titleResponse, introResponse);
 				}
 				else
 				{
 					document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
 				}
 
-				obj.loadAITips(cachedData, roles, titleResponse, introResponse);
+				const goalsLoaded = obj.loadAITips(cachedData, roles, titleResponse, introResponse);
+
+				if(!goalsLoaded && titleResponse !== "error" && introResponse !== "error")
+				{
+					// Only intro was loaded, so save it
+
+					obj.saveAIData(titleResponse, introResponse);
+				}
 				
 				obj.dirtyFilters = false;
 			})();		
@@ -283,7 +312,7 @@ class Adventure
 
 		if(roles != 'musician')
 		{
-			this.loadRelatedPosts(Adventure.FILTER_TYPES.roles, roles, function(html)
+			this.loadRelatedPosts(Studio.FILTER_TYPES.roles, roles, function(html)
 			{
 				if(html.trim().length === 0)
 				{
@@ -323,16 +352,16 @@ class Adventure
 			const tipId = `tip-articles-${++counter}`;
 			let tipsHtml = tipsEle.innerHTML;
 
-			tipsHtml += `<section class="adventure-tips"><h3>${verbs[random]} ${this.goal}</h3><strong>As a ${roles}</strong><p>${this.tips}</p></section><div id="${tipId}"></div>`;
+			tipsHtml += `<section class="studio-tips"><h3>${verbs[random]} ${this.goal}</h3><strong>As a ${roles}</strong><p>${this.tips}</p></section><div id="${tipId}"></div>`;
 			tipsEle.innerHTML = tipsHtml;
 
-			obj.loadRelatedPosts(Adventure.FILTER_TYPES.goals, this.goal, function(html)
+			obj.loadRelatedPosts(Studio.FILTER_TYPES.goals, this.goal, function(html)
 			{
 				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : html;
 
 				if(counter >= goals.length)
 				{
-					document.querySelector('.adventure-title').classList.add('show');
+					document.querySelector('.studio-title').classList.add('show');
 				}
 
 			}.bind({id:tipId}));
@@ -357,8 +386,8 @@ class Adventure
 						this.tipsy.spinner.classList.remove('show');
 						setTimeout(function()
 						{
-							let random = Math.floor(Math.random() * Adventure.LOAD_MESSAGES.length);
-							this.tipsy.msg.innerText = Adventure.LOAD_MESSAGES[random];
+							let random = Math.floor(Math.random() * Studio.LOAD_MESSAGES.length);
+							this.tipsy.msg.innerText = Studio.LOAD_MESSAGES[random];
 							this.tipsy.spinner.classList.add('show');
 							setTimeout(function()
 							{
@@ -388,6 +417,7 @@ class Adventure
 	loadAITips(cachedData, roles, titleResponse, introResponse)
 	{
 		// AI Goal Tips
+
 		const obj = this;
 		let goalResponses = [];
 
@@ -401,40 +431,49 @@ class Adventure
 				
 				function getAIGoal(idx)
 				{
-					let goalQuery = `I am a ${roles}. Provide a few best tips for how I can ${goals[idx]}?`;
+					let goalQuery = `I am a ${roles}. Provide a couple tips for how I can ${goals[idx]}?`;
 
 					obj.aiRequest(goalQuery, function(response)
 					{
-						goalResponses.push({ goal: this.goal, tips: response });
-
-						if(++idx < goals.length)
+						if(response !== 'error')
 						{
-							getAIGoal(idx);
-						}
-						else
-						{
-							obj.startTipsSpinner(false);
-							
-							obj.loadAITipsHtml(goalResponses, roles);
+							goalResponses.push({ goal: this.goal, tips: response });
 
-							obj.saveAIData(titleResponse, introResponse, goalResponses);
+							if(++idx < goals.length)
+							{
+								getAIGoal(idx);
+							}
+							else
+							{
+								obj.startTipsSpinner(false);
+								
+								obj.loadAITipsHtml(goalResponses, roles);
+
+								obj.saveAIData(titleResponse, introResponse, goalResponses);
+							}
 						}
 					}.bind({idx:idx, goal:goals[idx]}));
 				}
 
 				getAIGoal(0);
 			}
+
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
 	loadRelatedPosts(type, filters, callback)
 	{
-		if(type === Adventure.FILTER_TYPES.roles)
+		if(type === Studio.FILTER_TYPES.roles)
 		{
 			filters = filters.replace(/ and /g, "~");
 		}
 
-		const url = `${Adventure.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
+		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
 
 		fetch(url).then((response) => {
 		    if (response.ok)
@@ -448,16 +487,48 @@ class Adventure
 		});
 	}
 
-	filtersUpdated()
+	goAction()
 	{
-		if(this.dirtyFilters)
+		let areRolesChecked = document.querySelectorAll('input[name="filterRoles"]:checked').length > 0;
+		let areGoalsChecked = document.querySelectorAll('input[name="filterGoals"]:checked').length > 0;
+
+		function userAlert(msg)
+		{
+			if(typeof(bp) !== 'undefined')
+			{
+				bp.alert(msg, function()
+				{
+					this.openMenu();
+				}.bind(this));
+			}
+			else alert(msg);
+		}
+
+		userAlert = userAlert.bind(this);
+
+		if(!areRolesChecked && !areGoalsChecked)
+		{
+			userAlert("You must at least select 1 role or goal.");
+		}
+		else if(this.dirtyFilters)
 		{
 			this.loadContent(true);
 		}
 		else
 		{
-			bp.alert("No changes made. Please select a different role, skill level or goal to update your results.");
+			userAlert("You haven't changed any filters!<br>Select a different role, skill level<br>or goal to update your results.");
 		}
+	}
+
+	openMenu()
+	{
+		BandPioneer.each(document.querySelectorAll('.filter-group'), function()
+		{
+			if(this.id === 'filter-roles') this.classList.add('show');
+			else this.classList.remove('show');
+		});
+
+		document.querySelector('#category-description').classList.add('show');
 	}
 
 	/*
@@ -478,7 +549,7 @@ class Adventure
 			{
 				e.preventDefault();
 				this.classList.remove('show');
-				obj.filtersUpdated();
+				// obj.goAction();
 
 			}.bind(categoryDescription));
 
@@ -494,7 +565,7 @@ class Adventure
 						{
 							//Go
 							categoryDescription.classList.remove('show');
-							obj.filtersUpdated();
+							obj.goAction();
 							break;
 						}
 						else if(i < filterGroups.length - 1)
@@ -516,7 +587,7 @@ class Adventure
 					if(e.target.dataset.filter === 'load-data')
 					{
 						this.classList.remove('show');
-						obj.filtersUpdated();
+						obj.goAction();
 					}
 					else
 					{

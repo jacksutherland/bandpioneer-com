@@ -6,9 +6,9 @@
 
 let BandPioneer = {
 
-	ADVENTURE_FILTER_KEY: 'BandPioneer-3xp3d1t10n-filters',
+	STUDIO_FILTER_KEY: 'BandPioneer-3xp3d1t10n-filters',
 
-	ADVENTURE_AI_KEY: 'BandPioneer-3xp3d1t10n-ai',
+	STUDIO_AI_KEY: 'BandPioneer-3xp3d1t10n-ai',
 
 	AI_URL: '/api/chat-query',
 
@@ -84,13 +84,13 @@ let BandPioneer = {
 			this.addSearchEvents();
 			this.questionValidation();
 
-			const data = JSON.parse(localStorage.getItem(BandPioneer.ADVENTURE_FILTER_KEY));
+			const data = JSON.parse(localStorage.getItem(BandPioneer.STUDIO_AI_KEY));
 			if(data !== null)
 			{
-				const adventureMenu = document.getElementById('adventure-menu');
-				if(adventureMenu != null)
+				const studioMenu = document.getElementById('studio-menu');
+				if(studioMenu != null)
 				{
-					document.getElementById('adventure-menu').classList.add('data-loaded');
+					document.getElementById('studio-menu').classList.add('data-loaded');
 				}
 			}
 		}
@@ -107,7 +107,7 @@ let BandPioneer = {
 			this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
 		}
 
-		alert(message)
+		alert(message, onCloseCallback)
 		{
 			const overlay = document.createElement('div');
 			overlay.classList.add('overlay');
@@ -126,6 +126,7 @@ let BandPioneer = {
 			{
 				e.preventDefault();
 				document.body.removeChild(overlay);
+				if(typeof(onCloseCallback) === 'function') onCloseCallback();
 			};
 
 			const messageElem = document.createElement(messageIsHTML ? 'div' : 'p');
@@ -136,6 +137,7 @@ let BandPioneer = {
 				if (event.target === overlay)
 				{
 					document.body.removeChild(overlay);
+					if(typeof(onCloseCallback) === 'function') onCloseCallback();
 				}
 			};
 
