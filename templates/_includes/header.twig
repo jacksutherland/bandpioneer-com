@@ -32,9 +32,6 @@
                 <li class="hide-desktop">
                     <a href="/" class="underline" href="/about">About Us</a>
                 </li>
-                <li class="hide-desktop">
-                    <a href="/" class="underline" href="/privacy">Privacy Policy</a>
-                </li>
                 {% cache globally %}
                     <li class="hide-mobile dropdown-menu">
                         <a class="underline" title="Blog Topics">Topics {% include '_includes/icons' with { type: 'down' } %}</a>
@@ -94,7 +91,13 @@
                         </li>
                     </ul>
                 </li>
+                <li class="hide-desktop">
+                    <a href="/bands/my-studio" class="underline" href="/privacy">My Studio</a>
+                </li>
                 <li><a class="underline" href="{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Electronic Press Kit">EPK</a></li>
+                <li class="hide-desktop">
+                    <a href="/" class="underline" href="/privacy">Privacy Policy</a>
+                </li>
                 {# <li><a class="underline" href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li> #}
                 <li><a class="underline" href="/contact" title="How to Contact Us">Contact</a></li>
                 {% cache globally %}
