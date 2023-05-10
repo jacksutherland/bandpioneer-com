@@ -1,4 +1,4 @@
-dateModified: 1683671950
+dateModified: 1683746328
 elementSources:
   craft\elements\Asset:
     -
@@ -260,6 +260,7 @@ meta:
     e0270692-1ca3-4ba6-8d52-cfca54ac634a: Size # Size
     e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
     e8ce77e6-c957-4290-8a2d-87ba28953701: 'Bands Media' # Bands Media
+    e47520eb-bf67-40c5-b8e9-b5e219b14003: 'Alternate TOC Text' # Alternate TOC Text
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post

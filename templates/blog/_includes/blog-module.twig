@@ -12,7 +12,10 @@
 
 			{% set isParent = (module.headline | trim | length) %}
 
-			{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+			{% set modHeadline = module.alternateTocText %}
+			{% if modHeadline | length == 0 %}
+				{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+			{% endif %}
 
 			{% if isParent %}
 
@@ -40,7 +43,11 @@
 
 	{% for module in entry.blogContent.all() %}
 		{% if module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
-			{% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %}
+			{# {% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %} #}
+			{% set modHeadline = module.alternateTocText %}
+			{% if modHeadline | length == 0 %}
+				{% set modHeadline = module.headline | length == 0 ? module.subheadline : module.headline %}
+			{% endif %}
 			{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
 		{% endif %}
 	{% endfor %}
