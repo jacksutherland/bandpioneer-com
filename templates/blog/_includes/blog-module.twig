@@ -74,8 +74,11 @@
 											<a href="#section-{{ child.id }}">{{ child.headline }}</a>
 										{% else %}
 											{% set firstCharacter = child.headline | slice(0, 1) %}
+											{# 
 											{% set liText = (firstCharacter is numeric or firstCharacter == '#') ? child.headline : (loop.index ~ '. ' ~ child.headline) %}
 											<a href="#section-{{ child.id }}">{{ liText }}</a>
+											 #}
+											 <a href="#section-{{ child.id }}">{{ child.headline }}</a>
 										{% endif %}
 									</li>
 								{% endfor %}
