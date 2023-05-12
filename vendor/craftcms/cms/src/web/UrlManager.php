@@ -297,14 +297,14 @@ class UrlManager extends \yii\web\UrlManager
     /**
      * Returns the rules that should be used for the current request.
      *
-     * @return array|null The rules, or null if it's a console request
+     * @return array
      */
-    private function _getRules(): ?array
+    private function _getRules(): array
     {
         $request = Craft::$app->getRequest();
 
         if ($request->getIsConsoleRequest()) {
-            return null;
+            return [];
         }
 
         // Load the config file rules
@@ -486,24 +486,12 @@ class UrlManager extends \yii\web\UrlManager
      */
     private function _isPublicTemplatePath(Request $request): bool
     {
-        if ($request->getIsConsoleRequest() || $request->getIsCpRequest()) {
-            $trigger = '_';
-        } else {
-            $trigger = Craft::$app->getConfig()->getGeneral()->privateTemplateTrigger;
-
+        if ($request->getIsSiteRequest() && !Craft::$app->getConfig()->getGeneral()->privateTemplateTrigger) {
             // If privateTemplateTrigger is set to an empty value, disable all public template routing
-            if (!$trigger) {
-                return false;
-            }
+            return false;
         }
 
-        foreach (Craft::$app->getRequest()->getSegments() as $requestPathSeg) {
-            if (str_starts_with($requestPathSeg, $trigger)) {
-                return false;
-            }
-        }
-
-        return true;
+        return Craft::$app->getView()->doesTemplateExist($request->getPathInfo(), publicOnly: true);
     }
 
     /**

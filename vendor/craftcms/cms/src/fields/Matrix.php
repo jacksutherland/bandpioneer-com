@@ -399,8 +399,8 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
         $placeholderKey = StringHelper::randomString(10);
         $view->registerJs(
             'new Craft.MatrixConfigurator(' .
-            Json::encode($fieldTypeInfo, JSON_UNESCAPED_UNICODE) . ', ' .
-            Json::encode($view->getNamespace(), JSON_UNESCAPED_UNICODE) . ', ' .
+            Json::encode($fieldTypeInfo) . ', ' .
+            Json::encode($view->getNamespace()) . ', ' .
             Json::encode($view->namespaceInputName("blockTypes[__BLOCK_TYPE_{$placeholderKey}__][fields][__FIELD_{$placeholderKey}__][typesettings]")) . ', ' .
             Json::encode($placeholderKey) .
             ');'
@@ -721,13 +721,20 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
 
         $js = 'var matrixInput = new Craft.MatrixInput(' .
             '"' . $view->namespaceInputId($id) . '", ' .
-            Json::encode($blockTypeInfo, JSON_UNESCAPED_UNICODE) . ', ' .
+            Json::encode($blockTypeInfo) . ', ' .
             '"' . $view->namespaceInputName($this->handle) . '", ' .
             Json::encode($settings) .
             ');';
 
         // Safe to create the default blocks?
-        if ($createDefaultBlocks) {
+        if ($createDefaultBlocks && count($value) < $this->minBlocks) {
+            // @link https://github.com/craftcms/cms/issues/12973
+            // for matrix fields with minBlocks set Craft.MatrixInput.addBlock() is called before new Craft.ElementEditor(),
+            // so when we get our initialSerializedValue() for the ElementEditor,
+            // the matrix block is already there which means the field is reported as not changed since the init
+            // and so not passed to PHP for save
+            $view->setInitialDeltaValue($this->handle, null);
+
             $blockTypeJs = Json::encode($blockTypes[0]->handle);
             for ($i = count($value); $i < $this->minBlocks; $i++) {
                 $js .= "\nmatrixInput.addBlock($blockTypeJs, null, false);";
@@ -780,7 +787,13 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
     {
         /** @var MatrixBlockQuery|Collection $value */
         $value = $element->getFieldValue($this->handle);
-        $blocks = $value->all();
+
+        if ($value instanceof MatrixBlockQuery) {
+            $blocks = $value->getCachedResult() ?? (clone $value)->status(null)->limit(null)->all();
+        } else {
+            $blocks = $value->all();
+        }
+
         $allBlocksValidate = true;
         $scenario = $element->getScenario();
 
@@ -1244,6 +1257,8 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
                 ->fieldId($this->id)
                 ->ownerId($element->id)
                 ->siteId($element->siteId)
+                ->drafts(null)
+                ->revisions(null)
                 ->status(null)
                 ->indexBy('id')
                 ->all();
@@ -1337,6 +1352,11 @@ class Matrix extends Field implements EagerLoadingFieldInterface, GqlInlineFragm
 
             if (isset($blockData['enabled'])) {
                 $block->enabled = (bool)$blockData['enabled'];
+            }
+
+            // Allow setting the UID for the block element
+            if (isset($blockData['uid'])) {
+                $block->uid = $blockData['uid'];
             }
 
             // Skip disabled blocks on Live Preview requests

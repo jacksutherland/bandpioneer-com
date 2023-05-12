@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.7 - 2023-03-09
+
+### Changed
+- Update system message headings for some email notifications.
+
+### Fixed
+- Fix an issue when installing the plugin, and automatically disabled.
+- Fix an incompatibility with [Emails](https://github.com/ryssbowh/craft-emails) plugin.
+- Fix incorrect return types for voting and flagging comments with GraphQL mutations.
+
 ## 2.0.6 - 2023-02-22
 
 ### Added
@@ -94,6 +104,15 @@
 ### Removed
 - Removed `craft.comments.all()` and `craft.comments.form()`.
 - Removed `Comment::trashUrl`, `Comment::flagUrl`, `Comment::downvoteUrl`, `Comment::upvoteUrl`.
+
+## 1.9.6 - 2023-03-09
+
+### Changed
+- Update system message headings for some email notifications.
+
+### Fixed
+- Fix an issue when installing the plugin, and automatically disabled.
+- Fix an incompatibility with [Emails](https://github.com/ryssbowh/craft-emails) plugin.
 
 ## 1.9.5 - 2023-02-22
 

@@ -14,7 +14,7 @@ use craft\base\PreviewableFieldInterface;
 use craft\base\SortableFieldInterface;
 use craft\fields\conditions\TextFieldConditionRule;
 use craft\helpers\Db;
-use LitEmoji\LitEmoji;
+use craft\helpers\StringHelper;
 use yii\db\Schema;
 
 /**
@@ -42,7 +42,8 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
     }
 
     /**
-     * @var 'normal'|'enlarged' The UI mode of the field.
+     * @var string The UI mode of the field.
+     * @phpstan-var 'normal'|'enlarged'
      * @since 3.5.0
      */
     public string $uiMode = 'normal';
@@ -116,7 +117,7 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
         parent::init();
 
         if (isset($this->placeholder)) {
-            $this->placeholder = LitEmoji::shortcodeToUnicode($this->placeholder);
+            $this->placeholder = StringHelper::shortcodesToEmoji($this->placeholder);
         }
     }
 
@@ -127,7 +128,7 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
     {
         $settings = parent::getSettings();
         if (isset($settings['placeholder'])) {
-            $settings['placeholder'] = LitEmoji::unicodeToShortcode($settings['placeholder']);
+            $settings['placeholder'] = StringHelper::emojiToShortcodes($settings['placeholder']);
         }
         return $settings;
     }
@@ -198,7 +199,7 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
     public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
         if ($value !== null) {
-            $value = LitEmoji::shortcodeToUnicode($value);
+            $value = StringHelper::shortcodesToEmoji($value);
             $value = trim(preg_replace('/\R/u', "\n", $value));
         }
 
@@ -238,7 +239,7 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
     public function serializeValue(mixed $value, ?ElementInterface $element = null): mixed
     {
         if ($value !== null) {
-            $value = LitEmoji::unicodeToShortcode($value);
+            $value = StringHelper::emojiToShortcodes($value);
         }
         return $value;
     }
@@ -248,8 +249,7 @@ class PlainText extends Field implements PreviewableFieldInterface, SortableFiel
      */
     protected function searchKeywords(mixed $value, ElementInterface $element): string
     {
-        $value = (string)$value;
-        return LitEmoji::unicodeToShortcode($value);
+        return StringHelper::emojiToShortcodes((string)$value);
     }
 
     /**

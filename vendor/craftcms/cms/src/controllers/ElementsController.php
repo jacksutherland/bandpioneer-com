@@ -13,7 +13,6 @@ use craft\base\ElementInterface;
 use craft\base\FieldLayoutComponent;
 use craft\behaviors\DraftBehavior;
 use craft\behaviors\RevisionBehavior;
-use craft\db\Table;
 use craft\elements\User;
 use craft\errors\InvalidElementException;
 use craft\errors\InvalidTypeException;
@@ -208,9 +207,9 @@ class ElementsController extends Controller
 
         // Redirect to its edit page
         $editUrl = $element->getCpEditUrl() ?? UrlHelper::actionUrl('elements/edit', [
-                'draftId' => $element->draftId,
-                'siteId' => $element->siteId,
-            ]);
+            'draftId' => $element->draftId,
+            'siteId' => $element->siteId,
+        ]);
 
         $response = $this->_asSuccess(Craft::t('app', '{type} created.', [
             'type' => Craft::t('app', 'Draft'),
@@ -362,22 +361,7 @@ class ElementsController extends Controller
 
         // Site statuses
         if ($canEditMultipleSites) {
-            if ($element->enabled && $element->id) {
-                $siteStatusesQuery = $element::find()
-                    ->drafts($isDraft)
-                    ->provisionalDrafts($element->isProvisionalDraft)
-                    ->revisions($isRevision)
-                    ->id($element->id)
-                    ->siteId($propEditableSiteIds)
-                    ->status(null)
-                    ->asArray()
-                    ->select(['elements_sites.siteId', 'elements_sites.enabled']);
-                $siteStatuses = array_map(fn($enabled) => (bool)$enabled, $siteStatusesQuery->pairs());
-            } else {
-                // If the element isn't saved yet, assume other sites will share its current status
-                $defaultStatus = !$element->id && $element->enabled && $enabledForSite;
-                $siteStatuses = array_combine($propEditableSiteIds, array_map(fn() => $defaultStatus, $propEditableSiteIds));
-            }
+            $siteStatuses = ElementHelper::siteStatusesForElement($element, true);
         } else {
             $siteStatuses = [
                 $element->siteId => $element->enabled,
@@ -438,7 +422,7 @@ class ElementsController extends Controller
                         'revisionId' => $element->revisionId,
                         'siteId' => $element->siteId,
                         'siteStatuses' => $siteStatuses,
-                        'siteToken' => !$element->getSite()->enabled ? $security->hashData((string)$element->siteId) : null,
+                        'siteToken' => (!Craft::$app->getIsLive() || !$element->getSite()->enabled) ? $security->hashData((string)$element->siteId) : null,
                         'visibleLayoutElements' => $form ? $form->getVisibleElements() : [],
                     ]
                 )
@@ -573,6 +557,64 @@ class ElementsController extends Controller
         }
 
         return $response;
+    }
+
+    /**
+     * Returns an element revisions index screen.
+     *
+     * @param int $elementId
+     * @return Response
+     * @throws BadRequestHttpException
+     * @throws ForbiddenHttpException
+     * @since 4.4.0
+     */
+    public function actionRevisions(int $elementId): Response
+    {
+        $this->requireCpRequest();
+
+        /** @var Element|DraftBehavior|RevisionBehavior|Response|null $element */
+        $element = $this->_element($elementId, null, false);
+
+        if (!$element) {
+            throw new BadRequestHttpException('No element was identified by the request.');
+        }
+
+        if ($element->getIsUnpublishedDraft()) {
+            throw new BadRequestHttpException('Unpublished drafts don\'t have revisions');
+        }
+
+        if (!$element->hasRevisions()) {
+            throw new BadRequestHttpException('Element doesn\'t have revisions');
+        }
+
+        return $this->asCpScreen()
+            ->title(Craft::t('app', 'Revisions for “{title}”', [
+                'title' => $element->getUiLabel(),
+            ]))
+            ->prepareScreen(function(Response $response, string $containerId) use ($element) {
+                // Give the element a chance to do things here too
+                $element->prepareEditScreen($response, $containerId);
+
+                /** @var CpScreenResponseBehavior $behavior */
+                $behavior = $response->getBehavior(CpScreenResponseBehavior::NAME);
+                if (!empty($behavior->crumbs)) {
+                    $behavior->crumbs[] = [
+                        'label' => $element->getUiLabel(),
+                        'url' => $element->getCpEditUrl(),
+                    ];
+                }
+            })
+        ->contentTemplate('_elements/revisions', [
+            'element' => $element,
+            'revisionsQuery' => $element::find()
+                ->revisionOf($element)
+                ->site('*')
+                ->preferSites([$element->siteId])
+                ->unique()
+                ->status(null)
+                ->andWhere(['!=', 'elements.dateCreated', Db::prepareDateForDb($element->dateUpdated)])
+                ->with(['revisionCreator']),
+        ]);
     }
 
     /**
@@ -1067,34 +1109,7 @@ JS, [
             throw new ForbiddenHttpException('User not authorized to delete the element for this site.');
         }
 
-        // Fetch the element in any other site (preferably one the user has access to)
-        $editableSiteIds = Craft::$app->getSites()->getEditableSiteIds();
-
-        $otherSiteElement = $element::find()
-            ->id($element->id)
-            ->drafts($element->getIsDraft())
-            ->revisions($element->getIsRevision())
-            ->provisionalDrafts($element->isProvisionalDraft)
-            ->siteId(['not', $element->siteId])
-            ->preferSites($editableSiteIds)
-            ->unique()
-            ->status(null)
-            ->one();
-
-        if (!$otherSiteElement) {
-            throw new BadRequestHttpException('The element doesn’t belong to multiple sites.');
-        }
-
-        // Delete the row in elements_sites
-        Db::delete(Table::ELEMENTS_SITES, [
-            'elementId' => $element->id,
-            'siteId' => $element->siteId,
-        ]);
-
-        // Resave the element
-        $otherSiteElement->setScenario(Element::SCENARIO_ESSENTIALS);
-        $otherSiteElement->resaving = true;
-        $elementsService->saveElement($otherSiteElement, false, true, false);
+        $elementsService->deleteElementForSite($element);
 
         return $this->_asSuccess(Craft::t('app', '{type} deleted for site.', [
             'type' => $element->getIsDraft() && !$element->isProvisionalDraft ? Craft::t('app', 'Draft') : $element::displayName(),
@@ -1588,7 +1603,7 @@ JS, [
                         ->one();
                 }
 
-                if (!isset($element)) {
+                if (!isset($element) || !$this->_canSave($element, $user)) {
                     $element = $elementType::find()
                         ->id($elementId)
                         ->siteId($siteId)

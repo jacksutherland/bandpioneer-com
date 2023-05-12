@@ -19,6 +19,7 @@ use craft\helpers\ArrayHelper;
 use craft\helpers\Cp;
 use craft\helpers\Db;
 use craft\helpers\ElementHelper;
+use craft\helpers\Html;
 use GraphQL\Type\Definition\Type;
 use yii\db\Schema;
 
@@ -132,8 +133,8 @@ class Lightswitch extends Field implements PreviewableFieldInterface, SortableFi
             'describedBy' => $this->describedBy,
             'name' => $this->handle,
             'on' => (bool)$value,
-            'onLabel' => $this->onLabel,
-            'offLabel' => $this->offLabel,
+            'onLabel' => Craft::t('site', $this->onLabel),
+            'offLabel' => Craft::t('site', $this->offLabel),
         ]);
     }
 
@@ -203,5 +204,26 @@ class Lightswitch extends Field implements PreviewableFieldInterface, SortableFi
             'name' => $this->handle,
             'type' => Type::boolean(),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTableAttributeHtml(mixed $value, ElementInterface $element): string
+    {
+        if (!$value) {
+            return '';
+        }
+        
+        $label = $this->onLabel ?: Craft::t('app', 'Enabled');
+
+        return Html::tag('span', '', [
+            'class' => 'checkbox-icon',
+            'role' => 'img',
+            'title' => $label,
+            'aria' => [
+                'label' => $label,
+            ],
+        ]);
     }
 }

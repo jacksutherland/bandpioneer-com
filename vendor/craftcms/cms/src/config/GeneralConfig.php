@@ -429,12 +429,13 @@ class GeneralConfig extends BaseConfig
      * When set to `null` (default), Craft will run `mysqldump` or `pg_dump`, provided that those libraries are in the `$PATH` variable
      * for the system user running the web server.
      *
-     * You may provide your own command optionally using several tokens Craft will swap out at runtime:
+     * You may provide your own command, which can include several tokens Craft will substitute at runtime:
      *
-     * - `{path}` - the target backup file path
+     * - `{file}` - the target backup file path
      * - `{port}` - the current database port
      * - `{server}` - the current database hostname
-     * - `{user}` - the user to connect to the database
+     * - `{user}` - user that was used to connect to the database
+     * - `{password}` - password for the specified `{user}`
      * - `{database}` - the current database name
      * - `{schema}` - the current database schema (if any)
      *
@@ -914,7 +915,7 @@ class GeneralConfig extends BaseConfig
      * This can also be set to `'*'` to disable **all** plugins.
      *
      * ```php
-     * ->disabledPlugins'('*')
+     * ->disabledPlugins('*')
      * ```
      *
      * ::: warning
@@ -1278,7 +1279,7 @@ class GeneralConfig extends BaseConfig
     public array $extraNameSuffixes = [];
 
     /**
-     * @var string|false The string to use to separate words when uploading Assets. If set to `false`, spaces will be left alone.
+     * @var string|false The string to use to separate words when uploading assets. If set to `false`, spaces will be left alone.
      *
      * ::: code
      * ```php Static Config
@@ -2001,6 +2002,30 @@ class GeneralConfig extends BaseConfig
     public bool $prefixGqlRootTypes = true;
 
     /**
+     * @var bool Whether Single section entries should be preloaded for Twig templates.
+     *
+     * When enabled, Craft will make an educated guess on which Singles should be preloaded for each template based on
+     * the variable names that are referenced.
+     *
+     * ::: warning
+     * You will need to clear your compiled templates from the Caches utility before this setting will take effect.
+     * :::
+     *
+     * ::: code
+     * ```php Static Config
+     * ->preloadSingles()
+     * ```
+     * ```shell Environment Override
+     * CRAFT_PRELOAD_SINGLES=true
+     * ```
+     * :::
+     *
+     * @group System
+     * @since 4.4.0
+     */
+    public bool $preloadSingles = false;
+
+    /**
      * @var bool Whether CMYK should be preserved as the colorspace when manipulating images.
      *
      * Setting this to `true` will prevent Craft from transforming CMYK images to sRGB, but on some ImageMagick versions it can cause
@@ -2444,7 +2469,8 @@ class GeneralConfig extends BaseConfig
     public bool $sanitizeCpImageUploads = true;
 
     /**
-     * @var 'None'|'Lax'|'Strict'|null The [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) value that should be set on Craft cookies, if any.
+     * @var string|null The [SameSite](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) value that should be set on Craft cookies, if any.
+     * @phpstan-var 'None'|'Lax'|'Strict'|null
      *
      * This can be set to `'None'`, `'Lax'`, `'Strict'`, or `null`.
      *
@@ -2848,7 +2874,7 @@ class GeneralConfig extends BaseConfig
     public array $trustedHosts = ['any'];
 
     /**
-     * @var bool Whether images should be upscaled if the provided transform size is larger than the image.
+     * @var bool Whether image transforms should allow upscaling by default, for images that are smaller than the transform dimensions.
      *
      * ::: code
      * ```php Static Config
@@ -3420,12 +3446,13 @@ class GeneralConfig extends BaseConfig
      * When set to `null` (default), Craft will run `mysqldump` or `pg_dump`, provided that those libraries are in the `$PATH` variable
      * for the system user running the web server.
      *
-     * You may provide your own command optionally using several tokens Craft will swap out at runtime:
+     * You may provide your own command, which can include several tokens Craft will substitute at runtime:
      *
-     * - `{path}` - the target backup file path
+     * - `{file}` - the target backup file path
      * - `{port}` - the current database port
      * - `{server}` - the current database hostname
-     * - `{user}` - the user to connect to the database
+     * - `{user}` - user that was used to connect to the database
+     * - `{password}` - password for the specified `{user}`
      * - `{database}` - the current database name
      * - `{schema}` - the current database schema (if any)
      *
@@ -4415,7 +4442,7 @@ class GeneralConfig extends BaseConfig
     }
 
     /**
-     * The string to use to separate words when uploading Assets. If set to `false`, spaces will be left alone.
+     * The string to use to separate words when uploading assets. If set to `false`, spaces will be left alone.
      *
      * ```php
      * ->filenameWordSeparator(false)
@@ -5211,6 +5238,37 @@ class GeneralConfig extends BaseConfig
     public function prefixGqlRootTypes(bool $value = true): self
     {
         $this->prefixGqlRootTypes = $value;
+        return $this;
+    }
+
+    /**
+     * Whether Single section entries should be preloaded for Twig templates.
+     *
+     * When enabled, Craft will make an educated guess on which Singles should be preloaded for each template based on
+     * the variable names that are referenced.
+     *
+     * ::: warning
+     * You will need to clear your compiled templates from the Caches utility before this setting will take effect.
+     * :::
+     *
+     * ::: code
+     * ```php Static Config
+     * ->preloadSingles()
+     * ```
+     * ```shell Environment Override
+     * CRAFT_PRELOAD_SINGLES=true
+     * ```
+     * :::
+     *
+     * @group System
+     * @param bool $value
+     * @return self
+     * @see $preloadSingles
+     * @since 4.4.0
+     */
+    public function preloadSingles(bool$value = true): self
+    {
+        $this->preloadSingles = $value;
         return $this;
     }
 
@@ -6195,7 +6253,7 @@ class GeneralConfig extends BaseConfig
     }
 
     /**
-     * Whether images should be upscaled if the provided transform size is larger than the image.
+     * Whether image transforms should allow upscaling by default, for images that are smaller than the transform dimensions.
      *
      * ```php
      * ->upscaleImages(false)

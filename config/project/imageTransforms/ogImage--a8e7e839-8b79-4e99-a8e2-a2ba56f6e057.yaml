@@ -6,4 +6,5 @@ mode: crop
 name: 'OG Image'
 position: center-center
 quality: null
+upscale: true
 width: 1200

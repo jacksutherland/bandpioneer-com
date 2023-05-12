@@ -16,6 +16,7 @@ use craft\db\Query;
 use craft\db\Table;
 use craft\elements\actions\Delete;
 use craft\elements\actions\DeleteActionInterface;
+use craft\elements\actions\Duplicate;
 use craft\elements\actions\Edit;
 use craft\elements\actions\SetStatus;
 use craft\elements\actions\View;
@@ -82,6 +83,7 @@ use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\base\NotSupportedException;
 use yii\base\UnknownPropertyException;
+use yii\db\Expression;
 use yii\db\ExpressionInterface;
 use yii\validators\BooleanValidator;
 use yii\validators\NumberValidator;
@@ -92,6 +94,7 @@ use yii\web\Response;
 /**
  * Element is the base class for classes representing elements in terms of objects.
  *
+ * @mixin CustomFieldBehavior
  * @property int|null $canonicalId The element’s canonical ID
  * @property-read string $canonicalUid The element’s canonical UID
  * @property-read bool $isCanonical Whether this is the canonical element
@@ -541,6 +544,40 @@ abstract class Element extends Component implements ElementInterface
     public const EVENT_DEFINE_KEYWORDS = 'defineKeywords';
 
     /**
+     * @event DefineUrlEvent The event that is triggered before defining the element’s URL.
+     *
+     * It can be used to provide a custom URL, completely bypassing the default URL generation.
+     *
+     * ```php
+     * use craft\base\Element;
+     * use craft\elements\Entry;
+     * use craft\events\DefineUrlEvent;
+     * use craft\helpers\UrlHelper;
+     * use yii\base\Event;
+     *
+     * Event::on(
+     *     Entry::class,
+     *     Element::EVENT_BEFORE_DEFINE_URL,
+     *     function(DefineUrlEvent $e
+     * ) {
+     *     // @var Entry $entry
+     *     $entry = $e->sender;
+     *
+     *     $event->url = '...';
+     * });
+     * ```
+     *
+     * To prevent the element from getting a URL, ensure `$event->url` is set to `null`,
+     * and set `$event->handled` to `true`.
+     *
+     * Note that [[EVENT_DEFINE_URL]] will still be called regardless of what happens with this event.
+     *
+     * @since 4.4.6
+     * @see getUrl()
+     */
+    public const EVENT_BEFORE_DEFINE_URL = 'beforeDefineUrl';
+
+    /**
      * @event DefineUrlEvent The event that is triggered when defining the element’s URL.
      *
      * ```php
@@ -566,6 +603,9 @@ abstract class Element extends Component implements ElementInterface
      *     }
      * });
      * ```
+     *
+     * To prevent the element from getting a URL, ensure `$event->url` is set to `null`,
+     * and set `$event->handled` to `true`.
      *
      * @since 4.3.0
      * @see getUrl()
@@ -858,6 +898,14 @@ abstract class Element extends Component implements ElementInterface
 
     /**
      * @inheritdoc
+     */
+    public static function findSource(string $sourceKey, ?string $context = null): ?array
+    {
+        return null;
+    }
+
+    /**
+     * @inheritdoc
      * @since 3.5.0
      */
     public static function fieldLayouts(string $source): array
@@ -907,6 +955,11 @@ abstract class Element extends Component implements ElementInterface
                 )
             )
         );
+
+        // Prepend Duplicate?
+        if (!$hasActionType(Duplicate::class)) {
+            $actions->prepend(Duplicate::class);
+        }
 
         // Prepend Edit?
         if (!$hasActionType(Edit::class)) {
@@ -1112,7 +1165,7 @@ abstract class Element extends Component implements ElementInterface
             $elementQuery->cache();
         }
 
-        $variables['elements'] = $elementQuery->all($db);
+        $variables['elements'] = static::indexElements($elementQuery, $sourceKey);
 
         $template = '_elements/' . $viewState['mode'] . 'view/' . ($includeContainer ? 'container' : 'elements');
 
@@ -1120,19 +1173,59 @@ abstract class Element extends Component implements ElementInterface
     }
 
     /**
-     * Preps the element criteria for a given table attribute
+     * Prepares an element query for an element index that includes a given table attribute.
      *
      * @param ElementQueryInterface $elementQuery
      * @param string $attribute
      */
     protected static function prepElementQueryForTableAttribute(ElementQueryInterface $elementQuery, string $attribute): void
     {
-        /** @var ElementQuery $elementQuery */
-        // Is this a custom field?
-        if (preg_match('/^field:(.+)/', $attribute, $matches)) {
-            $fieldUid = $matches[1];
-            Craft::$app->getFields()->getFieldByUid($fieldUid)?->modifyElementIndexQuery($elementQuery);
+        switch ($attribute) {
+            case 'ancestors':
+                $elementQuery->andWith(['ancestors', ['status' => null]]);
+                break;
+            case 'parent':
+                $elementQuery->andWith(['parent', ['status' => null]]);
+                break;
+            case 'revisionNotes':
+                $elementQuery->andWith('currentRevision');
+                break;
+            case 'revisionCreator':
+                $elementQuery->andWith('currentRevision.revisionCreator');
+                break;
+            case 'drafts':
+                $elementQuery->andWith(['drafts', ['status' => null, 'orderBy' => ['dateUpdated' => SORT_DESC]]]);
+                break;
+            default:
+                // Is this a custom field?
+                if (preg_match('/^field:(.+)/', $attribute, $matches)) {
+                    $fieldUid = $matches[1];
+                    Craft::$app->getFields()->getFieldByUid($fieldUid)?->modifyElementIndexQuery($elementQuery);
+                }
         }
+    }
+
+    /**
+     * Returns the resulting elements for an element index.
+     *
+     * @param ElementQueryInterface $elementQuery
+     * @param string|null $sourceKey
+     * @return ElementInterface[]
+     * @since 4.4.0
+     */
+    protected static function indexElements(ElementQueryInterface $elementQuery, ?string $sourceKey): array
+    {
+        return $elementQuery->all();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function indexElementCount(ElementQueryInterface $elementQuery, ?string $sourceKey): int
+    {
+        return (int)$elementQuery
+            ->select(new Expression('1'))
+            ->count();
     }
 
     /**
@@ -1535,7 +1628,7 @@ abstract class Element extends Component implements ElementInterface
         return [
             'elementType' => static::class,
             'map' => $map,
-            'criteria' => ['revisions' => true],
+            'criteria' => ['revisions' => true, 'status' => null],
         ];
     }
 
@@ -1782,6 +1875,12 @@ abstract class Element extends Component implements ElementInterface
     protected ?string $revisionNotes = null;
 
     /**
+     * @var array<string,int>|null
+     * @see validate()
+     */
+    private ?array $_attributeNames;
+
+    /**
      * @var int|null
      * @see getCanonicalId()
      * @see setCanonicalId()
@@ -1957,6 +2056,13 @@ abstract class Element extends Component implements ElementInterface
     private ?string $_uiLabel = null;
 
     /**
+     * @var string[]
+     * @see getUiLabelPath()
+     * @see setUiLabelPath()
+     */
+    private array $_uiLabelPath = [];
+
+    /**
      * @var bool|null
      * @see getIsFresh()
      * @see setIsFresh()
@@ -2050,7 +2156,7 @@ abstract class Element extends Component implements ElementInterface
         // If this is a field, make sure the value has been normalized before returning the CustomFieldBehavior value
         if ($this->fieldByHandle($name) !== null) {
             $value = $this->getFieldValue($name);
-            if (is_object($value) && (!class_exists(UnitEnum::class) || !$value instanceof UnitEnum)) {
+            if (is_object($value) && (!interface_exists(UnitEnum::class) || !$value instanceof UnitEnum)) {
                 $value = clone $value;
             }
             return $value;
@@ -2299,6 +2405,17 @@ abstract class Element extends Component implements ElementInterface
     /**
      * @inheritdoc
      */
+    public function validate($attributeNames = null, $clearErrors = true)
+    {
+        $this->_attributeNames = $attributeNames ? array_flip((array)$attributeNames) : null;
+        $result = parent::validate($attributeNames, $clearErrors);
+        $this->_attributeNames = null;
+        return $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function afterValidate(): void
     {
         if (
@@ -2312,6 +2429,11 @@ abstract class Element extends Component implements ElementInterface
             foreach ($layoutElements as $layoutElement) {
                 $field = $layoutElement->getField();
                 $attribute = "field:$field->handle";
+
+                if (isset($this->_attributeNames) && !isset($this->_attributeNames[$attribute])) {
+                    continue;
+                }
+
                 $isEmpty = fn() => $field->isValueEmpty($this->getFieldValue($field->handle), $this);
 
                 if ($scenario === self::SCENARIO_LIVE && $layoutElement->required) {
@@ -2819,11 +2941,15 @@ abstract class Element extends Component implements ElementInterface
      */
     public function getUrl(): ?string
     {
-        if (isset($this->uri)) {
+        // Give plugins/modules a chance to provide a custom URL
+        $event = new DefineUrlEvent();
+        $this->trigger(self::EVENT_BEFORE_DEFINE_URL, $event);
+        $url = $event->url;
+
+        // If DefineAssetUrlEvent::$url is set to null, only respect that if $handled is true
+        if ($url === null && !$event->handled && isset($this->uri)) {
             $path = $this->getIsHomepage() ? '' : $this->uri;
             $url = UrlHelper::siteUrl($path, null, null, $this->siteId);
-        } else {
-            $url = null;
         }
 
         // Give plugins/modules a chance to customize it
@@ -2868,6 +2994,22 @@ abstract class Element extends Component implements ElementInterface
     public function setUiLabel(?string $label): void
     {
         $this->_uiLabel = $label;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getUiLabelPath(): array
+    {
+        return $this->_uiLabelPath;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setUiLabelPath(array $path): void
+    {
+        $this->_uiLabelPath = $path;
     }
 
     /**
@@ -3019,7 +3161,7 @@ abstract class Element extends Component implements ElementInterface
             $params['revisionId'] = $this->revisionId;
         }
 
-        return UrlHelper::urlWithParams($cpEditUrl, $params);
+        return UrlHelper::cpUrl($cpEditUrl, $params);
     }
 
     /**
@@ -3037,6 +3179,37 @@ abstract class Element extends Component implements ElementInterface
      * @inheritdoc
      */
     public function getPostEditUrl(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getCpRevisionsUrl(): ?string
+    {
+        $cpEditUrl = $this->cpRevisionsUrl();
+
+        if (!$cpEditUrl) {
+            return null;
+        }
+
+        $params = [];
+
+        if (Craft::$app->getIsMultiSite()) {
+            $params['site'] = $this->getSite()->handle;
+        }
+
+        return UrlHelper::cpUrl($cpEditUrl, $params);
+    }
+
+    /**
+     * Returns the element’s revisions index URL in the control panel.
+     *
+     * @return string|null
+     * @since 4.4.0
+     */
+    protected function cpRevisionsUrl(): ?string
     {
         return null;
     }
@@ -3175,13 +3348,10 @@ abstract class Element extends Component implements ElementInterface
     public function setEnabledForSite(array|bool $enabledForSite): void
     {
         if (is_array($enabledForSite)) {
-            foreach ($enabledForSite as &$value) {
-                $value = (bool)$value;
-            }
+            $this->_enabledForSite = array_map(fn($value) => (bool)$value, $enabledForSite);
         } else {
-            $enabledForSite = (bool)$enabledForSite;
+            $this->_enabledForSite = $enabledForSite;
         }
-        $this->_enabledForSite = $enabledForSite;
     }
 
     /**
@@ -4345,6 +4515,21 @@ abstract class Element extends Component implements ElementInterface
     protected function tableAttributeHtml(string $attribute): string
     {
         switch ($attribute) {
+            case 'ancestors':
+                $ancestors = $this->getAncestors();
+                if (!$ancestors instanceof Collection || $ancestors->isEmpty()) {
+                    return '';
+                }
+                $html = Html::beginTag('ul', ['class' => 'path']);
+                foreach ($ancestors as $ancestor) {
+                    $html .= Html::tag('li', Cp::elementHtml($ancestor));
+                }
+                return $html . Html::endTag('ul');
+
+            case 'parent':
+                $parent = $this->getParent();
+                return $parent ? Cp::elementHtml($parent) : '';
+
             case 'link':
                 if (ElementHelper::isDraftOrRevision($this)) {
                     return '';
@@ -4409,6 +4594,45 @@ abstract class Element extends Component implements ElementInterface
                 }
 
                 return Html::encode($this->slug);
+
+            case 'revisionNotes':
+                $revision = $this->getCurrentRevision();
+                if (!$revision) {
+                    return '';
+                }
+                /** @var RevisionBehavior|null $behavior */
+                $behavior = $revision->getBehavior('revision');
+                if (!$behavior) {
+                    return '';
+                }
+                return Html::encode($behavior->revisionNotes);
+
+            case 'revisionCreator':
+                $revision = $this->getCurrentRevision();
+                if (!$revision) {
+                    return '';
+                }
+                /** @var RevisionBehavior|null $behavior */
+                $behavior = $revision->getBehavior('revision');
+                if (!$behavior) {
+                    return '';
+                }
+                $creator = $behavior->getCreator();
+                return $creator ? Cp::elementHtml($creator) : '';
+
+            case 'drafts':
+                if (!$this->hasEagerLoadedElements('drafts')) {
+                    return '';
+                }
+
+                $drafts = $this->getEagerLoadedElements('drafts')->all();
+
+                foreach ($drafts as $draft) {
+                    /** @var ElementInterface|DraftBehavior $draft */
+                    $draft->setUiLabel($draft->draftName);
+                }
+
+                return Cp::elementPreviewHtml($drafts, Cp::ELEMENT_SIZE_SMALL, true, false, true, false);
 
             default:
                 // Is this a custom field?
@@ -4595,6 +4819,7 @@ JS,
      */
     protected function notesFieldHtml(): string
     {
+        // todo: this should accept a $static arg
         /** @var static|DraftBehavior $this */
         return Cp::textareaFieldHtml([
             'label' => Craft::t('app', 'Notes about your changes'),

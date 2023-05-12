@@ -31,15 +31,6 @@ return array (
       '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
     ),
   ),
-  'yiisoft/yii2-debug' => 
-  array (
-    'name' => 'yiisoft/yii2-debug',
-    'version' => '2.1.19.0',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
-    ),
-  ),
   'samdark/yii2-psr-log-target' => 
   array (
     'name' => 'samdark/yii2-psr-log-target',
@@ -59,14 +50,13 @@ return array (
       '@creocoder/nestedsets' => $vendorDir . '/creocoder/yii2-nested-sets/src',
     ),
   ),
-  'yiisoft/yii2-shell' => 
+  'yiisoft/yii2-debug' => 
   array (
-    'name' => 'yiisoft/yii2-shell',
-    'version' => '2.0.5.0',
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.1.22.0',
     'alias' => 
     array (
-      '@yii/shell' => $vendorDir . '/yiisoft/yii2-shell',
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
     ),
-    'bootstrap' => 'yii\\shell\\Bootstrap',
   ),
 );
