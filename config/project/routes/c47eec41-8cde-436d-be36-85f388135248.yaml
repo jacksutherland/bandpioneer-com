@@ -1,0 +1,17 @@
+siteUid: null
+sortOrder: 3
+template: /my-studio/index
+uriParts:
+  - my-studio/
+  -
+    - slug
+    - '[^\/]+'
+  - /
+  -
+    - slug
+    - '[^\/]+'
+  - /
+  -
+    - slug
+    - '[^\/]+'
+uriPattern: 'my-studio/<slug:[^\/]+>/<slug2:[^\/]+>/<slug3:[^\/]+>'

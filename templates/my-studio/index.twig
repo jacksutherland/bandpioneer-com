@@ -1,11 +1,34 @@
 {% extends '/_layout' %}
 
+{### INITIAL VARIABLES ###}
+
+{% set slug = 'my-studio' %}
 {% set versionNumber = 1.01 %}
 {% set maxRoles = 3 %}
 {% set maxSkills = 1 %}
 {% set maxGoals = 2 %}
-{% set pageTitle = "My Studio" %}
-{% set entry = { slug: 'my-studio', title: 'Music Info Customized For You', section: { handle: 'my-studio' } } %}
+{% set skillGoal = 'improve my skill' %}
+{% set financeGoal = 'make money with music' %}
+{% set marketingGoal = 'market and promote my music' %}
+{% set socialMediaGoal = 'influence on social media' %}
+
+{### DYNAMIC KEYWORD ###}
+
+{% set keyword = craft.app.request.segments | last == slug ? '' : craft.app.request.segments | last %}
+
+{### PAGE TITLE AND ENTRY ###}
+
+{% if keyword | length %}
+	{% set pageTitle = keyword | replace({'-': ' '}) | title %}
+	{% set seoTitle = pageTitle %}
+{% else %}
+	{% set pageTitle = "My Studio" %}
+	{% set seoTitle = "Music Info Customized For You" %}
+{% endif %}
+
+{% set entry = { slug: slug, title: seoTitle, section: { handle: slug } } %}
+
+{### INITIAL FILTERS AND ARTICLES ###}
 
 {% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
 {% set roles = craft.entries.section('roles') %}
@@ -17,6 +40,8 @@
 {% if initialRole | length == 0 or recentArticles.count == 0 %}
 	{% set recentArticles = craft.entries.section('blog').limit(2).orderBy('postDate DESC') %}
 {% endif %}
+
+{### PAGE STYLES ###}
 
 {% block headerScripts %}
 	<style type="text/css">
@@ -88,12 +113,28 @@
 	</style>
 {% endblock %}
 
+{### PAGE SCRIPTS ###}
+
 {% block scripts %}
 	<script defer src="{{ url('js/studio.min.js') }}?version={{ versionNumber }}"></script>
 	<script defer type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function()
         {
-			new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }});
+        	const goalObj = {
+        		skill: '{{ skillGoal }}',
+        		finance: '{{ financeGoal }}',
+        		marketing: '{{ marketingGoal }}',
+        		socialMedia: '{{ socialMediaGoal }}'
+        	};
+
+        	{% if keyword | length %}
+        		{% set segments = craft.app.request.segments %}
+				{% set keywordRole = segments[segments | length - 2] %}
+				{% set keywordGoal = segments[segments | length - 3] %}
+        		new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj, {keyword:'{{ keyword }}', goal:'{{ keywordGoal }}', role:'{{ keywordRole }}', title:'{{ pageTitle }}'});
+        	{% else %}
+				new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj);
+        	{% endif %}
 		});
 	</script>
 {% endblock %}
@@ -119,7 +160,7 @@
 				</ul>
 			</nav>
 		</div>
-		<div id="category-description"{% if initialRole | length %} class="show"{% endif %}>
+		<div id="category-description">
 			<div class="container">
 				<a id="close-filters" href="/" class="close-menu">
    					{% include '_includes/icons' with { type: 'close' } %}
@@ -165,10 +206,10 @@
 						<em>(Choose up to 2)</em>
 					</div>
 					<div class="filter-inputs" data-max="{{ maxGoals }}">
-						<label><input name="filterGoals" type="checkbox" value="improve my skill"><span>Improve Your Skill</span></label>
-						<label><input name="filterGoals" type="checkbox" value="make money with music"><span>Make More Money</span></label>
-						<label><input name="filterGoals" type="checkbox" value="market and promote my music"><span>Market and Promote</span></label>
-						<label><input name="filterGoals" type="checkbox" value="influence on social media"><span>Social Media Influence</span></label>
+						<label><input name="filterGoals" type="checkbox" value="{{ skillGoal }}"><span>Improve Your Skill</span></label>
+						<label><input name="filterGoals" type="checkbox" value="{{ financeGoal }}"><span>Make More Money</span></label>
+						<label><input name="filterGoals" type="checkbox" value="{{ marketingGoal }}"><span>Market and Promote</span></label>
+						<label><input name="filterGoals" type="checkbox" value="{{ socialMediaGoal }}"><span>Social Media Influence</span></label>
 					</div>
 				</div>
 				<div>

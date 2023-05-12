@@ -60,6 +60,8 @@ class Api extends Component
             'query' => ['include' => implode(',', $include)],
         ]);
         $body = Json::decode((string)$response->getBody());
+        echo "getLicenseInfo";
+        die();
         return $body['license'];
     }
 

@@ -21,11 +21,13 @@ class Studio
 		"Rome wasn't built in a day, and apparently neither was AI..."
 	];
 
-	constructor(initialRole, maxRoles, maxSkills, maxGoals)
+	constructor(initialRole, maxRoles, maxSkills, maxGoals, goalValues, keyword)
 	{
 		const initialRoleSelected = initialRole.trim().length > 0;
 
 		this.dirtyFilters = false;
+
+		this.goalValues = goalValues;
 
 		this.createFilters();
 
@@ -65,6 +67,10 @@ class Studio
 			{
 				this.openMenu();
 			}
+		}
+		else if(typeof(keyword) === 'object')
+		{
+			this.loadKeyword(keyword);
 		}
 		else
 		{
@@ -505,6 +511,31 @@ class Studio
 		}).catch((error) => {
 		    console.error("Error:", error);
 		});
+	}
+
+	loadKeyword(keyObj)
+	{
+		this.deleteFilterData();
+
+		document.querySelector(`input[name="filterRoles"][value="${keyObj.role}"]`).checked = true;
+
+		switch(keyObj.goal)
+		{
+			case "finance":
+				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.finance}"]`).checked = true;
+				break;
+			case "marketing":
+				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.marketing}"]`).checked = true;
+				break;
+			case "skill":
+				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.skill}"]`).checked = true;
+				break;
+			case "social-media":
+				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.socialMedia}"]`).checked = true;
+				break;
+		}
+
+		this.goAction();
 	}
 
 	goAction()
