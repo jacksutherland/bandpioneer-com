@@ -14,32 +14,44 @@
 
 {### DYNAMIC KEYWORD ###}
 
-{% set keyword = craft.app.request.segments | last == slug ? '' : craft.app.request.segments | last %}
+{% set segments = craft.app.request.segments %}
+{% set keyword = segments | last == slug ? '' : segments | last %}
 
 {### PAGE TITLE AND ENTRY ###}
 
 {% if keyword | length %}
+
+	{% set usingKeyword = true %}
+	{% set keywordQuery = segments[segments | length - 2] %}
 	{% set pageTitle = keyword | replace({'-': ' '}) | title %}
 	{% set seoTitle = pageTitle %}
+
+	{% set recentArticles = craft.entries.section('blog').search({query: keywordQuery}).limit(4).orderBy('score') %}
+
 {% else %}
+
+	{% set usingKeyword = false %}
 	{% set pageTitle = "My Studio" %}
 	{% set seoTitle = "Music Info Customized For You" %}
+
+	{### INITIAL FILTERS AND ARTICLES ###}
+
+	{% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
+	{% set roles = craft.entries.section('roles') %}
+
+	{% if initialRole | length > 0 %}
+		{% set recentArticles = craft.entries.section('blog').search({query: initialRole}).limit(2).orderBy('score') %}
+	{% endif %}
+	{% set initialArticlesAreForRole = (initialRole | length > 0 and recentArticles.count > 0) %}
+	{% if initialRole | length == 0 or recentArticles.count == 0 %}
+		{% set recentArticles = craft.entries.section('blog').limit(2).orderBy('postDate DESC') %}
+	{% endif %}
+
 {% endif %}
 
 {% set entry = { slug: slug, title: seoTitle, section: { handle: slug } } %}
 
-{### INITIAL FILTERS AND ARTICLES ###}
 
-{% set initialRole = craft.app.request.getQueryParam('role') ?? '' %}
-{% set roles = craft.entries.section('roles') %}
-
-{% if initialRole | length > 0 %}
-	{% set recentArticles = craft.entries.section('blog').search({query: initialRole}).limit(2).orderBy('score') %}
-{% endif %}
-{% set initialArticlesAreForRole = (initialRole | length > 0 and recentArticles.count > 0) %}
-{% if initialRole | length == 0 or recentArticles.count == 0 %}
-	{% set recentArticles = craft.entries.section('blog').limit(2).orderBy('postDate DESC') %}
-{% endif %}
 
 {### PAGE STYLES ###}
 
@@ -127,11 +139,14 @@
         		socialMedia: '{{ socialMediaGoal }}'
         	};
 
-        	{% if keyword | length %}
-        		{% set segments = craft.app.request.segments %}
-				{% set keywordRole = segments[segments | length - 2] %}
-				{% set keywordGoal = segments[segments | length - 3] %}
-        		new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj, {keyword:'{{ keyword }}', goal:'{{ keywordGoal }}', role:'{{ keywordRole }}', title:'{{ pageTitle }}'});
+        	{% if usingKeyword %}
+				const keyObj = {
+					keyword: '{{ keyword }}',
+					query: '{{ keywordQuery }}',
+					title: '{{ pageTitle }}'
+				};
+
+        		new Studio('', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj, keyObj);
         	{% else %}
 				new Studio('{{ initialRole }}', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj);
         	{% endif %}
@@ -141,83 +156,11 @@
 
 {% block content %}
 	
-	<div id="filters" class="categories">
-		<div class="container">
-			<nav role="navigation" aria-label="Primary Navigation">
-				<ul>
-					<li>
-						<label class="underline" data-filter="#filter-roles">1. Select a Role</label>
-					</li>
-					<li>
-						<label class="underline" data-filter="#filter-skills">2. Skill Level</label>
-					</li>
-					<li>
-						<label class="underline" data-filter="#filter-goals">3. Choose a Goal</label>
-					</li>
-					<li>
-						<label class="underline" data-filter="load-data">4. Go!</label>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<div id="category-description">
-			<div class="container">
-				<a id="close-filters" href="/" class="close-menu">
-   					{% include '_includes/icons' with { type: 'close' } %}
-  				</a>
-				<div id="filter-roles" class="filter-group{% if initialRole | length %} show{% endif %}">
-					<div class="filter-description">
-						<h4>Step 1: What Is Your Role in the Band?</h4>
-						<em>(Choose up to 3)</em>
-					</div>
-					<div class="filter-inputs" data-max="{{ maxRoles }}">
-						{% for role in roles.all() %}
-							<label>
-								<input name="filterRoles" type="checkbox" value="{{ role.slug }}"{% if role.slug == initialRole %} checked="checked"{% endif %}>
-								<span>{{ role.title }}</span>
-							</label>
-						{% endfor %}
-					</div>
-				</div>
-				<div id="filter-skills" class="filter-group">
-					<div class="filter-description">
-						<h4>Step 2: What Is Your Skill Level?</h4>
-					</div>
-					<div class="filter-inputs" data-max="{{ maxSkills }}">
-						<label><input name="filterSkill" type="checkbox" value="beginner">
-							<span>Beginner</span>
-							<em>(Little or no experience. You're just getting started)</em>
-						</label>
-						<br>
-						<label><input name="filterSkill" type="checkbox" value="intermediate">
-							<span>Intermediate</span>
-							<em>(Foundational skills. You're a competent performer)</em>
-						</label>
-						<br>
-						<label><input name="filterSkill" type="checkbox" value="professional">
-							<span>Professional</span>
-							<em>(Working musician, with extensive experience or formal training)</em>
-						</label>
-					</div>
-				</div>
-				<div id="filter-goals" class="filter-group">
-					<div class="filter-description">
-						<h4>What Are Your Primary Goals with Music?</h4>
-						<em>(Choose up to 2)</em>
-					</div>
-					<div class="filter-inputs" data-max="{{ maxGoals }}">
-						<label><input name="filterGoals" type="checkbox" value="{{ skillGoal }}"><span>Improve Your Skill</span></label>
-						<label><input name="filterGoals" type="checkbox" value="{{ financeGoal }}"><span>Make More Money</span></label>
-						<label><input name="filterGoals" type="checkbox" value="{{ marketingGoal }}"><span>Market and Promote</span></label>
-						<label><input name="filterGoals" type="checkbox" value="{{ socialMediaGoal }}"><span>Social Media Influence</span></label>
-					</div>
-				</div>
-				<div>
-					<button id="filter-next" class="small-btn subtle-btn">Next</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	{% if usingKeyword %}
+		{% include '_includes/categories' with { categories: craft.entries.section('category') } %}
+	{% else %}
+		{% include 'my-studio/_includes/filters' %}
+	{% endif %}
 
 	<div class="page">
 		<div class="container">
@@ -238,7 +181,9 @@
 			<section id="role-articles">
 				<div></div>
 				<div id="recent-articles">
-					<h3>Recent Articles</h3>
+					{% if not usingKeyword %}
+						<h3>Recent Articles</h3>
+					{% endif  %}
 					{% include 'blog/_includes/blog-posts' with { posts: recentArticles.all() } %}
 				</div>
 			</section>

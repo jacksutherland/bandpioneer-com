@@ -23,6 +23,12 @@ class Studio
 
 	constructor(initialRole, maxRoles, maxSkills, maxGoals, goalValues, keyword)
 	{
+		if(typeof(keyword) === 'object')
+		{
+			this.loadKeyword(keyword);
+			return;
+		}
+
 		const initialRoleSelected = initialRole.trim().length > 0;
 
 		this.dirtyFilters = false;
@@ -41,10 +47,6 @@ class Studio
 			// If user copies/pastes it will reload every time
 
 			history.replaceState({}, null, window.location.pathname);
-
-			// this.deleteFilterData();
-
-			// this.saveFilterData();
 
 			if(this.hasCachedAIData())
 			{
@@ -67,10 +69,6 @@ class Studio
 			{
 				this.openMenu();
 			}
-		}
-		else if(typeof(keyword) === 'object')
-		{
-			this.loadKeyword(keyword);
 		}
 		else
 		{
@@ -243,6 +241,35 @@ class Studio
 		document.getElementById('intro-tips').innerHTML = '';
 	}
 
+	loadKeyword(keyObj)
+	{
+		document.getElementById('intro-role').innerText = 'Something magical is happening!';
+		document.getElementById('intro-description').innerHTML = 'Through the power of BandPioneer and AI we are customizing this content, specifically for you...';
+		document.querySelector('#intro-spinner svg').style.display = 'inline';
+
+		const query = `Write a couple paragraphs about "${keyObj.title}", that are extremely useful and insightful.`;
+
+		(async () => {
+			
+			// load it from ai
+	  	
+		  	let response = await BandPioneer.aiQuery(query);
+
+		  	// document.getElementById('intro-role').remove();
+		  	document.querySelector('#intro-spinner svg').style.display = 'none';
+			
+			if(response !== "error")
+			{
+				document.getElementById('intro-description').innerHTML = response;
+			}
+			else
+			{
+				document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
+			}
+
+		})();
+	}
+
 	loadContent(reloadAI = false)
 	{
 		const obj = this;
@@ -323,21 +350,25 @@ class Studio
 
 		if(roles != 'musician')
 		{
-			this.loadRelatedPosts(Studio.FILTER_TYPES.roles, roles, function(html)
-			{
-				if(html.trim().length === 0)
-				{
-					document.querySelector('#role-articles > div').innerHTML = '';
-					document.querySelector('#recent-articles').style.display = 'block';
-				}
-				else
-				{
-					document.querySelector('#recent-articles').style.display = 'none';
-					document.querySelector('#role-articles > div').innerHTML = html;
-				}
-			});
+			this.renderPrimaryArticles(roles);
 		}
-		
+	}
+
+	renderPrimaryArticles(query)
+	{
+		this.fetchRelatedPosts(Studio.FILTER_TYPES.roles, query, function(html)
+		{
+			if(html.trim().length === 0)
+			{
+				document.querySelector('#role-articles > div').innerHTML = '';
+				document.querySelector('#recent-articles').style.display = 'block';
+			}
+			else
+			{
+				document.querySelector('#recent-articles').style.display = 'none';
+				document.querySelector('#role-articles > div').innerHTML = html;
+			}
+		});
 	}
 
 	loadAITipsHtml(goals, roles)
@@ -366,7 +397,7 @@ class Studio
 			tipsHtml += `<section class="studio-tips"><h3>${verbs[random]} ${this.goal}</h3><strong>As a ${roles}</strong><p>${this.tips}</p></section><div id="${tipId}"></div>`;
 			tipsEle.innerHTML = tipsHtml;
 
-			obj.loadRelatedPosts(Studio.FILTER_TYPES.goals, this.goal, function(html)
+			obj.fetchRelatedPosts(Studio.FILTER_TYPES.goals, this.goal, function(html)
 			{
 				let readMoreUrl = '/advice';
 
@@ -492,7 +523,7 @@ class Studio
 		}
 	}
 
-	loadRelatedPosts(type, filters, callback)
+	fetchRelatedPosts(type, filters, callback)
 	{
 		if(type === Studio.FILTER_TYPES.roles)
 		{
@@ -500,6 +531,8 @@ class Studio
 		}
 
 		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
+
+		console.log(url);
 
 		fetch(url).then((response) => {
 		    if (response.ok)
@@ -511,31 +544,6 @@ class Studio
 		}).catch((error) => {
 		    console.error("Error:", error);
 		});
-	}
-
-	loadKeyword(keyObj)
-	{
-		this.deleteFilterData();
-
-		document.querySelector(`input[name="filterRoles"][value="${keyObj.role}"]`).checked = true;
-
-		switch(keyObj.goal)
-		{
-			case "finance":
-				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.finance}"]`).checked = true;
-				break;
-			case "marketing":
-				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.marketing}"]`).checked = true;
-				break;
-			case "skill":
-				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.skill}"]`).checked = true;
-				break;
-			case "social-media":
-				document.querySelector(`input[name="filterGoals"][value="${this.goalValues.socialMedia}"]`).checked = true;
-				break;
-		}
-
-		this.goAction();
 	}
 
 	goAction()

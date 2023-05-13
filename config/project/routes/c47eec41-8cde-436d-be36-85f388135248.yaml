@@ -10,8 +10,4 @@ uriParts:
   -
     - slug
     - '[^\/]+'
-  - /
-  -
-    - slug
-    - '[^\/]+'
-uriPattern: 'my-studio/<slug:[^\/]+>/<slug2:[^\/]+>/<slug3:[^\/]+>'
+uriPattern: 'my-studio/<slug:[^\/]+>/<slug2:[^\/]+>'

@@ -1,15 +1,16 @@
 {% apply spaceless %}
 
 	{% set searchType = craft.app.request.getQueryParam('type') ?? '' %}
+	{% set limit = craft.app.request.getQueryParam('limit') ?? 2 %}
 	{% set entries = null %}
 
 	{% switch searchType %}
 		{% case 'roles' %}
 			{% set roles = craft.app.request.getQueryParam('filters') | replace({'~': ' OR '}) %}
-			{% set entries = craft.entries.section('blog').search({query: roles}).limit(2).orderBy('score') %}
+			{% set entries = craft.entries.section('blog').search({query: roles}).limit(limit).orderBy('score') %}
 		{% case 'goals' %}
 			{% set goal = craft.app.request.getQueryParam('filters') %}
-			{% set entries = craft.entries.section('blog').search({query: goal}).limit(2).orderBy('score') %}
+			{% set entries = craft.entries.section('blog').search({query: goal}).limit(limit).orderBy('score') %}
 	{% endswitch %}
 
 	{% if entries != null and entries.count > 0 %}
