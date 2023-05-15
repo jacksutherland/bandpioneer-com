@@ -74,6 +74,17 @@ class Install extends Migration
             'uid' => $this->uid(),
             'enabled' => $this->boolean()->notNull()->defaultValue(false),
         ]);
+
+        $this->archiveTableIfExists('{{%rockstar_keywords}}');
+        $this->createTable('{{%rockstar_keywords}}', [
+            'id' => $this->primaryKey(),
+            'path' => $this->string(),
+            'body' => $this->text(),
+            'title' => $this->string(),
+            'dateCreated' => $this->dateTime()->notNull(),
+            'dateUpdated' => $this->dateTime()->notNull(),
+            'uid' => $this->uid(),
+        ]);
     }
 
     public function createIndexes(): void
@@ -84,6 +95,8 @@ class Install extends Migration
         $this->createIndex(null, '{{%rockstar_epks}}', 'id', false);
         $this->createIndex(null, '{{%rockstar_epks}}', 'userId', false);
         $this->createIndex(null, '{{%rockstar_epks}}', 'bandId', false);
+
+        $this->createIndex(null, '{{%rockstar_keywords}}', 'id', false);
     }
 
     public function addForeignKeys(): void
@@ -102,6 +115,8 @@ class Install extends Migration
         $this->dropTableIfExists('{{%rockstar_bands}}');
 
         $this->dropTableIfExists('{{%rockstar_epks}}');
+
+        $this->dropTableIfExists('{{%rockstar_keywords}}');
     }
 
     public function dropForeignKeys(): void

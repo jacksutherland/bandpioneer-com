@@ -10,6 +10,8 @@ let BandPioneer = {
 
 	STUDIO_AI_KEY: 'BandPioneer-3xp3d1t10n-ai',
 
+	STUDIO_DYNAMIC_KEY: 'BandPioneer-dyn@m1c-keywords',
+
 	AI_URL: '/api/chat-query',
 
 	each: function(elements, callback)

@@ -74,6 +74,7 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/save-video'] = 'rockstar/bands/save-video';
                 $event->rules['bands/save-song'] = 'rockstar/bands/save-song';
                 $event->rules['bands/save-image'] = 'rockstar/bands/save-image';
+                $event->rules['bands/save-keyword'] = 'rockstar/bands/save-keyword';
                 $event->rules['bands/delete-video'] = 'rockstar/bands/delete-video';
                 $event->rules['bands/delete-logo'] = 'rockstar/bands/delete-logo';
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';

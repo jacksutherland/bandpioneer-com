@@ -2,6 +2,8 @@ class Studio
 {
 	static RELATED_POSTS_URL = '/api/studio-blog-search';
 
+	static SAVE_KEYWORD_URL = '/bands/save-keyword';
+
 	static FILTER_TYPES = {
 	    roles: "roles",
 	    skill: "skill",
@@ -20,6 +22,11 @@ class Studio
 		"Patience is bitter, but its fruit is sweet...",
 		"Rome wasn't built in a day, and apparently neither was AI..."
 	];
+
+	static KEYWORD_SUBTITLES = {
+		first: ['Essential', 'Useful', 'Helpful', 'Valuable'],
+		last: ['Tips', 'Information', 'Advice', 'Insights']
+	};
 
 	constructor(initialRole, maxRoles, maxSkills, maxGoals, goalValues, keyword)
 	{
@@ -119,6 +126,12 @@ class Studio
 		return obj;
 	}
 
+	getCachedKeywordData()
+	{
+		const data = localStorage.getItem(BandPioneer.STUDIO_DYNAMIC_KEY);
+		return JSON.parse(data) ?? null;
+	}
+
 	hasCachedFilters()
 	{
 		return (localStorage.getItem(BandPioneer.STUDIO_FILTER_KEY) !== null);
@@ -164,6 +177,31 @@ class Studio
 		}
 
 		localStorage.setItem(BandPioneer.STUDIO_AI_KEY, JSON.stringify(obj));
+	}
+
+	saveKeywordData(data)
+	{
+		// localStorage.setItem(BandPioneer.STUDIO_DYNAMIC_KEY, JSON.stringify(data));
+
+		// subtitle description
+
+		let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+		let formData = new FormData();
+		formData.append('path', data.path);
+		formData.append('title', data.subtitle);
+		formData.append('body', data.description);
+
+		formData.append(csrfTokenName, csrfTokenValue);
+
+		// console.log(data.path);
+		// console.log(data.subtitle);
+		// console.log(data.description);
+
+		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
+		.then(response => response.text())
+		.then(result => console.log('Success:', result))
+		.catch((error) => console.error('Error:', error));
 	}
 
 	/*
@@ -243,31 +281,78 @@ class Studio
 
 	loadKeyword(keyObj)
 	{
-		document.getElementById('intro-role').innerText = 'Something magical is happening!';
-		document.getElementById('intro-description').innerHTML = 'Through the power of BandPioneer and AI we are customizing this content, specifically for you...';
-		document.querySelector('#intro-spinner svg').style.display = 'inline';
+		// const cachedData = this.getCachedKeywordData();
+		const titleElement = document.querySelector('#intro-role');
+		const bodyElement = document.querySelector('#intro-description');
+		const articlesElement = document.querySelector('#recent-articles');
+		const spinnerElement = document.querySelector('#intro-spinner svg');
 
-		const query = `Write a couple paragraphs about "${keyObj.title}", that are extremely useful and insightful.`;
+		// Add Read More link under articles
 
-		(async () => {
-			
-			// load it from ai
-	  	
-		  	let response = await BandPioneer.aiQuery(query);
+		const recentArticles = articlesElement.querySelectorAll('article');
+		if(recentArticles.length)
+		{
+			let readMoreLink = recentArticles[0].querySelector('.blog-info ul li:first-child a');
+			articlesElement.innerHTML += this.getReadMoreLink(readMoreLink.href);
+		}
 
-		  	// document.getElementById('intro-role').remove();
-		  	document.querySelector('#intro-spinner svg').style.display = 'none';
-			
-			if(response !== "error")
-			{
-				document.getElementById('intro-description').innerHTML = response;
-			}
-			else
-			{
-				document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
-			}
+		if(keyObj.subtitle.length > 0 && keyObj.body.length > 0)
+		{
+			// console.log('keyObj');
+			// console.log(typeof(keyObj.title));
+			// console.log(keyObj.title.length);
+			// console.log(keyObj.body.length);
+			// console.log(keyObj.title);
+			// console.log(keyObj.body);
 
-		})();
+			// Load content from cache for this query
+
+			bodyElement.classList.add('text-left');
+			bodyElement.innerHTML = keyObj.body;
+			titleElement.innerText = keyObj.subtitle;
+		}
+		else
+		{
+			// Fetch and load content from AI API for this query
+
+			titleElement.innerText = 'Something magical is happening!';
+			bodyElement.innerHTML = 'Through the power of BandPioneer and AI we are customizing this content, specifically for you...';
+			spinnerElement.style.display = 'inline';
+
+			const obj = this;
+
+			const query = `Write roughly three to five paragraphs about "${keyObj.title}", that are extremely useful and insightful. Make the last sentence a CTA to read the articles below this text to learn more.`;
+
+			(async () => {
+				
+				// load it from ai
+		  	
+			  	let response = await BandPioneer.aiQuery(query);
+			  	
+			  	let random = Math.floor(Math.random() * Studio.KEYWORD_SUBTITLES.first.length);
+
+			  	keyObj.subtitle = `${Studio.KEYWORD_SUBTITLES.first[random]} ${keyObj.query} ${Studio.KEYWORD_SUBTITLES.last[random]}`;
+
+			  	titleElement.innerText = keyObj.subtitle;
+			  	spinnerElement.style.display = 'none';
+				
+				if(response !== "error")
+				{
+					const lastSentence = response.split('.').filter((sentence) => sentence.trim() !== '').pop();
+
+					response = response.replace(lastSentence, `<strong>${lastSentence}</strong>`);
+
+					bodyElement.classList.add('text-left');
+					bodyElement.innerHTML = response;
+					keyObj.description = response;
+					obj.saveKeywordData(keyObj);
+				}
+				else
+				{
+					bodyElement.innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
+				}
+			})();
+		}
 	}
 
 	loadContent(reloadAI = false)
@@ -412,7 +497,7 @@ class Studio
 						break;
 				}
 
-				const relatedHTML = `${html}<div style="margin-top:40px;text-align:center;"><a class="btn" href="${readMoreUrl}">Read More Like This</a></div>`;
+				const relatedHTML = `${html}${obj.getReadMoreLink(readMoreUrl)}`;
 
 				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : relatedHTML;
 
@@ -423,6 +508,11 @@ class Studio
 
 			}.bind({id:tipId, goal:this.goal}));
 		});
+	}
+
+	getReadMoreLink(url)
+	{
+		return `<div style="margin-top:40px;text-align:center;"><a class="btn" href="${url}">Read More Like This</a></div>`;
 	}
 
 	startTipsSpinner(start)
@@ -531,8 +621,6 @@ class Studio
 		}
 
 		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
-
-		console.log(url);
 
 		fetch(url).then((response) => {
 		    if (response.ok)

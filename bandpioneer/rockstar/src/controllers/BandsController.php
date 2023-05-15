@@ -304,4 +304,34 @@ class BandsController extends Controller
             'result' => 'error'
         ]);
     }
+
+    public function actionSaveKeyword()
+    {
+        $this->requirePostRequest();
+
+        $response = 'init';
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $keywordPath = $request->getParam('path');
+        $keywordTitle = $request->getParam('title');
+        $keywordBody = $request->getParam('body');
+
+        if(!empty($keywordPath) && !empty($keywordTitle) && !empty($keywordBody))
+        {
+            $service = Rockstar::$plugin->getAIService();
+            $response = $service->saveKeyword($keywordPath, $keywordTitle, $keywordBody);
+
+            if($response == true)
+            {
+                return $this->asJson([
+                    'result' => 'success'
+                ]);
+            }
+        }
+
+        return $this->asJson([
+            'result' => 'error',
+            'message' => $response
+        ]);
+    }
 }

@@ -676,6 +676,4 @@ class RockstarService extends Component
 
         return $isValid;
     }
-    
-
 }

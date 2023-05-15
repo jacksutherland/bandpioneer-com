@@ -14,7 +14,11 @@ use Craft;
 use craft\gql\base\ObjectType;
 use yii\base\Component;
 
+use craft\helpers\DateTimeHelper;
+use craft\helpers\Db;
+
 use bandpioneer\rockstar\Rockstar;
+use bandpioneer\rockstar\records\KeywordRecord as KeywordRecord;
 
 use Symfony\Component\HttpClient\Psr18Client;
 use Tectalic\OpenAi\Authentication;
@@ -48,8 +52,53 @@ class AIService extends Component
             ])
         )->toModel();
 
-    return $response->choices[0]->message->content;
+        return $response->choices[0]->message->content;
 
         // return 'This will be a Chat GPT response';
+    }
+
+    public function getKeywordTitle($keywordPath)
+    {
+        $title = KeywordRecord::findOne(['path' => $keywordPath])->title ?? '';
+        
+        return $title;
+    }
+
+    public function getKeywordBody($keywordPath)
+    {
+        $body = KeywordRecord::findOne(['path' => $keywordPath])->body ?? '';
+        
+        return $body;
+    }
+    
+    public function saveKeyword($keywordPath, $keywordTitle, $keywordBody)
+    {
+        if(strlen($keywordPath) > 0 && strlen($keywordTitle) > 0 && strlen($keywordBody) > 0 && !$keywordRecord = KeywordRecord::findOne(['path' => $keywordPath]))
+        {
+            $transaction = Craft::$app->getDb()->beginTransaction();
+
+            try 
+            {
+                $now = Db::prepareDateForDb(DateTimeHelper::now());
+                $keywordRecord = new KeywordRecord();
+
+                $keywordRecord->dateCreated = $now;
+                $keywordRecord->dateUpdated = $now;
+                $keywordRecord->path = $keywordPath;
+                $keywordRecord->title = $keywordTitle;
+                $keywordRecord->body = $keywordBody;
+                $keywordRecord->save();
+
+                $transaction->commit();
+            }
+            catch (Throwable $e)
+            {
+                $transaction->rollBack();
+                throw $e;
+                return $e->message;
+            }
+        }
+
+        return true;
     }
 }

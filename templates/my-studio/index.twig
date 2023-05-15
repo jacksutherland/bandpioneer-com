@@ -26,6 +26,12 @@
 	{% set pageTitle = keyword | replace({'-': ' '}) | title %}
 	{% set seoTitle = pageTitle %}
 
+	{% set keywordPath = segments | slice(-2) | join('/') %}
+	{% set keywordSubtitle = craft.bands.getKeywordTitle(keywordPath) %}
+	{% set keywordBody = craft.bands.getKeywordBody(keywordPath) %}
+	{% set keywordBodySentences = keywordBody | split('.') %}
+	{% set seoDescription = keywordBodySentences[0] ~ '.' %}
+
 	{% set recentArticles = craft.entries.section('blog').search({query: keywordQuery}).limit(4).orderBy('score') %}
 
 {% else %}
@@ -33,6 +39,7 @@
 	{% set usingKeyword = false %}
 	{% set pageTitle = "My Studio" %}
 	{% set seoTitle = "Music Info Customized For You" %}
+	{% set seoDescription = "Insights customized specifically for your individual needs, through the power of Band Pioneer's content engine and Chat GPT." %}
 
 	{### INITIAL FILTERS AND ARTICLES ###}
 
@@ -49,13 +56,15 @@
 
 {% endif %}
 
-{% set entry = { slug: slug, title: seoTitle, section: { handle: slug } } %}
-
-
+{% set entry = { slug: slug, title: seoTitle, section: { handle: slug }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
 
 {### PAGE STYLES ###}
 
 {% block headerScripts %}
+	{% if usingKeyword %}
+		<meta name="csrf-token-name" content="{{ craft.app.config.general.csrfTokenName | e('html') }}">
+		<meta name="csrf-token-value" content="{{ craft.app.request.csrfToken | e('html') }}">
+	{% endif %}
 	<style type="text/css">
 		.studio-title {
 			display: none;
@@ -143,7 +152,10 @@
 				const keyObj = {
 					keyword: '{{ keyword }}',
 					query: '{{ keywordQuery }}',
-					title: '{{ pageTitle }}'
+					title: '{{ pageTitle }}',
+					path: '{{ keywordPath }}',
+					subtitle: '{{ keywordSubtitle }}',
+					body: '{{ keywordBody | escape("js") }}'
 				};
 
         		new Studio('', {{ maxRoles }}, {{ maxSkills }}, {{ maxGoals }}, goalObj, keyObj);
