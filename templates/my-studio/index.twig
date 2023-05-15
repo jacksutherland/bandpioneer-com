@@ -19,6 +19,8 @@
 
 {### PAGE TITLE AND ENTRY ###}
 
+{% set seoDescription = "Music Industry Insights and Marketing Info for Profitable Musicians" %}
+
 {% if keyword | length %}
 
 	{% set usingKeyword = true %}
@@ -30,7 +32,7 @@
 	{% set keywordSubtitle = craft.bands.getKeywordTitle(keywordPath) %}
 	{% set keywordBody = craft.bands.getKeywordBody(keywordPath) %}
 	{% set keywordBodySentences = keywordBody | split('.') %}
-	{% set seoDescription = keywordBodySentences[0] ~ '.' %}
+	{# {% set seoDescription = keywordBodySentences[0] ~ '.' %} #}
 
 	{% set recentArticles = craft.entries.section('blog').search({query: keywordQuery}).limit(4).orderBy('score') %}
 
@@ -39,7 +41,7 @@
 	{% set usingKeyword = false %}
 	{% set pageTitle = "My Studio" %}
 	{% set seoTitle = "Music Info Customized For You" %}
-	{% set seoDescription = "Insights customized specifically for your individual needs, through the power of Band Pioneer's content engine and Chat GPT." %}
+	{# {% set seoDescription = "Music Industry Insights and Marketing Info for Profitable Musicians" %} #}
 
 	{### INITIAL FILTERS AND ARTICLES ###}
 
