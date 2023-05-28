@@ -136,7 +136,7 @@
 
 		{% case "image" %}
 
-			<section{% if module.background | length %} style="background-color:{{ module.background }} border-radius: 4px;"{% endif %}>
+			<section{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
 				{% if module.linkUrl | length %}
 					<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
 				{% endif %}
