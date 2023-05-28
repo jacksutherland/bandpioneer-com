@@ -1,4 +1,4 @@
-dateModified: 1684110192
+dateModified: 1685315378
 elementSources:
   craft\elements\Asset:
     -
@@ -239,6 +239,7 @@ meta:
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
+    a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category

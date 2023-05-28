@@ -28,6 +28,30 @@ fieldLayouts:
             uid: aadab461-22e3-4473-a681-ab14e0fe878e
             userCondition: null
             warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Size
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8abe46ae-628c-4f71-9268-d707f5ab4d34
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: a070ee30-4cf4-4a25-8bb8-7768d85f66f7 # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 23dbf577-fd5c-4616-a91c-a2fb07aa4cf6
+            userCondition: null
+            warning: null
             width: 25
           -
             elementCondition: null
@@ -38,18 +62,6 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 4b9889d7-1bb4-41a8-9ca4-25beccda29f5
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Size
-            instructions: null
-            label: null
-            required: true
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 8abe46ae-628c-4f71-9268-d707f5ab4d34
             userCondition: null
             warning: null
             width: 25
@@ -115,9 +127,11 @@ fields:
       allowUploads: true
       allowedKinds:
         - image
+      branchLimit: null
       defaultUploadLocationSource: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
       defaultUploadLocationSubpath: null
       localizeRelations: false
+      maintainHierarchy: false
       maxRelations: 1
       minRelations: 1
       previewMode: full
@@ -141,7 +155,6 @@ fields:
       showSiteMenu: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
-      source: null
       sources: '*'
       targetSiteId: null
       validateRelatedElements: false
@@ -221,6 +234,26 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
+  a070ee30-4cf4-4a25-8bb8-7768d85f66f7: # Background
+    columnSuffix: bqwqvusk
+    contentColumnType: text
+    fieldGroup: null
+    handle: background
+    instructions: null
+    name: Background
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
   d99087f8-d76e-43c8-86f5-afc78b3f4430: # No Transform
     columnSuffix: zmtpeewv
     contentColumnType: boolean
