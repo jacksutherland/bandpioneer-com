@@ -55,7 +55,6 @@
 {% endif %}
 
 {% if tocLinks | length > 1 %}
-	{# {% set childCount = 0 %} #}
 	{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
 	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
 		<h3 class="section-title"><span>Table of Contents</span></h3>
@@ -76,15 +75,9 @@
 								{% for child in tl.children %}
 									<li>
 										{% if entry.tocStyle == 'nested-ordered-list' %}
-											{# {% set childCount = childCount + 1 %} #}
-											{# <a href="#section-{{ child.id }}">{{ childCount }}. {{ child.headline }}</a> #}
 											<a href="#section-{{ child.id }}">{{ child.headline }}</a>
 										{% else %}
 											{% set firstCharacter = child.headline | slice(0, 1) %}
-											{# 
-											{% set liText = (firstCharacter is numeric or firstCharacter == '#') ? child.headline : (loop.index ~ '. ' ~ child.headline) %}
-											<a href="#section-{{ child.id }}">{{ liText }}</a>
-											 #}
 											 <a href="#section-{{ child.id }}">{{ child.headline }}</a>
 										{% endif %}
 									</li>
@@ -92,8 +85,11 @@
 							</ul>
 						{% endif %}
 					{% else %}
-						{# <a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a> #}
-						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+						{% if entry.tocStyle == 'ordered-list' %}
+							<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
+						{% else %}
+							<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+						{% endif %}
 					{% endif %}
 				</li>
 			{% endfor %}
@@ -101,7 +97,7 @@
 	</div>
 {% endif %}
 
-{# {% set sectionCounter = 0 %} #}
+{% set sectionCounter = 0 %}
 
 {% for module in entry.blogContent.all() %}
 
@@ -109,29 +105,17 @@
 
 		{% case "sectionTitle" %}
 
-			{# {% set sectionCounter = sectionCounter + 1 %} #}
+			{% set sectionCounter = sectionCounter + 1 %}
 			{% set sectionTitle = module.headline %}
 			
 			<section>
 				<div id="section-{{ module.id }}" class="section-anchor"></div>
-				{# {% if entry.change %}
-					{% if  module.headline | length %}
-						<div class="ordered-title">
-							<h4>{{ sectionCounter }}. </h4><h2>{{ module.headline }}</h2>
-						</div>
-					{% elseif  module.subheadline | length %}
-						<div class="ordered-subtitle">
-							<h4>{{ sectionCounter }}. </h4><h3>{{ module.subheadline }}</h3>
-						</div>
-					{% endif %}
-				{% else %} #}
-					{% if  module.headline | length %}
-						<h2>{{ module.headline }}</h2>
-					{% endif %}
-					{% if  module.subheadline | length %}
-						<h3>{{ module.subheadline }}</h3>
-					{% endif %}
-				{# {% endif %} #}
+				{% if  module.headline | length %}
+					<h2>{% if entry.tocStyle == 'ordered-list' %}{{ sectionCounter }}. {% endif%}{{ module.headline }}</h2>
+				{% endif %}
+				{% if  module.subheadline | length %}
+					<h3>{{ module.subheadline }}</h3>
+				{% endif %}
 			</section>
 
 		{% case "image" %}
