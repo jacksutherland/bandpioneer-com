@@ -2,7 +2,7 @@
 
 {### INITIAL VARIABLES ###}
 
-{% set slug = 'my-studio' %}
+{% set slug = 'ai-studio' %}
 {% set versionNumber = 1.01 %}
 {% set maxRoles = 3 %}
 {% set maxSkills = 1 %}
@@ -173,7 +173,7 @@
 	{% if usingKeyword %}
 		{% include '_includes/categories' with { categories: craft.entries.section('category') } %}
 	{% else %}
-		{% include 'my-studio/_includes/filters' %}
+		{% include 'ai-studio/_includes/filters' %}
 	{% endif %}
 
 	<div class="page">
