@@ -50,9 +50,3 @@
     {% endfor %}
 
 </div>
-
-{% if pageInfo is defined and pageInfo != null and pageInfo.total > (postsPerPage + 1) %}
-	<div class="container">
-    	{% include '_includes/pagination' %}
-    </div>
-{% endif %}

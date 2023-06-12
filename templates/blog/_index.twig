@@ -39,5 +39,11 @@
 
 		{% include 'blog/_includes/blog-posts' with { posts: posts } %}
 
+		{% if pageInfo is defined and pageInfo != null and pageInfo.total > postsPerPage %}
+			<div class="container">
+		    	{% include '_includes/pagination' %}
+		    </div>
+		{% endif %}
+
 	</div>
 {% endblock %}

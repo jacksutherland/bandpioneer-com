@@ -110,6 +110,12 @@
 
 		{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: (pageInfo.currentPage == 1 and blog.featuredBlogPost.count == 0 ? posts[1:] : posts) } %}
 
+		{% if pageInfo is defined and pageInfo != null and pageInfo.total > (postsPerPage + 1) %}
+			<div class="container">
+		    	{% include '_includes/pagination' %}
+		    </div>
+		{% endif %}
+
 	</div>
 
 	{% if pageInfo.currentPage == 1 %}
