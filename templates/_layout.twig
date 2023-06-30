@@ -127,14 +127,16 @@
         {% else %}
             <div {% if entry["heroImage"] is defined and entry.heroImage is not null and entry.heroImage.count %}style="background-image: url({{ entry.heroImage.one().url  }});" class="page-header hero"{% else %}class="page-header"{% endif %}>
                 {% include '_includes/header' %}
-                {% if pageTitle is defined and pageTitle | length %}
-                    <h1>{{ pageTitle }}</h1>
-                    {% if pageSubtitle is defined and pageSubtitle | length %}
-                        <h2>{{ pageSubtitle }}</h2>
+                {% block title %}
+                    {% if pageTitle is defined and pageTitle | length %}
+                        <h1>{{ pageTitle }}</h1>
+                        {% if pageSubtitle is defined and pageSubtitle | length %}
+                            <h2>{{ pageSubtitle }}</h2>
+                        {% endif %}
+                    {% elseif entry.section.handle == 'homepage' %}
+                        <img class="main-logo" src="/assets/images/bp-logo.png" width="420" height="272">
                     {% endif %}
-                {% elseif entry.section.handle == 'homepage' %}
-                    <img class="main-logo" src="/assets/images/bp-logo.png" width="420" height="272">
-                {% endif %}
+                {% endblock %}
             </div>
         {% endif %}
         
@@ -143,7 +145,9 @@
             {% endblock %}
         </main>
 
-        {% include '_includes/footer' %}
+        {% block footer %}
+            {% include '_includes/footer' %}
+        {% endblock %}
 
         {% endapply %}
         

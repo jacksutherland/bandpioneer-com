@@ -1,0 +1,4 @@
+{% apply spaceless %}
+{% set searchQuery = craft.app.request.getQueryParam('q') ?? '' %}
+{% if searchQuery | length %}{{ craft.bands.chatQuery(searchQuery) }}{% endif %}
+{% endapply %}

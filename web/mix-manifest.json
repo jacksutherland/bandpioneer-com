@@ -1,9 +1,10 @@
 {
     "/css/epk.css": "/css/epk.css?id=876c9ffc74c34755b2d38ee217c2ddd5",
     "/css/bands.css": "/css/bands.css?id=703e3404b532e8f2960b67383ce6782e",
-    "/css/site.css": "/css/site.css?id=d106a4fcc2553fb489ad5e19d1b53575",
-    "/js/site.min.js": "/js/site.min.js?id=477e246a1d26093e64c57bd2d69c306e",
+    "/css/site.css": "/css/site.css?id=168250717c881fd6d4f553bacf82d8d1",
+    "/js/site.min.js": "/js/site.min.js?id=f3cb3ee2ca8631b5c45b63a7e079d2d9",
     "/js/bands.min.js": "/js/bands.min.js?id=cb1c0ebc654f621622385872728897c0",
     "/js/epk.min.js": "/js/epk.min.js?id=a283a61cc39177d0be2444a49582da78",
-    "/js/studio.min.js": "/js/studio.min.js?id=6150967dbae4253af4e712e87878a744"
+    "/js/studio.min.js": "/js/studio.min.js?id=f38742e3f6ecd6f0b89fbc2cd0d26a78",
+    "/js/debate.min.js": "/js/debate.min.js?id=ffb84b8ff890c08bc35a022c38b56c9e"
 }

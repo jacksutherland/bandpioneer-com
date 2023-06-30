@@ -194,10 +194,6 @@ class Studio
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
-		// console.log(data.path);
-		// console.log(data.subtitle);
-		// console.log(data.description);
-
 		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
 		.then(result => console.log('Success:', result))
@@ -281,7 +277,6 @@ class Studio
 
 	loadKeyword(keyObj)
 	{
-		// const cachedData = this.getCachedKeywordData();
 		const titleElement = document.querySelector('#intro-role');
 		const bodyElement = document.querySelector('#intro-description');
 		const articlesElement = document.querySelector('#recent-articles');
@@ -298,13 +293,6 @@ class Studio
 
 		if(keyObj.subtitle.length > 0 && keyObj.body.length > 0)
 		{
-			// console.log('keyObj');
-			// console.log(typeof(keyObj.title));
-			// console.log(keyObj.title.length);
-			// console.log(keyObj.body.length);
-			// console.log(keyObj.title);
-			// console.log(keyObj.body);
-
 			// Load content from cache for this query
 
 			bodyElement.classList.add('text-left');
@@ -696,8 +684,6 @@ class Studio
 			{
 				e.preventDefault();
 				this.classList.remove('show');
-				// obj.goAction();
-
 			}.bind(categoryDescription));
 
 			nextFilterBtn.addEventListener('click', function(e)
@@ -775,21 +761,6 @@ class Studio
 								checked[1].checked = false;
 							else
 								checked[0].checked = false;
-
-							// if(this.max > 1)
-							// {
-							// 	target1.checked = false;
-							// }
-							// else if(parseInt(this.max) === 1)
-							// {
-							// 	BandPioneer.each(this.inputs, function(idx, target2)
-							// 	{
-							// 		if(target1 !== target2)
-							// 		{
-							// 			target2.checked = false;
-							// 		}
-							// 	}.bind(this));
-							// }
 						}
 
 						obj.saveFilterData();

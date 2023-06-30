@@ -1241,6 +1241,7 @@ input[type="submit"],
 form {
 	input:not([name="q"]):not([type=checkbox]),
 	textarea,
+	select,
 	button,
 	.btn {
 		padding: 0 25px;
@@ -1250,6 +1251,7 @@ form {
 	}
 
 	input:not([type="submit"]),
+	select,
 	textarea {
 		border: 0;
 		outline: 0;

@@ -1061,6 +1061,7 @@ input[type=submit]:hover.gray-btn,
 
 form input:not([name=q]):not([type=checkbox]),
 form textarea,
+form select,
 form button,
 form .btn {
   padding: 0 25px;
@@ -1069,6 +1070,7 @@ form .btn {
   font-family: helvetica, sans-serif;
 }
 form input:not([type=submit]),
+form select,
 form textarea {
   border: 0;
   outline: 0;
@@ -1076,6 +1078,7 @@ form textarea {
   background-color: #edf0f1;
 }
 form input:not([type=submit]):focus,
+form select:focus,
 form textarea:focus {
   border-color: #d5dbde;
   background-color: #e7ebec;

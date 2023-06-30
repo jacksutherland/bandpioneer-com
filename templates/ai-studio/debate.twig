@@ -1,0 +1,297 @@
+{% extends '/_layout' %}
+
+{% set versionNumber = 1.01 %}
+
+{% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'income-inequality' %}
+
+{% switch topicSlug %}
+		{% case "ai-music" %}
+			{% set debateTopic = "" %}
+			{% set debateResolution = "Is the integration of artificial intelligence in music generation a positive step forward that makes music better, or does it undermine human creativity?" %}
+			{% set propositionTitle = "Pro-AI in Music Supporter" %}
+			{% set propositionPerspective = "believes AI amplifies human creativity in music, and diversifies musical expression" %}
+			{% set oppositionTitle = "Anti-AI Human Creativity Advocate" %}
+			{% set oppositionPerspective = "worries that music risks losing authenticity, emotion and diversity due to a growing reliance on AI" %}
+		{% case "gun-control" %}
+			{% set debateTopic = "Gun Control in the US" %}
+			{% set debateResolution = "Should stricter gun control measures be implemented by the United States Government to increase public safety?" %}
+			{% set propositionTitle = "Gun Control Advocate" %}
+			{% set propositionPerspective = "thinks stricter gun control measures are necessary to prevent gun violence and increase public safety" %}
+			{% set oppositionTitle = "Gun Rights Defender" %}
+			{% set oppositionPerspective = "believes stricter gun control measures infringe upon the right to bear arms for protection" %}
+		{% case "music-censorship" %}
+			{% set debateTopic = "Music Censorship" %}
+			{% set debateResolution = "Is music censorship a necessary means of maintaining societal standards and protecting audiences, or an infringement on artistic expression?" %}
+			{% set propositionTitle = "Pro-Censorship Supporter" %}
+			{% set propositionPerspective = "thinks music censorship is necessary to protect young listeners from explicit harmful content" %}
+			{% set oppositionTitle = "Anti-Censorship Detractor" %}
+			{% set oppositionPerspective = "believes censorship infringes on artists' creative freedoms, self expression and listeners' right to choose" %}
+		{% case "music-decades" %}
+			{% set debateTopic = "Best Music Decades" %}
+			{% set debateResolution = "Is the golden age of music behind us, or does music mature and improve over time?" %}
+			{% set propositionTitle = "Modern Music Enthusiast" %}
+			{% set propositionPerspective = "believes the technological advancements and cross-cultural fusions, have produced more superior innovative and diverse music" %}
+			{% set oppositionTitle = "Mid-20th Century Music Lover" %}
+			{% set oppositionPerspective = "believes the 1940s to 1970s provided unparalleled timeless classics that continue to resonate today" %}
+		{% case "music-genres" %}
+			{% set debateTopic = "Best Music Genres" %}
+			{% set debateResolution = "Which of the top 3 selling music genres (Pop, Rock and Hip-Hop) have had the biggest influence in shaping contemporary culture?" %}
+			{% set propositionTitle = "Pop Music Fanatic" %}
+			{% set propositionPerspective = "thinks Pop music, with its wide appeal and genre-blending, is the primary driver of contemporary cultural trends" %}
+			{% set oppositionTitle = "Rock and Hip-Hop Enthusiast" %}
+			{% set oppositionPerspective = "believes the authenticity and social commentary of rock and hip-hop make them more impactful on culture." %}
+		{% case "income-inequality" %}
+			{% set debateTopic = "Income Inequality" %}
+			{% set debateResolution = "How does income inequality impact economic growth and societal well-being in the United States, and what policies, if any, should the U.S. government implement to address this issue?" %}
+			{% set propositionTitle = "Progressive Economist" %}
+			{% set propositionPerspective = "believes income inequality is a serious issue that requires intervention" %}
+			{% set oppositionTitle = "Free Market Advocate" %}
+			{% set oppositionPerspective = "thinks income inequality is a natural result of free market dynamics and should not be excessively interfered with" %}
+		{% default %}
+			{% set debateTopic = "" %}
+			{% set debateResolution = "" %}
+			{% set propositionTitle = "" %}
+			{% set propositionPerspective = "" %}
+			{% set oppositionTitle = "" %}
+			{% set oppositionPerspective = "" %}
+{% endswitch %}
+
+{% set propositionName = "Jordan" %}
+{% set propositionEngine = "Chat GPT 3.5 Turbo" %}
+{% set oppositionName = "Alex" %}
+{% set oppositionEngine = "Chat GPT 3.5 Turbo" %}
+
+{% set pageTitle = "The Great AI Debate" %}
+{% set seoDescription = "An ongoing digital debate hall, pitting two artificial intelligence powerhouses against each other, in enlightening discourse over diverse topics." %}
+
+{% set entry = { slug: 'debate', title: pageTitle, section: { handle: 'debate' }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
+
+{% block scripts %}
+	<script defer src="{{ url('js/debate.min.js') }}?version={{ versionNumber }}"></script>
+	<script defer type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function()
+        {
+        	new AIDebate({
+        		topic: "{{ debateTopic }}",
+        		resolution: "{{ debateResolution }}",
+        		prop: {
+        			name: "{{ propositionName }}",
+        			title: "{{ propositionTitle }}",
+        			perspective: "{{ propositionPerspective }}"
+        		},
+        		opp: {
+        			name: "{{ oppositionName }}",
+        			title: "{{ oppositionTitle }}",
+        			perspective: "{{ oppositionPerspective }}"	
+        		}
+        	});
+		});
+	</script>
+{% endblock %}
+
+{% block headerScripts %}
+	<style type="text/css">
+		p {
+			margin: 0;
+		}
+		p+p {
+		    margin: 15px 0 0 0;
+		}
+		small {
+			display: block;
+			line-height: 1.3rem !important;
+		    margin: 5px 0 0 0;
+		}
+		body {
+			display: grid;
+    		grid-template-rows: 200px 1fr;
+    		height: 100vh;
+		}
+		.page-header h2 {
+			font-family: 'Open Sans', sans-serif;
+			font-size: 1.2rem;
+			line-height: 1.8rem;
+			font-weight: 400;
+			margin: -15px 0 10px 0;
+			display: none;
+		}
+		.panel {
+			display: block;
+			line-height: 1.55rem;
+		}
+		.panel nav {
+			display: none;
+			background-color: #e7ebec;
+			box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.35);
+			height: calc(100vh - 200px);
+			overflow-y: scroll;
+		}
+		.panel nav form input,
+		.panel nav form select {
+			background-color: #f6f6f6;
+			width: 100%;
+			height: 40px !important;
+			padding: 0 15px !important;
+			margin: 5px 0 15px 0;
+		}
+		.panel nav form input:focus {
+			background-color: #ffffff;
+		}
+		.panel nav div {
+			margin: 15px;
+		}
+		.panel .scroll-pane {
+			height: calc(100vh - 200px);
+			overflow-y: scroll;
+			background-color: #f6f6f6;
+			box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.35);
+		}
+		.panel .scroll-pane .content {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 15px;
+		}
+		.panel .summary {
+			background-color: #e7ebec;
+		    padding: 15px 25px;
+		    border-radius: 5px;
+		}
+		.panel .ai-response {
+			border-bottom: solid 3px #e7ebec;
+			padding: 15px 0;
+		}
+		.panel .ai-response label {
+			display: block;
+			margin: 0 0 15px 0;
+			font-weight: bold;
+			font-size: 0.9rem;
+		}
+		.panel .querying-response {
+			display: flex;
+		    gap: 10px;
+		    padding: 20px 0 3px 0;
+		}
+		.panel .querying-response.hide {
+			display: none;
+		}
+		.panel .querying-response label {
+			display: inline;
+		}
+		.panel .querying-response svg.spinner {
+			display: inline;
+		}
+		.panel .querying-response.hide-spinner svg.spinner {
+			display: none;
+		}
+		.panel .querying-response .btn {
+			margin: 0 0 0 auto;
+		}
+		.panel .querying-response .btn.hide {
+			display: none;
+		}
+		@media (min-width: 768px) {
+			.page-header h2 {
+				display: block;
+			}
+			.panel nav {
+				display: block;
+			}
+			.panel {
+				display: grid;
+				grid-template-columns: 300px 1fr;
+			}
+		}
+	</style>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block title %}
+	<h1>{{ pageTitle }}</h1>
+	<h2>Enlightened debiased discourse between 2 AI models over diverse hot-button topics.</h2>
+{% endblock %}
+
+{% block content %}
+	<div class="panel">
+		<nav>
+			<div>
+				{# <strong>Current topic:</strong> {{ debateTopic }} #}
+				<form method="get" action="/ai-studio/debate">
+					<strong>Debate Topic:</strong>
+					<select id="debate-topic" name="topic" onchange="this.form.submit()">
+						<option value="ai-music"{% if topicSlug == 'ai-music' %} selected{% endif %}>AI in Music Creation</option>
+						<option value="music-decades"{% if topicSlug == 'music-decades' %} selected{% endif %}>Best Music Decades</option>
+						<option value="music-genres"{% if topicSlug == 'music-genres' %} selected{% endif %}>Best Music Genres</option>
+						<option value="gun-control"{% if topicSlug == 'gun-control' %} selected{% endif %}>Gun Control</option>
+						<option value="income-inequality"{% if topicSlug == 'income-inequality' %} selected{% endif %}>Income Inequality</option>
+						<option value="music-censorship"{% if topicSlug == 'music-censorship' %} selected{% endif %}>Music Censorship</option>
+					</select>
+				</form>
+			</div>
+			<div>
+				<strong>Proposition:</strong> {{ propositionName }}
+				<br>
+				{{ propositionTitle }} being emulated by ({{ propositionEngine }})
+				<br>
+				<small><i>{{ propositionPerspective }}</i></small>
+			</div>
+			<div>
+				<strong>Opposition:</strong> {{ oppositionName }}
+				<br>
+				{{ oppositionTitle }} being emulated by ({{ oppositionEngine }})
+				<br>
+				<small><i>{{ oppositionPerspective }}</i></small>
+			</div>
+			<div>
+				<strong>Resolution:</strong><br>{{ debateResolution }}
+			</div>
+			<div>
+				<form>
+					<strong>{{ propositionName }}'s Arugument Complexity:</strong>
+					<select id="prop-complexity">
+						<option value="child">As if I were a child</option>
+						<option value="simple" selected>Using simple terms</option>
+						<option value="phd">Academic PhD-level</option>
+					</select>
+
+					<strong>{{ oppositionName }}'s Arugument Complexity:</strong>
+					<select id="opp-complexity">
+						<option value="child">As if I were a child</option>
+						<option value="simple" selected>Using simple terms</option>
+						<option value="phd">Academic PhD-level</option>
+					</select>
+
+					<strong>Response Length:</strong>
+					{# <input type="number" step="1" min="1" max="10" id="response-length" placeholder="Max number of sentences"> #}
+					<select id="response-length">
+						<option value="1 sentence">1 Sentence</option>
+						<option value="1-3 sentences" selected>1-3 Sentences</option>
+						<option value="2-6 sentences">2-5 Sentences</option>
+					</select>
+
+					<strong>Response Speed:</strong>
+					<input type="range" step="1000" min="2000" max="60000" value="15000" id="response-delay" placeholder="Duration between responses">
+				</form>
+			</div>
+		</nav>
+		<div class="scroll-pane">
+			<div class="content">
+				<div class="summary">
+					<p>
+						<strong>Welcome to the Great AI Debate!</strong> An ongoing digital debate hall, pitting two artificial intelligence powerhouses against each other, in enlightening discourse over diverse topics.
+					</p>
+					<p>
+						Recent AI models have shown to bring unbiased insight into various topics, with the potential to educate and debias hot button issues. This project simulates a human debate, by executing a back and forth discourse between 2 of these AI models, with one as the proposition and the other as the opposition. Bard vs Chat GPT is in the works, but at the moment both sides are instances of Chat GPT. All information is AI-generated and doesn't reflect the website or creators' beliefs. Join us regularly as we dive into compelling discussions!
+					</p>
+				</div>
+				<div id="responses">
+				</div>
+				<div id="spinner" class="ai-response querying-response">
+					<label>Debater is responding... </label>
+					{% include '_includes/icons' with { type: 'spinner' } %}
+					<button id="pause-debate" class="btn small-btn hide">Pause Debate</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
