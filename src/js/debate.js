@@ -1,14 +1,8 @@
 class AIDebate
 {
-	static DEBATE_TOPIC = 'Income Inequality';
-
-	static RESOLUTION_QUERY = 'How does income inequality impact economic growth and societal well-being in the United States, and what policies, if any, should the U.S. government implement to address this issue?';
-
-	// static DEFAULT_RESPONSE_LENGTH = "1-3 sentences";
+	static MAX_RESPONSES = 10;
 
 	static DEBATE_QUERY_URL = '/api/debate-query';
-
-	static RESPONSE_DELAY = 10000;
 
 	constructor(debateFormat)
 	{
@@ -16,6 +10,8 @@ class AIDebate
 			active: true,
 			format: debateFormat
 		};
+
+		this.responseCount = 0;
 
 		this.responses = document.getElementById('responses');
 
@@ -41,15 +37,6 @@ class AIDebate
 			e.preventDefault();
 			this.pauseDebate(!this.debate.active);
 		}.bind(this));
-
-		// document.getElementById('response-length').addEventListener('input', function (e)
-		// {
-		//     var max = Number(e.target.max);
-		//     if (e.target.value > max)
-		//     {
-		//         e.target.value = max;
-		//     }
-		// });
 
 		let scrollPane = document.getElementsByClassName('scroll-pane')[0];
 		scrollPane.onscroll = function()
@@ -106,11 +93,12 @@ class AIDebate
 		else
 		{
 			this.spinner.classList.remove('hide-spinner');
-			if(show)
-				this.spinner.classList.remove('hide');
-			else
-				this.spinner.classList.add('hide');
 		}
+
+		if(show === null || show)
+			this.spinner.classList.remove('hide');
+		else
+			this.spinner.classList.add('hide');
 
 		setTimeout(function()
 	    {
@@ -159,14 +147,35 @@ class AIDebate
 		this.responseQuery(query, function()
 		{
 			document.getElementById('pause-debate').classList.remove('hide');
-		});
+			this.nextResponse();
+		}.bind(this));
+	}
+
+	finalResponse()
+	{
+		const format = this.debate.format;
+
+		let query = `You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. The debate resolution is: ${format.resolution} Write a final closing argument, saying goodbye, in ${this.getResponseLength()}, ${ this.getResponseComplexity() }, from this perspective: ${format[this.activeRebuttal].perspective}`;
+
+		this.showSpinner(true, `${format[this.activeRebuttal].name} is preparing an opening statement...`)
+
+		this.responseQuery(query, function()
+		{
+			this.debate.active = false;
+			this.showSpinner(null, `Debate concluded: ${AIDebate.MAX_RESPONSES} response limit reached.`);
+			document.getElementById('pause-debate').classList.add('hide');
+		}.bind(this));
 	}
 
 	nextResponse()
 	{
-		if(this.debate.active)
+		if(this.responseCount >= AIDebate.MAX_RESPONSES)
 		{
-			this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";
+			this.finalResponse();
+		}
+		else if(this.debate.active)
+		{
+			// this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";
 
 			let delay = this.getResponseDelay();
 
@@ -191,7 +200,7 @@ class AIDebate
 					this.showSpinner(true, `${this.debate.format[this.activeRebuttal].name} is responding...`);
 
 					let query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexity() }, respond to this argument: ${this.lastResponse}`;
-					console.log(query);
+					// console.log(query);
 					this.responseQuery(query);
 				}
 			}.bind(this), (delay - readingPause));
@@ -200,7 +209,7 @@ class AIDebate
 
 	responseQuery(query, callback)
 	{
-		if(this.debate.active)
+		if(this.debate.active && this.responseCount <= AIDebate.MAX_RESPONSES)
 		{
 			const format = this.debate.format;
 
@@ -216,23 +225,32 @@ class AIDebate
 				{
 					if (typeof html !== "undefined")
 					{
+						this.responseCount++;
+
 						this.showSpinner(false);
 						this.lastResponse = html;
 						html = html.replace(/\n/g, '<br>');
 
 						let now = new Date();
 						let formattedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.getHours() % 12 || 12}:${now.getMinutes().toString().padStart(2, '0')}${now.getHours() >= 12 ? 'pm' : 'am'}`;
+					    
 					    this.responses.innerHTML += `<div class="ai-response ${this.activeRebuttal}"><label>${format[this.activeRebuttal].name} (${format[this.activeRebuttal].title}) at ${formattedDate}</label>${html}</div>`;
+
+					    // Toggle the active speaker
+					    this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";
 					    
 					    setTimeout(function()
 					    {
 					    	this.scrollDown();
 					    }.bind(this), 0);
 					}
-				    this.nextResponse();
 				    if(typeof(callback) === "function")
 				    {
 				    	callback();
+				    }
+				    else
+				    {
+				    	this.nextResponse();
 				    }
 				}
 			}).catch((error) => {
