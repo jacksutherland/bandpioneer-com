@@ -200,7 +200,9 @@ class AIDebate
 					this.showSpinner(true, `${this.debate.format[this.activeRebuttal].name} is responding...`);
 
 					let query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexity() }, respond to this argument: ${this.lastResponse}`;
+					
 					// console.log(query);
+
 					this.responseQuery(query);
 				}
 			}.bind(this), (delay - readingPause));
