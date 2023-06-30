@@ -1622,40 +1622,6 @@ form {
 			}
 		}
 	}
-	// section {
-	// 	&.description {
-	// 		padding: 1px 5% 8px 5%;
-	// 		h2, h3 {
-	// 			position: relative;
-	// 			&:before,
-	// 			&:after  {
-	// 				background-color: $light-gray;
-	// 			    content: "";
-	// 			    display: block;
-	// 			    position: absolute;
-	// 			    z-index: -1;
-	// 			    top: 50%;
-	// 			    transform: translateY(-50%);
-	// 			    width: 48%;
-	// 	   			height: 4px;
-	// 			}
-	// 			&:before {
-	// 				left: 0;
-	// 			}
-	// 			&:after {
-	// 			    left: 50%;
-	// 			}
-
-	// 			span {
-	// 				font-family: $header-font-family;
-	// 				letter-spacing: $header-font-spacing;
-	// 				background-color: $white;
-	// 				padding: 0 16px;
-	// 				font-weight: $normal-weight;
-	// 			}
-	// 		}
-	// 	}
-	// }
 	footer {
 		.container {
 		    grid-template-columns: 200px 1fr;
