@@ -1,6 +1,6 @@
 {% extends '/_layout' %}
 
-{% set versionNumber = '1.107' %}
+{% set versionNumber = '1.108' %}
 
 {% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'music-decades' %}
 
@@ -215,7 +215,7 @@
 	<div class="panel">
 		<nav>
 			<div>
-				<form method="get" action="/ai-studio/debate">
+				<form method="get" action="/ai-studio/battle">
 					<strong>Debate Topic:</strong>
 					<select id="debate-topic" name="topic" onchange="this.form.submit()" style="margin-bottom:5px;">
 						<option value="ai-music"{% if topicSlug == 'ai-music' %} selected{% endif %}>AI in Music Creation</option>
