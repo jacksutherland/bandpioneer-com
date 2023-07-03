@@ -297,6 +297,7 @@ class AIDebate
 				}
 			}).catch((error) => {
 			    console.error("Error:", error);
+			    this.nextResponse();
 			});
 		}
 	}
