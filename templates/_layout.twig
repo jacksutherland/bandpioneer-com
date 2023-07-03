@@ -6,13 +6,13 @@
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
 {# ai.bandpioneer.com ONLY on Prod ENV #}
-{% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'debate' %}
+{% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'battle' %}
     {% redirect 404 %}
-{% elseif 'https://bandpioneer.com/ai-studio/debate' in craft.app.request.absoluteUrl %}
-    {% redirect 'https://ai.bandpioneer.com/ai-studio/debate' %}
+{% elseif 'https://bandpioneer.com/ai-studio/battle' in craft.app.request.absoluteUrl %}
+    {% redirect 'https://ai.bandpioneer.com/ai-studio/battle' %}
 {% endif %}
 
-{% set versionNumber = '1.103' %}
+{% set versionNumber = '1.104' %}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
