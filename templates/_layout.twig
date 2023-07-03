@@ -3,18 +3,16 @@
     {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
+{% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
+
 {# ai.bandpioneer.com ONLY on Prod ENV #}
-{% if 'bandpioneer.com' in craft.app.request.absoluteUrl %}
-    {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
-    {% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'debate' %}
-        {% redirect 404 %}
-    {% elseif 'https://bandpioneer.com/ai-studio/debate' in craft.app.request.absoluteUrl %}
-        {% redirect 'http://ai.bandpioneer.com/ai-studio/debate' %}
-    {% endif %}
+{% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'debate' %}
+    {% redirect 404 %}
+{% elseif 'https://bandpioneer.com/ai-studio/debate' in craft.app.request.absoluteUrl %}
+    {% redirect 'https://ai.bandpioneer.com/ai-studio/debate' %}
 {% endif %}
 
-
-{% set versionNumber = '1.98' %}
+{% set versionNumber = '1.99' %}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
@@ -121,7 +119,7 @@
 
     </head>
 
-    <body id="{{ entry.slug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
+    <body id="{{ entrySlug }}" class="{{ entry.section.handle | camel }}{% if fixedHeader %} fixed-header{% endif %}">
 
         {% if craft.app.config.env == 'production' %}
             <!-- Google Tag Manager (noscript) -->
