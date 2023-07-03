@@ -1,6 +1,6 @@
 {% extends '/_layout' %}
 
-{% set versionNumber = '1.102' %}
+{% set versionNumber = '1.103' %}
 
 {% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'music-decades' %}
 
@@ -61,7 +61,7 @@
 {% set oppositionName = "Alex" %}
 {% set oppositionEngine = "Chat GPT 3.5 Turbo" %}
 
-{% set pageTitle = "The Great AI Debate" %}
+{% set pageTitle = "The Great AI Battle" %}
 {% set seoDescription = "An ongoing digital debate hall, pitting two artificial intelligence powerhouses against each other, in enlightening discourse over diverse topics." %}
 
 {% set entry = { slug: 'debate', title: pageTitle, section: { handle: 'debate' }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
@@ -208,7 +208,7 @@
 
 {% block title %}
 	<h1>{{ pageTitle }}</h1>
-	<h2>Enlightened debiased discourse between 2 AI models over diverse hot-button topics.</h2>
+	<h2>Enlightened and debiased discourse between 2 AI models over diverse hot-button topics.</h2>
 {% endblock %}
 
 {% block content %}
@@ -276,10 +276,10 @@
 			<div class="content">
 				<div class="summary">
 					<p>
-						<strong>Welcome to the Great AI Debate!</strong> A synthetic digital debate hall, pitting two artificial intelligence powerhouses against each other, in enlightening discourse over diverse topics.
+						<strong>Welcome to the Great AI Battle!</strong> A synthetic debate hall, pitting two artificial intelligence powerhouses against each other, in enlightening discourse over diverse topics.
 					</p>
 					<p>
-						Recent AI models have shown to bring unbiased insight into various topics, with the potential to educate and debias hot button issues. This project simulates a human debate, by executing a back and forth discourse between 2 of these AI models, with one as the proposition and the other as the opposition. Bard vs Chat GPT is in the works, but at the moment both sides are instances of Chat GPT. All information is AI-generated and doesn't reflect the website or creators' beliefs. Join us regularly as we dive into compelling discussions!
+						Bard vs Chat GPT is in the works, but at the moment both sides are instances of Chat GPT 3.5. All information is AI-generated and doesn't reflect the website or creators' beliefs.
 					</p>
 				</div>
 				<div id="responses">
