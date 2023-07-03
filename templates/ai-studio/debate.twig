@@ -1,8 +1,8 @@
 {% extends '/_layout' %}
 
-{% set versionNumber = '1.91' %}
+{% set versionNumber = '1.92' %}
 
-{% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'income-inequality' %}
+{% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'music-decades' %}
 
 {% switch topicSlug %}
 		{% case "ai-music" %}
@@ -28,10 +28,10 @@
 			{% set oppositionPerspective = "believes censorship infringes on artists' creative freedoms, self expression and listeners' right to choose" %}
 		{% case "music-decades" %}
 			{% set debateTopic = "Best Music Decades" %}
-			{% set debateResolution = "Is the golden age of music behind us, or does music mature and improve over time?" %}
-			{% set propositionTitle = "Modern Music Enthusiast" %}
+			{% set debateResolution = "Is the Golden Age of music behind us, or does music improve over time making newer material superior?" %}
+			{% set propositionTitle = "Gen-Z Contemporary Music Lover" %}
 			{% set propositionPerspective = "believes the technological advancements and cross-cultural fusions, have produced more superior innovative and diverse music" %}
-			{% set oppositionTitle = "Mid-20th Century Music Lover" %}
+			{% set oppositionTitle = "1940-1970 Vintage Music Enthusiast" %}
 			{% set oppositionPerspective = "believes the 1940s to 1970s provided unparalleled timeless classics that continue to resonate today" %}
 		{% case "music-genres" %}
 			{% set debateTopic = "Best Music Genres" %}
@@ -229,21 +229,21 @@
 				</form>
 			</div>
 			<div>
+				<strong>Resolution:</strong><br>{{ debateResolution }}
+			</div>
+			<div>
 				<strong>Proposition:</strong> {{ propositionName }}
 				<br>
-				{{ propositionTitle }} being emulated by ({{ propositionEngine }})
+				{{ propositionTitle }} emulated by ({{ propositionEngine }})
 				<br>
 				<small><i>{{ propositionPerspective }}</i></small>
 			</div>
 			<div>
 				<strong>Opposition:</strong> {{ oppositionName }}
 				<br>
-				{{ oppositionTitle }} being emulated by ({{ oppositionEngine }})
+				{{ oppositionTitle }} emulated by ({{ oppositionEngine }})
 				<br>
 				<small><i>{{ oppositionPerspective }}</i></small>
-			</div>
-			<div>
-				<strong>Resolution:</strong><br>{{ debateResolution }}
 			</div>
 			<div>
 				<form>

@@ -4,6 +4,8 @@ class AIDebate
 
 	static DEBATE_QUERY_URL = '/api/debate-query';
 
+	static fetchResponse = window.fetch.bind(window);
+
 	constructor(debateFormat)
 	{
 		this.debate = {
@@ -217,7 +219,7 @@ class AIDebate
 
 			let url = `${AIDebate.DEBATE_QUERY_URL}?q=${query}`;
 
-			fetch(url).then((response) => {
+			AIDebate.fetchResponse(url).then((response) => {
 			    if (response.ok)
 			    {
 			    	return response.text();
@@ -230,13 +232,21 @@ class AIDebate
 						this.responseCount++;
 
 						this.showSpinner(false);
-						this.lastResponse = html;
-						html = html.replace(/\n/g, '<br>');
+
+						// Remove <script>, <link>, <br>, and <base> tags from Ezoic injection
+						let formattedHTML = html;
+					    formattedHTML = formattedHTML.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+					    formattedHTML = formattedHTML.replace(/<link\b[^<]*(?:(?!<\/link>)<[^<]*)*<\/link>/gi, '');
+					    formattedHTML = formattedHTML.replace(/<br>/gi, '');
+					    formattedHTML = formattedHTML.replace(/<base\b[^<]*(?:(?!<\/base>)<[^<]*)*<\/base>/gi, '');
+
+						this.lastResponse = formattedHTML;
+						formattedHTML = formattedHTML.replace(/\n/g, '<br>');
 
 						let now = new Date();
 						let formattedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.getHours() % 12 || 12}:${now.getMinutes().toString().padStart(2, '0')}${now.getHours() >= 12 ? 'pm' : 'am'}`;
 					    
-					    this.responses.innerHTML += `<div class="ai-response ${this.activeRebuttal}"><label>${format[this.activeRebuttal].name} (${format[this.activeRebuttal].title}) at ${formattedDate}</label>${html}</div>`;
+					    this.responses.innerHTML += `<div class="ai-response ${this.activeRebuttal}"><label>${format[this.activeRebuttal].name} (${format[this.activeRebuttal].title}) at ${formattedDate}</label>${formattedHTML}</div>`;
 
 					    // Toggle the active speaker
 					    this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";
