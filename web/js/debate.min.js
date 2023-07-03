@@ -4,7 +4,33 @@ class AIDebate
 
 	static DEBATE_QUERY_URL = '/api/debate-query';
 
-	static fetchResponse = window.fetch.bind(window);
+	static fetchResponse(url)
+	{
+	    return new Promise((resolve, reject) => {
+			xhr.open('GET', url);
+			xhr.onload = function() {
+				if (this.status >= 200 && this.status < 300)
+				{
+					resolve(xhr.response);
+				}
+				else
+				{
+				 	reject({
+				    	status: this.status,
+				    	statusText: xhr.statusText
+				  	});
+				}
+			};
+			xhr.onerror = function()
+			{
+				reject({
+				 	status: this.status,
+				 	statusText: xhr.statusText
+				});
+			};
+			xhr.send();
+	    });
+	 }
 
 	constructor(debateFormat)
 	{
@@ -219,11 +245,13 @@ class AIDebate
 
 			let url = `${AIDebate.DEBATE_QUERY_URL}?q=${query}`;
 
+			// fetch(url).then((response) => {
 			AIDebate.fetchResponse(url).then((response) => {
-			    if (response.ok)
-			    {
-			    	return response.text();
-			    }
+			    // if (response.ok)
+			    // {
+			    	// return response.text();
+			    	return response;
+			    // }
 			}).then((html) => {
 				if(this.debate.active)
 				{
