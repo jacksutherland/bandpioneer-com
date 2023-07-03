@@ -1,0 +1,9 @@
+baseUrl: 'http://$AI_SITE_URL/'
+enabled: '1'
+handle: bandPioneerAI
+hasUrls: true
+language: en-US
+name: 'Band Pioneer AI'
+primary: false
+siteGroup: d868a59a-8531-43b1-88a2-eb8eea29254c # Band Pioneer
+sortOrder: 3

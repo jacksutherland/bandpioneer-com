@@ -1,0 +1,43 @@
+fieldLayouts:
+  4e104703-2570-4fa2-9efa-ebad946f40d0:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: ba41ecc4-132f-48c0-b58c-2d28994e1dc5
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 5f5e2f4a-bcef-4ece-8155-aff1ef65b403
+        userCondition: null
+handle: aiDebate
+hasTitleField: false
+name: 'AI Debate'
+section: 55fe6bf6-54b5-47c3-af24-9173740cadc0 # AI Debate
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

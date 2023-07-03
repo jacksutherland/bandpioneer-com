@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: aiDebate
+name: 'AI Debate'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  10710afa-12e3-48a9-bb9d-2155b47cac47: # Band Pioneer AI
+    enabledByDefault: true
+    hasUrls: true
+    template: ai-studio/debate
+    uriFormat: ai-studio/debate
+type: single
