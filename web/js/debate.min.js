@@ -10,6 +10,7 @@ class AIDebate
 	    return new Promise((resolve, reject) => {
 	    	const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
+			xhr.responseType = 'text';
 			xhr.onload = function() {
 				console.log(`xhr.onload: ${this.status}`);
 				if (this.status >= 200 && this.status < 300)
@@ -246,7 +247,7 @@ class AIDebate
 		{
 			const format = this.debate.format;
 
-			let url = `${AIDebate.DEBATE_QUERY_URL}?q=${query}`;
+			let url = `${AIDebate.DEBATE_QUERY_URL}?dt=${new Date().getTime()}&q=${query}`;
 
 			// fetch(url).then((response) => {
 			AIDebate.fetchResponse(url).then((response) => {
