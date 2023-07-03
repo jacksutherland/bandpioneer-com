@@ -33,10 +33,10 @@ fieldLayouts:
         name: Content
         uid: 5f5e2f4a-bcef-4ece-8155-aff1ef65b403
         userCondition: null
-handle: aiDebate
+handle: aiBattle
 hasTitleField: false
-name: 'AI Debate'
-section: 55fe6bf6-54b5-47c3-af24-9173740cadc0 # AI Debate
+name: 'AI Battle'
+section: 55fe6bf6-54b5-47c3-af24-9173740cadc0 # AI Battle
 sortOrder: 1
 titleFormat: '{section.name|raw}'
 titleTranslationKeyFormat: null

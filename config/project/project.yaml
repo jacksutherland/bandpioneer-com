@@ -1,4 +1,4 @@
-dateModified: 1688412499
+dateModified: 1688417845
 elementSources:
   craft\elements\Asset:
     -
@@ -212,7 +212,7 @@ meta:
     26e93876-a78a-402d-b49e-a55f7d4e5374: 'Link URL' # Link URL
     30fa7a57-b433-476a-9e42-ca0ad4755591: Image # Image
     37ff1ae6-ced2-4eaf-b107-93e6e3dd94be: 'Band Image' # Band Image
-    55fe6bf6-54b5-47c3-af24-9173740cadc0: 'AI Debate' # AI Debate
+    55fe6bf6-54b5-47c3-af24-9173740cadc0: 'AI Battle' # AI Battle
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
     63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Video # Video
@@ -246,7 +246,7 @@ meta:
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
     aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
-    ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Debate' # AI Debate
+    ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
     b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
