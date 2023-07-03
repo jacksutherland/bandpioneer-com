@@ -7,6 +7,7 @@ class AIDebate
 	static fetchResponse(url)
 	{
 	    return new Promise((resolve, reject) => {
+	    	const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
 			xhr.onload = function() {
 				if (this.status >= 200 && this.status < 300)
