@@ -6,10 +6,12 @@ class AIDebate
 
 	static fetchResponse(url)
 	{
+		console.log(`fetchResponse: ${url}`);
 	    return new Promise((resolve, reject) => {
 	    	const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
 			xhr.onload = function() {
+				console.log(`xhr.onload: ${this.status}`);
 				if (this.status >= 200 && this.status < 300)
 				{
 					resolve(xhr.response);
@@ -262,12 +264,18 @@ class AIDebate
 
 						this.showSpinner(false);
 
+						console.log('AIDebate html');
+						console.log(html);
+
 						// Remove <script>, <link>, <br>, and <base> tags from Ezoic injection
 						let formattedHTML = html;
 					    formattedHTML = formattedHTML.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
 					    formattedHTML = formattedHTML.replace(/<link\b[^<]*(?:(?!<\/link>)<[^<]*)*<\/link>/gi, '');
 					    formattedHTML = formattedHTML.replace(/<br>/gi, '');
 					    formattedHTML = formattedHTML.replace(/<base\b[^<]*(?:(?!<\/base>)<[^<]*)*<\/base>/gi, '');
+
+					    console.log('AIDebate formattedHTML');
+					    console.log(formattedHTML);
 
 						this.lastResponse = formattedHTML;
 						formattedHTML = formattedHTML.replace(/\n/g, '<br>');
