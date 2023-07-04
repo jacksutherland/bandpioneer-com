@@ -1,6 +1,8 @@
 class AIDebate
 {
-	static MAX_RESPONSES = 50;
+	static MAX_RESPONSES = 50; // max to show in UX
+
+	static MAX_CACHED_RESPONSES = 5; // max to remember in the conversation context
 
 	static DEBATE_QUERY_URL = '/api/debate-query';
 
@@ -9,7 +11,7 @@ class AIDebate
 	    return new Promise((resolve, reject) => {
 	    	const xhr = new XMLHttpRequest();
 			xhr.open('GET', url);
-			xhr.responseType = 'text';
+			// xhr.responseType = 'text';
 			xhr.onload = function() {
 				if (this.status >= 200 && this.status < 300)
 				{
@@ -43,7 +45,7 @@ class AIDebate
 
 		this.responseCount = 0;
 
-		this.responses = document.getElementById('responses');
+		this.responseElement = document.getElementById('responses');
 
 		this.spinner = document.getElementById('spinner');
 
@@ -52,6 +54,8 @@ class AIDebate
 		this.activeRebuttal = "prop";
 
 		this.autoScroll = true;
+
+		this.responses = [];
 
 		this.initializeUX();
 
@@ -80,6 +84,15 @@ class AIDebate
 		    	this.autoScroll = false;
 		    }
 		}.bind(this);
+
+		var responseDelay = document.getElementById('response-delay');
+		var responseDisplay = document.getElementById('response-delay-value');
+		function displayReponseDelay()
+		{
+			responseDisplay.innerText = `${parseInt(responseDelay.value) / 1000} seconds`;
+		}
+		responseDelay.addEventListener('input', displayReponseDelay);
+		displayReponseDelay();
 	}
 
 	scrollDown()
@@ -166,11 +179,45 @@ class AIDebate
 		return response;
 	}
 
+	cacheResponse(response, name)
+	{
+		this.responses.push({name: name, response: response});
+
+		if(this.responses.length > AIDebate.MAX_CACHED_RESPONSES)
+		{
+			this.responses.shift();
+		}
+	}
+
+	getCachedResponses()
+	{
+		// return this.responses.map(item => `${item.name}: ${item.response}`).join(' ... ');
+		return this.responses.map(item => `${item.response}`).join(' ... ');
+	}
+
+	getLastResponse()
+	{
+		return this.responses.length > 0 ? this.responses[this.responses.length - 1].response : "";
+	}
+
+	get2ndToLastResponse()
+	{
+		return this.responses.length > 1 ? this.responses[this.responses.length - 2].response : "";
+	}
+
 	initialResponse()
 	{
+		let query;
 		const format = this.debate.format;
 
-		let query = `You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. The debate resolution is: ${format.resolution} Write an opening argument, in ${this.getResponseLength()}, ${ this.getResponseComplexity() }, from this perspective: ${format[this.activeRebuttal].perspective}`;
+		if(format.topic == 'Small Talk')
+		{
+			query = `Your response should be ${this.getResponseLength()}. Your name is ${format[this.activeRebuttal].name} and you are making small talk with with someone to get to know them better. For this first response just say your name and ask them how they are doing.`;
+		}
+		else
+		{
+			query = `You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. The debate resolution is: ${format.resolution} Write an opening argument, in ${this.getResponseLength()}, ${ this.getResponseComplexity() }, from this perspective: ${format[this.activeRebuttal].perspective}`;
+		}
 
 		this.showSpinner(true, `${format[this.activeRebuttal].name} is preparing an opening statement...`)
 
@@ -178,22 +225,6 @@ class AIDebate
 		{
 			document.getElementById('pause-debate').classList.remove('hide');
 			this.nextResponse();
-		}.bind(this));
-	}
-
-	finalResponse()
-	{
-		const format = this.debate.format;
-
-		let query = `You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. The debate resolution is: ${format.resolution} Write a final closing argument, saying goodbye, in ${this.getResponseLength()}, ${ this.getResponseComplexity() }, from this perspective: ${format[this.activeRebuttal].perspective}`;
-
-		this.showSpinner(true, `${format[this.activeRebuttal].name} is preparing an opening statement...`)
-
-		this.responseQuery(query, function()
-		{
-			this.debate.active = false;
-			this.showSpinner(null, `Debate concluded: ${AIDebate.MAX_RESPONSES} response limit reached.`);
-			document.getElementById('pause-debate').classList.add('hide');
 		}.bind(this));
 	}
 
@@ -205,8 +236,6 @@ class AIDebate
 		}
 		else if(this.debate.active)
 		{
-			// this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";
-
 			let delay = this.getResponseDelay();
 
 			let readingPause = delay > 5000 ? 2000 : 0;
@@ -225,18 +254,59 @@ class AIDebate
 			{
 				if(this.debate.active)
 				{
+					let query;
 					const format = this.debate.format;
 
 					this.showSpinner(true, `${this.debate.format[this.activeRebuttal].name} is responding...`);
 
-					let query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexity() }, respond to this argument: ${this.lastResponse}`;
-					
+					if(format.topic == 'Small Talk')
+					{
+						let currentRebuttal = format[this.activeRebuttal];
+						let lastRebuttal = format[this.activeRebuttal === "prop" ? "opp" : "prop"];
+						// query = `Your response should be ${this.getResponseLength()}. Your name is ${currentRebuttal.name} and you are making small talk with with ${lastRebuttal.name}. ${ this.getResponseComplexity() }, continue the conversation and respond to their last comment, which was: ${this.getLastResponse()}`;
+						query = `You're in a casual conversation with ${lastRebuttal.name}. `;
+
+						if(this.get2ndToLastResponse() !== '')
+						{
+							query += `The last thing you said was: ${this.get2ndToLastResponse()}. Then `
+						}
+
+						query += `${lastRebuttal.name} just said to you: ${this.getLastResponse()}. Using ${this.getResponseLength()} respond to that comment to continue the conversation.`
+					}
+					else
+					{
+						query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexity() }, respond to this argument: ${this.getLastResponse()}`;
+					}
+
 					// console.log(query);
 
 					this.responseQuery(query);
 				}
 			}.bind(this), (delay - readingPause));
 		}
+	}
+
+	finalResponse()
+	{
+		const format = this.debate.format;
+
+		if(format.topic == 'Small Talk')
+		{
+			query = `Your name is ${format[this.activeRebuttal].name} and you are making small talk with with someone, but your time has come to an end. Say goodbye and conclude the conversation.`;
+		}
+		else
+		{
+			let query = `You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. The debate resolution is: ${format.resolution} Write a final closing argument, saying goodbye, in ${this.getResponseLength()}, ${ this.getResponseComplexity() }, from this perspective: ${format[this.activeRebuttal].perspective}`;
+		}
+
+		this.showSpinner(true, `${format[this.activeRebuttal].name} is preparing an opening statement...`)
+
+		this.responseQuery(query, function()
+		{
+			this.debate.active = false;
+			this.showSpinner(null, `Debate concluded: ${AIDebate.MAX_RESPONSES} response limit reached.`);
+			document.getElementById('pause-debate').classList.add('hide');
+		}.bind(this));
 	}
 
 	responseQuery(query, callback)
@@ -264,19 +334,15 @@ class AIDebate
 						this.showSpinner(false);
 
 						// Remove <script>, <link>, <br>, and <base> tags from Ezoic injection
-						let formattedHTML = html;
-					    // formattedHTML = formattedHTML.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-					    // formattedHTML = formattedHTML.replace(/<link\b[^<]*(?:(?!<\/link>)<[^<]*)*<\/link>/gi, '');
-					    // formattedHTML = formattedHTML.replace(/<br>/gi, '');
-					    // formattedHTML = formattedHTML.replace(/<base\b[^<]*(?:(?!<\/base>)<[^<]*)*<\/base>/gi, '');
+						let formattedHTML = html.replace(/&#039;/g, "").replace(/&quot;/g, "");
 
-						this.lastResponse = formattedHTML;
-						formattedHTML = formattedHTML.replace(/\n/g, '<br>');
+						this.cacheResponse(formattedHTML, format[this.activeRebuttal].name);
+						// formattedHTML = formattedHTML.replace(/\n/g, '<br>');
 
 						let now = new Date();
 						let formattedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${now.getHours() % 12 || 12}:${now.getMinutes().toString().padStart(2, '0')}${now.getHours() >= 12 ? 'pm' : 'am'}`;
 					    
-					    this.responses.innerHTML += `<div class="ai-response ${this.activeRebuttal}"><label>${format[this.activeRebuttal].name} (${format[this.activeRebuttal].title}) at ${formattedDate}</label>${formattedHTML}</div>`;
+					    this.responseElement.innerHTML += `<div class="ai-response ${this.activeRebuttal}"><label>${format[this.activeRebuttal].name} (${format[this.activeRebuttal].title}) at ${formattedDate}</label>${formattedHTML}</div>`;
 
 					    // Toggle the active speaker
 					    this.activeRebuttal = this.activeRebuttal === "prop" ? "opp" : "prop";

@@ -1,6 +1,6 @@
 {% extends '/_layout' %}
 
-{% set versionNumber = '1.108' %}
+{% set versionNumber = '1.109' %}
 
 {% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'music-decades' %}
 
@@ -25,7 +25,7 @@
 			{% set propositionTitle = "Pro-Censorship Supporter" %}
 			{% set propositionPerspective = "thinks music censorship is necessary to protect young listeners from explicit harmful content" %}
 			{% set oppositionTitle = "Anti-Censorship Detractor" %}
-			{% set oppositionPerspective = "believes censorship infringes on artists' creative freedoms, self expression and listeners' right to choose" %}
+			{% set oppositionPerspective = "believes censorship infringes on artist creative freedoms, self expression and listeners right to choose" %}
 		{% case "music-decades" %}
 			{% set debateTopic = "Best Music Decades" %}
 			{% set debateResolution = "Is the Golden Age of music behind us, or does music improve over time making newer material superior?" %}
@@ -47,6 +47,13 @@
 			{% set propositionPerspective = "believes income inequality is a serious issue that requires intervention" %}
 			{% set oppositionTitle = "Free Market Advocate" %}
 			{% set oppositionPerspective = "thinks income inequality is a natural result of free market dynamics and should not be excessively interfered with" %}
+		{% case "small-talk" %}
+			{% set debateTopic = "Small Talk" %}
+			{% set debateResolution = "Just simple small talk. Greetings and salutations to get to know each other." %}
+			{% set propositionTitle = "Joyful Jordan" %}
+			{% set propositionPerspective = "is excited to ask questions to get to know Alex" %}
+			{% set oppositionTitle = "Alex the Agreeable" %}
+			{% set oppositionPerspective = "is happy to learn anything possible about Jordan" %}
 		{% default %}
 			{% set debateTopic = "" %}
 			{% set debateResolution = "" %}
@@ -221,9 +228,10 @@
 						<option value="ai-music"{% if topicSlug == 'ai-music' %} selected{% endif %}>AI in Music Creation</option>
 						<option value="music-decades"{% if topicSlug == 'music-decades' %} selected{% endif %}>Best Music Decades</option>
 						<option value="music-genres"{% if topicSlug == 'music-genres' %} selected{% endif %}>Best Music Genres</option>
-						<option value="gun-control"{% if topicSlug == 'gun-control' %} selected{% endif %}>Gun Control</option>
+						{# <option value="gun-control"{% if topicSlug == 'gun-control' %} selected{% endif %}>Gun Control</option> #}
 						<option value="income-inequality"{% if topicSlug == 'income-inequality' %} selected{% endif %}>Income Inequality</option>
 						<option value="music-censorship"{% if topicSlug == 'music-censorship' %} selected{% endif %}>Music Censorship</option>
+						<option value="small-talk"{% if topicSlug == 'small-talk' %} selected{% endif %}>Small Talk</option>
 					</select>
 				</form>
 			</div>
@@ -267,7 +275,7 @@
 						<option value="2-6 sentences">2-5 Sentences</option>
 					</select>
 
-					<strong>Response Speed:</strong>
+					<strong>Response Speed:</strong>&nbsp;<span id="response-delay-value"></span>
 					<input type="range" step="2000" min="2000" max="60000" value="10000" id="response-delay" placeholder="Duration between responses">
 				</form>
 			</div>
