@@ -161,8 +161,8 @@ class AIDebate
 
 	getResponseComplexity()
 	{
-		let selectId = `${this.activeRebuttal}-complexity`;
-		let select = document.getElementById(selectId);
+		// let selectId = `${this.activeRebuttal}-complexity`;
+		let select = document.getElementById('arugument-complexity');
 		let response = "using simple terms";
 		switch(select.value)
 		{
@@ -175,6 +175,33 @@ class AIDebate
 			case "phd":
 				response = "using academic terms on a PhD-level";
 				break;
+		}
+		return response;
+	}
+
+	getResponseTone()
+	{
+		let select = document.getElementById('arugument-tone');
+		let response = "";
+		switch(select.value)
+		{
+			case "silly":
+				response = "with funny or silly comments";
+				break;
+			case "angry":
+				response = "with a lot of anger and taunting";
+				break;
+		}
+		return response;
+	}
+
+	getResponseComplexityAndTone()
+	{
+		let response = this.getResponseComplexity();
+		let tone = this.getResponseTone();
+		if(tone !== "")
+		{
+			response += ` and ${tone}`
 		}
 		return response;
 	}
@@ -264,18 +291,18 @@ class AIDebate
 						let currentRebuttal = format[this.activeRebuttal];
 						let lastRebuttal = format[this.activeRebuttal === "prop" ? "opp" : "prop"];
 						// query = `Your response should be ${this.getResponseLength()}. Your name is ${currentRebuttal.name} and you are making small talk with with ${lastRebuttal.name}. ${ this.getResponseComplexity() }, continue the conversation and respond to their last comment, which was: ${this.getLastResponse()}`;
-						query = `You're in a casual conversation with ${lastRebuttal.name}. `;
+						query = `You are roll playing in a casual conversation with ${lastRebuttal.name}. `;
 
 						if(this.get2ndToLastResponse() !== '')
 						{
 							query += `The last thing you said was: ${this.get2ndToLastResponse()}. Then `
 						}
 
-						query += `${lastRebuttal.name} just said to you: ${this.getLastResponse()}. Using ${this.getResponseLength()} respond to that comment to continue the conversation.`
+						query += `${lastRebuttal.name} just said to you: ${this.getLastResponse()}. Using ${this.getResponseLength()} respond to that comment to continue the conversation ${this.getResponseTone()}.`
 					}
 					else
 					{
-						query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexity() }, respond to this argument: ${this.getLastResponse()}`;
+						query = `Your response should be ${this.getResponseLength()}. You are a ${format[this.activeRebuttal].title} in a debate on ${format.topic}. Your perspective ${format[this.activeRebuttal].perspective}. From that perspective, ${ this.getResponseComplexityAndTone() }, respond to this argument: ${this.getLastResponse()}`;
 					}
 
 					// console.log(query);

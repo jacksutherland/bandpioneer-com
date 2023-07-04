@@ -1,6 +1,6 @@
 {% extends '/_layout' %}
 
-{% set versionNumber = '1.109' %}
+{% set versionNumber = '1.110' %}
 
 {% set topicSlug = craft.app.request.getQueryParam('topic') ?? 'music-decades' %}
 
@@ -225,13 +225,19 @@
 				<form method="get" action="/ai-studio/battle">
 					<strong>Debate Topic:</strong>
 					<select id="debate-topic" name="topic" onchange="this.form.submit()" style="margin-bottom:5px;">
-						<option value="ai-music"{% if topicSlug == 'ai-music' %} selected{% endif %}>AI in Music Creation</option>
-						<option value="music-decades"{% if topicSlug == 'music-decades' %} selected{% endif %}>Best Music Decades</option>
-						<option value="music-genres"{% if topicSlug == 'music-genres' %} selected{% endif %}>Best Music Genres</option>
-						{# <option value="gun-control"{% if topicSlug == 'gun-control' %} selected{% endif %}>Gun Control</option> #}
-						<option value="income-inequality"{% if topicSlug == 'income-inequality' %} selected{% endif %}>Income Inequality</option>
-						<option value="music-censorship"{% if topicSlug == 'music-censorship' %} selected{% endif %}>Music Censorship</option>
-						<option value="small-talk"{% if topicSlug == 'small-talk' %} selected{% endif %}>Small Talk</option>
+						<optgroup label="Music Debate">
+							<option value="ai-music"{% if topicSlug == 'ai-music' %} selected{% endif %}>AI in Music Creation</option>
+							<option value="music-decades"{% if topicSlug == 'music-decades' %} selected{% endif %}>Best Music Decades</option>
+							<option value="music-genres"{% if topicSlug == 'music-genres' %} selected{% endif %}>Best Music Genres</option>
+							<option value="music-censorship"{% if topicSlug == 'music-censorship' %} selected{% endif %}>Music Censorship</option>
+						</optgroup>
+						<optgroup label="Social Issues">
+							{# <option value="gun-control"{% if topicSlug == 'gun-control' %} selected{% endif %}>Gun Control</option> #}
+							<option value="income-inequality"{% if topicSlug == 'income-inequality' %} selected{% endif %}>Income Inequality</option>
+						</optgroup>
+						<optgroup label="Casual Conversation">
+							<option value="small-talk"{% if topicSlug == 'small-talk' %} selected{% endif %}>Small Talk</option>
+						</optgroup>
 					</select>
 				</form>
 			</div>
@@ -254,18 +260,18 @@
 			</div>
 			<div>
 				<form>
-					<strong>{{ propositionName }}'s Arugument Complexity:</strong>
-					<select id="prop-complexity">
+					<strong>Arugument Complexity:</strong>
+					<select id="arugument-complexity">
 						<option value="child">As if I were a child</option>
 						<option value="simple" selected>Using simple terms</option>
 						<option value="phd">Academic PhD-level</option>
 					</select>
 
-					<strong>{{ oppositionName }}'s Arugument Complexity:</strong>
-					<select id="opp-complexity">
-						<option value="child">As if I were a child</option>
-						<option value="simple" selected>Using simple terms</option>
-						<option value="phd">Academic PhD-level</option>
+					<strong>Arugument Tone:</strong>
+					<select id="arugument-tone">
+						<option value="silly">Silly</option>
+						<option value="calm" selected>Calm</option>
+						<option value="angry">Angry</option>
 					</select>
 
 					<strong>Response Length:</strong>
