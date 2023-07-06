@@ -57,6 +57,27 @@ class AIService extends Component
         // return 'This will be a Chat GPT response';
     }
 
+    public function getKeywordList()
+    {
+        $keywords = KeywordRecord::find()->select(['path', 'title', 'description'])->where(['enabled' => 1])->asArray()->all();
+
+        $groupedRecords = [];
+        foreach ($keywords as $record)
+        {
+            $pathGroup = explode('/', $record['path'])[0];
+            $record['path'] = $pathGroup;
+            $groupedRecords[$pathGroup]['group'] = $pathGroup;
+            $groupedRecords[$pathGroup]['keywords'][] = $record;
+        }
+
+        uasort($groupedRecords, function ($a, $b)
+        {
+            return strcmp($a['group'], $b['group']);
+        });
+
+        return array_values($groupedRecords);
+    }
+
     public function getKeywordTitle($keywordPath)
     {
         $title = KeywordRecord::findOne(['path' => $keywordPath])->title ?? '';
@@ -70,8 +91,15 @@ class AIService extends Component
         
         return $body;
     }
+
+    public function getKeywordDescription($keywordPath)
+    {
+        $body = KeywordRecord::findOne(['path' => $keywordPath])->description ?? '';
+        
+        return $body;
+    }
     
-    public function saveKeyword($keywordPath, $keywordTitle, $keywordBody)
+    public function saveKeyword($keywordPath, $keywordTitle, $keywordBody, $keywordDescription)
     {
         if(strlen($keywordPath) > 0 && strlen($keywordTitle) > 0 && strlen($keywordBody) > 0 && !$keywordRecord = KeywordRecord::findOne(['path' => $keywordPath]))
         {
@@ -87,6 +115,7 @@ class AIService extends Component
                 $keywordRecord->path = $keywordPath;
                 $keywordRecord->title = $keywordTitle;
                 $keywordRecord->body = $keywordBody;
+                $keywordRecord->description = $keywordDescription;
                 $keywordRecord->save();
 
                 $transaction->commit();

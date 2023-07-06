@@ -1,0 +1,64 @@
+{% extends '/_layout' %}
+
+{% set pageTitle = "Quick Tips" %}
+{% set seoTitle = "Quick Tips and Advice for Musicians" %}
+{% set seoDescription = "Quick access to a wide range of music topics, to inspire, educate, and ignite your passion for music." %}
+{% set entry = { slug: 'quick-tips', title: 'Quick Tips and Advice for Musicians', section: { handle: 'category' }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
+
+{% set groupedKeywords = craft.bands.getKeywordList() %}
+
+{% block headerScripts %}
+	<style type="text/css">
+		h3.section-title {
+			margin-top: 40px;
+		}
+		.blog-posts {
+			gap: 20px;
+    		margin-top: 20px;
+		}
+		.blog-posts article {
+			background-color: #f2f3f5;
+			box-shadow: none;
+		}
+		@media (min-width: 768px)
+		{
+			h3.section-title {
+				margin-top: 60px;
+			}
+			.blog-posts {
+			    grid-template-columns: 1fr 1fr;
+			}
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	{% include '_includes/categories' with { categories: craft.entries.section('category') } %}
+
+	<div class="page">
+		<div class="container">
+
+				{% for group in groupedKeywords %}
+					<section>
+						<h3 class="section-title"><span>{{ group.group }}</span></h2>
+						<div class="blog-posts">
+							{% for keyword in group.keywords %}
+						        <article>
+									<div class="blog-info">
+										<h3 style="text-transform:capitalize;">
+											<a href="{{ keyword.path }}"}>{{ keyword.title }}</a>
+										</h3>
+										<p>{{ keyword.description | raw }}</p>
+										
+									</div>
+								</article>
+							{% endfor %}
+						</div>
+					</section>
+			    {% endfor %}
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

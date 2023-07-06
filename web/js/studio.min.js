@@ -190,7 +190,8 @@ class Studio
 		let formData = new FormData();
 		formData.append('path', data.path);
 		formData.append('title', data.subtitle);
-		formData.append('body', data.description);
+		formData.append('body', data.body);
+		formData.append('description', data.description);
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
@@ -309,13 +310,14 @@ class Studio
 
 			const obj = this;
 
-			const query = `Write roughly three to five paragraphs about "${keyObj.title}", that are extremely useful and insightful. Make the last sentence a CTA to read the articles below this text to learn more.`;
+			const query = `Write a 5 to 15 paragraph essay about "${keyObj.title}". The content must be practical and extremely insightful, and written as a sequence of paragraphs without a title or section headers. Make the last sentence a compelling CTA to read the articles below this text to learn more. `;
+			const descQuery = `In less than 155 characters, write a thought provoking description about quick tips on "${keyObj.title}". This needs to be SEO friendly and less than 155 characters for a description meta tag. No hashtags.`;
 
 			(async () => {
 				
 				// load it from ai
 		  	
-			  	let response = await BandPioneer.aiQuery(query);
+			  	let [response, descResponse] = await Promise.all([BandPioneer.aiQuery(query), BandPioneer.aiQuery(descQuery)]);
 			  	
 			  	let random = Math.floor(Math.random() * Studio.KEYWORD_SUBTITLES.first.length);
 
@@ -323,6 +325,11 @@ class Studio
 
 			  	titleElement.innerText = keyObj.subtitle;
 			  	spinnerElement.style.display = 'none';
+
+			  	if(descResponse === "error")
+				{
+					descResponse = "Music Industry Insights and Marketing Tips for Profitable Musicians";
+				}
 				
 				if(response !== "error")
 				{
@@ -332,7 +339,9 @@ class Studio
 
 					bodyElement.classList.add('text-left');
 					bodyElement.innerHTML = response;
-					keyObj.description = response;
+					keyObj.body = response;
+					keyObj.description = descResponse;
+
 					obj.saveKeywordData(keyObj);
 				}
 				else

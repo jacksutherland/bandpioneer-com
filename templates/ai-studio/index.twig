@@ -19,7 +19,7 @@
 
 {### PAGE TITLE AND ENTRY ###}
 
-{% set seoDescription = "Music Industry Insights and Marketing for Profitable Musicians" %}
+{% set seoDescription = "Music Industry Insights and Marketing Tips for Profitable Musicians" %}
 
 {% if keyword | length %}
 
@@ -32,7 +32,7 @@
 	{% set keywordSubtitle = craft.bands.getKeywordTitle(keywordPath) %}
 	{% set keywordBody = craft.bands.getKeywordBody(keywordPath) %}
 	{% set keywordBodySentences = keywordBody | split('.') %}
-	{# {% set seoDescription = keywordBodySentences[0] ~ '.' %} #}
+	{% set seoDescription = craft.bands.getKeywordDescription(keywordPath) %}
 
 	{% set recentArticles = craft.entries.section('blog').search({query: keywordQuery}).limit(4).orderBy('score') %}
 

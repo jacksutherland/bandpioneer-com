@@ -662,6 +662,12 @@ header.sticky {
 		margin: -30px 0 0 0;
 	}
 
+	h1 {
+		max-width: $site-width;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 	.main-logo {
 		justify-self: center;
 		height: auto;
@@ -676,11 +682,11 @@ header.sticky {
     	background-size: cover;
 		position: relative;
 		header.site-header {
-    		z-index: 100;
-    	}
-    	h1 {
-    		z-index: 20;
-    	}
+  		z-index: 100;
+  	}
+  	h1 {
+  		z-index: 20;
+  	}
 		&:after {
     		content: " ";
     		background-color: rgba(0, 0, 0, 0.5) !important;

@@ -315,11 +315,12 @@ class BandsController extends Controller
         $keywordPath = $request->getParam('path');
         $keywordTitle = $request->getParam('title');
         $keywordBody = $request->getParam('body');
+        $keywordDescription = $request->getParam('description');
 
-        if(!empty($keywordPath) && !empty($keywordTitle) && !empty($keywordBody))
+        if(!empty($keywordPath) && !empty($keywordTitle) && !empty($keywordBody) && !empty($keywordDescription))
         {
             $service = Rockstar::$plugin->getAIService();
-            $response = $service->saveKeyword($keywordPath, $keywordTitle, $keywordBody);
+            $response = $service->saveKeyword($keywordPath, $keywordTitle, $keywordBody, $keywordDescription);
 
             if($response == true)
             {

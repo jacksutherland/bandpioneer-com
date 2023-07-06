@@ -79,11 +79,13 @@ class Install extends Migration
         $this->createTable('{{%rockstar_keywords}}', [
             'id' => $this->primaryKey(),
             'path' => $this->string(),
+            'description' => $this->string(),
             'body' => $this->text(),
             'title' => $this->string(),
             'dateCreated' => $this->dateTime()->notNull(),
             'dateUpdated' => $this->dateTime()->notNull(),
             'uid' => $this->uid(),
+            'disabled' => $this->boolean()->notNull()->defaultValue(false),
         ]);
     }
 

@@ -24,6 +24,11 @@ class BandsVariable
         return Rockstar::$plugin->getAIService()->chatQuery($question);
     }
 
+    public function getKeywordList()
+    {
+        return Rockstar::$plugin->getAIService()->getKeywordList();
+    }
+
     public function getKeywordTitle($path)
     {
         return Rockstar::$plugin->getAIService()->getKeywordTitle($path);
@@ -32,5 +37,10 @@ class BandsVariable
     public function getKeywordBody($path)
     {
         return Rockstar::$plugin->getAIService()->getKeywordBody($path);
+    }
+
+    public function getKeywordDescription($path)
+    {
+        return Rockstar::$plugin->getAIService()->getKeywordDescription($path);
     }
 }
