@@ -1,4 +1,4 @@
-const aiFetch = window.fetch;
+Object.freeze(window.fetch);
 
 class Studio
 {
@@ -197,7 +197,7 @@ class Studio
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
-		aiFetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
+		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
 		// .then(result => console.log('Success:', result))
 		.catch((error) => console.error('Error:', error));
@@ -621,7 +621,7 @@ class Studio
 
 		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
 
-		aiFetch(url).then((response) => {
+		fetch(url).then((response) => {
 		    if (response.ok)
 		    {
 		    	return response.text();
