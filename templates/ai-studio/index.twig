@@ -66,6 +66,10 @@
 	{% if usingKeyword %}
 		<meta name="csrf-token-name" content="{{ craft.app.config.general.csrfTokenName | e('html') }}">
 		<meta name="csrf-token-value" content="{{ craft.app.request.csrfToken | e('html') }}">
+		<script type="text/javascript">
+			console.log('freezing template');
+			Object.freeze(window.fetch);
+		</script>
 	{% endif %}
 	<style type="text/css">
 		.studio-title {
