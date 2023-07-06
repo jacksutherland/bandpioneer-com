@@ -195,7 +195,7 @@ class Studio
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
-		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
+		window.ezoFetchConst(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
 		// .then(result => console.log('Success:', result))
 		.catch((error) => console.error('Error:', error));
@@ -619,7 +619,7 @@ class Studio
 
 		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
 
-		fetch(url).then((response) => {
+		window.ezoFetchConst(url).then((response) => {
 		    if (response.ok)
 		    {
 		    	return response.text();
