@@ -65,9 +65,16 @@ class AIService extends Component
         foreach ($keywords as $record)
         {
             $pathGroup = explode('/', $record['path'])[0];
-            $record['path'] = $pathGroup;
             $groupedRecords[$pathGroup]['group'] = $pathGroup;
             $groupedRecords[$pathGroup]['keywords'][] = $record;
+        }
+
+        foreach ($groupedRecords as &$group)
+        {
+            uasort($group['keywords'], function ($a, $b)
+            {
+                return strcmp($a['path'], $b['path']);
+            });
         }
 
         uasort($groupedRecords, function ($a, $b)

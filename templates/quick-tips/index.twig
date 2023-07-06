@@ -5,6 +5,8 @@
 {% set seoDescription = "Quick access to a wide range of music topics, to inspire, educate, and ignite your passion for music." %}
 {% set entry = { slug: 'quick-tips', title: 'Quick Tips and Advice for Musicians', section: { handle: 'category' }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
 
+{% set pageUrl = craft.app.request.absoluteUrl %}
+
 {% set groupedKeywords = craft.bands.getKeywordList() %}
 
 {% block headerScripts %}
@@ -19,6 +21,26 @@
 		.blog-posts article {
 			background-color: #f2f3f5;
 			box-shadow: none;
+			transition: background-color 0.35s;
+		}
+		.blog-posts a:hover article {
+			background-color: #ecf0f1;
+		}
+		.blog-posts article .blog-info {
+			margin: 15px 18px;
+		}
+		.blog-posts article .blog-info h3 {
+			font-size: 1.2rem;
+			margin: 0 0 8px 0;
+			color: #0a79a4;
+			transition: color 0.35s;
+		}
+		.blog-posts a:hover article .blog-info h3 {
+			color: #f90215;
+		}
+		.blog-posts article .blog-info p {
+			margin: 0;
+			color: #4f4f4f;
 		}
 		@media (min-width: 768px)
 		{
@@ -43,15 +65,17 @@
 						<h3 class="section-title"><span>{{ group.group }}</span></h2>
 						<div class="blog-posts">
 							{% for keyword in group.keywords %}
-						        <article>
-									<div class="blog-info">
-										<h3 style="text-transform:capitalize;">
-											<a href="{{ keyword.path }}"}>{{ keyword.title }}</a>
-										</h3>
-										<p>{{ keyword.description | raw }}</p>
-										
-									</div>
-								</article>
+								<a href="{{ pageUrl }}/{{ keyword.path }}"}>
+							        <article>
+										<div class="blog-info">
+											<h3 style="text-transform:capitalize;">
+												{{ keyword.path | split('/')[1] | replace({'-': ' '}) | title }}
+											</h3>
+											<p>{{ keyword.description | raw }}</p>
+											
+										</div>
+									</article>
+								</a>
 							{% endfor %}
 						</div>
 					</section>
