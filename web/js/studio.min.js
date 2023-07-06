@@ -1,3 +1,5 @@
+const aiFetch = window.fetch;
+
 class Studio
 {
 	static RELATED_POSTS_URL = '/api/studio-blog-search';
@@ -195,7 +197,7 @@ class Studio
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
-		window.ezoFetchConst(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
+		aiFetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
 		// .then(result => console.log('Success:', result))
 		.catch((error) => console.error('Error:', error));
@@ -619,7 +621,7 @@ class Studio
 
 		const url = `${Studio.RELATED_POSTS_URL}?type=${type}&filters=${filters}`;
 
-		window.ezoFetchConst(url).then((response) => {
+		aiFetch(url).then((response) => {
 		    if (response.ok)
 		    {
 		    	return response.text();
