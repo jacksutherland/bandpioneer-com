@@ -1,3 +1,4 @@
+console.log('freezing from studio.js');
 Object.freeze(window.fetch);
 
 class Studio
