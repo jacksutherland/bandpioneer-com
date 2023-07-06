@@ -195,10 +195,12 @@ class Studio
 
 		formData.append(csrfTokenName, csrfTokenValue);
 
+		console.log(Studio.SAVE_KEYWORD_URL);
+
 		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
-		.then(result => console.log('Success:', result))
-		.catch((error) => console.error('Error:', error));
+		.then(result => console.log('Successy:', result))
+		.catch((error) => console.error('Errory:', error));
 	}
 
 	/*
