@@ -46,15 +46,15 @@ let BandPioneer = {
 				{
 					// return await response.text();
 					const html = await response.text();
-			        const dom = new JSDOM(html);
-			        const textContent = dom.window.document.body.textContent;
+			        const parser = new DOMParser();
+			        const doc = parser.parseFromString(html, 'text/html');
 
 			        console.log('>>>>> html:');
 			        console.log(html);
-			        console.log('>>>>> textContent:');
-			        console.log(textContent);
+			        console.log('>>>>> innerText:');
+			        console.log(doc.body.innerText);
 
-			        return textContent;
+			        return doc.body.innerText;
 				}
 				else
 				{
