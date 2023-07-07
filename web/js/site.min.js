@@ -48,12 +48,6 @@ let BandPioneer = {
 					const html = await response.text();
 			        const parser = new DOMParser();
 			        const doc = parser.parseFromString(html, 'text/html');
-
-			        console.log('>>>>> html:');
-			        console.log(html);
-			        console.log('>>>>> innerText:');
-			        console.log(doc.body.innerText);
-
 			        return doc.body.innerText;
 				}
 				else
