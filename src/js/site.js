@@ -44,7 +44,17 @@ let BandPioneer = {
 				const response = await fetch(url);
 				if (response.ok)
 				{
-					return await response.text();
+					// return await response.text();
+					const html = await response.text();
+			        const dom = new JSDOM(html);
+			        const textContent = dom.window.document.body.textContent;
+
+			        console.log('>>>>> html:');
+			        console.log(html);
+			        console.log('>>>>> textContent:');
+			        console.log(textContent);
+
+			        return textContent;
 				}
 				else
 				{
