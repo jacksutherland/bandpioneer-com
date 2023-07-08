@@ -12,7 +12,7 @@
     {% redirect 'https://ai.bandpioneer.com/ai-studio/battle' %}
 {% endif %}
 
-{% set versionNumber = '1.126' %}
+{% set versionNumber = '1.127' %}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
@@ -73,7 +73,7 @@
             {% endif %}
             {% if entry.seoImage is defined and entry.seoImage.count %}
                 <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('ogImage') }}" />
-            {% elseif entry.seoImageUrl is defined %}
+            {% elseif entry["seoImageUrl"] is defined %}
                 <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}" />
             {% endif %}
             <meta property="og:url" content="{{ pageUrl }}" />
@@ -87,7 +87,7 @@
             {% endif %}
             {% if entry.seoImage is defined and entry.seoImage.count %}
                 <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('twitterImage') }}">
-            {% elseif entry.seoImageUrl is defined %}
+            {% elseif entry["seoImageUrl"] is defined %}
                 <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}">
             {% endif %}
             <meta name="twitter:site" content="@jacksutherland">

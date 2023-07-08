@@ -98,6 +98,7 @@
 {% endif %}
 
 {% set sectionCounter = 0 %}
+{% set textCounter = 0 %}
 
 {% for module in entry.blogContent.all() %}
 
@@ -168,6 +169,15 @@
 			</section>
 
 		{% case "text" %}
+
+			{% set textCounter = textCounter + 1 %}
+			{# <h4>{{ module.type }} - {{ textCounter }}</h4> #}
+
+			{% if textCounter == 1 %}
+				<!-- Ezoic - under_first_paragraph - under_first_paragraph -->
+				<div id="ezoic-pub-ad-placeholder-131"></div>
+				<!-- End Ezoic - under_first_paragraph - under_first_paragraph -->
+			{% endif %}
 
 			<section class="rich-text">
 				{{ module.richText }}
