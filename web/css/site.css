@@ -173,10 +173,6 @@ a.underline:hover:after, label.underline:hover:after {
   width: 100%;
 }
 
-.ez-video-container.ez-stuck {
-  position: static !important;
-}
-
 .container {
   max-width: 1050px;
   margin: 0 15px;
