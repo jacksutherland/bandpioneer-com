@@ -186,7 +186,8 @@ a, label {
 // Ezoic Styles & Overriddes
 
 .advert {
-	
+	border: solid $light-gray 3px;
+  border-radius: $small-border-radius;
 }
 
 // .ez-video-container.ez-stuck {

@@ -173,6 +173,11 @@ a.underline:hover:after, label.underline:hover:after {
   width: 100%;
 }
 
+.advert {
+  border: solid #e7ebec 3px;
+  border-radius: 4px;
+}
+
 .container {
   max-width: 1050px;
   margin: 0 15px;
@@ -1864,7 +1869,7 @@ article .blog-info ul li span {
   }
 }
 .ezoic-ad {
-  margin: 40px auto !important;
+  margin: 30px auto !important;
 }
 
 .ezmob-footer .ezoic-ad {
