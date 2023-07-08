@@ -1,7 +1,10 @@
 {% set sectionTitle = entry.title %}
 
 {% set numberOfAds = 5 %}
-
+{% set titleCounter = 0 %}
+{% set textCounter = 0 %}
+{% set textSectionCount = 0 %}
+{% set adCounter = 0 %}
 {% set tocLinks = [] %}
 
 {% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
@@ -10,7 +13,12 @@
 	{% set children = [] %}
 
 	{% for module in entry.blogContent.all() %}
-		{% if module.type == 'sectionTitle' %}
+
+		{% if module.type == "text" %}
+			
+			{% set textSectionCount = textSectionCount + 1 %}
+
+		{% elseif module.type == 'sectionTitle' %}
 
 			{% set isParent = (module.headline | trim | length) %}
 
@@ -44,7 +52,12 @@
 {% else %}
 
 	{% for module in entry.blogContent.all() %}
-		{% if module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
+		
+		{% if module.type == "text" %}
+			
+			{% set textSectionCount = textSectionCount + 1 %}
+
+		{% elseif module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
 			{# {% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %} #}
 			{% set modHeadline = module.alternateTocText %}
 			{% if modHeadline | length == 0 %}
@@ -52,6 +65,7 @@
 			{% endif %}
 			{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
 		{% endif %}
+
 	{% endfor %}
 
 {% endif %}
@@ -98,19 +112,6 @@
 		</ul>
 	</div>
 {% endif %}
-
-{% set titleCounter = 0 %}
-{% set textCounter = 0 %}
-{% set textSectionCount = 0 %}
-{% set adCounter = 0 %}
-
-{% for module in entry.blogContent.all() %}
-	{% if module.type == "text" %}
-		{% set textSectionCount = textSectionCount + 1 %}
-	{% endif %}
-{% endfor %}
-
-{% set interval = textSectionCount // 5 %}
 
 {% for module in entry.blogContent.all() %}
 
@@ -192,7 +193,7 @@
 			{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
 			{% if textCounter in adSpots %}
 				{% set adCounter = adCounter + 1 %}
-				<h4>AD ezoic-pub-ad-placeholder-13{{ adCounter }}</h4>
+				{# <h4>AD ezoic-pub-ad-placeholder-13{{ adCounter }}</h4> #}
 				<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
 			{% endif %}
 
