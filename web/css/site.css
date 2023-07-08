@@ -173,8 +173,8 @@ a.underline:hover:after, label.underline:hover:after {
   width: 100%;
 }
 
-.advert {
-  border: solid #e7ebec 3px;
+.advert .ezoic-ad {
+  background-color: #e7ebec;
   border-radius: 4px;
 }
 

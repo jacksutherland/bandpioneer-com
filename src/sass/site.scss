@@ -185,8 +185,9 @@ a, label {
 
 // Ezoic Styles & Overriddes
 
-.advert {
-	border: solid $light-gray 3px;
+.advert .ezoic-ad {
+	// border: solid $light-gray 3px;
+	background-color: $light-gray;
   border-radius: $small-border-radius;
 }
 
