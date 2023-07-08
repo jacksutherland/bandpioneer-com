@@ -69,9 +69,17 @@
 	</div>
 
 	<div class="container narrow-container">
+
+		{### EZOIC - blog-bottom-related-content - bottom_of_page ###}
+		<div class="advert"><div id="ezoic-pub-ad-placeholder-137"></div></div>
+
 		<h3 class="section-title"><span>Keep Reading!</span></h3>
 		{% include '_includes/related-content' with { articles: relatedPosts } %}
 		{% include '_includes/related-categories' with { categories: entry.categories } %}
+
+		{### EZOIC - bottom-before-footer - bottom_of_page ###}
+		<div class="advert"><div id="ezoic-pub-ad-placeholder-138"></div></div>
+
 	</div>
 
 {% endblock %}
