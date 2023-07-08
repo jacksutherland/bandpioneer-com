@@ -1,5 +1,7 @@
 {% set sectionTitle = entry.title %}
 
+{% set numberOfAds = 5 %}
+
 {% set tocLinks = [] %}
 
 {% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
@@ -97,8 +99,18 @@
 	</div>
 {% endif %}
 
-{% set sectionCounter = 0 %}
+{% set titleCounter = 0 %}
 {% set textCounter = 0 %}
+{% set textSectionCount = 0 %}
+{% set adCounter = 0 %}
+
+{% for module in entry.blogContent.all() %}
+	{% if module.type == "text" %}
+		{% set textSectionCount = textSectionCount + 1 %}
+	{% endif %}
+{% endfor %}
+
+{% set interval = textSectionCount // 5 %}
 
 {% for module in entry.blogContent.all() %}
 
@@ -106,13 +118,13 @@
 
 		{% case "sectionTitle" %}
 
-			{% set sectionCounter = sectionCounter + 1 %}
+			{% set titleCounter = titleCounter + 1 %}
 			{% set sectionTitle = module.headline %}
 			
 			<section>
 				<div id="section-{{ module.id }}" class="section-anchor"></div>
 				{% if  module.headline | length %}
-					<h2>{% if entry.tocStyle == 'ordered-list' %}{{ sectionCounter }}. {% endif%}{{ module.headline }}</h2>
+					<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
 				{% endif %}
 				{% if  module.subheadline | length %}
 					<h3>{{ module.subheadline }}</h3>
@@ -174,16 +186,17 @@
 				{{ module.richText }}
 			</section>
 
-			{# <h4>{{ module.type }} - {{ textCounter }}</h4> #}
-
 			{### EZOIC ADS ###}
 			{% set textCounter = textCounter + 1 %}
-			{% switch(textCounter) %}
-				{% case 1 %}
-				<div class="advert"><div id="ezoic-pub-ad-placeholder-131"></div></div>
-				{% case 3 %}
-				<div class="advert"><div id="ezoic-pub-ad-placeholder-132"></div></div>
-			{% endswitch %}
+			{% set adSpots = [1] %}
+			{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
+
+			{% if textCounter in adSpots %}
+				{% set adCounter = adCounter + 1 %}
+				<h4>AD ezoic-pub-ad-placeholder-13{{ adCounter }}</h4>
+				<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
+			{% endif %}
+
 
 		{% case "video" %}
 
