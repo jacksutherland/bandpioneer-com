@@ -47,6 +47,16 @@
 				{% endif %}
 			</div>
 		</article>
+
+		{### EZOIC blog_posts-in-content ###}
+		{% if loop.index == 2 %}
+			<div class="advert"><div class="ezoic-ad" id="ezoic-pub-ad-placeholder-140"></div></div>
+		{% elseif loop.index == 4 %}
+			<div class="advert"><div class="ezoic-ad" id="ezoic-pub-ad-placeholder-141"></div></div>
+		{% elseif loop.last %}
+			<div class="advert"><div class="ezoic-ad" id="ezoic-pub-ad-placeholder-142"></div></div>
+			<div class="advert"><div class="ezoic-ad" id="ezoic-pub-ad-placeholder-143"></div></div>
+		{% endif %}
     {% endfor %}
 
 </div>
