@@ -183,21 +183,6 @@ a, label {
 	}
 }
 
-// Ezoic Styles & Overriddes
-
-.advert > .ezoic-ad {
-	height: 100%;
-	padding: 30px 0 !important;
-	border: solid $light-gray 3px;
-	background-color: $light-gray;
-  border-radius: $small-border-radius;
-}
-
-// .ez-video-container.ez-stuck {
-// 	position: static !important;
-// }
-
-
 .container {
 	max-width: $site-width;
 	margin: 0 $mobile-gutter-width;

@@ -1,25 +1,22 @@
-// .ezoic-ad {
-// 	margin: 30px auto !important;
-// }
 
-.ezmob-footer {
-	.ezoic-ad {
-		margin: 0 0 !important;
-		.ezoic-ad {
-			margin: 0 0 !important;
-		}
-	}
+// Ezoic Styles & Overriddes
+
+
+.blog .advert > .ezoic-ad {
+	height: 100%;
+	padding: 30px 0 !important;
+	border: solid $light-gray 3px;
+	background-color: $light-gray;
+	border-radius: $small-border-radius;
 }
 
-// #ezoic-pub-ad-placeholder-900,
-// #ezoic-pub-ad-placeholder-901,
-// #ezoic-pub-ad-placeholder-902,
-// #ezoic-pub-ad-placeholder-909,
-// #ezoic-pub-ad-placeholder-910,
-// #ezoic-pub-ad-placeholder-911
-// {
-// 	display: none !important;
-// 	& + .ezoic-ad {
-// 		display: none !important;
-// 	}
+.category .advert {
+	background-color: $light-gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// .ez-video-container.ez-stuck {
+// 	position: static !important;
 // }

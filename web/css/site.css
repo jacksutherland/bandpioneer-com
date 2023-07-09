@@ -173,14 +173,6 @@ a.underline:hover:after, label.underline:hover:after {
   width: 100%;
 }
 
-.advert > .ezoic-ad {
-  height: 100%;
-  padding: 30px 0 !important;
-  border: solid #e7ebec 3px;
-  background-color: #e7ebec;
-  border-radius: 4px;
-}
-
 .container {
   max-width: 1050px;
   margin: 0 15px;
@@ -1871,9 +1863,17 @@ article .blog-info ul li span {
     width: 65%;
   }
 }
-.ezmob-footer .ezoic-ad {
-  margin: 0 0 !important;
+.blog .advert > .ezoic-ad {
+  height: 100%;
+  padding: 30px 0 !important;
+  border: solid #e7ebec 3px;
+  background-color: #e7ebec;
+  border-radius: 4px;
 }
-.ezmob-footer .ezoic-ad .ezoic-ad {
-  margin: 0 0 !important;
+
+.category .advert {
+  background-color: #e7ebec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
