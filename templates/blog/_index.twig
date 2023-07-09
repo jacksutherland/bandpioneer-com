@@ -37,7 +37,7 @@
 
 		{% endif %}
 
-		{% include 'blog/_includes/blog-posts' with { posts: posts } %}
+		{% include 'blog/_includes/blog-posts' with { posts: posts, showAds: true } %}
 
 		{% if pageInfo is defined and pageInfo != null and pageInfo.total > postsPerPage %}
 			<div class="container">
