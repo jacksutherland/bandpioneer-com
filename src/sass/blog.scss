@@ -624,7 +624,7 @@ article {
 	.blog-posts {
 		grid-template-columns: 1fr 1fr;
 
-		.advert:last-child {
+		.full-width-advert:last-child {
 			grid-column: span 2;
 		}
 	}

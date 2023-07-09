@@ -49,12 +49,13 @@
 		</article>
 
 		{### EZOIC blog_posts-in-content ###}
-		{% if loop.index == 2 %}
+		{# <h2>{{ posts | length }} {% if posts | length is even %}even{% else %}odd{% endif %}</h2> #}
+		{% if loop.last %}
+			<div class="advert{% if posts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></div>
+		{% elseif loop.index == 2 %}
 			<div class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></div>
 		{% elseif loop.index == 6 %}
 			<div class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></div>
-		{% elseif loop.last %}
-			<div class="advert"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></div>
 		{% endif %}
     {% endfor %}
 
