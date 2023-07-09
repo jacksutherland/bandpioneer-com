@@ -1880,8 +1880,38 @@ article .blog-info ul li span {
 .category .advert {
   background-color: #e7ebec;
   border: solid 5px #e7ebec;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+.category .advert:before {
+  content: "AD LOADING...";
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fefefe;
+  animation-name: ad-fade;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes ad-fade {
+  0%, 100% {
+    color: #e7ebec;
+  }
+  25% {
+    color: #fefefe;
+  }
+  50% {
+    color: #e7ebec;
+  }
+  75% {
+    color: #d0d8da;
+  }
 }
