@@ -1536,6 +1536,9 @@ article .blog-info ul li span {
   height: 32px;
   text-align: left !important;
 }
+.blog .advert + .social-sharing {
+  margin: 40px 0 -20px 0;
+}
 .blog .featured-snippet {
   margin: 50px 0;
   padding: 30px;
