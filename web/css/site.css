@@ -1839,6 +1839,9 @@ article .blog-info ul li span {
   .blog-posts {
     grid-template-columns: 1fr 1fr;
   }
+  .blog-posts .advert:last-child {
+    grid-column: span 2;
+  }
   .popular-articles .blog-posts {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0 0 70px 0;
