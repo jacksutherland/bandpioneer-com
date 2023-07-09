@@ -59,30 +59,25 @@
 
 	<div class="page">
 		<div class="container">
-
-				{% for group in groupedKeywords %}
-					<section>
-						<h3 class="section-title"><span>{{ group.group }}</span></h2>
-						<div class="blog-posts">
-							{% for keyword in group.keywords %}
-								<a href="{{ pageUrl }}/{{ keyword.path }}"}>
-							        <article>
-										<div class="blog-info">
-											<h3 style="text-transform:capitalize;">
-												{{ keyword.path | split('/')[1] | replace({'-': ' '}) | title }}
-											</h3>
-											<p>{{ keyword.description | raw }}</p>
-											
-										</div>
-									</article>
-								</a>
-							{% endfor %}
-						</div>
-					</section>
-			    {% endfor %}
-
-			</div>
-
+			{% for group in groupedKeywords %}
+				<section>
+					<h3 class="section-title"><span>{{ group.group }}</span></h3>
+					<div class="blog-posts">
+						{% for keyword in group.keywords %}
+							<a href="{{ pageUrl }}/{{ keyword.path }}"}>
+						        <article>
+									<div class="blog-info">
+										<h3 style="text-transform:capitalize;">
+											{{ keyword.path | split('/')[1] | replace({'-': ' '}) | title }}
+										</h3>
+										<p>{{ keyword.description | raw }}</p>
+									</div>
+								</article>
+							</a>
+						{% endfor %}
+					</div>
+				</section>
+		    {% endfor %}
 		</div>
 	</div>
 {% endblock %}
