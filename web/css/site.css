@@ -1866,6 +1866,23 @@ article .blog-info ul li span {
     width: 65%;
   }
 }
+.advert .ad-loader {
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fefefe;
+  animation-name: ad-fade;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+.advert .ad-loader:before {
+  content: "AD LOADING...";
+}
+
 .advert > .ezoic-ad {
   padding: 30px 0 !important;
 }
@@ -1891,13 +1908,7 @@ article .blog-info ul li span {
   0%, 100% {
     color: #e7ebec;
   }
-  25% {
-    color: #fefefe;
-  }
   50% {
-    color: #e7ebec;
-  }
-  75% {
-    color: #d0d8da;
+    color: #fefefe;
   }
 }

@@ -1,6 +1,28 @@
 
 // Ezoic Styles & Overriddes
 
+.advert {
+	.ad-loader {
+	    
+		&:before {
+			content: "AD LOADING...";
+		}
+
+	    font-size: 20px;
+	    font-weight: 700;
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    color: lighten($light-gray, 8%);
+
+	    animation-name: ad-fade;
+	    animation-duration: 3s;
+	    animation-iteration-count: infinite;
+	}
+}
+
 .advert > .ezoic-ad {
 	padding: 30px 0 !important;
 }
@@ -20,30 +42,19 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-
-    // &:before {
-	//     content: "AD LOADING...";
-	//     font-size: 20px;
-	//     font-weight: 700;
-	//     width: 100%;
-	//     height: 100%;
-	//     display: flex;
-	//     justify-content: center;
-	//     align-items: center;
-	//     color: lighten($light-gray, 8%);
-
-	//     animation-name: ad-fade;
-	//     animation-duration: 4s;
-	//     animation-iteration-count: infinite;
-	// }
 }
 
 @keyframes ad-fade {
 	0%, 100% { color: $light-gray; }
-  	25% { color: lighten($light-gray, 8%); }
-  	50% { color: $light-gray; }
-  	75% { color: darken($light-gray, 8%); }
+  	50% { color: lighten($light-gray, 8%); }
 }
+
+// @keyframes ad-fade {
+// 	0%, 100% { color: $light-gray; }
+//   	25% { color: lighten($light-gray, 8%); }
+//   	50% { color: $light-gray; }
+//   	75% { color: darken($light-gray, 8%); }
+// }
 
 // .ez-video-container.ez-stuck {
 // 	position: static !important;
