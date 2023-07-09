@@ -1852,7 +1852,7 @@ article .blog-info ul li span {
     margin: 45px 0 20px 0;
   }
   .blog-posts {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   article.featured .blog-image .blog-image-info p {
     width: 75%;
@@ -1876,13 +1876,9 @@ article .blog-info ul li span {
 
 .category .advert {
   background-color: #e7ebec;
+  border: solid 5px #e7ebec;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .advert > .ezoic-ad {
-    padding: 30px !important;
-  }
+  overflow: hidden;
 }

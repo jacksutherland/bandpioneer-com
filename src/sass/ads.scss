@@ -14,17 +14,19 @@
 
 .category .advert {
 	background-color: $light-gray;
+	border: solid 5px $light-gray;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 // .ez-video-container.ez-stuck {
 // 	position: static !important;
 // }
 
-@media (min-width: $breakpoint-md) {
-	.advert > .ezoic-ad {
-		padding: 30px !important;
-	}
-}
+// @media (min-width: $breakpoint-md) {
+// 	.advert > .ezoic-ad {
+// 		padding: 30px !important;
+// 	}
+// }
