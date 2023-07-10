@@ -261,7 +261,6 @@ section {
 	}
 	&.bands {
 		.band-carousel {
-			// height: $carousel-image-mobile-height;
 			padding: 12px 0;
 		    position: relative;
 		    width: 100%;
@@ -1516,7 +1515,7 @@ form {
 	section {
 		&.description {
 			padding: 1px 5% 8px 5%;
-			h2, h3 {
+			> h2, > h3 {
 				position: relative;
 				&:before,
 				&:after  {
