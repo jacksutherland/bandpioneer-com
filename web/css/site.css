@@ -173,6 +173,35 @@ a.underline:hover:after, label.underline:hover:after {
   width: 100%;
 }
 
+/*** Quotes and Citations with Schema ***/
+blockquote {
+  margin-left: 0;
+  padding-left: 10px;
+  border-left: solid 3px #e7ebec;
+}
+blockquote cite {
+  font-weight: 600;
+}
+blockquote p {
+  font-style: italic;
+  font-weight: 600;
+  color: #777;
+  font-size: 1.2rem;
+  line-height: 1.65rem;
+}
+blockquote p:before {
+  content: open-quote;
+}
+blockquote p:after {
+  content: close-quote;
+}
+
+@media (min-width: 768px) {
+  blockquote {
+    margin-left: 20px;
+    padding-left: 20px;
+  }
+}
 .container {
   max-width: 1050px;
   margin: 0 15px;
@@ -616,7 +645,7 @@ header.sticky {
   align-items: center;
   height: 60px;
   position: relative;
-  padding: 0 15px;
+  padding: 0 13px;
 }
 .categories nav ul li a:hover,
 .categories nav ul li label:hover {
