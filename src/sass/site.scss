@@ -197,13 +197,15 @@ a, label {
 
 blockquote {
 	margin-left: 0;
-   padding-left: 10px;
+   padding-left: 15px;
    border-left: solid 3px $light-gray;
 
    cite {
    	font-weight: $semi-bold;
    	&:before {
 		   content: "~";
+		   color: $light-font-color;
+		   margin-right: 5px;
 		}
    }
 
@@ -211,7 +213,7 @@ blockquote {
    	font-style: italic;
 	   color: $light-font-color;
 	   font-size: $quote-font-size;
-	   line-height: 1.65rem;
+	   line-height: 1.6rem;
 
 	   &:before {
 		   content: open-quote;
