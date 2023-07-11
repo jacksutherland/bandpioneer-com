@@ -182,18 +182,29 @@ blockquote {
 blockquote cite {
   font-weight: 600;
 }
+blockquote cite:before {
+  content: "~";
+}
 blockquote p {
   font-style: italic;
-  font-weight: 600;
-  color: #777;
+  color: #787878;
   font-size: 1.2rem;
   line-height: 1.65rem;
 }
 blockquote p:before {
   content: open-quote;
+  color: #cbd3d5;
+  font-size: 50px;
+  line-height: 0.92rem;
+  vertical-align: bottom;
+  margin-left: -20px;
 }
 blockquote p:after {
   content: close-quote;
+  color: #cbd3d5;
+  font-size: 50px;
+  line-height: 0.92rem;
+  vertical-align: bottom;
 }
 
 @media (min-width: 768px) {

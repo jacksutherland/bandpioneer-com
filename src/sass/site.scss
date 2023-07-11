@@ -202,20 +202,31 @@ blockquote {
 
    cite {
    	font-weight: $semi-bold;
+   	&:before {
+		   content: "~";
+		}
    }
 
    p {
    	font-style: italic;
-   	font-weight: $semi-bold;
-	   color: #777;
+	   color: $light-font-color;
 	   font-size: $quote-font-size;
 	   line-height: 1.65rem;
 
 	   &:before {
 		   content: open-quote;
+		   color: darken($light-gray, 10%);
+		   font-size: 50px;
+			line-height: 0.92rem;
+			vertical-align: bottom;
+			margin-left: -20px;
 		}
 		&:after {
 		   content: close-quote;
+		   color: darken($light-gray, 10%);
+		   font-size: 50px;
+			line-height: 0.92rem;
+			vertical-align: bottom;
 		}
    }
 }
