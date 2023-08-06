@@ -6,7 +6,7 @@
 
 html {
 	font-family: $font-family;
-	font-size: 16px;
+	font-size: $root-font-size;
 	scroll-behavior: smooth;
 	height: 100vh;
 }

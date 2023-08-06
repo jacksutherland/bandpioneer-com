@@ -4,6 +4,8 @@
  * The SCSS variables stylesheet
  */
 
+$root-font-size: 16px; // all rem values will be relative to this.
+
 $site-width: 1050px;
 $blog-width: 800px;
 $mobile-gutter-width: 15px;

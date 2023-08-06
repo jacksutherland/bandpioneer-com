@@ -38,7 +38,7 @@
 
 				<h3>
 					<a {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
-						{{ macros.blogTitle(blog) }}
+						{{ macros.blogTitle(blog, false) }}
 					</a>
 				</h3>
 				

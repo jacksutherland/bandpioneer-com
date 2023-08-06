@@ -1,3 +1,7 @@
-{% macro blogTitle(blog) %}
-	{{ blog.title ~ (blog.subheadline | length > 10 ? ' - '  ~ blog.subheadline : '') }}
+{% macro blogTitle(blog, showSubheadline = true) %}
+	{% if showSubheadline and showSubheadline | length %}
+		{{ blog.title ~ (blog.subheadline | length > 10 ? ' - '  ~ blog.subheadline : '') }}
+	{% else %}
+		{{ blog.title }}
+	{% endif %}
 {% endmacro %}
