@@ -608,11 +608,19 @@ article {
 	}
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: 820px) {
 	.blog {
 		.container {
 			margin: 0 auto;
 		}
+	}
+}
+
+@media (min-width: $breakpoint-md) {
+	.blog {
+		// .container {
+		// 	margin: 0 auto;
+		// }
 		.related-content {
 			grid-template-columns: 1fr 1fr 1fr;
 		}

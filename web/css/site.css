@@ -895,9 +895,14 @@ figure.image.bottom-margin {
   margin-bottom: 100px;
 }
 figure.image img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: 4px;
+}
+@media (min-width: 768px) {
+  figure.image img {
+    width: 100%;
+  }
 }
 figure.video .player {
   position: relative;
@@ -1069,6 +1074,7 @@ input[type=submit],
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   font-weight: 600;
+  text-align: center;
   text-transform: uppercase;
 }
 button.small-btn,
@@ -1868,10 +1874,12 @@ article .blog-info ul li span {
     margin: 0 0 70px 0;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 820px) {
   .blog .container {
     margin: 0 auto;
   }
+}
+@media (min-width: 768px) {
   .blog .related-content {
     grid-template-columns: 1fr 1fr 1fr;
   }

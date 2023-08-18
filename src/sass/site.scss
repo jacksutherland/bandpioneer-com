@@ -1085,9 +1085,17 @@ figure {
 		}
 
 		img {
-			width: 100%;
+			max-width: 100%;
 			height: auto;
 			border-radius: $small-border-radius;
+		}
+	}
+
+	@media (min-width: $breakpoint-md) {
+		&.image {
+			img {
+				width: 100%;
+			}
 		}
 	}
 
@@ -1266,7 +1274,8 @@ input[type="submit"],
 	cursor: pointer;
 	transition: background-color $transition-default;
 	font-weight: 600;
-   text-transform: uppercase;
+	text-align: center;
+  text-transform: uppercase;
 
    &.small-btn {
    	height: 35px;
