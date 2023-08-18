@@ -10,12 +10,24 @@
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 				{% if blog.blogImage.count %}
+					{# 
 					<img src="{{ blog.blogImage.one().url(mobileTransform) }}"
 					 	alt="{{ blog.blogImage.one().title }}"
 					 	loading="eager"
 						srcset="{{ blog.blogImage.one().url(mobileTransform) }} 576w, {{ blog.blogImage.one().url(desktopTransform) }} 800w" 
 						sizes="(max-width: 576px) 100vw, 800px"
-						width="330" height="185">
+						width="330" height="185"> 
+					#}
+					<picture>
+						<source srcset="{{ img.url("blogListingDesktop") }}, {{ img.url('blogListingDesktop2x') }} 2x" media="(min-width: 768px)" />
+						<source srcset="{{ img.url("blogListingMedium") }}, {{ img.url('blogListingMedium2x') }} 2x" media="(min-width: 576px)" />
+						<source srcset="{{ img.url("blogListingMobile") }}, {{ img.url('blogListingMobile2x') }} 2x" media="(max-width:575px)" />
+						<img src="{{ img.url('blogListingMobile') }}"
+							srcset="{{ img.url('blogListingMobile2x') }} 2x"
+						 	alt="{{ img.title }}"
+						 	loading="lazy"
+							width="{{ img.width('blogListingMobile') }}" height="{{ img.height('blogListingMobile') }}">
+					</picture>
 				{% endif %}
 			</a>
 			<div class="blog-info">
