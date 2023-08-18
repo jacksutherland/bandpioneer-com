@@ -165,8 +165,9 @@
 							sizes="(max-width: 576px) 100vw, 800px"
 							width="{{ imgWid }}" height="{{ imgHei }}"> 
 					{% else %}
-						{% set img = module.blogImage.one() %}
-						{% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
+						{# {% set img = module.blogImage.one() %} #}
+						{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
+						{# {% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
 						{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
 						{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
 						<picture>
@@ -177,7 +178,7 @@
 							 	alt="{{ img.title }}"
 							 	loading="lazy"
 								width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
-						</picture>
+						</picture> #}
 					{% endif %}
 					{% if module.caption | length %}
 						<figcaption>{{ module.caption }}</figcaption>
