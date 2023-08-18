@@ -170,7 +170,7 @@
 						{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
 						{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
 						<picture>
-							<source srcset="{{ img.url("bannerImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
+							<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
 							<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
 							<img src="{{ img.url('blogImageMobile') }}"
 								srcset="{{ img.url('blogImageMobile2x') }} 2x"
