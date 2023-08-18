@@ -10,6 +10,7 @@
         <article>
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 				{% if blog.blogImage.count %}
+					{% set img = blog.blogImage.one() %}
 					{# 
 					<img src="{{ blog.blogImage.one().url(mobileTransform) }}"
 					 	alt="{{ blog.blogImage.one().title }}"
