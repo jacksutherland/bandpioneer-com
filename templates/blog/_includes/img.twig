@@ -6,5 +6,6 @@
 		srcset="{{ img.url('blogImageMobile2x') }} 2x"
 	 	alt="{{ img.title }}"
 	 	loading="lazy"
+	 	class="{{ className is defined ? className : "" }}" 
 		width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
 </picture>

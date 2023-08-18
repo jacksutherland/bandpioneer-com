@@ -35,7 +35,7 @@
 		<div class="social-sharing sharethis-inline-share-buttons"></div>
 
 		{% if entry.blogImage.count %}
-			{% include 'blog/_includes/img' with { img: entry.blogImage.one() } %}
+			{% include 'blog/_includes/img' with { img: entry.blogImage.one(), className: "featured-image" } %}
 			{# <img src="{{ entry.blogImage.one().url('blogHeaderMobile') }}"
 				class="featured-image"
 			 	alt="{{ entry.blogImage.one().title }}"
