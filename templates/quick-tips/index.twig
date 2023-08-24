@@ -57,8 +57,8 @@
 {% block content %}
 	{% include '_includes/categories' with { categories: craft.entries.section('category') } %}
 
-	<div class="page">
-		<div class="container">
+	{# <div class="page"> #}
+		<div class="container page">
 			{% for group in groupedKeywords %}
 				<section>
 					<h3 class="section-title"><span>{{ group.group }}</span></h3>
@@ -79,5 +79,5 @@
 				</section>
 		    {% endfor %}
 		</div>
-	</div>
+	{# </div> #}
 {% endblock %}

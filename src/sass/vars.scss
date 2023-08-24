@@ -34,6 +34,7 @@ $dark-gray: #6e6e6e;
 $light-gray: #e7ebec; //darken(#f1f3f4, 5%); //#f1f3f4
 $white: #FFFFFF;
 $gunmetal: #021215;
+$light-gray-background: lighten($light-gray, 4%);
 
 $font-color: #4f4f4f;
 $light-font-color: lighten($font-color, 16%);

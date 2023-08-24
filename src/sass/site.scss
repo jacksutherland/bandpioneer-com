@@ -749,7 +749,7 @@ header.sticky {
 }
 
 .categories {
-	margin: 0 0 40px 0;
+	// margin: 0 0 40px 0;
 	background-color: $light-gray; //$primary-dark;
 
 	nav {
@@ -1444,7 +1444,9 @@ form {
 
 @media (min-width: ($blog-width + $mobile-gutter-width + $mobile-gutter-width)) {
 	.container.page {
-		margin: 0 auto;
+		// margin: 0 auto;
+		// margin: $page-vertical-margin $mobile-gutter-width;
+		margin: $page-vertical-mobile-margin auto;
 	}
 }
 

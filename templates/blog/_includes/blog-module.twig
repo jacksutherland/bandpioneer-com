@@ -169,20 +169,7 @@
 									sizes="(max-width: 576px) 100vw, 800px"
 									width="{{ imgWid }}" height="{{ imgHei }}"> 
 							{% else %}
-								{# {% set img = module.blogImage.one() %} #}
 								{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
-								{# {% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
-								{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
-								{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
-								<picture>
-									<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
-									<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
-									<img src="{{ img.url('blogImageMobile') }}"
-										srcset="{{ img.url('blogImageMobile2x') }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
-								</picture> #}
 							{% endif %}
 							{% if module.caption | length %}
 								<figcaption>{{ module.caption }}</figcaption>
@@ -227,6 +214,8 @@
 
 			{% endswitch %}
 		{% endfor %}
+
+		<div class="social-sharing sharethis-inline-share-buttons"></div>
 
 	</div>
 

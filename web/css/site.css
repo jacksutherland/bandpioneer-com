@@ -638,7 +638,6 @@ header.sticky {
 }
 
 .categories {
-  margin: 0 0 40px 0;
   background-color: #e7ebec;
 }
 .categories nav ul {
@@ -1231,7 +1230,7 @@ form.contact-form .errors {
 }
 @media (min-width: 830px) {
   .container.page {
-    margin: 0 auto;
+    margin: 40px auto;
   }
 }
 @media (min-width: 768px) {
@@ -1433,11 +1432,23 @@ form.contact-form .errors {
 /*******************************/
 /***** BLOG LISTCONTAINERS *****/
 /*******************************/
+.blog .blog-header {
+  margin: 0;
+}
 .blog .blog-container {
   max-width: 800px !important;
 }
 @media (min-width: 1200px) {
+  .blog .blog-header {
+    background-color: #f2f4f5;
+    padding: 10px 0 40px 0;
+  }
+  .blog .featured-snippet {
+    margin: 30px 0 0 0 !important;
+    padding: 30px 0 !important;
+  }
   .blog .blog-container {
+    margin: 70px auto !important;
     max-width: 1110px !important;
     position: relative;
   }
@@ -1645,7 +1656,7 @@ article .blog-info ul li span {
   margin: 50px 0;
   padding: 30px;
   color: #474747;
-  background-color: #f0f2f3;
+  background-color: #f2f4f5;
   border-radius: 4px;
   line-height: 1.6rem;
 }

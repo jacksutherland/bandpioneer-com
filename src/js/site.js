@@ -395,8 +395,12 @@ let BandPioneer = {
 		{
 			const blogHeader = document.querySelector('.blog-header');
 			const blogComments = document.querySelector('.blog-comments');
+			const blogRelated = document.querySelector('.related-content');
 			const blogContainer = document.querySelector('.blog-container');
 			const toc = document.querySelector('.table-of-contents');
+
+			let commentsVisible = false;
+			let relatedVisible = false;
 
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach((entry) => {
@@ -404,33 +408,51 @@ let BandPioneer = {
 					{
 						if (entry.isIntersecting)
 						{
-							console.log('isIntersecting header');
 							blogContainer.classList.remove('sticky');
 						}
 						else
 						{
-							console.log('inot intersecting header');
 							blogContainer.classList.add('sticky');
 						}
 					}
-					else if (entry.target === blogComments)
+					else if (entry.target === blogComments || entry.target === blogRelated)
 					{
 						if (entry.isIntersecting)
 						{
-							console.log('isIntersecting comments');
 							toc.classList.add('fadeaway');
+
+							if (entry.target === blogComments)
+							{
+								commentsVisible = true;
+							}
+							else if (entry.target === blogRelated)
+							{
+								relatedVisible = true;
+							}
 						}
 						else
 						{
-							console.log('inot intersecting comments');
-							toc.classList.remove('fadeaway');
+							if (entry.target === blogComments)
+							{
+								commentsVisible = false;
+							}
+							else if (entry.target === blogRelated)
+							{
+								relatedVisible = false;
+							}
+
+							if(!commentsVisible && !relatedVisible)
+							{
+								toc.classList.remove('fadeaway');
+							}
 						}
 					}
 				});
-			}, { threshold: 0, rootMargin: `-70px 0px 0px 0px` });
+			}, { threshold: 0, rootMargin: `-50px 0px 0px 0px` });
 
 			observer.observe(blogHeader);
 			observer.observe(blogComments);
+			observer.observe(blogRelated);
 		}
 
 		readingProgress()
