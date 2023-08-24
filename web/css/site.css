@@ -1438,7 +1438,7 @@ form.contact-form .errors {
 .blog .blog-container {
   max-width: 800px !important;
 }
-@media (min-width: 1200px) {
+@media (min-width: 1180px) {
   .blog .blog-header {
     background-color: #f2f4f5;
     padding: 10px 0 40px 0;

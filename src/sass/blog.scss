@@ -11,7 +11,7 @@
 		max-width: $blog-width !important;
 	}
 
-	@media (min-width: $breakpoint-xl) {
+	@media (min-width: $breakpoint-air) {
 		.blog-header {
 			background-color: $light-gray-background;
 			padding: 10px 0 40px 0;
