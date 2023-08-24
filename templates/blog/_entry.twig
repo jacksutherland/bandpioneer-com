@@ -24,38 +24,37 @@
 
 	{% include '_includes/categories' with { categories: categories } %}
 
-	<div class="container narrow-container">
-		<h1>{{ entry.title }}</h1>
-		{% if entry.subheadline | length %}
-			<h2>{{ entry.subheadline }}</h2>
-		{% endif %}
+	<section class="blog-header">
 
-		{% include '_includes/author' with { blog: entry } %}
+		<div class="container narrow-container">
+			<h1>{{ entry.title }}</h1>
+			{% if entry.subheadline | length %}
+				<h2>{{ entry.subheadline }}</h2>
+			{% endif %}
 
-		<div class="social-sharing sharethis-inline-share-buttons"></div>
+			{% include '_includes/author' with { blog: entry } %}
 
-		{% if entry.blogImage.count %}
-			{% include 'blog/_includes/img' with { img: entry.blogImage.one(), className: "featured-image" } %}
-			{# <img src="{{ entry.blogImage.one().url('blogHeaderMobile') }}"
-				class="featured-image"
-			 	alt="{{ entry.blogImage.one().title }}"
-				srcset="{{ entry.blogImage.one().url('blogHeaderMobile') }} 576w, {{ entry.blogImage.one().url('blogHeader') }} 800w" 
-				sizes="(max-width: 576px) 100vw, 800px"
-				width="330" height="185"> #}
-		{% endif %}
-	</div>
+			<div class="social-sharing sharethis-inline-share-buttons"></div>
 
-	<div class="container narrow-container">		
+			{% if entry.blogImage.count %}
+				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), className: "featured-image" } %}
+			{% endif %}
+		</div>
+
 		{% if entry.featuredSnippet | length %}
-			<div class="featured-snippet">
-				{{ entry.featuredSnippet }}
+			<div class="container narrow-container">
+				<div class="featured-snippet">
+					{{ entry.featuredSnippet }}
+				</div>
 			</div>
 		{% endif %}
-		{# {% cache %} #}
-			{% include 'blog/_includes/blog-module' %}
-		{# {% endcache %} #}
-		<div class="social-sharing sharethis-inline-share-buttons"></div>
-	</div>
+
+	</section>
+	
+	{% include 'blog/_includes/blog-module' %}
+	
+	<div class="social-sharing sharethis-inline-share-buttons"></div>
+	
 
 	
 	<div class="blog-comments">

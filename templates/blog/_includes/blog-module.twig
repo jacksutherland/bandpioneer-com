@@ -70,156 +70,164 @@
 
 {% endif %}
 
-{% if tocLinks | length > 1 %}
-	{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
-	<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
-		<h3 class="section-title"><span>Table of Contents</span></h3>
-		<ul>
-			{% for tl in tocLinks %}
-				<li>
-					{% if tl.children is defined %}
-						<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
-						{% if tl.children | length %}
-							{% if openFirstChild %}
-								{% set openFirstChild = (entry.tocDefault.value == 'expanded') %}
-								<input type="checkbox" id="child-{{ tl.id }}" checked=true />
-							{% else %}
-								<input type="checkbox" id="child-{{ tl.id }}" />
-							{% endif %}
-							<label for="child-{{ tl.id }}">{% include '_includes/icons' with { type: 'down' } %}</label>
-							<ul>
-								{% for child in tl.children %}
-									<li>
-										{% if entry.tocStyle == 'nested-ordered-list' %}
-											<a href="#section-{{ child.id }}">{{ child.headline }}</a>
-										{% else %}
-											{% set firstCharacter = child.headline | slice(0, 1) %}
-											 <a href="#section-{{ child.id }}">{{ child.headline }}</a>
-										{% endif %}
-									</li>
-								{% endfor %}
-							</ul>
-						{% endif %}
-					{% else %}
-						{% if entry.tocStyle == 'ordered-list' %}
-							<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
-						{% else %}
+<div class="container{% if tocLinks | length > 1 %} blog-container{% else %} narrow-container{% endif %}">
+
+	{% if tocLinks | length > 1 %}
+		{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
+		<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
+			<h3 class="section-title"><span>Table of Contents</span></h3>
+			<ul>
+				{% for tl in tocLinks %}
+					<li>
+						{% if tl.children is defined %}
 							<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+							{% if tl.children | length %}
+								{% if openFirstChild %}
+									{% set openFirstChild = (entry.tocDefault.value == 'expanded') %}
+									<input type="checkbox" id="child-{{ tl.id }}" checked=true />
+								{% else %}
+									<input type="checkbox" id="child-{{ tl.id }}" />
+								{% endif %}
+								<label for="child-{{ tl.id }}">{% include '_includes/icons' with { type: 'down' } %}</label>
+								<ul>
+									{% for child in tl.children %}
+										<li>
+											{% if entry.tocStyle == 'nested-ordered-list' %}
+												<a href="#section-{{ child.id }}">{{ child.headline }}</a>
+											{% else %}
+												{% set firstCharacter = child.headline | slice(0, 1) %}
+												 <a href="#section-{{ child.id }}">{{ child.headline }}</a>
+											{% endif %}
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						{% else %}
+							{% if entry.tocStyle == 'ordered-list' %}
+								<a href="#section-{{ tl.id }}">{{ loop.index }}. {{ tl.headline }}</a>
+							{% else %}
+								<a href="#section-{{ tl.id }}">{{ tl.headline }}</a>
+							{% endif %}
 						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+	<div class="blog-body">
+
+		{% for module in entry.blogContent.all() %}
+
+			{% switch module.type %}
+
+				{% case "sectionTitle" %}
+
+					{% set titleCounter = titleCounter + 1 %}
+					{% set sectionTitle = module.headline %}
+					
+					<section>
+						<div id="section-{{ module.id }}" class="section-anchor"></div>
+						{% if  module.headline | length %}
+							<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
+						{% endif %}
+						{% if  module.subheadline | length %}
+							<h3>{{ module.subheadline }}</h3>
+						{% endif %}
+					</section>
+
+				{% case "image" %}
+
+					<section{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
+						{% if module.linkUrl | length %}
+							<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
+						{% endif %}
+						{% if module.size | number < 100 %} 
+							<style type="text/css">
+								@media (min-width: 375px) {
+									#blog-img{{ module.id }} {
+										width:80%;
+									}
+								}
+								@media (min-width: 576px) {
+									#blog-img{{ module.id }} {
+										width:{{ module.size }}%;
+									}
+								}
+							</style>
+						{% endif %}
+						<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
+							{% if module.noTransform %}
+								{% set img = module.blogImage.one() %}
+								{% set imgUrl = module.blogImage.one().url() %}
+								{% set imgWid = module.blogImage.one().width() %}
+								{% set imgHei = module.blogImage.one().height() %}
+								<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
+								 	alt="{{ module.blogImage.one().title }}"
+								 	loading="lazy" 
+									srcset="{{ module.blogImage.one().url('blogImageMobile') }} 576w, {{ module.blogImage.one().url('blogImage') }} 800w" 
+									sizes="(max-width: 576px) 100vw, 800px"
+									width="{{ imgWid }}" height="{{ imgHei }}"> 
+							{% else %}
+								{# {% set img = module.blogImage.one() %} #}
+								{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
+								{# {% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
+								{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
+								{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
+								<picture>
+									<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
+									<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
+									<img src="{{ img.url('blogImageMobile') }}"
+										srcset="{{ img.url('blogImageMobile2x') }} 2x"
+									 	alt="{{ img.title }}"
+									 	loading="lazy"
+										width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
+								</picture> #}
+							{% endif %}
+							{% if module.caption | length %}
+								<figcaption>{{ module.caption }}</figcaption>
+							{% endif %}
+						</figure>
+						{% if module.linkUrl | length %}</a>{% endif %}
+					</section>
+
+				{% case "embedCode" %}
+
+					<section class="embed-code">
+						{{ module.markup | raw }}
+					</section>
+
+				{% case "text" %}
+
+					<section class="rich-text">
+						{{ module.richText }}
+					</section>
+
+					{### EZOIC blog-in-content ###}
+					{% set textCounter = textCounter + 1 %}
+					{% set adSpots = [1] %}
+					{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
+					{% if textCounter in adSpots %}
+						{% set adCounter = adCounter + 1 %}
+						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
 					{% endif %}
-				</li>
-			{% endfor %}
-		</ul>
+
+				{% case "video" %}
+
+					<section>
+						<figure class="video">
+							<div class="player">
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.youtubeId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							{% if module.caption | length %}
+								<figcaption>{{ module.caption }}</figcaption>
+							{% endif %}
+						</figure>
+					</section>
+
+			{% endswitch %}
+		{% endfor %}
+
 	</div>
-{% endif %}
 
-{% for module in entry.blogContent.all() %}
-
-	{% switch module.type %}
-
-		{% case "sectionTitle" %}
-
-			{% set titleCounter = titleCounter + 1 %}
-			{% set sectionTitle = module.headline %}
-			
-			<section>
-				<div id="section-{{ module.id }}" class="section-anchor"></div>
-				{% if  module.headline | length %}
-					<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
-				{% endif %}
-				{% if  module.subheadline | length %}
-					<h3>{{ module.subheadline }}</h3>
-				{% endif %}
-			</section>
-
-		{% case "image" %}
-
-			<section{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
-				{% if module.linkUrl | length %}
-					<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
-				{% endif %}
-				{% if module.size | number < 100 %} 
-					<style type="text/css">
-						@media (min-width: 375px) {
-							#blog-img{{ module.id }} {
-								width:80%;
-							}
-						}
-						@media (min-width: 576px) {
-							#blog-img{{ module.id }} {
-								width:{{ module.size }}%;
-							}
-						}
-					</style>
-				{% endif %}
-				<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
-					{% if module.noTransform %}
-						{% set img = module.blogImage.one() %}
-						{% set imgUrl = module.blogImage.one().url() %}
-						{% set imgWid = module.blogImage.one().width() %}
-						{% set imgHei = module.blogImage.one().height() %}
-						<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
-						 	alt="{{ module.blogImage.one().title }}"
-						 	loading="lazy" 
-							srcset="{{ module.blogImage.one().url('blogImageMobile') }} 576w, {{ module.blogImage.one().url('blogImage') }} 800w" 
-							sizes="(max-width: 576px) 100vw, 800px"
-							width="{{ imgWid }}" height="{{ imgHei }}"> 
-					{% else %}
-						{# {% set img = module.blogImage.one() %} #}
-						{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
-						{# {% set imgUrl = module.blogImage.one().url('blogImageMobile') %}
-						{% set imgWid = module.blogImage.one().width('blogImageMobile') %}
-						{% set imgHei = module.blogImage.one().height('blogImageMobile') %}
-						<picture>
-							<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
-							<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
-							<img src="{{ img.url('blogImageMobile') }}"
-								srcset="{{ img.url('blogImageMobile2x') }} 2x"
-							 	alt="{{ img.title }}"
-							 	loading="lazy"
-								width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
-						</picture> #}
-					{% endif %}
-					{% if module.caption | length %}
-						<figcaption>{{ module.caption }}</figcaption>
-					{% endif %}
-				</figure>
-				{% if module.linkUrl | length %}</a>{% endif %}
-			</section>
-
-		{% case "embedCode" %}
-
-			<section class="embed-code">
-				{{ module.markup | raw }}
-			</section>
-
-		{% case "text" %}
-
-			<section class="rich-text">
-				{{ module.richText }}
-			</section>
-
-			{### EZOIC blog-in-content ###}
-			{% set textCounter = textCounter + 1 %}
-			{% set adSpots = [1] %}
-			{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
-			{% if textCounter in adSpots %}
-				{% set adCounter = adCounter + 1 %}
-				<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
-			{% endif %}
-
-		{% case "video" %}
-
-			<section>
-				<figure class="video">
-					<div class="player">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.youtubeId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					</div>
-					{% if module.caption | length %}
-						<figcaption>{{ module.caption }}</figcaption>
-					{% endif %}
-				</figure>
-			</section>
-
-	{% endswitch %}
-{% endfor %}
+</div>

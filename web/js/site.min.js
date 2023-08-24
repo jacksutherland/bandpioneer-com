@@ -383,9 +383,54 @@ let BandPioneer = {
 		{
 			this.readingProgress();
 
-			window.onhashchange = function() {
-			  window.history.replaceState(null, null, window.location.pathname);
+			this.toc();
+
+			window.onhashchange = function()
+			{
+				window.history.replaceState(null, null, window.location.pathname);
 			};
+		}
+
+		toc()
+		{
+			const blogHeader = document.querySelector('.blog-header');
+			const blogComments = document.querySelector('.blog-comments');
+			const blogContainer = document.querySelector('.blog-container');
+			const toc = document.querySelector('.table-of-contents');
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.target === blogHeader)
+					{
+						if (entry.isIntersecting)
+						{
+							console.log('isIntersecting header');
+							blogContainer.classList.remove('sticky');
+						}
+						else
+						{
+							console.log('inot intersecting header');
+							blogContainer.classList.add('sticky');
+						}
+					}
+					else if (entry.target === blogComments)
+					{
+						if (entry.isIntersecting)
+						{
+							console.log('isIntersecting comments');
+							toc.classList.add('fadeaway');
+						}
+						else
+						{
+							console.log('inot intersecting comments');
+							toc.classList.remove('fadeaway');
+						}
+					}
+				});
+			}, { threshold: 0, rootMargin: `-70px 0px 0px 0px` });
+
+			observer.observe(blogHeader);
+			observer.observe(blogComments);
 		}
 
 		readingProgress()
