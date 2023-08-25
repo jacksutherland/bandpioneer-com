@@ -94,4 +94,20 @@ return array (
     'documentationUrl' => 'https://github.com/verbb/comments',
     'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-4/CHANGELOG.md',
   ),
+  'ether/logs' => 
+  array (
+    'class' => 'ether\\logs\\Logs',
+    'basePath' => $vendorDir . '/ether/logs/src',
+    'handle' => 'logs',
+    'aliases' => 
+    array (
+      '@ether/logs' => $vendorDir . '/ether/logs/src',
+    ),
+    'name' => 'Logs',
+    'version' => '4.0.0',
+    'schemaVersion' => '3.0.0',
+    'description' => 'Access logs from the CP',
+    'developer' => 'Ether Creative',
+    'developerUrl' => 'https://ethercreative.co.uk',
+  ),
 );

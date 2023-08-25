@@ -1,3 +1,4 @@
+fill: null
 format: webp
 handle: blogImageMobile
 height: null
@@ -7,4 +8,4 @@ name: 'Blog Image Mobile'
 position: center-center
 quality: 80
 upscale: true
-width: 384
+width: 382

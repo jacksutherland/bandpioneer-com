@@ -18,13 +18,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: f83f237f-c63a-4b5a-a0d5-7c7c14b6748c # Popular Posts
+            fieldUid: 1d894e72-ea22-4785-8c26-c43a3b823625 # Popular Posts
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 7f91db55-361e-44c4-84e2-724ed7bc9e4c
+            uid: 9357b8a3-30d5-4651-aef4-ac5600b1cdd0
             userCondition: null
             warning: null
             width: 100

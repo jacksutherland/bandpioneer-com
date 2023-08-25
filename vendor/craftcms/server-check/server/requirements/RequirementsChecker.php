@@ -386,7 +386,7 @@ class RequirementsChecker
 
         if ($conn === null) {
             try {
-                $conn = new PDO($this->dsn, $this->dbUser, $this->dbPassword);
+                $conn = new PDO((string)$this->dsn, $this->dbUser, $this->dbPassword);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 $conn = false;
@@ -545,7 +545,7 @@ class RequirementsChecker
     function webAliasRequirement()
     {
         $aliases = Craft::$app->getConfig()->getGeneral()->aliases;
-        $memo = 'We recommend explicitly overriding the <a rel="noopener" target="_blank" href="https://craftcms.com/docs/3.x/config/#aliases">@web alias</a>.';
+        $memo = 'We recommend explicitly overriding the <a rel="noopener" target="_blank" href="https://craftcms.com/docs/4.x/config/#aliases">@web alias</a>.';
         $pass = false;
 
         if (isset($aliases['web']) || isset($aliases['@web'])) {

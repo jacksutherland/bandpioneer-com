@@ -37,7 +37,7 @@ fields:
       defaultTransform: ''
       manualConfig: ''
       purifierConfig: null
-      purifyHtml: true
+      purifyHtml: false
       redactorConfig: null
       removeEmptyTags: false
       removeInlineStyles: false

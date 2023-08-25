@@ -13,16 +13,14 @@ namespace Symfony\Component\Console;
 
 class Terminal
 {
-    private static $width;
-    private static $height;
-    private static $stty;
+    private static ?int $width = null;
+    private static ?int $height = null;
+    private static ?bool $stty = null;
 
     /**
      * Gets the terminal width.
-     *
-     * @return int
      */
-    public function getWidth()
+    public function getWidth(): int
     {
         $width = getenv('COLUMNS');
         if (false !== $width) {
@@ -38,10 +36,8 @@ class Terminal
 
     /**
      * Gets the terminal height.
-     *
-     * @return int
      */
-    public function getHeight()
+    public function getHeight(): int
     {
         $height = getenv('LINES');
         if (false !== $height) {
@@ -77,8 +73,7 @@ class Terminal
     private static function initDimensions()
     {
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $ansicon = getenv('ANSICON');
-            if (false !== $ansicon && preg_match('/^(\d+)x(\d+)(?: \((\d+)x(\d+)\))?$/', trim($ansicon), $matches)) {
+            if (preg_match('/^(\d+)x(\d+)(?: \((\d+)x(\d+)\))?$/', trim(getenv('ANSICON')), $matches)) {
                 // extract [w, H] from "wxh (WxH)"
                 // or [w, h] from "wxh"
                 self::$width = (int) $matches[1];
@@ -158,8 +153,6 @@ class Terminal
             2 => ['pipe', 'w'],
         ];
 
-        $cp = \function_exists('sapi_windows_cp_set') ? sapi_windows_cp_get() : 0;
-
         $process = proc_open($command, $descriptorspec, $pipes, null, null, ['suppress_errors' => true]);
         if (!\is_resource($process)) {
             return null;
@@ -169,10 +162,6 @@ class Terminal
         fclose($pipes[1]);
         fclose($pipes[2]);
         proc_close($process);
-
-        if ($cp) {
-            sapi_windows_cp_set($cp);
-        }
 
         return $info;
     }

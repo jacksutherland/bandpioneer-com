@@ -1,9 +1,6 @@
-dateModified: 1688593110
+dateModified: 1692997408
 elementSources:
   craft\elements\Asset:
-    -
-      key: 'folder:4f837d0a-f4ae-450a-b862-c89db9245dd0'
-      type: native
     -
       heading: Website
       type: heading
@@ -31,9 +28,15 @@ elementSources:
       tableAttributes:
         - filename
         - size
-        - dateModified
+        - dateUpdated
         - uploader
         - link
+      type: native
+    -
+      heading: ''
+      type: heading
+    -
+      key: 'folder:e546f4f6-5e1f-47e3-9e1c-33efa1e4dc5d'
       type: native
   craft\elements\Entry:
     -
@@ -188,6 +191,7 @@ meta:
     1a69adf3-7129-4f03-a788-c50df99aa120: 'Band Pioneer' # Band Pioneer
     1b12d4c8-a449-4b45-99db-cdcf801d8fa4: 'Hero Image' # Hero Image
     1c1054c9-4810-4918-b3c1-3bd0d6a13675: Caption # Caption
+    1d894e72-ea22-4785-8c26-c43a3b823625: 'Popular Posts' # Popular Posts
     1e42cdc3-f360-43ac-b612-8de6f081ad47: Rockstars # Rockstars
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Image' # Blog Image
     2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
@@ -195,6 +199,7 @@ meta:
     2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
+    4ad976b2-17b2-41da-8eb1-0e8f74b96a93: 'Blog Listing Mobile 2x' # Blog Listing Mobile 2x
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'YouTube ID' # YouTube ID
     6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: External # External
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
@@ -226,8 +231,10 @@ meta:
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
     260aeb04-6305-4b90-8f63-8cb1ab20e042: 'Single Line Text' # Single Line Text
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
+    851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
+    4841ea5f-6862-49c1-a232-c06320791c17: 'Blog Listing Desktop' # Blog Listing Desktop
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
     7149d8a6-d74b-4e10-b59b-80f37708aaa0: 'TOC Style' # TOC Style
     7338fd63-9ce2-4696-a9b3-113b5d6015c3: Subheadline # Subheadline
@@ -245,15 +252,21 @@ meta:
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
+    a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
     aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
     ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
+    b0072d7c-b8b9-486f-ab5c-633f3d458661: 'Popular Post' # Popular Post
+    b5c0f1ed-7691-4280-a0a0-4ea1bc447989: 'Blog Listing Medium' # Blog Listing Medium
     b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     b9eaa895-752b-4102-8fac-49d7662c399d: Default # Default
+    b89e4608-4a0c-49c1-a0d9-d9758eec6f4b: 'Blog Listing Mobile' # Blog Listing Mobile
     bc9d16b4-6012-428a-b78c-758da4e7c8e9: 'Blog Image Mobile' # Blog Image Mobile
+    bfe10380-5bde-4f7c-b4a8-eca75b87c28f: 'Public Schema' # Public Schema
     c021f2dc-243d-458f-b0b4-c00db3a1a673: 'Blog Post Mobile' # Blog Post Mobile
+    c391d039-c741-426d-85a3-d52c21725ce9: 'Blog Listing Medium 2x' # Blog Listing Medium 2x
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
     cb12ca30-b685-4547-a81e-f978eb629278: Internal # Internal
@@ -267,6 +280,7 @@ meta:
     e47520eb-bf67-40c5-b8e9-b5e219b14003: 'Alternate TOC Text' # Alternate TOC Text
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
+    ec1072a8-598a-42fe-9c6f-4db8ec7406ef: 'Blog Listing Desktop 2x' # Blog Listing Desktop 2x
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
     ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline
     ee13e705-afd8-41c1-a111-b472a62a15f2: Headline # Headline
@@ -369,6 +383,10 @@ plugins:
       prependSubject: 'Band Pioneer'
       successFlashMessage: 'Thank you! Your message has been sent.'
       toEmail: jack@bandpioneer.com
+  logs:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0
   redactor:
     edition: standard
     enabled: true
@@ -386,5 +404,5 @@ system:
   live: true
   name: 'Band Pioneer'
   retryDuration: null
-  schemaVersion: 4.4.0.4
+  schemaVersion: 4.5.0.3
   timeZone: America/New_York

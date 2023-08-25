@@ -10,9 +10,11 @@ settings:
   allowSubfolders: false
   allowUploads: true
   allowedKinds: null
+  branchLimit: null
   defaultUploadLocationSource: 'volume:f0b910e3-c8e6-448c-b884-50e6ab61d4da' # Writer Pictures
   defaultUploadLocationSubpath: null
   localizeRelations: false
+  maintainHierarchy: false
   maxRelations: 1
   minRelations: null
   previewMode: full
@@ -36,7 +38,6 @@ settings:
   showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
-  source: null
   sources:
     - 'volume:f0b910e3-c8e6-448c-b884-50e6ab61d4da' # Writer Pictures
   targetSiteId: null

@@ -654,7 +654,7 @@ class DateTimeHelper
         if (is_numeric($value)) {
             // Use DateTime::diff() so the years/months/days/hours/minutes values are all populated correctly
             $now = static::now(new DateTimeZone('UTC'));
-            $then = (clone $now)->modify("+$value seconds");
+            $then = (clone $now)->modify(sprintf('%s%s seconds', $value < 0 ? '-' : '+', abs($value)));
             return $now->diff($then);
         }
 
@@ -865,11 +865,25 @@ class DateTimeHelper
         // Replace the localized "AM" and "PM"
         $am = $formattingLocale->getAMName();
         $pm = $formattingLocale->getPMName();
+        $m = [$am, $pm];
 
-        if (preg_match('/(.*)(' . preg_quote($am, '/') . '|' . preg_quote($pm, '/') . ')(.*)/iu', $value, $matches)) {
+        // account for AM/PM names that might be normalized for jQuery Timepicker
+        $amAlt = preg_replace('/[\s.]/', '', $am);
+        $pmAlt = preg_replace('/[\s.]/', '', $pm);
+
+        if ($amAlt !== $am) {
+            $m[] = $amAlt;
+        }
+        if ($pmAlt !== $pm) {
+            $m[] = $pmAlt;
+        }
+
+        $quoted = implode('|', array_map(fn($v) => preg_quote($v, '/'), $m));
+
+        if (preg_match("/(.*)($quoted)(.*)/iu", $value, $matches)) {
             $value = $matches[1] . $matches[3];
 
-            if (mb_strtolower($matches[2]) === mb_strtolower($am)) {
+            if (in_array(mb_strtolower($matches[2]), [mb_strtolower($am), mb_strtolower($amAlt)])) {
                 $value .= 'AM';
             } else {
                 $value .= 'PM';
@@ -878,7 +892,13 @@ class DateTimeHelper
             $format = str_replace('A', '', $format) . 'A';
         }
 
-        return [$value, $format];
+        // replace narrow non-breaking spaces with normal spaces, which are
+        // handled a bit more gracefully by DateTime::createFromFormat()
+        // (see https://github.com/php/php-src/issues/11600)
+        return [
+            str_replace("\u{202f}", ' ', $value),
+            str_replace("\u{202f}", ' ', $format),
+        ];
     }
 
     /**

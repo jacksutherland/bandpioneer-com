@@ -197,7 +197,7 @@ fields:
               - default
             -
               - default
-              - ''
+              - '1'
         -
           __assoc__:
             -
