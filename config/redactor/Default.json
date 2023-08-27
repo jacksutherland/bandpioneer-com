@@ -15,5 +15,19 @@
     "video"
   ],
   "linkNewTab": true,
-  "toolbarFixed": true
+  "toolbarFixed": true,
+  "formatting": [],
+  "formattingAdd": {
+    "p": {
+      "title": "Normal text",
+      "api": "module.block.format",
+      "args": {
+        "tag": "p",
+        "attr": {
+          "class": ""
+        },
+        "type": "toggle"
+      }
+    }
+  }
 }
