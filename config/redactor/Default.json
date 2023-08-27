@@ -16,10 +16,9 @@
   ],
   "linkNewTab": true,
   "toolbarFixed": true,
-  "formatting": [],
   "formattingAdd": {
     "p": {
-      "title": "Normal text",
+      "title": "Paragraph",
       "api": "module.block.format",
       "args": {
         "tag": "p",
