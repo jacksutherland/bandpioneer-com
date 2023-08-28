@@ -396,6 +396,15 @@ section {
 	    	}
 		}
 	}
+
+	.featured-title {
+		margin-top: $page-vertical-mobile-margin;
+	}
+	@media (min-width: $breakpoint-lg) {
+		.featured-title {
+			margin-top: $page-vertical-margin;
+		}
+	}
 }
 
 #contact {
@@ -1665,7 +1674,7 @@ form {
 	}
 	.ask-a-question {
 		height: 550px;
-		margin: 0 0 -90px 0;
+		margin: 0 0 -100px 0;
 		padding: 0 33% 0 7%;
 		background-image: url(/assets/images/guy-thinking.png);
 	    background-repeat: no-repeat;

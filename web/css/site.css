@@ -342,6 +342,14 @@ section.bands .band-carousel .band-slider .slide img {
 #homepage header.site-header .logo img.logo-mark {
   display: inline;
 }
+#homepage .featured-title {
+  margin-top: 40px;
+}
+@media (min-width: 992px) {
+  #homepage .featured-title {
+    margin-top: 70px;
+  }
+}
 
 #contact .ask-a-question {
   margin: 0 13% 0 10%;
@@ -1395,7 +1403,7 @@ form.contact-form .errors {
   }
   .ask-a-question {
     height: 550px;
-    margin: 0 0 -90px 0;
+    margin: 0 0 -100px 0;
     padding: 0 33% 0 7%;
     background-image: url(/assets/images/guy-thinking.png);
     background-repeat: no-repeat;
