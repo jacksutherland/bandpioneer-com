@@ -61,8 +61,8 @@ let BandPioneer = {
 					console.log("return text");
 					console.log(text);
 
-					console.log("doc.body");
-					console.log(doc.body);
+					console.log("doc");
+					console.log(doc);
 
 					return text;
 				}
