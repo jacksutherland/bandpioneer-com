@@ -401,13 +401,15 @@ let BandPioneer = {
 		blogPost()
 		{
 			this.readingProgress();
-
 			this.toc();
+			this.instagram();
 
 			window.onhashchange = function()
 			{
 				window.history.replaceState(null, null, window.location.pathname);
 			};
+
+			
 		}
 
 		toc()
@@ -510,6 +512,38 @@ let BandPioneer = {
 
 		    	setReadingProgress();
 		    }
+		}
+
+		instagram()
+		{
+			// Instagram Videos
+
+			BandPioneer.each(document.querySelector(".instagram-media"), function(idx, ele)
+			{
+				const observer = new IntersectionObserver((entries, observer) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting)
+						{
+							const iframe = document.createElement('iframe');
+							const firstChild = entry.target.firstChild;
+
+							iframe.src = `https://www.instagram.com/p/${entry.target.dataset.id}/embed/?cr=1&v=14&wp=540&rd=https%3A%2F%2Fbandpioneer.com`;
+							iframe.setAttribute("style", "background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;");
+							iframe.setAttribute("allowtransparency", "true");
+							iframe.setAttribute("allowfullscreen", "true");
+							iframe.setAttribute("frameborder", "0");
+							iframe.setAttribute("height", "705");
+							iframe.setAttribute("scrolling", "no");
+
+							entry.target.insertBefore(iframe, firstChild);
+							observer.unobserve(entry.target);
+						}
+					});
+				}, { rootMargin: "0px 0px 0px 0px" });
+
+				observer.observe(ele);
+
+			}.bind(this));
 		}
 
 		createBandCarousels()

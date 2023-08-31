@@ -199,18 +199,28 @@
 						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
 					{% endif %}
 
-				{% case "video" %}
+				{% case "media" %}
 
-					<section>
-						<figure class="video">
-							<div class="player">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.youtubeId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							</div>
-							{% if module.caption | length %}
-								<figcaption>{{ module.caption }}</figcaption>
-							{% endif %}
-						</figure>
-					</section>
+					{% if module.mediaType == "instagram" %}
+						<section>
+							<figure class="instagram-media" data-id="{{ module.mediaId }}">
+								{% if module.caption | length %}
+									<figcaption>{{ module.caption }}</figcaption>
+								{% endif %}
+							</figure>
+						<s/ection>
+					{% else %}
+						<section>
+							<figure class="video">
+								<div class="player">
+									<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								</div>
+								{% if module.caption | length %}
+									<figcaption>{{ module.caption }}</figcaption>
+								{% endif %}
+							</figure>
+						</section>
+					{% endif %}
 
 			{% endswitch %}
 		{% endfor %}
