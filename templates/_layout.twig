@@ -3,6 +3,8 @@
     {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
+{% set versionNumber = '1.998' %}
+
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
 {# ai.bandpioneer.com ONLY on Prod ENV #}
@@ -12,7 +14,6 @@
     {% redirect 'https://ai.bandpioneer.com/ai-studio/battle' %}
 {% endif %}
 
-{% set versionNumber = '1.997' %}
 {# {% set versionNumber = now|date('YmdHis') %} #}
 {% set siteName = 'Band Pioneer' %}
 {% set metaTitle = siteName %}
