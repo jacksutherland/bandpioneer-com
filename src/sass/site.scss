@@ -1121,6 +1121,18 @@ figure {
 		}
 	}
 
+	&.instagram-media {
+		iframe{
+			margin: 0 auto !important;
+			width: 400px !important;
+			max-width: 100% !important;
+		}
+		figcaption {
+			margin: 10px auto 0 auto !important;
+			max-width: 400
+		}
+	}
+
 	figcaption {
 		font-size: $font-size-small;
 		line-height: 1.35rem;

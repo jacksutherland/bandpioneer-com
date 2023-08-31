@@ -925,6 +925,15 @@ figure.video .player iframe {
   height: 100%;
   aspect-ratio: 16/9;
 }
+figure.instagram-media iframe {
+  margin: 0 auto !important;
+  width: 400px !important;
+  max-width: 100% !important;
+}
+figure.instagram-media figcaption {
+  margin: 10px auto 0 auto !important;
+  max-width: 400;
+}
 figure figcaption {
   font-size: 0.875rem;
   line-height: 1.35rem;
