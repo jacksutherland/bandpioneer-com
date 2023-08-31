@@ -537,8 +537,6 @@ let BandPioneer = {
 								insta.embedded = true;
 								embeddedCount++;
 
-								console.log("embedding");
-
 								const firstChild = insta.firstChild;
 								const iframe = document.createElement('iframe');
 
@@ -554,7 +552,6 @@ let BandPioneer = {
 
 								if(embeddedCount >= instas.length)
 								{
-									console.log("removeEventListener");
 									window.removeEventListener('scroll', instaScroll); 
 								}
 							}
