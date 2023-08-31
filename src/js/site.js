@@ -50,13 +50,16 @@ let BandPioneer = {
 			        const doc = parser.parseFromString(html, 'text/html');
 			        // return doc.body.innerText;
 
-					let text = doc.body.textContent;
-					let scriptTags = doc.querySelectorAll('script');
+					const body = doc.body;
 
-					for (let scriptTag of scriptTags)
+					const scriptTags = body.querySelectorAll('script');
+
+					for (const scriptTag of scriptTags)
 					{
-						text = text.replace(scriptTag.outerHTML, '');
+						body.removeChild(scriptTag);
 					}
+
+					const text = body.textContent;
 
 					console.log("return text");
 					console.log(text);
