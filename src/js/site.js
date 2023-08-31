@@ -48,12 +48,16 @@ let BandPioneer = {
 					const html = await response.text();
 			        const parser = new DOMParser();
 			        const doc = parser.parseFromString(html, 'text/html');
-			        return doc.body.innerText;
+
+			        console.error('response.ok');
+					console.error(await response.text());
+
+					return doc.body.innerText;
 				}
 				else
 				{
-					// console.error('response');
-					// console.error(await response.text());
+					console.error('response');
+					console.error(await response.text());
 					throw new Error("Failed to fetch HTML");
 					return "error";
 				}

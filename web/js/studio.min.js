@@ -32,8 +32,6 @@ class Studio
 	{
 		if(typeof(keyword) === 'object')
 		{
-			console.log("loadin keyword")
-			console.log(keyword)
 			this.loadKeyword(keyword);
 			return;
 		}
@@ -199,22 +197,7 @@ class Studio
 
 		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
 		.then(response => response.text())
-		// .then(result => console.log('Success:', result))
 		.catch((error) => console.error('Error:', error));
-
-		// var xhr = new XMLHttpRequest();
-		// xhr.open('POST', Studio.SAVE_KEYWORD_URL, true);
-		// xhr.onload = function () {
-		//     if (xhr.status === 200) {
-		//         // Success: console.log(xhr.responseText);
-		//     } else {
-		//         console.error('Error:', xhr.statusText);
-		//     }
-		// };
-		// xhr.onerror = function () {
-		//     console.error('Request failed');
-		// };
-		// xhr.send(formData);
 	}
 
 	/*
@@ -341,12 +324,6 @@ class Studio
 
 			  	titleElement.innerText = keyObj.subtitle;
 			  	spinnerElement.style.display = 'none';
-
-			  	console.log("response");
-			  	console.log(response);
-
-			  	console.log("desc response");
-			  	console.log(descResponse);
 
 			  	if(descResponse === "error")
 				{
