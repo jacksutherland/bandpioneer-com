@@ -6,7 +6,7 @@
 	<img src="{{ img.url('blogImageMobile') }}"
 		srcset="{{ img.url('blogImageMobile2x') }} 2x"
 	 	alt="{{ img.title }}"
-	 	loading="{{ isFeatured ? "lazy" : "eager" }}"
+	 	loading="{{ isFeatured ? "eager" : "lazy" }}"
 	 	class="{{ isFeatured ? "featured-image" : "" }}" 
 		width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
 </picture>
