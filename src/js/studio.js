@@ -342,6 +342,9 @@ class Studio
 			  	titleElement.innerText = keyObj.subtitle;
 			  	spinnerElement.style.display = 'none';
 
+			  	console.log("desc response");
+			  	console.log(descResponse);
+
 			  	if(descResponse === "error")
 				{
 					descResponse = "Music Industry Insights and Marketing Tips for Profitable Musicians";
