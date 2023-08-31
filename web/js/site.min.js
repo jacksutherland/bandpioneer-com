@@ -49,8 +49,11 @@ let BandPioneer = {
 			        const parser = new DOMParser();
 			        const doc = parser.parseFromString(html, 'text/html');
 
-			        console.log('response.ok');
+			        console.log('response.ok -> html');
 					console.log(html);
+
+					console.log('response.ok -> doc');
+					console.log(doc);
 
 					return doc.body.innerText;
 				}
