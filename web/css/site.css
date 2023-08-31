@@ -932,7 +932,7 @@ figure.instagram-media iframe {
 }
 figure.instagram-media figcaption {
   margin: 10px auto 0 auto !important;
-  max-width: 400;
+  max-width: 400px;
 }
 figure figcaption {
   font-size: 0.875rem;
