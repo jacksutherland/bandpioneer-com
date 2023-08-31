@@ -2029,9 +2029,9 @@ article .blog-info ul li span {
 .blog .advert > .ezoic-ad {
   background-color: #e7ebec;
   background-image: url(/assets/images/ad-support-watermark.jpg);
-  background-repeat: repeat-x;
+  background-repeat: no-repeat;
   background-size: 50%;
-  background-position: 0 center;
+  background-position: center;
   border: solid #e7ebec 3px;
   border-radius: 4px;
   height: 100%;
