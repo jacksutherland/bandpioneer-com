@@ -37,8 +37,12 @@
 }
 
 .blog .advert > .ezoic-ad {
-	border: solid $light-gray 3px;
 	background-color: $light-gray;
+	background-image: url(/assets/images/ad-support-watermark.jpg);
+    background-repeat: repeat-x;
+    background-size: 50%;
+    background-position: 0 center;
+    border: solid $light-gray 3px;
 	border-radius: $small-border-radius;
 	height: 100%;
 }
