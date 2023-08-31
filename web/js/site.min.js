@@ -519,8 +519,8 @@ let BandPioneer = {
 			// Instagram Videos
 			// ... this uses window scroll because IntersectionObserver was scoring 20 pts less in lighthouse
 
-			const instas = document.querySelectorAll(".instagram-media");
-			const embeddedCount = 0;
+			var instas = document.querySelectorAll(".instagram-media");
+			var embeddedCount = 0;
 
 			if(instas.length > 0)
 			{
