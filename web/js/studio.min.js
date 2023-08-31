@@ -32,6 +32,8 @@ class Studio
 	{
 		if(typeof(keyword) === 'object')
 		{
+			console.log("loadin keyword")
+			console.log(keyword)
 			this.loadKeyword(keyword);
 			return;
 		}
