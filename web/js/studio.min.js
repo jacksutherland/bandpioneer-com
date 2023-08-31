@@ -327,7 +327,7 @@ class Studio
 			const obj = this;
 
 			const query = `Write a 5 to 15 paragraph essay about "${keyObj.title}". The content must be practical and extremely insightful, and written as a sequence of paragraphs without a title or section headers. Make the last sentence a compelling CTA to read the articles below this text to learn more. `;
-			const descQuery = `In less than 155 characters, write a thought provoking description about quick tips on "${keyObj.title}". This needs to be SEO friendly and less than 155 characters for a description meta tag. No hashtags.`;
+			const descQuery = `In less than 155 characters, write thought provoking copy about quick tips on "${keyObj.title}". This needs to be SEO friendly copy only, and less than 155 characters to be used as the value for a description meta tag. No hashtags.`;
 
 			(async () => {
 				
@@ -341,6 +341,9 @@ class Studio
 
 			  	titleElement.innerText = keyObj.subtitle;
 			  	spinnerElement.style.display = 'none';
+
+			  	console.log("response");
+			  	console.log(response);
 
 			  	console.log("desc response");
 			  	console.log(descResponse);
