@@ -517,33 +517,55 @@ let BandPioneer = {
 		instagram()
 		{
 			// Instagram Videos
+			// ... this uses window scroll because IntersectionObserver was scoring 20 pts less in lighthouse
 
-			BandPioneer.each(document.querySelector(".instagram-media"), function(idx, ele)
+			const instas = document.querySelectorAll(".instagram-media");
+			const embeddedCount = 0;
+
+			if(instas.length > 0)
 			{
-				const observer = new IntersectionObserver((entries, observer) => {
-					entries.forEach(entry => {
-						if (entry.isIntersecting)
+				const instaScroll = function(insta)
+				{
+					BandPioneer.each(instas, function(idx, insta)
+					{
+						if(insta.embedded === undefined || !insta.embedded)
 						{
-							const iframe = document.createElement('iframe');
-							const firstChild = entry.target.firstChild;
+							const scrollPosition = window.scrollY + window.innerHeight;
 
-							iframe.src = `https://www.instagram.com/p/${entry.target.dataset.id}/embed/?cr=1&v=14&wp=540&rd=https%3A%2F%2Fbandpioneer.com`;
-							iframe.setAttribute("style", "background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;");
-							iframe.setAttribute("allowtransparency", "true");
-							iframe.setAttribute("allowfullscreen", "true");
-							iframe.setAttribute("frameborder", "0");
-							iframe.setAttribute("height", "705");
-							iframe.setAttribute("scrolling", "no");
+							if (insta.getBoundingClientRect().top + window.scrollY < scrollPosition)
+							{
+								insta.embedded = true;
+								embeddedCount++;
 
-							entry.target.insertBefore(iframe, firstChild);
-							observer.unobserve(entry.target);
+								console.log("embedding");
+
+								const firstChild = insta.firstChild;
+								const iframe = document.createElement('iframe');
+
+								iframe.src = `https://www.instagram.com/p/${insta.dataset.id}/embed/?cr=1&v=14&wp=540&rd=https%3A%2F%2Fbandpioneer.com`;
+								iframe.setAttribute("style", "background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;");
+								iframe.setAttribute("allowtransparency", "true");
+								iframe.setAttribute("allowfullscreen", "true");
+								iframe.setAttribute("frameborder", "0");
+								iframe.setAttribute("height", "705");
+								iframe.setAttribute("scrolling", "no");
+
+								insta.insertBefore(iframe, firstChild);
+
+								if(embeddedCount >= instas.length)
+								{
+									console.log("removeEventListener");
+									window.removeEventListener('scroll', instaScroll); 
+								}
+							}
 						}
 					});
-				}, { rootMargin: "0px 0px 0px 0px" });
+				}
 
-				observer.observe(ele);
+				window.addEventListener('scroll', instaScroll); 
+			}
 
-			}.bind(this));
+			
 		}
 
 		createBandCarousels()
