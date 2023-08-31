@@ -48,18 +48,20 @@ let BandPioneer = {
 					const html = await response.text();
 			        const parser = new DOMParser();
 			        const doc = parser.parseFromString(html, 'text/html');
+			        // return doc.body.innerText;
 
-			        console.log('response.ok -> html');
-					console.log(html);
+					const text = doc.body.textContent;
+					const scriptTags = doc.querySelectorAll('script');
 
-					console.log('response.ok -> doc.body.innerText');
-					console.log(doc.body.innerText);
+					for (const scriptTag of scriptTags)
+					{
+						text = text.replace(scriptTag.outerHTML, '');
+					}
 
-					console.log('response.ok -> doc.body.textContent');
-					console.log(doc.body.textContent);
+					console.log("return text");
+					console.log(text);
 
-					// return doc.body.innerText;
-					return doc.body.textContent;
+					return text;
 				}
 				else
 				{
