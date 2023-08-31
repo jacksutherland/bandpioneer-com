@@ -52,10 +52,14 @@ let BandPioneer = {
 			        console.log('response.ok -> html');
 					console.log(html);
 
-					console.log('response.ok -> doc');
-					console.log(doc);
+					console.log('response.ok -> doc.body.innerText');
+					console.log(doc.body.innerText);
 
-					return doc.body.innerText;
+					console.log('response.ok -> doc.body.textContent');
+					console.log(doc.body.textContent);
+
+					// return doc.body.innerText;
+					return doc.body.textContent;
 				}
 				else
 				{
