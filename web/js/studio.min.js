@@ -271,7 +271,7 @@ class Studio
 	{
 		document.querySelector('#role-articles > div').innerHTML = '';
 		document.querySelector('#recent-articles').style.display = 'block';
-		document.querySelector('.studio-title').classList.remove('show');
+		// document.querySelector('.studio-title').classList.remove('show');
 		document.getElementById('intro-tips').innerHTML = '';
 	}
 
@@ -365,7 +365,18 @@ class Studio
 		{
 			// load it from cache
 			document.getElementById('intro-role').innerHTML = cachedData.ai.title;
-			document.getElementById('intro-description').innerHTML = cachedData.ai.intro;
+			// document.getElementById('intro-description').innerHTML = cachedData.ai.intro;
+
+			// let element = document.getElementById('intro-description');
+			// while (element)
+			// {
+			// 	if (element.classList && element.classList.contains('narrow-container'))
+			// 	{
+			// 		break;
+			// 	}
+			// 	element = element.parentElement;
+			// }
+			// element.remove();
 
 			obj.loadAITipsHtml(cachedData.ai.goals, roles);
 		}
@@ -396,10 +407,11 @@ class Studio
 				// load it from ai
 			  	
 			  	let titleResponse = await BandPioneer.aiQuery(`${introQuery} Create a job title for me using my roles or instruments. It must be less than 50 characters.`);
-			  	let introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
+			  	// let introResponse = await BandPioneer.aiQuery(`${introQuery} Describe my interests and goals in an intersting way in second person, and in no more than 1 paragraph.`);
+			  	let introResponse = ""; // deprecate it, this is boring
 
 			  	titleResponse = titleResponse.trim().replace(/\.$/, '');
-			  	introResponse = introResponse.trim();
+			  	// introResponse = introResponse.trim();
 
 			  	document.querySelector('#intro-spinner svg').style.display = 'none';
 				
@@ -407,13 +419,17 @@ class Studio
 				{
 					document.getElementById('intro-role').innerHTML = titleResponse.trim().replace(/\.$/, '');
 				}
-				if(introResponse !== "error")
+
+				if(introResponse.length > 0)
 				{
-					document.getElementById('intro-description').innerHTML = introResponse.trim();
-				}
-				else
-				{
-					document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
+					if(introResponse !== "error")
+					{
+						document.getElementById('intro-description').innerHTML = introResponse.trim();
+					}
+					else
+					{
+						document.getElementById('intro-description').innerHTML = "<h4>We are unable to create your persona at this time.</h4>We apologize for the inconvenience, and will look into it promptly. Please try again later.";
+					}
 				}
 
 				const goalsLoaded = obj.loadAITips(cachedData, roles, titleResponse, introResponse);
@@ -421,7 +437,6 @@ class Studio
 				if(!goalsLoaded && titleResponse !== "error" && introResponse !== "error")
 				{
 					// Only intro was loaded, so save it
-
 					obj.saveAIData(titleResponse, introResponse);
 				}
 				
@@ -497,10 +512,10 @@ class Studio
 
 				document.getElementById(this.id).innerHTML = (html.trim().length === 0) ? '' : relatedHTML;
 
-				if(counter >= goals.length)
-				{
-					document.querySelector('.studio-title').classList.add('show');
-				}
+				// if(counter >= goals.length)
+				// {
+				// 	document.querySelector('.studio-title').classList.add('show');
+				// }
 
 			}.bind({id:tipId, goal:this.goal}));
 		});

@@ -1,7 +1,12 @@
-<header class="site-header">
+{% set bpUrl = siteUrl %}
+{% if bpUrl | slice(-1) != '/' %}
+  {% set bpUrl = bpUrl ~ '/' %}
+{% endif %}
+
+<header class="site-header" data-url="{{bpUrl}}">
 
     <div class="container">
-        <a href="{{ siteUrl }}" class="logo">
+        <a href="{{ bpUrl }}" class="logo">
             <img loading="eager" class="logo-alt" src="{{ url('assets/images/bp-logo-alt-small.png') }}" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
             {% if entry.section.handle == 'homepage' %}
                 <img loading="eager" class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
@@ -16,21 +21,21 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{ siteUrl }}" class="underline" title="Band Pioneer Homepage">Home</a>
+                    <a href="{{ bpUrl }}" class="underline" title="Band Pioneer Homepage">Home</a>
                 </li>
                 <li class="hide-mobile dropdown-menu">
                     <a class="underline" title="About Band Pioneer">About {% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul>
                         <li>
-                            <a class="underline" href="{{ siteUrl }}/about">About Us</a>
+                            <a class="underline" href="{{ bpUrl }}about">About Us</a>
                         </li>
                         <li>
-                            <a class="underline" href="{{ siteUrl }}/privacy">Privacy</a>
+                            <a class="underline" href="{{ bpUrl }}privacy">Privacy</a>
                         </li>
                     </ul>
                 </li>
                 <li class="hide-desktop">
-                    <a class="underline" href="{{ siteUrl }}/about">About Us</a>
+                    <a class="underline" href="{{ bpUrl }}about">About Us</a>
                 </li>
                 {% cache globally %}
                     <li class="hide-mobile dropdown-menu">
@@ -43,7 +48,7 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
-                            <li>
+                            <li style="border-top: solid 2px #fff;outline: solid 2px #fff;padding: 20px 10px 0 10px;margin: 25px -20px 10px -20px;">
                                 <a class="underline" href="/quick-tips">Quick Tips</a>
                             </li>
                         </ul>
@@ -53,6 +58,46 @@
                     <a class="underline" title="Chat GPT Driven Music Info Customized For You">AI Studio{% include '_includes/icons' with { type: 'down' } %}</a>
                     <ul id="studio-menu">
                         <li>
+                            <h4>Personalized Music Advice</h4>
+                            <span>Select your primary role?</span>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
+                        </li>
+                      {#   <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=percussionist">Percussion</a>
+                        </li> #}
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
+                        </li>
+                        {# <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=brass-player">Brass Player</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=manager">Manager</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=producer">Producer</a>
+                        </li>
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=sound-engineer">Sound Engineer</a>
+                        </li> #}
+                        <li>
+                            <a class="underline" href="{{ bpUrl }}ai-studio?role=musician">Other</a>
+                        </li>
+                        <li class="data-loaded" style="margin-top:20px;">
+                            <a class="underline" href="{{ bpUrl }}ai-studio">Return to Your Studio</a>
+                        </li>
+                        <li style="border-top: solid 2px #fff;padding: 20px 10px 0 10px;margin: 25px -20px 10px -20px;">
                             <h4>The Great AI Battle</h4>
                             <span>Enlightened discourse between 2 AI models, on hot-button topics</span>
                         </li>
@@ -68,56 +113,16 @@
                         <li>
                             <a class="underline" href="/ai-studio/battle?topic=music-censorship">Music Censorship</a>
                         </li>
-                        <li style="margin-top:25px;">
-                            <h4>AI Customized Music Advice</h4>
-                            <span>What is your primary role?</span>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=singer">Vocalist</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=guitarist">Guitarist</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=bassist">Bassist</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=drummer">Drummer</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=percussionist">Percussion</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=keyboardist">Keyboardist</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=brass-player">Brass Player</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=manager">Manager</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=producer">Producer</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}/ai-studio?role=sound-engineer">Sound Engineer</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ siteUrl }}{{ siteUrl }}/ai-studio?role=musician">Other</a>
-                        </li>
-                        <li class="data-loaded" style="margin-top:30px;">
-                            <a class="underline" href="{{ siteUrl }}/ai-studio">Return to Your Studio</a>
-                        </li>
                     </ul>
                 </li>
                 <li class="hide-desktop">
-                    <a href="{{ siteUrl }}/ai-studio" class="underline">My Studio</a>
+                    <a href="{{ bpUrl }}ai-studio" class="underline">My Studio</a>
                 </li>
-                <li><a class="underline" href="{{ siteUrl }}{{ (currentUser ? '/bands' : '/electronic-press-kit') }}" title="Electronic Press Kit">EPK</a></li>
+                {# <li><a class="underline" href="{{ bpUrl }}{{ (currentUser ? 'bands' : 'electronic-press-kit') }}" title="Electronic Press Kit">EPK</a></li> #}
                 <li class="hide-desktop">
-                    <a class="underline" href="{{ siteUrl }}/privacy">Privacy Policy</a>
+                    <a class="underline" href="{{ bpUrl }}privacy">Privacy Policy</a>
                 </li>
-                <li><a class="underline" href="{{ siteUrl }}/contact" title="How to Contact Us">Contact</a></li>
+                <li><a class="underline" href="{{ bpUrl }}contact" title="How to Contact Us">Contact</a></li>
                 {% cache globally %}
                     {% for cat in categories.all() %}
                         {% if cat.show %}
@@ -131,7 +136,7 @@
                     </li>
                 {% endcache %}
                 <li class="display-md">
-                    <form method="get" action="{{ siteUrl }}/search">
+                    <form method="get" action="{{ bpUrl }}search">
                         <a id="search" href="/">
                             {% include '_includes/icons' with { type: 'search' } %}
                             <input type="text" name="q" placeholder="Enter your question...">

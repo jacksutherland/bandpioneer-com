@@ -59,15 +59,7 @@ let BandPioneer = {
 						body.removeChild(scriptTag);
 					}
 
-					const text = body.textContent;
-
-					console.log("return text");
-					console.log(text);
-
-					console.log("doc");
-					console.log(doc);
-
-					return text;
+					return body.textContent;
 				}
 				else
 				{

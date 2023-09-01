@@ -76,7 +76,7 @@
 			display: block
 		}
 		.studio-tips {
-		    margin: 40px auto;
+		    margin: 0 auto 40px auto;
 		    padding: 25px;
 		    border: solid 2px #e7ebec;
 		    background-color: #f7f7f7;
@@ -198,16 +198,6 @@
 			{### EZOIC ai-in-content ###}
 			<div class="advert"><div id="ezoic-pub-ad-placeholder-144"></div></div>
 
-			<section id="role-articles">
-				<div></div>
-				<div id="recent-articles">
-					{% if not usingKeyword %}
-						<h3>Recent Articles</h3>
-					{% endif  %}
-					{% include 'blog/_includes/blog-posts' with { posts: recentArticles.all() } %}
-				</div>
-			</section>
-
 			<div class="studio-goals">
 				<section class="description">
 					<h2 class="studio-title">
@@ -225,6 +215,16 @@
 
 			{### EZOIC ai-in-content ###}
 			<div class="advert"><div id="ezoic-pub-ad-placeholder-145"></div></div>
+
+			<section id="role-articles">
+				<div></div>
+				<div id="recent-articles">
+					{% if not usingKeyword %}
+						<h3>Recent Articles</h3>
+					{% endif  %}
+					{% include 'blog/_includes/blog-posts' with { posts: recentArticles.all() } %}
+				</div>
+			</section>
 
 		</div>
 	{# </div> #}
