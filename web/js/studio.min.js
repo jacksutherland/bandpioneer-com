@@ -188,11 +188,11 @@ class Studio
 		let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
 		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 		let formData = new FormData();
+
 		formData.append('path', data.path);
 		formData.append('title', data.subtitle);
 		formData.append('body', data.body);
 		formData.append('description', data.description);
-
 		formData.append(csrfTokenName, csrfTokenValue);
 
 		fetch(Studio.SAVE_KEYWORD_URL, { method: 'POST', body: formData })
