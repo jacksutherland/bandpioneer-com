@@ -3,7 +3,7 @@
     {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
-{% set versionNumber = '1.9990' %}
+{% set versionNumber = '1.9991' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -11,7 +11,13 @@
 {% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'battle' %}
     {% redirect 404 %}
 {% elseif 'https://bandpioneer.com/ai-studio/battle' in craft.app.request.absoluteUrl %}
-    {% redirect 'https://ai.bandpioneer.com/ai-studio/battle' %}
+    {# {% redirect 'https://ai.bandpioneer.com/ai-studio/battle' %} #}
+    {% set aiUrl = 'https://ai.bandpioneer.com/ai-studio/battle' %}
+    {% set aiQueryString = craft.app.request.queryStringWithoutPath %}
+    {% if aiQueryString %}
+        {% set aiUrl = aiUrl ~ '?' ~ aiQueryString %}
+    {% endif %}
+    {% redirect aiUrl %}
 {% endif %}
 
 {# {% set versionNumber = now|date('YmdHis') %} #}
