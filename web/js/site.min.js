@@ -34,6 +34,20 @@ let BandPioneer = {
 			? obj : [obj];
 	},
 
+	getBreakpoint: function()
+	{
+		if (window.matchMedia('(max-width: 576px)').matches)
+			return "sm";
+		else if (window.matchMedia('(max-width: 768px)').matches)
+			return "md";
+		else if (window.matchMedia('(max-width: 992px)').matches)
+			return "lg";
+		else if (window.matchMedia('(max-width: 1200px)').matches)
+			return "xl";
+		else
+			return "xxl";
+	},
+
 	aiQuery: async function(searchQuery)
 	{
 		if(searchQuery.trim().length > 0)
@@ -466,6 +480,19 @@ let BandPioneer = {
 			observer.observe(blogHeader);
 			observer.observe(blogComments);
 			observer.observe(blogRelated);
+
+			toc.querySelector('.section-title').addEventListener('click', function(e)
+			{
+				toc.querySelector('ul').classList.toggle('close');
+				console.log(BandPioneer.getBreakpoint());
+			});
+			
+			const breakpoint = BandPioneer.getBreakpoint();
+
+			if(breakpoint === "sm" || breakpoint === "md")
+			{
+				toc.querySelector('ul').classList.add('close');
+			}
 		}
 
 		readingProgress()

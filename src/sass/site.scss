@@ -1614,7 +1614,7 @@ form {
 				    z-index: -1;
 				    top: 50%;
 				    transform: translateY(-50%);
-				    width: 48%;
+				    width: 50%;
 		   			height: 4px;
 				}
 				&:before {
@@ -1625,11 +1625,12 @@ form {
 				}
 
 				span {
-					font-family: $header-font-family;
-					letter-spacing: $header-font-spacing;
 					background-color: $white;
-					padding: 0 16px;
+					font-family: $header-font-family;
 					font-weight: $normal-weight;
+					letter-spacing: $header-font-spacing;
+					line-height: 1.7; // avoids breaking line behind font
+					padding: 0 16px;
 				}
 			}
 		}

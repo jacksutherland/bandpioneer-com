@@ -75,7 +75,10 @@
 	{% if tocLinks | length > 1 %}
 		{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
 		<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
-			<h3 class="section-title"><span>Table of Contents</span></h3>
+			<h3 class="section-title">
+				<span>Table of Contents</span>
+				<i>{% include '_includes/icons' with { type: 'down' } %}</i>
+			</h3>
 			<ul>
 				{% for tl in tocLinks %}
 					<li>

@@ -1368,7 +1368,7 @@ form.contact-form .errors {
     z-index: -1;
     top: 50%;
     transform: translateY(-50%);
-    width: 48%;
+    width: 50%;
     height: 4px;
   }
   section.description > h2:before, section.description > h3:before {
@@ -1378,11 +1378,12 @@ form.contact-form .errors {
     left: 50%;
   }
   section.description > h2 span, section.description > h3 span {
-    font-family: "Michroma", sans-serif;
-    letter-spacing: 0.05rem;
     background-color: #FFFFFF;
-    padding: 0 16px;
+    font-family: "Michroma", sans-serif;
     font-weight: 400;
+    letter-spacing: 0.05rem;
+    line-height: 1.7;
+    padding: 0 16px;
   }
   form.contact-form {
     max-width: 800px;
@@ -1497,7 +1498,7 @@ form.contact-form .errors {
     transition: opacity 0.3s, top 0.3s;
   }
   .blog .blog-container .table-of-contents .section-title {
-    margin: 0;
+    margin-top: 0;
   }
 }
 @media (min-width: 1400px) {
@@ -1687,7 +1688,7 @@ article .blog-info ul li span {
   position: relative;
 }
 .blog .table-of-contents:after {
-  background: linear-gradient(to left, #fafafb, #e3e7e9);
+  background-color: #f2f4f5;
   content: "";
   display: block;
   position: absolute;
@@ -1699,6 +1700,28 @@ article .blog-info ul li span {
 }
 .blog .table-of-contents.compressed-list ul li {
   margin: 8px 30px;
+}
+.blog .table-of-contents .section-title {
+  cursor: pointer;
+}
+.blog .table-of-contents .section-title:after {
+  content: none;
+}
+.blog .table-of-contents .section-title i svg {
+  width: 16px;
+  height: 16px;
+}
+.blog .table-of-contents .section-title i svg path {
+  fill: #5e5e5e;
+}
+.blog .table-of-contents ul {
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.3s, opacity 0.3s;
+}
+.blog .table-of-contents ul.close {
+  max-height: 0;
+  opacity: 0;
 }
 .blog .table-of-contents ul li {
   font-weight: 600;
@@ -1998,6 +2021,18 @@ article .blog-info ul li span {
   }
   article.featured .blog-image .blog-image-info p {
     width: 75%;
+  }
+}
+@media (min-width: 1180px) {
+  .blog .table-of-contents .section-title {
+    cursor: default;
+  }
+  .blog .table-of-contents .section-title i {
+    display: none;
+  }
+  .blog .table-of-contents ul.close {
+    max-height: none;
+    opacity: 1;
   }
 }
 @media (min-width: 1200px) {

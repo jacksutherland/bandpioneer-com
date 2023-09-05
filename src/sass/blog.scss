@@ -61,7 +61,7 @@
 				}
 
 				.section-title {
-					margin: 0;
+					margin-top: 0;
 				}
 			}
 		}
@@ -293,8 +293,11 @@ article {
 		padding: 0 0 30px 0;
 		position: relative;
 
+		
+
 		&:after {
-			background: $gradient-border;
+			// background: $gradient-border;
+			background-color: $light-gray-background;
 		    content: "";
 		    display: block;
 		    position: absolute;
@@ -313,7 +316,35 @@ article {
 			}
 		}
 
+		.section-title {
+			cursor: pointer;
+
+			&:after {
+				content: none;
+			}
+
+			i {
+				svg {
+					width: 16px;
+    				height: 16px;
+
+					path {
+						fill: $medium-headline-color;
+					}
+				}
+			}
+		}
+
 		ul {
+			max-height: 1000px;
+			opacity: 1;
+			transition: max-height $transition-time, opacity $transition-time;
+
+			&.close {
+				max-height: 0;
+				opacity: 0;
+			}
+
 			li {
 				font-weight: $semi-bold;
 				margin: 15px 30px;
@@ -384,9 +415,6 @@ article {
 		gap: 25px;
 
 		article {
-			// img {
-			// 	width: 115%;
-			// }
 			.blog-info {
 				margin: 12px 15px;
 
@@ -556,12 +584,6 @@ article {
 		}
 	}
 
-	// .section-order {
-	// 	& + h2 {
-	// 		display: inline-block;
-	// 	}
-	// }
-
 	address {
 		margin: -5px 0 15px 0;
 	}
@@ -592,7 +614,6 @@ article {
 
 	.cc-w {
 		input, textarea {
-			// height: auto;
 			font-size: $font-size-normal;
 			font-family: $font-family;
 			border-color: darken($border-color, 5%);
@@ -639,7 +660,6 @@ article {
 		.cc-i-image-icon {
 			&:after {
 				background-color: transparent;
-				// background-image: url(https://bandpioneer.com/assets/images/bp-mark.png);
 			}
 
 		}
@@ -697,9 +717,6 @@ article {
 
 @media (min-width: $breakpoint-md) {
 	.blog {
-		// .container {
-		// 	margin: 0 auto;
-		// }
 		.related-content {
 			grid-template-columns: 1fr 1fr 1fr;
 		}
@@ -746,6 +763,25 @@ article {
 						width: 75%;
 					}
 				}
+			}
+		}
+	}
+}
+
+@media (min-width: $breakpoint-air) {
+	.blog {
+		.table-of-contents {
+			.section-title {
+				cursor: default;
+
+				i {
+					display: none;
+				}
+			}
+
+			ul.close {
+				max-height: none;
+    			opacity: 1;
 			}
 		}
 	}
