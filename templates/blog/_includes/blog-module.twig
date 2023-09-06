@@ -6,13 +6,14 @@
 {% set textSectionCount = 0 %}
 {% set adCounter = 0 %}
 {% set tocLinks = [] %}
+{% set blogModules = entry.blogContent.all() %}
 
 {% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
 
 	{% set parent = null %}
 	{% set children = [] %}
 
-	{% for module in entry.blogContent.all() %}
+	{% for module in blogModules %}
 
 		{% if module.type == "text" %}
 			
@@ -51,7 +52,7 @@
 
 {% else %}
 
-	{% for module in entry.blogContent.all() %}
+	{% for module in blogModules %}
 		
 		{% if module.type == "text" %}
 			
@@ -120,7 +121,7 @@
 
 	<div class="blog-body">
 
-		{% for module in entry.blogContent.all() %}
+		{% for module in blogModules %}
 
 			{% switch module.type %}
 
@@ -189,9 +190,16 @@
 
 				{% case "text" %}
 
+					{# If next module is media close after it #}
+
+					{% set nextModule = blogModules[loop.index] ?? null %}
+					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
+
 					<section class="rich-text">
 						{{ module.richText }}
-					</section>
+					{% if closeSection %}
+						</section>
+					{% endif %}
 
 					{### EZOIC blog-in-content ###}
 					{% set textCounter = textCounter + 1 %}
@@ -204,26 +212,33 @@
 
 				{% case "media" %}
 
-					{% if module.mediaType == "instagram" %}
+					{# Skip opening section tag if following text module #}
+
+					{% set previousModule = blogModules[loop.index - 2] ?? null %}
+					{% set openSection = (previousModule and previousModule.type == "text") ? false : true %}
+
+					{% if openSection %}
 						<section>
-							<figure class="instagram-media" data-id="{{ module.mediaId }}">
-								{% if module.caption | length %}
-									<figcaption>{{ module.caption }}</figcaption>
-								{% endif %}
-							</figure>
-						</section>
-					{% else %}
-						<section>
-							<figure class="video">
-								<div class="player">
-									<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-								</div>
-								{% if module.caption | length %}
-									<figcaption>{{ module.caption }}</figcaption>
-								{% endif %}
-							</figure>
-						</section>
 					{% endif %}
+
+					{% if module.mediaType == "instagram" %}
+						<figure class="instagram-media" data-id="{{ module.mediaId }}">
+							{% if module.caption | length %}
+								<figcaption>{{ module.caption }}</figcaption>
+							{% endif %}
+						</figure>
+					{% else %}
+						<figure class="video">
+							<div class="player">
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							{% if module.caption | length %}
+								<figcaption>{{ module.caption }}</figcaption>
+							{% endif %}
+						</figure>
+					{% endif %}
+
+					</section>
 
 			{% endswitch %}
 		{% endfor %}

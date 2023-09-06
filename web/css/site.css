@@ -1819,6 +1819,10 @@ article .blog-info ul li span {
 .blog section.rich-text ol {
   list-style: auto;
 }
+.blog section.rich-text figure.video,
+.blog section.rich-text figure.instagram-media {
+  margin-top: 30px;
+}
 .blog section.embed-code .product-links:before {
   content: attr(data-title) "";
   display: block;

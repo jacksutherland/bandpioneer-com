@@ -480,6 +480,11 @@ article {
 			ol {
 				list-style: auto;
 			}
+
+			figure.video,
+			figure.instagram-media {
+				margin-top: 30px;
+			}
 		}
 
 		&.embed-code {
