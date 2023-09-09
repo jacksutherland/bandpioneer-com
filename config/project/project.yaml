@@ -1,4 +1,4 @@
-dateModified: 1694289990
+dateModified: 1694291385
 elementSources:
   craft\elements\Asset:
     -
@@ -407,7 +407,7 @@ plugins:
     schemaVersion: 1.0.0
   varnishcache:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.0
 system:
   edition: pro
