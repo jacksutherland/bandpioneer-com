@@ -126,4 +126,23 @@ return array (
     'developerUrl' => 'https://nystudio107.com',
     'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
   ),
+  'cooltronicpl/varnishcache' => 
+  array (
+    'class' => 'cooltronicpl\\varnishcache\\VarnishCache',
+    'basePath' => $vendorDir . '/cooltronicpl/varnishcache/src',
+    'handle' => 'varnishcache',
+    'aliases' => 
+    array (
+      '@cooltronicpl/varnishcache' => $vendorDir . '/cooltronicpl/varnishcache/src',
+    ),
+    'name' => 'Varnish Cache & Preload to HTML',
+    'version' => '2.3.1',
+    'schemaVersion' => '1.0.0',
+    'description' => 'The Varnish Cache & Preload Plugin is a revolutionary tool designed to optimize your website\'s performance with optional Varnish purge and preload your site into HTML files.',
+    'developer' => 'CoolTRONIC.pl',
+    'developerUrl' => 'https://cooltronic.pl',
+    'documentationUrl' => 'https://github.com/cooltronicpl/varnishcache/blob/master/README.md',
+    'hasCpSettings' => true,
+    'hasCpSection' => false,
+  ),
 );

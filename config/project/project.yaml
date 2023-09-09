@@ -1,4 +1,4 @@
-dateModified: 1694282879
+dateModified: 1694289990
 elementSources:
   craft\elements\Asset:
     -
@@ -402,6 +402,10 @@ plugins:
     enabled: true
     schemaVersion: 1.0.0
   sendgrid:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  varnishcache:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0

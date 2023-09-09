@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4df101f62175a78586ef2f418742c0f675d1e50d',
+        'reference' => '31a06922ff724f0bbdd7e49844b3c425523efae0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4df101f62175a78586ef2f418742c0f675d1e50d',
+            'reference' => '31a06922ff724f0bbdd7e49844b3c425523efae0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -157,6 +157,15 @@
             'reference' => 'ced299686f41dce890debac69273b47ffe98a40c',
             'type' => 'library',
             'install_path' => __DIR__ . '/./xdebug-handler',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'cooltronicpl/varnishcache' => array(
+            'pretty_version' => '2.3.1',
+            'version' => '2.3.1.0',
+            'reference' => '13c5662000be3924b6c8e90a217d8ffb3256e377',
+            'type' => 'craft-plugin',
+            'install_path' => __DIR__ . '/../cooltronicpl/varnishcache',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -625,8 +634,8 @@
         'psr/http-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '*',
-                1 => '1.0',
+                0 => '1.0',
+                1 => '*',
             ),
         ),
         'psr/http-factory' => array(
