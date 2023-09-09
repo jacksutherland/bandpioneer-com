@@ -1,0 +1,7 @@
+allowPublicRegistration: true
+deactivateByDefault: false
+defaultGroup: 1e42cdc3-f360-43ac-b612-8de6f081ad47 # Rockstars
+photoSubpath: null
+photoVolumeUid: eedcf843-b27f-4c8b-a016-8ed1d7bbbd43 # Rockstars Assets
+requireEmailVerification: true
+validateOnPublicRegistration: false

@@ -271,6 +271,9 @@ handle: internal
 hasTitleField: true
 name: Internal
 section: ed3ddcd0-5218-490f-a4b7-d5000594dcf2 # Blog Post
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

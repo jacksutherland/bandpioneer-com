@@ -1,0 +1,43 @@
+fieldLayouts:
+  0ad652ab-d7a0-408f-8d10-63f9d254292c:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: 7b08df3e-138f-4562-8df0-2661a18b415e
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 2d5e2f05-b87b-4dcb-801e-a2f2a197f71d
+        userCondition: null
+fs: writerPictures
+handle: writerPictures
+name: 'Writer Pictures'
+sortOrder: 2
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+transformFs: ''
+transformSubpath: ''

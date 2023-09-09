@@ -139,6 +139,9 @@ handle: external
 hasTitleField: true
 name: External
 section: ed3ddcd0-5218-490f-a4b7-d5000594dcf2 # Blog Post
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null

@@ -1,0 +1,8 @@
+siteUid: e8ce77e6-c957-4290-8a2d-87ba28953701 # Bands Media
+sortOrder: 1
+template: bands/_public/epk
+uriParts:
+  1:
+    - slug
+    - '[^\/]+'
+uriPattern: '<slug:[^\/]+>'

@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: blogPostMobile
+height: 185
+interlace: none
+mode: crop
+name: 'Blog Post Mobile'
+position: center-center
+quality: 80
+upscale: true
+width: 330

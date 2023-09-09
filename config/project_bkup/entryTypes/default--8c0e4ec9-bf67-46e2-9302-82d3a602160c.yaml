@@ -1,0 +1,43 @@
+fieldLayouts:
+  fe88d16f-f3ca-4135-aed4-052afed1fb94:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 903f70bb-3215-412e-9ef3-518f0364c7bc
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: ed383a99-970a-4ba7-9550-ed758fc5c31c
+        userCondition: null
+handle: default
+hasTitleField: true
+name: Default
+section: aa743bfb-7d05-4d44-943b-7bf893d5cbd3 # Genres
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

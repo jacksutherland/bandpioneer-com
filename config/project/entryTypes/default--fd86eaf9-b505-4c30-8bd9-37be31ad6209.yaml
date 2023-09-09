@@ -61,6 +61,9 @@ handle: default
 hasTitleField: true
 name: Default
 section: 2ee0929d-42ad-44ca-9f6a-990c73c36c1c # Bands
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

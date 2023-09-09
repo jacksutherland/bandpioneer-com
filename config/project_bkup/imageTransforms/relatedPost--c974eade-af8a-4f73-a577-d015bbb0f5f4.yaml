@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: relatedPost
+height: 140
+interlace: none
+mode: crop
+name: 'Related Post'
+position: center-center
+quality: 80
+upscale: true
+width: 240

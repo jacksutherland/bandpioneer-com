@@ -1,0 +1,13 @@
+siteUid: null
+sortOrder: 3
+template: /ai-studio/index
+uriParts:
+  0: quick-tips/
+  1:
+    - slug
+    - '[^\/]+'
+  3: /
+  4:
+    - slug
+    - '[^\/]+'
+uriPattern: 'quick-tips/<slug:[^\/]+>/<slug2:[^\/]+>'

@@ -1,0 +1,43 @@
+fieldLayouts:
+  b7ff7a7b-a68a-404b-a3ce-d986db042031:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: ecb6d23b-db11-417f-8696-1f02580716d2
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: ae49f2cc-e45e-4e19-82c1-daba4b38c67f
+        userCondition: null
+fs: rockstarFiles
+handle: rockstarAssets
+name: 'Rockstars Assets'
+sortOrder: 4
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+transformFs: ''
+transformSubpath: ''

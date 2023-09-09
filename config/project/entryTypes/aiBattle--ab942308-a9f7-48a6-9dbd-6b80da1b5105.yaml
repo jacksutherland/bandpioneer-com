@@ -37,6 +37,9 @@ handle: aiBattle
 hasTitleField: false
 name: 'AI Battle'
 section: 55fe6bf6-54b5-47c3-af24-9173740cadc0 # AI Battle
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: '{section.name|raw}'
 titleTranslationKeyFormat: null

@@ -1,0 +1,19 @@
+columnSuffix: nwifwctt
+contentColumnType: text
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: shortDescription
+instructions: null
+name: 'Short Description'
+searchable: true
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  columnType: null
+  initialRows: 2
+  multiline: true
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

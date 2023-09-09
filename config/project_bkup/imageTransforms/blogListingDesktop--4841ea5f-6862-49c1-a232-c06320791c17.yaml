@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: blogListingDesktop
+height: 285
+interlace: none
+mode: crop
+name: 'Blog Listing Desktop'
+position: center-center
+quality: 80
+upscale: true
+width: 505

@@ -49,6 +49,9 @@ handle: default
 hasTitleField: true
 name: Default
 section: 63d793d3-b3e1-4701-9042-5ad2e0cde7df # Roles
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

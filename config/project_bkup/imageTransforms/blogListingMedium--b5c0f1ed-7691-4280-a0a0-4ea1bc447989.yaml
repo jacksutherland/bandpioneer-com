@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: blogListingMedium
+height: 410
+interlace: none
+mode: crop
+name: 'Blog Listing Medium'
+position: center-center
+quality: 80
+upscale: true
+width: 730

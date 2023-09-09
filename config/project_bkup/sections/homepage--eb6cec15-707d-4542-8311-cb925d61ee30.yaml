@@ -1,0 +1,17 @@
+defaultPlacement: end
+enableVersioning: true
+handle: homepage
+name: Homepage
+propagationMethod: all
+siteSettings:
+  1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer
+    enabledByDefault: true
+    hasUrls: true
+    template: index
+    uriFormat: __home__
+  e8ce77e6-c957-4290-8a2d-87ba28953701: # Bands Media
+    enabledByDefault: true
+    hasUrls: true
+    template: '404'
+    uriFormat: __home__
+type: single

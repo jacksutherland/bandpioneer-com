@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: blogImage
+height: null
+interlace: none
+mode: fit
+name: 'Blog Image'
+position: center-center
+quality: 80
+upscale: true
+width: 800

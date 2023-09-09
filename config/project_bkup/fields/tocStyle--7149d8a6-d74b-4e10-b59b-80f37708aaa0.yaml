@@ -1,0 +1,56 @@
+columnSuffix: urbietqu
+contentColumnType: string
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: tocStyle
+instructions: null
+name: 'TOC Style'
+searchable: false
+settings:
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - 'Ordered List'
+        -
+          - value
+          - ordered-list
+        -
+          - default
+          - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - 'Unordered List'
+        -
+          - value
+          - unordered-list
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Nested List'
+        -
+          - value
+          - nested-list
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Nested Ordered List'
+        -
+          - value
+          - nested-ordered-list
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

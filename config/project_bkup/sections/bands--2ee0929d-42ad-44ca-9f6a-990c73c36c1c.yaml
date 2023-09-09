@@ -1,0 +1,15 @@
+defaultPlacement: end
+enableVersioning: true
+handle: bands
+name: Bands
+propagationMethod: all
+siteSettings:
+  1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: 0bd0e5f9-6d36-4e7a-8d13-74c7d33910e6
+type: structure

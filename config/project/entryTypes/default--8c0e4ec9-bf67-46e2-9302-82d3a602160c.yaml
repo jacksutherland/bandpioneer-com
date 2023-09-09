@@ -37,6 +37,9 @@ handle: default
 hasTitleField: true
 name: Default
 section: aa743bfb-7d05-4d44-943b-7bf893d5cbd3 # Genres
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

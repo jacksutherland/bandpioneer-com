@@ -1,0 +1,14 @@
+columnSuffix: cjrpbnao
+contentColumnType: boolean
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: showRecentBlogs
+instructions: null
+name: 'Show Recent Blogs'
+searchable: false
+settings:
+  default: false
+  offLabel: null
+  onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

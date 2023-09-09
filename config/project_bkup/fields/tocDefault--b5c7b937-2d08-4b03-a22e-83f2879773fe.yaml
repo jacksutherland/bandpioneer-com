@@ -1,0 +1,45 @@
+columnSuffix: osqggoob
+contentColumnType: string
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: tocDefault
+instructions: null
+name: 'TOC Default'
+searchable: false
+settings:
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Collapsed
+        -
+          - value
+          - collapsed
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - Expanded
+        -
+          - value
+          - expanded
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'First Parent Expanded'
+        -
+          - value
+          - first-expanded
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

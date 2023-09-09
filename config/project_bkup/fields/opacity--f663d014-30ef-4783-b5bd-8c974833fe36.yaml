@@ -1,0 +1,20 @@
+columnSuffix: idtehzok
+contentColumnType: 'decimal(3,2)'
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: opacity
+instructions: null
+name: Opacity
+searchable: false
+settings:
+  decimals: 2
+  defaultValue: 0.35
+  max: 1
+  min: 0
+  prefix: null
+  previewCurrency: null
+  previewFormat: decimal
+  size: null
+  suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

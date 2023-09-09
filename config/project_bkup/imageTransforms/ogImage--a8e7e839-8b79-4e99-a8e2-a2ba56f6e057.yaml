@@ -1,0 +1,11 @@
+fill: null
+format: null
+handle: ogImage
+height: 630
+interlace: none
+mode: crop
+name: 'OG Image'
+position: center-center
+quality: null
+upscale: true
+width: 1200

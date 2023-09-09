@@ -1,0 +1,17 @@
+tabs:
+  -
+    elementCondition: null
+    elements:
+      -
+        elementCondition: null
+        instructions: null
+        label: __blank__
+        required: true
+        tip: null
+        type: verbb\comments\fieldlayoutelements\CommentsField
+        uid: 2ef58f65-ef20-4089-add5-e4dae1fe32b9
+        userCondition: null
+        warning: null
+    name: 'Comment Form'
+    uid: 8db1aeb3-5ddf-49c1-9f48-81c1b3d9d71d
+    userCondition: null
