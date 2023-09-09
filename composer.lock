@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93b3e86829b5290b568d562754500949",
+    "content-hash": "135bfc5de3945d20ec5fb497ec921654",
     "packages": [
         {
             "name": "bandpioneer/rockstar",
@@ -640,61 +640,6 @@
                 "performance"
             ],
             "time": "2022-02-25T21:32:43+00:00"
-        },
-        {
-            "name": "cooltronicpl/varnishcache",
-            "version": "2.3.1",
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cooltronicpl/varnishcache/zipball/13c5662000be3924b6c8e90a217d8ffb3256e377",
-                "reference": "13c5662000be3924b6c8e90a217d8ffb3256e377",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^4.0"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "name": "Varnish Cache & Preload to HTML",
-                "handle": "varnishcache",
-                "schemaVersion": "1.0.0",
-                "hasCpSettings": true,
-                "hasCpSection": false,
-                "class": "cooltronicpl\\varnishcache\\VarnishCache"
-            },
-            "autoload": {
-                "psr-4": {
-                    "cooltronicpl\\varnishcache\\": "src/"
-                }
-            },
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "CoolTRONIC.pl",
-                    "homepage": "https://cooltronic.pl",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Pawel Potacki",
-                    "homepage": "https://potacki.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "The Varnish Cache & Preload Plugin is a revolutionary tool designed to optimize your website's performance with optional Varnish purge and preload your site into HTML files.",
-            "keywords": [
-                "cms",
-                "craft",
-                "craft-plugin",
-                "craftcms",
-                "html cache"
-            ],
-            "support": {
-                "docs": "https://github.com/cooltronicpl/varnishcache/blob/master/README.md",
-                "issues": "https://github.com/cooltronicpl/varnishcache/issues"
-            },
-            "time": "2023-08-09T09:08:28+00:00"
         },
         {
             "name": "craftcms/cms",

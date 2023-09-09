@@ -43,7 +43,6 @@ return array(
     'craft\\contactform\\' => array($vendorDir . '/craftcms/contact-form/src'),
     'craft\\composer\\' => array($vendorDir . '/craftcms/plugin-installer/src'),
     'craft\\' => array($vendorDir . '/craftcms/cms/src'),
-    'cooltronicpl\\varnishcache\\' => array($vendorDir . '/cooltronicpl/varnishcache/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'bandpioneer\\rockstar\\' => array($vendorDir . '/bandpioneer/rockstar/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),

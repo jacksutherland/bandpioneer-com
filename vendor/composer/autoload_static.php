@@ -95,7 +95,6 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'craft\\contactform\\' => 18,
             'craft\\composer\\' => 15,
             'craft\\' => 6,
-            'cooltronicpl\\varnishcache\\' => 26,
             'cebe\\markdown\\' => 14,
         ),
         'b' => 
@@ -400,10 +399,6 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\' => 
         array (
             0 => __DIR__ . '/..' . '/craftcms/cms/src',
-        ),
-        'cooltronicpl\\varnishcache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -3951,17 +3946,6 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'cebe\\markdown\\tests\\MarkdownOLStartNumTest' => __DIR__ . '/..' . '/cebe/markdown/tests/MarkdownOLStartNumTest.php',
         'cebe\\markdown\\tests\\MarkdownTest' => __DIR__ . '/..' . '/cebe/markdown/tests/MarkdownTest.php',
         'cebe\\markdown\\tests\\ParserTest' => __DIR__ . '/..' . '/cebe/markdown/tests/ParserTest.php',
-        'cooltronicpl\\varnishcache\\VarnishCache' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/VarnishCache.php',
-        'cooltronicpl\\varnishcache\\jobs\\ClearUriJob' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/jobs/ClearUriJob.php',
-        'cooltronicpl\\varnishcache\\jobs\\PreloadCacheJob' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/jobs/PreloadCacheJob.php',
-        'cooltronicpl\\varnishcache\\jobs\\PreloadSitemapJob' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/jobs/PreloadSitemapJob.php',
-        'cooltronicpl\\varnishcache\\jobs\\QueueSingleton' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/jobs/QueueSingleton.php',
-        'cooltronicpl\\varnishcache\\migrations\\Install' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/migrations/Install.php',
-        'cooltronicpl\\varnishcache\\models\\Settings' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/models/Settings.php',
-        'cooltronicpl\\varnishcache\\records\\VarnishCacheElementRecord' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/records/VarnishCacheElementRecord.php',
-        'cooltronicpl\\varnishcache\\records\\VarnishCachesRecord' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/records/VarnishCachesRecord.php',
-        'cooltronicpl\\varnishcache\\services\\VarnishCacheService' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/services/VarnishCacheService.php',
-        'cooltronicpl\\varnishcache\\variables\\VarnishCacheClear' => __DIR__ . '/..' . '/cooltronicpl/varnishcache/src/variables/VarnishCacheClear.php',
         'craft\\addresses\\SubdivisionRepository' => __DIR__ . '/..' . '/craftcms/cms/src/addresses/SubdivisionRepository.php',
         'craft\\assetpreviews\\Image' => __DIR__ . '/..' . '/craftcms/cms/src/assetpreviews/Image.php',
         'craft\\assetpreviews\\Pdf' => __DIR__ . '/..' . '/craftcms/cms/src/assetpreviews/Pdf.php',
