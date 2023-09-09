@@ -3,7 +3,7 @@
     {# TODO: Do this via CP multisite config, not in template #}
 {% endif %}
 
-{% set versionNumber = '1.9996' %}
+{% set versionNumber = '1.9997' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -45,8 +45,8 @@
             #}
 
             {# Direct GA4 Implementation - GTM is hurting Web Vitals #}
-            <!-- Google tag (gtag.js) -->
-            {# <link rel="preconnect" href="https://www.googletagmanager.com">
+            {#<!-- Google tag (gtag.js) -->
+             <link rel="preconnect" href="https://www.googletagmanager.com">
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-LYH6EW2ZX2"></script>
             <script>
               window.dataLayer = window.dataLayer || [];
