@@ -483,7 +483,8 @@ class PoolBuilder
 
                     if ($request->getUpdateAllowTransitiveRootDependencies() || !$skippedRootRequires) {
                         $this->unlockPackage($request, $repositories, $replace);
-                        $this->markPackageNameForLoading($request, $replace, $link->getConstraint());
+                        // the replaced package only needs to be loaded if something else requires it
+                        $this->markPackageNameForLoadingIfRequired($request, $replace);
                     } else {
                         foreach ($skippedRootRequires as $rootRequire) {
                             if (!isset($this->updateAllowWarned[$rootRequire])) {
@@ -639,6 +640,8 @@ class PoolBuilder
                     // make sure that any requirements for this package by other locked or fixed packages are now
                     // also loaded, as they were previously ignored because the locked (now unlocked) package already
                     // satisfied their requirements
+                    // and if this package is replacing another that is required by a locked or fixed package, ensure
+                    // that we load that replaced package in case an update to this package removes the replacement
                     foreach ($request->getFixedOrLockedPackages() as $fixedOrLockedPackage) {
                         if ($fixedOrLockedPackage === $lockedPackage) {
                             continue;
@@ -649,8 +652,27 @@ class PoolBuilder
                             if (isset($requires[$lockedPackage->getName()])) {
                                 $this->markPackageNameForLoading($request, $lockedPackage->getName(), $requires[$lockedPackage->getName()]->getConstraint());
                             }
+
+                            foreach ($lockedPackage->getReplaces() as $replace) {
+                                if (isset($requires[$replace->getTarget()], $this->skippedLoad[$replace->getTarget()])) {
+                                    $this->unlockPackage($request, $repositories, $replace->getTarget());
+                                    // this package is in $requires so no need to call markPackageNameForLoadingIfRequired
+                                    $this->markPackageNameForLoading($request, $replace->getTarget(), $replace->getConstraint());
+                                }
+                            }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private function markPackageNameForLoadingIfRequired(Request $request, string $name): void
+    {
+        foreach ($this->packages as $package) {
+            foreach ($package->getRequires() as $link) {
+                if ($name === $link->getTarget()) {
+                    $this->markPackageNameForLoading($request, $link->getTarget(), $link->getConstraint());
                 }
             }
         }

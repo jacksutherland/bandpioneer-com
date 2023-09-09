@@ -1,10 +1,11 @@
 {
   "require": {
     "bandpioneer/rockstar": "^1.0",
-    "craftcms/cms": "4.5.2",
+    "craftcms/cms": "4.5.3",
     "craftcms/contact-form": "3.0.1",
     "craftcms/redactor": "3.0.4",
     "ether/logs": "^4.0",
+    "nystudio107/craft-instantanalytics-ga4": "4.0.0-beta.4",
     "putyourlightson/craft-sendgrid": "2.0.1",
     "sendgrid/sendgrid": "~7",
     "tectalic/openai": "^1.4",
@@ -12,13 +13,18 @@
     "vlucas/phpdotenv": "^5.4.0"
   },
   "repositories": [
-      {
-          "type": "path",
-          "url": "bandpioneer/rockstar",
-          "options": {
-              "symlink": true
-          }
+    {
+      "type": "path",
+      "url": "bandpioneer/rockstar",
+      "options": {
+        "symlink": true
       }
+    },
+    {
+      "type": "composer",
+      "url": "https://composer.craftcms.com",
+      "canonical": false
+    }
   ],
   "require-dev": {
     "yiisoft/yii2-shell": "^2.0.3"

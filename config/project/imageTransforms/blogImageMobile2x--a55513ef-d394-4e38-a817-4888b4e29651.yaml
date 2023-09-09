@@ -1,11 +1,11 @@
 fill: null
-format: webp
+format: null
 handle: blogImageMobile2x
 height: null
 interlace: none
 mode: fit
 name: 'Blog Image Mobile 2x'
 position: center-center
-quality: 80
+quality: 100
 upscale: true
-width: 764
+width: 382

@@ -110,4 +110,20 @@ return array (
     'developer' => 'Ether Creative',
     'developerUrl' => 'https://ethercreative.co.uk',
   ),
+  'nystudio107/craft-instantanalytics-ga4' => 
+  array (
+    'class' => 'nystudio107\\instantanalyticsGa4\\InstantAnalytics',
+    'basePath' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
+    'handle' => 'instant-analytics-ga4',
+    'aliases' => 
+    array (
+      '@nystudio107/instantanalyticsGa4' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
+    ),
+    'name' => 'Instant Analytics GA4',
+    'version' => '4.0.0-beta.4',
+    'description' => 'Instant Analytics brings full Google GA4 server-side analytics support to your Twig templates and automatic Craft Commerce integration',
+    'developer' => 'nystudio107',
+    'developerUrl' => 'https://nystudio107.com',
+    'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
+  ),
 );

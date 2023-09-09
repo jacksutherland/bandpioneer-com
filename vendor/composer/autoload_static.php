@@ -18,14 +18,14 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'b46ad4fe52f4d1899a2951c7e6ea56b0' => __DIR__ . '/..' . '/voku/portable-utf8/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '65380ab4d81167209b0a4fac46641984' => __DIR__ . '/..' . '/voku/arrayy/src/Create.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '60799491728b879e74601d83e38b2cad' => __DIR__ . '/..' . '/illuminate/collections/helpers.php',
         'c88a6f0dbb89a32bf4e283d3a7d626ab' => __DIR__ . '/..' . '/voku/stringy/src/Create.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
@@ -71,6 +71,11 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         array (
             'putyourlightson\\sendgrid\\' => 25,
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'n' => 
+        array (
+            'nystudio107\\pluginvite\\' => 23,
+            'nystudio107\\instantanalyticsGa4\\' => 32,
         ),
         'm' => 
         array (
@@ -179,6 +184,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'Jaybizzle\\CrawlerDetect\\' => 24,
         ),
         'I' => 
         array (
@@ -228,6 +234,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'Composer\\' => 9,
             'CommerceGuys\\Addressing\\' => 24,
             'Clue\\StreamFilter\\' => 18,
+        ),
+        'B' => 
+        array (
+            'Br33f\\Ga4\\MeasurementProtocol\\' => 30,
         ),
         'A' => 
         array (
@@ -341,6 +351,14 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'nystudio107\\pluginvite\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src',
+        ),
+        'nystudio107\\instantanalyticsGa4\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src',
         ),
         'modules\\' => 
         array (
@@ -573,8 +591,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -619,6 +637,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
+        ),
+        'Jaybizzle\\CrawlerDetect\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src',
         ),
         'Imagine\\' => 
         array (
@@ -735,6 +757,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
         ),
+        'Br33f\\Ga4\\MeasurementProtocol\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/br33f/php-ga4-mp/src',
+        ),
         'Arrayy\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/arrayy/src',
@@ -796,6 +822,50 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Arrayy\\Type\\TypeInterface' => __DIR__ . '/..' . '/voku/arrayy/src/Type/TypeInterface.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BaseSendGridClientInterface' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/BaseSendGridClientInterface.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Common\\EventCollection' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Common/EventCollection.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Common\\UserProperties' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Common/UserProperties.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Common\\UserProperty' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Common/UserProperty.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Common\\ValidationMessage' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Common/ValidationMessage.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\AbstractEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/AbstractEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\AddPaymentInfoEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/AddPaymentInfoEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\AddShippingInfoEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/AddShippingInfoEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\AddToCartEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/AddToCartEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\BaseEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/BaseEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\BeginCheckoutEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/BeginCheckoutEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\ItemBaseEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/ItemBaseEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\LoginEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/LoginEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\PurchaseEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/PurchaseEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\RefundEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/RefundEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\RemoveFromCartEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/RemoveFromCartEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\SearchEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/SearchEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\SelectItemEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/SelectItemEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\SignUpEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/SignUpEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\ViewCartEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/ViewCartEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\ViewItemEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/ViewItemEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\ViewItemListEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/ViewItemListEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Event\\ViewSearchResultsEvent' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Event/ViewSearchResultsEvent.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\ExportableInterface' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/ExportableInterface.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\HydratableInterface' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/HydratableInterface.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Parameter\\AbstractParameter' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Parameter/AbstractParameter.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Parameter\\BaseParameter' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Parameter/BaseParameter.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Parameter\\ItemCollectionParameter' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Parameter/ItemCollectionParameter.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Parameter\\ItemParameter' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Parameter/ItemParameter.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\RequestValidateInterface' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/RequestValidateInterface.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Request\\AbstractRequest' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Request/AbstractRequest.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Request\\BaseRequest' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Request/BaseRequest.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Response\\AbstractResponse' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Response/AbstractResponse.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Response\\BaseResponse' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Response/BaseResponse.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\Response\\DebugResponse' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/Response/DebugResponse.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Dto\\ValidateInterface' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Dto/ValidateInterface.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Enum\\ErrorCode' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Enum/ErrorCode.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Enum\\ValidationCode' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Enum/ValidationCode.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Exception\\AnalyticsException' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Exception/AnalyticsException.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Exception\\HydrationException' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Exception/HydrationException.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Exception\\MisconfigurationException' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Exception/MisconfigurationException.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Exception\\ValidationException' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Exception/ValidationException.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\HttpClient' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/HttpClient.php',
+        'Br33f\\Ga4\\MeasurementProtocol\\Service' => __DIR__ . '/..' . '/br33f/php-ga4-mp/src/Service.php',
+        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Clue\\StreamFilter\\CallbackFilter' => __DIR__ . '/..' . '/clue/stream-filter/src/CallbackFilter.php',
         'CommerceGuys\\Addressing\\AbstractEnum' => __DIR__ . '/..' . '/commerceguys/addressing/src/AbstractEnum.php',
         'CommerceGuys\\Addressing\\Address' => __DIR__ . '/..' . '/commerceguys/addressing/src/Address.php',
@@ -838,12 +908,12 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'CommerceGuys\\Addressing\\Zone\\Zone' => __DIR__ . '/..' . '/commerceguys/addressing/src/Zone/Zone.php',
         'CommerceGuys\\Addressing\\Zone\\ZoneTerritory' => __DIR__ . '/..' . '/commerceguys/addressing/src/Zone/ZoneTerritory.php',
         'Composer\\Advisory\\Auditor' => __DIR__ . '/..' . '/composer/composer/src/Composer/Advisory/Auditor.php',
+        'Composer\\Advisory\\IgnoredSecurityAdvisory' => __DIR__ . '/..' . '/composer/composer/src/Composer/Advisory/IgnoredSecurityAdvisory.php',
         'Composer\\Advisory\\PartialSecurityAdvisory' => __DIR__ . '/..' . '/composer/composer/src/Composer/Advisory/PartialSecurityAdvisory.php',
         'Composer\\Advisory\\SecurityAdvisory' => __DIR__ . '/..' . '/composer/composer/src/Composer/Advisory/SecurityAdvisory.php',
         'Composer\\Autoload\\AutoloadGenerator' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/AutoloadGenerator.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/ClassLoader.php',
         'Composer\\Autoload\\ClassMapGenerator' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/ClassMapGenerator.php',
-        'Composer\\Autoload\\PhpFileCleaner' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/PhpFileCleaner.php',
         'Composer\\CaBundle\\CaBundle' => __DIR__ . '/..' . '/composer/ca-bundle/src/CaBundle.php',
         'Composer\\Cache' => __DIR__ . '/..' . '/composer/composer/src/Composer/Cache.php',
         'Composer\\ClassMapGenerator\\ClassMap' => __DIR__ . '/..' . '/composer/class-map-generator/src/ClassMap.php',
@@ -2155,6 +2225,11 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Imagine\\Imagick\\Layers' => __DIR__ . '/..' . '/pixelandtonic/imagine/src/Imagick/Layers.php',
         'Imagine\\Utils\\ErrorHandling' => __DIR__ . '/..' . '/pixelandtonic/imagine/src/Utils/ErrorHandling.php',
         'Imagine\\Utils\\Matrix' => __DIR__ . '/..' . '/pixelandtonic/imagine/src/Utils/Matrix.php',
+        'Jaybizzle\\CrawlerDetect\\CrawlerDetect' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/CrawlerDetect.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\AbstractProvider' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/AbstractProvider.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Crawlers' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Crawlers.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Exclusions' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Exclusions.php',
+        'Jaybizzle\\CrawlerDetect\\Fixtures\\Headers' => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src/Fixtures/Headers.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'JsonSchema\\Constraints\\BaseConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/BaseConstraint.php',
         'JsonSchema\\Constraints\\CollectionConstraint' => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema/Constraints/CollectionConstraint.php',
@@ -2946,18 +3021,14 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
         'Psy\\VersionUpdater\\SelfUpdate' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/SelfUpdate.php',
-        'React\\Promise\\CancellablePromiseInterface' => __DIR__ . '/..' . '/react/promise/src/CancellablePromiseInterface.php',
-        'React\\Promise\\CancellationQueue' => __DIR__ . '/..' . '/react/promise/src/CancellationQueue.php',
         'React\\Promise\\Deferred' => __DIR__ . '/..' . '/react/promise/src/Deferred.php',
+        'React\\Promise\\Exception\\CompositeException' => __DIR__ . '/..' . '/react/promise/src/Exception/CompositeException.php',
         'React\\Promise\\Exception\\LengthException' => __DIR__ . '/..' . '/react/promise/src/Exception/LengthException.php',
-        'React\\Promise\\ExtendedPromiseInterface' => __DIR__ . '/..' . '/react/promise/src/ExtendedPromiseInterface.php',
-        'React\\Promise\\FulfilledPromise' => __DIR__ . '/..' . '/react/promise/src/FulfilledPromise.php',
-        'React\\Promise\\LazyPromise' => __DIR__ . '/..' . '/react/promise/src/LazyPromise.php',
+        'React\\Promise\\Internal\\CancellationQueue' => __DIR__ . '/..' . '/react/promise/src/Internal/CancellationQueue.php',
+        'React\\Promise\\Internal\\FulfilledPromise' => __DIR__ . '/..' . '/react/promise/src/Internal/FulfilledPromise.php',
+        'React\\Promise\\Internal\\RejectedPromise' => __DIR__ . '/..' . '/react/promise/src/Internal/RejectedPromise.php',
         'React\\Promise\\Promise' => __DIR__ . '/..' . '/react/promise/src/Promise.php',
         'React\\Promise\\PromiseInterface' => __DIR__ . '/..' . '/react/promise/src/PromiseInterface.php',
-        'React\\Promise\\PromisorInterface' => __DIR__ . '/..' . '/react/promise/src/PromisorInterface.php',
-        'React\\Promise\\RejectedPromise' => __DIR__ . '/..' . '/react/promise/src/RejectedPromise.php',
-        'React\\Promise\\UnhandledRejectionException' => __DIR__ . '/..' . '/react/promise/src/UnhandledRejectionException.php',
         'RequirementsChecker' => __DIR__ . '/..' . '/craftcms/server-check/server/requirements/RequirementsChecker.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Seld\\CliPrompt\\CliPrompt' => __DIR__ . '/..' . '/seld/cli-prompt/src/CliPrompt.php',
@@ -4697,6 +4768,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\migrations\\m230607_102049_add_entrytype_slug_translation_columns' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m230607_102049_add_entrytype_slug_translation_columns.php',
         'craft\\migrations\\m230710_162700_element_activity' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m230710_162700_element_activity.php',
         'craft\\migrations\\m230820_162023_fix_cache_id_type' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m230820_162023_fix_cache_id_type.php',
+        'craft\\migrations\\m230826_094050_fix_session_id_type' => __DIR__ . '/..' . '/craftcms/cms/src/migrations/m230826_094050_fix_session_id_type.php',
         'craft\\models\\AssetIndexData' => __DIR__ . '/..' . '/craftcms/cms/src/models/AssetIndexData.php',
         'craft\\models\\AssetIndexingSession' => __DIR__ . '/..' . '/craftcms/cms/src/models/AssetIndexingSession.php',
         'craft\\models\\CategoryGroup' => __DIR__ . '/..' . '/craftcms/cms/src/models/CategoryGroup.php',
@@ -5109,6 +5181,28 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'ether\\logs\\Utility' => __DIR__ . '/..' . '/ether/logs/src/Utility.php',
         'mikehaertl\\shellcommand\\Command' => __DIR__ . '/..' . '/mikehaertl/php-shellcommand/src/Command.php',
         'modules\\Module' => __DIR__ . '/../..' . '/modules/Module.php',
+        'nystudio107\\instantanalyticsGa4\\InstantAnalytics' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/InstantAnalytics.php',
+        'nystudio107\\instantanalyticsGa4\\assetbundles\\instantanalytics\\InstantAnalyticsAsset' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/assetbundles/instantanalytics/InstantAnalyticsAsset.php',
+        'nystudio107\\instantanalyticsGa4\\assetbundles\\instantanalytics\\InstantAnalyticsWelcomeAsset' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/assetbundles/instantanalytics/InstantAnalyticsWelcomeAsset.php',
+        'nystudio107\\instantanalyticsGa4\\controllers\\TrackController' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/controllers/TrackController.php',
+        'nystudio107\\instantanalyticsGa4\\ga4\\Analytics' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/ga4/Analytics.php',
+        'nystudio107\\instantanalyticsGa4\\ga4\\ComponentFactory' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/ga4/ComponentFactory.php',
+        'nystudio107\\instantanalyticsGa4\\ga4\\Service' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/ga4/Service.php',
+        'nystudio107\\instantanalyticsGa4\\ga4\\events\\PageViewEvent' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/ga4/events/PageViewEvent.php',
+        'nystudio107\\instantanalyticsGa4\\helpers\\Analytics' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/helpers/Analytics.php',
+        'nystudio107\\instantanalyticsGa4\\helpers\\Field' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/helpers/Field.php',
+        'nystudio107\\instantanalyticsGa4\\models\\Settings' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/models/Settings.php',
+        'nystudio107\\instantanalyticsGa4\\services\\Commerce' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/services/Commerce.php',
+        'nystudio107\\instantanalyticsGa4\\services\\Ga4' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/services/Ga4.php',
+        'nystudio107\\instantanalyticsGa4\\services\\ServicesTrait' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/services/ServicesTrait.php',
+        'nystudio107\\instantanalyticsGa4\\twigextensions\\InstantAnalyticsTwigExtension' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/twigextensions/InstantAnalyticsTwigExtension.php',
+        'nystudio107\\instantanalyticsGa4\\variables\\InstantAnalyticsVariable' => __DIR__ . '/..' . '/nystudio107/craft-instantanalytics-ga4/src/variables/InstantAnalyticsVariable.php',
+        'nystudio107\\pluginvite\\helpers\\FileHelper' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/helpers/FileHelper.php',
+        'nystudio107\\pluginvite\\helpers\\ManifestHelper' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/helpers/ManifestHelper.php',
+        'nystudio107\\pluginvite\\services\\VitePluginService' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/services/VitePluginService.php',
+        'nystudio107\\pluginvite\\services\\ViteService' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/services/ViteService.php',
+        'nystudio107\\pluginvite\\variables\\ViteVariableInterface' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/variables/ViteVariableInterface.php',
+        'nystudio107\\pluginvite\\variables\\ViteVariableTrait' => __DIR__ . '/..' . '/nystudio107/craft-plugin-vite/src/variables/ViteVariableTrait.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

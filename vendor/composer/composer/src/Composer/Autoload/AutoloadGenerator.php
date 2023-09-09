@@ -73,6 +73,11 @@ class AutoloadGenerator
     /**
      * @var bool
      */
+    private $dryRun = false;
+
+    /**
+     * @var bool
+     */
     private $runScripts = false;
 
     /**
@@ -114,7 +119,7 @@ class AutoloadGenerator
     public function setApcu(bool $apcu, ?string $apcuPrefix = null)
     {
         $this->apcu = $apcu;
-        $this->apcuPrefix = $apcuPrefix !== null ? $apcuPrefix : $apcuPrefix;
+        $this->apcuPrefix = $apcuPrefix;
     }
 
     /**
@@ -125,6 +130,14 @@ class AutoloadGenerator
     public function setRunScripts(bool $runScripts = true)
     {
         $this->runScripts = $runScripts;
+    }
+
+    /**
+     * Whether to run in drymode or not
+     */
+    public function setDryRun(bool $dryRun = true): void
+    {
+        $this->dryRun = $dryRun;
     }
 
     /**
@@ -396,6 +409,10 @@ EOF;
             if (null === $suffix) {
                 $suffix = md5(uniqid('', true));
             }
+        }
+
+        if ($this->dryRun) {
+            return $classMap;
         }
 
         $filesystem->filePutContentsIfModified($targetDir.'/autoload_namespaces.php', $namespacesFile);
@@ -724,6 +741,7 @@ EOF;
     protected function getPlatformCheck(array $packageMap, $checkPlatform, array $devPackageNames)
     {
         $lowestPhpVersion = Bound::zero();
+        $requiredPhp64bit = false;
         $requiredExtensions = [];
         $extensionProviders = [];
 
@@ -748,11 +766,15 @@ EOF;
                     continue;
                 }
 
-                if ('php' === $link->getTarget()) {
+                if (in_array($link->getTarget(), ['php', 'php-64bit'], true)) {
                     $constraint = $link->getConstraint();
                     if ($constraint->getLowerBound()->compareTo($lowestPhpVersion, '>')) {
                         $lowestPhpVersion = $constraint->getLowerBound();
                     }
+                }
+
+                if ('php-64bit' === $link->getTarget()) {
+                    $requiredPhp64bit = true;
                 }
 
                 if ($checkPlatform === true && Preg::isMatch('{^ext-(.+)$}iD', $link->getTarget(), $match)) {
@@ -825,6 +847,16 @@ EOF;
 
 if (!($requiredPhp)) {
     \$issues[] = 'Your Composer dependencies require a PHP version $requiredPhpError. You are running ' . PHP_VERSION . '.';
+}
+
+PHP_CHECK;
+        }
+
+        if ($requiredPhp64bit) {
+            $requiredPhp .= <<<PHP_CHECK
+
+if (PHP_INT_SIZE !== 8) {
+    \$issues[] = 'Your Composer dependencies require a 64-bit build of PHP.';
 }
 
 PHP_CHECK;
