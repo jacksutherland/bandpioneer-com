@@ -18,7 +18,7 @@ html {
 body {
   margin: 0;
   font-size: 1rem;
-  color: #4f4f4f;
+  color: #333333;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.01rem;
   height: 100%;
@@ -126,13 +126,13 @@ h2,
 .ordered-title h4 {
   font-size: 1.6rem;
   line-height: 2.1rem;
-  color: #404040;
+  color: #242424;
 }
 
 h3, h4 {
   font-size: 1.4rem;
   line-height: 1.9rem;
-  color: #5e5e5e;
+  color: #424242;
 }
 
 p {
@@ -186,12 +186,12 @@ blockquote cite {
 }
 blockquote cite:before {
   content: "~";
-  color: #787878;
+  color: #5c5c5c;
   margin-right: 5px;
 }
 blockquote p {
   font-style: italic;
-  color: #787878;
+  color: #5c5c5c;
   font-size: 1.1rem;
   line-height: 1.6rem;
 }
@@ -661,7 +661,7 @@ header.sticky {
   text-decoration: none;
   text-transform: uppercase;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  color: #5c5c5c;
+  color: #404040;
   font-size: 0.875rem;
   font-weight: 600;
   display: flex;
@@ -937,7 +937,7 @@ figure.instagram-media figcaption {
 figure figcaption {
   font-size: 0.875rem;
   line-height: 1.35rem;
-  color: #787878;
+  color: #5c5c5c;
   margin: 5px 0 0 0;
   text-align: center;
 }
@@ -1111,7 +1111,7 @@ button.gray-btn,
 input[type=submit].gray-btn,
 .btn.gray-btn {
   background-color: #e7ebec;
-  color: #4f4f4f;
+  color: #333333;
 }
 button:hover,
 input[type=submit]:hover,
@@ -1124,7 +1124,7 @@ button:hover.gray-btn,
 input[type=submit]:hover.gray-btn,
 .btn:hover.gray-btn {
   background-color: #cbd3d5;
-  color: #4f4f4f;
+  color: #333333;
 }
 
 form input:not([name=q]):not([type=checkbox]),
@@ -1519,7 +1519,7 @@ address[rel=author] > a, address[rel=author] > span {
   align-items: center;
 }
 address[rel=author] a {
-  color: #4f4f4f;
+  color: #333333;
 }
 address[rel=author] a:hover {
   color: #0a79a4;
@@ -1673,7 +1673,7 @@ article .blog-info ul li span {
 .blog .featured-snippet {
   margin: 50px 0;
   padding: 30px;
-  color: #474747;
+  color: #2b2b2b;
   background-color: #f2f4f5;
   border-radius: 4px;
   line-height: 1.6rem;

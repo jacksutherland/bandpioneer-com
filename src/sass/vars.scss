@@ -37,7 +37,8 @@ $gunmetal: #021215;
 $light-gray-background: lighten($light-gray, 4%);
 $medium-headline-color: #5e5e5e;
 
-$font-color: #4f4f4f;
+// $font-color: #4f4f4f;
+$font-color: #333333;
 $light-font-color: lighten($font-color, 16%);
 $link-color: $alternate-color;
 $link-hover-color: $secondary-color; //lighten($primary-dark, 12%);

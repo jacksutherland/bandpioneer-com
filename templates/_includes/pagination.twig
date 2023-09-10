@@ -1,10 +1,10 @@
 {% set totalPageIncrement = isHomepage is defined and isHomepage ? 1 : 0 %}
 <div class="pagination">
 	{% if pageInfo.prevUrl %}
-		<a href="{{ pageInfo.firstUrl }}" class="page-arrow first d-none d-sm-inline">
+		<a href="{{ pageInfo.firstUrl }}" class="page-arrow first d-none d-sm-inline" aria-label="Jump to the first page">
 			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
 		</a>
-		<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
+		<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev" aria-label="Go to the previous page">
 			{% include '_includes/icons' with { type: 'arrow' } %}
 		</a>
 	{% else %}
@@ -17,10 +17,10 @@
 	{% endif %}
 	<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.currentPage == 1 ? (pageInfo.totalPages + totalPageIncrement) : pageInfo.totalPages }}</span>
 	{% if pageInfo.nextUrl %}
-		<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
+		<a href="{{ pageInfo.nextUrl }}" class="page-arrow next" aria-label="Go to the next page">
 			{% include '_includes/icons' with { type: 'arrow' } %}
 		</a>
-		<a href="{{ pageInfo.lastUrl }}" class="page-arrow last d-none d-sm-inline">
+		<a href="{{ pageInfo.lastUrl }}" class="page-arrow last d-none d-sm-inline" aria-label="Jump to the last page">
 			{% include '_includes/icons' with { type: 'arrow' } %}{% include '_includes/icons' with { type: 'arrow' } %}
 		</a>
 	{% else %}
