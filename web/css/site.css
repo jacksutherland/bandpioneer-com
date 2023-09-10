@@ -1792,8 +1792,8 @@ article .blog-info ul li span {
   align-items: center;
   background-color: #F0F3F3;
   border-radius: 20px;
+  color: #333333;
   display: inline-flex;
-  font-weight: 600;
   height: 40px;
   margin: 10px;
   padding: 0 25px;
