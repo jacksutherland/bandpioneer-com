@@ -179,25 +179,25 @@ a.underline:hover:after, label.underline:hover:after {
 blockquote {
   margin-left: 0;
   padding-left: 15px;
-  border-left: solid 3px #e7ebec;
+  border-left: solid 3px #F0F3F3;
 }
 blockquote cite {
   font-weight: 600;
 }
 blockquote cite:before {
   content: "~";
-  color: #5c5c5c;
+  color: #707070;
   margin-right: 5px;
 }
 blockquote p {
   font-style: italic;
-  color: #5c5c5c;
+  color: #707070;
   font-size: 1.1rem;
   line-height: 1.6rem;
 }
 blockquote p:before {
   content: open-quote;
-  color: #cbd3d5;
+  color: #d4dcdc;
   font-size: 50px;
   line-height: 0.92rem;
   vertical-align: bottom;
@@ -205,7 +205,7 @@ blockquote p:before {
 }
 blockquote p:after {
   content: close-quote;
-  color: #cbd3d5;
+  color: #d4dcdc;
   font-size: 50px;
   line-height: 0.92rem;
   vertical-align: bottom;
@@ -567,7 +567,7 @@ header.site-header .container nav.main-menu ul li a svg {
   vertical-align: text-top;
 }
 header.site-header .reading-time {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -646,7 +646,7 @@ header.sticky {
 }
 
 .categories {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
 }
 .categories nav ul {
   text-align: center;
@@ -699,7 +699,7 @@ header.sticky {
 .categories #category-description {
   display: flex;
   align-items: center;
-  background-color: #f5f7f7;
+  background-color: #fefefe;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -937,7 +937,7 @@ figure.instagram-media figcaption {
 figure figcaption {
   font-size: 0.875rem;
   line-height: 1.35rem;
-  color: #5c5c5c;
+  color: #707070;
   margin: 5px 0 0 0;
   text-align: center;
 }
@@ -1110,7 +1110,7 @@ input[type=submit].alt-btn,
 button.gray-btn,
 input[type=submit].gray-btn,
 .btn.gray-btn {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
   color: #333333;
 }
 button:hover,
@@ -1123,7 +1123,7 @@ input[type=submit]:hover,
 button:hover.gray-btn,
 input[type=submit]:hover.gray-btn,
 .btn:hover.gray-btn {
-  background-color: #cbd3d5;
+  background-color: #d4dcdc;
   color: #333333;
 }
 
@@ -1143,13 +1143,13 @@ form textarea {
   border: 0;
   outline: 0;
   border-bottom: solid 2px #e3e7e9;
-  background-color: #edf0f1;
+  background-color: #f6f8f8;
 }
 form input:not([type=submit]):focus,
 form select:focus,
 form textarea:focus {
   border-color: #d5dbde;
-  background-color: #e7ebec;
+  background-color: #f0f3f3;
 }
 form textarea {
   padding-top: 18px;
@@ -1361,7 +1361,7 @@ form.contact-form .errors {
     position: relative;
   }
   section.description > h2:before, section.description > h2:after, section.description > h3:before, section.description > h3:after {
-    background-color: #e7ebec;
+    background-color: #F0F3F3;
     content: "";
     display: block;
     position: absolute;
@@ -1458,7 +1458,7 @@ form.contact-form .errors {
 }
 @media (min-width: 1180px) {
   .blog .blog-header {
-    background-color: #f2f4f5;
+    background-color: #fbfcfc;
     padding: 10px 0 40px 0;
   }
   .blog .featured-snippet {
@@ -1674,7 +1674,7 @@ article .blog-info ul li span {
   margin: 50px 0;
   padding: 30px;
   color: #2b2b2b;
-  background-color: #f2f4f5;
+  background-color: #fbfcfc;
   border-radius: 4px;
   line-height: 1.6rem;
 }
@@ -1688,7 +1688,7 @@ article .blog-info ul li span {
   position: relative;
 }
 .blog .table-of-contents:after {
-  background-color: #f2f4f5;
+  background-color: #fbfcfc;
   content: "";
   display: block;
   position: absolute;
@@ -1703,6 +1703,8 @@ article .blog-info ul li span {
 }
 .blog .table-of-contents .section-title {
   cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1.9rem;
 }
 .blog .table-of-contents .section-title:after {
   content: none;
@@ -1793,7 +1795,7 @@ article .blog-info ul li span {
   border-radius: 20px;
   height: 40px;
   align-items: center;
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
 }
 .blog .related-categories a:hover {
   background-color: #0a79a4;
@@ -1827,7 +1829,7 @@ article .blog-info ul li span {
   content: attr(data-title) "";
   display: block;
   font-weight: bold;
-  border-bottom: solid 2px #e7ebec;
+  border-bottom: solid 2px #F0F3F3;
   padding: 0 0 10px 0;
   margin: 0 0 18px 0;
 }
@@ -1856,10 +1858,10 @@ article .blog-info ul li span {
 }
 .blog section.embed-code .table > div {
   padding: 12px;
-  background-color: #f2f4f5;
+  background-color: #fbfcfc;
 }
 .blog section.embed-code .table > div.title {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
   font-weight: 600;
 }
 .blog section.embed-code .table > div.subtitle {
@@ -1906,7 +1908,7 @@ article .blog-info ul li span {
 /***** BLOG COMMENTS *****/
 /*************************/
 .blog-comments {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
   padding: 60px 0;
   margin: 60px 0;
 }
@@ -1943,7 +1945,7 @@ article .blog-info ul li span {
   font-size: 0.875rem;
   border: none;
   background-color: #45adda;
-  color: #e7ebec;
+  color: #FFFFFF;
   padding: 0 25px;
 }
 .blog-comments .cc-w button.cc-f-btn:hover {
@@ -2052,7 +2054,7 @@ article .blog-info ul li span {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fefefe;
+  color: white;
   animation-name: ad-fade;
   animation-duration: 3s;
   animation-iteration-count: infinite;
@@ -2075,19 +2077,19 @@ article .blog-info ul li span {
 }
 
 .blog .advert > .ezoic-ad {
-  background-color: #e7ebec;
+  background-color: #F0F3F3;
   background-image: url(/assets/images/ad-support-watermark.jpg);
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: center;
-  border: solid #e7ebec 3px;
+  border: solid #F0F3F3 3px;
   border-radius: 4px;
   height: 100%;
 }
 
 .category .advert {
-  background-color: #e7ebec;
-  border: solid 5px #e7ebec;
+  background-color: #F0F3F3;
+  border: solid 5px #F0F3F3;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -2097,9 +2099,9 @@ article .blog-info ul li span {
 
 @keyframes ad-fade {
   0%, 100% {
-    color: #e7ebec;
+    color: #F0F3F3;
   }
   50% {
-    color: #fefefe;
+    color: white;
   }
 }

@@ -31,7 +31,7 @@ $secondary-color: #f90215;
 $secondary-dark: #d0000e;
 $alternate-color: #0a79a4;
 $dark-gray: #6e6e6e;
-$light-gray: #e7ebec; //darken(#f1f3f4, 5%); //#f1f3f4
+$light-gray: #F0F3F3; //#e7ebec;
 $white: #FFFFFF;
 $gunmetal: #021215;
 $light-gray-background: lighten($light-gray, 4%);
@@ -39,7 +39,7 @@ $medium-headline-color: #5e5e5e;
 
 // $font-color: #4f4f4f;
 $font-color: #333333;
-$light-font-color: lighten($font-color, 16%);
+$light-font-color: #707070; //lighten($font-color, 16%);
 $link-color: $alternate-color;
 $link-hover-color: $secondary-color; //lighten($primary-dark, 12%);
 $error-color: $secondary-color;

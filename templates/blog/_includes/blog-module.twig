@@ -76,10 +76,10 @@
 	{% if tocLinks | length > 1 %}
 		{% set openFirstChild = ('expanded' in entry.tocDefault.value) %}
 		<div class="table-of-contents {% if tocLinks | length > 10 %} compressed-list{% endif %}">
-			<h3 class="section-title">
+			<label class="section-title">
 				<span>Table of Contents</span>
 				<i>{% include '_includes/icons' with { type: 'down' } %}</i>
-			</h3>
+			</label>
 			<ul>
 				{% for tl in tocLinks %}
 					<li>
@@ -230,7 +230,7 @@
 					{% else %}
 						<figure class="video">
 							<div class="player">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ module.caption | length ? module.caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 							{% if module.caption | length %}
 								<figcaption>{{ module.caption }}</figcaption>
