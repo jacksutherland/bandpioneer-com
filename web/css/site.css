@@ -1789,13 +1789,14 @@ article .blog-info ul li span {
   text-transform: uppercase;
 }
 .blog .related-categories a {
-  display: inline-flex;
-  margin: 10px;
-  padding: 0 25px;
-  border-radius: 20px;
-  height: 40px;
   align-items: center;
   background-color: #F0F3F3;
+  border-radius: 20px;
+  display: inline-flex;
+  font-weight: 600;
+  height: 40px;
+  margin: 10px;
+  padding: 0 25px;
 }
 .blog .related-categories a:hover {
   background-color: #0a79a4;
@@ -1944,7 +1945,7 @@ article .blog-info ul li span {
 .blog-comments .cc-w button.cc-f-btn {
   font-size: 0.875rem;
   border: none;
-  background-color: #45adda;
+  background-color: #0a79a4;
   color: #FFFFFF;
   padding: 0 25px;
 }

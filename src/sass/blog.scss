@@ -439,13 +439,14 @@ article {
 		text-transform: uppercase;
 
 		a {
-			display: inline-flex;
-			margin: 10px;
-			padding: 0 25px;
-			border-radius: 20px;
-			height: 40px;
 			align-items: center;
 			background-color: $light-gray;
+			border-radius: 20px;
+			display: inline-flex;
+			font-weight: $semi-bold;
+			height: 40px;
+			margin: 10px;
+			padding: 0 25px;
 
 			&:hover	{
 				background-color: $alternate-color;
@@ -643,7 +644,7 @@ article {
 			&.cc-f-btn {
 				font-size: $font-size-small;
 				border: none;
-			    background-color: $primary-color;
+			    background-color: $alternate-color;
 			    color: $white;
 			    padding: 0 25px;
 
