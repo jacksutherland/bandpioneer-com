@@ -205,6 +205,7 @@
 					{% set textCounter = textCounter + 1 %}
 					{% set adSpots = [1] %}
 					{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
+					<h3>textCounter = {{textCounter}}, adSpots = {{adSpots|join(", ")}} </h3>
 					{% if textCounter in adSpots %}
 						{% set adCounter = adCounter + 1 %}
 						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
