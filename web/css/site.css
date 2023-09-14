@@ -2064,10 +2064,6 @@ article .blog-info ul li span {
   content: "AD LOADING...";
 }
 
-.advert .ezoic-ad {
-  min-width: 100% !important;
-}
-
 .advert .ezoic-ad iframe {
   min-width: 100%;
   width: auto;
@@ -2078,11 +2074,7 @@ article .blog-info ul li span {
 }
 
 .blog .advert > .ezoic-ad {
-  background-color: #F0F3F3;
-  background-image: url(/assets/images/ad-support-watermark.jpg);
-  background-repeat: no-repeat;
-  background-size: 50%;
-  background-position: center;
+  background-color: #fefefe;
   border: solid #F0F3F3 3px;
   border-radius: 4px;
   height: 100%;
