@@ -13,7 +13,8 @@
 
 	@media (min-width: $breakpoint-air) {
 		.blog-header {
-			background-color: $light-gray-background;
+			background-color: $light-gray;
+			border-top: solid 2px $white;
 			padding: 10px 0 40px 0;
 		}
 

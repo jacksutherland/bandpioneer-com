@@ -1458,7 +1458,8 @@ form.contact-form .errors {
 }
 @media (min-width: 1180px) {
   .blog .blog-header {
-    background-color: #fbfcfc;
+    background-color: #F0F3F3;
+    border-top: solid 2px #FFFFFF;
     padding: 10px 0 40px 0;
   }
   .blog .featured-snippet {
