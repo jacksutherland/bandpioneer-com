@@ -1480,6 +1480,9 @@ form.contact-form .errors {
     width: 650px;
     margin-left: auto;
   }
+  .blog .blog-container .blog-body.no-toc {
+    margin: 0 auto;
+  }
   .blog .blog-container .table-of-contents {
     bottom: 0;
     position: absolute;

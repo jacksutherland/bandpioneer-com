@@ -12,13 +12,24 @@ settings:
       __assoc__:
         -
           - label
+          - None
+        -
+          - value
+          - none
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
           - 'Ordered List'
         -
           - value
           - ordered-list
         -
           - default
-          - '1'
+          - ''
     -
       __assoc__:
         -
@@ -29,7 +40,7 @@ settings:
           - unordered-list
         -
           - default
-          - ''
+          - '1'
     -
       __assoc__:
         -

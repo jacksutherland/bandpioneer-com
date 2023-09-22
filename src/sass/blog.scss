@@ -39,6 +39,10 @@
 			.blog-body {
 				width: 650px;
 				margin-left: auto;
+
+				&.no-toc {
+					margin: 0 auto;
+				}
 			}
 
 			.table-of-contents {
