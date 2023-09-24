@@ -85,6 +85,7 @@
 
 address[rel="author"] {
 	font-size: $font-size-small;
+
 	> a, > span {
 		display: grid;
     	grid-template-columns: auto 1fr;
@@ -92,14 +93,15 @@ address[rel="author"] {
 	}
 	a {
 		color: $font-color;
+
 		&:hover {
 			color: $link-color;
 		}
 	}
 	img {
-		width: 40px !important;
-		height: 40px !important;
-		border-radius: 20px;
+		width: 60px !important;
+		height: 60px !important;
+		border-radius: 30px;
 		vertical-align: middle;
 		margin: 0 7px 0 0;
 	}
