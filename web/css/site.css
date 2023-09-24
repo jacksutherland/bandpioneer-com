@@ -1462,10 +1462,6 @@ form.contact-form .errors {
     border-top: solid 2px #FFFFFF;
     padding: 10px 0 40px 0;
   }
-  .blog .featured-snippet {
-    background-color: #fbfcfc;
-    margin: 30px 0 0 0 !important;
-  }
   .blog .blog-container {
     margin: 70px auto !important;
     max-width: 1110px !important;
@@ -1685,6 +1681,12 @@ article .blog-info ul li span {
 .blog .featured-snippet h2, .blog .featured-snippet h3, .blog .featured-snippet p {
   display: inline;
   margin: 0;
+}
+@media (min-width: 1180px) {
+  .blog .featured-snippet {
+    background-color: #fbfcfc;
+    margin: 30px 0 0 0 !important;
+  }
 }
 .blog .table-of-contents {
   margin: 50px 0;
