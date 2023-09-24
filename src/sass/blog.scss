@@ -18,10 +18,10 @@
 			padding: 10px 0 40px 0;
 		}
 
-		.featured-snippet {
-			margin: 30px 0 0 0 !important;
-    		// padding: 30px 0 !important;  
-		}
+		// .featured-snippet {
+		// 	margin: 30px 0 0 0 !important;
+    	// 	// padding: 30px 0 !important;  
+		// }
 
 		.blog-container {
 			margin: 70px auto !important;
@@ -281,19 +281,19 @@ article {
 		margin: 40px 0 -20px 0;
 	}
 
-	.featured-snippet {
-		margin: 50px 0;
-	    padding: 30px;
-	    color: darken($font-color, 3%);
-	    background-color: $light-gray-background;
-	    border-radius: $small-border-radius;
-	    line-height: 1.6rem;
+	// .featured-snippet {
+	// 	margin: 50px 0;
+	//     padding: 30px;
+	//     color: darken($font-color, 3%);
+	//     background-color: $light-gray-background;
+	//     border-radius: $small-border-radius;
+	//     line-height: 1.6rem;
 
-	    h2, h3, p {
-	    	display: inline;
-	    	margin: 0;
-	    }
-	}
+	//     h2, h3, p {
+	//     	display: inline;
+	//     	margin: 0;
+	//     }
+	// }
 
 	.table-of-contents {
 		margin: 50px 0;
