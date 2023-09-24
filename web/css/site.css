@@ -1463,6 +1463,7 @@ form.contact-form .errors {
     padding: 10px 0 40px 0;
   }
   .blog .featured-snippet {
+    background-color: #fbfcfc;
     margin: 30px 0 0 0 !important;
   }
   .blog .blog-container {
@@ -1677,7 +1678,7 @@ article .blog-info ul li span {
   margin: 50px 0;
   padding: 30px;
   color: #2b2b2b;
-  background-color: #fbfcfc;
+  background-color: #F0F3F3;
   border-radius: 4px;
   line-height: 1.6rem;
 }
