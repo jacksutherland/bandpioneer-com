@@ -7,7 +7,11 @@
 		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% else %}<span>{% endif %}
 			{% if blog.writerPicture.count %}
 				{% set writerPic = blog.writerPicture.one() %}
-				<img src="{{ writerPic.url('writerPicture') }}" alt="{{ writerPic.title }}" title="{{ writerPic.title }}"{% if 'Band Pioneer' in writerPic.title or 'Exit 85' in writerPic.title %} style="border-radius:0;" {% endif %}>
+				<img src="{{ writerPic.url('writerPicture') }}"
+					width="{{ writerPic.url('width') }}"
+					height="{{ writerPic.url('height') }}" 
+					alt="{{ writerPic.title }}" 
+					title="{{ writerPic.title }}"{% if 'Band Pioneer' in writerPic.title or 'Exit 85' in writerPic.title %} style="border-radius:0;" {% endif %}>
 			{% endif %}
 			<span>
 				<span>by {{ blog.fullName }} on {{ blog.postDate | date("M d, Y") }}</span>
