@@ -8,8 +8,8 @@
 			{% if blog.writerPicture.count %}
 				{% set writerPic = blog.writerPicture.one() %}
 				<img src="{{ writerPic.url('writerPicture') }}"
-					width="{{ writerPic.url('width') }}"
-					height="{{ writerPic.url('height') }}" 
+					width="{{ writerPic.width('writerPicture') }}"
+					height="{{ writerPic.height('writerPicture') }}" 
 					alt="{{ writerPic.title }}" 
 					title="{{ writerPic.title }}"{% if 'Band Pioneer' in writerPic.title or 'Exit 85' in writerPic.title %} style="border-radius:0;" {% endif %}>
 			{% endif %}
