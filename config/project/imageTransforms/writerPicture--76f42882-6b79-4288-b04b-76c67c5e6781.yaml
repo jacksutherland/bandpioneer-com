@@ -1,11 +1,11 @@
 fill: null
 format: webp
 handle: writerPicture
-height: 60
+height: 50
 interlace: none
 mode: crop
 name: 'Writer Picture'
 position: center-center
 quality: 80
 upscale: true
-width: 60
+width: 50
