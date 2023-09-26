@@ -219,6 +219,8 @@ blockquote {
 			line-height: 0.92rem;
 			vertical-align: bottom;
 			margin-left: -20px;
+			width: 25px;
+    	display: inline-block;
 		}
 		&:after {
 		   content: close-quote;
