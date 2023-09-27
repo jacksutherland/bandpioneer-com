@@ -91,15 +91,16 @@ nav.tab-menu {
 			}
 
 			label {
+				@include headerFontFamily;
+
 				color: $link-color;
 				display: block;
+				font-size: 0.8rem;
+			    font-weight: 700;
 				padding: ($bands-gap / 2) 0;
 				text-align: center;
 				border-left: solid 2px $border-color;
 				text-transform: uppercase;
-			    font-size: 0.8rem;
-			    font-weight: 700;
-			    font-family: $header-font-family;
 			    letter-spacing: $header-font-spacing;
 			    cursor: pointer;
 
@@ -164,7 +165,8 @@ nav.tab-menu {
 			box-shadow: $bands-box-shadow;
 
 			h3 {
-				font-family: $header-font-family;
+				@include headerFontFamily;
+				
 				letter-spacing: $header-font-spacing;
 				margin: 0 0 $bands-gap 0;
 				color: $alternate-color;

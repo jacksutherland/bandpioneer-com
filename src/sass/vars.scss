@@ -47,6 +47,15 @@ $error-color: $secondary-color;
 $border-color: #e3e7e9;
 $gradient-border: linear-gradient(to left, #fafafb, #e3e7e9);
 
+$font-family: helvetica, sans-serif;
+$header-font-family: 'Michroma', sans-serif;
+$header-font-spacing: 0.05rem;
+
+@mixin headerFontFamily {
+	font-family: $header-font-family;
+	font-display: swap;
+}
+
 $font-size-normal: 1rem;
 $font-size-small: 0.875rem;
 $quote-font-size: 1.1rem;
@@ -70,6 +79,5 @@ $small-border-radius: 4px;
 $small-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.15);
 $medium-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.25);
 
-$font-family: helvetica, sans-serif;
-$header-font-family: 'Michroma', sans-serif;
-$header-font-spacing: 0.05rem;
+
+

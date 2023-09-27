@@ -87,6 +87,7 @@ ul {
 
 h1, .section-title {
   font-family: "Michroma", sans-serif;
+  font-display: swap;
   letter-spacing: 0.05rem;
 }
 
@@ -1380,8 +1381,9 @@ form.contact-form .errors {
     left: 50%;
   }
   section.description > h2 span, section.description > h3 span {
-    background-color: #FFFFFF;
     font-family: "Michroma", sans-serif;
+    font-display: swap;
+    background-color: #FFFFFF;
     font-weight: 400;
     letter-spacing: 0.05rem;
     line-height: 1.7;
@@ -1885,9 +1887,10 @@ article .blog-info ul li span {
   letter-spacing: 0.04rem;
 }
 .blog h1 + h2 {
+  font-family: "Michroma", sans-serif;
+  font-display: swap;
   margin: -20px 0 25px 0;
   font-weight: 400;
-  font-family: "Michroma", sans-serif;
   letter-spacing: 0.05rem;
 }
 .blog h2 {
@@ -1920,8 +1923,9 @@ article .blog-info ul li span {
   margin: 60px 0;
 }
 .blog-comments h2, .blog-comments h3 {
-  margin: 0 0 50px 0 !important;
   font-family: "Michroma", sans-serif;
+  font-display: swap;
+  margin: 0 0 50px 0 !important;
   letter-spacing: 0.05rem;
 }
 .blog-comments h4 {

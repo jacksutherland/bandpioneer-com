@@ -80,7 +80,8 @@ ul {
 }
 
 h1, .section-title {
-	font-family: $header-font-family;
+	@include headerFontFamily;
+				
 	letter-spacing: $header-font-spacing;
 }
 
@@ -1627,8 +1628,9 @@ form {
 				}
 
 				span {
+					@include headerFontFamily;
+				
 					background-color: $white;
-					font-family: $header-font-family;
 					font-weight: $normal-weight;
 					letter-spacing: $header-font-spacing;
 					line-height: 1.7; // avoids breaking line behind font
