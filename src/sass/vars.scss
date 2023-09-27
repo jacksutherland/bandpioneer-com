@@ -47,13 +47,19 @@ $error-color: $secondary-color;
 $border-color: #e3e7e9;
 $gradient-border: linear-gradient(to left, #fafafb, #e3e7e9);
 
+@font-face {
+  font-family: "BandPioneerHeader";
+  src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
+       url('/assets/fonts/conthrax-sb.woff') format('woff'); 
+  font-display: swap;
+}
+
 $font-family: helvetica, sans-serif;
-$header-font-family: 'Michroma', sans-serif;
+$header-font-family: 'BandPioneerHeader', sans-serif;
 $header-font-spacing: 0.05rem;
 
 @mixin headerFontFamily {
 	font-family: $header-font-family;
-	font-display: swap;
 }
 
 $font-size-normal: 1rem;

@@ -312,10 +312,15 @@ section {
 	&.description {
 		padding: 10px 0;
 		text-align: center;
+
 		h2, h3 {
 			text-transform: capitalize;
 			color: $alternate-color;
 			margin-bottom: 20px;
+			
+			span {
+				@include headerFontFamily;
+			}
 		}
 	}
 	&.bands {
@@ -324,14 +329,17 @@ section {
 		    position: relative;
 		    width: 100%;
 			overflow: hidden;
+
 			.band-slider {
 			    position: relative;
+
 			    .slide {
 			    	align-items: center;
 				    display: inline-flex;
 				    justify-content: center;
 				    padding: 0 6px;
 				    vertical-align: top;
+
 				    img {
 				    	height: $carousel-image-mobile-height;
 				    	width: auto;
@@ -1482,13 +1490,12 @@ form {
 		// font-size: 2.6rem;
 		// line-height: 3.3rem;
 
-		// Michroma Google Font
-		font-size: 2.4rem;
-    	line-height: 3.7rem;
+		font-size: 2.6rem;
+    line-height: 3.8rem;
 	}
 	h2,
 	.ordered-title h4 {
-		font-size: 1.9rem;
+		font-size: 2rem;
     	line-height: 2.65rem;
 	}
 	h1 + h2 {
@@ -1496,8 +1503,8 @@ form {
 		line-height: 2.5rem;
 	}
 	h3 {
-		font-size: 1.5rem;
-    	line-height: 1.9rem;
+		font-size: 1.6rem;
+    	line-height: 2.3rem;
 	}
 	#homepage {
 		.page-header {
@@ -1513,6 +1520,10 @@ form {
 	    }
 	}
 	.ask-a-question {
+    h1 {
+			font-size: 2.4rem;
+			line-height: 3.6git statrem;
+		}
 	    form {
     		grid-template-columns: 1fr auto;
     		button {
@@ -1606,8 +1617,10 @@ form {
 	section {
 		&.description {
 			padding: 1px 5% 8px 5%;
+
 			> h2, > h3 {
 				position: relative;
+
 				&:before,
 				&:after  {
 					background-color: $light-gray;
@@ -1694,8 +1707,8 @@ form {
 		margin: 0 0 -100px 0;
 		padding: 0 33% 0 7%;
 		background-image: url(/assets/images/guy-thinking.png);
-	    background-repeat: no-repeat;
-	    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-position: bottom right;
 	}
 	header {
 		&.site-header {

@@ -8,6 +8,11 @@
  * 
  * The SCSS variables stylesheet
  */
+@font-face {
+  font-family: "BandPioneerHeader";
+  src: url("/assets/fonts/conthrax-sb.woff2") format("woff2"), url("/assets/fonts/conthrax-sb.woff") format("woff");
+  font-display: swap;
+}
 body {
   padding-top: 80px;
   background-color: #F0F3F3;
@@ -67,8 +72,7 @@ nav.tab-menu ul li:first-child label {
   border-left: none;
 }
 nav.tab-menu ul li label {
-  font-family: "Michroma", sans-serif;
-  font-display: swap;
+  font-family: "BandPioneerHeader", sans-serif;
   color: #0a79a4;
   display: block;
   font-size: 0.8rem;
@@ -129,8 +133,7 @@ nav.tab-menu ul li label.active {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
 }
 .bands-container.dashboard section h3 {
-  font-family: "Michroma", sans-serif;
-  font-display: swap;
+  font-family: "BandPioneerHeader", sans-serif;
   letter-spacing: 0.05rem;
   margin: 0 0 20px 0;
   color: #0a79a4;
