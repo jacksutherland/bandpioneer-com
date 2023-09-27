@@ -230,7 +230,7 @@
 					{% else %}
 						<figure class="video">
 							<div class="player">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}" title="{{ module.caption | length ? module.caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}{% if module.minuteMark | length %}?t={{ module.minuteMark }}{% endif %}" title="{{ module.caption | length ? module.caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 							{% if module.caption | length %}
 								<figcaption>{{ module.caption }}</figcaption>

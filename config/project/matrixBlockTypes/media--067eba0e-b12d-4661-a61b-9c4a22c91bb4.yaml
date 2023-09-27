@@ -31,6 +31,18 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
+            fieldUid: 67862bf2-294a-4e45-af45-324c297cbea8 # Minute Mark
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8220b926-b3e6-4e57-adb2-22f8eb60fe27
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
             fieldUid: de2bb280-3465-478f-a8b2-bb03f3c7be35 # Caption
             instructions: null
             label: null
@@ -40,7 +52,7 @@ fieldLayouts:
             uid: a5b64367-d4d7-4e1d-8c49-64687153306a
             userCondition: null
             warning: null
-            width: 50
+            width: 100
         name: Content
         uid: 9e4f5e34-13f8-422b-bcd3-f2aca3653926
         userCondition: null
@@ -61,6 +73,26 @@ fields:
       initialRows: 4
       multiline: false
       placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  67862bf2-294a-4e45-af45-324c297cbea8: # Minute Mark
+    columnSuffix: xlyfqclg
+    contentColumnType: text
+    fieldGroup: null
+    handle: minuteMark
+    instructions: null
+    name: 'Minute Mark'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: 'in seconds (i.e. "264" for 4:24)'
       uiMode: normal
     translationKeyFormat: null
     translationMethod: none
