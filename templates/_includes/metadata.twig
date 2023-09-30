@@ -1,0 +1,59 @@
+{# Meta Tags #}
+
+{% set metaTitle = siteName %}
+{% set metaDesc = '' %}
+
+{% if entry is defined %}
+    {% if entry.metaTitle is defined and entry.metaTitle | length %}
+        {% set metaTitle = entry.metaTitle ~ ' | ' ~ metaTitle %}
+    {% elseif entry.section.handle != 'homepage' %}
+        {% set metaTitle = entry.title ~ ' | ' ~ metaTitle %}
+    {% endif %}
+    {% if entry.metaDescription is defined %}
+        {% set metaDesc = entry.metaDescription %}
+    {% endif %}
+{% endif %}
+
+<meta charset="utf-8" />
+{# <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /> #}
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>{{ metaTitle }}</title>
+{% if metaDesc | length > 0 %}<meta name="description" content="{{ metaDesc }}">{% endif %}
+<meta name="robots" content="all">
+
+{% if entry is defined %}
+
+    {# Open Graph Tags #}
+
+    <meta property="og:type" content="{{ entry.section.handle == 'blog' ? 'article' : 'website' }}" />
+    {% if entry.metaTitle is defined and entry.metaTitle | length %}
+        <meta property="og:title" content="{{ entry.metaTitle }}{% if entry.section.handle == 'homepage' %} | {{ siteName }}{% endif %}" />
+    {% else %}
+        <meta property="og:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}" />
+    {% endif %}
+    {% if metaDesc | length > 0 %}
+        <meta property="og:description" content="{{ metaDesc }}" />
+    {% endif %}
+    {% if entry.seoImage is defined and entry.seoImage.count %}
+        <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('ogImage') }}" />
+    {% elseif entry["seoImageUrl"] is defined %}
+        <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}" />
+    {% endif %}
+    <meta property="og:url" content="{{ pageUrl }}" />
+    <meta property="og:site_name" content="{{ siteName }}" />
+
+    {# Twitter Cards #}
+
+    <meta name="twitter:title" content="{{ entry.section.handle == 'homepage' ? siteName : entry.title }}">
+    {% if metaDesc | length > 0 %}
+        <meta name="twitter:description" content="{{ metaDesc }}">
+    {% endif %}
+    {% if entry.seoImage is defined and entry.seoImage.count %}
+        <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('twitterImage') }}">
+    {% elseif entry["seoImageUrl"] is defined %}
+        <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}">
+    {% endif %}
+    <meta name="twitter:site" content="@jacksutherland">
+    <meta name="twitter:creator" content="@jacksutherland">
+
+{% endif %}

@@ -17,6 +17,22 @@ mix.setPublicPath('./web')
 .version()
 .disableNotifications()
 
+//*** PUBLIC WEBSITE - REDESIGN 2023 ***//
+
+mix.setPublicPath('./web')
+.sass('src/sass/site2023.scss', 'web/css/site2023.css')
+.options({
+  processCssUrls: false,
+})
+.minify('src/js/site2023.js', 'web/js/site2023.min.js')
+.browserSync({
+  files: ['web/css/*', 'web/js/*'],
+  proxy: baseUrl,
+  notify: false,
+})
+.version()
+.disableNotifications()
+
 //*** AUTHENTICATED BAND WEBSITE ***//
 
 mix.setPublicPath('./web')

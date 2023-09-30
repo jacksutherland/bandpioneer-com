@@ -1,0 +1,148 @@
+
+{% set versionNumber = '2.000' %}
+
+{% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
+
+{# ai.bandpioneer.com ONLY on Prod ENV #}
+{# {% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'battle' %}
+    {% redirect 404 %}
+{% elseif 'https://bandpioneer.com/ai-studio/battle' in craft.app.request.absoluteUrl %}
+    {% set aiUrl = 'https://ai.bandpioneer.com/ai-studio/battle' %}
+    {% set aiQueryString = craft.app.request.queryStringWithoutPath %}
+    {% if aiQueryString %}
+        {% set aiUrl = aiUrl ~ '?' ~ aiQueryString %}
+    {% endif %}
+    {% redirect aiUrl %}
+{% endif %} #}
+
+{% set rootSiteUrl = 'https://bandpioneer.com' %}
+{% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
+
+{% set categories = craft.entries.section('category') %}
+
+{% import '_includes/macros' as macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        {% include '_includes/metadata' %}
+
+        {% apply spaceless %}
+
+        <link rel="canonical" href="{{ pageUrl }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/assets/images/favicon/site.webmanifest">
+        <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+
+        {% block styles %}
+            <link rel="stylesheet" href="{{ url('css/site2023.css') }}?version={{ versionNumber }}" /> 
+        {% endblock %}
+
+        {% endapply %}
+
+    </head>
+
+    <body>
+
+        <header>
+            <button id="open-menu" aria-label="Open the mobile navigation menu">
+                {% include '_includes/icons' with { type: 'bars' } %}
+            </button>
+            <nav class="container" role="navigation">
+                <ul>
+                    <li>
+                        <a class="dropdown" href="/" aria-label="Open the blog topics menu">
+                            Topics {% include '_includes/icons' with { type: 'down' } %}
+                        </a>
+                        <ul>
+                            {% for cat in categories.all() %}
+                                {% if cat.show %}
+                                    <li>
+                                        <a href="{{ cat.url }}">
+                                            {{ cat.title }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
+                            AI Studio {% include '_includes/icons' with { type: 'down' } %}
+                        </a>
+                        <ul>
+                            {% set bpUrl = siteUrl %}
+                            {% if bpUrl | slice(-1) != '/' %}
+                                {% set bpUrl = bpUrl ~ '/' %}
+                            {% endif %}
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
+                            </li>
+                        </ul>
+                </ul>
+                <a class="logo" href="/">
+                    <img src="/assets/images/bp-logo.png" alt="Band Pioneer - Insights and Marketing for Profitable Musicians" width="210" height="136">
+                    <img loading="eager" class="logo-alt" src="/assets/images/bp-logo-alt-small.png" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
+                </a>
+                <ul>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        {% block header %}
+        {% endblock %}
+
+        <nav role="navigation" class="categories" aria-label="Primary Navigation">
+            <div class="container">
+                <ul>
+                    {% for cat in categories.all() %}
+                        {% if cat.show %}
+                            <li>
+                                <a href="{{ cat.url }}">
+                                    {{ cat.title }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+        <div class="sticky-tracker"></div>
+
+        {% apply spaceless %}
+            <main>
+                {% block content %}
+                {% endblock %}
+            </main>
+        {% endapply %}
+
+        <footer style="height: 600px; background-color:#131b28;">
+            Band Pioneer
+        </footer>
+        
+        <script defer src="{{ url('js/site2023.min.js') }}?version={{ versionNumber }}"></script>
+        <script defer>
+            var bp = null;
+            document.addEventListener("DOMContentLoaded", function()
+            {
+                bp = new BandPioneer();
+            });
+        </script>
+        {% block scripts %}{# Load template scripts here #}{% endblock %}
+
+    </body>
+</html>

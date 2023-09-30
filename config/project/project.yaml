@@ -1,4 +1,4 @@
-dateModified: 1695838116
+dateModified: 1696027569
 elementSources:
   craft\elements\Asset:
     -
@@ -193,6 +193,7 @@ meta:
     1c1054c9-4810-4918-b3c1-3bd0d6a13675: Caption # Caption
     1d894e72-ea22-4785-8c26-c43a3b823625: 'Popular Posts' # Popular Posts
     1e42cdc3-f360-43ac-b612-8de6f081ad47: Rockstars # Rockstars
+    2abdf5c6-4ea5-4720-abbc-8c97cd3249f7: 'Full Width Mobile Square' # Full Width Mobile Square
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Image' # Blog Image
     2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
     02fb6a1a-8498-4b48-ad99-b61ac895f168: 'CTA Text' # CTA Text
@@ -216,7 +217,9 @@ meta:
     21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
     26e93876-a78a-402d-b49e-a55f7d4e5374: 'Link URL' # Link URL
     30fa7a57-b433-476a-9e42-ca0ad4755591: Image # Image
+    36f3fdb8-39d1-4d2a-a865-79cc5fcd0f57: 'Full Width Mobile Square 2x' # Full Width Mobile Square 2x
     37ff1ae6-ced2-4eaf-b107-93e6e3dd94be: 'Band Image' # Band Image
+    48b77470-3ec0-4627-80f5-674447e5975c: 'Popular Post Mobile 2023 2x' # Popular Post Mobile 2023 2x
     55fe6bf6-54b5-47c3-af24-9173740cadc0: 'AI Battle' # AI Battle
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
     63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
@@ -233,6 +236,7 @@ meta:
     851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
+    4741f9c5-9672-4145-968f-8b2d0a418435: 'Popular Post Mobile 2023' # Popular Post Mobile 2023
     4841ea5f-6862-49c1-a232-c06320791c17: 'Blog Listing Desktop' # Blog Listing Desktop
     6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
     7149d8a6-d74b-4e10-b59b-80f37708aaa0: 'TOC Style' # TOC Style
@@ -251,6 +255,7 @@ meta:
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
+    a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Popular Post 2023' # Popular Post 2023
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
     a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
     aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
@@ -281,6 +286,7 @@ meta:
     e47520eb-bf67-40c5-b8e9-b5e219b14003: 'Alternate TOC Text' # Alternate TOC Text
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
+    ebb182f2-2a4c-47ef-b783-e0b89ffec769: 'Popular Post 2023 2x' # Popular Post 2023 2x
     ec1072a8-598a-42fe-9c6f-4db8ec7406ef: 'Blog Listing Desktop 2x' # Blog Listing Desktop 2x
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
     ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline

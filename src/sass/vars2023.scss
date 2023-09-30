@@ -1,0 +1,98 @@
+/**
+ * Band Pioneer, LLC - October 2023
+ * 
+ * The SCSS variables stylesheet
+ */
+
+
+/***** FONTS *****/
+
+$root-font-size: 16px;
+$normal-font-size: 1rem;
+$small-font-size: 0.86rem;
+$nav-font-size: 0.94rem;
+
+@font-face {
+  font-family: "BandPioneerHeader";
+  src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
+       url('/assets/fonts/conthrax-sb.woff') format('woff'); 
+  font-display: swap;
+}
+
+@mixin defaultFontFamily {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+$font-family: helvetica, sans-serif;
+$header-font-family: 'BandPioneerHeader', sans-serif;
+$header-font-spacing: 0.05rem;
+
+$regular-font: 400;
+$slightly-bold-font: 500;
+$semi-bold-font: 700;
+$bold-font: 800;
+
+
+/***** BREAKPOINTS *****/
+
+$breakpoint-xs: 375px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-air: 1180px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+
+/***** COLORS *****/
+
+$primary-light: #20aae1;
+$primary-dark: #131b28;
+$secondary-color: #f90215;
+$secondary-dark: #d0000e;
+$alternate-color: #0a79a4;
+
+
+$font-color: #111111;
+$link-color: $alternate-color;
+$link-hover-color: $secondary-color;
+
+$light-gray: #F0F3F3;
+$medium-gray: #E0E0E0;
+$white: #FFFFFF;
+
+/***** SPACING *****/
+
+$small-object-spacing: 8px;
+$object-spacing: 24px;
+$object-half-spacing: ($object-spacing / 2);
+$gutter-width: 16px;
+$paragraph-spacing: 16px;
+$section-mobile-spacing: $object-spacing;
+$section-spacing: ($object-spacing * 2);
+
+
+/***** SIZES *****/
+
+$site-width: 1200px;
+$header-height: 90px;
+$header-sticky-height: 68px;
+$header-logo-width: 180px;
+$categories-height: 60px;
+$categories-sticky-height: 50px;
+$category-label-height: 22px;
+
+
+/***** BORDERS *****/
+
+$header-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+$small-radius: 4px;
+$img-radius: 2px;
+
+
+/***** EFX *****/
+
+$transition-time: 0.3s;
+
+
+

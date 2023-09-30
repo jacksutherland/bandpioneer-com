@@ -1,0 +1,117 @@
+{% extends '_layout2023' %}
+
+{% set postsPerPage = 8 %}
+{% set entry = craft.entries.section('homepage').one() %}
+
+{% paginate craft.entries.section('blog').limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+{% set featured = posts[0] %}
+
+{% block header %}
+	{% if blog.popularPosts.count %}
+		<section class="blog-row">
+			<div class="container">
+				<h2>Popular Articles</h2>
+				<div class="scroll-pane">
+					<div>
+						{% for blog in blog.popularPosts %}
+							<article>
+								{% if blog.blogImage.count %}
+									{% set img = blog.blogImage.one() %}
+									{% set cat = blog.categories.one() %}
+									<a class="blog-img" href="{{ blog.url }}">
+					        			<picture>
+										 	<source srcset="{{ img.url("popularPost2023") }}, {{ img.url('popularPost20232x') }} 2x" media="(min-width: 768px)" />
+											<img src="{{ img.url('popularPostMobile2023') }}"
+												srcset="{{ img.url('popularPostMobile20232x') }} 2x"
+											 	alt="{{ img.title }}"
+											 	loading="lazy"
+												width="{{ img.width('popularPostMobile2023') }}" height="{{ img.height('popularPostMobile2023') }}">
+										</picture>
+									</a>
+									<a class="category" href="{{ cat.url }}">
+										{% include '_includes/icons' with { type: 'tag' } %}
+										<span>{{ cat.title }}</span>
+									</a>
+									<a class="blog-title" href="{{ blog.url }}">
+										<h4>{{ blog.title }}</h4>
+									</a>
+								{% endif %}
+			        		</article>
+			        	{% endfor %}
+		        	</div>
+		        </div>
+			</div>
+		</section>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	<section class="cta-text">
+		<div class="container">
+			<div class="z-pattern">
+				<div>
+					{% if entry.headline | length %}
+						<h1>{{ entry.headline }}</h1>
+					{% endif %}
+					{% if entry.subheadline | length %}
+						<h2>{{ entry.subheadline }}</h2>
+					{% endif %}
+					{% if entry.ctaText | length %}
+						<p>{{ entry.ctaText }}</p>
+					{% endif %}
+				</div>
+				<div>
+					<img src="/assets/images/guy-thinking.png" alt="{{ entry.headline }}">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="featured">
+		<div class="container">
+			<h2>Featured Article</h2>
+			<div class="z-pattern">
+				<div>
+					{% if featured.blogImage.count %}
+						{% set img = featured.blogImage.one() %}
+						{% set cat = featured.categories.one() %}
+						<a href="{{ featured.url }}">
+		        			<picture>
+							 	{# <source srcset="{{ img.url("popularPost2023") }}, {{ img.url('popularPost20232x') }} 2x" media="(min-width: 768px)" /> #}
+								<img src="{{ img.url }}"
+									srcset="{{ img.url }} 2x"
+								 	alt="{{ img.title }}"
+								 	loading="lazy"
+									width="{{ img.width }}" height="{{ img.height }}">
+							</picture>
+						</a>
+					{% endif %}
+				</div>
+				<div>
+					{% if featured.title | length %}
+						<a href="{{ featured.url }}">
+							<h2>{{ featured.title }}</h2>
+						</a>
+					{% endif %}
+					<a class="category" href="{{ cat.url }}">
+						{% include '_includes/icons' with { type: 'tag' } %}
+						<span>{{ cat.title }}</span>
+					</a>
+					{% if featured.shortDescription | length %}
+						<p>
+							{{ featured.shortDescription }}
+						</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="featured">
+		<div class="container">
+			<h2>Recent Articles</h2>
+		</div>
+	</section>
+
+{% endblock %}

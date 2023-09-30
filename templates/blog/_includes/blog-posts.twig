@@ -11,14 +11,6 @@
 			<a class="blog-image" {% if blog.type == "external" %}href="{{ blog.websiteUrl }}" target="_blank"{% else %}href="{{ blog.url }}"{% endif %}>
 				{% if blog.blogImage.count %}
 					{% set img = blog.blogImage.one() %}
-					{# 
-					<img src="{{ blog.blogImage.one().url(mobileTransform) }}"
-					 	alt="{{ blog.blogImage.one().title }}"
-					 	loading="eager"
-						srcset="{{ blog.blogImage.one().url(mobileTransform) }} 576w, {{ blog.blogImage.one().url(desktopTransform) }} 800w" 
-						sizes="(max-width: 576px) 100vw, 800px"
-						width="330" height="185"> 
-					#}
 					<picture>
 						<source srcset="{{ img.url("blogListingDesktop") }}, {{ img.url('blogListingDesktop2x') }} 2x" media="(min-width: 768px)" />
 						<source srcset="{{ img.url("blogListingMedium") }}, {{ img.url('blogListingMedium2x') }} 2x" media="(min-width: 576px)" />
