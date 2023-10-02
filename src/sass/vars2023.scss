@@ -51,15 +51,17 @@ $primary-dark: #131b28;
 $secondary-color: #f90215;
 $secondary-dark: #d0000e;
 $alternate-color: #0a79a4;
-
-
-$font-color: #111111;
-$link-color: $alternate-color;
-$link-hover-color: $secondary-color;
-
 $light-gray: #F0F3F3;
 $medium-gray: #E0E0E0;
 $white: #FFFFFF;
+
+$border-color: #e3e7e9;
+$font-color: #111111;
+$error-color: $secondary-color;
+$lighter-font-color: #444444;
+$link-color: $alternate-color;
+$link-hover-color: $secondary-color;
+
 
 /***** SPACING *****/
 
@@ -78,14 +80,19 @@ $site-width: 1200px;
 $header-height: 90px;
 $header-sticky-height: 68px;
 $header-logo-width: 180px;
+$carousel-image-mobile-height: 130px;
+$carousel-image-desktop-height: 300px;
 $categories-height: 60px;
 $categories-sticky-height: 50px;
-$category-label-height: 22px;
+$category-label-height: 24px;
+$category-popup-width: 300px;
+$input-height: 50px;
+$rich-text-width: 635px;
 
 
 /***** BORDERS *****/
 
-$header-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+$container-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 $small-radius: 4px;
 $img-radius: 2px;
 

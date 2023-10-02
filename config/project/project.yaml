@@ -1,4 +1,4 @@
-dateModified: 1696027569
+dateModified: 1696205142
 elementSources:
   craft\elements\Asset:
     -
@@ -200,11 +200,14 @@ meta:
     2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
+    3f54aa64-f831-4c65-b372-2d31e7ef7644: 'Full Width Mobile 2x' # Full Width Mobile 2x
     4ad976b2-17b2-41da-8eb1-0e8f74b96a93: 'Blog Listing Mobile 2x' # Blog Listing Mobile 2x
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'Media ID' # Media ID
     6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: External # External
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
+    7b1bec99-65ba-4a02-8235-745b4595d2fe: 'Full Width Mobile' # Full Width Mobile
     7e7f111f-d34d-4ad9-976c-0ec0e45dd053: 'Popular Post' # Popular Post
+    7e654447-0f77-4257-9dd9-302624c91c15: 'Rich Text Width 2x' # Rich Text Width 2x
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
     8c0e4ec9-bf67-46e2-9302-82d3a602160c: Default # Default
@@ -232,6 +235,7 @@ meta:
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
+    350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
@@ -255,7 +259,7 @@ meta:
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
-    a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Popular Post 2023' # Popular Post 2023
+    a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Four Row Post 2023' # Four Row Post 2023
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
     a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
     aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
@@ -286,12 +290,14 @@ meta:
     e47520eb-bf67-40c5-b8e9-b5e219b14003: 'Alternate TOC Text' # Alternate TOC Text
     e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
     eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
-    ebb182f2-2a4c-47ef-b783-e0b89ffec769: 'Popular Post 2023 2x' # Popular Post 2023 2x
+    ebb182f2-2a4c-47ef-b783-e0b89ffec769: 'Four Row Post 2023 2x' # Four Row Post 2023 2x
     ec1072a8-598a-42fe-9c6f-4db8ec7406ef: 'Blog Listing Desktop 2x' # Blog Listing Desktop 2x
     ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
     ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline
     ee13e705-afd8-41c1-a111-b472a62a15f2: Headline # Headline
     eedcf843-b27f-4c8b-a016-8ed1d7bbbd43: 'Rockstars Assets' # Rockstars Assets
+    ef55f37c-e778-431e-9a74-e11190cf7a76: 'Recent Posts Mobile 2023 2x' # Recent Posts Mobile 2023 2x
+    efb11c10-ff82-4015-931f-aa5434ba6128: 'Rich Text Width' # Rich Text Width
     f0b910e3-c8e6-448c-b884-50e6ab61d4da: 'Writer Pictures' # Writer Pictures
     f56dcf7f-956d-4a14-b4e8-8bfd842d5b72: 'Embed Code' # Embed Code
     f85c3fd3-04eb-4069-a712-f8725e5c5fac: 'Full Name' # Full Name

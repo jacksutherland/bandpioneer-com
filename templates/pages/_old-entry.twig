@@ -1,0 +1,92 @@
+{% extends '_layout' %}
+
+{% set pageTitle = entry.title %}
+
+{% block scripts %}
+	{% if entry.showImageCarousel %}
+		<script defer type="text/javascript">
+			if (typeof(uxFuncs) === 'object')
+			{
+				uxFuncs.push(function()
+	            {
+	                bp.createBandCarousels();
+	            });
+			}
+		</script>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	{% if entry.headline | length or entry.subheadline | length %}
+		<div class="page container">
+			<section class="description">
+				{% if entry.headline | length %}
+					<h2>
+						<span>{{ entry.headline }}</span>
+					</h2>
+				{% endif %}
+				{% if entry.subheadline | length %}
+					<div class="narrow-container">
+						<h4>{{ entry.subheadline }}</h4>
+					</div>
+				{% endif %}
+			</section>
+		</div>
+	{% endif %}
+
+	{% if entry.showImageCarousel %}
+		{% include '_includes/band-carousel' with { enlarged: true } %}
+	{% endif %}
+
+	<div class="page container">
+
+		<div class="narrow-container">
+
+			{% if entry.longText | length %}
+				<section>
+					{{ entry.longText }}
+				</section>
+			{% endif %}
+
+			{% for img in entry.pageImage.all() %}
+				<section>
+					<figure>
+						{% set imgUrl = img.url('blogImageMobile') %}
+						{% set imgWid = img.width('blogImageMobile') %}
+						{% set imgHei = img.height('blogImageMobile') %}
+						<img src="{{ img.url('blogImageMobile') }}"
+						 	alt="{{ img.title }}"
+						 	loading="lazy"
+							srcset="{{ img.url('blogImageMobile') }} 576w, {{ img.url('blogImage') }} 800w" 
+							sizes="(max-width: 576px) 100vw, 800px"
+							width="{{ imgWid }}" height="{{ imgHei }}">
+					</figure>
+				</section>
+			{% endfor %}
+
+			{% if entry.longText2 | length %}
+				<section>
+					{{ entry.longText2 }}
+				</section>
+			{% endif %}
+
+			{% if entry.showRecentBlogs %}
+				{% set articles = craft.entries.section('blog').limit(6).orderBy('postDate DESC') %}
+				{% set categories = craft.entries.section('category') %}
+				<section class="blog">
+					{% if entry.ctaText | length %}
+						<h3 class="section-title">
+							<span>{{ entry.ctaText }}</span>
+						</h3>
+					{% endif %}
+					{% include '_includes/related-content' with { articles: articles } %}
+					{% include '_includes/related-categories' with { categories: categories } %}
+				</section>
+			{% endif %}
+
+		</div>
+
+	</div>
+
+{% endblock %}

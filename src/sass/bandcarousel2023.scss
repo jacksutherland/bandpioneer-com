@@ -1,0 +1,45 @@
+section.bands {
+
+    &.above-footer {
+    	background-color: $primary-dark;
+    	margin-bottom: -30px;
+    	padding-top: $section-mobile-spacing;
+    }
+
+	.band-carousel {
+		padding: $object-half-spacing 0;
+	    position: relative;
+	    width: 100%;
+		overflow: hidden;
+
+		.band-slider {
+		    position: relative;
+
+		    .slide {
+		    	align-items: center;
+			    display: inline-flex;
+			    justify-content: center;
+			    padding: 0 6px;
+			    vertical-align: top;
+
+			    img {
+			    	height: $carousel-image-mobile-height;
+			    	width: auto;
+			    	box-shadow: $container-shadow;
+			    	border: solid 5px $white;
+			    }
+		    }
+		}
+	}
+}
+
+@media (min-width: $breakpoint-lg) {
+	section.bands {
+
+		&.above-footer {
+			background-color: $white;
+			margin-bottom: -80px;
+			padding-top: 0;
+		}
+	}
+}

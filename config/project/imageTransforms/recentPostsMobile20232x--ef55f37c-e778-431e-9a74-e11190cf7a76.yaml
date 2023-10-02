@@ -1,11 +1,11 @@
 fill: null
 format: null
-handle: popularPost20232x
-height: 564
+handle: recentPostsMobile20232x
+height: 356
 interlace: none
 mode: crop
-name: 'Popular Post 2023 2x'
+name: 'Recent Posts Mobile 2023 2x'
 position: center-center
 quality: 80
 upscale: true
-width: 564
+width: 356

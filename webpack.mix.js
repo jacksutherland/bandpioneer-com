@@ -33,6 +33,19 @@ mix.setPublicPath('./web')
 .version()
 .disableNotifications()
 
+mix.setPublicPath('./web')
+.sass('src/sass/homepage2023.scss', 'web/css/homepage2023.css')
+.options({
+  processCssUrls: false,
+})
+.browserSync({
+  files: ['web/css/*'],
+  proxy: baseUrl,
+  notify: false,
+})
+.version()
+.disableNotifications()
+
 //*** AUTHENTICATED BAND WEBSITE ***//
 
 mix.setPublicPath('./web')

@@ -1,49 +1,139 @@
-{% extends '_layout' %}
-{% import '_includes/macros' as macros %}
+{% extends '_layout2023' %}
 
-{% set pageTitle = entry.headline %}
-{% set postsPerPage = 8 %}
-{% set categories = craft.entries.section('category') %}
+{% set postsPerPage = 9 %}
+{% set showAds = true %}
 
-{% if not entry.show %}
-	{% redirect '/' %}
-{% endif %}
 {% set categorySlug = craft.app.request.segments | last %}
+{# {% set entry = craft.entries.section('category').slug(categorySlug).one() %} #}
+
 {% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
 {% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
+{% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
-{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+{% if firstPageInfo.currentPage == 1 %}
+	{% set isSticky = false %}
+	{% set isFirstPage = true %}
+	{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% set featured = posts[0] %}
+	{% set recentPosts = posts[1:] %}
+{% else %}
+	{% set isSticky = true %}
+	{% set isFirstPage = false %}
+	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
+	{% set recentPosts = posts %}
+{% endif %}
+
+{% block header %}
+	<section {% if entry.heroImage.count %}class="rich-text bkg-img" style="background-image:url({{ entry.heroImage.one().url }})"{% else %}class="rich-text"{% endif %}>
+		<div class="container">
+			{% if entry.headline | length %}
+				<h1>{{ entry.headline }}</h1>
+			{% endif %}
+			{% if entry.subheadline | length %}
+				<h2>{{ entry.subheadline }}</h2>
+			{% endif %}
+			{% if entry.shortDescription | length %}
+				<p>{{ entry.shortDescription }}</p>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
 
 {% block content %}
-	{% include '_includes/categories' with { categories: categories } %}
-	<div class="container">
-
-		{% if entry.subheadline | length > 0 or entry.shortDescription | length > 0 %}
-
-			{% cache %}
-			<div class="page container">
-				<section class="description">
-					{% if entry.subheadline | length > 0 %}
-						<h2><span>{{ entry.subheadline }}</span></h2>
-					{% endif %}
-					{% if entry.shortDescription | length > 0 %}
-						<div class="narrow-container">
-							<h4 class="font-normal">{{ entry.shortDescription }}</h4>
-						</div>
-					{% endif %}
-				</section>
-			</div>
-			{% endcache %}
-
-		{% endif %}
-
-		{% include 'blog/_includes/blog-posts' with { posts: posts, showAds: true } %}
-
-		{% if pageInfo is defined and pageInfo != null and pageInfo.total > postsPerPage %}
+	{% if isFirstPage %}
+		<section class="featured">
 			<div class="container">
-		    	{% include '_includes/pagination' %}
-		    </div>
-		{% endif %}
+				{# <h2>Featured Article</h2> #}
+				<div class="z-pattern">
+					<div>
+						{% if featured.blogImage.count %}
+							{% set img = featured.blogImage.one() %}
+							{% set cat = featured.categories.one() %}
+							<a href="{{ featured.url }}">
+			        			<picture>
+								 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
+									<img src="{{ img.url }}"
+										srcset="{{ img.url }} 2x"
+									 	alt="{{ img.title }}"
+									 	loading="lazy"
+										width="{{ img.width }}" height="{{ img.height }}">
+								</picture>
+							</a>
+						{% endif %}
+					</div>
+					<div>
+						{% if featured.title | length %}
+							<a href="{{ featured.url }}">
+								<h2>{{ featured.title }}</h2>
+							</a>
+						{% endif %}
+						{# <a class="category" href="{{ cat.url }}">
+							{% include '_includes/icons' with { type: 'tag' } %}
+							<span>{{ cat.title }}</span>
+						</a> #}
+						{% if featured.shortDescription | length %}
+							<p>
+								{{ featured.shortDescription }}
+							</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
 
-	</div>
+	<section class="blog-row">
+		<div class="container">
+			{# <h2>Recent Articles</h2> #}
+			<div class="grid-pane">
+				{% for blog in recentPosts %}
+					
+					<article>
+						{% if blog.blogImage.count %}
+							{% set img = blog.blogImage.one() %}
+							{% set cat = blog.categories.one() %}
+							<a class="blog-img" href="{{ blog.url }}">
+			        			<picture>
+								 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+									<img src="{{ img.url('recentPostsMobile2023') }}"
+										srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+									 	alt="{{ img.title }}"
+									 	loading="lazy"
+										width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+								</picture>
+							</a>
+							{# <a class="category" href="{{ cat.url }}">
+								{% include '_includes/icons' with { type: 'tag' } %}
+								<span>{{ cat.title }}</span>
+							</a> #}
+							<a class="blog-title" href="{{ blog.url }}">
+								<h4>{{ blog.title }}</h4>
+							</a>
+						{% endif %}
+	        		</article>
+	        		
+	        		{% if showAds %}
+						{% if loop.index == 2 %}
+							<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
+						{% elseif loop.index == 4 %}
+							<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
+						{% elseif loop.index == 8 %}
+							<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
+{# 						{% elseif loop.index == 6 %}
+							<article class="advert"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article> #}
+						{% endif %}
+					{% endif %}
+
+	        	{% endfor %}
+        	</div>
+
+        	{% if pageInfo.total > postsPerPage %}
+				<div class="container">
+			    	{% include '_includes/pagination' %}
+			    </div>
+			{% endif %}
+
+		</div>
+	</section>
+
 {% endblock %}

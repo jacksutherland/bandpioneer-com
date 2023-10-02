@@ -1,0 +1,126 @@
+{% extends '_layout' %}
+{% import '_includes/macros' as macros %}
+
+{% set postsPerPage = 8 %}
+{% set categories = craft.entries.section('category') %}
+{% set blogQuery = craft.entries.section('blog') %}
+
+{% set featured = null %}
+{% set popularPosts = null %}
+
+{% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
+{% if firstPageInfo.currentPage == 1 %}
+	{% if not craft.app.request.isMobileBrowser(false) %}
+		{% set popularPosts = blog.popularPosts %}
+	{% endif %}
+	{% if blog.featuredBlogPost.count %}
+		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = blog.featuredBlogPost.one() %}
+	{% else %}		
+		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = posts[0] %}
+	{% endif %}
+{% else %}
+	{% paginate blogQuery.limit(postsPerPage).offset(blog.featuredBlogPost.count ? 0 : 1).orderBy('postDate DESC') as pageInfo, posts %}
+{% endif %}
+
+{% block scripts %}
+	<script defer type="text/javascript">
+		if (typeof(uxFuncs) === 'object')
+		{
+			uxFuncs.push(function()
+            {
+                bp.createBandCarousels();
+            });
+		}
+	</script>
+{% endblock %}
+
+{% block content %}
+	{% include '_includes/categories' with { categories: categories } %}
+
+	<div class="container">
+
+		{% if pageInfo.currentPage == 1 and featured != null %}
+			
+			{# {% set featured = posts[0] %} #}
+
+			<h3 class="section-title featured-title"><span>Featured Article</span></h3>
+
+			<article class="featured">
+				<a class="blog-image"  {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
+					{% if featured.blogImage.count %}
+						{% set desktopWid = featured.blogImage.one().width('featuredPost') %}
+						{% set mobileWid = featured.blogImage.one().width('blogPostMobile') %}
+						<img src="{{ featured.blogImage.one().url('blogPostMobile') }}"
+						 	alt="{{ featured.blogImage.one().title }}"
+						 	loading="eager"
+							srcset="{{ featured.blogImage.one().url('blogPostMobile') }} 576w, {{ featured.blogImage.one().url('featuredPost') }} {{ desktopWid }}w" 
+							sizes="(max-width: 576px) 100vw, (max-width: 1050px) 1050px"
+							width="330" height="185">
+					{% endif %}
+					<div class="blog-image-info display-md"{% if featured.opacity > 0 %} style="background-color: rgba(0, 0, 0, {{ featured.opacity }});"{% endif %}>
+						<h2>
+							{{ macros.blogTitle(featured) }}
+						</h2>
+						<p>{{ featured.shortDescription }}</p>
+					</div>
+				</a>
+				<div class="blog-info">
+					{% include '_includes/icons' with { type: 'tag' } %}
+					<ul>
+						{% cache %}
+	            		{% for cat in featured.categories.all() %}
+	            			<li>
+			            		{% if cat.show %}
+	            					<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
+	            				{% else %}
+	            					<span>{{ cat.title }}</span>{% if not loop.last %}, {% endif %}
+	            				{% endif %}
+	            			</li>
+	            		{% endfor %}
+		            	{% endcache %}
+	            	</ul>
+					<div class="hide-md">
+						<h3>
+							<a {% if featured.type == "external" %}href="{{ featured.websiteUrl }}" target="_blank"{% else %}href="{{ featured.url }}"{% endif %}>
+								{{ macros.blogTitle(featured) }}
+							</a>
+						</h3>
+						<p>{{ featured.shortDescription }}</p>
+					</div>
+				</div>
+			</article>
+		{% endif %}
+
+
+		{% if popularPosts != null and popularPosts.count %}
+			<div class="popular-articles">
+				<h3 class="section-title"><span>Popular Articles</span></span></h3>
+				{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: popularPosts, pageInfo: null, transform: 'popularPost', showDetails: false } %}
+			</div>
+		{% endif %}
+
+		{% if entry.show %}
+				{% include '_includes/ask-a-question' with { showButton: true, useH1: true, headline: entry.headline, subheadline: entry.subheadline, text: entry.ctaText, ctaUrl: entry.websiteUrl } %}
+			{% endif %}
+
+		<h3 class="section-title">
+			<span>Recent Articles{% if pageInfo.currentPage > 1 %}<span class="hide-mobile"> - Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>{% endif %}</span>
+		</h3>
+
+		{% include 'blog/_includes/blog-posts' with { isHomepage: true, posts: (pageInfo.currentPage == 1 and blog.featuredBlogPost.count == 0 ? posts[1:] : posts) } %}
+
+		{% if pageInfo is defined and pageInfo != null and pageInfo.total > (postsPerPage + 1) %}
+			<div class="container">
+		    	{% include '_includes/pagination' %}
+		    </div>
+		{% endif %}
+
+	</div>
+
+	{% if pageInfo.currentPage == 1 %}
+		{% include '_includes/band-carousel' with { enlarged: false } %}
+	{% endif %}
+	
+{% endblock %}

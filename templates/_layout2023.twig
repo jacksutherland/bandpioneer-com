@@ -3,6 +3,8 @@
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
+{% set isSticky = isSticky is defined ? isSticky : false %}
+
 {# ai.bandpioneer.com ONLY on Prod ENV #}
 {# {% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'battle' %}
     {% redirect 404 %}
@@ -45,7 +47,7 @@
 
     </head>
 
-    <body>
+    <body{% if isSticky %} class="sticky"{% endif %}>
 
         <header>
             <button id="open-menu" aria-label="Open the mobile navigation menu">
@@ -58,6 +60,9 @@
                             Topics {% include '_includes/icons' with { type: 'down' } %}
                         </a>
                         <ul>
+                            <li>
+                                <h3>Topics</h3>
+                            </li>
                             {% for cat in categories.all() %}
                                 {% if cat.show %}
                                     <li>
@@ -67,6 +72,9 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
+                            <li>
+                                <a href="/quick-tips">Quick Tips</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -79,6 +87,10 @@
                                 {% set bpUrl = bpUrl ~ '/' %}
                             {% endif %}
                             <li>
+                                <h3>AI Music Studio</h3>
+                                <h4>What do you play?</h4>
+                            </li>
+                            <li>
                                 <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
                             </li>
                             <li>
@@ -90,11 +102,36 @@
                             <li>
                                 <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
                             </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
+                            </li>
+                            <li>
+                                <h3>Great AI Debate (beta)</h3>
+                                <h4>Pick a topic to test the demo:</h4>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=small-talk">Small Talk</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-decades">The Best Decade for Music</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-genres">The Best Genre for Music</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=ai-music">AI Music Generators</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-censorship">Music Censorship</a>
+                            </li>
                         </ul>
                 </ul>
                 <a class="logo" href="/">
-                    <img src="/assets/images/bp-logo.png" alt="Band Pioneer - Insights and Marketing for Profitable Musicians" width="210" height="136">
-                    <img loading="eager" class="logo-alt" src="/assets/images/bp-logo-alt-small.png" alt="Band Pioneer" title="Band Pioneer" width="193" height="60" />
+                    <img src="/assets/images/bp-logo-header.png" alt="Band Pioneer - Insights and Marketing for Profitable Musicians" width="180" height="117">
+                    <img loading="eager" class="logo-alt" src="/assets/images/bp-logo-alt-small.png" alt="Band Pioneer" title="Band Pioneer" width="180" height="56" />
                 </a>
                 <ul>
                     <li><a href="/about">About</a></li>
@@ -112,9 +149,13 @@
                     {% for cat in categories.all() %}
                         {% if cat.show %}
                             <li>
-                                <a href="{{ cat.url }}">
+                                <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == entry.slug %} class="active"{% endif %}>
                                     {{ cat.title }}
                                 </a>
+                                <div id="topic-{{ cat.id }}" class="popup">
+                                    <h3>{{ cat.headline }}</h3>
+                                    <p>{{ cat.shortDescription }}</p>
+                                </div>
                             </li>
                         {% endif %}
                     {% endfor %}
@@ -130,9 +171,37 @@
             </main>
         {% endapply %}
 
-        <footer style="height: 600px; background-color:#131b28;">
-            Band Pioneer
-        </footer>
+        {% cache globally %}
+            <footer>
+                <div class="container">
+                    <a href="/" class="logo">
+                        <img loading="lazy" src="{{ url('assets/images/bp-logo-header.png') }}" alt="Band Pioneer" title="Band Pioneer" width="180" height="117" />
+                    </a>
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/electronic-press-kit">EPK</a></li>
+                            <li><a href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/privacy">Privacy Policy</a></li>
+                        </ul>
+                        <ul class="blog-categories">
+                            {% for cat in categories.all() %}
+                                {% if cat.show %}
+                                    <li><a class="underline" href="{{ cat.url }}">{{ cat.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            <li><a class="underline" href="/quick-tips">Quick Tips</a></li>
+                        </ul>
+                        <ul class="copyright">
+                            <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
+                            <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </footer>
+        {% endcache %}
         
         <script defer src="{{ url('js/site2023.min.js') }}?version={{ versionNumber }}"></script>
         <script defer>
