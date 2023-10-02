@@ -6,6 +6,12 @@
 
 {% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
 
+{% macro errorList(errors) %}
+    {% if errors %}
+        {{ ul(errors, {class: 'errors'}) }}
+    {% endif %}
+{% endmacro %}
+
 {% block header %}
 	<section class="rich-text">
 		<div class="container">

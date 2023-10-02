@@ -852,25 +852,48 @@ nav.categories {
 
 /***** FORMS *****/
 
+form button,
+.btn {
+	background-color: $link-color;
+	border: 0;
+	border-radius: $small-radius;
+	color: $white;
+	cursor: pointer;
+	font-family: $font-family;
+	font-weight: $semi-bold-font;
+	height: $input-height;
+	padding: 0 $object-padding;
+	transition: background-color $transition-time;
+
+	&:hover {
+		background-color: $link-hover-color;
+	}
+}
+
+
 form {
 	input:not([name="q"]):not([type=checkbox]),
 	textarea,
-	select,
-	button,
-	.btn {
-		padding: 0 25px;
+	select {
+		padding: 0 $object-padding;
 		height: $input-height;
 		border-radius: $small-radius;
+		color: $font-color;
 		font-family: $font-family;
+		font-size: $small-font-size;
+
+		&::placeholder {
+			font-weight: $semi-bold-font;
+		}
 	}
 
 	input:not([type="submit"]),
 	select,
 	textarea {
-		border: 0;
-		outline: 0;
-		border-bottom: solid 2px $border-color;
 		background-color: lighten($light-gray, 2%);
+		border: 0;
+		border-bottom: solid 2px $border-color;
+		outline: 0;
 
 		&:focus {
 			border-color: darken($border-color, 5%);
@@ -887,6 +910,9 @@ form {
 		color: $error-color;
 		font-weight: $semi-bold-font;
 		font-size: $small-font-size;
+		list-style: none;
+	    margin: 0;
+	    padding: 0;
 	}
 
 	&.login-form {
@@ -923,7 +949,7 @@ form {
 		max-width: $rich-text-width;
 		margin: 0 auto;
 		display: grid;
-		gap: 20px;
+		gap: $object-spacing;
 		grid-template-areas: 
 			"h3"
 			"fn"
@@ -952,14 +978,29 @@ form {
 		}
 		button {
 			grid-area: bt;
-			// justify-self: end;
-			width: 100%;
+    		justify-self: start;
+    		// margin-top: -($object-spacing);
+    		width: 140px;
 		}
 
 		.errors {
 			grid-area: er;
 			color: $secondary-color;
 			font-weight: $semi-bold-font;
+		}
+
+		@media (min-width: $breakpoint-sm) {
+			grid-template-areas: 
+			"h3 h3"
+			"fn fn"
+			"em em"
+			"pn pn"
+			"cm cm"
+			"er bt";
+
+			button {
+				justify-self: end;
+	    	}
 		}
 	}
 }
@@ -1132,7 +1173,7 @@ section {
 			&:after {
 				content: " ";
 				position: absolute;
-				background-color: rgba(0, 0, 0, 0.5);
+				background-color: rgba(0, 0, 0, 0.25);
 			    height: 100%;
 			    left: 0;
 			    top: 0;
