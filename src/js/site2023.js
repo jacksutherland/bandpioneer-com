@@ -6,10 +6,36 @@
 
 class BandPioneer
 {
+	static stickyListeners = [];
+
 	constructor()
 	{
 		this.addHeaderEvents();
 		this.addTopicMenuEvents();
+	}
+
+	static getBreakpoint()
+	{
+		if (window.matchMedia('(max-width: 576px)').matches)
+			return "sm";
+		else if (window.matchMedia('(max-width: 768px)').matches)
+			return "md";
+		else if (window.matchMedia('(max-width: 992px)').matches)
+			return "lg";
+		else if (window.matchMedia('(max-width: 1200px)').matches)
+			return "xl";
+		else
+			return "xxl";
+	}
+
+	static addStickyListener(fn)
+	{
+		BandPioneer.stickyListeners.push(fn);
+	}
+
+	static callStickyListeners(isSticky)
+	{
+	    BandPioneer.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
 	addHeaderEvents()
@@ -104,10 +130,12 @@ class BandPioneer
 				if (!entries[0].isIntersecting)
 				{
 					body.classList.add('sticky');
+					BandPioneer.callStickyListeners(true);
 				}
 				else
 				{
 					body.classList.remove('sticky');
+					BandPioneer.callStickyListeners(false);
 				}
 			}, { rootMargin: `-150px 0px 0px 0px` });
 
@@ -151,10 +179,13 @@ class BandPioneer
 		});
 	}
 
+	createBlogPost()
+	{
+		new this.BlogPost();
+	}
+
 	createBandCarousels()
 	{
-		console.log("createBandCarousels");
-
 		document.querySelectorAll('.band-carousel').forEach(car => {
 
 			new this.BandCarousel(car);
@@ -337,6 +368,194 @@ class BandPioneer
 			}.bind(this);
 
 			this.startAnimation();
+		}
+	}
+
+	BlogPost = class
+	{
+		constructor()
+		{
+			this.readingProgress();
+			this.toc();
+			this.instagram();
+		}
+
+		toc()
+		{
+			const blogHeader = document.querySelector('.blog-header');
+			const blogComments = document.querySelector('.blog-comments');
+			const blogRelated = document.querySelector('.related-content');
+			const blogContainer = document.querySelector('.blog-container');
+			const toc = document.querySelector('.table-of-contents');
+
+			let commentsVisible = false;
+			let relatedVisible = false;
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.target === blogHeader)
+					{
+						if (entry.isIntersecting)
+						{
+							blogContainer.classList.remove('sticky');
+						}
+						else
+						{
+							blogContainer.classList.add('sticky');
+						}
+					}
+					else if (entry.target === blogComments || entry.target === blogRelated)
+					{
+						if (entry.isIntersecting)
+						{
+							toc.classList.add('fadeaway');
+
+							if (entry.target === blogComments)
+							{
+								commentsVisible = true;
+							}
+							else if (entry.target === blogRelated)
+							{
+								relatedVisible = true;
+							}
+						}
+						else
+						{
+							if (entry.target === blogComments)
+							{
+								commentsVisible = false;
+							}
+							else if (entry.target === blogRelated)
+							{
+								relatedVisible = false;
+							}
+
+							if(!commentsVisible && !relatedVisible)
+							{
+								toc.classList.remove('fadeaway');
+							}
+						}
+					}
+				});
+			}, { threshold: 0, rootMargin: `-70px 0px 0px 0px` });
+
+			observer.observe(blogHeader);
+			observer.observe(blogComments);
+			observer.observe(blogRelated);
+
+			toc.querySelector('.section-title').addEventListener('click', function(e)
+			{
+				toc.querySelector('ul').classList.toggle('close');
+			});
+			
+			const breakpoint = BandPioneer.getBreakpoint();
+
+			if(breakpoint === "sm" || breakpoint === "md")
+			{
+				toc.querySelector('ul').classList.add('close');
+			}
+		}
+
+		readingProgress()
+		{
+			const rtime = document.getElementById('reading-time');
+
+			if(rtime)
+			{
+				const progress = rtime.querySelector('.reading-progress');
+		    	const lastArticleSection = Array.from(
+					  document.querySelectorAll('.section-title')
+					).pop();
+
+				const readableHeight = lastArticleSection.offsetTop + lastArticleSection.offsetHeight + 100;
+
+		    	function getScrollPercent()
+		    	{
+				    const h = document.documentElement, 
+				          b = document.body,
+				          st = 'scrollTop';
+
+				    const pct = Math.floor((h[st]||b[st]) / (readableHeight - h.clientHeight) * 100);
+
+				    return pct > 100 ? 100 : pct;
+				}
+
+				function setReadingProgress()
+				{
+					let pct = getScrollPercent() + '%';
+					progress.style.width = pct;
+					progress.parentElement.title = 'Reading Progress: ' + pct;
+				}
+
+				BandPioneer.addStickyListener(function(isSticky)
+				{
+					if(isSticky)
+					{
+						rtime.classList.add("show");
+					}
+					else
+					{
+						rtime.classList.remove("show");	
+					}
+				});
+
+		    	window.addEventListener("scroll", () => {
+		      		setReadingProgress();
+		    	});
+
+		    	setReadingProgress();
+		    }
+		}
+
+		instagram()
+		{
+			// Instagram Videos
+			// ... this uses window scroll because IntersectionObserver was scoring 20 pts less in lighthouse
+
+			var instas = document.querySelectorAll(".instagram-media");
+			var embeddedCount = 0;
+
+			if(instas.length > 0)
+			{
+				const instaScroll = function(insta)
+				{
+					BandPioneer.each(instas, function(idx, insta)
+					{
+						if(insta.embedded === undefined || !insta.embedded)
+						{
+							const scrollPosition = window.scrollY + window.innerHeight;
+
+							if (insta.getBoundingClientRect().top + window.scrollY < scrollPosition)
+							{
+								insta.embedded = true;
+								embeddedCount++;
+
+								const firstChild = insta.firstChild;
+								const iframe = document.createElement('iframe');
+
+								iframe.src = `https://www.instagram.com/p/${insta.dataset.id}/embed/?cr=1&v=14&wp=540&rd=https%3A%2F%2Fbandpioneer.com`;
+								iframe.setAttribute("style", "background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;");
+								iframe.setAttribute("allowtransparency", "true");
+								iframe.setAttribute("allowfullscreen", "true");
+								iframe.setAttribute("frameborder", "0");
+								iframe.setAttribute("height", "705");
+								iframe.setAttribute("scrolling", "no");
+
+								insta.insertBefore(iframe, firstChild);
+
+								if(embeddedCount >= instas.length)
+								{
+									window.removeEventListener('scroll', instaScroll); 
+								}
+							}
+						}
+					});
+				}
+
+				window.addEventListener('scroll', instaScroll); 
+			}
+
+			
 		}
 	}
 }

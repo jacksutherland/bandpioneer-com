@@ -27,7 +27,7 @@ body {
   font-weight: 400;
   color: #111111;
   height: 100%;
-  letter-spacing: 0.04rem;
+  letter-spacing: 0.02rem;
   margin: 0;
   padding-top: 68px;
   -webkit-font-smoothing: antialiased;
@@ -105,12 +105,74 @@ img {
 }
 
 figure {
-  margin: 0;
+  margin: 0 auto;
 }
 figure img {
   height: auto;
   max-width: 100%;
   width: auto;
+}
+figure.image.top-margin {
+  margin-top: 100px;
+}
+figure.image.bottom-margin {
+  margin-bottom: 100px;
+}
+figure.image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+@media (min-width: 768px) {
+  figure.image img {
+    width: 100%;
+  }
+}
+figure.video .player {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+figure.video .player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+}
+figure.instagram-media iframe {
+  margin: 0 auto !important;
+  width: 400px !important;
+  max-width: 100% !important;
+}
+figure.instagram-media figcaption {
+  margin: 10px auto 0 auto !important;
+  max-width: 400px;
+}
+figure figcaption {
+  font-size: 0.86rem;
+  line-height: 1.35rem;
+  color: #777777;
+  margin: 8px 0 0 0;
+  text-align: center;
+}
+
+button,
+.btn {
+  background-color: #0a79a4;
+  border: 0;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: helvetica, sans-serif;
+  font-weight: 700;
+  height: 50px;
+  padding: 0 24px;
+  transition: background-color 0.3s;
+}
+button:hover,
+.btn:hover {
+  background-color: #f90215;
 }
 
 a {
@@ -169,22 +231,11 @@ a.category span {
   }
 }
 
-.scroll-pane {
-  overflow: scroll;
-}
-
-.z-pattern img {
-  max-width: 100%;
-  height: auto;
-}
-
-@media (min-width: 768px) {
-  .z-pattern {
-    display: grid;
-    align-items: center;
-    gap: 24px;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
+@media (min-width: 832px) {
+  .narrow-container {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 .popup {
@@ -221,49 +272,37 @@ a.category span {
   z-index: 150;
 }
 
-.pagination {
-  margin: 60px 0;
-  text-align: center;
+section.blog-row article.advert {
+  aspect-ratio: 1/1;
+  background-color: #F0F3F3;
+  overflow: hidden;
 }
-.pagination a {
-  opacity: 1 !important;
+section.blog-row article img {
+  height: auto;
+  max-width: 100%;
+  width: 100%;
 }
-.pagination a:hover.page-arrow svg path {
-  fill: #f90215;
+section.blog-row article .category {
+  margin: 8px 0;
 }
-.pagination a.page-arrow svg path {
-  fill: #0a79a4;
-  transition: fill 0.3s;
+section.blog-row article a.blog-title {
+  color: #111111;
 }
-.pagination a,
-.pagination span {
-  font-weight: 700;
-  vertical-align: middle;
+section.blog-row article a.blog-title:hover {
+  color: #f90215;
 }
-.pagination a.page-arrow,
-.pagination span.page-arrow {
-  margin: 0 8px;
+section.blog-row article a.blog-title h4 {
+  margin: 0;
 }
-.pagination a.page-arrow.first svg, .pagination a.page-arrow.prev svg,
-.pagination span.page-arrow.first svg,
-.pagination span.page-arrow.prev svg {
-  transform: rotate(180deg);
+section.blog-row article a.blog-img:hover + a.blog-title > h4 {
+  color: #f90215;
 }
-.pagination a.page-arrow.prev,
-.pagination span.page-arrow.prev {
-  margin: 0 20px 0 12px;
-}
-.pagination a.page-arrow.next,
-.pagination span.page-arrow.next {
-  margin: 0 12px 0 20px;
-}
-.pagination a.page-arrow svg,
-.pagination span.page-arrow svg {
-  margin: 0 -13px;
+section.blog-row article a.blog-img + a.blog-title > h4 {
+  transition: color 0.3s;
 }
 
 /***** HEADER *****/
-header {
+header.site-header {
   position: fixed;
   top: 0;
   width: 100%;
@@ -272,12 +311,12 @@ header {
   height: 68px;
   z-index: 100;
 }
-header + section.rich-text {
+header.site-header + section.rich-text {
   background-color: #F0F3F3;
   margin: 0;
   padding: 24px 0;
 }
-header #open-menu {
+header.site-header #open-menu {
   display: block;
   background: transparent;
   border: 0;
@@ -285,12 +324,12 @@ header #open-menu {
   margin: 16px 0 0 16px;
   padding: 0;
 }
-header #open-menu svg {
+header.site-header #open-menu svg {
   fill: #FFFFFF;
   height: 32px;
   width: 32px;
 }
-header nav {
+header.site-header nav {
   position: fixed;
   top: 68px;
   left: 0;
@@ -298,36 +337,37 @@ header nav {
   width: 100%;
   z-index: 110;
 }
-header nav.show > ul {
+header.site-header nav.show > ul {
   display: block;
 }
-header nav .logo {
+header.site-header nav .logo {
   position: fixed;
   top: 8px;
   right: 16px;
   width: 160px;
   z-index: 120;
 }
-header nav .logo img {
+header.site-header nav .logo img {
   height: auto;
   width: 100%;
 }
-header nav .logo img:first-child {
+header.site-header nav .logo img:first-child {
   display: none;
 }
-header nav ul {
+header.site-header nav ul {
   display: none;
   list-style: none;
   margin: 0 -16px;
   padding: 0;
 }
-header nav ul:last-child {
+header.site-header nav ul:last-child {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
-header nav ul li {
+header.site-header nav ul li {
   background-color: #FFFFFF;
+  margin: 0;
 }
-header nav ul li a {
+header.site-header nav ul li a {
   display: block;
   color: #0a79a4;
   cursor: pointer;
@@ -339,80 +379,80 @@ header nav ul li a {
   text-wrap: nowrap;
   transition: color 0.3s;
 }
-header nav ul li a svg {
+header.site-header nav ul li a svg {
   float: right;
   margin-right: 34px;
   margin-top: 6px;
 }
-header nav ul li a svg path {
+header.site-header nav ul li a svg path {
   fill: #0a79a4;
 }
-header nav ul li ul {
+header.site-header nav ul li ul {
   display: none;
   margin: 0;
 }
-header nav ul li ul.show {
+header.site-header nav ul li ul.show {
   display: block;
 }
-header nav ul li ul li {
+header.site-header nav ul li ul li {
   background-color: #F0F3F3;
 }
-header nav ul li ul li:first-child a {
+header.site-header nav ul li ul li:first-child a {
   padding-top: 16px;
 }
-header nav ul li ul li:last-child a {
+header.site-header nav ul li ul li:last-child a {
   padding-bottom: 16px;
 }
-header nav ul li ul li a {
+header.site-header nav ul li ul li a {
   border-bottom: 0;
   padding: 8px 32px;
   text-transform: none;
 }
-header nav ul li ul li h3 {
+header.site-header nav ul li ul li h3 {
   margin: 0;
   padding: 8px 32px 0 32px;
 }
-header nav ul li ul li h4 {
+header.site-header nav ul li ul li h4 {
   margin: 0;
   padding: 0 32px;
 }
 
 @media (min-width: 768px) {
-  body.sticky header {
+  body.sticky header.site-header {
     box-shadow: none;
     height: 68px;
   }
-  body.sticky header nav .logo {
+  body.sticky header.site-header nav .logo {
     margin-top: 6px;
   }
-  body.sticky header nav .logo img:first-child {
+  body.sticky header.site-header nav .logo img:first-child {
     top: -200px;
     opacity: 0;
   }
-  body.sticky header nav .logo img:last-child {
+  body.sticky header.site-header nav .logo img:last-child {
     top: 0;
     opacity: 1;
   }
-  body.sticky header nav > ul > li > a {
+  body.sticky header.site-header nav > ul > li > a {
     height: 68px;
     line-height: 68px;
   }
-  body.sticky header nav ul {
+  body.sticky header.site-header nav ul {
     height: 68px;
   }
-  body.sticky header nav ul li ul {
+  body.sticky header.site-header nav ul li ul {
     top: 68px;
   }
-  header {
+  header.site-header {
     height: 90px;
   }
-  header + section.rich-text {
+  header.site-header + section.rich-text {
     padding: 72px 0 48px 0;
   }
-  header #open-menu {
+  header.site-header #open-menu {
     display: none;
   }
-  header nav {
+  header.site-header nav {
     display: grid;
     grid-template-columns: 1fr 180px 1fr;
     position: static;
@@ -422,51 +462,51 @@ header nav ul li ul li h4 {
     right: 0;
     width: auto;
   }
-  header nav.show > ul {
+  header.site-header nav.show > ul {
     display: flex;
   }
-  header nav .logo {
+  header.site-header nav .logo {
     position: relative;
     left: 0;
     margin-top: 12px;
     top: 0;
     width: 100%;
   }
-  header nav .logo img {
+  header.site-header nav .logo img {
     position: absolute;
     height: auto;
     max-width: 100%;
     transition: top 0.3s, opacity 0.3s, filter 0.3s;
     z-index: 130;
   }
-  header nav .logo img:first-child {
+  header.site-header nav .logo img:first-child {
     display: inline;
     opacity: 1;
     top: 0;
   }
-  header nav .logo img:last-child {
+  header.site-header nav .logo img:last-child {
     display: inline;
     box-shadow: none;
     opacity: 0;
     top: -200px;
   }
-  header nav > ul > li > a {
+  header.site-header nav > ul > li > a {
     height: 90px;
     line-height: 90px;
     padding: 0 12px;
     transition: background-color 0.3s, height 0.3s, line-height 0.3s;
   }
-  header nav > ul > li > a:hover {
+  header.site-header nav > ul > li > a:hover {
     background-color: #0a79a4;
     color: #FFFFFF;
   }
-  header nav > ul > li > a:hover svg {
+  header.site-header nav > ul > li > a:hover svg {
     transform: translateY(4px);
   }
-  header nav > ul > li > a svg {
+  header.site-header nav > ul > li > a svg {
     transition: transform 0.3s;
   }
-  header nav ul {
+  header.site-header nav ul {
     display: flex;
     background-color: transparent;
     height: 90px;
@@ -474,25 +514,25 @@ header nav ul li ul li h4 {
     margin: 0;
     transition: height 0.3s;
   }
-  header nav ul li {
+  header.site-header nav ul li {
     background-color: transparent;
     position: relative;
     z-index: 140;
     /***** Dropdown Menu *****/
   }
-  header nav ul li a {
+  header.site-header nav ul li a {
     border-bottom: 0;
     color: #FFFFFF;
   }
-  header nav ul li a svg {
+  header.site-header nav ul li a svg {
     float: none;
     margin: 0 0 0 6px;
   }
-  header nav ul li a svg path {
+  header.site-header nav ul li a svg path {
     fill: #FFFFFF;
     transition: fill 0.3s;
   }
-  header nav ul li ul {
+  header.site-header nav ul li ul {
     position: absolute;
     background-color: #E0E0E0;
     border-radius: 0 0 4px 4px;
@@ -507,10 +547,10 @@ header nav ul li ul li h4 {
     transform: translateX(-50%);
     z-index: 160;
   }
-  header nav ul li ul.show {
+  header.site-header nav ul li ul.show {
     display: flex;
   }
-  header nav ul li ul:before {
+  header.site-header nav ul li ul:before {
     display: block;
     position: absolute;
     border: 10px solid transparent;
@@ -524,21 +564,21 @@ header nav ul li ul li h4 {
     width: 0;
     z-index: 150;
   }
-  header nav ul li ul li {
+  header.site-header nav ul li ul li {
     background-color: transparent;
   }
-  header nav ul li ul li h3 {
+  header.site-header nav ul li ul li h3 {
     text-wrap: nowrap;
+    margin: 0 !important;
+  }
+  header.site-header nav ul li ul li h4 {
     margin: 0;
   }
-  header nav ul li ul li h4 {
-    margin: 0;
-  }
-  header nav ul li ul li a {
+  header.site-header nav ul li ul li a {
     padding: 0 !important;
     color: #444444;
   }
-  header nav ul li ul li a:hover {
+  header.site-header nav ul li ul li a:hover {
     color: #0a79a4;
   }
 }
@@ -697,25 +737,67 @@ nav.categories .container ul li .popup h3 {
     display: block;
   }
 }
-/***** FORMS *****/
-form button,
-.btn {
-  background-color: #0a79a4;
-  border: 0;
-  border-radius: 4px;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: helvetica, sans-serif;
-  font-weight: 700;
-  height: 50px;
-  padding: 0 24px;
-  transition: background-color 0.3s;
-}
-form button:hover,
-.btn:hover {
-  background-color: #f90215;
+/***** CONTAINERS *****/
+.scroll-pane {
+  overflow: scroll;
 }
 
+.z-pattern img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .z-pattern {
+    display: grid;
+    align-items: center;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+}
+.pagination {
+  margin: 60px 0;
+  text-align: center;
+}
+.pagination a {
+  opacity: 1 !important;
+}
+.pagination a:hover.page-arrow svg path {
+  fill: #f90215;
+}
+.pagination a.page-arrow svg path {
+  fill: #0a79a4;
+  transition: fill 0.3s;
+}
+.pagination a,
+.pagination span {
+  font-weight: 700;
+  vertical-align: middle;
+}
+.pagination a.page-arrow,
+.pagination span.page-arrow {
+  margin: 0 8px;
+}
+.pagination a.page-arrow.first svg, .pagination a.page-arrow.prev svg,
+.pagination span.page-arrow.first svg,
+.pagination span.page-arrow.prev svg {
+  transform: rotate(180deg);
+}
+.pagination a.page-arrow.prev,
+.pagination span.page-arrow.prev {
+  margin: 0 20px 0 12px;
+}
+.pagination a.page-arrow.next,
+.pagination span.page-arrow.next {
+  margin: 0 12px 0 20px;
+}
+.pagination a.page-arrow svg,
+.pagination span.page-arrow svg {
+  margin: 0 -13px;
+}
+
+/***** FORMS *****/
 form input:not([name=q]):not([type=checkbox]),
 form textarea,
 form select {
@@ -837,34 +919,6 @@ section {
 }
 section.blog-row h2, section.blog-row h3 {
   border-bottom: solid 1px #131b28;
-}
-section.blog-row article.advert {
-  aspect-ratio: 1/1;
-  background-color: #F0F3F3;
-  overflow: hidden;
-}
-section.blog-row article img {
-  height: auto;
-  max-width: 100%;
-  width: 100%;
-}
-section.blog-row article .category {
-  margin: 8px 0;
-}
-section.blog-row article a.blog-title {
-  color: #111111;
-}
-section.blog-row article a.blog-title:hover {
-  color: #f90215;
-}
-section.blog-row article a.blog-title h4 {
-  margin: 0;
-}
-section.blog-row article a.blog-img:hover + a.blog-title > h4 {
-  color: #f90215;
-}
-section.blog-row article a.blog-img + a.blog-title > h4 {
-  transition: color 0.3s;
 }
 section.blog-row .grid-pane {
   display: grid;

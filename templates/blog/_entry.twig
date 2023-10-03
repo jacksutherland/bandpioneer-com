@@ -1,28 +1,29 @@
-{% extends '_layout' %}
+{% extends '_layout2023' %}
 
 {% set fixedHeader = true %}
 {% set categories = craft.entries.section('category') %}
 {% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
 
-{# {% block headerScripts %}
-	<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=60f99a793b1d5d001213a396&product=inline-share-buttons' async='async'></script>
-{% endblock %} #}
-
-{% block scripts %}
-	<script defer type="text/javascript">
-		if (typeof(uxFuncs) === 'object')
-		{
-			uxFuncs.push(function()
-            {
-                bp.blogPost();
-            });
-		}
-	</script>
+{% block styles %}
+	<link rel="stylesheet" href="{{ url('css/blogpost2023.css') }}?version={{ versionNumber }}" /> 
 {% endblock %}
 
-{% block content %}
+{% block scripts %}
+	<script defer>
+        document.addEventListener("DOMContentLoaded", function()
+        {
+            if (typeof(bp) !== undefined)
+            {
+            	bp.createBlogPost();
+            }
+        });
+    </script>
+{% endblock %}
 
-	{% include '_includes/categories' with { categories: categories } %}
+
+{% block header %}
+
+	<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 
 	<section class="blog-header">
 
@@ -34,10 +35,7 @@
 
 			{% include '_includes/author' with { blog: entry } %}
 
-			{# <div class="social-sharing sharethis-inline-share-buttons"></div> #}
-
 			{% if entry.blogImage.count %}
-				{# {% include 'blog/_includes/img' with { img: entry.blogImage.one(), className: "featured-image" } %} #}
 				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 			{% endif %}
 		</div>
@@ -51,7 +49,12 @@
 		{% endif %}
 
 	</section>
-	
+
+{% endblock %}
+
+
+{% block content %}
+
 	{% include 'blog/_includes/blog-module' %}
 	
 	
@@ -71,7 +74,37 @@
 		<div class="advert"><div id="ezoic-pub-ad-placeholder-137"></div></div>
 
 		<h3 class="section-title"><span>Keep Reading!</span></h3>
-		{% include '_includes/related-content' with { articles: relatedPosts } %}
+		
+		{# {% include '_includes/related-content' with { articles: relatedPosts } %} #}
+
+		<section class="blog-row related-content">
+			{% for blog in relatedPosts.all() %}
+				<article>
+					{% if blog.blogImage.count %}
+						{% set img = blog.blogImage.one() %}
+						{% set cat = blog.categories.one() %}
+						<a class="blog-img" href="{{ blog.url }}">
+		        			<picture>
+							 	<source srcset="{{ img.url("blogRelatedContent") }}, {{ img.url('blogRelatedContent2x') }} 2x" media="(min-width: 768px)" />
+								<img src="{{ img.url('recentPostsMobile2023') }}"
+									srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+								 	alt="{{ img.title }}"
+								 	loading="lazy"
+									width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+							</picture>
+						</a>
+						<a class="category" href="{{ cat.url }}">
+							{% include '_includes/icons' with { type: 'tag' } %}
+							<span>{{ cat.title }}</span>
+						</a>
+						<a class="blog-title" href="{{ blog.url }}">
+							<h4 class="related-title">{{ blog.title }}</h4>
+						</a>
+					{% endif %}
+        		</article>
+			{% endfor %}
+		</section>
+
 		{% include '_includes/related-categories' with { categories: entry.categories } %}
 
 		{### EZOIC - bottom-before-footer - bottom_of_page ###}

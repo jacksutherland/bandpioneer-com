@@ -24,6 +24,8 @@ $nav-font-size: 0.94rem;
 }
 
 $font-family: helvetica, sans-serif;
+$letter-spacing: 0.02rem;
+
 $header-font-family: 'BandPioneerHeader', sans-serif;
 $header-font-spacing: 0.05rem;
 
@@ -55,10 +57,12 @@ $light-gray: #F0F3F3;
 $medium-gray: #E0E0E0;
 $white: #FFFFFF;
 
+$blog-headline-color: #5e5e5e;
 $border-color: #e3e7e9;
 $font-color: #111111;
 $error-color: $secondary-color;
 $lighter-font-color: #444444;
+$lightest-font-color: #777777;
 $link-color: $alternate-color;
 $link-hover-color: $secondary-color;
 
@@ -78,6 +82,10 @@ $section-spacing: ($object-spacing * 2);
 /***** SIZES *****/
 
 $site-width: 1200px;
+$blog-width: 800px;
+$blog-post-mobile-width: 178px;
+$popular-post-mobile-width: 220px;
+$popular-post-md-width: 282px;
 $header-height: 90px;
 $header-sticky-height: 68px;
 $header-logo-width: 180px;

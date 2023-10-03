@@ -47,9 +47,9 @@
 
     </head>
 
-    <body{% if isSticky %} class="sticky"{% endif %}>
+    <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        <header>
+        <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">
                 {% include '_includes/icons' with { type: 'bars' } %}
             </button>
@@ -149,7 +149,7 @@
                     {% for cat in categories.all() %}
                         {% if cat.show %}
                             <li>
-                                <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == entry.slug %} class="active"{% endif %}>
+                                <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == (craft.app.request.segments | first) %} class="active"{% endif %}>
                                     {{ cat.title }}
                                 </a>
                                 <div id="topic-{{ cat.id }}" class="popup">
