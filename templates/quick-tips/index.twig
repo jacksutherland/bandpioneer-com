@@ -1,20 +1,20 @@
 {% extends '_layout2023' %}
 
+{% set isSticky = true %}
+
 {% set pageTitle = "Quick Tips" %}
 {% set seoTitle = "Quick Tips and Advice for Musicians" %}
 {% set seoDescription = "Quick access to a wide range of music topics, to inspire, educate, and ignite your passion for music." %}
 {% set entry = { slug: 'quick-tips', title: 'Quick Tips and Advice for Musicians', section: { handle: 'category' }, metaDescription: seoDescription, seoImageUrl: '/assets/images/band-pioneer-og.jpg' } %}
 
 {% set pageUrl = craft.app.request.absoluteUrl %}
-
 {% set groupedKeywords = craft.bands.getKeywordList() %}
-
-{# {% block styles %}
-	<link rel="stylesheet" href="{{ url('css/homepage2023.css') }}?version={{ versionNumber }}" /> 
-{% endblock %} #}
 
 {% block headerScripts %}
 	<style type="text/css">
+		section:first-child {
+			margin-top: -10px;
+		}
 		h2 {
 			margin-top: 48px;
 			text-transform: capitalize;
@@ -56,6 +56,9 @@
 		}
 		@media (min-width: 768px)
 		{
+			section:first-child {
+				margin-top: 60px;
+			}
 			h3.section-title {
 				margin-top: 60px;
 			}
