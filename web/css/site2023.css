@@ -877,17 +877,17 @@ section.blog-row .grid-pane article {
 }
 @media (min-width: 375px) {
   section.blog-row .grid-pane {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (min-width: 576px) {
   section.blog-row .grid-pane {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (min-width: 768px) {
   section.blog-row .grid-pane {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   section.blog-row .grid-pane article {
     max-width: 100%;
