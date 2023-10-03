@@ -2065,49 +2065,6 @@ article .blog-info ul li span {
     width: 65%;
   }
 }
-.advert .ad-loader {
-  font-size: 20px;
-  font-weight: 700;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  animation-name: ad-fade;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-}
-.advert .ad-loader:before {
-  content: "AD LOADING...";
-}
-
-.advert .ezoic-ad iframe {
-  min-width: 100%;
-  width: auto;
-}
-
-.advert > .ezoic-ad {
-  padding: 30px 0 !important;
-}
-
-.blog .advert > .ezoic-ad {
-  background-color: #f9fafa;
-  border: solid #F0F3F3 3px;
-  border-radius: 4px;
-  height: 100%;
-}
-
-.category .advert {
-  background-color: #F0F3F3;
-  border: solid 5px #F0F3F3;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
 @keyframes ad-fade {
   0%, 100% {
     color: #F0F3F3;

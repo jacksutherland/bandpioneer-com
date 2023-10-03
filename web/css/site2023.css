@@ -838,10 +838,6 @@ section {
 section.blog-row h2, section.blog-row h3 {
   border-bottom: solid 1px #131b28;
 }
-section.blog-row article.advert {
-  aspect-ratio: 1/1;
-  background-color: #F0F3F3;
-}
 section.blog-row article img {
   height: auto;
   max-width: 100%;
