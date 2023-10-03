@@ -1018,10 +1018,10 @@ section {
 
 		article {
 
-			// &.advert {
-			// 	aspect-ratio: 1 / 1;
-			// 	background-color: $light-gray;
-			// }
+			&.advert {
+				aspect-ratio: 1 / 1;
+				background-color: $light-gray;
+			}
 
 			img {
 				height: auto;
