@@ -841,6 +841,7 @@ section.blog-row h2, section.blog-row h3 {
 section.blog-row article.advert {
   aspect-ratio: 1/1;
   background-color: #F0F3F3;
+  overflow: hidden;
 }
 section.blog-row article img {
   height: auto;

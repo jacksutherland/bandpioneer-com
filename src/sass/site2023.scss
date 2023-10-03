@@ -1021,6 +1021,7 @@ section {
 			&.advert {
 				aspect-ratio: 1 / 1;
 				background-color: $light-gray;
+				overflow: hidden;
 			}
 
 			img {
