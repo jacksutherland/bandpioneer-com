@@ -67,10 +67,6 @@
 								<h2>{{ featured.title }}</h2>
 							</a>
 						{% endif %}
-						{# <a class="category" href="{{ cat.url }}">
-							{% include '_includes/icons' with { type: 'tag' } %}
-							<span>{{ cat.title }}</span>
-						</a> #}
 						{% if featured.shortDescription | length %}
 							<p>
 								{{ featured.shortDescription }}
@@ -81,6 +77,11 @@
 			</div>
 		</section>
 	{% endif %}
+
+	{### EZOIC - topic_page_top - under_page_title ###}
+	<div class="container">
+		<div class="advert"><div id="ezoic-pub-ad-placeholder-148"></div></div>
+	</div>
 
 	<section class="blog-row">
 		<div class="container">
@@ -135,5 +136,10 @@
 
 		</div>
 	</section>
+
+	{### EZOIC - topic_page_bottom - bottom_of_page ###}
+	<div class="container">
+		<div class="advert"><div id="ezoic-pub-ad-placeholder-149"></div></div>
+	</div>
 
 {% endblock %}
