@@ -45,6 +45,8 @@
 
         {% endapply %}
 
+        {% block headerScripts %}{% endblock %}
+
     </head>
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">

@@ -514,6 +514,9 @@ header.site-header nav ul li ul li h4 {
     margin: 0;
     transition: height 0.3s;
   }
+  header.site-header nav ul:last-child {
+    box-shadow: none;
+  }
   header.site-header nav ul li {
     background-color: transparent;
     position: relative;

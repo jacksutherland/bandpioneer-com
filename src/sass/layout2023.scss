@@ -612,6 +612,10 @@ header.site-header {
 				margin: 0;
 				transition: height $transition-time;
 
+				&:last-child {
+					box-shadow: none;
+				}
+
 				li {
 					background-color: transparent;
 					position: relative;

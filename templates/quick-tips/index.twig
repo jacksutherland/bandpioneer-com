@@ -1,4 +1,4 @@
-{% extends '/_layout' %}
+{% extends '_layout2023' %}
 
 {% set pageTitle = "Quick Tips" %}
 {% set seoTitle = "Quick Tips and Advice for Musicians" %}
@@ -9,25 +9,37 @@
 
 {% set groupedKeywords = craft.bands.getKeywordList() %}
 
+{# {% block styles %}
+	<link rel="stylesheet" href="{{ url('css/homepage2023.css') }}?version={{ versionNumber }}" /> 
+{% endblock %} #}
+
 {% block headerScripts %}
 	<style type="text/css">
-		h3.section-title {
-			margin-top: 40px;
+		h2 {
+			margin-top: 48px;
+			text-transform: capitalize;
 		}
 		.blog-posts {
+			display: grid;
 			gap: 20px;
     		margin-top: 20px;
 		}
-		.blog-posts article {
-			background-color: #f2f3f5;
-			box-shadow: none;
-			transition: background-color 0.35s;
+		.blog-posts a {
+			display: block;
+			height: 100%;
 		}
 		.blog-posts a:hover article {
 			background-color: #ecf0f1;
 		}
+		.blog-posts article {
+			background-color: #f2f3f5;
+			border-radius: 4px;
+			box-shadow: none;
+			height: 100%;
+			transition: background-color 0.35s;
+		}
 		.blog-posts article .blog-info {
-			margin: 15px 18px;
+			padding: 12px 24px;
 		}
 		.blog-posts article .blog-info h3 {
 			font-size: 1.2rem;
@@ -55,29 +67,25 @@
 {% endblock %}
 
 {% block content %}
-	{% include '_includes/categories' with { categories: craft.entries.section('category') } %}
-
-	{# <div class="page"> #}
-		<div class="container page">
-			{% for group in groupedKeywords %}
-				<section>
-					<h3 class="section-title"><span>{{ group.group }}</span></h3>
-					<div class="blog-posts">
-						{% for keyword in group.keywords %}
-							<a href="{{ pageUrl }}/{{ keyword.path }}"}>
-						        <article>
-									<div class="blog-info">
-										<h3 style="text-transform:capitalize;">
-											{{ keyword.path | split('/')[1] | replace({'-': ' '}) | title }}
-										</h3>
-										<p>{{ keyword.description | raw }}</p>
-									</div>
-								</article>
-							</a>
-						{% endfor %}
-					</div>
-				</section>
-		    {% endfor %}
-		</div>
-	{# </div> #}
+	<div class="container">
+		{% for group in groupedKeywords %}
+			<section>
+				<h2>{{ group.group }}</h2>
+				<div class="blog-posts">
+					{% for keyword in group.keywords %}
+						<a href="{{ pageUrl }}/{{ keyword.path }}"}>
+					        <article>
+								<div class="blog-info">
+									<h3 style="text-transform:capitalize;">
+										{{ keyword.path | split('/')[1] | replace({'-': ' '}) | title }}
+									</h3>
+									<p>{{ keyword.description | raw }}</p>
+								</div>
+							</article>
+						</a>
+					{% endfor %}
+				</div>
+			</section>
+	    {% endfor %}
+	</div>
 {% endblock %}
