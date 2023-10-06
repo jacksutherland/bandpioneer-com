@@ -171,7 +171,7 @@ address[rel="author"] {
 	display: none;
 	background-color: $light-gray;
     position: fixed;
-    top: ($header-sticky-height + $categories-sticky-height);
+    top: $header-sticky-height;
     left: 0;
     width: 100%;
     height: 6px;
@@ -185,6 +185,11 @@ address[rel="author"] {
 		width: 0;
 		height: 100%;
 		background: linear-gradient(to top, $secondary-dark, $secondary-color);
+	}
+}
+@media (min-width: $breakpoint-md) {
+	.reading-time {
+	    top: ($header-sticky-height + $categories-sticky-height);
 	}
 }
 

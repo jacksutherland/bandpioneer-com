@@ -876,7 +876,7 @@ address[rel=author] span {
   display: none;
   background-color: #F0F3F3;
   position: fixed;
-  top: 118px;
+  top: 68px;
   left: 0;
   width: 100%;
   height: 6px;
@@ -891,6 +891,11 @@ address[rel=author] span {
   background: linear-gradient(to top, #d0000e, #f90215);
 }
 
+@media (min-width: 768px) {
+  .reading-time {
+    top: 118px;
+  }
+}
 .blog header .logo img.logo-alt {
   display: inline !important;
 }
