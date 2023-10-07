@@ -741,10 +741,11 @@ nav.categories .container ul li .popup h3 {
   }
 }
 /***** CONTAINERS *****/
-.scroll-pane {
-  overflow: scroll;
+@media (max-width: 768px) {
+  .scroll-pane {
+    overflow-x: auto;
+  }
 }
-
 .z-pattern img {
   max-width: 100%;
   height: auto;

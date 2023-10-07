@@ -13,12 +13,16 @@ namespace bandpioneer\rockstar;
 use Craft;
 
 use craft\web\UrlManager;
+use craft\elements\Entry;
+use craft\events\DefineHtmlEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\CraftVariable;
 
-use bandpioneer\rockstar\services\RockstarService;
 use bandpioneer\rockstar\services\AIService;
+use bandpioneer\rockstar\services\KeywordService;
+use bandpioneer\rockstar\services\RockstarService;
 use bandpioneer\rockstar\variables\BandsVariable;
+
 use yii\base\Event;
 
 /**
@@ -82,14 +86,22 @@ class Rockstar extends craft\base\Plugin
             });
         }
 
-        // Event::on(BandsVariable::class, CraftVariable::EVENT_INIT,function(Event $e)
-        // {
-        //     $variable = $e->sender;
-        //     $variable -> set('rockstar', BandsVariable::class);
-        // });
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event)
         {
             $event->sender->set('bands', BandsVariable::class);
+        });
+
+        Event::on(Entry::class, Entry::EVENT_DEFINE_SIDEBAR_HTML, static function (DefineHtmlEvent $event)
+        {
+                
+            Craft::debug('Entry::EVENT_DEFINE_SIDEBAR_HTML', __METHOD__);
+
+            $entry = $event->sender;
+            $entrySlug = $entry->slug;
+
+            $html = Rockstar::$plugin->getKeywordService()->getEntryCPHTML($entrySlug);
+
+            $event->html .= $html;
         });
     }
 
@@ -103,6 +115,11 @@ class Rockstar extends craft\base\Plugin
         return $this->get('aiService');
     }
 
+    public function getKeywordService(): KeywordService
+    {
+        return $this->get('keywordService');
+    }
+
 
     // Private Methods
     // =========================================================================
@@ -111,7 +128,8 @@ class Rockstar extends craft\base\Plugin
     {
         $this->setComponents([
             'service' => RockstarService::class,
-            'aiService' => AIService::class
+            'aiService' => AIService::class,
+            'keywordService' => KeywordService::class
         ]);
     }
 

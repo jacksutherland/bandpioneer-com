@@ -3,8 +3,10 @@
 
 /***** CONTAINERS *****/
 
-.scroll-pane {
-	overflow: scroll;
+@media (max-width: $breakpoint-md) {
+	.scroll-pane {
+		overflow-x: auto;
+	}
 }
 
 .z-pattern {
