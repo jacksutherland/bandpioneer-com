@@ -823,7 +823,6 @@ nav.categories .container ul li .popup h3 {
     position: absolute;
     margin: 0;
     opacity: 1;
-    overflow-y: scroll;
     top: 0;
     transition: opacity 0.3s;
     width: 400px;
