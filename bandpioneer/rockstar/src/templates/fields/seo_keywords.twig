@@ -1,0 +1,48 @@
+{% import '_includes/forms.twig' as forms %}
+
+<style>
+    .related-keywords {
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function()
+    {
+        console.log("dom loaded");
+    });
+</script>
+
+<div class="related-keywords">
+
+	<form class="pane">
+
+		{{ forms.textField({
+		    label: "Article Keyword" | t('app'),
+		    instructions: "This article's primary keyword that you want to find related keywords for." | t('app'),
+		    id: 'name',
+		    name: 'name',
+		    value: keyword,
+		    required: true,
+		    autofocus: true
+		}) }}
+
+		<div class="keyword-data">
+			{% if data.isValid %}
+			
+				Vol: {{ data.vol }}
+			{% else %}
+				Error: {{ data.error }}
+			{% endif %}
+		</div>
+
+		{{ forms.button({
+			label: 'Get Related Keywords' | t('app'), 
+			spinner: true
+		}) }}
+
+	</form>
+
+</div>
+
+{# errors: field.getErrors('name'), #}

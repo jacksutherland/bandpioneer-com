@@ -15,9 +15,12 @@ use Craft;
 use craft\web\UrlManager;
 use craft\elements\Entry;
 use craft\events\DefineHtmlEvent;
+use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
+use craft\services\Fields;
 use craft\web\twig\variables\CraftVariable;
 
+use bandpioneer\rockstar\fields\SeoKeywords as SeoKeywordsField;
 use bandpioneer\rockstar\services\AIService;
 use bandpioneer\rockstar\services\KeywordService;
 use bandpioneer\rockstar\services\RockstarService;
@@ -83,8 +86,15 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/delete-logo'] = 'rockstar/bands/delete-logo';
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';
                 $event->rules['bands/delete-song'] = 'rockstar/bands/delete-song';
+
+                $event->rules['keywords/test'] = 'rockstar/keywords/test';
             });
         }
+
+        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event)
+        {
+            $event->types[] = SeoKeywordsField::class;
+        });
 
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event)
         {

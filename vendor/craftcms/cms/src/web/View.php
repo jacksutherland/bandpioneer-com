@@ -457,9 +457,9 @@ class View extends \yii\web\View
             $templateMode = $this->getTemplateMode();
         }
 
-        if (!$this->beforeRenderTemplate($template, $variables, $templateMode)) {
-            return '';
-        }
+        // if (!$this->beforeRenderTemplate($template, $variables, $templateMode)) {
+        //     return '';
+        // }
 
         Craft::debug("Rendering template: $template", __METHOD__);
 

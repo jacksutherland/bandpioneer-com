@@ -1,0 +1,10 @@
+columnSuffix: pdgqabpk
+contentColumnType: string
+fieldGroup: a9c9ed2d-71ed-44ae-8360-214ea6ecda29 # SEO Keywords
+handle: seoKeywords
+instructions: null
+name: 'Related SEO Keywords'
+searchable: false
+translationKeyFormat: null
+translationMethod: none
+type: bandpioneer\rockstar\fields\SeoKeywords

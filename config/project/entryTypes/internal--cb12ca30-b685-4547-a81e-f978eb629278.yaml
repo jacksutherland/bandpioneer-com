@@ -227,19 +227,7 @@ fieldLayouts:
             uid: 0dee5958-93bc-4f93-b964-6c6f1df015ad
             userCondition: null
             warning: null
-            width: 75
-          -
-            elementCondition: null
-            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Optimized
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 3a54d0af-3d3a-4ca1-9867-a89c9381f9a2
-            userCondition: null
-            warning: null
-            width: 25
+            width: 100
           -
             elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
@@ -261,6 +249,36 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 0539ed3e-d5c6-4c9b-b004-5f693bfba4e7
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Optimized
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3a54d0af-3d3a-4ca1-9867-a89c9381f9a2
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            heading: 'SEO Keywords'
+            type: craft\fieldlayoutelements\Heading
+            uid: 927b504c-f604-447e-8806-13a2ba896bd5
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: cdaef71d-1a83-462b-92b2-4d96fd8d8b32 # Related SEO Keywords
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6bb27b20-a671-4675-81a1-642bb5a15d37
             userCondition: null
             warning: null
             width: 100
