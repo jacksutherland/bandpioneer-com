@@ -1,6 +1,9 @@
 {% import '_includes/forms.twig' as forms %}
 
 <style>
+	.hide {
+		display: none;
+	}
     .related-keywords {
         margin-top: 20px;
     }
@@ -59,17 +62,20 @@
 		    })
 			.then(html => {
 
-				document.querySelector('[data-id="related-keywords"]').innerHTML = `<h2>Related Keywords</h2>${html}<a data-id="create-related-entries-btn" class="btn">Create Entries</a>`;
+				document.querySelector('[data-id="related-keywords"]').innerHTML = `<h2>Related Keywords</h2>${html}`;
 
-				document.querySelector('[data-id="create-related-entries-btn"]').addEventListener('click', function(e)
+				if(document.querySelector('[data-id="data-id="related-keywords"] input[type="checkbox"]').length > 0)
 				{
-					e.preventDefault();
-
-					fetchRelatedKeywords();
-				});
+					document.querySelector('[data-id="create-related-entries-btn"]').classList.remove('hide');
+				}
+				else
+				{
+					document.querySelector('[data-id="create-related-entries-btn"]').classList.add('hide');
+				}
 		})
 		.catch(error => {
 			document.querySelector('[data-id="related-keywords"]').innerHTML = error;
+			document.querySelector('[data-id="create-related-entries-btn"]').classList.add('hide');
 		});
 	}
 
@@ -119,6 +125,13 @@
 			fetchKeywordData();
 		});
 
+		document.querySelector('[data-id="create-related-entries-btn"]').addEventListener('click', function(e)
+		{
+			e.preventDefault();
+
+			console.log(`Create entries for ${document.querySelector('[data-id="data-id="related-keywords"] input[type="checkbox"]').length} keywords`);
+		});
+
 		setTimeout(fetchKeywordData, 3000);
     });
 </script>
@@ -150,6 +163,10 @@
 	</div>
 
 	<div data-id="related-keywords" class="keyword-data">
+	</div>
+
+	<div>
+		<a data-id="create-related-entries-btn" class="btn hide">Create Entries</a>
 	</div>
 
 </div>
