@@ -5,10 +5,13 @@
         margin-top: 20px;
     }
     .related-keywords p {
-        margin: 0.4em 0;
+        margin: 0.4rem 0;
     }
     .related-keywords p i {
         opacity: 0.6;
+    }
+    .related-keywords p input[type="checkbox"] {
+        margin-right: 0.4rem;
     }
     .related-keywords [data-id="keyword-input"] {
     	width: 100%;
@@ -30,18 +33,14 @@
 
 		fetchRelatedAttempt++;
 
-		console.log('fetchRelatedKeywords ' + fetchRelatedAttempt);
-
 		document.querySelector('[data-id="related-keywords"]').innerHTML = 'Fetching related keywords...<br><br>';
 
 		fetch(`/keywords/related?keyword=${keyword}`)
 			.then(response => {
-				console.log('fetchRelatedKeywords response');
-				console.log(response);
+				// console.log('fetchRelatedKeywords response');
+				// console.log(response);
 		        if(response.status === 500)
 		        {
-		        	console.log(fetchRelatedAttempt);
-
 		        	if(fetchRelatedAttempt <= 3)
 		        	{
 			        	setTimeout(fetchRelatedKeywords, 1000);
@@ -60,7 +59,7 @@
 		    })
 			.then(html => {
 
-				document.querySelector('[data-id="related-keywords"]').innerHTML = html;
+				document.querySelector('[data-id="related-keywords"]').innerHTML = `<h2>Related Keywords</h2>${html}`;
 		})
 		.catch(error => {
 			document.querySelector('[data-id="related-keywords"]').innerHTML = error;
@@ -77,8 +76,8 @@
 
 		fetch(`/keywords/data?keyword=${keyword}`)
 			.then(response => {
-				console.log('fetchKeywordData response');
-				console.log(response);
+				// console.log('fetchKeywordData response');
+				// console.log(response);
 		        if(response.status === 500) {
 		            return '<p>Server returned 500 error (' + fetchKeywordAttempt + 'x)</p><br>'
 		        }
@@ -140,11 +139,12 @@
 	<div data-id="keyword-data" class="keyword-data">
 	</div>
 
-	<div data-id="related-keywords" class="keyword-data">
-	</div>
-
 	<div>
 		<a data-id="related-keywords-btn" class="btn">Get Related Keywords</a>
+		<br><br>
+	</div>
+
+	<div data-id="related-keywords" class="keyword-data">
 	</div>
 
 </div>

@@ -209,11 +209,9 @@ class KeywordService extends Component
 
 		$html = "<div>";
 
-		// $jsonData = json_encode($relatedKeywords["data"]);
-
 		foreach ($data["data"] as $item)
 		{
-			$html .= "<p><strong>Keyword:</strong> {$item['keyword']}, <strong>Volume:</strong> {$item['vol']}, <strong>Competition:</strong> {$item['competition']}, <strong>CPC:</strong> {$item['cpc']['value']}</p>";
+			$html .= "<p><label><input type=\"checkbox\"><strong>Keyword:</strong> {$item['keyword']}, <strong>Volume:</strong> {$item['vol']}, <strong>Competition:</strong> {$item['competition']}, <strong>CPC:</strong> {$item['cpc']['value']}</label></p>";
 		}
 
 		$html .= "</div>";
