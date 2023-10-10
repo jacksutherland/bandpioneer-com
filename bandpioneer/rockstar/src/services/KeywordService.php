@@ -174,6 +174,8 @@ class KeywordService extends Component
 
 			$volData = [];
 
+			// only include keywords with volume greater than 0
+
 			foreach ($jsonData["data"] as $item)
 			{
 				if (isset($item['vol']) && $item['vol'] > 0)
@@ -182,13 +184,21 @@ class KeywordService extends Component
 				}
 			}
 
-			if (!empty($volData))
+			if (count($volData) < 2)
 			{
+				// if there are no keywords with volume, return the top 5
+
+				$volData = array_slice($jsonData["data"], 0, 6);
+			}
+			elseif (!empty($volData))
+			{
+				// order keywords by volume
+
 				usort($volData, function($a, $b)
 				{
 				    return $b['vol'] - $a['vol'];
 				});
-			}
+			}			
 
 			return [ 
 	    		'isValid' => ($info['http_code'] == 200),
@@ -209,9 +219,14 @@ class KeywordService extends Component
 
 		$html = "<div>";
 
+		// create html for keyword data
+
 		foreach ($data["data"] as $item)
 		{
-			$html .= "<p><label><input type=\"checkbox\"><strong>Keyword:</strong> {$item['keyword']}, <strong>Volume:</strong> {$item['vol']}, <strong>Competition:</strong> {$item['competition']}, <strong>CPC:</strong> {$item['cpc']['value']}</label></p>";
+			if($item['keyword'] !== $keyword)
+			{
+				$html .= "<p><label><input type=\"checkbox\" value=\"{$item['keyword']}\"><strong>Keyword:</strong> {$item['keyword']}, <strong>Volume:</strong> {$item['vol']}, <strong>Competition:</strong> {$item['competition']}, <strong>CPC:</strong> {$item['cpc']['value']}</label></p>";
+			}
 		}
 
 		$html .= "</div>";
