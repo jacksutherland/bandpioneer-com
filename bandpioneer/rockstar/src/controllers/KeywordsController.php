@@ -26,10 +26,31 @@ use yii\log\Logger;
  */
 class KeywordsController extends Controller
 {
-	public function actionTest(): string
+	public function actionData(): string
     {
     	$this->requireLogin();
-    	
-        return "test action value";
+
+    	$request = Craft::$app->getRequest();
+
+    	$keyword = $request->getParam('keyword');
+
+    	$service = Rockstar::$plugin->getKeywordService();
+
+    	$keywordHtml = $service->getKeywordDataHtml($keyword);
+
+        return $keywordHtml;
+    }
+
+    public function actionRelated(): string
+    {
+    	$request = Craft::$app->getRequest();
+
+    	$keyword = $request->getParam('keyword');
+
+    	$service = Rockstar::$plugin->getKeywordService();
+
+    	$html = $service->getRelatedKeywordHtml($keyword);
+
+        return $html;
     }
 }

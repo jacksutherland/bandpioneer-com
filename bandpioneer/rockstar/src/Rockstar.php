@@ -87,7 +87,8 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';
                 $event->rules['bands/delete-song'] = 'rockstar/bands/delete-song';
 
-                $event->rules['keywords/test'] = 'rockstar/keywords/test';
+                $event->rules['keywords/data'] = 'rockstar/keywords/data';
+                $event->rules['keywords/related'] = 'rockstar/keywords/related';
             });
         }
 

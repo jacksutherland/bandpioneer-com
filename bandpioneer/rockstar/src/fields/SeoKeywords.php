@@ -28,20 +28,14 @@ class SeoKeywords extends Field implements FieldInterface
     {
     	$keyword = str_replace("-", " ", $element->slug);
 
-    	$service = Rockstar::$plugin->getKeywordService();
+    	// $service = Rockstar::$plugin->getKeywordService();
 
-    	$keywordData = $service->getKeywordData($keyword);
-
-    	$jsonData = json_decode($keywordData['data'], true);
+    	// $keywordData = $service->getKeywordData($keyword);
 
     	$variables = [ 
     		'slug' => $element->slug, 
     		'keyword' => $keyword,
-    		'data' => [
-    			'isValid' => $keywordData['isValid'],
-    			'error' => $keywordData['error'],
-    			'vol' => $jsonData['data'][1]['vol']
-    		]
+    		// 'data' => $keywordData
     	];
 
     	return Craft::$app->getView()->renderTemplate(
