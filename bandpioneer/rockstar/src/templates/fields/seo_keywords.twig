@@ -64,7 +64,7 @@
 
 				document.querySelector('[data-id="related-keywords"]').innerHTML = `<h2>Related Keywords</h2>${html}`;
 
-				if(document.querySelector('[data-id="data-id="related-keywords"] input[type="checkbox"]').length > 0)
+				if(document.querySelector('[data-id="related-keywords"] input[type="checkbox"]').length > 0)
 				{
 					document.querySelector('[data-id="create-related-entries-btn"]').classList.remove('hide');
 				}
@@ -129,7 +129,7 @@
 		{
 			e.preventDefault();
 
-			console.log(`Create entries for ${document.querySelector('[data-id="data-id="related-keywords"] input[type="checkbox"]').length} keywords`);
+			console.log(`Create entries for ${document.querySelector('[data-id="related-keywords"] input[type="checkbox"]').length} keywords`);
 		});
 
 		setTimeout(fetchKeywordData, 3000);
