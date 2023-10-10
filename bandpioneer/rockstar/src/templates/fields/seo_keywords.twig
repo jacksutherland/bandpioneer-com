@@ -21,22 +21,40 @@
 </style>
 
 <script>
-	var fetchAttempt = 0;
+	var fetchKeywordAttempt = 0;
+	var fetchRelatedAttempt = 0;
 
 	const fetchRelatedKeywords = function()
 	{
 		const keyword = document.querySelector('[data-id="keyword-input"]').value;
 
-		document.querySelector('[data-id="related-keywords"]').innerHTML = 'Loading related keywords...<br><br>';
+		fetchRelatedAttempt++;
+
+		console.log('fetchRelatedKeywords ' + fetchRelatedAttempt);
+
+		document.querySelector('[data-id="related-keywords"]').innerHTML = 'Fetching related keywords...<br><br>';
 
 		fetch(`/keywords/related?keyword=${keyword}`)
 			.then(response => {
-		        if(response.status === 500) {
-		            return '<p>Server returned 500 error (' + fetchAttempt + 'x)</p><br>'
+				console.log('response');
+				console.log(response);
+		        if(response.status === 500)
+		        {
+		        	console.log(fetchRelatedAttempt);
+
+		        	if(fetchRelatedAttempt <= 3)
+		        	{
+			        	setTimeout(fetchRelatedKeywords, 1000);
+			        	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x). Fetching again...</p><br>'
+			        }
+			        else
+			        {
+		            	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x).</p><br>'
+		            }
 		        }
 		        else
 		        {
-		        	fetchAttempt = 0;
+		        	fetchRelatedAttempt = 0;
 		        }
 		        return response.text();
 		    })
@@ -51,20 +69,20 @@
 
 	const fetchKeywordData = function()
 	{
-		fetchAttempt++;
+		fetchKeywordAttempt++;
 
-		document.querySelector('[data-id="keyword-data"]').innerHTML = 'Loading keyword data...<br><br>';
+		document.querySelector('[data-id="keyword-data"]').innerHTML = 'Fetching keyword data...<br><br>';
 
 		const keyword = document.querySelector('[data-id="keyword-input"]').value;
 
 		fetch(`/keywords/data?keyword=${keyword}`)
 			.then(response => {
 		        if(response.status === 500) {
-		            return '<p>Server returned 500 error (' + fetchAttempt + 'x)</p><br>'
+		            return '<p>Server returned 500 error (' + fetchKeywordAttempt + 'x)</p><br>'
 		        }
 		        else
 		        {
-		        	fetchAttempt = 0;
+		        	fetchKeywordAttempt = 0;
 		        }
 		        return response.text();
 		    })

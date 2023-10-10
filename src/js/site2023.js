@@ -430,7 +430,7 @@ class BandPioneer
 								relatedVisible = false;
 							}
 
-							if(!commentsVisible && !relatedVisible)
+							if(toc && !commentsVisible && !relatedVisible)
 							{
 								toc.classList.remove('fadeaway');
 							}
@@ -439,14 +439,20 @@ class BandPioneer
 				});
 			}, { threshold: 0, rootMargin: `-70px 0px 0px 0px` });
 
-			observer.observe(blogHeader);
+			if(blogHeader && blogContainer)
+			{
+				observer.observe(blogHeader);
+			}
 			observer.observe(blogComments);
 			observer.observe(blogRelated);
 
-			toc.querySelector('.section-title').addEventListener('click', function(e)
+			if(toc)
 			{
-				toc.querySelector('ul').classList.toggle('close');
-			});
+				toc.querySelector('.section-title').addEventListener('click', function(e)
+				{
+					toc.querySelector('ul').classList.toggle('close');
+				});
+			}
 			
 			const breakpoint = BandPioneer.getBreakpoint();
 
@@ -519,8 +525,8 @@ class BandPioneer
 			{
 				const instaScroll = function(insta)
 				{
-					BandPioneer.each(instas, function(idx, insta)
-					{
+					// BandPioneer.each(instas, function(idx, insta)
+					instas.forEach(insta => {
 						if(insta.embedded === undefined || !insta.embedded)
 						{
 							const scrollPosition = window.scrollY + window.innerHeight;

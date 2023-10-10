@@ -160,7 +160,7 @@ class KeywordService extends Component
 	{
 		try {
 
-			$keywordCount = 60;
+			$keywordCount = 45;
 
 			$aiResponse = $this->getKeywordAIResponse($keyword, $keywordCount);
 	    	$keywordArray = explode(",", $aiResponse);
