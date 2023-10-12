@@ -1266,7 +1266,7 @@ address[rel=author] span {
 }
 @media (min-width: 992px) {
   .blog h2 {
-    margin: 65px 0 0 0;
+    margin: 65px 0 20px 0;
   }
   .blog h3 {
     margin: 45px 0 20px 0;
