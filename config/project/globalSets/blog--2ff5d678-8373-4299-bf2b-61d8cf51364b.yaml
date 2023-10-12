@@ -28,6 +28,18 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: 77bee9c6-a3ce-4ca6-ae83-75613901a67e # Default Blog Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 06953258-ff0d-44f1-9572-1118680fa272
+            userCondition: null
+            warning: null
+            width: 100
         name: Blog
         uid: 3b2fe010-0f9d-4b22-98ac-206bb45c578c
         userCondition: null

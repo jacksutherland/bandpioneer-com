@@ -5,6 +5,8 @@
 {% set blogQuery = craft.entries.section('blog') %}
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
+{% set defaultBlogImage = blog.defaultBlogImage.one() %}
+
 {% if firstPageInfo.currentPage == 1 %}
 	{% set isSticky = false %}
 	{% set isFirstPage = true %}
@@ -110,7 +112,6 @@
 					<div>
 						{% if featured.blogImage.count %}
 							{% set img = featured.blogImage.one() %}
-							{% set cat = featured.categories.one() %}
 							<a href="{{ featured.url }}">
 			        			<picture>
 								 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
@@ -129,10 +130,13 @@
 								<h2>{{ featured.title }}</h2>
 							</a>
 						{% endif %}
-						<a class="category" href="{{ cat.url }}">
-							{% include '_includes/icons' with { type: 'tag' } %}
-							<span>{{ cat.title }}</span>
-						</a>
+						{% if featured.categories.count %}
+							{% set cat = featured.categories.one() %}
+							<a class="category" href="{{ cat.url }}">
+								{% include '_includes/icons' with { type: 'tag' } %}
+								<span>{{ cat.title }}</span>
+							</a>
+						{% endif %}
 						{% if featured.shortDescription | length %}
 							<p>
 								{{ featured.shortDescription }}
@@ -151,27 +155,32 @@
 			<div class="grid-pane">
 				{% for blog in recentPosts %}
 					<article>
-						{% if blog.blogImage.count %}
-							{% set img = blog.blogImage.one() %}
+						<a class="blog-img" href="{{ blog.url }}">
+							{% if blog.blogImage.count %}
+								{% set img = blog.blogImage.one() %}
+							{% else %}
+								{% set img = defaultBlogImage %}
+							{% endif %}
+		        			<picture>
+							 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+								<img src="{{ img.url('recentPostsMobile2023') }}"
+									srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+								 	alt="{{ img.title }}"
+								 	loading="lazy"
+									width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+							</picture>
+							
+						</a>
+						{% if blog.categories.count %}
 							{% set cat = blog.categories.one() %}
-							<a class="blog-img" href="{{ blog.url }}">
-			        			<picture>
-								 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
-									<img src="{{ img.url('recentPostsMobile2023') }}"
-										srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
-								</picture>
-							</a>
 							<a class="category" href="{{ cat.url }}">
 								{% include '_includes/icons' with { type: 'tag' } %}
 								<span>{{ cat.title }}</span>
 							</a>
-							<a class="blog-title" href="{{ blog.url }}">
-								<h4>{{ blog.title }}</h4>
-							</a>
 						{% endif %}
+						<a class="blog-title" href="{{ blog.url }}">
+							<h4>{{ blog.title }}</h4>
+						</a>
 	        		</article>
 	        	{% endfor %}
         	</div>

@@ -199,6 +199,27 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\LightswitchFieldConditionRule
+                  fieldUid: c4817296-2368-46b6-9127-4bd175f84a4a # Dynamic SEO
+                  uid: 9603e250-dca7-447c-936e-04182672acbd
+                  value: true
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 9a6940a2-21f7-479b-89de-7b12ff94ad18 # Long Text
+            instructions: null
+            label: 'Dynamic SEO Copy'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 28109407-7a91-4acb-87a3-6d693b3c3813
+            userCondition: null
+            warning: null
+            width: 100
+          -
             elementCondition: null
             fieldUid: 266355e1-d1f3-4d71-a92d-2d3a714c3d06 # Blog Content
             instructions: null
@@ -261,6 +282,18 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 3a54d0af-3d3a-4ca1-9867-a89c9381f9a2
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: c4817296-2368-46b6-9127-4bd175f84a4a # Dynamic SEO
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b543c68f-d2f8-4da0-af99-7c83d833173d
             userCondition: null
             warning: null
             width: 25

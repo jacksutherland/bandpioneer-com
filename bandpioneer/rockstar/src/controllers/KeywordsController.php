@@ -14,6 +14,7 @@ use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\services\RockstarService;
 
 use Craft;
+use craft\helpers\Json;
 use craft\web\Controller;
 
 use yii\web\Response;
@@ -52,5 +53,24 @@ class KeywordsController extends Controller
     	$html = $service->getRelatedKeywordHtml($keyword);
 
         return $html;
+    }
+
+    // public function actionCreateEntries(): ?Response
+   	public function actionCreateEntries()
+    {
+        $this->requirePostRequest();
+
+        $request = Craft::$app->getRequest();
+        $keywords = $request->getParam('keywords');
+        $category = $request->getParam('category');
+
+        $service = Rockstar::$plugin->getKeywordService();
+
+    	$success = $service->createEntries($keywords, $category);
+
+        return $this->asJson([
+        	'result' => ($success ? 'success': 'error'),
+        	'keywords' => $keywords
+        ]);
     }
 }

@@ -27,31 +27,40 @@
 </style>
 
 <script>
+	let fetchingCount = 1;
 	var fetchKeywordAttempt = 0;
 	var fetchRelatedAttempt = 0;
 
 	const fetchRelatedKeywords = function()
 	{
 		const keyword = document.querySelector('[data-id="keyword-input"]').value;
+		const createBtn = document.querySelector('[data-id="create-related-entries-btn"]');
+		const keywordContainer = document.querySelector('[data-id="related-keywords"]');
 
 		fetchRelatedAttempt++;
 
-		document.querySelector('[data-id="related-keywords"]').innerHTML = 'Fetching related keywords...<br><br>';
+		keywordContainer.innerHTML = 'Fetching related keywords...<br><br>';
+
+		let keywordInterval = setInterval(() => {
+			keywordContainer.innerHTML = `Fetching related keywords ${fetchingCount++}s...<br><br>`;
+		}, 1000);
 
 		fetch(`/keywords/related?keyword=${keyword}`)
 			.then(response => {
-				// console.log('fetchRelatedKeywords response');
-				// console.log(response);
 		        if(response.status === 500)
 		        {
 		        	if(fetchRelatedAttempt <= 3)
 		        	{
-			        	setTimeout(fetchRelatedKeywords, 1000);
-			        	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x). Fetching again...</p><br>'
+		        		if(fetchRelatedKeywords < 4)
+		        		{
+				        	setTimeout(fetchRelatedKeywords, 1000);
+				        	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x). Fetching again...</p><br>';
+				        }
+				        return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x).</p><br>';
 			        }
 			        else
 			        {
-		            	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x).</p><br>'
+		            	return '<p>Server returned 500 error (' + fetchRelatedAttempt + 'x).</p><br>';
 		            }
 		        }
 		        else
@@ -62,20 +71,26 @@
 		    })
 			.then(html => {
 
-				document.querySelector('[data-id="related-keywords"]').innerHTML = `<h2>Related Keywords</h2>${html}`;
+				fetchingCount = 1;
+				clearInterval(keywordInterval);
 
-				if(document.querySelectorAll('[data-id="related-keywords"] input[type="checkbox"]').length > 0)
+				keywordContainer.innerHTML = `<h2>Related Keywords</h2>${html}`;
+
+				//if(document.querySelectorAll('[data-id="related-keywords"] input[type="checkbox"]').length > 0)
+				if(keywordContainer.querySelectorAll('input[type="checkbox"]').length > 0)
 				{
-					document.querySelector('[data-id="create-related-entries-btn"]').classList.remove('hide');
+					createBtn.classList.remove('hide');
 				}
 				else
 				{
-					document.querySelector('[data-id="create-related-entries-btn"]').classList.add('hide');
+					createBtn.classList.add('hide');
 				}
 		})
 		.catch(error => {
-			document.querySelector('[data-id="related-keywords"]').innerHTML = error;
-			document.querySelector('[data-id="create-related-entries-btn"]').classList.add('hide');
+			fetchingCount = 1;
+			clearInterval(keywordInterval);
+			keywordContainer.innerHTML = error;
+			createBtn.classList.add('hide');
 		});
 	}
 
@@ -89,8 +104,7 @@
 
 		fetch(`/keywords/data?keyword=${keyword}`)
 			.then(response => {
-				// console.log('fetchKeywordData response');
-				// console.log(response);
+
 		        if(response.status === 500) {
 		            return '<p>Server returned 500 error (' + fetchKeywordAttempt + 'x)</p><br>'
 		        }
@@ -107,6 +121,59 @@
 		.catch(error => {
 			document.querySelector('[data-id="keyword-data"]').innerHTML = error;
 		});
+	}
+
+	const createRelatedEntries = async function()
+	{
+		let loadingCount = 1;
+
+		const checkedValues = Array.from(document.querySelectorAll('[data-id="related-keywords"] input[type="checkbox"]:checked')).map(input => input.value);
+		
+		const catSelector = '[name="fields[categories][]"]';
+
+		let data = { 
+			"keywords": checkedValues,
+			"category": document.querySelector(catSelector.replace('[fields]', '')).value
+		};
+		data[Craft.csrfTokenName] = Craft.csrfTokenValue;
+		const jsonData = JSON.stringify(data);
+
+		const createBtn = document.querySelector('[data-id="create-related-entries-btn"]');
+		const createMsg = document.createElement('div');
+		createMsg.setAttribute("data-id", "create-related-entries-loading");
+		createBtn.parentNode.insertBefore(createMsg, createBtn);
+
+		createBtn.classList.add('hide');
+
+		let createMsgInterval = setInterval(() => {
+			createMsg.innerText = `Creating related entries ${loadingCount++}s, please wait...`;
+		}, 1000);
+
+		const response = await fetch('/keywords/create-entries', {
+		    method: 'POST',
+		    headers: {
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json'
+		    },
+		    body: jsonData
+		});
+
+	   const jsonResponse = await response.json();
+
+	   	clearInterval(createMsgInterval);
+	   	createBtn.classList.remove('hide');
+
+		if(jsonResponse.result == "success")
+		{
+		   createMsg.innerText = "Related entries created. Redirecting...";
+		}
+		else
+		{
+			createMsg.innerText = "Error creating related entries.";
+			console.log(jsonResponse);
+		}
+
+	   return jsonResponse;
 	}
 
 	document.addEventListener("DOMContentLoaded", function()
@@ -129,7 +196,18 @@
 		{
 			e.preventDefault();
 
-			console.log(`Create entries for ${document.querySelectorAll('[data-id="related-keywords"] input[type="checkbox"]').length} keywords`);
+			createRelatedEntries().then(function(response)
+			{
+				if(response.result == "success")
+				{
+					window.location.href = '/admin/utilities/queue-manager';
+				}
+				else
+				{
+					console.log('Error creating related entries');
+					console.log(response);
+				}
+			});
 		});
 
 		setTimeout(fetchKeywordData, 3000);
@@ -166,6 +244,7 @@
 	</div>
 
 	<div>
+		<br>
 		<a data-id="create-related-entries-btn" class="btn hide">Create Entries</a>
 	</div>
 

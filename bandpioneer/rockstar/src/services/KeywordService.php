@@ -11,20 +11,45 @@
 namespace bandpioneer\rockstar\services;
 
 use bandpioneer\rockstar\Rockstar;
+use bandpioneer\rockstar\queue\jobs\PopulateEntries;
 
-use Craft;
-use craft\gql\base\ObjectType;
 use yii\base\Component;
 
+use Craft;
+use craft\base\Element;
+use craft\elements\Entry;
+use craft\gql\base\ObjectType;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Db;
+use craft\helpers\ElementHelper;
 
 /**
  * @author    Band Pioneer
  * @package   KeywordService
  */
+
+class AIQueries {
+    const KEYWORDS = 1;
+}
+
 class KeywordService extends Component
 {
+	const NUMBER_OF_RELATED_KEYWORDS = 30;
+
+	public static function getAIQuery($aiQueryType, $params = [])
+	{
+	    switch ($aiQueryType)
+	    {
+	        case AIQueries::KEYWORDS:
+	        	$total = self::NUMBER_OF_RELATED_KEYWORDS;
+	        	$qty = round($total / 3);
+				$remainder = $total - round(2 * $qty);
+		        return "Create {$total} long-tail SEO keywords that are common search terms, and related to the primary keyword: {$params['keyword']}. {$qty} of them should be similar to the primary keyword, {$qty} should just be a similar top to the primary keyword, and the remaining {$remainder} can me just remotely related to it. Each keyword should be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
+	        default:
+	        	return "";
+	    }
+	}
+
 	public function getEntryCPHTML($entrySlug)
 	{
 		$keyword = str_replace("-", " ", $entrySlug);
@@ -137,12 +162,9 @@ class KeywordService extends Component
 	{
 		$aiService = Rockstar::$plugin->getAIService();
 
-		$qty = round($total / 3);
-		$remainder = $total - round($total / 2);
+		$query = self::getAIQuery(AIQueries::KEYWORDS, ['keyword' => $keyword]);
 
-		$query = "Our primary keyword is: ${keyword}. I need ${total} long-tail keywords related to it that a lot of people are searching for. ${qty} of them should be closely related to the primary SEO keyword, ${qty} should be moderately related to it, and the remaining ${remainder} should just barely be related to it. Delimit each keyword by commas only. No numbers or bullets, comma delimited keywords only.";
-	   
-	    $aiResponse = $aiService->chatQuery($query);
+		$aiResponse = $aiService->chatQuery($query);
 
 	    return $aiResponse;
 	}
@@ -160,9 +182,8 @@ class KeywordService extends Component
 	{
 		try {
 
-			$keywordCount = 45;
+			$aiResponse = $this->getKeywordAIResponse($keyword, self::NUMBER_OF_RELATED_KEYWORDS);
 
-			$aiResponse = $this->getKeywordAIResponse($keyword, $keywordCount);
 	    	$keywordArray = explode(",", $aiResponse);
 	    	$response = $this->keywordAPICall($keywordArray);
 
@@ -198,14 +219,13 @@ class KeywordService extends Component
 				{
 				    return $b['vol'] - $a['vol'];
 				});
-			}			
+			}
 
 			return [ 
 	    		'isValid' => ($info['http_code'] == 200),
 	    		'error' => $error,
 	    		'data' => $volData
 	    	];
-
 		 }
 	    catch (Exception $e)
 	    {
@@ -232,6 +252,21 @@ class KeywordService extends Component
 		$html .= "</div>";
 
 		return $html;
+	}
+
+	public function createEntries($keywords, $category) : bool
+	{
+		$success = true;
+
+		foreach ($keywords as $keyword)
+		{
+	        Craft::$app->getQueue()->push(new PopulateEntries([
+                'keyword' => $keyword,
+                'category' => $category
+            ]));
+		}
+
+		return $success;
 	}
 }
 

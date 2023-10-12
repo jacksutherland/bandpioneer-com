@@ -121,6 +121,12 @@
 
 	<div class="blog-body{% if entry.tocStyle == 'none' %} no-toc{% endif %}">
 
+		{% if entry.dynamicSeo %}
+			<section class="rich-text">
+				{{ entry.longText }}
+			</section>
+		{% endif %}
+
 		{% for module in blogModules %}
 
 			{% switch module.type %}

@@ -1,4 +1,4 @@
-dateModified: 1696806380
+dateModified: 1697071087
 elementSources:
   craft\elements\Asset:
     -
@@ -85,11 +85,11 @@ elementSources:
       disabled: false
       key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
       tableAttributes:
-        - 'field:7338fd63-9ce2-4696-a9b3-113b5d6015c3' # Subheadline
         - type
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
+        - 'field:c4817296-2368-46b6-9127-4bd175f84a4a' # Dynamic SEO
         - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Optimized
         - link
       type: native
@@ -231,6 +231,7 @@ meta:
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
     69a773a9-c69f-4fe7-b975-b60c93c084a7: 'Show Recent Blogs' # Show Recent Blogs
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
+    77bee9c6-a3ce-4ca6-ae83-75613901a67e: 'Default Blog Image' # Default Blog Image
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
@@ -281,6 +282,7 @@ meta:
     c391d039-c741-426d-85a3-d52c21725ce9: 'Blog Listing Medium 2x' # Blog Listing Medium 2x
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
+    c4817296-2368-46b6-9127-4bd175f84a4a: 'Dynamic SEO' # Dynamic SEO
     cb12ca30-b685-4547-a81e-f978eb629278: Internal # Internal
     cd4a38c4-94ce-4c20-9d8b-62288944ef87: 'Media Type' # Media Type
     cdaef71d-1a83-462b-92b2-4d96fd8d8b32: 'Related SEO Keywords' # Related SEO Keywords
