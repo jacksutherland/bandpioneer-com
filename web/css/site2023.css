@@ -277,15 +277,6 @@ section.blog-row article.advert {
   background-color: #F0F3F3;
   overflow: hidden;
 }
-section.blog-row article a.blog-img {
-  display: block;
-  aspect-ratio: 1/1;
-  background-color: #F0F3F3;
-  transition: background-color 0.3s;
-}
-section.blog-row article a.blog-img:hover {
-  background-color: #E0E0E0;
-}
 section.blog-row article img {
   height: auto;
   max-width: 100%;

@@ -45,7 +45,7 @@ class PopulateEntries extends BaseJob
                 return "Create a compelling description for a blog article titled '{$params['title']}'. It must be less than 160 characters.";
 
             case AIQueries::RELATED_ENTRY_COPY:
-                return "Write the copy for an article about '{$params['title']}'. It must be 1000 to 2000 words, with interesting, easy to read language, and practical useful information only. Format it using html so that paragraphs are in <p> tags, and section titles in <h2> or <h3> tags, but do not include an <h1>.";
+                return "Write long-form copy for an article about '{$params['title']}'. It must be 1000 to 2000 words, with interesting, easy to read language, and practical useful information only. Format it using html so that paragraphs are in <p> tags, and section titles in <h2> or <h3> tags, but do not include an <h1>. Start with an introduction paragraph with no title, and end with a conclusion titled 'Final Thoughts'.";
 
             default:
                 return "";
