@@ -180,7 +180,7 @@ class Installer
     /**
      * Array of package names/globs flagged for update
      *
-     * @var string[]|null
+     * @var non-empty-list<string>|null
      */
     protected $updateAllowList = null;
     /** @var Request::UPDATE_* */
@@ -242,7 +242,7 @@ class Installer
         gc_collect_cycles();
         gc_disable();
 
-        if ($this->updateAllowList && $this->updateMirrors) {
+        if ($this->updateAllowList !== null && $this->updateMirrors) {
             throw new \RuntimeException("The installer options updateMirrors and updateAllowList are mutually exclusive.");
         }
 
@@ -349,7 +349,18 @@ class Installer
             $this->autoloadGenerator->setApcu($this->apcuAutoloader, $this->apcuAutoloaderPrefix);
             $this->autoloadGenerator->setRunScripts($this->runScripts);
             $this->autoloadGenerator->setPlatformRequirementFilter($this->platformRequirementFilter);
-            $this->autoloadGenerator->dump($this->config, $localRepo, $this->package, $this->installationManager, 'composer', $this->optimizeAutoloader);
+            $this
+                ->autoloadGenerator
+                ->dump(
+                    $this->config,
+                    $localRepo,
+                    $this->package,
+                    $this->installationManager,
+                    'composer',
+                    $this->optimizeAutoloader,
+                    null,
+                    $this->locker
+                );
         }
 
         if ($this->install && $this->executeOperations) {
@@ -404,7 +415,9 @@ class Installer
                         $repoSet->addRepository($repo);
                     }
 
-                    return $auditor->audit($this->io, $repoSet, $packages, $this->auditFormat, true, $this->config->get('audit')['ignore'] ?? []) > 0 && $this->errorOnAudit ? self::ERROR_AUDIT_FAILED : 0;
+                    $auditConfig = $this->config->get('audit');
+
+                    return $auditor->audit($this->io, $repoSet, $packages, $this->auditFormat, true, $auditConfig['ignore'] ?? [], $auditConfig['abandoned'] ?? Auditor::ABANDONED_REPORT) > 0 && $this->errorOnAudit ? self::ERROR_AUDIT_FAILED : 0;
                 } catch (TransportException $e) {
                     $this->io->error('Failed to audit '.$target.' packages.');
                     if ($this->io->isVerbose()) {
@@ -434,7 +447,7 @@ class Installer
                 $lockedRepository = $this->locker->getLockedRepository(true);
             }
         } catch (\Seld\JsonLint\ParsingException $e) {
-            if ($this->updateAllowList || $this->updateMirrors) {
+            if ($this->updateAllowList !== null || $this->updateMirrors) {
                 // in case we are doing a partial update or updating mirrors, the lock file is needed so we error
                 throw $e;
             }
@@ -442,7 +455,7 @@ class Installer
             // doing a full update
         }
 
-        if (($this->updateAllowList || $this->updateMirrors) && !$lockedRepository) {
+        if (($this->updateAllowList !== null || $this->updateMirrors) && !$lockedRepository) {
             $this->io->writeError('<error>Cannot update ' . ($this->updateMirrors ? 'lock file information' : 'only a partial set of packages') . ' without a lock file present. Run `composer update` to generate a lock file.</error>', true, IOInterface::QUIET);
 
             return self::ERROR_NO_LOCK_FILE_FOR_PARTIAL_UPDATE;
@@ -465,7 +478,7 @@ class Installer
         $this->requirePackagesForUpdate($request, $lockedRepository, true);
 
         // pass the allow list into the request, so the pool builder can apply it
-        if ($this->updateAllowList) {
+        if ($this->updateAllowList !== null) {
             $request->setUpdateAllowList($this->updateAllowList, $this->updateAllowTransitiveDependencies);
         }
 
@@ -1335,7 +1348,11 @@ class Installer
      */
     public function setUpdateAllowList(array $packages): self
     {
-        $this->updateAllowList = array_flip(array_map('strtolower', $packages));
+        if (count($packages) === 0) {
+            $this->updateAllowList = null;
+        } else {
+            $this->updateAllowList = array_values(array_unique(array_map('strtolower', $packages)));
+        }
 
         return $this;
     }

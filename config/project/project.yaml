@@ -1,4 +1,4 @@
-dateModified: 1697071087
+dateModified: 1697116385
 elementSources:
   craft\elements\Asset:
     -
@@ -140,6 +140,38 @@ elementSources:
       key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
       tableAttributes: '-'
       type: native
+  craft\elements\User:
+    -
+      key: '*'
+      type: native
+    -
+      defaultSort:
+        - email
+        - asc
+      disabled: false
+      key: admins
+      tableAttributes:
+        - fullName
+        - username
+        - email
+        - dateCreated
+        - lastLoginDate
+      type: native
+    -
+      heading: 'Account Type'
+      type: heading
+    -
+      key: credentialed
+      type: native
+    -
+      key: inactive
+      type: native
+    -
+      heading: Groups
+      type: heading
+    -
+      key: 'group:1e42cdc3-f360-43ac-b612-8de6f081ad47' # Rockstars
+      type: native
 email:
   fromEmail: support@realitygems.com
   fromName: 'Band Pioneer'
@@ -236,6 +268,7 @@ meta:
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
+    350ca85e-fc53-44c8-a062-e0256f1967e4: Dynamic # Dynamic
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
@@ -422,6 +455,11 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  sidebarentrytypes:
+    edition: standard
+    enabled: true
+    licenseKey: T9ZZ68THXSBAAMJ3D7HHYTCX
+    schemaVersion: 2.0.0
 system:
   edition: pro
   live: true

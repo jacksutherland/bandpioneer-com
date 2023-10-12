@@ -23,6 +23,14 @@ class AIQueries {
 
 class PopulateEntries extends BaseJob
 {
+    const SITE_HANDLE = 'default';
+    const SECTION_HANDLE = 'blog';
+    const ENTRY_TYPE_HANDLE = 'dynamic';
+    const AUTHOR_USERNAME = 'jacksutherl@gmail.com';
+    const AUTHOR_NAME = 'Band Pioneer';
+    const AUTHOR_PICTURE_ID = 7369;
+    const TOC_DEFAULT = 'expanded';
+
     public string $keyword;
     public int $category;
 
@@ -39,7 +47,7 @@ class PopulateEntries extends BaseJob
         switch ($aiQueryType)
         {
             case AIQueries::RELATED_ENTRY_TITLE:
-                return "Create a compelling title for a blog article. It should have the keyword '{$params['keyword']}' in it verbatim, and must be less than 55 characters.";
+                return "Create a title for a blog article. It must have the keyword '{$params['keyword']}' in it verbatim, be simple but enticing for users to click, and it must be less than 55 characters.";
 
             case AIQueries::RELATED_ENTRY_DESC:
                 return "Create a compelling description for a blog article titled '{$params['title']}'. It must be less than 160 characters.";
@@ -64,10 +72,31 @@ class PopulateEntries extends BaseJob
         $slug = ElementHelper::generateSlug(ucwords(strtolower($this->keyword)), null, null);
 
         $entry = new Entry();
-        $entry->siteId = 1; // TODO
-        $entry->sectionId = 1; // TODO
-        $entry->typeId = 1; // TODO
-        $entry->authorId = 1; // TODO
+
+        $entrySite = Craft::$app->getSites()->getSiteByHandle(self::SITE_HANDLE);
+        if($entrySite)
+        {
+            $entry->siteId = $entrySite->id;
+        }
+
+        $entrySection = Craft::$app->getSections()->getSectionByHandle(self::SECTION_HANDLE);
+        if($entrySection)
+        {
+            $entry->sectionId = $entrySection->id;
+        }
+
+        $entryTypes = Craft::$app->sections->getEntryTypesByHandle(self::ENTRY_TYPE_HANDLE);
+        if(count($entryTypes) > 0)
+        {
+            $entry->typeId = $entryTypes[0]->id;
+        }
+
+        $entryAuthor = Craft::$app->getUsers()->getUserByUsernameOrEmail(self::AUTHOR_USERNAME);
+        if($entryAuthor)
+        {
+            $entry->authorId = $entryAuthor->id;
+        }
+
         $entry->enabled = false;
         $entry->slug = $slug;
         $entry->expiryDate = null;
@@ -78,13 +107,14 @@ class PopulateEntries extends BaseJob
         $postDate->sub(new DateInterval('P3Y'));
         $entry->postDate = $postDate;
 
-        $entry->dynamicSeo = true;
-        $entry->tocDefault = 'expanded';
+        $entry->tocDefault = self::TOC_DEFAULT;
         $entry->categories = [$this->category];
-        $entry->fullName = 'Band Pioneer';
-        $entry->writerPicture = [7369];
+        $entry->fullName = self::AUTHOR_NAME;
+        $entry->writerPicture = [self::AUTHOR_PICTURE_ID];
 
         try {
+
+            $this->setProgress($queue, 0.1);
             
             $titleQuery = self::getAIQuery(AIQueries::RELATED_ENTRY_TITLE, ['keyword' => $this->keyword]);
             $title = $aiService->chatQuery($titleQuery);
@@ -93,16 +123,22 @@ class PopulateEntries extends BaseJob
             $entry->title = $title;
             $entry->metaTitle = $title;
 
+            $this->setProgress($queue, 0.3);
+
             $descQuery = self::getAIQuery(AIQueries::RELATED_ENTRY_DESC, ['title' => $title]);
             $desc = $aiService->chatQuery($descQuery);
             $desc = trim($desc, '"');
             $entry->shortDescription = $desc;
             $entry->metaDescription = $desc;
 
+            $this->setProgress($queue, 0.6);
+
             $htmlQuery = self::getAIQuery(AIQueries::RELATED_ENTRY_COPY, ['title' => $title]);
             $html = $aiService->chatQuery($htmlQuery);
             $title = str_replace(['<h1>', '</h1>', $title], '', $title);
             $entry->longText = $html;
+
+            $this->setProgress($queue, 0.9);
 
             if(!Craft::$app->getElements()->saveElement($entry, false))
             {

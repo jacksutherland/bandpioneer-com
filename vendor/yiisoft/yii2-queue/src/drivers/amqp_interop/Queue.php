@@ -28,6 +28,8 @@ use yii\queue\cli\Queue as CliQueue;
 /**
  * Amqp Queue.
  *
+ * @property-read AmqpContext $context
+ *
  * @author Maksym Kotliar <kotlyar.maksim@gmail.com>
  * @since 2.0.2
  */
@@ -42,7 +44,7 @@ class Queue extends CliQueue
     const ENQUEUE_AMQP_BUNNY = 'enqueue/amqp-bunny';
 
     /**
-     * The connection to the borker could be configured as an array of options
+     * The connection to the broker could be configured as an array of options
      * or as a DSN string like amqp:, amqps:, amqps://user:pass@localhost:1000/vhost.
      *
      * @var string
@@ -108,6 +110,12 @@ class Queue extends CliQueue
      * @var bool|null
      */
     public $persisted;
+    /**
+     * Send keep-alive packets for a socket connection
+     * @var bool
+     * @since 2.3.6
+     */
+    public $keepalive;
     /**
      * The connection will be established as later as possible if set true.
      *
@@ -222,17 +230,24 @@ class Queue extends CliQueue
      */
     public $driver = self::ENQUEUE_AMQP_LIB;
     /**
-     * This property should be an integer indicating the maximum priority the queue should support. Default is 10.
-     *
-     * @var int
-     */
-    public $maxPriority = 10;
-    /**
      * The property contains a command class which used in cli.
      *
      * @var string command class name
      */
     public $commandClass = Command::class;
+    /**
+     * Headers to send along with the message
+     * ```php
+     * [
+     *    'header-1' => 'header-value-1',
+     *    'header-2' => 'header-value-2',
+     * ]
+     * ```
+     *
+     * @var array
+     * @since 3.0.0
+     */
+    public $setMessageHeaders = [];
 
     /**
      * Amqp interop context.
@@ -351,8 +366,13 @@ class Queue extends CliQueue
         $message->setDeliveryMode(AmqpMessage::DELIVERY_MODE_PERSISTENT);
         $message->setMessageId(uniqid('', true));
         $message->setTimestamp(time());
-        $message->setProperty(self::ATTEMPT, 1);
-        $message->setProperty(self::TTR, $ttr);
+        $message->setProperties(array_merge(
+            $this->setMessageHeaders,
+            [
+                self::ATTEMPT => 1,
+                self::TTR => $ttr,
+            ]
+        ));
 
         $producer = $this->context->createProducer();
 
@@ -418,6 +438,7 @@ class Queue extends CliQueue
             'connection_timeout' => $this->connectionTimeout,
             'heartbeat' => $this->heartbeat,
             'persisted' => $this->persisted,
+            'keepalive' => $this->keepalive,
             'lazy' => $this->lazy,
             'qos_global' => $this->qosGlobal,
             'qos_prefetch_size' => $this->qosPrefetchSize,
@@ -451,10 +472,7 @@ class Queue extends CliQueue
 
         $queue = $this->context->createQueue($this->queueName);
         $queue->setFlags($this->queueFlags);
-        $queue->setArguments(array_merge(
-            ['x-max-priority' => $this->maxPriority],
-            $this->queueOptionalArguments
-        ));
+        $queue->setArguments($this->queueOptionalArguments);
         $this->context->declareQueue($queue);
 
         $topic = $this->context->createTopic($this->exchangeName);

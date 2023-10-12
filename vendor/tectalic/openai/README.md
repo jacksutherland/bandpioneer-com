@@ -4,7 +4,7 @@
 
 The **Tectalic OpenAI REST API Client** is a package that provides a convenient and straightforward way to interact with the **OpenAI API** from your PHP application.
 
-Supports **ChatGPT**, **GPT-3**, **Codex**, **DALL·E** and **Whisper** based models, fully typed Data Transfer Objects (DTOs) for all requests and responses and IDE autocomplete support.
+Supports **ChatGPT**, **GPT-4**, **GPT-3.5**, **GPT-3**, **Codex**, **DALL·E**, **Whisper**, **Fine-Tuning**, **Embeddings** and **Moderation** models, with fully typed Data Transfer Objects (DTOs) for all requests and responses and IDE autocomplete support.
 
 More information is available from [https://tectalic.com/apis/openai](https://tectalic.com/apis/openai).
 
@@ -14,28 +14,116 @@ More information is available from [https://tectalic.com/apis/openai](https://te
 
 Integrating OpenAI into your application is now as simple as a few lines of code.
 
-### Text Completion using ChatGPT
+### Chat Completion using ChatGPT (GPT-3.5 & GPT-4)
 
 ```php
-$openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
+$openaiClient = \Tectalic\OpenAi\Manager::build(
+    new \GuzzleHttp\Client(),
+    new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY'))
+);
 
 /** @var \Tectalic\OpenAi\Models\ChatCompletions\CreateResponse $response */
 $response = $openaiClient->chatCompletions()->create(
     new \Tectalic\OpenAi\Models\ChatCompletions\CreateRequest([
-        'model' => 'gpt-3.5-turbo',
+        'model' => 'gpt-4',
         'messages' => [
-            ['role' => 'user', 'content' => 'Tell the world about the ChatGPT API in the style of a pirate'],
+            [
+                'role' => 'user',
+                'content' => 'Will using a well designed and supported third party package save time?'
+            ],
         ],
     ])
 )->toModel();
 
-echo $model->choices[0]->message->content;
-// Ahoy there, me hearty! Gather round and listen well, for I'll be tellin' ye about the treasure trove known as ChatGPT API! ...
+echo $response->choices[0]->message->content;
+
+// Yes, using a well-designed and supported third-party package can save time during software development.
+// It allows you to focus on the core functionality of your application without having to reinvent the wheel or spend resources developing the same functionality from scratch.
+// A good third-party package can provide reliability, efficiency, and continued support with updates and bug fixes, which in turn facilitates faster development and a more stable final product.
+// Additionally, using widely adopted packages can also increase the chances of compatibility with other software components and make it easier for other developers to understand and work with your code.
 ```
 
 [Learn more about chat completion](https://platform.openai.com/docs/guides/chat).
 
-### Text Completion using GPT-3
+This handler supports both the *GPT-3.5* and *GPT-4* models:
+
+#### GPT-3.5
+
+Supported [GPT-3.5 models](https://platform.openai.com/docs/models/gpt-3-5) include `gpt-3.5-turbo` and more.
+
+#### GPT-4
+
+Supported [GPT-4 models](https://platform.openai.com/docs/models/gpt-4) include `gpt-4` and more.
+
+Note: GPT-4 is currently in a limited beta and is only accessible to those who have been granted access. [Please see here](https://platform.openai.com/docs/models/gpt-4) for details and instructions on how to join the waitlist.
+
+If you receive a 404 error when attempting to use GPT-4, then your OpenAI account has not been granted access.
+
+### Chat Completion Function Calling using ChatGPT (GPT-3.5 & GPT-4)
+
+The following example uses the `gpt-3.5-turbo-0613` model to demonstrate function calling.
+
+It converts natural language into a function call, which can then be executed within your application.
+
+```php
+$openaiClient = \Tectalic\OpenAi\Manager::build(
+    new \GuzzleHttp\Client(),
+    new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY'))
+);
+
+/** @var \Tectalic\OpenAi\Models\ChatCompletions\CreateResponse $response */
+$response = $openaiClient->chatCompletions()->create(new CreateRequest([
+            'model' => 'gpt-3.5-turbo-0613',
+            'messages' => [
+                ['role' => 'user', 'content' => 'What\'s the weather like in Boston?']
+            ],
+            'functions' => [
+                [
+                    'name' => 'get_current_weather',
+                    'description' => 'Get the current weather in a given location',
+                    'parameters' => new \Tectalic\OpenAi\Models\ChatCompletions\CreateRequestFunctionsItemParameters(
+                        [
+                            'type' => 'object',
+                            'properties' => [
+                                'location' => [
+                                    'type' => 'string',
+                                    'description' => 'The worldwide city and state, e.g. San Francisco, CA',
+                                ],
+                                'format' => [
+                                    'type' => 'string',
+                                    'description' => 'The temperature unit to use. Infer this from the users location.',
+                                    'enum' => ['celsius', 'farhenheit'],
+                                ],
+                                'num_days' => [
+                                    'type' => 'integer',
+                                    'description' => 'The number of days to forecast',
+                                ],
+                            ],
+                            'required' => ['location', 'format', 'num_days'],
+                        ]
+                    )
+                ]
+            ],
+            'function_call' => 'auto',
+        ]))->toModel();
+
+$params = json_decode($response->choices[0]->message->function_call->arguments, true);
+var_dump($params);
+
+// array(3) {
+//     'location' =>
+//     string(6) "Boston"
+//     'format' =>
+//     string(7) "celsius"
+//     'num_days' =>
+//     int(1)
+//}
+
+```
+
+[Learn more about function calling](https://platform.openai.com/docs/guides/gpt/function-calling).
+
+### Text Completion (GPT-3)
 
 ```php
 $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
@@ -43,7 +131,7 @@ $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \T
 /** @var \Tectalic\OpenAi\Models\Completions\CreateResponse $response */
 $response = $openaiClient->completions()->create(
     new \Tectalic\OpenAi\Models\Completions\CreateRequest([
-        'model'  => 'text-davinci-002',
+        'model'  => 'text-davinci-003',
         'prompt' => 'Will using a third party package save time?',
     ])
 )->toModel();
@@ -52,9 +140,11 @@ echo $response->choices[0]->text;
 // Using a third party package can save time because you don't have to write the code yourself.
 ```
 
+This handler supports all [GPT-3 models](https://platform.openai.com/docs/models/gpt-3), including `text-davinci-003`, `text-davinci-002` and more.
+
 [Learn more about text completion](https://platform.openai.com/docs/guides/completion).
 
-### Code Completion Using Codex
+### Code Completion (Codex)
 
 ```php
 $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
@@ -73,9 +163,11 @@ echo $response->choices[0]->text;
 // $now = date("Y-m-d G:i:s")
 ```
 
+Supported [Codex models](https://platform.openai.com/docs/models/codex) include `code-davinci-002` and `code-cushman-001`.
+
 [Learn more about code completion](https://platform.openai.com/docs/guides/code).
 
-### Image Generation Using DALL·E
+### Image Generation (DALL·E)
 
 ```php
 $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
@@ -96,13 +188,13 @@ foreach ($response->data as $item) {
 
 [Learn more about image generation](https://platform.openai.com/docs/guides/images).
 
-### Audio Transcription (Speech to text) using Whisper
+### Speech to Text Audio Transcription (Whisper)
 
 ```php
 $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
 
 /** @var \Tectalic\OpenAi\Models\AudioTranscriptions\CreateResponse $response */
-$response = $openaiClient->imagesGenerations()->create(
+$response = $openaiClient->audioTranscriptions()->create(
     new \Tectalic\OpenAi\Models\AudioTranscriptions\CreateRequest([
         'file' => '/full/path/to/audio/file.mp3',
         'model' => 'whisper-1',
@@ -113,15 +205,17 @@ echo $response->text;
 // Your audio transcript in your source language...
 ```
 
-[Learn more about speech to text](https://platform.openai.com/docs/guides/speech-to-text).
+Supported [Whisper models](https://platform.openai.com/docs/models/whisper) include `whisper-1`.
 
-### Audio Translation (Speech to text) using Whisper
+[Learn more about speech to text](https://platform.openai.com/docs/guides/speech-to-text), including the [50+ supported languages](https://platform.openai.com/docs/guides/speech-to-text/supported-languages).
+
+### Speech to Text Audio Translation (Whisper)
 
 ```php
 $openaiClient = \Tectalic\OpenAi\Manager::build(new \GuzzleHttp\Client(), new \Tectalic\OpenAi\Authentication(getenv('OPENAI_API_KEY')));
 
 /** @var \Tectalic\OpenAi\Models\AudioTranslations\CreateResponse $response */
-$response = $openaiClient->imagesGenerations()->create(
+$response = $openaiClient->audioTranslations()->create(
     new \Tectalic\OpenAi\Models\AudioTranslations\CreateRequest([
         'file' => '/full/path/to/audio/file.mp3',
         'model' => 'whisper-1',
@@ -129,10 +223,12 @@ $response = $openaiClient->imagesGenerations()->create(
 )->toModel();
 
 echo $response->text;
-// Your audio transcript in english...
+// Your audio transcript in English...
 ```
 
-[Learn more about speech to text](https://platform.openai.com/docs/guides/speech-to-text).
+Supported [Whisper models](https://platform.openai.com/docs/models/whisper) include `whisper-1`.
+
+[Learn more about speech to text](https://platform.openai.com/docs/guides/speech-to-text), including the [50+ supported languages](https://platform.openai.com/docs/guides/speech-to-text/supported-languages).
 
 ## Installation
 
@@ -195,13 +291,13 @@ In the **Usage** code above, customize the `Authentication` constructor to your 
 
 The primary class you will interact with is the `Client` class (`Tectalic\OpenAi\Client`).
 
-This `Client` class also contains the helper methods that let you quickly access the 16 API Handlers.
+This `Client` class also contains the helper methods that let you quickly access the 19 API Handlers.
 
 Please see below for a complete list of supported handlers and methods.
 
 ### Supported API Handlers and Methods
 
-This package supports 23 API Methods, which are grouped into 16 API Handlers.
+This package supports 28 API Methods, which are grouped into 19 API Handlers.
 
 See the table below for a full list of API Handlers and Methods.
 
@@ -209,28 +305,35 @@ See the table below for a full list of API Handlers and Methods.
 | API Handler Class and Method Name | Description | API Verb and URL |
 | --------------------------------- | ----------- | ---------------- |
 |`AudioTranscriptions::create()`|Transcribes audio into the input language.|`POST` `/audio/transcriptions`|
-|`AudioTranslations::create()`|Translates audio into into English.|`POST` `/audio/translations`|
-|`ChatCompletions::create()`|Creates a completion for the chat message|`POST` `/chat/completions`|
-|`Completions::create()`|Creates a completion for the provided prompt and parameters|`POST` `/completions`|
-|`Edits::create()`|Creates a new edit for the provided input, instruction, and parameters.|`POST` `/edits`|
+|`AudioTranslations::create()`|Translates audio into English.|`POST` `/audio/translations`|
+|`ChatCompletions::create()`|Creates a model response for the given chat conversation.|`POST` `/chat/completions`|
+|`Completions::create()`|Creates a completion for the provided prompt and parameters.|`POST` `/completions`|
+|~~`Edits::create()`~~|~~Creates a new edit for the provided input, instruction, and parameters.~~|~~`POST` `/edits`~~|
 |`Embeddings::create()`|Creates an embedding vector representing the input text.|`POST` `/embeddings`|
 |`Files::list()`|Returns a list of files that belong to the user's organization.|`GET` `/files`|
 |`Files::create()`|Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all the files uploaded by one organization can be up to 1 GB. Please contact us if you need to increase the storage limit.|`POST` `/files`|
 |`Files::retrieve()`|Returns information about a specific file.|`GET` `/files/{file_id}`|
 |`Files::delete()`|Delete a file.|`DELETE` `/files/{file_id}`|
-|`FilesContent::download()`|Returns the contents of the specified file|`GET` `/files/{file_id}/content`|
-|`FineTunes::list()`|List your organization's fine-tuning jobs|`GET` `/fine-tunes`|
-|`FineTunes::create()`|Creates a job that fine-tunes a specified model from a given dataset.<br />Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.<br />Learn more about Fine-tuning|`POST` `/fine-tunes`|
-|`FineTunes::retrieve()`|Gets info about the fine-tune job.<br />Learn more about Fine-tuning|`GET` `/fine-tunes/{fine_tune_id}`|
-|`FineTunesCancel::cancelFineTune()`|Immediately cancel a fine-tune job.|`POST` `/fine-tunes/{fine_tune_id}/cancel`|
-|`FineTunesEvents::listFineTune()`|Get fine-grained status updates for a fine-tune job.|`GET` `/fine-tunes/{fine_tune_id}/events`|
+|`FilesContent::download()`|Returns the contents of the specified file.|`GET` `/files/{file_id}/content`|
+|~~`FineTunes::list()`~~|~~List your organization's fine-tuning jobs~~|~~`GET` `/fine-tunes`~~|
+|~~`FineTunes::create()`~~|~~Creates a job that fine-tunes a specified model from a given dataset.<br />Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.<br />Learn more about fine-tuning~~|~~`POST` `/fine-tunes`~~|
+|~~`FineTunes::retrieve()`~~|~~Gets info about the fine-tune job.<br />Learn more about fine-tuning~~|~~`GET` `/fine-tunes/{fine_tune_id}`~~|
+|~~`FineTunesCancel::cancelFineTune()`~~|~~Immediately cancel a fine-tune job.~~|~~`POST` `/fine-tunes/{fine_tune_id}/cancel`~~|
+|~~`FineTunesEvents::listFineTune()`~~|~~Get fine-grained status updates for a fine-tune job.~~|~~`GET` `/fine-tunes/{fine_tune_id}/events`~~|
+|`FineTuningJobs::listPaginated()`|List your organization's fine-tuning jobs|`GET` `/fine_tuning/jobs`|
+|`FineTuningJobs::create()`|Creates a job that fine-tunes a specified model from a given dataset.<br />Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.<br />Learn more about fine-tuning|`POST` `/fine_tuning/jobs`|
+|`FineTuningJobs::retrieve()`|Get info about a fine-tuning job.<br />Learn more about fine-tuning|`GET` `/fine_tuning/jobs/{fine_tuning_job_id}`|
+|`FineTuningJobsCancel::fineTuning()`|Immediately cancel a fine-tune job.|`POST` `/fine_tuning/jobs/{fine_tuning_job_id}/cancel`|
+|`FineTuningJobsEvents::listFineTuning()`|Get status updates for a fine-tuning job.|`GET` `/fine_tuning/jobs/{fine_tuning_job_id}/events`|
 |`ImagesEdits::createImage()`|Creates an edited or extended image given an original image and a prompt.|`POST` `/images/edits`|
 |`ImagesGenerations::create()`|Creates an image given a prompt.|`POST` `/images/generations`|
 |`ImagesVariations::createImage()`|Creates a variation of a given image.|`POST` `/images/variations`|
 |`Models::list()`|Lists the currently available models, and provides basic information about each one such as the owner and availability.|`GET` `/models`|
 |`Models::retrieve()`|Retrieves a model instance, providing basic information about the model such as the owner and permissioning.|`GET` `/models/{model}`|
-|`Models::delete()`|Delete a fine-tuned model. You must have the Owner role in your organization.|`DELETE` `/models/{model}`|
+|`Models::delete()`|Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.|`DELETE` `/models/{model}`|
 |`Moderations::create()`|Classifies if text violates OpenAI's Content Policy|`POST` `/moderations`|
+
+Deprecated method(s) are listed with ~~strike-through~~ formatting. Please do not use these methods, as they will be removed in a future release.
 
 ### Making a Request
 

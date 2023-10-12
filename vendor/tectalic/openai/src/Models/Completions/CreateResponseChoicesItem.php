@@ -16,6 +16,13 @@ use Tectalic\OpenAi\Models\AbstractModel;
 
 final class CreateResponseChoicesItem extends AbstractModel
 {
+    /**
+     * List of required property names.
+     *
+     * These properties must all be set when this Model is instantiated.
+     */
+    protected const REQUIRED = ['text', 'index', 'logprobs', 'finish_reason'];
+
     /** @var string */
     public $text;
 
@@ -25,6 +32,14 @@ final class CreateResponseChoicesItem extends AbstractModel
     /** @var \Tectalic\OpenAi\Models\Completions\CreateResponseChoicesItemLogprobs|null */
     public $logprobs;
 
-    /** @var string */
+    /**
+     * The reason the model stopped generating tokens. This will be stop if the model
+     * hit a natural stop point or a provided stop sequence,
+     * or length if the maximum number of tokens specified in the request was reached.
+     *
+     * Allowed values: 'stop', 'length'
+     *
+     * @var string
+     */
     public $finish_reason;
 }

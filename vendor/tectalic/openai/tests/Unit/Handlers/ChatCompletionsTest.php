@@ -126,7 +126,7 @@ final class ChatCompletionsTest extends TestCase
     {
         $request = (new ChatCompletions())
             ->create(new CreateRequest([
-            'model' => 'alpha0',
+            'model' => 'gpt-3.5-turbo',
             'messages' => [['role' => 'system', 'content' => 'alpha0']],
         ]))
             ->getRequest();

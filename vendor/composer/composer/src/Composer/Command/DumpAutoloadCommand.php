@@ -100,7 +100,16 @@ EOT
         $generator->setRunScripts(true);
         $generator->setApcu($apcu, $apcuPrefix);
         $generator->setPlatformRequirementFilter($this->getPlatformRequirementFilter($input));
-        $classMap = $generator->dump($config, $localRepo, $package, $installationManager, 'composer', $optimize);
+        $classMap = $generator->dump(
+            $config,
+            $localRepo,
+            $package,
+            $installationManager,
+            'composer',
+            $optimize,
+            null,
+            $composer->getLocker()
+        );
         $numberOfClasses = count($classMap);
 
         if ($authoritative) {

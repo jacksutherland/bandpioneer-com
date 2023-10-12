@@ -94,22 +94,6 @@ return array (
     'documentationUrl' => 'https://github.com/verbb/comments',
     'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-4/CHANGELOG.md',
   ),
-  'ether/logs' => 
-  array (
-    'class' => 'ether\\logs\\Logs',
-    'basePath' => $vendorDir . '/ether/logs/src',
-    'handle' => 'logs',
-    'aliases' => 
-    array (
-      '@ether/logs' => $vendorDir . '/ether/logs/src',
-    ),
-    'name' => 'Logs',
-    'version' => '4.0.0',
-    'schemaVersion' => '3.0.0',
-    'description' => 'Access logs from the CP',
-    'developer' => 'Ether Creative',
-    'developerUrl' => 'https://ethercreative.co.uk',
-  ),
   'nystudio107/craft-instantanalytics-ga4' => 
   array (
     'class' => 'nystudio107\\instantanalyticsGa4\\InstantAnalytics',
@@ -125,5 +109,40 @@ return array (
     'developer' => 'nystudio107',
     'developerUrl' => 'https://nystudio107.com',
     'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
+  ),
+  'ether/sidebarentrytypes' => 
+  array (
+    'class' => 'ether\\sidebarentrytypes\\SidebarEntryTypes',
+    'basePath' => $vendorDir . '/ether/sidebarentrytypes/src',
+    'handle' => 'sidebarentrytypes',
+    'aliases' => 
+    array (
+      '@ether/sidebarentrytypes' => $vendorDir . '/ether/sidebarentrytypes/src',
+    ),
+    'name' => 'Sidebar Entry Types',
+    'version' => '2.0.1',
+    'description' => 'Easily switch between entry types in entries section',
+    'developer' => 'Ether Creative',
+    'developerUrl' => 'https://ethercreative.co.uk',
+    'documentationUrl' => 'https://github.com/ethercreative/sidebar-entrytypes',
+    'changelogUrl' => 'https://github.com/ethercreative/sidebar-entrytypes/blob/master/CHANGELOG.md',
+    'hasCpSettings' => false,
+    'hasCpSection' => false,
+  ),
+  'ether/logs' => 
+  array (
+    'class' => 'ether\\logs\\Logs',
+    'basePath' => $vendorDir . '/ether/logs/src',
+    'handle' => 'logs',
+    'aliases' => 
+    array (
+      '@ether/logs' => $vendorDir . '/ether/logs/src',
+    ),
+    'name' => 'Logs',
+    'version' => '4.0.0',
+    'schemaVersion' => '3.0.0',
+    'description' => 'Access logs from the CP',
+    'developer' => 'Ether Creative',
+    'developerUrl' => 'https://ethercreative.co.uk',
   ),
 );

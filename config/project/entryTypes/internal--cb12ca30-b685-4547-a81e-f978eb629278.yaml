@@ -83,19 +83,7 @@ fieldLayouts:
             uid: 56841fc5-71c5-4ac3-a4eb-c5e19eabc183
             userCondition: null
             warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: f663d014-30ef-4783-b5bd-8c974833fe36 # Opacity
-            instructions: null
-            label: 'Image Opacity'
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 7dade484-7632-4ea5-8dcc-46352e3799cc
-            userCondition: null
-            warning: null
-            width: 25
+            width: 100
           -
             elementCondition: null
             heading: 'Blog Info'
@@ -282,18 +270,6 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 3a54d0af-3d3a-4ca1-9867-a89c9381f9a2
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: c4817296-2368-46b6-9127-4bd175f84a4a # Dynamic SEO
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: b543c68f-d2f8-4da0-af99-7c83d833173d
             userCondition: null
             warning: null
             width: 25

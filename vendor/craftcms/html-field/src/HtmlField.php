@@ -11,6 +11,7 @@ namespace craft\htmlfield;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
+use craft\base\PreviewableFieldInterface;
 use craft\base\Volume;
 use craft\elements\Asset;
 use craft\helpers\FileHelper;
@@ -29,8 +30,16 @@ use yii\db\Schema;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 1.0.0
  */
-abstract class HtmlField extends Field
+abstract class HtmlField extends Field implements PreviewableFieldInterface
 {
+    /**
+     * @inheritdoc
+     */
+    public static function valueType(): string
+    {
+        return 'string';
+    }
+
     /**
      * @var string|null The HTML Purifier config file to use
      */
@@ -60,6 +69,14 @@ abstract class HtmlField extends Field
      * @var string The type of database column the field should have in the content table
      */
     public string $columnType = Schema::TYPE_TEXT;
+
+    /**
+     * @inheritdoc
+     */
+    public function getTableAttributeHtml(mixed $value, ElementInterface $element): string
+    {
+        return strip_tags((string)$value);
+    }
 
     /**
      * @inheritdoc
@@ -153,7 +170,7 @@ abstract class HtmlField extends Field
     {
         $keywords = parent::searchKeywords($value, $element);
 
-        if (Craft::$app->getDb()->getIsMysql()) {
+        if (!Craft::$app->getDb()->getSupportsMb4()) {
             $keywords = StringHelper::encodeMb4($keywords);
         }
 
@@ -361,7 +378,7 @@ abstract class HtmlField extends Field
             $value
         );
 
-        if (Craft::$app->getDb()->getIsMysql()) {
+        if (!Craft::$app->getDb()->getSupportsMb4()) {
             // Encode any 4-byte UTF-8 characters.
             $value = StringHelper::encodeMb4($value);
         }

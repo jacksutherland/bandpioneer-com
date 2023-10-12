@@ -30,14 +30,17 @@ final class CreateRequest extends AbstractModel
      * ID of the model to use. You can use the List models API to see all of your
      * available models, or see our Model overview for descriptions of them.
      *
-     * @var string
+     * Example: 'text-embedding-ada-002'
+     *
+     * @var mixed
      */
     public $model;
 
     /**
-     * Input text to get embeddings for, encoded as a string or array of tokens. To get
-     * embeddings for multiple inputs in a single request, pass an array of strings or
-     * array of token arrays. Each input must not exceed 8192 tokens in length.
+     * Input text to embed, encoded as a string or array of tokens. To embed multiple
+     * inputs in a single request, pass an array of strings or array of token arrays.
+     * Each input must not exceed the max input tokens for the model (8191 tokens for
+     * text-embedding-ada-002). Example Python code for counting tokens.
      *
      * Example: 'The quick brown fox jumped over the lazy dog'
      *

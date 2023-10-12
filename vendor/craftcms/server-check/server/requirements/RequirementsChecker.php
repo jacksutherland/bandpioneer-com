@@ -521,30 +521,10 @@ class RequirementsChecker
 
     /**
      * @return array
-     *
-     * @see https://php.net/manual/en/info.configuration.php#ini.max-execution-time
-     */
-    function maxExecutionTimeRequirement()
-    {
-        $maxExecutionTime = (int)trim(ini_get('max_execution_time'));
-
-        $humanTime = $maxExecutionTime . ($maxExecutionTime === 0 ? ' (no limit)' : '');
-        $memo = "Craft requires a minimum PHP max execution time of 120 seconds. The max_execution_time directive in php.ini is currently set to {$humanTime}.";
-
-        return array(
-            'name' => 'Max Execution Time',
-            'mandatory' => false,
-            'condition' => $maxExecutionTime === 0 || $maxExecutionTime >= 120,
-            'memo' => $memo,
-        );
-    }
-
-    /**
-     * @return array
      */
     function webAliasRequirement()
     {
-        $aliases = Craft::$app->getConfig()->getGeneral()->aliases;
+        $aliases = Craft::$aliases;
         $memo = 'We recommend explicitly overriding the <a rel="noopener" target="_blank" href="https://craftcms.com/docs/4.x/config/#aliases">@web alias</a>.';
         $pass = false;
 

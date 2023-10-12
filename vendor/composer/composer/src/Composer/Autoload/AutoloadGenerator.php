@@ -33,6 +33,7 @@ use Composer\Util\Platform;
 use Composer\Script\ScriptEvents;
 use Composer\Util\PackageSorter;
 use Composer\Json\JsonFile;
+use Composer\Package\Locker;
 
 /**
  * @author Igor Wiedler <igor@wiedler.ch>
@@ -172,7 +173,7 @@ class AutoloadGenerator
      * @throws \Seld\JsonLint\ParsingException
      * @throws \RuntimeException
      */
-    public function dump(Config $config, InstalledRepositoryInterface $localRepo, RootPackageInterface $rootPackage, InstallationManager $installationManager, string $targetDir, bool $scanPsrPackages = false, ?string $suffix = null)
+    public function dump(Config $config, InstalledRepositoryInterface $localRepo, RootPackageInterface $rootPackage, InstallationManager $installationManager, string $targetDir, bool $scanPsrPackages = false, ?string $suffix = null, ?Locker $locker = null)
     {
         if ($this->classMapAuthoritative) {
             // Force scanPsrPackages when classmap is authoritative
@@ -405,9 +406,8 @@ EOF;
                 }
             }
 
-            // generate one if we still haven't got a suffix
             if (null === $suffix) {
-                $suffix = md5(uniqid('', true));
+                $suffix = $locker !== null && $locker->isLocked() ? $locker->getLockData()['content-hash'] : md5(uniqid('', true));
             }
         }
 
@@ -679,10 +679,26 @@ EOF;
      */
     protected function getIncludeFilesFile(array $files, Filesystem $filesystem, string $basePath, string $vendorPath, string $vendorPathCode, string $appBaseDirCode)
     {
+        // Get the path to each file, and make sure these paths are unique.
+        $files = array_map(
+            function (string $functionFile) use ($filesystem, $basePath, $vendorPath): string {
+                return $this->getPathCode($filesystem, $basePath, $vendorPath, $functionFile);
+            },
+            $files
+        );
+        $uniqueFiles = array_unique($files);
+        if (count($uniqueFiles) < count($files)) {
+            $this->io->writeError('<warning>The following "files" autoload rules are included multiple times, this may cause issues and should be resolved:</warning>');
+            foreach (array_unique(array_diff_assoc($files, $uniqueFiles)) as $duplicateFile) {
+                $this->io->writeError('<warning> - '.$duplicateFile.'</warning>');
+            }
+        }
+        unset($uniqueFiles);
+
         $filesCode = '';
+
         foreach ($files as $fileIdentifier => $functionFile) {
-            $filesCode .= '    ' . var_export($fileIdentifier, true) . ' => '
-                . $this->getPathCode($filesystem, $basePath, $vendorPath, $functionFile) . ",\n";
+            $filesCode .= '    ' . var_export($fileIdentifier, true) . ' => ' . $functionFile . ",\n";
         }
 
         if (!$filesCode) {
