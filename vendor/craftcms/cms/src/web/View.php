@@ -457,9 +457,9 @@ class View extends \yii\web\View
             $templateMode = $this->getTemplateMode();
         }
 
-        // if (!$this->beforeRenderTemplate($template, $variables, $templateMode)) {
-        //     return '';
-        // }
+        if (!$this->beforeRenderTemplate($template, $variables, $templateMode)) {
+            return '';
+        }
 
         Craft::debug("Rendering template: $template", __METHOD__);
 
@@ -1478,8 +1478,8 @@ JS;
      * Returns all of the registered delta input names.
      *
      * @return string[]
-     * @since 3.4.0
      * @see registerDeltaName()
+     * @since 3.4.0
      */
     public function getDeltaNames(): array
     {

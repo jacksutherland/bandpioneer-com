@@ -274,7 +274,7 @@ fieldLayouts:
             elementCondition: null
             fieldUid: cdaef71d-1a83-462b-92b2-4d96fd8d8b32 # Related SEO Keywords
             instructions: null
-            label: null
+            label: 'Related Keywords'
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

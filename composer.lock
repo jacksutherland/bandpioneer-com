@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c716706113df3f7857ea5e02a42b8d65",
+    "content-hash": "24397d0491ab9a6d213f3f00c06b469e",
     "packages": [
         {
             "name": "bandpioneer/rockstar",
@@ -620,11 +620,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "4.5.3",
+            "version": "4.5.6.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/43ee7a72b0aeeb08ddd14f3efd492752c128a489",
-                "reference": "43ee7a72b0aeeb08ddd14f3efd492752c128a489",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/fac7353b79c771d1d6ceb62e5addb10d4f5c0eb3",
+                "reference": "fac7353b79c771d1d6ceb62e5addb10d4f5c0eb3",
                 "shasum": ""
             },
             "require": {
@@ -712,7 +712,7 @@
                 "docs": "https://craftcms.com/docs/4.x/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2023-08-29T18:59:05+00:00"
+            "time": "2023-09-27T12:28:01+00:00"
         },
         {
             "name": "craftcms/contact-form",

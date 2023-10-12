@@ -12,7 +12,6 @@ use craft\base\Element;
 use craft\base\ElementInterface;
 use craft\base\SortableFieldInterface;
 use craft\fields\data\SingleOptionFieldData;
-use craft\helpers\ArrayHelper;
 use craft\helpers\Cp;
 
 /**
@@ -69,9 +68,13 @@ class Dropdown extends BaseOptionsField implements SortableFieldInterface
         /** @var SingleOptionFieldData $value */
         $options = $this->translatedOptions(true, $value, $element);
 
-        $hasBlankOption = ArrayHelper::contains($options, function($option) {
-            return isset($option['value']) && $option['value'] === '';
-        });
+        $hasBlankOption = false;
+        foreach ($options as &$option) {
+            if (isset($option['value']) && $option['value'] === '') {
+                $option['value'] = '__BLANK__';
+                $hasBlankOption = true;
+            }
+        }
 
         if (!$value->valid) {
             Craft::$app->getView()->setInitialDeltaValue($this->handle, $this->encodeValue($value->value));
@@ -84,20 +87,22 @@ class Dropdown extends BaseOptionsField implements SortableFieldInterface
 
                 // Add a blank option to the beginning if one doesn't already exist
                 if (!$hasBlankOption) {
-                    array_unshift($options, ['label' => '', 'value' => '']);
+                    array_unshift($options, ['label' => '', 'value' => '__BLANK__']);
                 }
             }
+        }
+
+        $encValue = $this->encodeValue($value);
+        if ($encValue === null || $encValue === '') {
+            $encValue = '__BLANK__';
         }
 
         return Cp::selectizeHtml([
             'id' => $this->getInputId(),
             'describedBy' => $this->describedBy,
             'name' => $this->handle,
-            'value' => $this->encodeValue($value),
+            'value' => $encValue,
             'options' => $options,
-            'selectizeOptions' => [
-                'allowEmptyOption' => $hasBlankOption,
-            ],
         ]);
     }
 
@@ -107,5 +112,24 @@ class Dropdown extends BaseOptionsField implements SortableFieldInterface
     protected function optionsSettingLabel(): string
     {
         return Craft::t('app', 'Dropdown Options');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function isOptionSelected(array $option, mixed $value, array &$selectedValues, bool &$selectedBlankOption): bool
+    {
+        // special case for blank options, when $value is null
+        if ($value === null && $option['value'] === '') {
+            if (!$selectedBlankOption) {
+                $selectedValues[] = '';
+                $selectedBlankOption = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        return in_array($option['value'], $selectedValues, true);
     }
 }
