@@ -95,6 +95,7 @@ class PopulateEntries extends BaseJob
 
             $descQuery = self::getAIQuery(AIQueries::RELATED_ENTRY_DESC, ['title' => $title]);
             $desc = $aiService->chatQuery($descQuery);
+            $desc = trim($desc, '"');
             $entry->shortDescription = $desc;
             $entry->metaDescription = $desc;
 
