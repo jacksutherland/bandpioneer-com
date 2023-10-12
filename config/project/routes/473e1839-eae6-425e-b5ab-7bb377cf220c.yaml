@@ -1,0 +1,6 @@
+siteUid: null
+sortOrder: 4
+template: /blog/_index.twig
+uriParts:
+  - dynamic
+uriPattern: dynamic

@@ -308,16 +308,18 @@ section {
 				overflow: hidden;
 			}
 
-			// a.blog-img {
-			// 	display: block;
-			// 	aspect-ratio: 1/1;
-			// 	background-color: $light-gray;
-			// 	transition: background-color $transition-time;
+			a.blog-img {
+				display: block;
+				aspect-ratio: 1/1;
+				background-color: $light-gray;
+				border-radius: $img-radius;
+				line-height: 0;
+				transition: background-color $transition-time;
 
-			// 	&:hover {
-			// 		background-color: $medium-gray;					
-			// 	}
-			// }
+				&:hover {
+					background-color: $medium-gray;					
+				}
+			}
 
 			img {
 				height: auto;
