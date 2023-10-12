@@ -11,6 +11,7 @@ use craft\helpers\DateTimeHelper;
 use craft\helpers\ElementHelper;
 use craft\queue\BaseJob;
 
+use DateInterval;
 use Exception;
 
 class AIQueries {
@@ -109,11 +110,6 @@ class PopulateEntries extends BaseJob
 
             $draft = Craft::$app->getDrafts()->createDraft($entry, 1, 1, 'Dynamic Draft');
             Craft::$app->getDrafts()->applyDraft($draft);
-
-            // if(!Craft::$app->getDrafts()->createDraft($entry, 1, 1, 'Dynamic Draft'))
-            // {
-            //     throw new Exception("Unable to create draft for related entry '{$this->keyword}'");   
-            // }
         }
         catch (Exception $e)
         {
