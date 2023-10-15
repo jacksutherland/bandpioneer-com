@@ -6,6 +6,6 @@ interlace: none
 mode: fit
 name: 'Blog Image Mobile 2x'
 position: center-center
-quality: 100
+quality: 80
 upscale: true
-width: 382
+width: 764
