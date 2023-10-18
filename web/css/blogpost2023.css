@@ -160,7 +160,11 @@ figure figcaption {
 .side-by-side {
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+@media (min-width: 576px) {
+  .side-by-side {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 button,
