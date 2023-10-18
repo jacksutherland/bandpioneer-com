@@ -172,7 +172,11 @@ figure {
 .side-by-side {
 	display: grid;
     gap: $object-spacing;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    @media (min-width: $breakpoint-sm)
+    {
+    	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
 }
 
 button,
