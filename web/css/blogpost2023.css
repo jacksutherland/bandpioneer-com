@@ -157,6 +157,12 @@ figure figcaption {
   text-align: center;
 }
 
+.side-by-side {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
 button,
 .btn {
   background-color: #0a79a4;
@@ -1092,6 +1098,12 @@ address[rel=author] span {
 .blog section.rich-text figure.video,
 .blog section.rich-text figure.instagram-media {
   margin: 40px 0 60px 0;
+}
+.blog section.rich-text .side-by-side {
+  margin: 40px 0 60px 0;
+}
+.blog section.rich-text .side-by-side figure {
+  margin: 0;
 }
 .blog section.embed-code .product-links:before {
   content: attr(data-title) "";

@@ -157,6 +157,12 @@ figure figcaption {
   text-align: center;
 }
 
+.side-by-side {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
 button,
 .btn {
   background-color: #0a79a4;

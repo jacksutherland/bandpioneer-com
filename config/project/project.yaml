@@ -1,4 +1,4 @@
-dateModified: 1697406049
+dateModified: 1697652577
 elementSources:
   craft\elements\Asset:
     -
@@ -223,6 +223,7 @@ meta:
     1a69adf3-7129-4f03-a788-c50df99aa120: 'Band Pioneer' # Band Pioneer
     1b12d4c8-a449-4b45-99db-cdcf801d8fa4: 'Hero Image' # Hero Image
     1c1054c9-4810-4918-b3c1-3bd0d6a13675: Caption # Caption
+    01d0c5e2-4c3a-4623-9699-331c764e4643: 'Caption 2' # Caption 2
     1d894e72-ea22-4785-8c26-c43a3b823625: 'Popular Posts' # Popular Posts
     1e42cdc3-f360-43ac-b612-8de6f081ad47: Rockstars # Rockstars
     2abdf5c6-4ea5-4720-abbc-8c97cd3249f7: 'Full Width Mobile Square' # Full Width Mobile Square
@@ -289,6 +290,7 @@ meta:
     04623371-fa0e-4ff7-84f9-93dcf4e31080: Category # Category
     04833123-aa51-4fae-b2c2-80377911b8ae: 'Blog Related Content' # Blog Related Content
     6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
+    29031305-9467-4d00-bc36-cea8076d10ac: 'Media ID 2' # Media ID 2
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: Markup # Markup
     73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
@@ -315,6 +317,7 @@ meta:
     c391d039-c741-426d-85a3-d52c21725ce9: 'Blog Listing Medium 2x' # Blog Listing Medium 2x
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
+    c8882f0f-9f15-47b0-a3ba-c71265503cc1: 'Minute Mark 2' # Minute Mark 2
     c4817296-2368-46b6-9127-4bd175f84a4a: 'Dynamic SEO' # Dynamic SEO
     cb12ca30-b685-4547-a81e-f978eb629278: Internal # Internal
     cd4a38c4-94ce-4c20-9d8b-62288944ef87: 'Media Type' # Media Type

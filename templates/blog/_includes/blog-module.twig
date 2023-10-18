@@ -8,6 +8,17 @@
 {% set tocLinks = [] %}
 {% set blogModules = entry.blogContent.all() %}
 
+{% macro youtubeVideo(mediaId, caption, minuteMark, sectionTitle) %}
+	<figure class="video">
+		<div class="player">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ mediaId }}{% if minuteMark | length %}?start={{ minuteMark }}{% endif %}" title="{{ caption | length ? caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		{% if caption | length %}
+			<figcaption>{{ caption }}</figcaption>
+		{% endif %}
+	</figure>
+{% endmacro %}
+
 {% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
 
 	{% set parent = null %}
@@ -233,7 +244,15 @@
 								<figcaption>{{ module.caption }}</figcaption>
 							{% endif %}
 						</figure>
+					{% elseif module.mediaId2 | length %}
+						<div class="side-by-side">
+							{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
+							{{ _self.youtubeVideo(module.mediaId2, module.caption2, module.minuteMark2, sectionTitle) }}	
+						</div>
 					{% else %}
+						{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
+
+						{#
 						<figure class="video">
 							<div class="player">
 								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}{% if module.minuteMark | length %}?start={{ module.minuteMark }}{% endif %}" title="{{ module.caption | length ? module.caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -242,6 +261,7 @@
 								<figcaption>{{ module.caption }}</figcaption>
 							{% endif %}
 						</figure>
+						#}
 					{% endif %}
 
 					</section>
