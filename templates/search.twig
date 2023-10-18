@@ -38,10 +38,11 @@
 
 	<div class="container narrow-container">
 
-		<h4 class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
-
-		{% if pageInfo.currentPage == 1 %}
-			<h4 style="margin:0;" class="alternate-color">Answer:</h4>
+		{% if searchQuery | length %}
+			<h4 class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
+			{% if pageInfo.currentPage == 1 %}
+				<h4 style="margin:0;" class="alternate-color">Answer:</h4>
+			{% endif %}
 		{% endif %}
 
 		{% if chatQuery | length %}

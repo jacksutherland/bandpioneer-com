@@ -1,5 +1,5 @@
 
-{% set versionNumber = '2.014' %}
+{% set versionNumber = '2.016' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -138,6 +138,12 @@
                 <ul>
                     <li><a href="/about">About</a></li>
                     <li><a href="/contact">Contact</a></li>
+                    <li class="search">
+                        <a href="/search">
+                            {% include '_includes/icons' with { type: 'search' } %}
+                            <span>Search</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>

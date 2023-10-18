@@ -447,6 +447,14 @@ header.site-header {
 				background-color: $white;
 				margin: 0;
 
+				&.search {
+					a {
+						svg {
+							display: none;
+						}
+					}
+				}
+
 				a {
 					display: block;
 					color: $link-color;
@@ -463,6 +471,7 @@ header.site-header {
 						float: right;
 					    margin-right: 34px;
 					    margin-top: 6px;
+					    width: 13px;
 
 						path {
 							fill: $link-color;
@@ -643,6 +652,17 @@ header.site-header {
 					background-color: transparent;
 					position: relative;
 					z-index: 140;
+
+					&.search {
+						a {
+							svg {
+								display: inline;
+							}
+							span {
+								display: none;
+							}
+						}
+					}
 
 					a {
     					border-bottom: 0;

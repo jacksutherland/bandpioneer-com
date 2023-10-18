@@ -388,6 +388,9 @@ header.site-header nav ul li {
   background-color: #FFFFFF;
   margin: 0;
 }
+header.site-header nav ul li.search a svg {
+  display: none;
+}
 header.site-header nav ul li a {
   display: block;
   color: #0a79a4;
@@ -404,6 +407,7 @@ header.site-header nav ul li a svg {
   float: right;
   margin-right: 34px;
   margin-top: 6px;
+  width: 13px;
 }
 header.site-header nav ul li a svg path {
   fill: #0a79a4;
@@ -543,6 +547,12 @@ header.site-header nav ul li ul li h4 {
     position: relative;
     z-index: 140;
     /***** Dropdown Menu *****/
+  }
+  header.site-header nav ul li.search a svg {
+    display: inline;
+  }
+  header.site-header nav ul li.search a span {
+    display: none;
   }
   header.site-header nav ul li a {
     border-bottom: 0;
