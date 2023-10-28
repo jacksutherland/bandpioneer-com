@@ -263,9 +263,9 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Optimized
-            instructions: null
-            label: null
+            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Ranking
+            instructions: 'The article has been optimized and is performing well'
+            label: 'Optimized and Ranking'
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

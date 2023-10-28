@@ -179,7 +179,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Optimized
+            fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Ranking
             instructions: null
             label: null
             required: false
