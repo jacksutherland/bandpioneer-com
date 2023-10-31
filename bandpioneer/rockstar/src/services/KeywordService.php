@@ -44,7 +44,8 @@ class KeywordService extends Component
 	        	$total = self::NUMBER_OF_RELATED_KEYWORDS;
 	        	$qty = round($total / 3);
 				$remainder = $total - round(2 * $qty);
-		        return "Create {$total} long-tail SEO keywords that are common search terms, and related to the primary keyword: {$params['keyword']}. {$qty} of them should be similar to the primary keyword, {$qty} should just be a similar top to the primary keyword, and the remaining {$remainder} can me just remotely related to it. Each keyword should be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
+		        // return "Create {$total} long-tail SEO keywords that are common search terms, and related to the primary keyword: {$params['keyword']}. {$qty} of them should be similar to the primary keyword, {$qty} should just be a similar top to the primary keyword, and the remaining {$remainder} can me just remotely related to it. Each keyword should be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
+		        return "Create {$total} long-tail SEO keywords that related to our primary keyword '{$params['keyword']}'. These related keywords should be common search terms that a lot of people likely search for. {$qty} of them should be very similar to the primary keyword ({$params['keyword']}), {$qty} should just be just remotely related to the primary keyword ({$params['keyword']}), and the remaining {$remainder} should tie into the keyword ({$params['keyword']}) but not be closely related to it. Each keyword must be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
 	        default:
 	        	return "";
 	    }
