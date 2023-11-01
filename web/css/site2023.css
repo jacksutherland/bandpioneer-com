@@ -133,12 +133,13 @@ figure.video .player {
   padding-bottom: 56.25%;
 }
 figure.video .player iframe {
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  height: 100%;
+  left: 0;
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  aspect-ratio: 16/9;
 }
 figure.instagram-media iframe {
   margin: 0 auto !important;
