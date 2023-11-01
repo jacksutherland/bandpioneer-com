@@ -28,6 +28,30 @@
 <html lang="en">
     <head>
 
+         {% if craft.app.config.env == 'production' %}
+            {#
+            <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TSXPZGR');</script>
+            <!-- End Google Tag Manager -->
+            #}
+
+            {# Direct GA4 Implementation - GTM is hurting Web Vitals #}
+            <!-- Google tag (gtag.js) -->
+             <link rel="preconnect" href="https://www.googletagmanager.com">
+            <script async src="https://www.googletagmanager.com/gtag/js?id=git p"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LYH6EW2ZX2');
+            </script>
+        {% endif %}
+
         {% include '_includes/metadata' %}
 
         {% apply spaceless %}
