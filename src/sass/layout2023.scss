@@ -50,7 +50,7 @@ h3 {
 
 h4 {
 	font-size: 1rem;
-	font-weight: $slightly-bold-font;
+	// font-weight: $slightly-bold-font;
 	line-height: 1.5rem
 }
 
@@ -211,7 +211,7 @@ a {
 		}
 
 		img:first-of-type {	
-			filter: brightness(1.2);
+			filter: brightness(1.15);
 		}
 	}
 
@@ -313,6 +313,16 @@ section {
 
 		article {
 
+			background-color: $light-gray;
+			border-radius: $small-radius;
+			// overflow: hidden;
+
+			transition: transform $transition-time;
+
+			&:hover {
+				transform: translateY(-6px);			
+			}
+
 			&.advert {
 				aspect-ratio: 1 / 1;
 				background-color: $light-gray;
@@ -328,18 +338,22 @@ section {
 				transition: background-color $transition-time;
 
 				&:hover {
-					background-color: $medium-gray;					
+					background-color: $medium-gray;
 				}
 			}
 
 			img {
+				border-radius: $img-radius $img-radius 0 0;
 				height: auto;
 				max-width: 100%;
 				width: 100%;
 			}
 
 			.category {
-				margin: $small-object-spacing 0;
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				margin: ($gutter-width - 4px) 0 0 0;
+				padding-left: $gutter-width;
 			}
 
 			a.blog-title {
@@ -350,7 +364,7 @@ section {
 				}
 
 				h4 {
-					margin: 0;
+					margin: ($gutter-width - 4px) $gutter-width;
 				}
 			}
 

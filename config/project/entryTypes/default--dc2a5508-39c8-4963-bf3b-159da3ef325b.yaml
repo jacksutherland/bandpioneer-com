@@ -29,7 +29,19 @@ fieldLayouts:
             uid: 4a5f8367-c8cf-4a93-ad10-1e3d96f2656c
             userCondition: null
             warning: null
-            width: 75
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 02fb6a1a-8498-4b48-ad99-b61ac895f168 # CTA Text
+            instructions: null
+            label: Label
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5ba8e49f-7197-4ea8-a0ca-1a3baed9ec5f
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline

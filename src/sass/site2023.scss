@@ -283,13 +283,13 @@ section {
 			grid-template-columns: 1fr;
 			width: fit-content;
 
-			article {
-				max-width: $blog-post-mobile-width;
-			}
-
 			@media (min-width: $breakpoint-xs) {
 				
 				grid-template-columns: repeat(2, minmax(0, 1fr));
+
+				article {
+					max-width: $blog-post-mobile-width;
+				}
 			}
 
 			@media (min-width: $breakpoint-sm) { 

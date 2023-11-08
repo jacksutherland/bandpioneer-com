@@ -62,7 +62,6 @@ h3 {
 
 h4 {
   font-size: 1rem;
-  font-weight: 500;
   line-height: 1.5rem;
 }
 
@@ -101,7 +100,7 @@ ul li, ol li {
 }
 
 img {
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 figure {
@@ -121,7 +120,7 @@ figure.image.bottom-margin {
 figure.image img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 @media (min-width: 768px) {
   figure.image img {
@@ -134,7 +133,7 @@ figure.video .player {
 }
 figure.video .player iframe {
   aspect-ratio: 16/9;
-  border-radius: 4px;
+  border-radius: 6px;
   height: 100%;
   left: 0;
   position: absolute;
@@ -172,7 +171,7 @@ button,
 .btn {
   background-color: #0a79a4;
   border: 0;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #FFFFFF;
   cursor: pointer;
   font-family: helvetica, sans-serif;
@@ -198,7 +197,7 @@ a:hover h2:first-of-type {
   color: #0a79a4;
 }
 a:hover img:first-of-type {
-  filter: brightness(1.2);
+  filter: brightness(1.15);
 }
 a h2:first-of-type {
   transition: color 0.3s;
@@ -209,7 +208,7 @@ a img:first-of-type {
 a.category {
   display: inline-block;
   background-color: #0a79a4;
-  border-radius: 2px 12px 12px 2px;
+  border-radius: 3px 12px 12px 3px;
   font-size: 0.86rem;
   height: 24px;
   padding: 0 10px 0 8px;
@@ -253,7 +252,7 @@ a.category span {
   display: none;
   position: absolute;
   background-color: #E0E0E0;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   flex-direction: column;
   gap: 8px;
@@ -283,6 +282,14 @@ a.category span {
   z-index: 150;
 }
 
+section.blog-row article {
+  background-color: #F0F3F3;
+  border-radius: 6px;
+  transition: transform 0.3s;
+}
+section.blog-row article:hover {
+  transform: translateY(-6px);
+}
 section.blog-row article.advert {
   aspect-ratio: 1/1;
   background-color: #F0F3F3;
@@ -292,7 +299,7 @@ section.blog-row article a.blog-img {
   display: block;
   aspect-ratio: 1/1;
   background-color: #F0F3F3;
-  border-radius: 2px;
+  border-radius: 3px;
   line-height: 0;
   transition: background-color 0.3s;
 }
@@ -300,12 +307,16 @@ section.blog-row article a.blog-img:hover {
   background-color: #E0E0E0;
 }
 section.blog-row article img {
+  border-radius: 3px 3px 0 0;
   height: auto;
   max-width: 100%;
   width: 100%;
 }
 section.blog-row article .category {
-  margin: 8px 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin: 12px 0 0 0;
+  padding-left: 16px;
 }
 section.blog-row article a.blog-title {
   color: #111111;
@@ -314,7 +325,7 @@ section.blog-row article a.blog-title:hover {
   color: #f90215;
 }
 section.blog-row article a.blog-title h4 {
-  margin: 0;
+  margin: 12px 16px;
 }
 section.blog-row article a.blog-img:hover + a.blog-title > h4 {
   color: #f90215;
@@ -570,7 +581,7 @@ header.site-header nav ul li ul li h4 {
   header.site-header nav ul li ul {
     position: absolute;
     background-color: #E0E0E0;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 6px 6px;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
     flex-direction: column;
     gap: 8px;
@@ -839,7 +850,7 @@ form textarea,
 form select {
   padding: 0 24px;
   height: 50px;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #111111;
   font-family: helvetica, sans-serif;
   font-size: 0.86rem;
@@ -883,7 +894,7 @@ form.login-form {
   max-width: 400px;
   margin: 0 auto;
   border: solid 1px #e3e7e9;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 35px;
 }
 form.login-form h3 {
@@ -963,12 +974,12 @@ section.blog-row .grid-pane {
   width: -moz-fit-content;
   width: fit-content;
 }
-section.blog-row .grid-pane article {
-  max-width: 178px;
-}
 @media (min-width: 375px) {
   section.blog-row .grid-pane {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  section.blog-row .grid-pane article {
+    max-width: 178px;
   }
 }
 @media (min-width: 576px) {
