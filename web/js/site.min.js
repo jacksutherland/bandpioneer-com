@@ -101,7 +101,7 @@ let BandPioneer = {
 
 		static hoveringOverCategory = false;
 
-		constructor()
+		constructor(disableMenus = false)
 		{
 
 			this.search = {
@@ -110,9 +110,12 @@ let BandPioneer = {
 				input: document.querySelector('#search input')
 			};
 
-			// this.addHeaderEvents();
-			// this.addMenuEvents();
-			// this.addSearchEvents();
+			if(!disableMenus)
+			{
+				this.addHeaderEvents();
+				this.addMenuEvents();
+				this.addSearchEvents();
+			}
 			this.questionValidation();
 
 			const data = JSON.parse(localStorage.getItem(BandPioneer.STUDIO_AI_KEY));

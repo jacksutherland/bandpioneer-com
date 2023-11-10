@@ -29,7 +29,7 @@
 	<script defer type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function()
         {
-            var bp = new BandPioneer.Site();
+            var bp = new BandPioneer.Site(true);
             bp.loadSearchResponse('{{ chatQuery }}', {{ pageTotal }});
         });
 	</script>
