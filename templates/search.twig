@@ -38,10 +38,15 @@
 {% block styles %}
     <link rel="stylesheet" href="{{ url('css/site2023.css') }}?version={{ versionNumber }}" />
     <link rel="stylesheet" href="{{ url('css/search.css') }}?version={{ versionNumber }}" />
+    <style type="text/css">
+		section.rich-text.bkg-img:after {
+		    background-color: rgba(0, 0, 0, 0.6);
+		}
+	</style>
 {% endblock %}
 
 {% block header %}
-	<section class="rich-text bkg-img" style="background-image:url(/assets/images/pages/band-pioneer-advice.jpg)">
+	<section class="rich-text bkg-img" style="background-image:url(/assets/images/free-playing-jazz-bass.jpg)">
 		<div class="container">
 			<h1>AI Assisted Site Search</h1>
 		</div>
@@ -50,12 +55,13 @@
 
 {% block content %}
 
+<section>
 	<div class="container narrow-container">
 
 		{% if searchQuery | length %}
-			<h3 style="margin-top:36px;" class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
+			<h3>Question: <span>{{ searchQuery }}</span></h4>
 			{% if pageInfo.currentPage == 1 %}
-				<h3 style="margin-bottom:6px;" class="alternate-color">Answer:</h4>
+				<h3 style="margin-bottom:6px;">Answer:</h4>
 			{% endif %}
 		{% endif %}
 
@@ -155,5 +161,5 @@
 		{% endif %}
 
       </div>
-
+</section>
 {% endblock %}

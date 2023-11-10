@@ -648,7 +648,7 @@ header.site-header nav ul li ul li h4 {
   background-color: #FFFFFF;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   display: none;
-  height: 124px;
+  height: 136px;
   position: fixed;
   top: 90px;
   width: 100%;
@@ -667,19 +667,18 @@ header.site-header nav ul li ul li h4 {
 .search-dropdown form svg {
   width: 16px;
   position: absolute;
-  top: 12px;
-  left: 10px;
+  top: 18px;
+  left: 14px;
 }
 .search-dropdown form svg path {
-  fill: #c6cfd3;
+  fill: #b8c2c7;
 }
 .search-dropdown form input {
   background-color: #FFFFFF !important;
-  border: solid 1px #e3e7e9 !important;
-  border-bottom: solid 2px #e3e7e9 !important;
+  border: solid 2px #d5dbde !important;
   border-radius: 3px;
-  height: 37px;
-  padding: 0 16px 0 34px;
+  height: 50px;
+  padding: 0 16px 0 38px;
   width: 100%;
 }
 

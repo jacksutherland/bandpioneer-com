@@ -793,7 +793,7 @@ header.site-header {
 	background-color: $white;
 	box-shadow: $container-shadow;
 	display: none;
-	height: 124px;
+	height: 136px;
 	position: fixed;
 	top: $header-height;
 	width: 100%;
@@ -810,29 +810,24 @@ header.site-header {
 		margin-bottom: $object-spacing;
 		position: relative;
 
-		// .btn {
-		// 	border-radius: $img-radius;
-		// 	height: $small-input-height;
-		// }
-
 		svg {
 			width: 16px;
 		    position: absolute;
-		    top: 12px;
-		    left: 10px;
+		    top: 18px;
+		    left: 14px;
 
 		    path {
-		    	fill: darken($border-color, 10%);
+		    	fill: darken($border-color, 15%);
 		    }
 		}
 
 		input {
 			background-color: $white !important;
-			border: solid 1px $border-color !important;
-			border-bottom: solid 2px $border-color !important;
+			border: solid 2px darken($border-color, 5%) !important;
+			// border-bottom: solid 2px $border-color !important;
 			border-radius: $img-radius;
-			height: ($small-input-height - 3px);
-			padding: 0 $gutter-width 0 34px;
+			height: $input-height;
+			padding: 0 $gutter-width 0 38px;
 			width: 100%;
 		}
 	}
