@@ -59,6 +59,19 @@ mix.setPublicPath('./web')
 .version()
 .disableNotifications()
 
+mix.setPublicPath('./web')
+.sass('src/sass/search.scss', 'web/css/search.css')
+.options({
+  processCssUrls: false,
+})
+.browserSync({
+  files: ['web/css/*'],
+  proxy: baseUrl,
+  notify: false,
+})
+.version()
+.disableNotifications()
+
 //*** AUTHENTICATED BAND WEBSITE ***//
 
 mix.setPublicPath('./web')

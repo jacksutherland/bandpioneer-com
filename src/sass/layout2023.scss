@@ -395,10 +395,11 @@ header.site-header {
 	height: $header-sticky-height;
 	z-index: 100;
 
-	& + section.rich-text {
+	& + section.rich-text,
+	& + #search-toggle + .search-dropdown + section.rich-text {
 		background-color: $light-gray;
 		margin: 0;
-		padding: $section-mobile-spacing 0;
+		padding: 60px 0 $section-mobile-spacing 0;
 	}
 
 	#open-menu {
@@ -417,7 +418,6 @@ header.site-header {
 	}
 
 	nav {
-		// display: none;
 		position: fixed;
 		top: $header-sticky-height;
 		left: 0;
@@ -463,14 +463,17 @@ header.site-header {
 				margin: 0;
 
 				&.search {
-					a {
-						svg {
-							display: none;
-						}
+					// a, label {
+					// 	svg {
+					// 		display: none;
+					// 	}
+					// }
+					label {
+						display: none;
 					}
 				}
 
-				a {
+				a, label {
 					display: block;
 					color: $link-color;
 					cursor: pointer;
@@ -558,7 +561,7 @@ header.site-header {
 					}
 				}
 
-				> ul > li > a {
+				> ul > li > a, > ul > li > label {
 					height: $header-sticky-height;
 					line-height: $header-sticky-height;
 				}
@@ -572,6 +575,15 @@ header.site-header {
 						}
 					}
 				}
+			}
+		}
+
+		.search-dropdown {
+			height: auto;
+			top: $header-sticky-height;
+			
+			form {
+				margin-top: $object-spacing;
 			}
 		}
 	}
@@ -631,7 +643,7 @@ header.site-header {
 				}
 			}
 
-			> ul > li > a {
+			> ul > li > a, > ul > li > label {
 				height: $header-height;
 				line-height: $header-height;
 				padding: 0 $object-half-spacing;
@@ -669,17 +681,23 @@ header.site-header {
 					z-index: 140;
 
 					&.search {
+						// a, label {
+						// 	svg {
+						// 		display: inline;
+						// 	}
+						// 	span {
+						// 		display: none;
+						// 	}
+						// }
 						a {
-							svg {
-								display: inline;
-							}
-							span {
-								display: none;
-							}
+							display: none;
+						}
+						label {
+							display: block;
 						}
 					}
 
-					a {
+					a, label {
     					border-bottom: 0;
 						color: $white;
 
@@ -759,6 +777,67 @@ header.site-header {
 }
 
 
+
+/***** SEARCH DROPDOWN *****/
+
+#search-toggle {
+	display: none;
+
+	&:checked + .search-dropdown {
+		display: flex;
+	}
+}
+
+.search-dropdown {
+	align-items: end;
+	background-color: $white;
+	box-shadow: $container-shadow;
+	display: none;
+	height: 124px;
+	position: fixed;
+	top: $header-height;
+	width: 100%;
+	z-index: 90;
+
+	.container {
+		width: 100%;
+	}
+
+	form {
+    	align-content: space-between;
+    	display: flex;
+    	gap: $small-object-spacing;
+		margin-bottom: $object-spacing;
+		position: relative;
+
+		// .btn {
+		// 	border-radius: $img-radius;
+		// 	height: $small-input-height;
+		// }
+
+		svg {
+			width: 16px;
+		    position: absolute;
+		    top: 12px;
+		    left: 10px;
+
+		    path {
+		    	fill: darken($border-color, 10%);
+		    }
+		}
+
+		input {
+			background-color: $white !important;
+			border: solid 1px $border-color !important;
+			border-bottom: solid 2px $border-color !important;
+			border-radius: $img-radius;
+			height: ($small-input-height - 3px);
+			padding: 0 $gutter-width 0 34px;
+			width: 100%;
+		}
+	}
+}
+
 /***** FOOTER *****/
 
 footer {
@@ -794,7 +873,7 @@ footer {
 	    			margin: 0 $object-half-spacing;
 	    			text-align: center;
 
-	    			a {
+	    			a, label {
 	    				color: $white !important;
 	    				font-size: $small-font-size;
 					    text-transform: uppercase;
@@ -883,7 +962,7 @@ nav.categories {
 				margin: 0;
 				position: relative;
 
-				a {
+				a, label {
 					display: block;
 					font-size: $nav-font-size;
 					font-weight: $semi-bold-font;

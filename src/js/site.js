@@ -110,9 +110,9 @@ let BandPioneer = {
 				input: document.querySelector('#search input')
 			};
 
-			this.addHeaderEvents();
-			this.addMenuEvents();
-			this.addSearchEvents();
+			// this.addHeaderEvents();
+			// this.addMenuEvents();
+			// this.addSearchEvents();
 			this.questionValidation();
 
 			const data = JSON.parse(localStorage.getItem(BandPioneer.STUDIO_AI_KEY));

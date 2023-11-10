@@ -344,10 +344,10 @@ header.site-header {
   height: 68px;
   z-index: 100;
 }
-header.site-header + section.rich-text {
+header.site-header + section.rich-text, header.site-header + #search-toggle + .search-dropdown + section.rich-text {
   background-color: #F0F3F3;
   margin: 0;
-  padding: 24px 0;
+  padding: 60px 0 24px 0;
 }
 header.site-header #open-menu {
   display: block;
@@ -400,10 +400,10 @@ header.site-header nav ul li {
   background-color: #FFFFFF;
   margin: 0;
 }
-header.site-header nav ul li.search a svg {
+header.site-header nav ul li.search label {
   display: none;
 }
-header.site-header nav ul li a {
+header.site-header nav ul li a, header.site-header nav ul li label {
   display: block;
   color: #0a79a4;
   cursor: pointer;
@@ -415,13 +415,13 @@ header.site-header nav ul li a {
   text-wrap: nowrap;
   transition: color 0.3s;
 }
-header.site-header nav ul li a svg {
+header.site-header nav ul li a svg, header.site-header nav ul li label svg {
   float: right;
   margin-right: 34px;
   margin-top: 6px;
   width: 13px;
 }
-header.site-header nav ul li a svg path {
+header.site-header nav ul li a svg path, header.site-header nav ul li label svg path {
   fill: #0a79a4;
 }
 header.site-header nav ul li ul {
@@ -470,7 +470,7 @@ header.site-header nav ul li ul li h4 {
     top: 0;
     opacity: 1;
   }
-  body.sticky header.site-header nav > ul > li > a {
+  body.sticky header.site-header nav > ul > li > a, body.sticky header.site-header nav > ul > li > label {
     height: 68px;
     line-height: 68px;
   }
@@ -479,6 +479,13 @@ header.site-header nav ul li ul li h4 {
   }
   body.sticky header.site-header nav ul li ul {
     top: 68px;
+  }
+  body.sticky .search-dropdown {
+    height: auto;
+    top: 68px;
+  }
+  body.sticky .search-dropdown form {
+    margin-top: 24px;
   }
   header.site-header {
     height: 90px;
@@ -527,20 +534,20 @@ header.site-header nav ul li ul li h4 {
     opacity: 0;
     top: -200px;
   }
-  header.site-header nav > ul > li > a {
+  header.site-header nav > ul > li > a, header.site-header nav > ul > li > label {
     height: 90px;
     line-height: 90px;
     padding: 0 12px;
     transition: background-color 0.3s, height 0.3s, line-height 0.3s;
   }
-  header.site-header nav > ul > li > a:hover {
+  header.site-header nav > ul > li > a:hover, header.site-header nav > ul > li > label:hover {
     background-color: #0a79a4;
     color: #FFFFFF;
   }
-  header.site-header nav > ul > li > a:hover svg {
+  header.site-header nav > ul > li > a:hover svg, header.site-header nav > ul > li > label:hover svg {
     transform: translateY(4px);
   }
-  header.site-header nav > ul > li > a svg {
+  header.site-header nav > ul > li > a svg, header.site-header nav > ul > li > label svg {
     transition: transform 0.3s;
   }
   header.site-header nav ul {
@@ -560,21 +567,21 @@ header.site-header nav ul li ul li h4 {
     z-index: 140;
     /***** Dropdown Menu *****/
   }
-  header.site-header nav ul li.search a svg {
-    display: inline;
-  }
-  header.site-header nav ul li.search a span {
+  header.site-header nav ul li.search a {
     display: none;
   }
-  header.site-header nav ul li a {
+  header.site-header nav ul li.search label {
+    display: block;
+  }
+  header.site-header nav ul li a, header.site-header nav ul li label {
     border-bottom: 0;
     color: #FFFFFF;
   }
-  header.site-header nav ul li a svg {
+  header.site-header nav ul li a svg, header.site-header nav ul li label svg {
     float: none;
     margin: 0 0 0 6px;
   }
-  header.site-header nav ul li a svg path {
+  header.site-header nav ul li a svg path, header.site-header nav ul li label svg path {
     fill: #FFFFFF;
     transition: fill 0.3s;
   }
@@ -628,6 +635,54 @@ header.site-header nav ul li ul li h4 {
     color: #0a79a4;
   }
 }
+/***** SEARCH DROPDOWN *****/
+#search-toggle {
+  display: none;
+}
+#search-toggle:checked + .search-dropdown {
+  display: flex;
+}
+
+.search-dropdown {
+  align-items: end;
+  background-color: #FFFFFF;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+  display: none;
+  height: 124px;
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  z-index: 90;
+}
+.search-dropdown .container {
+  width: 100%;
+}
+.search-dropdown form {
+  align-content: space-between;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.search-dropdown form svg {
+  width: 16px;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+}
+.search-dropdown form svg path {
+  fill: #c6cfd3;
+}
+.search-dropdown form input {
+  background-color: #FFFFFF !important;
+  border: solid 1px #e3e7e9 !important;
+  border-bottom: solid 2px #e3e7e9 !important;
+  border-radius: 3px;
+  height: 37px;
+  padding: 0 16px 0 34px;
+  width: 100%;
+}
+
 /***** FOOTER *****/
 footer {
   background-color: #131b28;
@@ -660,13 +715,13 @@ footer .container nav ul li {
   margin: 0 12px;
   text-align: center;
 }
-footer .container nav ul li a {
+footer .container nav ul li a, footer .container nav ul li label {
   color: #FFFFFF !important;
   font-size: 0.86rem;
   text-transform: uppercase;
   font-weight: 700;
 }
-footer .container nav ul li a:after {
+footer .container nav ul li a:after, footer .container nav ul li label:after {
   background-color: #20aae1;
 }
 footer .container nav .copyright {
@@ -732,7 +787,7 @@ nav.categories .container ul li {
   margin: 0;
   position: relative;
 }
-nav.categories .container ul li a {
+nav.categories .container ul li a, nav.categories .container ul li label {
   display: block;
   font-size: 0.94rem;
   font-weight: 700;
@@ -743,14 +798,14 @@ nav.categories .container ul li a {
   text-wrap: nowrap;
   transition: background-color 0.3s;
 }
-nav.categories .container ul li a:not(:hover) {
+nav.categories .container ul li a:not(:hover), nav.categories .container ul li label:not(:hover) {
   color: #131b28;
 }
-nav.categories .container ul li a:hover:not(.active) {
+nav.categories .container ul li a:hover:not(.active), nav.categories .container ul li label:hover:not(.active) {
   background-color: #0a79a4;
   color: #FFFFFF;
 }
-nav.categories .container ul li a.active {
+nav.categories .container ul li a.active, nav.categories .container ul li label.active {
   color: #111111 !important;
   cursor: default;
   background-color: #cccccc;

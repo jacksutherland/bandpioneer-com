@@ -1,4 +1,6 @@
-{% extends '_layout' %}
+{% extends '_layout2023' %}
+
+{% set versionNumber = '2.017' %}
 
 {% set postsPerPage = 8 %}
 {% set pageTitle = 'Search' %}
@@ -23,15 +25,27 @@
 {% endblock %}
 
 {% block scripts %}
+	<script defer src="{{ url('js/site.min.js') }}?version={{ versionNumber }}"></script>
 	<script defer type="text/javascript">
-		if (typeof(uxFuncs) === 'object')
-		{
-			uxFuncs.push(function()
-            {
-                bp.loadSearchResponse('{{ chatQuery }}', {{ pageTotal }});
-            });
-		}
+		document.addEventListener("DOMContentLoaded", function()
+        {
+            var bp = new BandPioneer.Site();
+            bp.loadSearchResponse('{{ chatQuery }}', {{ pageTotal }});
+        });
 	</script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url('css/site2023.css') }}?version={{ versionNumber }}" />
+    <link rel="stylesheet" href="{{ url('css/search.css') }}?version={{ versionNumber }}" />
+{% endblock %}
+
+{% block header %}
+	<section class="rich-text bkg-img" style="background-image:url(/assets/images/pages/band-pioneer-advice.jpg)">
+		<div class="container">
+			<h1>AI Assisted Site Search</h1>
+		</div>
+	</section>
 {% endblock %}
 
 {% block content %}
@@ -39,9 +53,9 @@
 	<div class="container narrow-container">
 
 		{% if searchQuery | length %}
-			<h4 class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
+			<h3 style="margin-top:36px;" class="alternate-color">Question: <span>{{ searchQuery }}</span></h4>
 			{% if pageInfo.currentPage == 1 %}
-				<h4 style="margin:0;" class="alternate-color">Answer:</h4>
+				<h3 style="margin-bottom:6px;" class="alternate-color">Answer:</h4>
 			{% endif %}
 		{% endif %}
 
@@ -72,9 +86,8 @@
 
 		<div class="search-box">
             <form id="search-form" action="/search" method="get">
-                <input type="text" name="q" placeholder="Enter a Question">
-                <button type="submit" class="btn">Search Again</button>
-                <a class="btn" href="/contact?ask=question">Ask a Pro</a>
+                <input type="text" name="q" placeholder="Enter Another Question">
+                <button type="submit" class="btn">Search</button>
             </form>
 		</div>
 
@@ -97,43 +110,43 @@
 
 	<div {% if pageInfo.currentPage == 1 %}id="related-articles" {% endif %}class="container">
 
-		{% if pageTotal > 0 %}
-			<section class="description"><h3><span>{{ pageTotal }} related search results</span></h3></section>
-		{% else %}
-			<section class="description"><h3><span>Recent Articles</span></h3></section>
-			{% set posts = craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') %}
-		{% endif %}
+		
 
-		<div class="blog-posts">
+		<section class="blog-row">
+		<div class="container">
+
+			{% if pageTotal > 0 %}
+				<h2>{{ pageTotal }} related search results</h2>
+			{% else %}
+				<h2>Recent Articles</h2>
+				{% set posts = craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') %}
+			{% endif %}
+
+			<div class="grid-pane">
 			{% for blog in posts %}
 	            <article>
-					<a class="blog-image" href="{{ blog.url }}">
+					<a class="blog-img" href="{{ blog.url }}">
 						{% if blog.blogImage.count %}
-							<img src="{{ blog.blogImage.one().url('blogPost') }}" alt="{{ blog.blogImage.one().title }}">
+							{% set img = blog.blogImage.one() %}
+							{% set cat = blog.categories.one() %}
+		        			<picture>
+							 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+								<img src="{{ img.url('recentPostsMobile2023') }}"
+									srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+								 	alt="{{ img.title }}"
+								 	loading="lazy"
+									width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+							</picture>
 						{% endif %}
 					</a>
-					<div class="blog-info">
-						{% include '_includes/icons' with { type: 'tag' } %}
-						<ul>
-		            		{% for cat in blog.categories.all() %}
-		            			<li>
-		            				<a href="{{ cat.url }}">{{ cat.title }}</a>{% if not loop.last %}, {% endif %}
-		            			</li>
-		            		{% endfor %}
-		            	</ul>
-						<h3>
-							<a href="{{ blog.url }}">
-								{{ blog.title }}
-							</a>
-						</h3>
-						
-						{% include '_includes/author' %}
-
-						<p>{{ blog.shortDescription }}</p>
-					</div>
-				</article>
+					<a class="blog-title" href="{{ blog.url }}">
+						<h4>{{ blog.title }}</h4>
+					</a>
+        		</article>
 	        {% endfor %}
 	      </div>
+	     </div>
+	    </section>
 
 	    {% if pageInfo.total > postsPerPage %}
 			<div class="container">

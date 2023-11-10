@@ -233,50 +233,6 @@ section {
 			border-bottom: solid 1px $primary-dark;
 		}
 
-		// article {
-
-		// 	&.advert {
-		// 		aspect-ratio: 1 / 1;
-		// 		background-color: $light-gray;
-		// 		overflow: hidden;
-		// 	}
-
-		// 	img {
-		// 		height: auto;
-		// 		max-width: 100%;
-		// 		width: 100%;
-		// 	}
-
-		// 	.category {
-		// 		margin: $small-object-spacing 0;
-		// 	}
-
-		// 	a.blog-title {
-		// 		color: $font-color;
-
-		// 		&:hover {
-		// 			color: $link-hover-color;
-		// 		}
-
-		// 		h4 {
-		// 			// margin-top: 0;
-		// 			margin: 0;
-		// 		}
-		// 	}
-
-		// 	a.blog-img {
-		// 		&:hover {
-		// 			+ a.blog-title > h4 {
-		// 				color: $link-hover-color;
-		// 			}
-		// 		}
-
-		// 		+ a.blog-title > h4 {
-		// 			transition: color $transition-time;
-		// 		}
-		// 	}
-		// }
-
 		.grid-pane {
 			display: grid;
 			gap: $object-spacing;

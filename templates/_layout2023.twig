@@ -98,9 +98,6 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
-                            {# <li>
-                                <a href="/quick-tips">Quick Tips</a>
-                            </li> #}
                         </ul>
                     </li>
                     <li>
@@ -163,14 +160,24 @@
                     <li><a href="/about">About</a></li>
                     <li><a href="/contact">Contact</a></li>
                     <li class="search">
-                        <a href="/search">
+                        <a href="/search">Search</a>
+                        <label for="search-toggle">
                             {% include '_includes/icons' with { type: 'search' } %}
-                            <span>Search</span>
-                        </a>
+                        </label>
                     </li>
                 </ul>
             </nav>
         </header>
+
+        <input type="checkbox" id="search-toggle">
+        <div class="search-dropdown">
+            <div class="container narrow-container">
+                <form action="/search" method="get">
+                    {% include '_includes/icons' with { type: 'search' } %}
+                    <input id="search-input" type="text" name="q" placeholder="Enter a question and press [ENTER]">
+                </form>
+            </div>
+        </div>
 
         {% block header %}
         {% endblock %}
@@ -240,7 +247,7 @@
             var bp = null;
             document.addEventListener("DOMContentLoaded", function()
             {
-                bp = new BandPioneer();
+                bp = new BandPioneerUX();
             });
         </script>
         {% block scripts %}{# Load template scripts here #}{% endblock %}

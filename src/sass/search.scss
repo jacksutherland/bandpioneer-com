@@ -1,0 +1,76 @@
+@import 'vars2023';
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+  	opacity: 0.35;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+h1 {
+	margin-top: 14px;
+	text-align: center;
+}
+
+#related-articles {
+	display: none;
+
+	&.loaded {
+		display: block;
+	}
+}
+
+svg.spinner {
+	animation: rotate 2s linear infinite;
+	width: 25px;
+	height: 25px;
+	display: none;
+
+	path {
+		fill: $medium-gray;
+	}
+}
+
+#ai-response {
+	height: auto;
+
+	svg {
+		display: inline;
+	   vertical-align: middle;
+	   margin: 0 0 0 20px;
+	}
+}
+
+.dark-gray-color {
+	color: #6e6e6e;
+	font-weight:600;
+}
+
+.search-box {
+	form {
+    	display: flex;
+			align-items: space-between;
+    	grid-template-columns: 1fr;
+    	gap: 8px;
+    	margin: 30px auto 55px auto;
+
+    	input {
+    		height: 50px;
+    		width: 100%;
+    		border-radius: $small-radius;
+    		padding: 0 15px;
+    	}
+    	button, a {
+    		width: auto;
+			text-wrap: nowrap;
+    		font-size: $small-font-size;
+    	}
+    }
+}

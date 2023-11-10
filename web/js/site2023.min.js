@@ -4,7 +4,7 @@
  * The primary JS file for the public website
  */
 
-class BandPioneer
+class BandPioneerUX
 {
 	static stickyListeners = [];
 
@@ -30,16 +30,33 @@ class BandPioneer
 
 	static addStickyListener(fn)
 	{
-		BandPioneer.stickyListeners.push(fn);
+		BandPioneerUX.stickyListeners.push(fn);
 	}
 
 	static callStickyListeners(isSticky)
 	{
-	    BandPioneer.stickyListeners.forEach((fn) => fn(isSticky));
+	    BandPioneerUX.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
 	addHeaderEvents()
 	{
+		/***** SEARCH DROPDOWN *****/
+
+		function hoverOffSearchHandler(e)
+		{
+			document.getElementById('search-toggle').checked = false;
+			document.querySelector('.search-dropdown').removeEventListener('mouseleave', hoverOffSearchHandler);
+		}
+
+		document.getElementById('search-toggle').addEventListener('change', function()
+		{
+			if(this.checked)
+			{
+				document.getElementById('search-input').focus();
+				document.querySelector('.search-dropdown').addEventListener('mouseleave', hoverOffSearchHandler);
+			}
+		});
+
 		/***** MOBILE MENU *****/
 
 		const closeNav = function(e)
@@ -132,12 +149,12 @@ class BandPioneer
 					if (!entries[0].isIntersecting)
 					{
 						body.classList.add('sticky');
-						BandPioneer.callStickyListeners(true);
+						BandPioneerUX.callStickyListeners(true);
 					}
 					else
 					{
 						body.classList.remove('sticky');
-						BandPioneer.callStickyListeners(false);
+						BandPioneerUX.callStickyListeners(false);
 					}
 				}
 			}, { rootMargin: `-150px 0px 0px 0px` });
@@ -216,7 +233,6 @@ class BandPioneer
 
 			// Randomly rotate images
 
-			// BandPioneer.each(this.slides, function(idx, slide)
 			this.slides.forEach(slide => {
 				let min = -4, max = 4;
 				let deg = Math.random() * (max - min) + min;
@@ -237,7 +253,6 @@ class BandPioneer
 				this.slides = this.slider.querySelectorAll('.slide');
 				let sliderWid = 0;
 
-				// BandPioneer.each(this.slides, function(idx, slide)
 				this.slides.forEach(slide => {
 					sliderWid += slide.getBoundingClientRect().width;
 				});
@@ -457,7 +472,7 @@ class BandPioneer
 				});
 			}
 			
-			const breakpoint = BandPioneer.getBreakpoint();
+			const breakpoint = BandPioneerUX.getBreakpoint();
 
 			if(breakpoint === "sm" || breakpoint === "md")
 			{
@@ -496,7 +511,7 @@ class BandPioneer
 					progress.parentElement.title = 'Reading Progress: ' + pct;
 				}
 
-				BandPioneer.addStickyListener(function(isSticky)
+				BandPioneerUX.addStickyListener(function(isSticky)
 				{
 					if(isSticky)
 					{
@@ -528,7 +543,6 @@ class BandPioneer
 			{
 				const instaScroll = function(insta)
 				{
-					// BandPioneer.each(instas, function(idx, insta)
 					instas.forEach(insta => {
 						if(insta.embedded === undefined || !insta.embedded)
 						{
