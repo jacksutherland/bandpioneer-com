@@ -1,0 +1,14 @@
+columnSuffix: nyqrnzwp
+contentColumnType: boolean
+fieldGroup: afa97089-7ca5-4bf4-978a-baa1d5a60614 # Ads
+handle: showAds
+instructions: null
+name: 'Show Ads'
+searchable: false
+settings:
+  default: true
+  offLabel: null
+  onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

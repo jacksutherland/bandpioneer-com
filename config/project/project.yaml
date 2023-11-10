@@ -1,4 +1,4 @@
-dateModified: 1699461315
+dateModified: 1699622519
 elementSources:
   craft\elements\Asset:
     -
@@ -295,6 +295,7 @@ meta:
     73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
+    a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Show Ads' # Show Ads
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a9c9ed2d-71ed-44ae-8360-214ea6ecda29: 'SEO Keywords' # SEO Keywords
@@ -305,6 +306,7 @@ meta:
     ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline
+    afa97089-7ca5-4bf4-978a-baa1d5a60614: Ads # Ads
     b0072d7c-b8b9-486f-ab5c-633f3d458661: 'Popular Post' # Popular Post
     b5c0f1ed-7691-4280-a0a0-4ea1bc447989: 'Blog Listing Medium' # Blog Listing Medium
     b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
