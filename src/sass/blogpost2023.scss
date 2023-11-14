@@ -471,6 +471,11 @@ address[rel="author"] {
 				list-style: auto;
 			}
 
+			pre {
+				max-width: 100%;
+    			overflow: auto;
+			}
+
 			figure.video,
 			figure.instagram-media {
 				margin: 40px 0 60px 0;

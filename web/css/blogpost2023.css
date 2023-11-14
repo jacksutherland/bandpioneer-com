@@ -1175,6 +1175,10 @@ address[rel=author] span {
 .blog section.rich-text ol {
   list-style: auto;
 }
+.blog section.rich-text pre {
+  max-width: 100%;
+  overflow: auto;
+}
 .blog section.rich-text figure.video,
 .blog section.rich-text figure.instagram-media {
   margin: 40px 0 60px 0;
