@@ -1,5 +1,5 @@
 
-{% set versionNumber = '2.017' %}
+{% set versionNumber = '2.018' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -213,9 +213,13 @@
         {% cache globally %}
             <footer>
                 <div class="container">
-                    <a href="/" class="logo">
-                        <img loading="lazy" src="{{ url('assets/images/bp-logo-header.png') }}" alt="Band Pioneer" title="Band Pioneer" width="180" height="117" />
-                    </a>
+                    <div>    
+                        <a href="/" class="logo">
+                            <img loading="lazy" src="{{ url('assets/images/bp-logo-header.png') }}" alt="Band Pioneer" title="Band Pioneer" width="180" height="117" />
+                        </a>
+                        <br><br>
+                        <div id="ezoic-accreditation-container"></div>
+                    </div>
                     <nav>
                         <ul>
                             <li><a href="/">Home</a></li>
