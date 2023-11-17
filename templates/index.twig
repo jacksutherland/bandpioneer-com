@@ -39,6 +39,17 @@
                 }
             });
         </script>
+        <script type="text/javascript">
+			function sendClickEvent(url)
+			{
+				console.log('sending to gtag: ' + url);
+			    gtag('event', 'popular_article_clicked', {
+			        'event_category': 'Popular Article',
+			        'event_label': url,
+			        'value': 1
+			    });
+			}
+        </script>
 	{% endif %}
 {% endblock %}
 
@@ -54,7 +65,7 @@
 								{% if blog.blogImage.count %}
 									{% set img = blog.blogImage.one() %}
 									{% set cat = blog.categories.one() %}
-									<a class="blog-img" href="{{ blog.url }}">
+									<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('{{ blog.url }}')">
 					        			<picture>
 										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
 											<img src="{{ img.url('popularPostMobile2023') }}"
