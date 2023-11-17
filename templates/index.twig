@@ -78,7 +78,7 @@
 										{% include '_includes/icons' with { type: 'tag' } %}
 										<span>{{ cat.ctaText }}</span>
 									</a>
-									<a class="blog-title" href="{{ blog.url }}">
+									<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
 										<h4>{{ blog.title }}</h4>
 									</a>
 								{% endif %}
@@ -136,7 +136,7 @@
 					</div>
 					<div>
 						{% if featured.title | length %}
-							<a href="{{ featured.url }}">
+							<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
 								<h2>{{ featured.title }}</h2>
 							</a>
 						{% endif %}
@@ -188,7 +188,7 @@
 								<span>{{ cat.ctaText }}</span>
 							</a>
 						{% endif %}
-						<a class="blog-title" href="{{ blog.url }}">
+						<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
 							<h4>{{ blog.title }}</h4>
 						</a>
 	        		</article>
