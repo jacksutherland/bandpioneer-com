@@ -217,8 +217,6 @@ class BandPioneerUX
 	{
 		constructor(carousel)
 		{
-			console.log("BandCarousel constructor");
-
 			this.scrollSpeed = 0.3;
 
 			this.direction = 'left';
