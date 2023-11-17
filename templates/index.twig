@@ -40,11 +40,10 @@
             });
         </script>
         <script type="text/javascript">
-			function sendClickEvent(url)
+			function sendClickEvent(eventName, url)
 			{
-				console.log('sending to gtag: ' + url);
-			    gtag('event', 'popular_article_clicked', {
-			        'event_category': 'Popular Article',
+			    gtag('event', eventName, {
+			        'event_category': 'Internal Linking',
 			        'event_label': url,
 			        'value': 1
 			    });
@@ -65,7 +64,7 @@
 								{% if blog.blogImage.count %}
 									{% set img = blog.blogImage.one() %}
 									{% set cat = blog.categories.one() %}
-									<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('{{ blog.url }}')">
+									<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
 					        			<picture>
 										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
 											<img src="{{ img.url('popularPostMobile2023') }}"
@@ -123,7 +122,7 @@
 					<div>
 						{% if featured.blogImage.count %}
 							{% set img = featured.blogImage.one() %}
-							<a href="{{ featured.url }}">
+							<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
 			        			<picture>
 								 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
 									<img src="{{ img.url }}"
@@ -166,7 +165,7 @@
 			<div class="grid-pane">
 				{% for blog in recentPosts %}
 					<article>
-						<a class="blog-img" href="{{ blog.url }}">
+						<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
 							{% if blog.blogImage.count %}
 								{% set img = blog.blogImage.one() %}
 							{% else %}
