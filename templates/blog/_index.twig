@@ -64,9 +64,9 @@
 							{% set cat = featured.categories.one() %}
 							<a href="{{ featured.url }}">
 			        			<picture>
-								 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
-									<img src="{{ img.url }}"
-										srcset="{{ img.url }} 2x"
+								 	<source srcset="{{ img.url("halfWidthDesktop") }}, {{ img.url('halfWidthDesktop2x') }} 2x" media="(min-width: 576px)" />
+									<img src="{{ img.url('fullWidthMobile') }}"
+										srcset="{{ img.url('fullWidthMobile2x') }} 2x"
 									 	alt="{{ img.title }}"
 									 	loading="lazy"
 										width="{{ img.width }}" height="{{ img.height }}">

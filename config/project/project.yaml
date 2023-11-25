@@ -1,4 +1,4 @@
-dateModified: 1699625927
+dateModified: 1700955806
 elementSources:
   craft\elements\Asset:
     -
@@ -232,6 +232,7 @@ meta:
     2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
     02fb6a1a-8498-4b48-ad99-b61ac895f168: 'CTA Text' # CTA Text
     2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
+    2ff42ac0-c01a-484a-9e78-a524d5d85090: 'Half Width Desktop' # Half Width Desktop
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
     3f54aa64-f831-4c65-b372-2d31e7ef7644: 'Full Width Mobile 2x' # Full Width Mobile 2x
@@ -269,6 +270,7 @@ meta:
     80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
     82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: Margins # Margins
     82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
+    89ac4662-d8f3-4ecb-83aa-2331b37d7775: 'Half Width Desktop 2x' # Half Width Desktop 2x
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
     350ca85e-fc53-44c8-a062-e0256f1967e4: Dynamic # Dynamic
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
