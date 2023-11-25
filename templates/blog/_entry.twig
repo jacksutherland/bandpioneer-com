@@ -36,7 +36,7 @@
 			{% include '_includes/author' with { blog: entry } %}
 
 			{# removing img above the fold on mobile, to prevent long LCP #}
-			{% if not craft.app.request.isMobileBrowser(true) and entry.blogImage.count %}
+			{% if not craft.app.request.isMobileBrowser(false) and entry.blogImage.count %}
 				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 			{% endif %}
 		</div>
