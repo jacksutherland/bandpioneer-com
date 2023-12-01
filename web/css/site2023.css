@@ -177,22 +177,26 @@ figure figcaption {
 
 button,
 .btn {
-  align-items: center;
   background-color: #0a79a4;
   border: 0;
   border-radius: 6px;
   color: #FFFFFF;
   cursor: pointer;
-  display: inline-flex;
   font-family: helvetica, sans-serif;
   font-weight: 700;
   height: 50px;
   padding: 0 24px;
   transition: background-color 0.3s;
 }
+button.btn,
+.btn.btn {
+  align-items: center;
+  display: inline-flex;
+}
 button:hover,
 .btn:hover {
-  background-color: #f90215;
+  background-color: #20aae1;
+  color: #FFFFFF;
 }
 
 a {
@@ -201,7 +205,7 @@ a {
   transition: color 0.3s;
 }
 a:hover {
-  color: #f90215;
+  color: #20aae1;
 }
 a:hover h2:first-of-type {
   color: #0a79a4;
@@ -225,7 +229,7 @@ a.category {
   transition: background-color 0.3s;
 }
 a.category:hover {
-  background-color: #f90215;
+  background-color: #20aae1;
 }
 a.category svg {
   width: 15px;
@@ -332,13 +336,13 @@ section.blog-row article a.blog-title {
   color: #111111;
 }
 section.blog-row article a.blog-title:hover {
-  color: #f90215;
+  color: #20aae1;
 }
 section.blog-row article a.blog-title h4 {
   margin: 12px 16px;
 }
 section.blog-row article a.blog-img:hover + a.blog-title > h4 {
-  color: #f90215;
+  color: #20aae1;
 }
 section.blog-row article a.blog-img + a.blog-title > h4 {
   transition: color 0.3s;
@@ -875,7 +879,7 @@ nav.categories .container ul li .popup h3 {
   opacity: 1 !important;
 }
 .pagination a:hover.page-arrow svg path {
-  fill: #f90215;
+  fill: #20aae1;
 }
 .pagination a.page-arrow svg path {
   fill: #0a79a4;

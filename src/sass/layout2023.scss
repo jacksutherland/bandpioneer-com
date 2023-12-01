@@ -190,23 +190,29 @@ figure {
 
 button,
 .btn {
-	align-items: center;
 	background-color: $link-color;
 	border: 0;
 	border-radius: $small-radius;
 	color: $white;
 	cursor: pointer;
-	display: inline-flex;
 	font-family: $font-family;
 	font-weight: $semi-bold-font;
 	height: $input-height;
 	padding: 0 $object-padding;
 	transition: background-color $transition-time;
 
+	&.btn {
+		align-items: center;
+		display: inline-flex;
+	}
+
 	&:hover {
 		background-color: $link-hover-color;
+		color: $white;
 	}
 }
+
+
 
 a {
 	color: $link-color;
