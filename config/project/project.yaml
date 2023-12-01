@@ -1,4 +1,4 @@
-dateModified: 1700955806
+dateModified: 1701474732
 elementSources:
   craft\elements\Asset:
     -
@@ -319,6 +319,7 @@ meta:
     bc9d16b4-6012-428a-b78c-758da4e7c8e9: 'Blog Image Mobile' # Blog Image Mobile
     bfe10380-5bde-4f7c-b4a8-eca75b87c28f: 'Public Schema' # Public Schema
     c021f2dc-243d-458f-b0b4-c00db3a1a673: 'Blog Post Mobile' # Blog Post Mobile
+    c56a7022-7df1-419e-9c88-6a2090e76065: 'Content Layout' # Content Layout
     c391d039-c741-426d-85a3-d52c21725ce9: 'Blog Listing Medium 2x' # Blog Listing Medium 2x
     c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
     c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images

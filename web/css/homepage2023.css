@@ -113,6 +113,25 @@ img {
 
 figure {
   margin: 0 auto;
+  text-align: center;
+}
+figure.circle img {
+  border-radius: 50%;
+}
+figure.circle figcaption {
+  background-color: #20aae1;
+  border-radius: 30px;
+  color: #FFFFFF;
+  display: inline-block;
+  font-weight: 700;
+  margin-top: -30px;
+  padding: 8px 48px;
+}
+figure.circle figcaption a {
+  color: #FFFFFF;
+}
+figure.circle figcaption a:hover {
+  color: #131b28;
 }
 figure img {
   height: auto;
@@ -857,6 +876,14 @@ nav.categories .container ul li .popup h3 {
     overflow-x: auto;
   }
 }
+.z-pattern {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.z-pattern + .z-pattern:nth-child(even) {
+  flex-direction: column-reverse;
+}
 .z-pattern img {
   max-width: 100%;
   height: auto;
@@ -866,7 +893,7 @@ nav.categories .container ul li .popup h3 {
   .z-pattern {
     display: grid;
     align-items: center;
-    gap: 24px;
+    gap: 72px;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
   }

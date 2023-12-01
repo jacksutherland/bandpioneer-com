@@ -113,6 +113,25 @@ img {
 
 figure {
   margin: 0 auto;
+  text-align: center;
+}
+figure.circle img {
+  border-radius: 50%;
+}
+figure.circle figcaption {
+  background-color: #20aae1;
+  border-radius: 30px;
+  color: #FFFFFF;
+  display: inline-block;
+  font-weight: 700;
+  margin-top: -30px;
+  padding: 8px 48px;
+}
+figure.circle figcaption a {
+  color: #FFFFFF;
+}
+figure.circle figcaption a:hover {
+  color: #131b28;
 }
 figure img {
   height: auto;

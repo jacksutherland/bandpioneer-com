@@ -110,6 +110,33 @@ img {
 
 figure {
 	margin: 0 auto;
+	text-align: center;
+
+	&.circle {
+		img {
+	    	border-radius: 50%;
+		    // box-shadow: $container-shadow;
+		    // outline: solid 5px $white;
+		}
+
+		figcaption {
+			background-color: $primary-light;
+			border-radius: 30px;
+			color: $white;
+		    display: inline-block;
+		    font-weight: $semi-bold-font;
+		    margin-top: -30px;
+		    padding: $small-object-spacing $section-spacing;
+
+		    a {
+		    	color: $white;
+
+		    	&:hover {
+		    		color: $primary-dark;
+		    	}
+		    }
+		}
+	}
 
 	img {
 		height: auto;
@@ -211,8 +238,6 @@ button,
 		color: $white;
 	}
 }
-
-
 
 a {
 	color: $link-color;

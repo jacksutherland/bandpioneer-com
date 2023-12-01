@@ -1,0 +1,35 @@
+columnSuffix: sejwfnam
+contentColumnType: string(8)
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: contentLayout
+instructions: null
+name: 'Content Layout'
+searchable: false
+settings:
+  columnType: null
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - 'Rich Text'
+        -
+          - value
+          - richText
+        -
+          - default
+          - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - 'Z Pattern'
+        -
+          - value
+          - zPattern
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

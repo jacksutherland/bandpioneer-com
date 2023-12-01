@@ -44,7 +44,39 @@
 		{% include '_includes/band-carousel' with { enlarged: true } %}
 	{% endif %}
 
-	{% if entry.longText | length %}
+	{% if entry.contentLayout == "zPattern" %}
+
+		<div class="container">
+			<section class="z-pattern">
+				<div>
+					{% if entry.longText | length %}
+						{{ entry.longText }}
+					{% endif %}
+				</div>
+				<div>
+					<figure class="circle">
+						<img src="assets/images/jack-exit85-taphouse.jpg">
+						<figcaption><a href="https://www.jacksutherland.com" target="_blank">Jack Sutherland<br>Founder & Developer</a></figcaption>
+					</figure>
+				</div>
+			</section>
+
+			<section class="z-pattern">
+				<div>
+					<figure>
+						<img src="assets/images/band-pioneer-bkg.jpg">
+					</figure>
+				</div>
+				<div>
+					{% if entry.longText2 | length %}
+						{{ entry.longText2 }}
+					{% endif %}
+				</div>
+			</section>
+		</div>
+
+	{% elseif entry.longText | length %}
+
 		<section class="rich-text">
 			<div class="container">
 				
@@ -71,6 +103,7 @@
 
 			</div>
 		</section>
+		
 	{% endif %}
 
 {% endblock %}

@@ -10,6 +10,16 @@
 }
 
 .z-pattern {
+	display: flex;
+	flex-direction: column;
+	gap: $object-spacing;
+
+	& + .z-pattern {
+		&:nth-child(even) {
+			flex-direction: column-reverse;
+		}
+	}
+
 	img {
 		max-width: 100%;
 		height: auto;
@@ -19,7 +29,7 @@
 	.z-pattern {
 		display: grid;
 		align-items: center;
-		gap: $object-spacing;
+		gap: ($object-spacing * 3);
 	    grid-template-columns: 1fr 1fr;
 	    justify-items: center;
 	}
@@ -53,9 +63,7 @@
 
 	a,
 	span {
-		// color: $lighter-font-color;
 		font-weight: $semi-bold-font;
-		// opacity: 0.75;
 		vertical-align: middle;
 
 		&.page-arrow {
@@ -375,6 +383,8 @@ section {
 			}
 		}
 	}
+
+
 }
 
 
