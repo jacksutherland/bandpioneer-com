@@ -18,6 +18,7 @@ use craft\commerce\elements\Order;
 use craft\commerce\elements\Product;
 use craft\commerce\elements\Variant;
 use craft\commerce\models\LineItem;
+use craft\commerce\Plugin as CommercePlugin;
 use craft\elements\db\CategoryQuery;
 use craft\elements\db\EntryQuery;
 use craft\elements\db\MatrixBlockQuery;
@@ -439,6 +440,8 @@ class Commerce extends Component
     {
         $parameter = new ItemParameter();
         $parameter->setAffiliation(InstantAnalytics::$plugin->ga4->getAnalytics()->getAffiliation());
+        $parameter->setCurrency(CommercePlugin::getInstance()->getPaymentCurrencies()->getPrimaryPaymentCurrencyIso());
+
         return $parameter;
     }
 }

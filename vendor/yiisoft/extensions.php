@@ -12,16 +12,6 @@ return array (
       '@yii/symfonymailer' => $vendorDir . '/yiisoft/yii2-symfonymailer/src',
     ),
   ),
-  'samdark/yii2-psr-log-target' => 
-  array (
-    'name' => 'samdark/yii2-psr-log-target',
-    'version' => '1.1.3.0',
-    'alias' => 
-    array (
-      '@samdark/log' => $vendorDir . '/samdark/yii2-psr-log-target/src',
-      '@samdark/log/tests' => $vendorDir . '/samdark/yii2-psr-log-target/tests',
-    ),
-  ),
   'creocoder/yii2-nested-sets' => 
   array (
     'name' => 'creocoder/yii2-nested-sets',
@@ -68,5 +58,15 @@ return array (
       '@yii/shell' => $vendorDir . '/yiisoft/yii2-shell',
     ),
     'bootstrap' => 'yii\\shell\\Bootstrap',
+  ),
+  'samdark/yii2-psr-log-target' => 
+  array (
+    'name' => 'samdark/yii2-psr-log-target',
+    'version' => '1.1.4.0',
+    'alias' => 
+    array (
+      '@samdark/log' => $vendorDir . '/samdark/yii2-psr-log-target/src',
+      '@samdark/log/tests' => $vendorDir . '/samdark/yii2-psr-log-target/tests',
+    ),
   ),
 );

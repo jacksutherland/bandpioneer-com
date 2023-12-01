@@ -1,16 +1,16 @@
 {
   "require": {
     "bandpioneer/rockstar": "^1.0",
-    "craftcms/cms": "4.5.3",
+    "craftcms/cms": "4.5.11.1",
     "craftcms/contact-form": "3.0.1",
     "craftcms/redactor": "3.0.4",
     "ether/logs": "^4.0",
     "ether/sidebarentrytypes": "^2.0",
-    "nystudio107/craft-instantanalytics-ga4": "4.0.0-beta.4",
+    "nystudio107/craft-instantanalytics-ga4": "4.0.0",
     "putyourlightson/craft-sendgrid": "2.0.1",
     "sendgrid/sendgrid": "~7",
     "tectalic/openai": "^1.4",
-    "verbb/comments": "2.0.7",
+    "verbb/comments": "2.0.8",
     "vlucas/phpdotenv": "^5.4.0"
   },
   "repositories": [

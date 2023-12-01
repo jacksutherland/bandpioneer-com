@@ -1,19 +1,27 @@
-{% extends '_layout' %}
+{% extends '_layout2023' %}
 
 {% set pageTitle = "404 - Page Not Found" %}
 {# {% set pageSubtitle = "Page Not Found" %} #}
 {% set entry = { slug: '404', title: '404 - Page Not Found', section: { handle: '404' } } %}
 
+{% block header %}
+	<section class="rich-text">
+		<div class="container text-center">
+			<h1>Oops. Page Not Found!</h1>
+		</div>
+	</section>
+{% endblock %}
+
 {% block content %}
 
-	<div class="page container">
-		<div class="narrow-container text-center">
-			<h2 class="text-dark-blue">Oops. Our search for that page has unravelled.</h2>
+	<section class="rich-text">
+		<div class="container text-center">
+			<h2>Our search for that page has unravelled.</h2>
 			<a class="btn" href="/">Try Again</a>
 			<figure class="image">
 				<img style="width: 100%" src="{{ url('assets/images/cassette-unravelled.jpg') }}">
 			</figure>
 		</div>
-	</div>
+	</section>
 
 {% endblock %}

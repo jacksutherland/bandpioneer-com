@@ -76,40 +76,6 @@ return array (
     'developerEmail' => 'support@craftcms.com',
     'documentationUrl' => 'https://github.com/craftcms/redactor/blob/v2/README.md',
   ),
-  'verbb/comments' => 
-  array (
-    'class' => 'verbb\\comments\\Comments',
-    'basePath' => $vendorDir . '/verbb/comments/src',
-    'handle' => 'comments',
-    'aliases' => 
-    array (
-      '@verbb/comments' => $vendorDir . '/verbb/comments/src',
-    ),
-    'name' => 'Comments',
-    'version' => '2.0.7',
-    'description' => 'Add comments to your site.',
-    'developer' => 'Verbb',
-    'developerUrl' => 'https://verbb.io',
-    'developerEmail' => 'support@verbb.io',
-    'documentationUrl' => 'https://github.com/verbb/comments',
-    'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-4/CHANGELOG.md',
-  ),
-  'nystudio107/craft-instantanalytics-ga4' => 
-  array (
-    'class' => 'nystudio107\\instantanalyticsGa4\\InstantAnalytics',
-    'basePath' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
-    'handle' => 'instant-analytics-ga4',
-    'aliases' => 
-    array (
-      '@nystudio107/instantanalyticsGa4' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
-    ),
-    'name' => 'Instant Analytics GA4',
-    'version' => '4.0.0-beta.4',
-    'description' => 'Instant Analytics brings full Google GA4 server-side analytics support to your Twig templates and automatic Craft Commerce integration',
-    'developer' => 'nystudio107',
-    'developerUrl' => 'https://nystudio107.com',
-    'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
-  ),
   'ether/sidebarentrytypes' => 
   array (
     'class' => 'ether\\sidebarentrytypes\\SidebarEntryTypes',
@@ -144,5 +110,39 @@ return array (
     'description' => 'Access logs from the CP',
     'developer' => 'Ether Creative',
     'developerUrl' => 'https://ethercreative.co.uk',
+  ),
+  'nystudio107/craft-instantanalytics-ga4' => 
+  array (
+    'class' => 'nystudio107\\instantanalyticsGa4\\InstantAnalytics',
+    'basePath' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
+    'handle' => 'instant-analytics-ga4',
+    'aliases' => 
+    array (
+      '@nystudio107/instantanalyticsGa4' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
+    ),
+    'name' => 'Instant Analytics GA4',
+    'version' => '4.0.0',
+    'description' => 'Instant Analytics brings full Google GA4 server-side analytics support to your Twig templates and automatic Craft Commerce integration',
+    'developer' => 'nystudio107',
+    'developerUrl' => 'https://nystudio107.com',
+    'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
+  ),
+  'verbb/comments' => 
+  array (
+    'class' => 'verbb\\comments\\Comments',
+    'basePath' => $vendorDir . '/verbb/comments/src',
+    'handle' => 'comments',
+    'aliases' => 
+    array (
+      '@verbb/comments' => $vendorDir . '/verbb/comments/src',
+    ),
+    'name' => 'Comments',
+    'version' => '2.0.8',
+    'description' => 'Add comments to your site.',
+    'developer' => 'Verbb',
+    'developerUrl' => 'https://verbb.io',
+    'developerEmail' => 'support@verbb.io',
+    'documentationUrl' => 'https://github.com/verbb/comments',
+    'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-4/CHANGELOG.md',
   ),
 );

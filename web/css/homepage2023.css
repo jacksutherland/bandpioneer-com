@@ -38,6 +38,10 @@ body {
     padding-top: 90px;
   }
 }
+.text-center {
+  text-align: center;
+}
+
 /***** TYPOGRAPHY *****/
 h1, h2, h3 {
   color: #131b28;
@@ -169,11 +173,13 @@ figure figcaption {
 
 button,
 .btn {
+  align-items: center;
   background-color: #0a79a4;
   border: 0;
   border-radius: 6px;
   color: #FFFFFF;
   cursor: pointer;
+  display: inline-flex;
   font-family: helvetica, sans-serif;
   font-weight: 700;
   height: 50px;

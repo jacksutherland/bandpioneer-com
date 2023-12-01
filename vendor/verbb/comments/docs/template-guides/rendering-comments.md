@@ -17,8 +17,6 @@ While the CSS and JS are an additional 7.3kb minified (2.3kb gzip), and 10.5kb m
 
 The above would produce a form similar to the below.
 
-![Comments Default Templating](/docs/screenshots/comments-default-templating.png)
-
 You can roll-your-own templates, or even override template partials using [Custom Templates](docs:template-guides/custom-templates).
 
 ## Default Templates
@@ -27,6 +25,6 @@ There are a few templating options available via the Settings page of the Commen
 
 ## CSS/JS Resources
 
-The `render()` function is designed to be a single-line implementation, complete with CSS and JS. You can opt-out of using these resources, while still using the `render()` tag to generate the required Twig. As such, you'll be required to style the components yourself and any required Javascript. Consult the [resources'](https://github.com/verbb/comments/tree/craft-3/src/resources/src) folder for a start.
+The `render()` function is designed to be a single-line implementation, complete with CSS and JS. You can opt-out of using these resources, while still using the `render()` tag to generate the required Twig. As such, you'll be required to style the components yourself and any required Javascript. Consult the [resources'](https://github.com/verbb/comments/tree/craft-4/src/resources/src) folder for a start.
 
 For a complete build-your-own solution, create [Custom Templates](docs:template-guides/custom-templates).

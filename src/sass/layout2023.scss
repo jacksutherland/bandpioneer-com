@@ -24,6 +24,10 @@ body {
 	}
 }
 
+.text-center {
+	text-align: center;
+}
+
 
 /***** TYPOGRAPHY *****/
 
@@ -182,11 +186,13 @@ figure {
 
 button,
 .btn {
+	align-items: center;
 	background-color: $link-color;
 	border: 0;
 	border-radius: $small-radius;
 	color: $white;
 	cursor: pointer;
+	display: inline-flex;
 	font-family: $font-family;
 	font-weight: $semi-bold-font;
 	height: $input-height;
