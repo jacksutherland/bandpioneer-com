@@ -888,6 +888,9 @@ nav.categories .container ul li .popup h3 {
   max-width: 100%;
   height: auto;
 }
+.z-pattern div h3, .z-pattern div h3, .z-pattern div h4 {
+  margin: 0 0 16px 0;
+}
 .z-pattern div ul {
   margin-top: -5px;
 }
