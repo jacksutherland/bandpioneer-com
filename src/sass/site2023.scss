@@ -321,6 +321,11 @@ section {
 			// border-bottom: solid 3px $light-gray;
 			margin: 0 auto;
 			max-width: 500px;
+
+			div:nth-child(2n) {
+				align-self: end;
+				line-height: 0;
+			}
 		}
 
 		@media (min-width: $breakpoint-md) {

@@ -1131,6 +1131,10 @@ section.cta-text .z-pattern {
   margin: 0 auto;
   max-width: 500px;
 }
+section.cta-text .z-pattern div:nth-child(2n) {
+  align-self: end;
+  line-height: 0;
+}
 @media (min-width: 768px) {
   section.cta-text {
     border-top: solid 2px #FFFFFF;
