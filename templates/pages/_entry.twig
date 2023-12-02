@@ -54,18 +54,28 @@
 					{% endif %}
 				</div>
 				<div>
-					<figure class="circle">
-						<img src="assets/images/jack-exit85-taphouse.jpg">
-						<figcaption><a href="https://www.jacksutherland.com" target="_blank">Jack Sutherland<br>Founder & Developer</a></figcaption>
+					<figure>
+						{% if entry.pageImage.count %}
+							<img src="{{ entry.pageImage.one().url }}" alt="{{ entry.pageImage.one().title }}">
+						{% else %}
+							<img src="assets/images/band-pioneer-bkg.jpg" alt="Band Pioneer">
+						{% endif %}
 					</figure>
 				</div>
 			</section>
 
 			<section class="z-pattern">
 				<div>
-					<figure>
-						<img src="assets/images/band-pioneer-bkg.jpg">
-					</figure>
+					{% if entry.pageImage2.count %}
+						<figure>
+							<img src="{{ entry.pageImage2.one().url }}" alt="{{ entry.pageImage2.one().title }}">
+						</figure>
+					{% else %}
+						<figure class="circle">
+							<img src="assets/images/jack-exit85-taphouse.jpg" alt="Jack Sutherland">
+							<figcaption><a href="https://www.jacksutherland.com" target="_blank">Jack Sutherland<br>Founder & Developer</a></figcaption>
+						</figure>
+					{% endif %}
 				</div>
 				<div>
 					{% if entry.longText2 | length %}
@@ -103,7 +113,7 @@
 
 			</div>
 		</section>
-		
+
 	{% endif %}
 
 {% endblock %}
