@@ -79,7 +79,12 @@
 		{% endif %}
 
 	{% endfor %}
-
+{% else %}
+	{% for module in blogModules %}
+		{% if module.type == "text" %}
+			{% set textSectionCount = textSectionCount + 1 %}
+		{% endif %}
+	{% endfor %}
 {% endif %}
 
 <div class="container{% if tocLinks | length > 1 %} blog-container{% else %} narrow-container{% endif %}">
