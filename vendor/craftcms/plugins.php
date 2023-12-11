@@ -137,7 +137,7 @@ return array (
       '@verbb/comments' => $vendorDir . '/verbb/comments/src',
     ),
     'name' => 'Comments',
-    'version' => '2.0.8',
+    'version' => '2.0.9',
     'description' => 'Add comments to your site.',
     'developer' => 'Verbb',
     'developerUrl' => 'https://verbb.io',

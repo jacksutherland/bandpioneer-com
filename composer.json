@@ -10,7 +10,7 @@
     "putyourlightson/craft-sendgrid": "2.0.1",
     "sendgrid/sendgrid": "~7",
     "tectalic/openai": "^1.4",
-    "verbb/comments": "2.0.8",
+    "verbb/comments": "2.0.9",
     "vlucas/phpdotenv": "^5.4.0"
   },
   "repositories": [
