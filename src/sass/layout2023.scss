@@ -504,11 +504,6 @@ header.site-header {
 				margin: 0;
 
 				&.search {
-					// a, label {
-					// 	svg {
-					// 		display: none;
-					// 	}
-					// }
 					label {
 						display: none;
 					}
@@ -539,6 +534,7 @@ header.site-header {
 				}
 
 				ul {
+					box-shadow: $container-shadow;
 					display: none;
 					margin: 0;
 
@@ -712,9 +708,9 @@ header.site-header {
 				margin: 0;
 				transition: height $transition-time;
 
-				&:last-child {
-					box-shadow: none;
-				}
+				// &:last-child {
+				// 	box-shadow: none;
+				// }
 
 				li {
 					background-color: transparent;

@@ -458,6 +458,7 @@ header.site-header nav ul li a svg path, header.site-header nav ul li label svg 
   fill: #0a79a4;
 }
 header.site-header nav ul li ul {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   display: none;
   margin: 0;
 }
@@ -590,9 +591,6 @@ header.site-header nav ul li ul li h4 {
     justify-content: center;
     margin: 0;
     transition: height 0.3s;
-  }
-  header.site-header nav ul:last-child {
-    box-shadow: none;
   }
   header.site-header nav ul li {
     background-color: transparent;
