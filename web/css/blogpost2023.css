@@ -876,6 +876,9 @@ nav.categories .container ul li .popup h3 {
   font-size: 1.3rem;
   line-height: 1.95rem;
 }
+.blog h2 + h3 {
+  margin-top: 0;
+}
 .blog h3 {
   font-size: 1rem;
   line-height: 1.5rem;
