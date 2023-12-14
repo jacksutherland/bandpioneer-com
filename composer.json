@@ -1,7 +1,7 @@
 {
   "require": {
     "bandpioneer/rockstar": "^1.0",
-    "craftcms/cms": "4.5.11.1",
+    "craftcms/cms": "4.5.12",
     "craftcms/contact-form": "3.0.1",
     "craftcms/redactor": "3.0.4",
     "ether/logs": "^4.0",

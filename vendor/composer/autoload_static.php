@@ -4321,6 +4321,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\errors\\MissingAssetException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/MissingAssetException.php',
         'craft\\errors\\MissingComponentException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/MissingComponentException.php',
         'craft\\errors\\MissingVolumeFolderException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/MissingVolumeFolderException.php',
+        'craft\\errors\\MutexException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/MutexException.php',
         'craft\\errors\\OperationAbortedException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/OperationAbortedException.php',
         'craft\\errors\\RouteNotFoundException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/RouteNotFoundException.php',
         'craft\\errors\\SectionNotFoundException' => __DIR__ . '/..' . '/craftcms/cms/src/errors/SectionNotFoundException.php',

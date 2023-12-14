@@ -653,12 +653,12 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "4.5.11.1",
-            "version_normalized": "4.5.11.1",
+            "version": "4.5.12",
+            "version_normalized": "4.5.12.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/99a8f9a688483d38bdb8cefbf39ad43a5e7b7b82",
-                "reference": "99a8f9a688483d38bdb8cefbf39ad43a5e7b7b82",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/d7ac8a6d9bac3a1adc2c538af17d9489f899c19e",
+                "reference": "d7ac8a6d9bac3a1adc2c538af17d9489f899c19e",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +715,7 @@
                 "ext-iconv": "Adds support for more character encodings than PHP’s built-in mb_convert_encoding() function, which Craft will take advantage of when converting strings to UTF-8.",
                 "ext-imagick": "Adds support for more image processing formats and options."
             },
-            "time": "2023-11-24T05:57:24+00:00",
+            "time": "2023-12-12T17:06:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {

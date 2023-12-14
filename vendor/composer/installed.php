@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '942b417f866fa3f2ac625af1938eef99e128e46a',
+        'reference' => '34a112888cb7e52e73a276915a24a28a690e16af',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '942b417f866fa3f2ac625af1938eef99e128e46a',
+            'reference' => '34a112888cb7e52e73a276915a24a28a690e16af',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -161,9 +161,9 @@
             'dev_requirement' => false,
         ),
         'craftcms/cms' => array(
-            'pretty_version' => '4.5.11.1',
-            'version' => '4.5.11.1',
-            'reference' => '99a8f9a688483d38bdb8cefbf39ad43a5e7b7b82',
+            'pretty_version' => '4.5.12',
+            'version' => '4.5.12.0',
+            'reference' => 'd7ac8a6d9bac3a1adc2c538af17d9489f899c19e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../craftcms/cms',
             'aliases' => array(),
@@ -625,8 +625,8 @@
         'psr/http-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '*',
-                1 => '1.0',
+                0 => '1.0',
+                1 => '*',
             ),
         ),
         'psr/http-factory' => array(

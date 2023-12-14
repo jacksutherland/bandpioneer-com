@@ -3545,6 +3545,7 @@ return array(
     'craft\\errors\\MissingAssetException' => $vendorDir . '/craftcms/cms/src/errors/MissingAssetException.php',
     'craft\\errors\\MissingComponentException' => $vendorDir . '/craftcms/cms/src/errors/MissingComponentException.php',
     'craft\\errors\\MissingVolumeFolderException' => $vendorDir . '/craftcms/cms/src/errors/MissingVolumeFolderException.php',
+    'craft\\errors\\MutexException' => $vendorDir . '/craftcms/cms/src/errors/MutexException.php',
     'craft\\errors\\OperationAbortedException' => $vendorDir . '/craftcms/cms/src/errors/OperationAbortedException.php',
     'craft\\errors\\RouteNotFoundException' => $vendorDir . '/craftcms/cms/src/errors/RouteNotFoundException.php',
     'craft\\errors\\SectionNotFoundException' => $vendorDir . '/craftcms/cms/src/errors/SectionNotFoundException.php',
