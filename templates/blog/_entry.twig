@@ -1,8 +1,17 @@
 {% extends '_layout2023' %}
 
 {% set fixedHeader = true %}
+
 {% set categories = craft.entries.section('category') %}
-{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6) %}
+{% if entry.tags.count %}
+	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.tags).id('not ' ~ entry.id).limit(6).all() %}
+	{% if relatedPosts | length < 6 %}
+		{% set moreRelatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6 - relatedPosts | length) %}
+		{% set relatedPosts = relatedPosts | merge(moreRelatedPosts) %}
+	{% endif %}
+{% else %}
+	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6).all() %}
+{% endif %}
 
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.css') }}?version={{ versionNumber }}" /> 
@@ -78,7 +87,8 @@
 		{# {% include '_includes/related-content' with { articles: relatedPosts } %} #}
 
 		<section class="blog-row related-content">
-			{% for blog in relatedPosts.all() %}
+			{# {% for blog in relatedPosts.all() %} #}
+			{% for blog in relatedPosts %}
 				<article>
 					{% if blog.blogImage.count %}
 						{% set img = blog.blogImage.one() %}

@@ -68,9 +68,9 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            heading: 'Featured Image'
+            heading: 'Blog Info'
             type: craft\fieldlayoutelements\Heading
-            uid: 6cebbf57-4789-4d03-8bba-f34179fbd26f
+            uid: bb46acb6-edf5-4193-86ca-cabe8803f9d4
             userCondition: null
           -
             elementCondition: null
@@ -83,13 +83,7 @@ fieldLayouts:
             uid: 56841fc5-71c5-4ac3-a4eb-c5e19eabc183
             userCondition: null
             warning: null
-            width: 100
-          -
-            elementCondition: null
-            heading: 'Blog Info'
-            type: craft\fieldlayoutelements\Heading
-            uid: bb46acb6-edf5-4193-86ca-cabe8803f9d4
-            userCondition: null
+            width: 25
           -
             elementCondition: null
             fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Category
@@ -102,6 +96,24 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 25
+          -
+            elementCondition: null
+            fieldUid: f977de61-4eb7-4324-ac92-3b5a651b832c # Tags
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4110f34a-3e16-4a78-9ecc-5ce3335dedbb
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            heading: 'Table of Contents'
+            type: craft\fieldlayoutelements\Heading
+            uid: 6cebbf57-4789-4d03-8bba-f34179fbd26f
+            userCondition: null
           -
             elementCondition: null
             fieldUid: 7149d8a6-d74b-4e10-b59b-80f37708aaa0 # TOC Style
