@@ -45,9 +45,9 @@ class KeywordService extends Component
 	        	$qty = round($total / 3);
 				$remainder = $total - round(2 * $qty);
 		        
-		        // return "Create {$total} long-tail SEO keywords that are common search terms, and related to the primary keyword: {$params['keyword']}. {$qty} of them should be similar to the primary keyword, {$qty} should just be a similar top to the primary keyword, and the remaining {$remainder} can me just remotely related to it. Each keyword should be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
-		        
-		        return "Create {$total} long-tail SEO keywords that are common search terms that a lot of people likely search for. {$qty} of them should be very similar to the primary keyword ({$params['keyword']}), {$qty} should only be slightly related to the primary keyword ({$params['keyword']}), and the remaining {$remainder} should be very different than the primary keyword ({$params['keyword']}) to contrast it. Each keyword must be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
+		        // return "Create {$total} long-tail SEO keywords that are common search terms that a lot of people likely search for. {$qty} of them should be closely related to the primary keyword ({$params['keyword']}), {$qty} should only be slightly related to the primary keyword ({$params['keyword']}), and the remaining {$remainder} should be very different than the primary keyword ({$params['keyword']}) to contrast it. Each keyword must be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
+
+		        return "Create {$total} long-tail SEO keywords that are common search terms a lot of people likely search for, that are related to our primary keyword ({$params['keyword']}). Some of the keywords should be closely related to the primary keyword, and some should be very different than it, to provide a range of options. Each keyword must be less than 50 characters and separated by a comma. Do NOT add numbers or bullets! The returned keywords should be words and spaces only, and delimited by commas.";
 
 	        default:
 	        	return "";
