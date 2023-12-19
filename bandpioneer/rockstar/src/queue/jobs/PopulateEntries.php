@@ -52,8 +52,11 @@ class PopulateEntries extends BaseJob
             case AIQueries::RELATED_ENTRY_DESC:
                 return "Create a compelling description for a blog article titled '{$params['title']}'. It must be less than 160 characters.";
 
+            // case AIQueries::RELATED_ENTRY_COPY:
+            //     return "Write long-form copy for an article about '{$params['title']}'. It must be 1000 to 2000 words, with interesting, easy to read language, and practical useful information only. Format it using html so that paragraphs are in <p> tags, and section titles in <h2> or <h3> tags, but do not include an <h1>. Start with an introduction paragraph with no title, and without prefacing it with something like 'Introduction:', and end with a conclusion titled 'Final Thoughts'.";
+
             case AIQueries::RELATED_ENTRY_COPY:
-                return "Write long-form copy for an article about '{$params['title']}'. It must be 1000 to 2000 words, with interesting, easy to read language, and practical useful information only. Format it using html so that paragraphs are in <p> tags, and section titles in <h2> or <h3> tags, but do not include an <h1>. Start with an introduction paragraph with no title, and without prefacing it with something like 'Introduction:', and end with a conclusion titled 'Final Thoughts'.";
+                return "Write long-form copy for an article about '{$params['title']}'. It needs to be approximately 2000 words or more, with interesting, easy to read language, and practical useful information only. Elaborate to make sure you provide 2000 words or more! If this article is about a list of items, make it a long list. And be very thorough, going into a lot of detail about everything you write about. Format it using html so that paragraphs are in <p> tags, and section titles in <h2> or <h3> tags, but do not include an <h1>. Start with an introduction paragraph with no title, and without prefacing it with something like 'Introduction:', and end with a conclusion titled 'Final Thoughts'.";
 
             default:
                 return "";
