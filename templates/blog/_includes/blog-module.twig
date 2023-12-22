@@ -19,6 +19,46 @@
 	</figure>
 {% endmacro %}
 
+{% macro moduleImage(module) %}
+	{% if module.linkUrl | length %}
+		<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
+	{% endif %}
+	{% if module.size | number < 100 %} 
+		<style type="text/css">
+			@media (min-width: 375px) {
+				#blog-img{{ module.id }} {
+					width:80%;
+				}
+			}
+			@media (min-width: 576px) {
+				#blog-img{{ module.id }} {
+					width:{{ module.size }}%;
+				}
+			}
+		</style>
+	{% endif %}
+	<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
+		{% if module.noTransform %}
+			{% set img = module.blogImage.one() %}
+			{% set imgUrl = module.blogImage.one().url() %}
+			{% set imgWid = module.blogImage.one().width() %}
+			{% set imgHei = module.blogImage.one().height() %}
+			<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
+			 	alt="{{ module.blogImage.one().title }}"
+			 	loading="lazy" 
+				srcset="{{ module.blogImage.one().url('blogImageMobile') }} 576w, {{ module.blogImage.one().url('blogImage') }} 800w" 
+				sizes="(max-width: 576px) 100vw, 800px"
+				width="{{ imgWid }}" height="{{ imgHei }}"> 
+		{% else %}
+			{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
+		{% endif %}
+		{% if module.caption | length %}
+			<figcaption>{{ module.caption }}</figcaption>
+		{% endif %}
+	</figure>
+	{% if module.linkUrl | length %}</a>{% endif %}
+{% endmacro %}
+
 {% if entry.tocStyle == 'nested-list' or entry.tocStyle == 'nested-ordered-list' %}
 
 	{% set parent = null %}
@@ -30,7 +70,11 @@
 			
 			{% set textSectionCount = textSectionCount + 1 %}
 
-		{% elseif module.type == 'sectionTitle' %}
+		{% elseif module.type == 'sectionTitle' or (module.type == 'imageText' and (module.headline | length or module.subheadline | length)) %}
+
+			{% if module.type == "imageText" %}
+				{% set textSectionCount = textSectionCount + 1 %}
+			{% endif %}
 
 			{% set isParent = (module.headline | trim | length) %}
 
@@ -69,19 +113,24 @@
 			
 			{% set textSectionCount = textSectionCount + 1 %}
 
-		{% elseif module.type == 'sectionTitle' and (module.headline | trim | length or module.subheadline | trim | length) %}
-			{# {% set modHeadline = module.headline | trim | length == 0 ? module.subheadline : module.headline %} #}
+		{% elseif (module.type == 'sectionTitle' or module.type == 'imageText') and (module.headline | trim | length or module.subheadline | trim | length) %}
+			
+			{% if module.type == "imageText" %}
+				{% set textSectionCount = textSectionCount + 1 %}
+			{% endif %}
+			
 			{% set modHeadline = module.alternateTocText %}
 			{% if modHeadline | length == 0 %}
 				{% set modHeadline = module.headline | length == 0 ? module.subheadline : module.headline %}
 			{% endif %}
 			{% set tocLinks = tocLinks | merge([{ id: module.id, headline: modHeadline }]) %}
+
 		{% endif %}
 
 	{% endfor %}
 {% else %}
 	{% for module in blogModules %}
-		{% if module.type == "text" %}
+		{% if module.type == "text" or module.type == 'imageText' %}
 			{% set textSectionCount = textSectionCount + 1 %}
 		{% endif %}
 	{% endfor %}
@@ -165,44 +214,41 @@
 				{% case "image" %}
 
 					<section{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
-						{% if module.linkUrl | length %}
-							<a href="{{ module.linkUrl }}"{% if 'bandpioneer' not in module.linkUrl %} target="_blank"{% endif %}>
-						{% endif %}
-						{% if module.size | number < 100 %} 
-							<style type="text/css">
-								@media (min-width: 375px) {
-									#blog-img{{ module.id }} {
-										width:80%;
-									}
-								}
-								@media (min-width: 576px) {
-									#blog-img{{ module.id }} {
-										width:{{ module.size }}%;
-									}
-								}
-							</style>
-						{% endif %}
-						<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
-							{% if module.noTransform %}
-								{% set img = module.blogImage.one() %}
-								{% set imgUrl = module.blogImage.one().url() %}
-								{% set imgWid = module.blogImage.one().width() %}
-								{% set imgHei = module.blogImage.one().height() %}
-								<img src="{{ module.blogImage.one().url('blogImageMobile') }}"
-								 	alt="{{ module.blogImage.one().title }}"
-								 	loading="lazy" 
-									srcset="{{ module.blogImage.one().url('blogImageMobile') }} 576w, {{ module.blogImage.one().url('blogImage') }} 800w" 
-									sizes="(max-width: 576px) 100vw, 800px"
-									width="{{ imgWid }}" height="{{ imgHei }}"> 
-							{% else %}
-								{% include 'blog/_includes/img' with { img: module.blogImage.one() } %}
-							{% endif %}
-							{% if module.caption | length %}
-								<figcaption>{{ module.caption }}</figcaption>
-							{% endif %}
-						</figure>
-						{% if module.linkUrl | length %}</a>{% endif %}
+						{{ _self.moduleImage(module) }}
 					</section>
+
+				{% case "imageText" %}
+
+					<section>
+
+						{% if module.headline | length or module.subheadline | length %}
+							<div id="section-{{ module.id }}" class="section-anchor"></div>
+							{% if  module.headline | length %}
+								<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
+							{% endif %}
+							{% if  module.subheadline | length %}
+								<h3>{{ module.subheadline }}</h3>
+							{% endif %}
+						{% endif %}
+
+						{% if module.blogImage.count %}
+							{{ _self.moduleImage(module) }}
+						{% endif %}
+
+						{% if module.richText | length %}
+							{{ module.richText }}
+						{% endif %}
+
+					</section>
+
+					{### EZOIC blog-in-content ###}
+					{% set textCounter = textCounter + 1 %}
+					{% set adSpots = [1] %}
+					{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
+					{% if textCounter in adSpots %}
+						{% set adCounter = adCounter + 1 %}
+						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
+					{% endif %}
 
 				{% case "embedCode" %}
 
@@ -257,16 +303,6 @@
 					{% else %}
 						{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
 
-						{#
-						<figure class="video">
-							<div class="player">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.mediaId }}{% if module.minuteMark | length %}?start={{ module.minuteMark }}{% endif %}" title="{{ module.caption | length ? module.caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							</div>
-							{% if module.caption | length %}
-								<figcaption>{{ module.caption }}</figcaption>
-							{% endif %}
-						</figure>
-						#}
 					{% endif %}
 
 					</section>

@@ -109,14 +109,12 @@ img {
 }
 
 figure {
-	margin: 0 auto;
+	margin: 30px auto;
 	text-align: center;
 
 	&.circle {
 		img {
 	    	border-radius: 50%;
-		    // box-shadow: $container-shadow;
-		    // outline: solid 5px $white;
 		}
 
 		figcaption {

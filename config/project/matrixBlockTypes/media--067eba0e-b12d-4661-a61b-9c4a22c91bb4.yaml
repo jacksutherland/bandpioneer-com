@@ -251,4 +251,4 @@ fields:
     type: craft\fields\PlainText
 handle: media
 name: Media
-sortOrder: 4
+sortOrder: 5

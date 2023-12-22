@@ -43,4 +43,4 @@ fields:
     type: craft\fields\PlainText
 handle: embedCode
 name: 'Embed Code'
-sortOrder: 5
+sortOrder: 6
