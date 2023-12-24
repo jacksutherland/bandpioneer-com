@@ -1,9 +1,9 @@
 columnSuffix: null
 contentColumnType: string
 fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
-handle: pageImage
+handle: pageImage2
 instructions: null
-name: 'Page Image'
+name: 'Page Image 2'
 searchable: false
 settings:
   allowSelfRelations: false
@@ -12,17 +12,17 @@ settings:
   allowedKinds:
     - image
   branchLimit: null
-  defaultUploadLocationSource: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
+  defaultUploadLocationSource: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
   defaultUploadLocationSubpath: null
   localizeRelations: false
   maintainHierarchy: false
-  maxRelations: null
+  maxRelations: 1
   minRelations: null
   previewMode: full
   restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
+  restrictedLocationSource: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
   restrictedLocationSubpath: null
   selectionCondition:
     __assoc__:

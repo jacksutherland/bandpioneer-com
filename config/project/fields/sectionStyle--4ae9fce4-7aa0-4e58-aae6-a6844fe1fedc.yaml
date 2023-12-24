@@ -1,0 +1,57 @@
+columnSuffix: egvlomut
+contentColumnType: string(21)
+fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
+handle: sectionStyle
+instructions: null
+name: 'Section Style'
+searchable: false
+settings:
+  columnType: null
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Default
+        -
+          - value
+          - default
+        -
+          - default
+          - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - 'Border Above H2'
+        -
+          - value
+          - border-above-title
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Border Under H2'
+        -
+          - value
+          - border-under-title
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Border Under H3'
+        -
+          - value
+          - border-under-subtitle
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

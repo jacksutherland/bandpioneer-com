@@ -201,7 +201,7 @@
 					{% set titleCounter = titleCounter + 1 %}
 					{% set sectionTitle = module.headline %}
 					
-					<section>
+					<section{% if entry.sectionStyle and entry.sectionStyle != 'default' %} class="{{ entry.sectionStyle.value }}"{% endif %}>
 						<div id="section-{{ module.id }}" class="section-anchor"></div>
 						{% if  module.headline | length %}
 							<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>

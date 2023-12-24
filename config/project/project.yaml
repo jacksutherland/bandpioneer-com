@@ -1,4 +1,4 @@
-dateModified: 1703275025
+dateModified: 1703447573
 elementSources:
   craft\elements\Asset:
     -
@@ -238,6 +238,7 @@ meta:
     3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4: Headline # Headline
     3f54aa64-f831-4c65-b372-2d31e7ef7644: 'Full Width Mobile 2x' # Full Width Mobile 2x
     4ad976b2-17b2-41da-8eb1-0e8f74b96a93: 'Blog Listing Mobile 2x' # Blog Listing Mobile 2x
+    4ae9fce4-7aa0-4e58-aae6-a6844fe1fedc: 'Section Style' # Section Style
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'Media ID' # Media ID
     6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: External # External
     6c48f2a4-30de-4d42-a211-268e766bd9b1: Size # Size

@@ -396,36 +396,6 @@ address[rel="author"] {
 		}
 	}
 
-	// .related-content {
-	// 	display: grid;
-	// 	grid-template-columns: 1fr;
-	// 	gap: 25px;
-
-	// 	article {
-	// 		img {
-	// 			width: 100%;
-	// 			height: auto;
-	// 		}
-
-	// 		.blog-info {
-	// 			margin: 12px 15px;
-
-	// 			h4 {
-	// 				margin: 12px 0 6px 0;
-	// 				a {
-	// 					span {
-	// 						display: block;
-	// 						font-size: $normal-font-size;
-	// 						font-weight: $regular-font;
-	// 						line-height: 1.55rem;
-	// 						margin: 5px 0 0 0;
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	.related-categories {
 		margin: 40px 0;
 		text-align: center;
@@ -550,6 +520,32 @@ address[rel="author"] {
 			}
 		}
 
+		&.border-above-title {
+			h2 {
+				border-top: solid 2px $alternate-color;
+    			padding-top: 32px;
+			}
+		}
+
+		&.border-under-title {
+			h2 {
+				border-bottom: solid 2px $alternate-color;
+			}
+		}
+
+		&.border-under-subtitle {
+			h3 {
+				border-bottom: solid 2px $alternate-color;
+				padding-bottom: 12px;
+			}
+
+			@media (min-width: $breakpoint-lg) {
+				h3 {
+					margin-top: -18px;
+				}
+			}
+		}
+
 		.section-anchor {
 			transform: translateY(-120px);
 		}
@@ -578,6 +574,10 @@ address[rel="author"] {
 
 	h2 {
 		margin: 55px 0 0 0;
+
+		span {
+			color: $alternate-color;
+		}
 	}
 
 	.ordered-title {
@@ -721,14 +721,6 @@ address[rel="author"] {
 		margin: 0 0 $section-spacing 0;
 	}
 }
-
-// @media (min-width: 820px) {
-// 	.blog {
-// 		.container {
-// 			margin: 0 auto;
-// 		}
-// 	}
-// }
 
 @media (min-width: $breakpoint-md) {
 	.blog {

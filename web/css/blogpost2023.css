@@ -1264,6 +1264,22 @@ address[rel=author] span {
 .blog section.embed-code .table > div.subtitle {
   font-weight: 700;
 }
+.blog section.border-above-title h2 {
+  border-top: solid 2px #0a79a4;
+  padding-top: 32px;
+}
+.blog section.border-under-title h2 {
+  border-bottom: solid 2px #0a79a4;
+}
+.blog section.border-under-subtitle h3 {
+  border-bottom: solid 2px #0a79a4;
+  padding-bottom: 12px;
+}
+@media (min-width: 992px) {
+  .blog section.border-under-subtitle h3 {
+    margin-top: -18px;
+  }
+}
 .blog section .section-anchor {
   transform: translateY(-120px);
 }
@@ -1282,6 +1298,9 @@ address[rel=author] span {
 }
 .blog h2 {
   margin: 55px 0 0 0;
+}
+.blog h2 span {
+  color: #0a79a4;
 }
 .blog .ordered-title {
   margin: 40px 0 0 0;
