@@ -263,7 +263,7 @@
 					{% set nextModule = blogModules[loop.index] ?? null %}
 					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
 
-					<section class="rich-text">
+					<section class="rich-text{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
 						{{ module.richText }}
 					{% if closeSection %}
 						</section>
