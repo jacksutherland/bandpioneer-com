@@ -525,6 +525,12 @@ address[rel="author"] {
 				border-top: solid 2px $alternate-color;
     			padding-top: 32px;
 			}
+
+			@media (min-width: $breakpoint-lg) {
+				h2 + h3 {
+					margin-top: -12px 
+				}
+			}
 		}
 
 		&.border-under-title {
