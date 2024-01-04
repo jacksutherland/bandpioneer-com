@@ -204,7 +204,8 @@
 					<section{% if entry.sectionStyle and entry.sectionStyle != 'default' %} class="{{ entry.sectionStyle.value }}"{% endif %}>
 						<div id="section-{{ module.id }}" class="section-anchor"></div>
 						{% if  module.headline | length %}
-							<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
+							{# <h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2> #}
+							<h2>{% if entry.change %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
 						{% endif %}
 						{% if  module.subheadline | length %}
 							<h3>{{ module.subheadline }}</h3>
@@ -226,7 +227,8 @@
 						{% if module.headline | length or module.subheadline | length %}
 							<div id="section-{{ module.id }}" class="section-anchor"></div>
 							{% if  module.headline | length %}
-								<h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
+								{# <h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2> #}
+								<h2>{% if entry.change %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
 							{% endif %}
 							{% if  module.subheadline | length %}
 								<h3>{{ module.subheadline }}</h3>
