@@ -219,6 +219,8 @@
 
 				{% case "imageText" %}
 
+					{% set titleCounter = titleCounter + 1 %}
+
 					<section{% if entry.sectionStyle and entry.sectionStyle != 'default' %} class="{{ entry.sectionStyle.value }}"{% endif %}>
 
 						{% if module.headline | length or module.subheadline | length %}
