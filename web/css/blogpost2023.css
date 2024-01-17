@@ -387,7 +387,7 @@ header.site-header #open-menu {
   background: transparent;
   border: 0;
   cursor: pointer;
-  margin: 16px 0 0 16px;
+  margin: 10px 0 0 16px;
   padding: 0;
 }
 header.site-header #open-menu svg {
@@ -869,24 +869,24 @@ nav.categories .container ul li .popup h3 {
   }
 }
 .blog h1 {
-  font-size: 1.65rem;
-  line-height: 2.47rem;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
 }
 .blog h2 {
-  font-size: 1.3rem;
-  line-height: 1.95rem;
+  font-size: 1.45rem;
+  line-height: 2.2rem;
 }
 .blog h2 + h3 {
   margin-top: 0;
 }
 .blog h3 {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.95rem;
 }
 .blog h4:not(.related-title) {
-  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
 }
 .blog h5 {
   font-size: 0.86rem;
@@ -1091,15 +1091,16 @@ address[rel=author] span {
 .blog .table-of-contents .section-title {
   cursor: pointer;
   font-family: "BandPioneerHeader", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 1.9rem;
 }
 .blog .table-of-contents .section-title:after {
   content: none;
 }
 .blog .table-of-contents .section-title i svg {
-  width: 16px;
   height: 16px;
+  width: 16px;
+  margin-left: 10px;
 }
 .blog .table-of-contents .section-title i svg path {
   fill: #5e5e5e;
@@ -1291,9 +1292,6 @@ address[rel=author] span {
 .blog h1 {
   text-transform: capitalize;
   margin: 25px 0;
-  font-size: 1.8rem;
-  line-height: 2.8rem;
-  letter-spacing: 0.04rem;
 }
 .blog h1 + h2 {
   font-family: "BandPioneerHeader", sans-serif;

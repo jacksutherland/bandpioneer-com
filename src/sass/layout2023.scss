@@ -43,23 +43,22 @@ h1, h2, h3 {
 
 h1 {
 	font-size: 1.65rem;
-	line-height: 2.47rem
+	line-height: 2.47rem;
 }
 
 h2 {
 	font-size: 1.3rem;
-	line-height: 1.95rem
+	line-height: 1.95rem;
 }
 
 h3 {
 	font-size: 1rem;
-	line-height: 1.5rem
+	line-height: 1.5rem;
 }
 
 h4 {
 	font-size: 1rem;
-	// font-weight: $slightly-bold-font;
-	line-height: 1.5rem
+	line-height: 1.5rem;
 }
 
 h5 {
@@ -446,7 +445,7 @@ header.site-header {
 		background: transparent;
 		border: 0;
 		cursor: pointer;
-		margin: $gutter-width 0 0 $gutter-width;
+		margin: 10px 0 0 $gutter-width;
 		padding: 0;
 
 		svg {

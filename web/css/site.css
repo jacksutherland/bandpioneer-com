@@ -1889,13 +1889,6 @@ article .blog-info ul li span {
 .blog section .section-anchor {
   transform: translateY(-120px);
 }
-.blog h1 {
-  text-transform: capitalize;
-  margin: 25px 0;
-  font-size: 1.8rem;
-  line-height: 2.8rem;
-  letter-spacing: 0.04rem;
-}
 .blog h1 + h2 {
   font-family: "BandPioneerHeader", sans-serif;
   margin: -20px 0 25px 0;

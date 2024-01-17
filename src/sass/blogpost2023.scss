@@ -11,13 +11,17 @@
 .blog {
 
 	h1 {
-		font-size: 1.65rem;
-		line-height: 2.47rem
+		// font-size: 1.65rem;
+		// line-height: 2.47rem
+		font-size: 1.8rem;
+    	line-height: 2.5rem;
 	}
 
 	h2 {
-		font-size: 1.3rem;
-		line-height: 1.95rem;
+		// font-size: 1.3rem;
+		// line-height: 1.95rem;
+		font-size: 1.45rem;
+		line-height: 2.2rem;
 
 		& + h3 {
 			margin-top: 0;
@@ -25,14 +29,18 @@
 	}
 
 	h3 {
-		font-size: 1rem;
-		line-height: 1.5rem
+		// font-size: 1rem;
+		// line-height: 1.5rem
+		font-size: 1.2rem;
+		line-height: 1.95rem;
 	}
 
 	h4:not(.related-title) {
-		font-size: 1rem;
+		// font-size: 1rem;
 		font-weight: $slightly-bold-font;
-		line-height: 1.5rem
+		// line-height: 1.5rem;
+		font-size: 1.1rem;
+		line-height: 1.8rem;
 	}
 
 	h5 {
@@ -287,7 +295,7 @@ address[rel="author"] {
 		.section-title {
 			cursor: pointer;
 			font-family: $header-font-family;
-			font-size: 1.4rem;
+			font-size: 1.45rem;
 			line-height: 1.9rem;
 
 			&:after {
@@ -296,8 +304,9 @@ address[rel="author"] {
 
 			i {
 				svg {
+					height: 16px;
 					width: 16px;
-    				height: 16px;
+    				margin-left: 10px;
 
 					path {
 						fill: $blog-headline-color;
@@ -564,10 +573,10 @@ address[rel="author"] {
 		// Michroma Google Font
 		// font-size: 2.1rem;
     	// line-height: 3.2rem;
-    	font-size: 1.8rem;
-    	line-height: 2.8rem;
+    	// font-size: 1.8rem;
+    	// line-height: 2.8rem;
 
-    	letter-spacing: 0.04rem;
+    	// letter-spacing: 0.04rem;
 
     	& + h2 {
     		font-family: $header-font-family;

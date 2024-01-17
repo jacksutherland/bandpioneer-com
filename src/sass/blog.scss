@@ -559,16 +559,16 @@ article {
 	}
 
 	h1 {
-		text-transform: capitalize;
-		margin: 25px 0;
+		// text-transform: capitalize;
+		// margin: 25px 0;
 
-		// Michroma Google Font
-		// font-size: 2.1rem;
-    	// line-height: 3.2rem;
-    	font-size: 1.8rem;
-    	line-height: 2.8rem;
+		// // Michroma Google Font
+		// // font-size: 2.1rem;
+    	// // line-height: 3.2rem;
+    	// font-size: 1.8rem;
+    	// line-height: 2.8rem;
 
-    	letter-spacing: 0.04rem;
+    	// letter-spacing: 0.04rem;
 
     	& + h2 {
     		@include headerFontFamily;
