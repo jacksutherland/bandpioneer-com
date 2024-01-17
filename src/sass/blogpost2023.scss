@@ -36,9 +36,7 @@
 	}
 
 	h4:not(.related-title) {
-		// font-size: 1rem;
 		font-weight: $slightly-bold-font;
-		// line-height: 1.5rem;
 		font-size: 1.1rem;
 		line-height: 1.8rem;
 	}
@@ -72,14 +70,13 @@
 		}
 
 		h5 {
-			font-size: 1rem;
+			font-size: $normal-font-size;
 			line-height: 1.5rem
 		}
 	}
 
 	.blog-header {
 		margin: 0;
-		// padding: 0 0 $object-padding 0;
 	}
 
 	.blog-container {
