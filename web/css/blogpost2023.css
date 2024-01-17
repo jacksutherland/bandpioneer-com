@@ -27,7 +27,7 @@ body {
   font-weight: 400;
   color: #111111;
   height: 100%;
-  letter-spacing: 0.02rem;
+  letter-spacing: 0.01rem;
   margin: 0;
   padding-top: 68px;
   -webkit-font-smoothing: antialiased;
@@ -1341,7 +1341,7 @@ address[rel=author] span {
   font-weight: 400;
 }
 .blog-comments .cc-w input, .blog-comments .cc-w textarea {
-  font-size: 1rem;
+  font-size: 1.03rem;
   font-family: helvetica, sans-serif;
   border-color: #d5dbde;
 }
