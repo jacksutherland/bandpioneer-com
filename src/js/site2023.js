@@ -235,7 +235,7 @@ class BandPioneerUX
 						preload.src = '/assets/images/bp-homepage-artist-' + (ctaIdx == ctaMax ? ctaMin : (ctaIdx + 1)) + '.png';
 					}
 
-				}, 1500);
+				}, 500);
 			}
 
 			const ctaObserver = new window.IntersectionObserver((entries) => {

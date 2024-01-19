@@ -327,6 +327,7 @@ section {
 	&.cta-text {
 		background-color: $light-gray;
 		margin-top: 0;
+		overflow: hidden;
 		text-align: center;
 
 		background-image: url(/assets/images/bp-homepage-bkg.jpg);
@@ -353,12 +354,12 @@ section {
 					max-height: 450px;
 					opacity: 1;
 					filter: blur(0px) grayscale(40%);
-					transition: filter 0.2s, opacity 0.2s;
+					transition: filter 0.8s, opacity $transition-time;
 
 					&.blur-out {
 						opacity: 0;
-					    filter: blur(40px) grayscale(40%);
-						transition: filter 1s, opacity 2s;
+					    filter: blur(40px) grayscale(40%); 
+						transition: filter $transition-time, opacity 0.5s;
 					}
 				}
 			}

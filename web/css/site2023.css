@@ -1131,6 +1131,7 @@ section.blog-row .scroll-pane div article {
 section.cta-text {
   background-color: #F0F3F3;
   margin-top: 0;
+  overflow: hidden;
   text-align: center;
   background-image: url(/assets/images/bp-homepage-bkg.jpg);
   background-position: center bottom;
@@ -1154,12 +1155,12 @@ section.cta-text .z-pattern div:nth-child(2n) img {
   max-height: 450px;
   opacity: 1;
   filter: blur(0px) grayscale(40%);
-  transition: filter 0.2s, opacity 0.2s;
+  transition: filter 0.8s, opacity 0.3s;
 }
 section.cta-text .z-pattern div:nth-child(2n) img.blur-out {
   opacity: 0;
   filter: blur(40px) grayscale(40%);
-  transition: filter 1s, opacity 2s;
+  transition: filter 0.3s, opacity 0.5s;
 }
 @media (min-width: 768px) {
   section.cta-text .z-pattern {
