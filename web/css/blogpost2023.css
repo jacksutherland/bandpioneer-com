@@ -1290,7 +1290,6 @@ address[rel=author] span {
   transform: translateY(-120px);
 }
 .blog h1 {
-  text-transform: capitalize;
   margin: 25px 0;
 }
 .blog h1 + h2 {
