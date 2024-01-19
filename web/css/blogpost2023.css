@@ -29,7 +29,7 @@ body {
   height: 100%;
   letter-spacing: 0.01rem;
   margin: 0;
-  padding-top: 68px;
+  padding-top: 72px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -374,7 +374,7 @@ header.site-header {
   width: 100%;
   background-color: #131b28;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-  height: 68px;
+  height: 72px;
   z-index: 100;
 }
 header.site-header + section.rich-text, header.site-header + #search-toggle + .search-dropdown + section.rich-text {
@@ -387,7 +387,7 @@ header.site-header #open-menu {
   background: transparent;
   border: 0;
   cursor: pointer;
-  margin: 10px 0 0 16px;
+  margin: 12px 0 0 16px;
   padding: 0;
 }
 header.site-header #open-menu svg {
@@ -397,7 +397,7 @@ header.site-header #open-menu svg {
 }
 header.site-header nav {
   position: fixed;
-  top: 68px;
+  top: 72px;
   left: 0;
   right: 0;
   width: 100%;
@@ -410,12 +410,12 @@ header.site-header nav .logo {
   position: fixed;
   top: 8px;
   right: 16px;
-  width: 160px;
+  width: 180px;
   z-index: 120;
 }
 header.site-header nav .logo img {
   height: auto;
-  width: 100%;
+  width: auto;
 }
 header.site-header nav .logo img:first-child {
   display: none;
@@ -491,10 +491,10 @@ header.site-header nav ul li ul li h4 {
 @media (min-width: 768px) {
   body.sticky header.site-header {
     box-shadow: none;
-    height: 68px;
+    height: 72px;
   }
   body.sticky header.site-header nav .logo {
-    margin-top: 6px;
+    margin-top: 8px;
   }
   body.sticky header.site-header nav .logo img:first-child {
     top: -200px;
@@ -505,18 +505,18 @@ header.site-header nav ul li ul li h4 {
     opacity: 1;
   }
   body.sticky header.site-header nav > ul > li > a, body.sticky header.site-header nav > ul > li > label {
-    height: 68px;
-    line-height: 68px;
+    height: 72px;
+    line-height: 72px;
   }
   body.sticky header.site-header nav ul {
-    height: 68px;
+    height: 72px;
   }
   body.sticky header.site-header nav ul li ul {
-    top: 68px;
+    top: 72px;
   }
   body.sticky .search-dropdown {
     height: auto;
-    top: 68px;
+    top: 72px;
   }
   body.sticky .search-dropdown form {
     margin-top: 24px;
@@ -854,7 +854,7 @@ nav.categories .container ul li .popup h3 {
     background-color: #F0F3F3;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
     height: 50px;
-    top: 68px;
+    top: 72px;
     z-index: 80;
   }
   body.sticky nav.categories .container ul li a {
@@ -1005,7 +1005,7 @@ address[rel=author] span {
   display: none;
   background-color: #F0F3F3;
   position: fixed;
-  top: 68px;
+  top: 72px;
   left: 0;
   width: 100%;
   height: 6px;
@@ -1023,7 +1023,7 @@ address[rel=author] span {
 
 @media (min-width: 768px) {
   .reading-time {
-    top: 118px;
+    top: 122px;
   }
 }
 .blog header .logo img.logo-alt {

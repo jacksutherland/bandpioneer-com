@@ -445,7 +445,7 @@ header.site-header {
 		background: transparent;
 		border: 0;
 		cursor: pointer;
-		margin: 10px 0 0 $gutter-width;
+		margin: 12px 0 0 $gutter-width;
 		padding: 0;
 
 		svg {
@@ -473,12 +473,12 @@ header.site-header {
 			position: fixed;
 			top: 8px;
 			right: $gutter-width;
-			width: 160px;
+			width: 180px;
 			z-index: 120;
 
 			img {
 				height: auto;
-				width: 100%;
+				width: auto;
 
 				&:first-child {
 					display: none;
@@ -581,7 +581,7 @@ header.site-header {
 
 			nav {
 				.logo {
-				    margin-top: ($object-half-spacing / 2);
+				    margin-top: 8px;
 
 					img {
 						&:first-child {
