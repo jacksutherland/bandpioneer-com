@@ -38,6 +38,8 @@
         <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('ogImage') }}" />
     {% elseif entry["seoImageUrl"] is defined %}
         <meta property="og:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}" />
+    {% else %}
+        <meta property="og:image" content="{{ rootSiteUrl }}/assets/images/pages/_ogImage/Band-Pioneer-rv-4-06.jpg"/>
     {% endif %}
     <meta property="og:url" content="{{ pageUrl }}" />
     <meta property="og:site_name" content="{{ siteName }}" />
@@ -52,6 +54,8 @@
         <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImage.one().url('twitterImage') }}">
     {% elseif entry["seoImageUrl"] is defined %}
         <meta name="twitter:image" content="{{ rootSiteUrl ~ entry.seoImageUrl }}">
+    {% else %}
+        <meta property="twitter:image" content="{{ rootSiteUrl }}/assets/images/pages/_twitterImage/Band-Pioneer-rv-4-06.jpg"/>
     {% endif %}
     <meta name="twitter:site" content="@jacksutherland">
     <meta name="twitter:creator" content="@jacksutherland">
