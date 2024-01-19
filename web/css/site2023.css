@@ -1131,24 +1131,73 @@ section.blog-row .scroll-pane div article {
 section.cta-text {
   background-color: #F0F3F3;
   margin-top: 0;
-  padding-top: 24px;
   text-align: center;
+  background-image: url(/assets/images/bp-homepage-bkg.jpg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+section.cta-text * {
+  color: #FFFFFF;
+}
+section.cta-text p {
+  font-weight: 500;
 }
 section.cta-text .z-pattern {
-  margin: 0 auto;
   max-width: 500px;
+  margin: 0 auto;
+  padding-top: 48px;
 }
 section.cta-text .z-pattern div:nth-child(2n) {
-  align-self: end;
   line-height: 0;
 }
+section.cta-text .z-pattern div:nth-child(2n) img {
+  max-height: 450px;
+  opacity: 1;
+  filter: blur(0px) grayscale(40%);
+  transition: filter 0.2s, opacity 0.2s;
+}
+section.cta-text .z-pattern div:nth-child(2n) img.blur-out {
+  opacity: 0;
+  filter: blur(40px) grayscale(40%);
+  transition: filter 1s, opacity 2s;
+}
 @media (min-width: 768px) {
+  section.cta-text .z-pattern {
+    display: flex;
+    gap: 0;
+  }
+  section.cta-text .z-pattern div:nth-child(2n) img {
+    margin-top: 24px;
+  }
+}
+@media (min-width: 992px) {
   section.cta-text {
+    background-size: cover;
+    background-position: center top;
     border-top: solid 2px #FFFFFF;
+    padding-top: 0;
     text-align: left;
   }
   section.cta-text .z-pattern {
+    display: grid;
+    gap: 24px;
+    height: 500px;
     max-width: none;
+    padding-top: 0;
+  }
+  section.cta-text .z-pattern div:nth-child(2n) {
+    align-self: end;
+  }
+  section.cta-text .z-pattern div:nth-child(2n) img {
+    margin-top: 0;
+  }
+}
+@media (min-width: 1200px) {
+  section.cta-text .z-pattern {
+    height: 600px;
+  }
+  section.cta-text .z-pattern div:nth-child(2n) img {
+    max-height: 550px;
   }
 }
 section.featured .z-pattern .category {

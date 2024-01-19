@@ -2,6 +2,8 @@
 
 {% set postsPerPage = 12 %}
 
+{% set isMobile = craft.app.request.isMobileBrowser(false) %}
+
 {% set blogQuery = craft.entries.section('blog') %}
 {% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
@@ -94,7 +96,7 @@
 {% block content %}
 	{% if isFirstPage %}
 
-		<section class="cta-text">
+		<section id="cta-text" class="cta-text">
 			<div class="container">
 				<div class="z-pattern">
 					<div>
@@ -109,7 +111,16 @@
 						{% endif %}
 					</div>
 					<div>
-						<img src="/assets/images/guy-thinking.png" alt="{{ entry.headline }}">
+						{% if isMobile %}
+							{% set max = 7 %}
+							{% set idx = random(range(1, max)) %}
+							<img src="/assets/images/bp-homepage-artist-mobile-{{ idx }}.png" alt="{{ entry.headline }}">
+						{% else %}
+							{% set max = 10 %}
+							{% set idx = random(range(1, max)) %}
+							{# {% set idx = 1 %} #}
+							<img id="cta-image" data-idx="{{ idx }}" data-max="{{ max }}" src="/assets/images/bp-homepage-artist-{{ idx }}.png" alt="{{ entry.headline }}">
+						{% endif %}
 					</div>
 				</div>
 			</div>

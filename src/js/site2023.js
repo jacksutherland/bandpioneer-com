@@ -12,6 +12,7 @@ class BandPioneerUX
 	{
 		this.addHeaderEvents();
 		this.addTopicMenuEvents();
+		this.startAnimations();
 	}
 
 	static getBreakpoint()
@@ -197,6 +198,60 @@ class BandPioneerUX
 			}.bind(bobj));
 
 		});
+	}
+
+	startAnimations()
+	{
+		// Homepage Animations
+
+		// return false;
+
+		var ctaText = document.getElementById('cta-text');
+		var ctaImg = document.getElementById('cta-image');
+		var ctaInterval = null;
+
+		if(ctaText && ctaImg)
+		{
+			const ctaMin = 1, ctaMax = parseInt(ctaImg.dataset.max);
+			var ctaIdx = parseInt(ctaImg.dataset.idx);
+			var preloadCounter = 1;
+
+			const ctaImgRotator = function()
+			{
+				ctaIdx = (ctaIdx === ctaMax) ? 1 : ctaIdx + 1;
+
+				ctaImg.classList.add('blur-out');
+
+				setTimeout(function()
+				{
+					ctaImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
+					ctaImg.classList.remove('blur-out');
+
+					if(preloadCounter < ctaMax)
+					{
+						preloadCounter++;
+
+						var preload = new Image();
+						preload.src = '/assets/images/bp-homepage-artist-' + (ctaIdx == ctaMax ? ctaMin : (ctaIdx + 1)) + '.png';
+					}
+
+				}, 1500);
+			}
+
+			const ctaObserver = new window.IntersectionObserver((entries) => {
+
+				if (entries[0].isIntersecting)
+				{
+					ctaInterval = setInterval(ctaImgRotator, 8000);
+				}
+				else
+				{
+					clearInterval(ctaInterval);
+				}
+			});
+
+			ctaObserver.observe(ctaText);
+		}
 	}
 
 	createBlogPost()
