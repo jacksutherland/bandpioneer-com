@@ -12,9 +12,18 @@
 {% if firstPageInfo.currentPage == 1 %}
 	{% set isSticky = false %}
 	{% set isFirstPage = true %}
-	{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
-	{% set featured = posts[0] %}
-	{% set recentPosts = posts[1:] %}
+
+	{# Manual Featured Post #}
+	{% if blog.featuredBlogPost.count %}
+		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = blog.featuredBlogPost.one() %}
+		{% set recentPosts = posts %}
+	{% else %}
+		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+		{% set featured = posts[0] %}
+		{% set recentPosts = posts[1:] %}
+	{% endif %}
+
 {% else %}
 	{% set isSticky = true %}
 	{% set isFirstPage = false %}
