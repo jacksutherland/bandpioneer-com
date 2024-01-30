@@ -16,11 +16,11 @@
 	{# Manual Featured Post #}
 	{% if blog.featuredBlogPost.count %}
 		{% set featured = blog.featuredBlogPost.one() %}
-		{% paginate blogQuery.not(featured).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+		{% paginate blogQuery.without([featured.id]).limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set recentPosts = posts %}
 	{% else %}
 		{% if blog.featuredBlogPost.count %}
-			{% paginate blogQuery.not(blog.featuredBlogPost.one()).limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
+			{% paginate blogQuery.without([blog.featuredBlogPost.one().id]).limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
 		{% else %}
 			{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
 		{% endif %}
