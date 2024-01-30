@@ -15,8 +15,9 @@
 
 	{# Manual Featured Post #}
 	{% if blog.featuredBlogPost.count %}
-		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set featured = blog.featuredBlogPost.one() %}
+		{% set blogQuery = blogQuery.id('and, not '~ featured.id) %}
+		{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set recentPosts = posts %}
 	{% else %}
 		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
