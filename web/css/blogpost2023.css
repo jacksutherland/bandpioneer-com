@@ -964,6 +964,7 @@ nav.categories .container ul li .popup h3 {
     top: -500px;
     opacity: 0;
     transition: opacity 0.3s, top 0.3s;
+    z-index: -1;
   }
   .blog .blog-container .table-of-contents .section-title {
     margin-top: 0;
