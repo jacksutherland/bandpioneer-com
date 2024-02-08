@@ -135,6 +135,7 @@
 					top: -500px;
 					opacity: 0;
 					transition: opacity $transition-time, top $transition-time;
+					z-index: -1;
 				}
 
 				.section-title {
