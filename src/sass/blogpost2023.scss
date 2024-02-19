@@ -430,17 +430,20 @@ address[rel="author"] {
 		margin: 30px 0;
 
 		blockquote:not(.tiktok-embed) {
-			&:before {
-				content: open-quote;
-			}
-			&:after {
-				content: close-quote;
-			}
-
 			border-left: solid 3px $border-color;
+			font-size: $quote-font-size;
 		    margin-left: 25px;
 		    padding-left: 20px;
 		    font-style: italic;
+
+			&:before {
+				content: open-quote;
+				font-weight: 900;
+			}
+			&:after {
+				content: close-quote;
+				font-weight: 900;
+			}
 		}
 
 		&.rich-text {

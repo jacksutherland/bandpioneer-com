@@ -1196,15 +1196,18 @@ address[rel=author] span {
 }
 .blog section blockquote:not(.tiktok-embed) {
   border-left: solid 3px #e0e0e0;
+  font-size: 1.1rem;
   margin-left: 25px;
   padding-left: 20px;
   font-style: italic;
 }
 .blog section blockquote:not(.tiktok-embed):before {
   content: open-quote;
+  font-weight: 900;
 }
 .blog section blockquote:not(.tiktok-embed):after {
   content: close-quote;
+  font-weight: 900;
 }
 .blog section.rich-text + .rich-text {
   margin-top: -20px;
