@@ -702,11 +702,11 @@ header.site-header nav ul li ul li h4 {
   left: 14px;
 }
 .search-dropdown form svg path {
-  fill: #b8c2c7;
+  fill: #bababa;
 }
 .search-dropdown form input {
   background-color: #FFFFFF !important;
-  border: solid 2px #d5dbde !important;
+  border: solid 2px lightgray !important;
   border-radius: 3px;
   height: 50px;
   padding: 0 16px 0 38px;
@@ -1194,6 +1194,18 @@ address[rel=author] span {
 .blog section {
   margin: 30px 0;
 }
+.blog section blockquote {
+  border-left: solid 3px #e0e0e0;
+  margin-left: 25px;
+  padding-left: 20px;
+  font-style: italic;
+}
+.blog section blockquote:before {
+  content: open-quote;
+}
+.blog section blockquote:after {
+  content: close-quote;
+}
 .blog section.rich-text + .rich-text {
   margin-top: -20px;
 }
@@ -1374,7 +1386,7 @@ address[rel=author] span {
 .blog-comments .cc-w input, .blog-comments .cc-w textarea {
   font-size: 1.03rem;
   font-family: helvetica, sans-serif;
-  border-color: #d5dbde;
+  border-color: lightgray;
 }
 .blog-comments .cc-w input:focus, .blog-comments .cc-w textarea:focus {
   background-color: #FFFFFF;
@@ -1403,7 +1415,7 @@ address[rel=author] span {
 }
 .blog-comments .cc-w .cc-i {
   border-width: 2px;
-  border-color: #d5dbde;
+  border-color: lightgray;
 }
 .blog-comments .cc-w .cc-ll-i:before {
   content: " ";
