@@ -472,6 +472,26 @@ address[rel="author"] {
 
 		&.embed-code {
 
+			figure {
+				&.tiktok {
+					background-color: $medium-gray;
+   					border-radius: $small-radius;
+
+   					& > div {
+						background-color: $white;
+						border: solid 2px $medium-gray;
+						border-radius:  $small-radius;
+						padding: 10px 0;
+					}
+
+   					figcaption {
+					   color: $caption-color;
+					   font-weight: 600;
+					   padding: 3px 0 10px 0;
+					}
+				}
+			}
+
 			.product-links {
 				
 				&:before {
@@ -515,6 +535,7 @@ address[rel="author"] {
 				> div {
 					padding: 12px;
 					background-color: lighten($light-gray, 4%);
+
 					&.title {
 						background-color: $light-gray;
 						font-weight: $semi-bold-font;
@@ -528,11 +549,17 @@ address[rel="author"] {
 
 		&.border-above-title {
 			h2 {
-				border-top: solid 2px $alternate-color;
-    			padding-top: 32px;
+				border-top: solid 2px $darker-border-color;
+				color: $secondary-darker;
+				margin: 40px 0 30px 0;
+    			padding-top: 40px;
 			}
 
 			@media (min-width: $breakpoint-lg) {
+				h2 {
+					margin: 50px 0 40px 0;
+					padding-top: 50px;
+				}
 				h2 + h3 {
 					margin-top: -12px 
 				}
@@ -554,6 +581,20 @@ address[rel="author"] {
 			@media (min-width: $breakpoint-lg) {
 				h3 {
 					margin-top: -18px;
+				}
+			}
+		}
+
+		&.tight-h3-h2 {
+			h2 + h3 {
+				margin-top: -5px;
+			    margin-left: 25px;
+			    opacity: 0.7;
+			}
+
+			@media (min-width: $breakpoint-lg) {
+				h2 + h3 {
+					margin-top: -20px;
 				}
 			}
 		}

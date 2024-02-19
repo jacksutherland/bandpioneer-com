@@ -7,6 +7,30 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
+            fieldUid: 240b171c-f828-4004-ab96-26ec79e03694 # Figure Type
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bdeb06ac-c95f-49ed-a326-f039ea04c4ba
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 8297f5ab-0624-4ef9-bdba-8bef1cc43523 # Figure Caption
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 302a5236-991b-4a5e-9cc5-2e7b1fec7f1d
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
             fieldUid: 33001227-43a9-4c08-8a5c-5e8bf0e4e3ac # Markup
             instructions: null
             label: null
@@ -21,6 +45,62 @@ fieldLayouts:
         uid: 0867b698-544b-437e-95b4-05186f225d43
         userCondition: null
 fields:
+  240b171c-f828-4004-ab96-26ec79e03694: # Figure Type
+    columnSuffix: qnjolmmo
+    contentColumnType: string(6)
+    fieldGroup: null
+    handle: figureType
+    instructions: null
+    name: 'Figure Type'
+    searchable: false
+    settings:
+      columnType: null
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - None
+            -
+              - value
+              - ''
+            -
+              - default
+              - '1'
+        -
+          __assoc__:
+            -
+              - label
+              - TikTok
+            -
+              - value
+              - tiktok
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  8297f5ab-0624-4ef9-bdba-8bef1cc43523: # Figure Caption
+    columnSuffix: eaymywvm
+    contentColumnType: text
+    fieldGroup: null
+    handle: figureCaption
+    instructions: null
+    name: 'Figure Caption'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
   33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: # Markup
     columnSuffix: trmcykfn
     contentColumnType: text

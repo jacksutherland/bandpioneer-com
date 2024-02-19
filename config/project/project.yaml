@@ -1,4 +1,4 @@
-dateModified: 1703447573
+dateModified: 1708300113
 elementSources:
   craft\elements\Asset:
     -
@@ -278,6 +278,7 @@ meta:
     82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
     89ac4662-d8f3-4ecb-83aa-2331b37d7775: 'Half Width Desktop 2x' # Half Width Desktop 2x
     93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
+    240b171c-f828-4004-ab96-26ec79e03694: 'Figure Type' # Figure Type
     350ca85e-fc53-44c8-a062-e0256f1967e4: Dynamic # Dynamic
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     555e19eb-df0c-48bc-b4b9-bdc423af2204: 'Rich Text' # Rich Text
@@ -294,6 +295,7 @@ meta:
     7517c439-55f4-420f-9514-cad4d205f293: 'Alternate TOC Text' # Alternate TOC Text
     7713ee4e-e1ca-4aeb-a2c4-ef6b725b1a18: 'Page Image' # Page Image
     7753be54-298e-490f-9ab3-381c71785210: 'Link URL' # Link URL
+    8297f5ab-0624-4ef9-bdba-8bef1cc43523: 'Figure Caption' # Figure Caption
     10710afa-12e3-48a9-bb9d-2155b47cac47: 'Band Pioneer AI' # Band Pioneer AI
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
     67862bf2-294a-4e45-af45-324c297cbea8: 'Minute Mark' # Minute Mark

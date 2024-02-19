@@ -1224,6 +1224,21 @@ address[rel=author] span {
 .blog section.rich-text .side-by-side figure {
   margin: 0;
 }
+.blog section.embed-code figure.tiktok {
+  background-color: #E0E0E0;
+  border-radius: 6px;
+}
+.blog section.embed-code figure.tiktok > div {
+  background-color: #FFFFFF;
+  border: solid 2px #E0E0E0;
+  border-radius: 6px;
+  padding: 10px 0;
+}
+.blog section.embed-code figure.tiktok figcaption {
+  color: #626262;
+  font-weight: 600;
+  padding: 3px 0 10px 0;
+}
 .blog section.embed-code .product-links:before {
   content: attr(data-title) "";
   display: block;
@@ -1267,10 +1282,16 @@ address[rel=author] span {
   font-weight: 700;
 }
 .blog section.border-above-title h2 {
-  border-top: solid 2px #0a79a4;
-  padding-top: 32px;
+  border-top: solid 2px #cccccc;
+  color: #bd0a1d;
+  margin: 40px 0 30px 0;
+  padding-top: 40px;
 }
 @media (min-width: 992px) {
+  .blog section.border-above-title h2 {
+    margin: 50px 0 40px 0;
+    padding-top: 50px;
+  }
   .blog section.border-above-title h2 + h3 {
     margin-top: -12px;
   }
@@ -1285,6 +1306,16 @@ address[rel=author] span {
 @media (min-width: 992px) {
   .blog section.border-under-subtitle h3 {
     margin-top: -18px;
+  }
+}
+.blog section.tight-h3-h2 h2 + h3 {
+  margin-top: -5px;
+  margin-left: 25px;
+  opacity: 0.7;
+}
+@media (min-width: 992px) {
+  .blog section.tight-h3-h2 h2 + h3 {
+    margin-top: -20px;
   }
 }
 .blog section .section-anchor {

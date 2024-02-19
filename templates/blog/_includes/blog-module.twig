@@ -257,7 +257,18 @@
 				{% case "embedCode" %}
 
 					<section class="embed-code">
-						{{ module.markup | raw }}
+						{% if module.figureType | length %}
+							<figure class="{{ module.figureType }}">
+								<div>
+									{{ module.markup | raw }}
+								</div>
+								{% if module.figureCaption | length %}
+									<figcaption>{{ module.figureCaption }}</figcaption>
+								{% endif %}		
+							</figure>
+						{% else %}
+							{{ module.markup | raw }}
+						{% endif %}
 					</section>
 
 				{% case "text" %}
