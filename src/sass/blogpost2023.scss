@@ -607,8 +607,13 @@ address[rel="author"] {
 		&.tight-h3-h2 {
 			h2 + h3 {
 				margin-top: -5px;
-			    margin-left: 25px;
 			    opacity: 0.7;
+			}
+
+			@media (min-width: $breakpoint-md) {
+				h2 + h3 {
+			    	margin-left: 25px;
+				}
 			}
 
 			@media (min-width: $breakpoint-lg) {

@@ -1327,8 +1327,12 @@ address[rel=author] span {
 }
 .blog section.tight-h3-h2 h2 + h3 {
   margin-top: -5px;
-  margin-left: 25px;
   opacity: 0.7;
+}
+@media (min-width: 768px) {
+  .blog section.tight-h3-h2 h2 + h3 {
+    margin-left: 25px;
+  }
 }
 @media (min-width: 992px) {
   .blog section.tight-h3-h2 h2 + h3 {
