@@ -1197,6 +1197,8 @@ address[rel=author] span {
 .blog section blockquote:not(.tiktok-embed) {
   border-left: solid 3px #e0e0e0;
   font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.76;
   margin-left: 25px;
   padding-left: 20px;
   font-style: italic;

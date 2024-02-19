@@ -432,6 +432,8 @@ address[rel="author"] {
 		blockquote:not(.tiktok-embed) {
 			border-left: solid 3px $border-color;
 			font-size: $quote-font-size;
+			font-weight: 500;
+			opacity: 0.76;
 		    margin-left: 25px;
 		    padding-left: 20px;
 		    font-style: italic;
