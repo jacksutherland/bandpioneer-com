@@ -492,9 +492,9 @@ header.site-header {
 			margin: 0 0 -$gutter-width;
 			padding: 0;
 
-			&:last-child {
-				box-shadow: $container-shadow;
-			}
+			// &:last-child {
+			// 	box-shadow: $container-shadow;
+			// }
 
 			li {
 				background-color: $white;
@@ -566,6 +566,14 @@ header.site-header {
 							padding: 0 ($gutter-width * 2);
 						}
 					}
+				}
+			}
+		}
+
+		@media (min-width: $breakpoint-md) {
+			ul {
+				&:last-child {
+					box-shadow: $container-shadow;
 				}
 			}
 		}
