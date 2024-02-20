@@ -426,6 +426,9 @@ header.site-header nav ul {
   margin: 0 -16px;
   padding: 0;
 }
+header.site-header nav ul:last-child {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
 header.site-header nav ul li {
   background-color: #FFFFFF;
   margin: 0;
@@ -486,7 +489,7 @@ header.site-header nav ul li ul li h4 {
 }
 @media (min-width: 768px) {
   header.site-header nav ul:last-child {
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+    box-shadow: none;
   }
 }
 
