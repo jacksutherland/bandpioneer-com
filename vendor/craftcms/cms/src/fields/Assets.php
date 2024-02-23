@@ -238,9 +238,58 @@ class Assets extends BaseRelationField
             },
         ];
 
+        $rules[] = [
+            [
+                'sources',
+                'defaultUploadLocationSource',
+                'restrictedLocationSource',
+                'defaultUploadLocationSubpath',
+                'restrictedLocationSubpath',
+            ],
+            'validateNotTempVolume',
+        ];
+
         $rules[] = [['previewMode'], 'in', 'range' => [self::PREVIEW_MODE_FULL, self::PREVIEW_MODE_THUMBS], 'skipOnEmpty' => false];
 
         return $rules;
+    }
+
+    /**
+     * Ensure that you can't select tempUploadsLocation volume as a source or default uploads location or restricted location for an Assets field.
+     *
+     * @param string $attribute
+     * @since 4.7.0
+     */
+    public function validateNotTempVolume(string $attribute): void
+    {
+        [$tempVolume, $tempSubpath] = Craft::$app->getAssets()->getTempVolumeAndSubpath();
+        if ($tempVolume !== null) {
+            $tempVolumeKey = "volume:$tempVolume->uid";
+            $inputSources = $this->getInputSources();
+
+            if (empty($tempSubpath)) {
+                if (
+                    (in_array($attribute, ['source', 'sources']) && in_array($tempVolumeKey, $inputSources)) ||
+                    ($attribute == 'defaultUploadLocationSource' && $this->defaultUploadLocationSource === $tempVolumeKey) ||
+                    ($attribute == 'restrictedLocationSource' && $this->restrictedLocationSource === $tempVolumeKey)
+                ) {
+                    // intentionally not translating this since it's short-lived (>= 4.7, < 5.0) and dev-facing only.
+                    $this->addError($attribute, "Temporary asset uploads are being stored in $tempVolume->name, so the same volume cannot be used by an Assets field.");
+                }
+            } else {
+                if (
+                    ($attribute == 'defaultUploadLocationSource' &&
+                    $this->defaultUploadLocationSource === $tempVolumeKey &&
+                    $this->defaultUploadLocationSubpath == $tempSubpath) ||
+                    ($attribute == 'restrictedLocationSource' &&
+                    $this->restrictedLocationSource === $tempVolumeKey &&
+                    $this->restrictedLocationSubpath == $tempSubpath)
+                ) {
+                    // intentionally not translating this since it's short-lived (>= 4.7, < 5.0) and dev-facing only.
+                    $this->addError($attribute, "Temporary asset uploads are being stored in $tempVolume->name/$tempSubpath, so the same location cannot be used by an Assets field.");
+                }
+            }
+        }
     }
 
     /**
@@ -249,8 +298,26 @@ class Assets extends BaseRelationField
     public function getSourceOptions(): array
     {
         $sourceOptions = [];
+        /** @var Volume|null $tempVolume */
+        [$tempVolume, $tempSubpath] = Craft::$app->getAssets()->getTempVolumeAndSubpath();
+        if ($tempVolume) {
+            $tempVolumeKey = 'volume:' . $tempVolume->uid;
+        } else {
+            $tempVolumeKey = null;
+        }
 
         foreach (Asset::sources('settings') as $volume) {
+            if ($tempVolumeKey !== null && $volume['key'] === $tempVolumeKey && empty($tempSubpath)) {
+                // only allow it if already selected
+                if (
+                    (!is_array($this->sources) || !in_array($tempVolumeKey, $this->sources)) &&
+                    $this->defaultUploadLocationSource !== $tempVolumeKey &&
+                    $this->restrictedLocationSource !== $tempVolumeKey
+                ) {
+                    continue;
+                }
+            }
+
             if (!isset($volume['heading'])) {
                 $sourceOptions[] = [
                     'label' => $volume['label'],
@@ -585,7 +652,7 @@ class Assets extends BaseRelationField
                     // Find the files with temp sources and just move those.
                     /** @var Asset[] $assetsToMove */
                     $assetsToMove = $assetsService->createTempAssetQuery()
-                        ->id(ArrayHelper::getColumn($assets, 'id'))
+                        ->id(array_map(fn(Asset $asset) => $asset->id, $assets))
                         ->all();
                 }
 
@@ -669,8 +736,14 @@ class Assets extends BaseRelationField
             $sources = array_merge($this->sources);
         } else {
             $sources = [];
+            [$tempVolume, $tempSubpath] = Craft::$app->getAssets()->getTempVolumeAndSubpath();
+            $tempVolumeKey = $tempVolume ? "volume:$tempVolume->uid" : null;
+
             foreach (Craft::$app->getElementSources()->getSources(Asset::class) as $source) {
-                if ($source['type'] !== ElementSources::TYPE_HEADING) {
+                if (
+                    $source['type'] !== ElementSources::TYPE_HEADING &&
+                    ($source['key'] !== $tempVolumeKey || !empty($tempSubpath))
+                ) {
                     $sources[] = $source['key'];
                 }
             }
@@ -731,7 +804,6 @@ class Assets extends BaseRelationField
                 $variables['defaultSourcePath'] = array_map(function(VolumeFolder $folder) {
                     return $folder->getSourcePathInfo();
                 }, $folders);
-                $variables['preferStoredSource'] = true;
             }
         }
 

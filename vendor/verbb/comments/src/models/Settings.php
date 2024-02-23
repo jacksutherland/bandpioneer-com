@@ -10,6 +10,7 @@ use craft\base\ElementInterface;
 use craft\base\Model;
 use craft\db\Table;
 use craft\elements\Asset;
+use craft\elements\User;
 use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Db;
@@ -34,6 +35,7 @@ class Settings extends Model
     public bool $guestShowEmailName = true;
     public bool $requireModeration = true;
     public ?string $moderatorUserGroup = null;
+    public bool $moderatorExcluded = true;
     public mixed $autoCloseDays = null;
     public mixed $maxReplyDepth = null;
     public mixed $maxUserComments = null;
@@ -82,6 +84,7 @@ class Settings extends Model
     public bool $notificationSubscribeEnabled = false;
     public bool $notificationSubscribeCommentEnabled = false;
     public bool $notificationModeratorEnabled = false;
+    public bool $notificationModeratorEditEnabled = false;
     public bool $notificationModeratorApprovedEnabled = false;
     public array $notificationAdmins = [];
     public bool $notificationAdminEnabled = false;
@@ -157,7 +160,11 @@ class Settings extends Model
 
         if ($this->maxUserComments && $currentUser) {
             // Has the user already commented X amount of times on this element?
-            $count = Comment::find()->ownerId($element->id)->userId($currentUser->id)->count();
+            $count = Comment::find()
+                ->ownerId($element->id)
+                ->ownerSiteId($element->siteId)
+                ->userId($currentUser->id)
+                ->count();
 
             if ($count >= $this->maxUserComments) {
                 return CommentStatus::TooManyComments;
@@ -198,5 +205,27 @@ class Settings extends Model
     public function getRecaptchaSecret()
     {
         return App::parseEnv($this->recaptchaSecret);
+    }
+
+    public function doesRequireModeration(): bool
+    {
+        // Check if we require moderation at all
+        if ($this->requireModeration) {
+            // Check if we should exclude the current user, if they are in the moderator group
+            if ($this->moderatorExcluded && $this->moderatorUserGroup) {
+                if ($currentUser = Comments::$plugin->getService()->getUser()) {
+                    $groupId = Db::idByUid(Table::USERGROUPS, $this->moderatorUserGroup);
+                    $moderators = User::find()->groupId($groupId)->ids();
+
+                    if (in_array($currentUser->id, $moderators)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

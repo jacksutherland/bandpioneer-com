@@ -1143,7 +1143,7 @@ class UsersController extends Controller
             ArrayHelper::multisort($allLocales, fn(Locale $locale) => $locale->getDisplayName());
 
             $localeOptions = [
-                ['label' => Craft::t('app', 'Same as language'), 'value' => ''],
+                ['label' => Craft::t('app', 'Same as language'), 'value' => '__blank__'],
             ];
             array_push($localeOptions, ...array_map(fn(Locale $locale) => [
                 'label' => $locale->getDisplayName(Craft::$app->language),
@@ -1482,30 +1482,33 @@ JS,
             Craft::$app->getUsers()->activateUser($user);
         }
 
-        // Save their preferences too
-        $preferences = [
-            'language' => $this->request->getBodyParam('preferredLanguage', $user->getPreference('language')),
-            'locale' => $this->request->getBodyParam('preferredLocale', $user->getPreference('locale')) ?: null,
-            'weekStartDay' => $this->request->getBodyParam('weekStartDay', $user->getPreference('weekStartDay')),
-            'alwaysShowFocusRings' => (bool)$this->request->getBodyParam('alwaysShowFocusRings', $user->getPreference('alwaysShowFocusRings')),
-            'useShapes' => (bool)$this->request->getBodyParam('useShapes', $user->getPreference('useShapes')),
-            'underlineLinks' => (bool)$this->request->getBodyParam('underlineLinks', $user->getPreference('underlineLinks')),
-            'notificationDuration' => $this->request->getBodyParam('notificationDuration', $user->getPreference('notificationDuration')),
-        ];
-
-        if ($user->admin) {
-            $preferences = array_merge($preferences, [
-                'showFieldHandles' => (bool)$this->request->getBodyParam('showFieldHandles', $user->getPreference('showFieldHandles')),
-                'enableDebugToolbarForSite' => (bool)$this->request->getBodyParam('enableDebugToolbarForSite', $user->getPreference('enableDebugToolbarForSite')),
-                'enableDebugToolbarForCp' => (bool)$this->request->getBodyParam('enableDebugToolbarForCp', $user->getPreference('enableDebugToolbarForCp')),
-                'showExceptionView' => (bool)$this->request->getBodyParam('showExceptionView', $user->getPreference('showExceptionView')),
-                'profileTemplates' => (bool)$this->request->getBodyParam('profileTemplates', $user->getPreference('profileTemplates')),
-            ]);
-        }
-
-        Craft::$app->getUsers()->saveUserPreferences($user, $preferences);
-
         if ($isCurrentUser) {
+            // Save their preferences too
+            $preferredLocale = $this->request->getBodyParam('preferredLocale', $user->getPreference('locale')) ?: null;
+            if ($preferredLocale === '__blank__') {
+                $preferredLocale = null;
+            }
+            $preferences = [
+                'language' => $this->request->getBodyParam('preferredLanguage', $user->getPreference('language')),
+                'locale' => $preferredLocale,
+                'weekStartDay' => $this->request->getBodyParam('weekStartDay', $user->getPreference('weekStartDay')),
+                'alwaysShowFocusRings' => (bool)$this->request->getBodyParam('alwaysShowFocusRings', $user->getPreference('alwaysShowFocusRings')),
+                'useShapes' => (bool)$this->request->getBodyParam('useShapes', $user->getPreference('useShapes')),
+                'underlineLinks' => (bool)$this->request->getBodyParam('underlineLinks', $user->getPreference('underlineLinks')),
+                'notificationDuration' => $this->request->getBodyParam('notificationDuration', $user->getPreference('notificationDuration')),
+            ];
+
+            if ($user->admin) {
+                $preferences = array_merge($preferences, [
+                    'showFieldHandles' => (bool)$this->request->getBodyParam('showFieldHandles', $user->getPreference('showFieldHandles')),
+                    'enableDebugToolbarForSite' => (bool)$this->request->getBodyParam('enableDebugToolbarForSite', $user->getPreference('enableDebugToolbarForSite')),
+                    'enableDebugToolbarForCp' => (bool)$this->request->getBodyParam('enableDebugToolbarForCp', $user->getPreference('enableDebugToolbarForCp')),
+                    'showExceptionView' => (bool)$this->request->getBodyParam('showExceptionView', $user->getPreference('showExceptionView')),
+                    'profileTemplates' => (bool)$this->request->getBodyParam('profileTemplates', $user->getPreference('profileTemplates')),
+                ]);
+            }
+
+            Craft::$app->getUsers()->saveUserPreferences($user, $preferences);
             Craft::$app->updateTargetLanguage();
         }
 
@@ -2435,7 +2438,7 @@ JS,
         $allGroups = ArrayHelper::index(Craft::$app->getUserGroups()->getAllGroups(), 'id');
 
         // See if there are any new groups in here
-        $oldGroupIds = ArrayHelper::getColumn($user->getGroups(), 'id');
+        $oldGroupIds = array_map(fn(UserGroup $group) => $group->id, $user->getGroups());
         $hasNewGroups = false;
         $newGroups = [];
 

@@ -45,10 +45,12 @@ use craft\helpers\Session;
 use craft\i18n\Formatter;
 use craft\i18n\I18N;
 use craft\i18n\Locale;
+use craft\log\Dispatcher;
 use craft\mail\Mailer;
 use craft\markdown\GithubMarkdown;
 use craft\markdown\Markdown;
 use craft\markdown\MarkdownExtra;
+use craft\markdown\PreEncodedMarkdown;
 use craft\models\FieldLayout;
 use craft\models\Info;
 use craft\queue\QueueInterface;
@@ -198,6 +200,7 @@ use yii\web\ServerErrorHttpException;
  * @property-read string $installedSchemaVersion The installed schema version
  * @method AssetManager getAssetManager() Returns the asset manager component.
  * @method Connection getDb() Returns the database connection component.
+ * @method Dispatcher getLog() Returns the log dispatcher component.
  * @method Formatter getFormatter() Returns the formatter component.
  * @method I18N getI18n() Returns the internationalization (i18n) component.
  * @method Security getSecurity() Returns the security component.
@@ -1611,13 +1614,14 @@ trait ApplicationTrait
         // Use our own Markdown parser classes
         $flavors = [
             'original' => Markdown::class,
+            'pre-encoded' => PreEncodedMarkdown::class,
             'gfm' => GithubMarkdown::class,
             'gfm-comment' => GithubMarkdown::class,
             'extra' => MarkdownExtra::class,
         ];
 
         foreach ($flavors as $flavor => $class) {
-            if (isset(MarkdownHelper::$flavors[$flavor]) && !is_object(MarkdownHelper::$flavors[$flavor])) {
+            if (!isset(MarkdownHelper::$flavors[$flavor]) || !is_object(MarkdownHelper::$flavors[$flavor])) {
                 MarkdownHelper::$flavors[$flavor]['class'] = $class;
             }
         }

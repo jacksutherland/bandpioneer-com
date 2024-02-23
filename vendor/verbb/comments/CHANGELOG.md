@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.10 - 2024-01-06
+
+### Added
+- Add “Exclude Moderator Comments” plugin setting to allow moderator comments to be excluded from moderation.
+- Add “Moderator Edited Notifications” plugin setting to notify moderators when a comment is edited.
+
+### Fixed
+- Fix element index not dislaying some characters correctly for comments.
+- Fix manually rendering JS not firing correctly in some instances.
+- Fix max comments for user check for multi-site installs.
+- Fix JS errors when no comment form is available (due to permissions).
+
 ## 2.0.9 - 2023-12-03
 
 ### Added

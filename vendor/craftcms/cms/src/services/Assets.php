@@ -350,7 +350,7 @@ class Assets extends Component
      * @param array $volumeIds
      * @param array $additionalCriteria additional criteria for filtering the tree
      * @return array
-     * @deprecated in 4.4.0d
+     * @deprecated in 4.4.0
      */
     public function getFolderTreeByVolumeIds(array $volumeIds, array $additionalCriteria = []): array
     {
@@ -853,7 +853,7 @@ class Assets extends Component
     }
 
     /**
-     * Ensures a folder entry exists in the DB for the full path and return its ID. Depending on the use, it's possible to also ensure a physical folder exists.
+     * Ensures a folder entry exists in the DB for the full path. Depending on the use, it’s also possible to ensure a physical folder exists.
      *
      * @param string $fullPath The path to ensure the folder exists at.
      * @param Volume $volume

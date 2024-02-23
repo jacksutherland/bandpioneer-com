@@ -9,6 +9,7 @@ namespace craft\elements;
 
 use Craft;
 use craft\base\Element;
+use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\base\Fs;
 use craft\base\FsInterface;
@@ -20,6 +21,7 @@ use craft\db\QueryAbortedException;
 use craft\db\Table;
 use craft\elements\actions\CopyReferenceTag;
 use craft\elements\actions\CopyUrl;
+use craft\elements\actions\DeleteAssets;
 use craft\elements\actions\DownloadAssetFile;
 use craft\elements\actions\EditImage;
 use craft\elements\actions\MoveAssets;
@@ -300,7 +302,7 @@ class Asset extends Element
     {
         if ($handle === 'uploader') {
             // Get the source element IDs
-            $sourceElementIds = ArrayHelper::getColumn($sourceElements, 'id');
+            $sourceElementIds = array_map(fn(ElementInterface $element) => $element->id, $sourceElements);
 
             $map = (new Query())
                 ->select(['id as source', 'uploaderId as target'])
@@ -504,6 +506,11 @@ class Asset extends Element
                 'type' => Restore::class,
                 'restorableElementsOnly' => true,
             ];
+
+            // Delete
+            if ($userSession->checkPermission("deletePeerAssets:$volume->uid")) {
+                $actions[] = DeleteAssets::class;
+            }
         }
 
         return $actions;
@@ -1493,7 +1500,7 @@ $('#replace-btn').on('click', () => {
             fileuploadstart: () => {
                 $('#thumb-container').addClass('loading');
             },
-            fileuploaddone: (event, data) => {
+            fileuploaddone: (event, data = null) => {
                 const result = event instanceof CustomEvent ? event.detail : data.result;
                 
                 $('#new-filename').val(result.filename);
@@ -1524,20 +1531,16 @@ $('#replace-btn').on('click', () => {
 
                 }
             },
-            fileuploadfail: (event, data) => {
-                const file = data.data.getAll('replaceFile');
-                const backupFilename = file[0].name;
-                
+            fileuploadfail: (event, data = null) => {
                 const response = event instanceof Event
                     ? event.detail
                     : data?.jqXHR?.responseJSON;
                 
                 let {message, filename} = response || {};
                 
+                filename = filename || data?.files?.[0].name;
+                
                 if (!message) {
-                    if (!filename) {
-                        filename = backupFilename;
-                    }
                     message = filename
                         ? Craft.t('app', 'Replace file failed for “{filename}”.', {filename})
                         : Craft.t('app', 'Replace file failed.');
@@ -1545,7 +1548,7 @@ $('#replace-btn').on('click', () => {
                 
               Craft.cp.displayError(message);
             },
-            fileuploadalways: (event, data) => {
+            fileuploadalways: (event, data = null) => {
                 $('#thumb-container').removeClass('loading');
             },
         }
@@ -2537,7 +2540,7 @@ JS;
                 Html::tag('div', $this->getPreviewThumbImg(350, 190), [
                     'class' => 'preview-thumb',
                 ]) .
-                Html::endTag('div'); // .preview-thumb-container;
+                Html::endTag('div'); // .preview-thumb-container
 
             if ($previewable || $editable) {
                 $isMobile = Craft::$app->getRequest()->isMobileBrowser(true);
@@ -2554,6 +2557,7 @@ JS;
                     $imageButtonHtml .= Html::button(Craft::t('app', 'Preview'), [
                         'id' => 'preview-btn',
                         'class' => ['btn', 'preview-btn'],
+                        'aria-label' => Craft::t('app', 'Preview'),
                     ]);
 
                     $previewBtnId = $view->namespaceInputId('preview-btn');
@@ -2663,6 +2667,7 @@ JS;
         return implode("\n", [
             Cp::textFieldHtml([
                 'label' => Craft::t('app', 'Filename'),
+                'attribute' => 'newLocation',
                 'id' => 'new-filename',
                 'name' => 'newFilename',
                 'value' => $this->_filename,
@@ -2871,6 +2876,7 @@ JS;
             $sanitizeCpImageUploads = Craft::$app->getConfig()->getGeneral()->sanitizeCpImageUploads;
 
             if (
+                isset($this->tempFilePath) &&
                 in_array($this->getScenario(), [self::SCENARIO_REPLACE, self::SCENARIO_CREATE], true) &&
                 Assets::getFileKindByExtension($this->tempFilePath) === static::KIND_IMAGE &&
                 !($isCpRequest && !$sanitizeCpImageUploads)
@@ -2883,6 +2889,7 @@ JS;
             $fallbackWidth = null;
             $fallbackHeight = null;
             if (
+                isset($this->tempFilePath) &&
                 in_array($this->getScenario(), [self::SCENARIO_REPLACE, self::SCENARIO_CREATE], true) &&
                 Assets::getFileKindByExtension($this->tempFilePath) === static::KIND_IMAGE
             ) {
