@@ -1343,6 +1343,9 @@ address[rel=author] span {
     margin-top: -18px;
   }
 }
+.blog section.no-h2-underline h2 {
+  border-bottom: none;
+}
 .blog section.tight-h3-h2 h2 + h3 {
   margin-top: 3px;
   opacity: 0.7;

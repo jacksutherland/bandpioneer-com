@@ -56,6 +56,17 @@ settings:
       __assoc__:
         -
           - label
+          - 'Remove H2 Underline'
+        -
+          - value
+          - no-h2-underline
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
           - 'Tight H3 Under H2'
         -
           - value
