@@ -878,6 +878,8 @@ nav.categories .container ul li .popup h3 {
   line-height: 2.5rem;
 }
 .blog h2 {
+  border-bottom: solid 2px #bd0a1d;
+  color: #bd0a1d;
   font-size: 1.45rem;
   line-height: 2.2rem;
 }
@@ -918,6 +920,11 @@ nav.categories .container ul li .popup h3 {
   .blog h5 {
     font-size: 1.03rem;
     line-height: 1.5rem;
+  }
+}
+@media (min-width: 992px) {
+  .blog h2 {
+    margin-bottom: 8px;
   }
 }
 .blog .blog-header {
@@ -1389,6 +1396,8 @@ address[rel=author] span {
   margin: 60px 0;
 }
 .blog-comments h2, .blog-comments h3 {
+  border: none;
+  color: #131b28;
   font-family: "BandPioneerHeader", sans-serif;
   margin: 0 0 50px 0 !important;
   letter-spacing: 0.05rem;

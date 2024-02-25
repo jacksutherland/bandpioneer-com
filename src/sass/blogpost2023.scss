@@ -11,15 +11,13 @@
 .blog {
 
 	h1 {
-		// font-size: 1.65rem;
-		// line-height: 2.47rem
 		font-size: 1.8rem;
     	line-height: 2.5rem;
 	}
 
 	h2 {
-		// font-size: 1.3rem;
-		// line-height: 1.95rem;
+		border-bottom: solid 2px $secondary-darker;
+		color: $secondary-darker;
 		font-size: 1.45rem;
 		line-height: 2.2rem;
 
@@ -29,8 +27,6 @@
 	}
 
 	h3 {
-		// font-size: 1rem;
-		// line-height: 1.5rem
 		font-size: 1.2rem;
 		line-height: 1.95rem;
 	}
@@ -72,6 +68,13 @@
 		h5 {
 			font-size: $normal-font-size;
 			line-height: 1.5rem
+		}
+	}
+
+	@media (min-width: $breakpoint-lg) {
+
+		h2 {
+			margin-bottom: 8px;
 		}
 	}
 
@@ -690,8 +693,9 @@ address[rel="author"] {
 	margin: 60px 0;
 
 	h2, h3 {
+		border: none;
+		color: $primary-dark;
 		font-family: $header-font-family;
-				
 		margin: 0 0 50px 0 !important;
 		letter-spacing: $header-font-spacing;
 	}
