@@ -930,6 +930,9 @@ nav.categories .container ul li .popup h3 {
 .blog .blog-header {
   margin: 0;
 }
+.blog .blog-header h2 {
+  border: none;
+}
 .blog .blog-container {
   max-width: 800px !important;
 }
