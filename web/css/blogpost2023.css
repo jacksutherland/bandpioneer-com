@@ -1311,6 +1311,7 @@ address[rel=author] span {
   font-weight: 700;
 }
 .blog section.border-above-title h2 {
+  border-bottom: none;
   border-top: solid 2px #cccccc;
   color: #bd0a1d;
   margin: 40px 0 30px 0;
@@ -1326,6 +1327,7 @@ address[rel=author] span {
   }
 }
 .blog section.border-under-title h2 {
+  border-top: none;
   border-bottom: solid 2px #0a79a4;
 }
 .blog section.border-under-subtitle h3 {

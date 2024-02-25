@@ -571,6 +571,7 @@ address[rel="author"] {
 
 		&.border-above-title {
 			h2 {
+				border-bottom: none;
 				border-top: solid 2px $darker-border-color;
 				color: $secondary-darker;
 				margin: 40px 0 30px 0;
@@ -590,6 +591,7 @@ address[rel="author"] {
 
 		&.border-under-title {
 			h2 {
+				border-top: none;
 				border-bottom: solid 2px $alternate-color;
 			}
 		}
