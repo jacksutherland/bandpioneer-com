@@ -932,6 +932,7 @@ nav.categories .container ul li .popup h3 {
 }
 .blog .blog-header h2 {
   border: none;
+  color: #444444;
 }
 .blog .blog-container {
   max-width: 800px !important;
