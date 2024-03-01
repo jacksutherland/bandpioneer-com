@@ -214,7 +214,7 @@
 
 				{% case "image" %}
 
-					<section{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
+					<section class="image-module"{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
 						{{ _self.moduleImage(module) }}
 					</section>
 
@@ -222,7 +222,7 @@
 
 					{% set titleCounter = titleCounter + 1 %}
 
-					<section{% if entry.sectionStyle and entry.sectionStyle != 'default' %} class="{{ entry.sectionStyle.value }}"{% endif %}>
+					<section class="image-text-module{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
 
 						{% if module.headline | length or module.subheadline | length %}
 							<div id="section-{{ module.id }}" class="section-anchor"></div>
