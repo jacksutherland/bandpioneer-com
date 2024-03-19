@@ -33,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   body {
     padding-top: 90px;
   }
@@ -502,7 +502,7 @@ header.site-header nav ul li ul li h4 {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   body.sticky header.site-header {
     box-shadow: none;
     height: 72px;
