@@ -1,4 +1,4 @@
-dateModified: 1710459875
+dateModified: 1710873276
 elementSources:
   craft\elements\Asset:
     -
@@ -87,6 +87,7 @@ elementSources:
       tableAttributes:
         - type
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
+        - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Genre
         - 'field:f977de61-4eb7-4324-ac92-3b5a651b832c' # Tags
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
@@ -109,6 +110,16 @@ elementSources:
         - link
       type: native
     -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
+      tableAttributes:
+        - type
+        - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
+      type: native
+    -
       heading: Components
       type: heading
     -
@@ -129,17 +140,6 @@ elementSources:
       key: 'section:63d793d3-b3e1-4701-9042-5ad2e0cde7df' # Roles
       tableAttributes:
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
-      type: native
-    -
-      heading: Rockstars
-      type: heading
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
-      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
-      tableAttributes: '-'
       type: native
   craft\elements\User:
     -
@@ -248,7 +248,7 @@ meta:
     7e654447-0f77-4257-9dd9-302624c91c15: 'Rich Text Width 2x' # Rich Text Width 2x
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
-    8c0e4ec9-bf67-46e2-9302-82d3a602160c: Default # Default
+    8c0e4ec9-bf67-46e2-9302-82d3a602160c: Genre # Genre
     9a6940a2-21f7-479b-89de-7b12ff94ad18: 'Long Text' # Long Text
     9b6b4041-451d-480f-bfb4-9116294162ad: 'Blog Image' # Blog Image
     09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
@@ -311,6 +311,7 @@ meta:
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
     a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Show Ads' # Show Ads
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
+    a8e014fb-e647-47d8-af5a-e9648fff7a69: Genre # Genre
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a9c9ed2d-71ed-44ae-8360-214ea6ecda29: 'SEO Keywords' # SEO Keywords
     a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Four Row Post 2023' # Four Row Post 2023
@@ -342,6 +343,7 @@ meta:
     cdaef71d-1a83-462b-92b2-4d96fd8d8b32: 'Related SEO Keywords' # Related SEO Keywords
     d0343e16-9877-458f-88e4-13b343d2cbae: Tags # Tags
     d30b8ce1-04a4-4e95-a1e6-570d2e4f339f: 'No Transform' # No Transform
+    d70ad590-bed7-4878-a8d8-ca2759e4ae4d: Decade # Decade
     d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
     d99087f8-d76e-43c8-86f5-afc78b3f4430: 'No Transform' # No Transform
     dc2a5508-39c8-4963-bf3b-159da3ef325b: Default # Default

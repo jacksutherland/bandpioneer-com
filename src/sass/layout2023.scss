@@ -18,7 +18,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: $breakpoint-lg) {
 	body {
 		padding-top: $header-height;
 	}
@@ -425,19 +425,29 @@ section {
 /***** HEADER *****/
 
 header.site-header {
-	position: fixed;
-	top: 0;
-	width: 100%;
 	background-color: $primary-dark;
 	box-shadow: $container-shadow;
 	height: $header-sticky-height;
+	position: fixed;
+	top: 0;
+	width: 100%;
 	z-index: 100;
 
 	& + section.rich-text,
 	& + #search-toggle + .search-dropdown + section.rich-text {
 		background-color: $light-gray;
 		margin: 0;
-		padding: 60px 0 $section-mobile-spacing 0;
+		padding: 35px 0 40px 0;
+
+		h1, h2, p {
+			margin: 15px 0;
+		}
+		h1 {
+			line-height: 2.1rem;
+		}
+		h2 {
+			line-height: 1.85rem;
+		}
 	}
 
 	#open-menu {
@@ -580,7 +590,7 @@ header.site-header {
 	}
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: $breakpoint-lg) {
 
 	body.sticky {
 		header.site-header {
@@ -633,8 +643,10 @@ header.site-header {
 	header.site-header {
 		height: $header-height;
 
-		& + section.rich-text {
-			padding: ($section-spacing * 1.5) 0 $section-spacing 0;
+		& + section.rich-text,
+		& + #search-toggle + .search-dropdown + section.rich-text {
+			// padding: ($section-spacing * 1.5) 0 $section-spacing 0;
+			padding: 80px 0 60px 0;
 		}
 
 		#open-menu {
@@ -713,24 +725,12 @@ header.site-header {
 				margin: 0;
 				transition: height $transition-time;
 
-				// &:last-child {
-				// 	box-shadow: none;
-				// }
-
 				li {
 					background-color: transparent;
 					position: relative;
 					z-index: 140;
 
 					&.search {
-						// a, label {
-						// 	svg {
-						// 		display: inline;
-						// 	}
-						// 	span {
-						// 		display: none;
-						// 	}
-						// }
 						a {
 							display: none;
 						}

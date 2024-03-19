@@ -1,0 +1,9 @@
+siteUid: 1a69adf3-7129-4f03-a788-c50df99aa120 # Band Pioneer
+sortOrder: 5
+template: /blog/_index.twig
+uriParts:
+  - genre/
+  -
+    - slug
+    - '[^\/]+'
+uriPattern: 'genre/<slug:[^\/]+>'

@@ -33,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body {
     padding-top: 90px;
   }
@@ -369,18 +369,27 @@ section.blog-row article a.blog-img + a.blog-title > h4 {
 
 /***** HEADER *****/
 header.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
   background-color: #131b28;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
   height: 72px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 100;
 }
 header.site-header + section.rich-text, header.site-header + #search-toggle + .search-dropdown + section.rich-text {
   background-color: #F0F3F3;
   margin: 0;
-  padding: 60px 0 24px 0;
+  padding: 35px 0 40px 0;
+}
+header.site-header + section.rich-text h1, header.site-header + section.rich-text h2, header.site-header + section.rich-text p, header.site-header + #search-toggle + .search-dropdown + section.rich-text h1, header.site-header + #search-toggle + .search-dropdown + section.rich-text h2, header.site-header + #search-toggle + .search-dropdown + section.rich-text p {
+  margin: 15px 0;
+}
+header.site-header + section.rich-text h1, header.site-header + #search-toggle + .search-dropdown + section.rich-text h1 {
+  line-height: 2.1rem;
+}
+header.site-header + section.rich-text h2, header.site-header + #search-toggle + .search-dropdown + section.rich-text h2 {
+  line-height: 1.85rem;
 }
 header.site-header #open-menu {
   display: block;
@@ -493,7 +502,7 @@ header.site-header nav ul li ul li h4 {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body.sticky header.site-header {
     box-shadow: none;
     height: 72px;
@@ -529,8 +538,8 @@ header.site-header nav ul li ul li h4 {
   header.site-header {
     height: 90px;
   }
-  header.site-header + section.rich-text {
-    padding: 72px 0 48px 0;
+  header.site-header + section.rich-text, header.site-header + #search-toggle + .search-dropdown + section.rich-text {
+    padding: 80px 0 60px 0;
   }
   header.site-header #open-menu {
     display: none;
@@ -1214,10 +1223,13 @@ section.rich-text.bkg-img {
   background-position: center center;
   background-size: cover;
 }
+section.rich-text.bkg-img.darken-img:after {
+  background-color: rgba(0, 0, 0, 0.65);
+}
 section.rich-text.bkg-img:after {
   content: " ";
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.35);
   height: 100%;
   left: 0;
   top: 0;

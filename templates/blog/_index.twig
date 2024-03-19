@@ -4,6 +4,8 @@
 {% set postsPerPage = showAds ? 9 : 12 %}
 
 {% set categorySlug = craft.app.request.segments | last %}
+{% set genreSlug = craft.app.request.segments | first %}
+{% set darkenHero = false %}
 
 {% if categorySlug == 'dynamic' %}
 
@@ -14,9 +16,16 @@
 
 {% else %}
 
-	{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
-	{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
-
+	{% if genreSlug == 'decade' or genreSlug == 'genre'  %}
+		{% set genreEntry = craft.entries.section('genres').slug(categorySlug) %}
+		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
+		{% set entry = genreEntry.one() %}
+		{% set darkenHero = true %}
+		{% set showAds = false %}
+	{% else %}
+		{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
+		{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
+	{% endif %}
 
 	{% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
@@ -24,8 +33,8 @@
 		{% set isSticky = false %}
 		{% set isFirstPage = true %}
 		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
-		{% set featured = posts[0] %}
-		{% set recentPosts = posts[1:] %}
+		{% set featured = posts | length ? posts[0] : null %}
+		{% set recentPosts = posts | length ? posts[1:] : null %}
 	{% else %}
 		{% set isSticky = true %}
 		{% set isFirstPage = false %}
@@ -37,15 +46,16 @@
 
 {% block header %}
 	{% if entry is defined %}
-		<section {% if entry.heroImage.count %}class="rich-text bkg-img" style="background-image:url({{ entry.heroImage.one().url }})"{% else %}class="rich-text"{% endif %}>
+		<section {% if entry.heroImage.count %}class="rich-text bkg-img{% if darkenHero %} darken-img{% endif %}" style="background-image:url({{ entry.heroImage.one().url }})"{% else %}class="rich-text"{% endif %}>
 			<div class="container">
+				{% set showDescription = (entry.shortDescription | length) %}
 				{% if entry.headline | length %}
-					<h1>{{ entry.headline }}</h1>
+					<h1{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.headline }}</h1>
 				{% endif %}
 				{% if entry.subheadline | length %}
-					<h2>{{ entry.subheadline }}</h2>
+					<h2{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.subheadline }}</h2>
 				{% endif %}
-				{% if entry.shortDescription | length %}
+				{% if showDescription %}
 					<p>{{ entry.shortDescription }}</p>
 				{% endif %}
 			</div>
@@ -54,7 +64,7 @@
 {% endblock %}
 
 {% block content %}
-	{% if isFirstPage %}
+	{% if isFirstPage and featured %}
 		<section class="featured">
 			<div class="container">
 				<div class="z-pattern">
@@ -96,55 +106,55 @@
 		<div class="advert"><div id="ezoic-pub-ad-placeholder-148"></div></div>
 	</div>
 
-	<section class="blog-row">
-		<div class="container">
-			<h2>Recent Articles</h2>
-			<div class="grid-pane">
-				{% for blog in recentPosts %}
-					
-					<article>
-						<a class="blog-img" href="{{ blog.url }}">
-							{% if blog.blogImage.count %}
-								{% set img = blog.blogImage.one() %}
-								{% set cat = blog.categories.one() %}
-			        			<picture>
-								 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
-									<img src="{{ img.url('recentPostsMobile2023') }}"
-										srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
-								</picture>
+	{% if recentPosts | length %}
+		<section class="blog-row">
+			<div class="container">
+				<h2>Recent Articles</h2>
+				<div class="grid-pane">
+					{% for blog in recentPosts %}
+						
+						<article>
+							<a class="blog-img" href="{{ blog.url }}">
+								{% if blog.blogImage.count %}
+									{% set img = blog.blogImage.one() %}
+									{% set cat = blog.categories.one() %}
+				        			<picture>
+									 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+										<img src="{{ img.url('recentPostsMobile2023') }}"
+											srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+										 	alt="{{ img.title }}"
+										 	loading="lazy"
+											width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+									</picture>
+								{% endif %}
+							</a>
+							<a class="blog-title" href="{{ blog.url }}">
+								<h4>{{ blog.title }}</h4>
+							</a>
+		        		</article>
+		        		
+		        		{% if showAds %}
+							{% if loop.index == 2 %}
+								<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
+							{% elseif loop.index == 4 %}
+								<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
+							{% elseif loop.index == 8 %}
+								<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
 							{% endif %}
-						</a>
-						<a class="blog-title" href="{{ blog.url }}">
-							<h4>{{ blog.title }}</h4>
-						</a>
-	        		</article>
-	        		
-	        		{% if showAds %}
-						{% if loop.index == 2 %}
-							<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
-						{% elseif loop.index == 4 %}
-							<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
-						{% elseif loop.index == 8 %}
-							<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
-{# 						{% elseif loop.index == 6 %}
-							<article class="advert"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article> #}
 						{% endif %}
-					{% endif %}
 
-	        	{% endfor %}
-        	</div>
+		        	{% endfor %}
+	        	</div>
 
-        	{% if pageInfo.total > postsPerPage %}
-				<div class="container">
-			    	{% include '_includes/pagination' %}
-			    </div>
-			{% endif %}
+	        	{% if pageInfo.total > postsPerPage %}
+					<div class="container">
+				    	{% include '_includes/pagination' %}
+				    </div>
+				{% endif %}
 
-		</div>
-	</section>
+			</div>
+		</section>
+	{% endif %}
 
 	{### EZOIC - topic_page_bottom - bottom_of_page ###}
 	<div class="container">
