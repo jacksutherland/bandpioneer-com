@@ -33,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body {
     padding-top: 90px;
   }
@@ -393,7 +393,7 @@ header.site-header + section.rich-text picture .hero-img, header.site-header + #
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  filter: opacity(0.24) grayscale(1);
+  filter: opacity(0.32) grayscale(1);
   z-index: 10;
 }
 header.site-header + section.rich-text picture + .container, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture + .container {
@@ -517,7 +517,7 @@ header.site-header nav ul li ul li h4 {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body.sticky header.site-header {
     box-shadow: none;
     height: 72px;

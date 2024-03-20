@@ -1,4 +1,4 @@
-{% set versionNumber = '2.063' %}
+{% set versionNumber = '2.064' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -100,59 +100,8 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li>
-                        <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
-                            AI Studio {% include '_includes/icons' with { type: 'down' } %}
-                        </a>
-                        <ul>
-                            {% set bpUrl = siteUrl %}
-                            {% if bpUrl | slice(-1) != '/' %}
-                                {% set bpUrl = bpUrl ~ '/' %}
-                            {% endif %}
-                            <li>
-                                <h3>AI Music Studio</h3>
-                                <h4>What do you play?</h4>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
-                            </li>
-                            <li>
-                                <h3>Great AI Debate (beta)</h3>
-                                <h4>Pick a topic to test the demo:</h4>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=small-talk">Small Talk</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-decades">The Best Decade for Music</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-genres">The Best Genre for Music</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=ai-music">AI Music Generators</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-censorship">Music Censorship</a>
-                            </li>
-                        </ul>
-                    </li>
-                    {# {% set decades = [] %}
+                    
+                    {% set decades = [] %}
                     {% if genresAndDecades.count %}
                         <li>
                             <a class="dropdown" href="/" aria-label="Open the blog genres menu">
@@ -198,7 +147,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                    {% endif %} #}
+                    {% endif %}
                 </ul>
                 <a class="logo" href="/">
                     <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
@@ -211,7 +160,60 @@
                         srcset="/assets/images/bp-logo-alt-2x.png 2x" />
                 </a>
                 <ul>
-                    
+                    <li>
+                        <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
+                            Studio {% include '_includes/icons' with { type: 'down' } %}
+                        </a>
+                        <ul>
+                            {% set bpUrl = siteUrl %}
+                            {% if bpUrl | slice(-1) != '/' %}
+                                {% set bpUrl = bpUrl ~ '/' %}
+                            {% endif %}
+                            <li>
+                                <h3>AI Music Studio</h3>
+                                <h4>What do you play?</h4>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
+                            </li>
+                            <li>
+                                <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
+                            </li>
+                            {#
+                            <li>
+                                <h3>Great AI Debate (beta)</h3>
+                                <h4>Pick a topic to test the demo:</h4>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=small-talk">Small Talk</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-decades">The Best Decade for Music</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-genres">The Best Genre for Music</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=ai-music">AI Music Generators</a>
+                            </li>
+                            <li>
+                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-censorship">Music Censorship</a>
+                            </li>
+                            #}
+                        </ul>
+                    </li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/contact">Contact</a></li>
                     {# <li>
