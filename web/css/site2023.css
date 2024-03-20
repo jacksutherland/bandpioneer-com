@@ -393,7 +393,7 @@ header.site-header + section.rich-text picture .hero-img, header.site-header + #
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  filter: opacity(0.18) grayscale(1);
+  filter: opacity(0.24) grayscale(1);
   z-index: 10;
 }
 header.site-header + section.rich-text picture + .container, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture + .container {
