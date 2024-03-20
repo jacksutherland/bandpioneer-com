@@ -431,16 +431,10 @@ section {
 			background-position: center center;
 			background-size: cover;
 
-			&.darken-img {
-				&:after {
-					background-color: rgba(0, 0, 0, 0.65);
-				}
-			}
-
 			&:after {
 				content: " ";
 				position: absolute;
-				background-color: rgba(0, 0, 0, 0.35);
+				background-color: rgba(0, 0, 0, 0.4);
 			    height: 100%;
 			    left: 0;
 			    top: 0;

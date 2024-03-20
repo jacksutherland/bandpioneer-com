@@ -5,7 +5,6 @@
 
 {% set categorySlug = craft.app.request.segments | last %}
 {% set genreSlug = craft.app.request.segments | first %}
-{% set darkenHero = false %}
 
 {% if categorySlug == 'dynamic' %}
 
@@ -20,7 +19,6 @@
 		{% set genreEntry = craft.entries.section('genres').slug(categorySlug) %}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
 		{% set entry = genreEntry.one() %}
-		{% set darkenHero = true %}
 		{% set showAds = false %}
 	{% else %}
 		{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
@@ -46,7 +44,38 @@
 
 {% block header %}
 	{% if entry is defined %}
-		<section {% if entry.heroImage.count %}class="rich-text bkg-img{% if darkenHero %} darken-img{% endif %}" style="background-image:url({{ entry.heroImage.one().url }})"{% else %}class="rich-text"{% endif %}>
+		<section class="rich-text">
+			{% if entry.heroImage.count %}
+				{% set hero = entry.heroImage.one() %}
+				{% set mobile = { mode: 'fit', width: 412, quality: 20 } %}
+				{% set mobile2x = { mode: 'fit', width: 824, quality: 20 } %}
+				{% set sm = { mode: 'fit', width: 576, quality: 20 } %}
+				{% set sm2x = { mode: 'fit', width: 1152, quality: 20 } %}
+				{% set md = { mode: 'fit', width: 768, quality: 20 } %}
+				{% set md2x = { mode: 'fit', width: 1536, quality: 20 } %}
+				{% set lg = { mode: 'fit', width: 992, quality: 20 } %}
+				{% set lg2x = { mode: 'fit', width: 1984, quality: 20 } %}
+				{% set xl = { mode: 'fit', width: 1200, quality: 20 } %}
+				{% set xl2x = { mode: 'fit', width: 2400, quality: 20 } %}
+				{% set xxl = { mode: 'fit', width: 1400, quality: 20 } %}
+				{% set xxl2x = { mode: 'fit', width: 2800, quality: 20 } %}
+				{% set xxxl = { mode: 'fit', width: 2000, quality: 20 } %}
+				{% set xxxl2x = { mode: 'fit', width: 4000, quality: 20 } %}
+				<picture>
+				 	<source srcset="{{ hero.url(xxxl) }}, {{ hero.url(xxxl2x) }} 2x" media="(min-width: 2000px)" />
+				 	<source srcset="{{ hero.url(xxl) }}, {{ hero.url(xxl2x) }} 2x" media="(min-width: 1400px)" />
+				 	<source srcset="{{ hero.url(xl) }}, {{ hero.url(xl2x) }} 2x" media="(min-width: 1200px)" />
+				 	<source srcset="{{ hero.url(lg) }}, {{ hero.url(lg2x) }} 2x" media="(min-width: 992px)" />
+				 	<source srcset="{{ hero.url(md) }}, {{ hero.url(md2x) }} 2x" media="(min-width: 768px)" />
+				 	<source srcset="{{ hero.url(sm) }}, {{ hero.url(sm2x) }} 2x" media="(min-width: 576px)" />
+					<img src="{{ hero.url(mobile) }}"
+						srcset="{{ hero.url(mobile2x) }} 2x"
+					 	alt="{{ hero.title }}"
+					 	loading="eager"
+					 	class="hero-img" 
+						width="{{ hero.width }}" height="{{ hero.height }}">
+				</picture>
+			{% endif %}
 			<div class="container">
 				{% set showDescription = (entry.shortDescription | length) %}
 				{% if entry.headline | length %}
