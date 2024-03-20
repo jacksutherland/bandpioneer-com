@@ -17,12 +17,12 @@
 
 	{% if genreSlug == 'decade' or genreSlug == 'genre' or genreSlug == 'instrument' %}
 		{% set genreEntry = craft.entries.section('categories').slug(categorySlug) %}
-		{% if not genreEntry.show %}
+		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
+		{% set entry = genreEntry.one() %}
+		{% if not entry.show %}
 			{# If this isn't in the Menu, don't allow access to it! #}
 			{% exit 404 %}
 		{% endif %}
-		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
-		{% set entry = genreEntry.one() %}
 		{% set showAds = false %}
 	{% else %}
 		{% set categoryEntry = craft.entries.section('topics').slug(categorySlug) %}
