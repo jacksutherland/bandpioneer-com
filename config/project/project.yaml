@@ -1,4 +1,4 @@
-dateModified: 1710876039
+dateModified: 1710964034
 elementSources:
   craft\elements\Asset:
     -
@@ -86,8 +86,8 @@ elementSources:
       key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
       tableAttributes:
         - type
-        - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Category
-        - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Genre
+        - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Topic
+        - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Categories
         - 'field:f977de61-4eb7-4324-ac92-3b5a651b832c' # Tags
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
@@ -99,7 +99,7 @@ elementSources:
         - structure
         - asc
       disabled: false
-      key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Category
+      key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Topics
       tableAttributes:
         - 'field:ed962f96-407c-48ee-9fe2-daccbb4b7a16' # Headline
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
@@ -114,7 +114,7 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
+      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories
       tableAttributes:
         - type
         - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
@@ -282,6 +282,7 @@ meta:
     350ca85e-fc53-44c8-a062-e0256f1967e4: Dynamic # Dynamic
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     555e19eb-df0c-48bc-b4b9-bdc423af2204: 'Rich Text' # Rich Text
+    774ccc9c-38af-4883-8507-dc63a256627a: Instrument # Instrument
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
     851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
@@ -301,7 +302,7 @@ meta:
     67862bf2-294a-4e45-af45-324c297cbea8: 'Minute Mark' # Minute Mark
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
-    04623371-fa0e-4ff7-84f9-93dcf4e31080: Category # Category
+    04623371-fa0e-4ff7-84f9-93dcf4e31080: Topics # Topics
     04833123-aa51-4fae-b2c2-80377911b8ae: 'Blog Related Content' # Blog Related Content
     6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
     29031305-9467-4d00-bc36-cea8076d10ac: 'Media ID 2' # Media ID 2
@@ -311,13 +312,13 @@ meta:
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
     a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Show Ads' # Show Ads
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
-    a8e014fb-e647-47d8-af5a-e9648fff7a69: Genre # Genre
+    a8e014fb-e647-47d8-af5a-e9648fff7a69: Categories # Categories
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
     a9c9ed2d-71ed-44ae-8360-214ea6ecda29: 'SEO Keywords' # SEO Keywords
     a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Four Row Post 2023' # Four Row Post 2023
-    a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Category # Category
+    a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Topic # Topic
     a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
-    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Genres # Genres
+    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Categories # Categories
     ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: Subheadline # Subheadline

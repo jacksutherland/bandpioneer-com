@@ -26,7 +26,7 @@
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
 {% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
 {% set fixedHeader = fixedHeader is defined ? fixedHeader : false %}
-{% set categories = craft.entries.section('category') %}
+{% set categories = craft.entries.section('topics') %}
 
 {% import '_includes/macros' as macros %}
 

@@ -75,7 +75,7 @@
 							<article>
 								{% if blog.blogImage.count %}
 									{% set img = blog.blogImage.one() %}
-									{% set cat = blog.categories.one() %}
+									{% set cat = blog.topic.one() %}
 									<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
 					        			<picture>
 										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
@@ -161,8 +161,8 @@
 								<h2>{{ featured.title }}</h2>
 							</a>
 						{% endif %}
-						{% if featured.categories.count %}
-							{% set cat = featured.categories.one() %}
+						{% if featured.topic.count %}
+							{% set cat = featured.topic.one() %}
 							<a class="category" href="{{ cat.url }}">
 								{% include '_includes/icons' with { type: 'tag' } %}
 								<span>{{ cat.ctaText }}</span>
@@ -202,8 +202,8 @@
 							</picture>
 							
 						</a>
-						{% if blog.categories.count %}
-							{% set cat = blog.categories.one() %}
+						{% if blog.topic.count %}
+							{% set cat = blog.topic.one() %}
 							<a class="category" href="{{ cat.url }}">
 								{% include '_includes/icons' with { type: 'tag' } %}
 								<span>{{ cat.ctaText }}</span>

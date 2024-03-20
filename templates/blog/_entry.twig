@@ -2,15 +2,15 @@
 
 {% set fixedHeader = true %}
 
-{% set categories = craft.entries.section('category') %}
+{% set categories = craft.entries.section('topics') %}
 {% if entry.tags.count %}
 	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.tags).id('not ' ~ entry.id).limit(6).all() %}
 	{% if relatedPosts | length < 6 %}
-		{% set moreRelatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6 - relatedPosts | length) %}
+		{% set moreRelatedPosts = craft.entries.section('blog').relatedTo(entry.topic).id('not ' ~ entry.id).limit(6 - relatedPosts | length) %}
 		{% set relatedPosts = relatedPosts | merge(moreRelatedPosts) %}
 	{% endif %}
 {% else %}
-	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.categories).id('not ' ~ entry.id).limit(6).all() %}
+	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.topic).id('not ' ~ entry.id).limit(6).all() %}
 {% endif %}
 
 {% block styles %}
@@ -92,7 +92,7 @@
 				<article>
 					{% if blog.blogImage.count %}
 						{% set img = blog.blogImage.one() %}
-						{% set cat = blog.categories.one() %}
+						{% set cat = blog.topic.one() %}
 						<a class="blog-img" href="{{ blog.url }}">
 		        			<picture>
 							 	<source srcset="{{ img.url("blogRelatedContent") }}, {{ img.url('blogRelatedContent2x') }} 2x" media="(min-width: 768px)" />
@@ -115,7 +115,7 @@
 			{% endfor %}
 		</section>
 
-		{% include '_includes/related-categories' with { categories: entry.categories } %}
+		{% include '_includes/related-categories' with { categories: entry.topic } %}
 
 		{### EZOIC - bottom-before-footer - bottom_of_page ###}
 		<div class="advert"><div id="ezoic-pub-ad-placeholder-138"></div></div>

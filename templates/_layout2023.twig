@@ -1,4 +1,4 @@
-{% set versionNumber = '2.064' %}
+{% set versionNumber = '2.065' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -19,8 +19,8 @@
 {% set rootSiteUrl = 'https://bandpioneer.com' %}
 {% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
 
-{% set categories = craft.entries.section('category') %}
-{% set genresAndDecades = craft.entries.section('genres, decades') %}
+{% set categories = craft.entries.section('topics') %}
+{% set genresAndDecades = craft.entries.section('categories') %}
 
 {% import '_includes/macros' as macros %}
 
@@ -81,27 +81,8 @@
             </button>
             <nav class="container" role="navigation">
                 <ul>
-                    <li>
-                        <a class="dropdown" href="/" aria-label="Open the blog topics menu">
-                            Topics {% include '_includes/icons' with { type: 'down' } %}
-                        </a>
-                        <ul>
-                            <li>
-                                <h3>Topics</h3>
-                            </li>
-                            {% for cat in categories.all() %}
-                                {% if cat.show %}
-                                    <li>
-                                        <a href="{{ cat.url }}">
-                                            {{ cat.title }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    
                     {% set decades = [] %}
+                    {% set instruments = [] %}
                     {% if genresAndDecades.count %}
                         <li>
                             <a class="dropdown" href="/" aria-label="Open the blog genres menu">
@@ -115,6 +96,8 @@
                                     {% if genre.show %}
                                         {% if genre.type == 'decade' %}
                                             {% set decades = decades | merge([genre]) %}
+                                        {% elseif genre.type == 'instrument' %}
+                                            {% set instruments = instruments | merge([genre]) %}
                                         {% else %}
                                             <li>
                                                 <a href="/genre/{{ genre.slug }}">
@@ -148,6 +131,27 @@
                             </ul>
                         </li>
                     {% endif %}
+                    {% if instruments | length %}
+                        <li>
+                            <a class="dropdown" href="/" aria-label="Open the blog instruments menu">
+                                Instruments {% include '_includes/icons' with { type: 'down' } %}
+                            </a>
+                            <ul>
+                                <li>
+                                    <h3>Instruments</h3>
+                                </li>
+                                {% for instrument in instruments %}
+                                    {% if instrument.show %}
+                                        <li>
+                                            <a href="/instrument/{{ instrument.slug }}">
+                                                {{ instrument.title }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
                 <a class="logo" href="/">
                     <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
@@ -161,8 +165,27 @@
                 </a>
                 <ul>
                     <li>
+                        <a class="dropdown" href="/" aria-label="Open the blog topics menu">
+                            Topics {% include '_includes/icons' with { type: 'down' } %}
+                        </a>
+                        <ul>
+                            <li>
+                                <h3>Topics</h3>
+                            </li>
+                            {% for cat in categories.all() %}
+                                {% if cat.show %}
+                                    <li>
+                                        <a href="{{ cat.url }}">
+                                            {{ cat.title }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
                         <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
-                            Studio {% include '_includes/icons' with { type: 'down' } %}
+                            AI Studio {% include '_includes/icons' with { type: 'down' } %}
                         </a>
                         <ul>
                             {% set bpUrl = siteUrl %}
@@ -214,9 +237,9 @@
                             #}
                         </ul>
                     </li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    {# <li>
+                    {# <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li> #}
+                    <li>
                         <a class="dropdown" href="/" aria-label="Open the blog topics menu">
                             About {% include '_includes/icons' with { type: 'down' } %}
                         </a>
@@ -228,7 +251,7 @@
                                 <a href="/contact">Contact Us</a>
                             </li>
                         </ul>
-                    </li> #}
+                    </li>
                     <li class="search">
                         <a href="/search">Search</a>
                         <label for="search-toggle">

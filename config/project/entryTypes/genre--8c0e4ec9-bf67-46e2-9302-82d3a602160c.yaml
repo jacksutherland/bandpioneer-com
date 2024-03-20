@@ -139,7 +139,7 @@ fieldLayouts:
 handle: genre
 hasTitleField: true
 name: Genre
-section: aa743bfb-7d05-4d44-943b-7bf893d5cbd3 # Genres
+section: aa743bfb-7d05-4d44-943b-7bf893d5cbd3 # Categories
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

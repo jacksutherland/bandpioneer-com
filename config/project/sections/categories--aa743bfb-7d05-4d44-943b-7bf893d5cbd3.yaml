@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
-handle: genres
-name: Genres
+handle: categories
+name: Categories
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer

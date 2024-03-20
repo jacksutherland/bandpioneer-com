@@ -27,7 +27,7 @@
 				{% if showDetails %}
 					{% include '_includes/icons' with { type: 'tag' } %}
 					<ul>
-	            		{% for cat in blog.categories.all() %}
+	            		{% for cat in blog.topic.all() %}
 	            			{% apply spaceless %}
 		            			<li>
 		            				{% if cat.show %}

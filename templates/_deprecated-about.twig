@@ -3,7 +3,7 @@
 {% set pageTitle = "About Us" %}
 {% set entry = { slug: 'about', title: 'About Us', section: { handle: 'about' } } %}
 {% set articles = craft.entries.section('blog').limit(6).orderBy('postDate DESC') %}
-{% set categories = craft.entries.section('category') %}
+{% set categories = craft.entries.section('topics') %}
 
 {% block scripts %}
 	<script type="text/javascript">

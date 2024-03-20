@@ -3,30 +3,19 @@ contentColumnType: string
 fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
 handle: categories
 instructions: null
-name: Category
-searchable: true
+name: Categories
+searchable: false
 settings:
   allowSelfRelations: false
   branchLimit: null
   localizeRelations: false
   maintainHierarchy: false
-  maxRelations: 2
-  minRelations: 1
-  selectionCondition:
-    __assoc__:
-      -
-        - elementType
-        - craft\elements\Entry
-      -
-        - fieldContext
-        - global
-      -
-        - class
-        - craft\elements\conditions\entries\EntryCondition
+  maxRelations: null
+  minRelations: null
   selectionLabel: null
-  showSiteMenu: true
+  showSiteMenu: false
   sources:
-    - 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Category
+    - 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null

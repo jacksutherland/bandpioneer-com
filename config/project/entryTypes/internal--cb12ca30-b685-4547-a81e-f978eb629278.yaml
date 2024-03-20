@@ -87,7 +87,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Category
+            fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Topic
             instructions: null
             label: null
             required: true
@@ -99,7 +99,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: a8e014fb-e647-47d8-af5a-e9648fff7a69 # Genre
+            fieldUid: a8e014fb-e647-47d8-af5a-e9648fff7a69 # Categories
             instructions: null
             label: null
             required: false

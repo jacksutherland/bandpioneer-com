@@ -1,21 +1,21 @@
 columnSuffix: null
 contentColumnType: string
 fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
-handle: genre
+handle: topic
 instructions: null
-name: Genre
-searchable: false
+name: Topic
+searchable: true
 settings:
   allowSelfRelations: false
   branchLimit: null
   localizeRelations: false
   maintainHierarchy: false
-  maxRelations: null
-  minRelations: null
+  maxRelations: 2
+  minRelations: 1
   selectionLabel: null
-  showSiteMenu: false
+  showSiteMenu: true
   sources:
-    - 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Genres
+    - 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Topics
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null

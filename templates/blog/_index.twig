@@ -15,13 +15,13 @@
 
 {% else %}
 
-	{% if genreSlug == 'decade' or genreSlug == 'genre'  %}
-		{% set genreEntry = craft.entries.section('genres').slug(categorySlug) %}
+	{% if genreSlug == 'decade' or genreSlug == 'genre' or genreSlug == 'instrument' %}
+		{% set genreEntry = craft.entries.section('categories').slug(categorySlug) %}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
 		{% set entry = genreEntry.one() %}
 		{% set showAds = false %}
 	{% else %}
-		{% set categoryEntry = craft.entries.section('category').slug(categorySlug) %}
+		{% set categoryEntry = craft.entries.section('topics').slug(categorySlug) %}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
 	{% endif %}
 
@@ -100,7 +100,7 @@
 					<div>
 						{% if featured.blogImage.count %}
 							{% set img = featured.blogImage.one() %}
-							{% set cat = featured.categories.one() %}
+							{% set cat = featured.topic.one() %}
 							<a href="{{ featured.url }}">
 			        			<picture>
 								 	<source srcset="{{ img.url("halfWidthDesktop") }}, {{ img.url('halfWidthDesktop2x') }} 2x" media="(min-width: 576px)" />
@@ -146,7 +146,7 @@
 							<a class="blog-img" href="{{ blog.url }}">
 								{% if blog.blogImage.count %}
 									{% set img = blog.blogImage.one() %}
-									{% set cat = blog.categories.one() %}
+									{% set cat = blog.topic.one() %}
 				        			<picture>
 									 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
 										<img src="{{ img.url('recentPostsMobile2023') }}"

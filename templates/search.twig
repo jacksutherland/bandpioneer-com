@@ -134,7 +134,7 @@
 					<a class="blog-img" href="{{ blog.url }}">
 						{% if blog.blogImage.count %}
 							{% set img = blog.blogImage.one() %}
-							{% set cat = blog.categories.one() %}
+							{% set cat = blog.topic.one() %}
 		        			<picture>
 							 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
 								<img src="{{ img.url('recentPostsMobile2023') }}"

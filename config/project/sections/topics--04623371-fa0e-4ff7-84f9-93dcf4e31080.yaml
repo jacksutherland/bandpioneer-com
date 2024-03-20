@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
-handle: category
-name: Category
+handle: topics
+name: Topics
 previewTargets:
   -
     __assoc__:
