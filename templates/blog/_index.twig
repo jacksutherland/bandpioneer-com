@@ -19,7 +19,7 @@
 		{% set genreEntry = craft.entries.section('categories').slug(categorySlug) %}
 		{% if not genreEntry.show %}
 			{# If this isn't in the Menu, don't allow access to it! #}
-			{% redirect 404 %}
+			{% exit 404 %}
 		{% endif %}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
 		{% set entry = genreEntry.one() %}
