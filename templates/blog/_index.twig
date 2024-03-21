@@ -136,9 +136,9 @@
 	{% endif %}
 
 	{### EZOIC - topic_page_top - under_page_title ###}
-	<div class="container">
+	{# <div class="container">
 		<div class="advert"><div id="ezoic-pub-ad-placeholder-148"></div></div>
-	</div>
+	</div> #}
 
 	{% if recentPosts | length %}
 		<section class="blog-row">
@@ -146,7 +146,11 @@
 				{% if isGenrePage %}
 					<h2>{{ entry.slug }} Articles</h2>
 				{% else %}
-					<h2>{{ entry.title }} Articles</h2>
+					{% if entry.headline|lower ends with 's' %}
+						<h2>{{ entry.headline|slice(0, -1) }} Articles</h2>
+					{% else %}
+						<h2>{{ entry.headline }} Articles</h2>
+					{% endif %}
 				{% endif %}
 				<div class="grid-pane">
 					{% for blog in recentPosts %}
@@ -196,7 +200,8 @@
 
 	{### EZOIC - topic_page_bottom - bottom_of_page ###}
 	<div class="container">
-		<div class="advert"><div id="ezoic-pub-ad-placeholder-149"></div></div>
+		<div class="advert"><div id="ezoic-pub-ad-placeholder-148"></div></div>
+		{# <div class="advert"><div id="ezoic-pub-ad-placeholder-149"></div></div> #}
 	</div>
 
 {% endblock %}
