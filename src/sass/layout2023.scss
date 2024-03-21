@@ -437,7 +437,7 @@ header.site-header {
 
 	& + section.rich-text,
 	& + #search-toggle + .search-dropdown + section.rich-text {
-		background-color: $white; //$light-gray;
+		background-color: $white;
 		border-bottom: solid 1px $white;
 		margin: 0;
 		overflow: hidden;
@@ -453,7 +453,8 @@ header.site-header {
 				}
 				& + .container {
 					h1, h2, p {
-						text-shadow: 0 -2px 10px $white;
+						//text-shadow: 0 -2px 10px $white;
+						text-shadow: 0 0 10px $white;
 					}
 				}
 			}

@@ -382,7 +382,7 @@ header.site-header + section.rich-text:hover picture .hero-img, header.site-head
   filter: opacity(0.5) grayscale(0.5);
 }
 header.site-header + section.rich-text:hover picture + .container h1, header.site-header + section.rich-text:hover picture + .container h2, header.site-header + section.rich-text:hover picture + .container p, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container h1, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container h2, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container p {
-  text-shadow: 0 -2px 10px #FFFFFF;
+  text-shadow: 0 0 10px #FFFFFF;
 }
 header.site-header + section.rich-text picture .hero-img, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture .hero-img {
   position: absolute;
