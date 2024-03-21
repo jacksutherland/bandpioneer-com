@@ -20,5 +20,5 @@ siteSettings:
     enabledByDefault: true
     hasUrls: true
     template: blog/_entry
-    uriFormat: '{% if object.type != ''external'' %}{object.categories.one().slug}/{slug}{% endif %}'
+    uriFormat: '{% if object.type != ''external'' %}{object.topic.one().slug}/{slug}{% endif %}'
 type: channel
