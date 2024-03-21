@@ -6,9 +6,9 @@ propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer
     enabledByDefault: true
-    hasUrls: false
-    template: null
-    uriFormat: null
+    hasUrls: true
+    template: blog/_index
+    uriFormat: '{% if object.show %}{object.type.handle}/{slug}{% endif %}'
 structure:
   maxLevels: 1
   uid: f368757a-011d-4876-80ee-329cca15484e

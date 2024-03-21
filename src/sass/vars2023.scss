@@ -68,7 +68,7 @@ $error-color: $secondary-color;
 $lighter-font-color: #444444;
 $lightest-font-color: #777777;
 $link-color: $alternate-color;
-$link-hover-color: $primary-light;
+$link-hover-color: darken($link-color, 12%);
 
 
 /***** SPACING *****/

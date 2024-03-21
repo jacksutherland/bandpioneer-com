@@ -2,9 +2,10 @@
 
 {% set showAds = entry is defined and entry['showAds'] is defined ? entry.showAds : true %}
 {% set postsPerPage = showAds ? 9 : 12 %}
-
 {% set categorySlug = craft.app.request.segments | last %}
-{% set genreSlug = craft.app.request.segments | first %}
+{# {% set genreSlug = craft.app.request.segments | first %} #}
+{% set isGenrePage = false %}
+{% set isSticky = false %}
 
 {% if categorySlug == 'dynamic' %}
 
@@ -15,10 +16,12 @@
 
 {% else %}
 
-	{% if genreSlug == 'decade' or genreSlug == 'genre' or genreSlug == 'instrument' %}
-		{% set genreEntry = craft.entries.section('categories').slug(categorySlug) %}
-		{% set blogQuery = craft.entries.section('blog').relatedTo(genreEntry) %}
-		{% set entry = genreEntry.one() %}
+	{% if entry.type.handle in ['decade', 'genre', 'instrument'] %}
+		{% set isGenrePage = true %}
+		{% set postsPerPage = 8 %}
+		{# {% set genreEntry = craft.entries.section('categories').slug(categorySlug) %} #}
+		{% set blogQuery = craft.entries.section('blog').relatedTo(entry) %}
+		{# {% set entry = genreEntry.one() %} #}
 		{% if not entry.show %}
 			{# If this isn't in the Menu, don't allow access to it! #}
 			{% exit 404 %}
@@ -31,14 +34,12 @@
 
 	{% paginate blogQuery.limit(1) as firstPageInfo, tempPosts %}
 
-	{% if firstPageInfo.currentPage == 1 %}
-		{% set isSticky = false %}
+	{% if not isGenrePage and firstPageInfo.currentPage == 1 %}
 		{% set isFirstPage = true %}
 		{% paginate blogQuery.limit(postsPerPage + 1).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set featured = posts | length ? posts[0] : null %}
 		{% set recentPosts = posts | length ? posts[1:] : null %}
 	{% else %}
-		{% set isSticky = true %}
 		{% set isFirstPage = false %}
 		{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
 		{% set recentPosts = posts %}
@@ -142,7 +143,11 @@
 	{% if recentPosts | length %}
 		<section class="blog-row">
 			<div class="container">
-				<h2>Recent Articles</h2>
+				{% if isGenrePage %}
+					<h2>{{ entry.slug }} Articles</h2>
+				{% else %}
+					<h2>{{ entry.title }} Articles</h2>
+				{% endif %}
 				<div class="grid-pane">
 					{% for blog in recentPosts %}
 						

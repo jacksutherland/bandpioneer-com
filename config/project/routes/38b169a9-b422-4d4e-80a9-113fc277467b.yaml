@@ -1,9 +1,0 @@
-siteUid: null
-sortOrder: 7
-template: /blog/_index.twig
-uriParts:
-  - instrument/
-  -
-    - slug
-    - '[^\/]+'
-uriPattern: 'instrument/<slug:[^\/]+>'
