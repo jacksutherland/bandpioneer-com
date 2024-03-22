@@ -806,7 +806,7 @@ header.site-header {
 						position: absolute;
 						background-color: $medium-gray;
 					    border-radius: 0 0 $small-radius $small-radius;
-					    box-shadow: $container-shadow;
+					    box-shadow: $container-shadow !important;
 						flex-direction: column;
 						gap: 8px;
 						height: auto !important;
