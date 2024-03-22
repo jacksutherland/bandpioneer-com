@@ -378,12 +378,6 @@ header.site-header + section.rich-text, header.site-header + #search-toggle + .s
   padding: 35px 0 40px 0;
   position: relative;
 }
-header.site-header + section.rich-text:hover picture .hero-img, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture .hero-img {
-  filter: opacity(0.5) grayscale(0.5);
-}
-header.site-header + section.rich-text:hover picture + .container h1, header.site-header + section.rich-text:hover picture + .container h2, header.site-header + section.rich-text:hover picture + .container p, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container h1, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container h2, header.site-header + #search-toggle + .search-dropdown + section.rich-text:hover picture + .container p {
-  text-shadow: 0 0 10px #FFFFFF;
-}
 header.site-header + section.rich-text picture .hero-img, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture .hero-img {
   position: absolute;
   top: 0;
@@ -393,7 +387,7 @@ header.site-header + section.rich-text picture .hero-img, header.site-header + #
   -o-object-fit: cover;
      object-fit: cover;
   transition: filter 5s;
-  filter: opacity(0.3) grayscale(1);
+  filter: opacity(0.25) grayscale(1);
   z-index: 10;
 }
 header.site-header + section.rich-text picture + .container, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture + .container {

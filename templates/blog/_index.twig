@@ -161,7 +161,9 @@
 									{% set img = blog.blogImage.one() %}
 									{% set cat = blog.topic.one() %}
 				        			<picture>
-									 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+				        				<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 819px)" />
+									 	<source srcset="{{ img.url("recentPostsMobile2023") }}, {{ img.url('recentPostsMobile20232x') }} 2x" media="(min-width: 768px)" />
+									 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 576px)" />
 										<img src="{{ img.url('recentPostsMobile2023') }}"
 											srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
 										 	alt="{{ img.title }}"

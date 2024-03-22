@@ -272,7 +272,11 @@ section {
 
 			@media (min-width: $breakpoint-sm) { 
 				
-				grid-template-columns: repeat(3, minmax(0, 1fr));
+				// grid-template-columns: repeat(3, minmax(0, 1fr));
+
+				article {
+					max-width: $popular-post-md-width;
+				}
 			}
 
 			@media (min-width: $breakpoint-md) {
