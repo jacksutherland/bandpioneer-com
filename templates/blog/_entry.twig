@@ -44,6 +44,8 @@
 
 			{% include '_includes/author' with { blog: entry } %}
 
+			<div class="sharethis-inline-share-buttons"></div>
+
 			{# removing img above the fold on mobile, to prevent long LCP #}
 			{% if not craft.app.request.isMobileBrowser(false) and entry.blogImage.count %}
 				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}

@@ -1040,6 +1040,16 @@ address[rel=author] span {
   vertical-align: sub;
 }
 
+.blog-header .sharethis-inline-share-buttons {
+  margin: -5px 0 10px 0;
+}
+
+@media (min-width: 768px) {
+  .blog-header .sharethis-inline-share-buttons {
+    margin-top: -48px;
+    text-align: right !important;
+  }
+}
 .reading-time {
   display: none;
   background-color: #F0F3F3;

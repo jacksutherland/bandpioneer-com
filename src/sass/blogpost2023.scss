@@ -188,6 +188,16 @@ address[rel="author"] {
 	}
 }
 
+.blog-header .sharethis-inline-share-buttons {
+	margin: -5px 0 10px 0;
+}
+@media (min-width: $breakpoint-md) {
+	.blog-header .sharethis-inline-share-buttons {
+		margin-top: -48px;
+		text-align: right !important;
+	}
+}
+
 .reading-time {
 	display: none;
 	background-color: $light-gray;
