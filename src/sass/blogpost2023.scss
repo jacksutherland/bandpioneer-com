@@ -225,6 +225,59 @@ address[rel="author"] {
 	}
 }
 
+.breadcrumb {
+	display: flex;
+	margin: -13px 0 18px 0;
+	overflow: hidden;
+
+	a {
+		color: $primary-dark;
+		font-size: $small-font-size;
+		font-weight: 600;
+		text-transform: uppercase;
+		text-wrap: nowrap;
+
+		&:hover {
+			color: $link-hover-color;
+
+			span {
+				background-color: lighten($medium-gray, 3%);
+			}
+
+			&:after {
+				border-top-color: lighten($medium-gray, 3%);
+			}
+		}
+
+		&:not(:first-child) {
+			margin-left: -6px;
+		}
+
+		&:after {
+			content: "";
+			display: inline-block;
+			width: 0;
+			height: 0;
+			border-left: 12px solid transparent;
+			border-right: 12px solid transparent;
+			border-top: 8px solid $medium-gray; 
+			transform: rotate(-90deg);
+    		margin-left: -8px;
+    		transition: border-top-color $transition-time;
+		}
+
+		span {
+			display: inline-block;
+			background-color: $medium-gray;
+			height: 24px;
+			line-height: 24px;
+			padding: 0 6px 0 8px;
+			vertical-align: middle;
+			transition: background-color $transition-time;
+		}
+	}
+}
+
 .blog {
 
 	header {
