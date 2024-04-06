@@ -1214,11 +1214,36 @@ address[rel=author] span {
 }
 .blog .table-of-contents ul li {
   font-weight: 700;
-  margin: 12px 24px;
+  margin: 4px 0 0 0;
+  position: relative;
+}
+.blog .table-of-contents ul li a {
+  background-color: #E0E0E0;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  color: #131b28;
+  font-size: 0.94rem;
+  font-weight: 600;
+  height: 34px;
+  padding: 0 12px;
+  transition: color 0.3s, padding-left 0.3s;
+}
+.blog .table-of-contents ul li a:hover {
+  color: #064e6a;
+  padding-left: 15px;
 }
 .blog .table-of-contents ul li ul li {
   font-weight: 400;
   line-height: 1.4rem;
+}
+.blog .table-of-contents ul li ul li a {
+  background-color: #F0F3F3;
+  font-weight: 400;
+  padding-left: 25px;
+}
+.blog .table-of-contents ul li ul li a:hover {
+  padding-left: 30px;
 }
 .blog .table-of-contents ul li input {
   display: none;
@@ -1235,6 +1260,14 @@ address[rel=author] span {
 .blog .table-of-contents ul li input + label {
   cursor: pointer;
   margin: 0 0 0 10px;
+  position: absolute;
+  background-color: #E0E0E0;
+  border-left: solid 4px #FFFFFF;
+  height: 32px;
+  padding: 2px 0 0 8px;
+  right: 8px;
+  top: 0;
+  z-index: 10;
 }
 .blog .table-of-contents ul li input + label:hover svg {
   transform: rotate(20deg);
@@ -1252,7 +1285,8 @@ address[rel=author] span {
   transition: transform 0.3s;
 }
 .blog .table-of-contents ul li input + label svg path {
-  fill: #0a79a4;
+  fill: #131b28;
+  transition: fill 0.3s;
 }
 .blog .related-content {
   display: grid;

@@ -398,11 +398,45 @@ address[rel="author"] {
 
 			li {
 				font-weight: $semi-bold-font;
-				margin: $object-half-spacing $object-spacing;
+				// margin: $object-half-spacing $object-spacing;
+				margin: 4px 0 0 0;
+
+				position: relative;
+
+				a {
+					// background-color: darken($light-gray, 3%);
+					background-color: $medium-gray;
+
+					display: flex;
+				    align-items: center;
+				    border-radius: 3px;
+					color: $primary-dark;
+					font-size: $nav-font-size;
+					font-weight: 600;
+				    height: 34px;
+					padding: 0 12px;
+					// text-transform: uppercase;
+				    transition: color $transition-time, padding-left $transition-time;
+
+				    &:hover {
+				    	color: $link-hover-color;
+				    	padding-left: 15px;
+				    }
+				}
 
 				ul li {
 					font-weight: $regular-font;
 					line-height: 1.4rem;
+
+					a {
+						background-color: $light-gray;
+						font-weight: $regular-font;
+						padding-left: 25px;
+
+						&:hover {
+					    	padding-left: 30px;
+					    }
+					}
 				}
 
 				input {
@@ -431,6 +465,15 @@ address[rel="author"] {
 						cursor: pointer;
 						margin: 0 0 0 10px;
 
+						position: absolute;
+						background-color: $medium-gray;
+						border-left: solid 4px $white;
+						height: 32px;
+						padding: 2px 0 0 8px;
+					    right: 8px;
+					    top: 0;
+					    z-index: 10;
+
 						&:hover {
 							svg {
 								transform: rotate(20deg);
@@ -452,7 +495,8 @@ address[rel="author"] {
 							transition: transform $transition-time;
 
 							path {
-								fill: $link-color;
+								fill: $primary-dark;
+								transition: fill $transition-time;
 							}
 						}
 
