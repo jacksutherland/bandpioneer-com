@@ -118,11 +118,12 @@
 						{% endif %}
 						{% if entry.ctaText | length %}
 							<p>{{ entry.ctaText }}</p>
-							{% if 'ai studio' in entry.ctaText | lower %}
-								<p>
-									<a class="btn" href="/ai-studio">Visit our AI Studio</a>
-								</p>
-							{% endif %}
+						{% endif %}
+						{% if '~' in entry.ctaUrl %}
+							{% set ctaParts = entry.ctaUrl | split('~') %}
+							<p>
+								<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
+							</p>
 						{% endif %}
 					</div>
 					<div>
