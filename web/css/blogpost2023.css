@@ -959,6 +959,12 @@ nav.categories .container ul li .popup h3 {
 .blog .blog-container {
   max-width: 800px !important;
 }
+@media (min-width: 832px) {
+  .blog .blog-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 @media (min-width: 768px) {
   .blog .blog-header {
     padding: 24px 0;
