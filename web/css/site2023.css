@@ -1164,6 +1164,7 @@ section.cta-text {
   background-image: url(/assets/images/bp-homepage-bkg.jpg);
   background-position: center bottom;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 section.cta-text * {
   color: #FFFFFF;

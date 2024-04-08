@@ -1,16 +1,16 @@
 {
-    "/css/search.css": "/css/search.css?id=174c01746a3768f5c633656523c4453e",
-    "/css/blogpost2023.css": "/css/blogpost2023.css?id=339c5f6fe9232afadb8db3d518b0aceb",
-    "/css/homepage2023.css": "/css/homepage2023.css?id=93205585882ec42df25dbe4fb82d3b69",
-    "/css/site2023.css": "/css/site2023.css?id=452487616cd927cf5951c8efb2c3322e",
-    "/css/site.css": "/css/site.css?id=54658a3f0be29c4be821555647de07f6",
-    "/css/epk.css": "/css/epk.css?id=876c9ffc74c34755b2d38ee217c2ddd5",
-    "/css/bands.css": "/css/bands.css?id=fc77cfc0139f4e8bd0c53f97484f1757",
+    "/css/search.css": "/css/search.css",
+    "/css/blogpost2023.css": "/css/blogpost2023.css",
+    "/css/homepage2023.css": "/css/homepage2023.css",
+    "/css/site2023.css": "/css/site2023.css",
+    "/css/site.css": "/css/site.css",
+    "/css/epk.css": "/css/epk.css",
+    "/css/bands.css": "/css/bands.css",
     "/js/site.min.js": "/js/site.min.js?id=e69b2a27d8d427d103c4bc11ea9a7f08",
     "/js/site2023.min.js": "/js/site2023.min.js?id=54dbaec1671f33dd26c252cc06a84fa0",
     "/js/bands.min.js": "/js/bands.min.js?id=cb1c0ebc654f621622385872728897c0",
     "/js/epk.min.js": "/js/epk.min.js?id=a283a61cc39177d0be2444a49582da78",
     "/js/studio.min.js": "/js/studio.min.js?id=dfb3820b937223943e1797185f39de67",
     "/js/debate.min.js": "/js/debate.min.js?id=ad8cf9134892bdd7033054f984fd522f",
-    "/css/ai.css": "/css/ai.css?id=0aa087ee20397f739345da41a50d5dc1"
+    "/css/ai.css": "/css/ai.css"
 }
