@@ -116,11 +116,11 @@
 						{% if entry.subheadline | length %}
 							<h2>{{ entry.subheadline }}</h2>
 						{% endif %}
-						{% if entry.ctaText | length %}
-							<p>{{ entry.ctaText }}</p>
+						{% if entry.shortDescription | length %}
+							<p>{{ entry.shortDescription }}</p>
 						{% endif %}
-						{% if '~' in entry.ctaUrl %}
-							{% set ctaParts = entry.ctaUrl | split('~') %}
+						{% if '~' in entry.ctaText %}
+							{% set ctaParts = entry.ctaText | split('~') %}
 							<p>
 								<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
 							</p>
