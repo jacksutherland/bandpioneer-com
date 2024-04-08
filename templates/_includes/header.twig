@@ -12,7 +12,10 @@
                 <img loading="eager" class="logo-mark" src="{{  url('assets/images/bp-mark.png') }}" alt="Band Pioneer" title="Band Pioneer" width="60" height="60" />
             {% endif %}
         </a>
-        <a id="open-menu" href="/" class="bars" aria-label="Open the mobile navigation menu">
+        <nav id="main-menu" class="main-menu" role="navigation" aria-label="Secondary Navigation">
+            <a class="btn small-btn" href="/">Return to Band Pioneer</a>
+        </nav>
+        {# <a id="open-menu" href="/" class="bars" aria-label="Open the mobile navigation menu">
             {% include '_includes/icons' with { type: 'bars' } %}
         </a>
         <nav id="main-menu" class="main-menu" role="navigation" aria-label="Secondary Navigation">
@@ -73,24 +76,9 @@
                         <li>
                             <a class="underline" href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
                         </li>
-                      {#   <li>
-                            <a class="underline" href="{{ bpUrl }}ai-studio?role=percussionist">Percussion</a>
-                        </li> #}
                         <li>
                             <a class="underline" href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
                         </li>
-                        {# <li>
-                            <a class="underline" href="{{ bpUrl }}ai-studio?role=brass-player">Brass Player</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ bpUrl }}ai-studio?role=manager">Manager</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ bpUrl }}ai-studio?role=producer">Producer</a>
-                        </li>
-                        <li>
-                            <a class="underline" href="{{ bpUrl }}ai-studio?role=sound-engineer">Sound Engineer</a>
-                        </li> #}
                         <li>
                             <a class="underline" href="{{ bpUrl }}ai-studio?role=musician">Other</a>
                         </li>
@@ -121,7 +109,6 @@
                 <li class="hide-desktop">
                     <a href="{{ bpUrl }}ai-studio" class="underline">My Studio</a>
                 </li>
-                {# <li><a class="underline" href="{{ bpUrl }}{{ (currentUser ? 'bands' : 'electronic-press-kit') }}" title="Electronic Press Kit">EPK</a></li> #}
                 <li class="hide-desktop">
                     <a class="underline" href="{{ bpUrl }}privacy">Privacy Policy</a>
                 </li>
@@ -147,7 +134,7 @@
                     </form>
                 </li>
             </ul>
-        </nav>
+        </nav> #}
     </div>
 
     {% if entry.section.handle == 'blog' %}

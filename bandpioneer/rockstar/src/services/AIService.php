@@ -20,12 +20,6 @@ use craft\helpers\Db;
 use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\records\KeywordRecord as KeywordRecord;
 
-use Symfony\Component\HttpClient\Psr18Client;
-use Tectalic\OpenAi\Authentication;
-use Tectalic\OpenAi\Client;
-use Tectalic\OpenAi\Manager;
-// use Tectalic\OpenAi\Models\ChatCompletions\CreateRequest;
-
 /**
  * @author    Band Pioneer
  * @package   AIService
@@ -33,12 +27,70 @@ use Tectalic\OpenAi\Manager;
 class AIService extends Component
 {
     const AI_MODEL = 'gpt-3.5-turbo'; // gpt-3.5-turbo text-davinci-003 text-davinci-002
+    const AI_URL = 'https://api.openai.com/v1/chat/completions';
+    const AI_TOKENS = 500;
 
+    public function chatQuery($question)
+    {
+        $apiKey = getenv('OPENAI_API_KEY');
+        $apiOrg = getenv('OPENAI_ORG');
+        $apiUrl = 'https://api.openai.com/v1/chat/completions';
+        $apiResponse = "na";
+
+        $headers = array(
+            "Authorization: Bearer {$apiKey}",
+            "OpenAI-Organization: {$apiOrg}", 
+            "Content-Type: application/json"
+        );
+
+        $messages = array();
+        $message = array();
+        $message["role"] = "user";
+        $message["content"] = $question;
+        $messages[] = $message;
+
+        $data = array();
+        $data["model"] = self::AI_MODEL;
+        $data["messages"] = $messages;
+        $data["max_tokens"] = self::AI_TOKENS;
+
+        $curl = curl_init(self::AI_URL);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($curl);
+
+        if (curl_errno($curl))
+        {
+            $apiResponse = 'Error:' . curl_error($curl);
+        }
+        else
+        {
+            $jsonResponse = json_decode($result);
+            $apiResponse = $jsonResponse->choices[0]->message->content;
+        }
+
+        curl_close($curl);
+
+        return $apiResponse;
+    }
+
+    /*
     public function chatQuery($question)
     {
         $auth = new Authentication(getenv('OPENAI_API_KEY'));
         $httpClient = new Psr18Client();
         $client = new Client($httpClient, $auth, Manager::BASE_URI);
+
+        echo "chatQuery";
+        echo getenv('OPENAI_API_KEY');
+        echo "<br>";
+        echo self::AI_MODEL;
+        echo "<br>";
+        echo Manager::BASE_URI;
+        // exit();
 
         $response = $client->chatCompletions()->create(
             new \Tectalic\OpenAi\Models\ChatCompletions\CreateRequest([
@@ -52,10 +104,15 @@ class AIService extends Component
             ])
         )->toModel();
 
-        return $response->choices[0]->message->content;
+        echo "response";
+        echo var_dump($response);
+        exit();
+
+        // return $response->choices[0]->message->content;
 
         // return 'This will be a Chat GPT response';
     }
+    */
 
     public function getKeywordList()
     {
