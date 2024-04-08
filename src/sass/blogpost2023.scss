@@ -413,7 +413,7 @@ address[rel="author"] {
 					color: $primary-dark;
 					font-size: $nav-font-size;
 					font-weight: 600;
-				    height: 34px;
+				    min-height: 34px;
 					padding: 0 12px;
 					// text-transform: uppercase;
 				    transition: color $transition-time, padding-left $transition-time;

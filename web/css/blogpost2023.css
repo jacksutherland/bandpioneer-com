@@ -1225,7 +1225,7 @@ address[rel=author] span {
   color: #131b28;
   font-size: 0.94rem;
   font-weight: 600;
-  height: 34px;
+  min-height: 34px;
   padding: 0 12px;
   transition: color 0.3s, padding-left 0.3s;
 }
