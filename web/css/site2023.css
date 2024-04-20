@@ -1251,6 +1251,7 @@ section.featured .z-pattern .category {
     margin-top: -48px;
   }
   section.featured .search-box input[type=text] {
+    border-color: #E0E0E0 !important;
     border-top: none !important;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
