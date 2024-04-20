@@ -135,11 +135,6 @@
 		</section>
 	{% endif %}
 
-	{### EZOIC - topic_page_top - under_page_title ###}
-	{# <div class="container">
-		<div class="advert"><div id="ezoic-pub-ad-placeholder-148"></div></div>
-	</div> #}
-
 	{% if recentPosts | length %}
 		<section class="blog-row">
 			<div class="container">
@@ -177,7 +172,7 @@
 							</a>
 		        		</article>
 		        		
-		        		{% if showAds %}
+		        		{# {% if showAds %}
 							{% if loop.index == 2 %}
 								<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
 							{% elseif loop.index == 4 %}
@@ -185,7 +180,7 @@
 							{% elseif loop.index == 8 %}
 								<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
 							{% endif %}
-						{% endif %}
+						{% endif %} #}
 
 		        	{% endfor %}
 	        	</div>
@@ -199,11 +194,5 @@
 			</div>
 		</section>
 	{% endif %}
-
-	{### EZOIC - topic_page_bottom - bottom_of_page ###}
-	<div class="container">
-		<div class="advert" style="margin-top: 80px;"><div id="ezoic-pub-ad-placeholder-148"></div></div>
-		{# <div class="advert"><div id="ezoic-pub-ad-placeholder-149"></div></div> #}
-	</div>
 
 {% endblock %}

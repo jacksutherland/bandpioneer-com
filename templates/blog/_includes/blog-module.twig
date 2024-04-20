@@ -1,10 +1,10 @@
 {% set sectionTitle = entry.title %}
 
-{% set numberOfAds = 5 %}
+{# {% set numberOfAds = 5 %} #}
 {% set titleCounter = 0 %}
-{% set textCounter = 0 %}
+{# {% set textCounter = 0 %} #}
 {% set textSectionCount = 0 %}
-{% set adCounter = 0 %}
+{# {% set adCounter = 0 %} #}
 {% set tocLinks = [] %}
 {% set blogModules = entry.blogContent.all() %}
 
@@ -204,7 +204,6 @@
 					<section{% if entry.sectionStyle and entry.sectionStyle != 'default' %} class="{{ entry.sectionStyle.value }}"{% endif %}>
 						<div id="section-{{ module.id }}" class="section-anchor"></div>
 						{% if  module.headline | length %}
-							{# <h2>{% if entry.tocStyle == 'ordered-list' %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2> #}
 							<h2>{% if entry.change %}{{ titleCounter }}. {% endif%}{{ module.headline }}</h2>
 						{% endif %}
 						{% if  module.subheadline | length %}
@@ -246,13 +245,13 @@
 					</section>
 
 					{### EZOIC blog-in-content ###}
-					{% set textCounter = textCounter + 1 %}
+				{# 	{% set textCounter = textCounter + 1 %}
 					{% set adSpots = [1] %}
 					{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
 					{% if textCounter in adSpots %}
 						{% set adCounter = adCounter + 1 %}
 						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
-					{% endif %}
+					{% endif %} #}
 
 				{% case "embedCode" %}
 
@@ -285,13 +284,13 @@
 					{% endif %}
 
 					{### EZOIC blog-in-content ###}
-					{% set textCounter = textCounter + 1 %}
+					{# {% set textCounter = textCounter + 1 %}
 					{% set adSpots = [1] %}
 					{% set adSpots = adSpots | merge(((2..numberOfAds) | map(i => floor(textSectionCount * (i - 1) / (numberOfAds - 1))))) %}
 					{% if textCounter in adSpots %}
 						{% set adCounter = adCounter + 1 %}
 						<div class="advert"><div id="ezoic-pub-ad-placeholder-13{{ adCounter }}"></div></div>
-					{% endif %}
+					{% endif %} #}
 
 				{% case "media" %}
 
