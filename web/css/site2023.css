@@ -387,7 +387,7 @@ header.site-header + section.rich-text picture .hero-img, header.site-header + #
   -o-object-fit: cover;
      object-fit: cover;
   transition: filter 5s;
-  filter: opacity(0.25) grayscale(1);
+  filter: opacity(0.3) grayscale(1);
   z-index: 10;
 }
 header.site-header + section.rich-text picture + .container, header.site-header + #search-toggle + .search-dropdown + section.rich-text picture + .container {

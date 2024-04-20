@@ -398,27 +398,11 @@ section {
 			a.blog-title {
 				color: $font-color;
 
-				// &:hover {
-				// 	color: $link-hover-color;
-				// }
-
 				h4 {
 					font-weight: $slightly-bold-font;
 					margin: ($gutter-width - 4px) $gutter-width;
 				}
 			}
-
-			// a.blog-img {
-			// 	&:hover {
-			// 		+ a.blog-title > h4 {
-			// 			color: $link-hover-color;
-			// 		}
-			// 	}
-
-			// 	+ a.blog-title > h4 {
-			// 		transition: color $transition-time;
-			// 	}
-			// }
 		}
 	}
 }
@@ -444,22 +428,6 @@ header.site-header {
 		padding: 35px 0 40px 0;
 		position: relative;
 
-		// &:hover {
-		// 	picture {
-		// 		.hero-img {
-		// 			filter: opacity(0.5) grayscale(0.5);
-
-					
-		// 		}
-		// 		& + .container {
-		// 			h1, h2, p {
-		// 				//text-shadow: 0 -2px 10px $white;
-		// 				text-shadow: 0 0 10px $white;
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 		picture {
 			.hero-img {
 				position: absolute;
@@ -469,10 +437,8 @@ header.site-header {
 				height: 100%;
 				object-fit: cover;
 				transition: filter 5s;
-				filter: opacity(0.25) grayscale(1);
+				filter: opacity(0.30) grayscale(1);
 				z-index: 10;
-
-				
 			}
 
 			& + .container {
