@@ -114,7 +114,7 @@
 {% block content %}
 	{% if isFirstPage and featured %}
 		<section class="featured">
-			<div class="narrow-container">
+			<div class="container narrow-container">
 				 <form class="search-box" action="/search" method="get">
                     <input id="search-input" type="text" name="q" placeholder="{{ entry.ctaText2 | length ? entry.ctaText2 : "Enter a music question" }}">
                     <button>{% include '_includes/icons' with { type: 'search' } %}</button>

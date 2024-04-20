@@ -428,6 +428,18 @@ section {
 				margin-bottom: $object-spacing; 
 			}
 		}
+
+		@media (min-width: $breakpoint-md) {
+			.search-box {
+				margin-top: -48px;
+
+				input[type=text] {
+					border-top: none !important;
+					border-top-left-radius: 0;
+					border-top-right-radius: 0;
+				}
+			}
+		}
 	}
 
 	&.rich-text {

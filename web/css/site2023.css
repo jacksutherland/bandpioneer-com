@@ -1246,6 +1246,16 @@ section.cta-text .z-pattern div:nth-child(2n) img.blur-out {
 section.featured .z-pattern .category {
   margin-bottom: 24px;
 }
+@media (min-width: 768px) {
+  section.featured .search-box {
+    margin-top: -48px;
+  }
+  section.featured .search-box input[type=text] {
+    border-top: none !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
 section.rich-text.bkg-img {
   position: relative;
   background-position: center center;
