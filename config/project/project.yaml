@@ -1,4 +1,4 @@
-dateModified: 1713647158
+dateModified: 1713650551
 elementSources:
   craft\elements\Asset:
     -
@@ -248,6 +248,7 @@ meta:
     7e654447-0f77-4257-9dd9-302624c91c15: 'Rich Text Width 2x' # Rich Text Width 2x
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
     8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
+    8bb43633-4a68-4f44-93b1-84ef2584a366: 'CTA Text 2' # CTA Text 2
     8c0e4ec9-bf67-46e2-9302-82d3a602160c: Genre # Genre
     9a6940a2-21f7-479b-89de-7b12ff94ad18: 'Long Text' # Long Text
     9b6b4041-451d-480f-bfb4-9116294162ad: 'Blog Image' # Blog Image

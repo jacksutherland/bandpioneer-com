@@ -93,6 +93,18 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
+            fieldUid: 8bb43633-4a68-4f44-93b1-84ef2584a366 # CTA Text 2
+            instructions: null
+            label: 'Search Placeholder'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c2ecbb78-7b15-44b8-8aec-8dab4305d2e7
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
             fieldUid: 82e52c13-cbb5-435e-936b-296b40cf8f27 # Featured Blog Post
             instructions: null
             label: null

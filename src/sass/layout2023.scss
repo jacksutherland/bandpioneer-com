@@ -857,33 +857,44 @@ header.site-header {
 		width: 100%;
 	}
 
-	form {
-    	align-content: space-between;
-    	display: flex;
-    	gap: $small-object-spacing;
+	form.search-box {
 		margin-bottom: $object-spacing;
-		position: relative;
+	}
+}
+
+form.search-box {
+	align-content: space-between;
+	display: flex;
+	gap: $small-object-spacing;
+	margin-bottom: $object-spacing * 1.8;
+	position: relative;
+
+	button {
+	    position: absolute;
+	    top: 18px;
+	    right: 24px;
+	    background: transparent;
+	    padding: 0;
+	    height: fit-content;
+	    width: fit-content;
 
 		svg {
-			width: 16px;
-		    position: absolute;
-		    top: 18px;
-		    left: 14px;
+			width: 18px;
 
 		    path {
 		    	fill: darken($border-color, 15%);
 		    }
 		}
+	}
 
-		input {
-			background-color: $white !important;
-			border: solid 2px darken($border-color, 5%) !important;
-			// border-bottom: solid 2px $border-color !important;
-			border-radius: $img-radius;
-			height: $input-height;
-			padding: 0 $gutter-width 0 38px;
-			width: 100%;
-		}
+	input {
+		background-color: $white !important;
+		border: solid 2px darken($border-color, 5%) !important;
+		border-radius: $input-height / 2; //$img-radius;
+		font-weight: 600;
+		height: $input-height;
+		padding: 0 $object-spacing;
+		width: 100%;
 	}
 }
 

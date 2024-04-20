@@ -269,9 +269,9 @@
         <input type="checkbox" id="search-toggle">
         <div class="search-dropdown">
             <div class="container narrow-container">
-                <form action="/search" method="get">
-                    {% include '_includes/icons' with { type: 'search' } %}
-                    <input id="search-input" type="text" name="q" placeholder="Enter a question and press [ENTER]">
+                <form class="search-box" action="/search" method="get">
+                    <input id="search-input" type="text" name="q" placeholder="Enter a music question">
+                    <button>{% include '_includes/icons' with { type: 'search' } %}</button>
                 </form>
             </div>
         </div>

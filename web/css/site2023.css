@@ -715,28 +715,41 @@ header.site-header nav ul li ul li h4 {
 .search-dropdown .container {
   width: 100%;
 }
-.search-dropdown form {
+.search-dropdown form.search-box {
+  margin-bottom: 24px;
+}
+
+form.search-box {
   align-content: space-between;
   display: flex;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 43.2px;
   position: relative;
 }
-.search-dropdown form svg {
-  width: 16px;
+form.search-box button {
   position: absolute;
   top: 18px;
-  left: 14px;
+  right: 24px;
+  background: transparent;
+  padding: 0;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
-.search-dropdown form svg path {
+form.search-box button svg {
+  width: 18px;
+}
+form.search-box button svg path {
   fill: #bababa;
 }
-.search-dropdown form input {
+form.search-box input {
   background-color: #FFFFFF !important;
   border: solid 2px lightgray !important;
-  border-radius: 3px;
+  border-radius: 25px;
+  font-weight: 600;
   height: 50px;
-  padding: 0 16px 0 38px;
+  padding: 0 24px;
   width: 100%;
 }
 
