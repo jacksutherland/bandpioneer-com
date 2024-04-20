@@ -730,7 +730,7 @@ form.search-box button {
   position: absolute;
   top: 18px;
   right: 24px;
-  background: transparent;
+  background: #FFFFFF;
   padding: 0;
   height: -moz-fit-content;
   height: fit-content;
