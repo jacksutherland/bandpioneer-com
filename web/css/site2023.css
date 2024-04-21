@@ -1256,6 +1256,10 @@ section.featured .z-pattern .category {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+  section.featured .search-box button {
+    top: 14px;
+    right: 20px;
+  }
 }
 section.rich-text.bkg-img {
   position: relative;
