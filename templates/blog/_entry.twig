@@ -16,7 +16,7 @@
 
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
-	{% if entry.blogImage.count %}
+	{% if (not isMobile) and entry.blogImage.count %}
 		<link rel="preload" as="image" href="{{ entry.blogImage.one().url('blogImage') }}" 
 			imagesrcset="{{ entry.blogImage.one().url('blogImage') }} 1x, {{ entry.blogImage.one().url('blogImage2x') }} 2x">
 	{% endif %}
