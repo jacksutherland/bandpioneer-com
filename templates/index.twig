@@ -66,161 +66,172 @@
 
 {% block header %}
 	{% if isFirstPage and blog.popularPosts.count %}
-		<section class="blog-row">
-			<div class="container">
-				<h2>Popular Articles</h2>
-				<div class="scroll-pane">
-					<div>
-						{% for blog in blog.popularPosts %}
-							<article>
-								{% if blog.blogImage.count %}
-									{% set img = blog.blogImage.one() %}
-									{% set cat = blog.topic.one() %}
-									<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
-					        			<picture>
-										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
-											<img src="{{ img.url('popularPostMobile2023') }}"
-												srcset="{{ img.url('popularPostMobile20232x') }} 2x"
-											 	alt="{{ img.title }}"
-											 	loading="lazy"
-												width="{{ img.width('popularPostMobile2023') }}" height="{{ img.height('popularPostMobile2023') }}">
-										</picture>
-									</a>
-									<a class="category" href="{{ cat.url }}">
-										{% include '_includes/icons' with { type: 'tag' } %}
-										<span>{{ cat.ctaText }}</span>
-									</a>
-									<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
-										<h4>{{ blog.title }}</h4>
-									</a>
-								{% endif %}
-			        		</article>
-			        	{% endfor %}
-		        	</div>
-		        </div>
-			</div>
-		</section>
+		{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
+		{% cache using key popularPostsCacheKey %}
+			<section class="blog-row">
+				<div class="container">
+					<h2>Popular Articles</h2>
+					<div class="scroll-pane">
+						<div>
+							{% for blog in blog.popularPosts %}
+								<article>
+									{% if blog.blogImage.count %}
+										{% set img = blog.blogImage.one() %}
+										{% set cat = blog.topic.one() %}
+										<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
+						        			<picture>
+											 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
+												<img src="{{ img.url('popularPostMobile2023') }}"
+													srcset="{{ img.url('popularPostMobile20232x') }} 2x"
+												 	alt="{{ img.title }}"
+												 	loading="lazy"
+													width="{{ img.width('popularPostMobile2023') }}" height="{{ img.height('popularPostMobile2023') }}">
+											</picture>
+										</a>
+										<a class="category" href="{{ cat.url }}">
+											{% include '_includes/icons' with { type: 'tag' } %}
+											<span>{{ cat.ctaText }}</span>
+										</a>
+										<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
+											<h4>{{ blog.title }}</h4>
+										</a>
+									{% endif %}
+				        		</article>
+				        	{% endfor %}
+			        	</div>
+			        </div>
+				</div>
+			</section>
+		{% endcache %}
 	{% endif %}
 {% endblock %}
 
 {% block content %}
 	{% if isFirstPage %}
 
-		<section id="cta-text" class="cta-text">
-			<div class="container">
-				<div class="z-pattern">
-					<div>
-						{% if entry.headline | length %}
-							<h1>{{ entry.headline }}</h1>
-						{% endif %}
-						{% if entry.subheadline | length %}
-							<h2>{{ entry.subheadline }}</h2>
-						{% endif %}
-						{% if entry.shortDescription | length %}
-							<p>{{ entry.shortDescription }}</p>
-						{% endif %}
-						{% if '~' in entry.ctaText %}
-							{% set ctaParts = entry.ctaText | split('~') %}
-							<p>
-								<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
-							</p>
-						{% endif %}
-					</div>
-					<div>
-						{% if isMobile %}
-							{% set max = 7 %}
-							{% set idx = random(range(1, max)) %}
-							<img src="/assets/images/bp-homepage-artist-mobile-{{ idx }}.png" alt="{{ entry.headline }}">
-						{% else %}
-							{% set max = 10 %}
-							{% set idx = random(range(1, max)) %}
-							{# {% set idx = 1 %} #}
-							<img id="cta-image" data-idx="{{ idx }}" data-max="{{ max }}" src="/assets/images/bp-homepage-artist-{{ idx }}.png" alt="{{ entry.headline }}">
-						{% endif %}
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="featured">
-			<div class="container">
-				<h2>Featured Article</h2>
-				<div class="z-pattern">
-					<div>
-						{% if featured.blogImage.count %}
-							{% set img = featured.blogImage.one() %}
-							<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
-			        			<picture>
-								 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
-									<img src="{{ img.url }}"
-										srcset="{{ img.url }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width }}" height="{{ img.height }}">
-								</picture>
-							</a>
-						{% endif %}
-					</div>
-					<div>
-						{% if featured.title | length %}
-							<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
-								<h2>{{ featured.title }}</h2>
-							</a>
-						{% endif %}
-						{% if featured.topic.count %}
-							{% set cat = featured.topic.one() %}
-							<a class="category" href="{{ cat.url }}">
-								{% include '_includes/icons' with { type: 'tag' } %}
-								<span>{{ cat.ctaText }}</span>
-							</a>
-						{% endif %}
-						{% if featured.shortDescription | length %}
-							<p>
-								{{ featured.shortDescription }}
-							</p>
-						{% endif %}
+		{% set homepageCTACacheKey = "homepage-cta-" ~ entry.headline | camel %}
+		{% cache using key homepageCTACacheKey %}
+			<section id="cta-text" class="cta-text">
+				<div class="container">
+					<div class="z-pattern">
+						<div>
+							{% if entry.headline | length %}
+								<h1>{{ entry.headline }}</h1>
+							{% endif %}
+							{% if entry.subheadline | length %}
+								<h2>{{ entry.subheadline }}</h2>
+							{% endif %}
+							{% if entry.shortDescription | length %}
+								<p>{{ entry.shortDescription }}</p>
+							{% endif %}
+							{% if '~' in entry.ctaText %}
+								{% set ctaParts = entry.ctaText | split('~') %}
+								<p>
+									<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
+								</p>
+							{% endif %}
+						</div>
+						<div>
+							{% if isMobile %}
+								{% set max = 7 %}
+								{% set idx = random(range(1, max)) %}
+								<img src="/assets/images/bp-homepage-artist-mobile-{{ idx }}.png" alt="{{ entry.headline }}">
+							{% else %}
+								{% set max = 10 %}
+								{% set idx = random(range(1, max)) %}
+								<img id="cta-image" data-idx="{{ idx }}" data-max="{{ max }}" src="/assets/images/bp-homepage-artist-{{ idx }}.png" alt="{{ entry.headline }}">
+							{% endif %}
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		{% endcache %}
 
+		{% set featuredCacheKey = "featured-article-" ~ featured.slug %}
+		{% cache using key featuredCacheKey %}
+			<section class="featured">
+				<div class="container">
+					<h2>Featured Article</h2>
+					<div class="z-pattern">
+						<div>
+							{% if featured.blogImage.count %}
+								{% set img = featured.blogImage.one() %}
+								<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
+				        			<picture>
+									 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
+										<img src="{{ img.url }}"
+											srcset="{{ img.url }} 2x"
+										 	alt="{{ img.title }}"
+										 	loading="lazy"
+											width="{{ img.width }}" height="{{ img.height }}">
+									</picture>
+								</a>
+							{% endif %}
+						</div>
+						<div>
+							{% if featured.title | length %}
+								<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
+									<h2>{{ featured.title }}</h2>
+								</a>
+							{% endif %}
+							{% if featured.topic.count %}
+								{% set cat = featured.topic.one() %}
+								<a class="category" href="{{ cat.url }}">
+									{% include '_includes/icons' with { type: 'tag' } %}
+									<span>{{ cat.ctaText }}</span>
+								</a>
+							{% endif %}
+							{% if featured.shortDescription | length %}
+								<p>
+									{{ featured.shortDescription }}
+								</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</section>
+		{% endcache %}
 	{% endif %}
 
 	<section class="blog-row">
 		<div class="container">
 			<h2>Recent Articles</h2>
-			<div class="grid-pane">
-				{% for blog in recentPosts %}
-					<article>
-						<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
-							{% if blog.blogImage.count %}
-								{% set img = blog.blogImage.one() %}
-							{% else %}
-								{% set img = defaultBlogImage %}
-							{% endif %}
-		        			<picture>
-							 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
-								<img src="{{ img.url('recentPostsMobile2023') }}"
-									srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
-								 	alt="{{ img.title }}"
-								 	loading="lazy"
-									width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
-							</picture>
-							
-						</a>
-						{% if blog.topic.count %}
-							{% set cat = blog.topic.one() %}
-							<a class="category" href="{{ cat.url }}">
-								{% include '_includes/icons' with { type: 'tag' } %}
-								<span>{{ cat.ctaText }}</span>
+
+			{% set recentArticlesCacheKey = "recent-articles-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
+			{% cache using key recentArticlesCacheKey %}
+				<div class="grid-pane">
+					{% for blog in recentPosts %}
+						<article>
+							<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
+								{% if blog.blogImage.count %}
+									{% set img = blog.blogImage.one() %}
+								{% else %}
+									{% set img = defaultBlogImage %}
+								{% endif %}
+			        			<picture>
+								 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 820px)" />
+									<img src="{{ img.url('recentPostsMobile2023') }}"
+										srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+									 	alt="{{ img.title }}"
+									 	loading="lazy"
+										width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+								</picture>
+								
 							</a>
-						{% endif %}
-						<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
-							<h4>{{ blog.title }}</h4>
-						</a>
-	        		</article>
-	        	{% endfor %}
-        	</div>
+							{% if blog.topic.count %}
+								{% set cat = blog.topic.one() %}
+								<a class="category" href="{{ cat.url }}">
+									{% include '_includes/icons' with { type: 'tag' } %}
+									<span>{{ cat.ctaText }}</span>
+								</a>
+							{% endif %}
+							<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
+								<h4>{{ blog.title }}</h4>
+							</a>
+		        		</article>
+		        	{% endfor %}
+	        	</div>
+			{% endcache %}
 
         	{% if pageInfo.total > (postsPerPage + 1) %}
 				<div class="container">

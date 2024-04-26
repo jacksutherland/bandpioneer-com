@@ -2,7 +2,7 @@
 {% set aboveFooter = aboveFooter is defined ? aboveFooter : false %}
 
 {% if bands.count %}
-	{% cache %}
+	 {% cache globally %}
 		<section class="bands{% if aboveFooter %} above-footer{% endif %}">
 			<div class="band-carousel">
 				<div class="band-slider">

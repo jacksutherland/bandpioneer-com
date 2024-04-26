@@ -63,147 +63,158 @@
 
 {% block header %}
 	{% if entry is defined %}
-		<section class="rich-text">
-			{% if entry.heroImage.count %}
-				{% set hero = entry.heroImage.one() %}
-				{% set mobile = { mode: 'fit', width: 412, quality: 20 } %}
-				{% set mobile2x = { mode: 'fit', width: 824, quality: 20 } %}
-				{% set sm = { mode: 'fit', width: 576, quality: 20 } %}
-				{% set sm2x = { mode: 'fit', width: 1152, quality: 20 } %}
-				{% set md = { mode: 'fit', width: 768, quality: 20 } %}
-				{% set md2x = { mode: 'fit', width: 1536, quality: 20 } %}
-				{% set lg = { mode: 'fit', width: 992, quality: 20 } %}
-				{% set lg2x = { mode: 'fit', width: 1984, quality: 20 } %}
-				{% set xl = { mode: 'fit', width: 1200, quality: 20 } %}
-				{% set xl2x = { mode: 'fit', width: 2400, quality: 20 } %}
-				{% set xxl = { mode: 'fit', width: 1400, quality: 20 } %}
-				{% set xxl2x = { mode: 'fit', width: 2800, quality: 20 } %}
-				{% set xxxl = { mode: 'fit', width: 2000, quality: 20 } %}
-				{% set xxxl2x = { mode: 'fit', width: 4000, quality: 20 } %}
-				<picture>
-				 	<source srcset="{{ hero.url(xxxl) }}, {{ hero.url(xxxl2x) }} 2x" media="(min-width: 2000px)" />
-				 	<source srcset="{{ hero.url(xxl) }}, {{ hero.url(xxl2x) }} 2x" media="(min-width: 1400px)" />
-				 	<source srcset="{{ hero.url(xl) }}, {{ hero.url(xl2x) }} 2x" media="(min-width: 1200px)" />
-				 	<source srcset="{{ hero.url(lg) }}, {{ hero.url(lg2x) }} 2x" media="(min-width: 992px)" />
-				 	<source srcset="{{ hero.url(md) }}, {{ hero.url(md2x) }} 2x" media="(min-width: 768px)" />
-				 	<source srcset="{{ hero.url(sm) }}, {{ hero.url(sm2x) }} 2x" media="(min-width: 576px)" />
-					<img src="{{ hero.url(mobile) }}"
-						srcset="{{ hero.url(mobile2x) }} 2x"
-					 	alt="{{ hero.title }}"
-					 	loading="eager"
-					 	class="hero-img" 
-						width="{{ hero.width }}" height="{{ hero.height }}">
-				</picture>
-			{% endif %}
-			<div class="container">
-				{% set showDescription = (entry.shortDescription | length) %}
-				{% if entry.headline | length %}
-					<h1{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.headline }}</h1>
+		{% set topicHeaderCacheKey = "topic-header-" ~ (entry.headline | length ? entry.headline : entry.slug) %}
+		{% cache using key topicHeaderCacheKey %}
+			<section class="rich-text">
+				{% if entry.heroImage.count %}
+					{% set hero = entry.heroImage.one() %}
+					{% set mobile = { mode: 'fit', width: 412, quality: 20 } %}
+					{% set mobile2x = { mode: 'fit', width: 824, quality: 20 } %}
+					{% set sm = { mode: 'fit', width: 576, quality: 20 } %}
+					{% set sm2x = { mode: 'fit', width: 1152, quality: 20 } %}
+					{% set md = { mode: 'fit', width: 768, quality: 20 } %}
+					{% set md2x = { mode: 'fit', width: 1536, quality: 20 } %}
+					{% set lg = { mode: 'fit', width: 992, quality: 20 } %}
+					{% set lg2x = { mode: 'fit', width: 1984, quality: 20 } %}
+					{% set xl = { mode: 'fit', width: 1200, quality: 20 } %}
+					{% set xl2x = { mode: 'fit', width: 2400, quality: 20 } %}
+					{% set xxl = { mode: 'fit', width: 1400, quality: 20 } %}
+					{% set xxl2x = { mode: 'fit', width: 2800, quality: 20 } %}
+					{% set xxxl = { mode: 'fit', width: 2000, quality: 20 } %}
+					{% set xxxl2x = { mode: 'fit', width: 4000, quality: 20 } %}
+					<picture>
+					 	<source srcset="{{ hero.url(xxxl) }}, {{ hero.url(xxxl2x) }} 2x" media="(min-width: 2000px)" />
+					 	<source srcset="{{ hero.url(xxl) }}, {{ hero.url(xxl2x) }} 2x" media="(min-width: 1400px)" />
+					 	<source srcset="{{ hero.url(xl) }}, {{ hero.url(xl2x) }} 2x" media="(min-width: 1200px)" />
+					 	<source srcset="{{ hero.url(lg) }}, {{ hero.url(lg2x) }} 2x" media="(min-width: 992px)" />
+					 	<source srcset="{{ hero.url(md) }}, {{ hero.url(md2x) }} 2x" media="(min-width: 768px)" />
+					 	<source srcset="{{ hero.url(sm) }}, {{ hero.url(sm2x) }} 2x" media="(min-width: 576px)" />
+						<img src="{{ hero.url(mobile) }}"
+							srcset="{{ hero.url(mobile2x) }} 2x"
+						 	alt="{{ hero.title }}"
+						 	loading="eager"
+						 	class="hero-img" 
+							width="{{ hero.width }}" height="{{ hero.height }}">
+					</picture>
 				{% endif %}
-				{% if entry.subheadline | length %}
-					<h2{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.subheadline }}</h2>
-				{% endif %}
-				{% if showDescription %}
-					<p>{{ entry.shortDescription }}</p>
-				{% endif %}
-			</div>
-		</section>
+				<div class="container">
+					{% set showDescription = (entry.shortDescription | length) %}
+					{% if entry.headline | length %}
+						<h1{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.headline }}</h1>
+					{% endif %}
+					{% if entry.subheadline | length %}
+						<h2{% if not showDescription %} style="text-align:center;"{% endif %}>{{ entry.subheadline }}</h2>
+					{% endif %}
+					{% if showDescription %}
+						<p>{{ entry.shortDescription }}</p>
+					{% endif %}
+				</div>
+			</section>
+		{% endcache %}
 	{% endif %}
 {% endblock %}
 
 {% block content %}
 	{% if isFirstPage and featured %}
-		<section class="featured">
-			<div class="container narrow-container">
-				 <form class="search-box" action="/search" method="get">
-                    <input id="search-input" type="text" name="q" placeholder="{{ entry.ctaText2 | length ? entry.ctaText2 : "Enter a music question" }}">
-                    <button>{% include '_includes/icons' with { type: 'search' } %}</button>
-                </form>
-            </div>
-			<div class="container">
-				<div class="z-pattern">
-					<div>
-						{% if featured.blogImage.count %}
-							{% set img = featured.blogImage.one() %}
-							{% set cat = featured.topic.one() %}
-							<a href="{{ featured.url }}">
-			        			<picture>
-								 	<source srcset="{{ img.url("halfWidthDesktop") }}, {{ img.url('halfWidthDesktop2x') }} 2x" media="(min-width: 576px)" />
-									<img src="{{ img.url('fullWidthMobile') }}"
-										srcset="{{ img.url('fullWidthMobile2x') }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width }}" height="{{ img.height }}">
-								</picture>
-							</a>
-						{% endif %}
-					</div>
-					<div>
-						{% if featured.title | length %}
-							<a href="{{ featured.url }}">
-								<h2>{{ featured.title }}</h2>
-							</a>
-						{% endif %}
-						{% if featured.shortDescription | length %}
-							<p>
-								{{ featured.shortDescription }}
-							</p>
-						{% endif %}
+		{% set featuredCacheKey = "featured-topic-article-" ~ featured.slug %}
+		{% cache using key featuredCacheKey %}
+			<section class="featured">
+				<div class="container narrow-container">
+					 <form class="search-box" action="/search" method="get">
+	                    <input id="search-input" type="text" name="q" placeholder="{{ entry.ctaText2 | length ? entry.ctaText2 : "Enter a music question" }}">
+	                    <button>{% include '_includes/icons' with { type: 'search' } %}</button>
+	                </form>
+	            </div>
+				<div class="container">
+					<div class="z-pattern">
+						<div>
+							{% if featured.blogImage.count %}
+								{% set img = featured.blogImage.one() %}
+								{% set cat = featured.topic.one() %}
+								<a href="{{ featured.url }}">
+				        			<picture>
+									 	<source srcset="{{ img.url("halfWidthDesktop") }}, {{ img.url('halfWidthDesktop2x') }} 2x" media="(min-width: 576px)" />
+										<img src="{{ img.url('fullWidthMobile') }}"
+											srcset="{{ img.url('fullWidthMobile2x') }} 2x"
+										 	alt="{{ img.title }}"
+										 	loading="lazy"
+											width="{{ img.width }}" height="{{ img.height }}">
+									</picture>
+								</a>
+							{% endif %}
+						</div>
+						<div>
+							{% if featured.title | length %}
+								<a href="{{ featured.url }}">
+									<h2>{{ featured.title }}</h2>
+								</a>
+							{% endif %}
+							{% if featured.shortDescription | length %}
+								<p>
+									{{ featured.shortDescription }}
+								</p>
+							{% endif %}
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		{% endcache %}
 	{% endif %}
 
 	{% if recentPosts | length %}
 		<section class="blog-row">
 			<div class="container">
-				{% if isGenrePage %}
-					<h2>{{ entry.slug }} Articles</h2>
-				{% else %}
-					{% if entry.headline|lower ends with 's' %}
-						<h2>{{ entry.headline|slice(0, -1) }} Articles</h2>
-					{% else %}
-						<h2>{{ entry.headline }} Articles</h2>
-					{% endif %}
-				{% endif %}
-				<div class="grid-pane">
-					{% for blog in recentPosts %}
-						
-						<article>
-							<a class="blog-img" href="{{ blog.url }}">
-								{% if blog.blogImage.count %}
-									{% set img = blog.blogImage.one() %}
-									{% set cat = blog.topic.one() %}
-				        			<picture>
-				        				<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 819px)" />
-									 	<source srcset="{{ img.url("recentPostsMobile2023") }}, {{ img.url('recentPostsMobile20232x') }} 2x" media="(min-width: 768px)" />
-									 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 576px)" />
-										<img src="{{ img.url('recentPostsMobile2023') }}"
-											srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
-										 	alt="{{ img.title }}"
-										 	loading="lazy"
-											width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
-									</picture>
-								{% endif %}
-							</a>
-							<a class="blog-title" href="{{ blog.url }}">
-								<h4>{{ blog.title }}</h4>
-							</a>
-		        		</article>
-		        		
-		        		{# {% if showAds %}
-							{% if loop.index == 2 %}
-								<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
-							{% elseif loop.index == 4 %}
-								<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
-							{% elseif loop.index == 8 %}
-								<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
-							{% endif %}
-						{% endif %} #}
 
-		        	{% endfor %}
-	        	</div>
+				{% set recentArticlesCacheKey = "recent-topic-articles-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
+				{% cache using key recentArticlesCacheKey %}
+				
+					{% if isGenrePage %}
+						<h2>{{ entry.slug }} Articles</h2>
+					{% else %}
+						{% if entry.headline|lower ends with 's' %}
+							<h2>{{ entry.headline|slice(0, -1) }} Articles</h2>
+						{% else %}
+							<h2>{{ entry.headline }} Articles</h2>
+						{% endif %}
+					{% endif %}
+					<div class="grid-pane">
+						{% for blog in recentPosts %}
+							
+							<article>
+								<a class="blog-img" href="{{ blog.url }}">
+									{% if blog.blogImage.count %}
+										{% set img = blog.blogImage.one() %}
+										{% set cat = blog.topic.one() %}
+					        			<picture>
+					        				<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 819px)" />
+										 	<source srcset="{{ img.url("recentPostsMobile2023") }}, {{ img.url('recentPostsMobile20232x') }} 2x" media="(min-width: 768px)" />
+										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 576px)" />
+											<img src="{{ img.url('recentPostsMobile2023') }}"
+												srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+											 	alt="{{ img.title }}"
+											 	loading="lazy"
+												width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+										</picture>
+									{% endif %}
+								</a>
+								<a class="blog-title" href="{{ blog.url }}">
+									<h4>{{ blog.title }}</h4>
+								</a>
+			        		</article>
+			        		
+			        		{# {% if showAds %}
+								{% if loop.index == 2 %}
+									<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
+								{% elseif loop.index == 4 %}
+									<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
+								{% elseif loop.index == 8 %}
+									<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
+								{% endif %}
+							{% endif %} #}
+
+			        	{% endfor %}
+		        	</div>
+				{% endcache %}
 
 	        	{% if pageInfo.total > postsPerPage %}
 					<div class="container">

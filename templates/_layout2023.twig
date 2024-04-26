@@ -79,192 +79,171 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        <header class="site-header">
-            <button id="open-menu" aria-label="Open the mobile navigation menu">
-                {% include '_includes/icons' with { type: 'bars' } %}
-            </button>
-            <nav class="container" role="navigation">
-                <ul>
-                    <li>
-                        <a class="dropdown" href="/" aria-label="Open the blog topics menu">
-                            Topics {% include '_includes/icons' with { type: 'down' } %}
-                        </a>
-                        <ul>
-                            <li>
-                                <h3>Topics</h3>
-                            </li>
-                            {% for cat in categories.all() %}
-                                {% if cat.show %}
-                                    <li>
-                                        <a href="{{ cat.url }}">
-                                            {{ cat.title }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
-                            AI Studio {% include '_includes/icons' with { type: 'down' } %}
-                        </a>
-                        <ul>
-                            {% set bpUrl = siteUrl %}
-                            {% if bpUrl | slice(-1) != '/' %}
-                                {% set bpUrl = bpUrl ~ '/' %}
-                            {% endif %}
-                            <li>
-                                <h3>AI Music Studio</h3>
-                                <h4>What do you play?</h4>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
-                            </li>
-                            <li>
-                                <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
-                            </li>
-                            {#
-                            <li>
-                                <h3>Great AI Debate (beta)</h3>
-                                <h4>Pick a topic to test the demo:</h4>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=small-talk">Small Talk</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-decades">The Best Decade for Music</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-genres">The Best Genre for Music</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=ai-music">AI Music Generators</a>
-                            </li>
-                            <li>
-                                <a class="underline" href="{{ bpUrl }}ai-studio/battle?topic=music-censorship">Music Censorship</a>
-                            </li>
-                            #}
-                        </ul>
-                    </li>
-                    {# <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li> #}
-                    <li>
-                        <a class="dropdown" href="/" aria-label="Open the blog topics menu">
-                            About {% include '_includes/icons' with { type: 'down' } %}
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="/about">About Us</a>
-                            </li>
-                            <li>
-                                <a href="/contact">Contact Us</a>
-                            </li>
-                        </ul>
-                    </li>                    
-                </ul>
-                <a class="logo" href="/">
-                    <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
-                        width="180" height="117" 
-                        src="/assets/images/bp-logo-small.png" 
-                        srcset="/assets/images/bp-logo-2x.png 2x">
-                    <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer" 
-                        width="180" height="56" 
-                        src="/assets/images/bp-logo-alt-small.png" 
-                        srcset="/assets/images/bp-logo-alt-2x.png 2x" />
-                </a>
-                <ul> 
-                    {% set decades = [] %}
-                    {% set instruments = [] %}
-                    {% if genresAndDecades.count %}
+        {% cache globally %}
+            <header class="site-header">
+                <button id="open-menu" aria-label="Open the mobile navigation menu">
+                    {% include '_includes/icons' with { type: 'bars' } %}
+                </button>
+                <nav class="container" role="navigation">
+                    <ul>
                         <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog genres menu">
-                                Genres {% include '_includes/icons' with { type: 'down' } %}
+                            <a class="dropdown" href="/" aria-label="Open the blog topics menu">
+                                Topics {% include '_includes/icons' with { type: 'down' } %}
                             </a>
                             <ul>
                                 <li>
-                                    <h3>Genres</h3>
+                                    <h3>Topics</h3>
                                 </li>
-                                {% for genre in genresAndDecades.all() %}
-                                    {% if genre.show %}
-                                        {% if genre.type == 'decade' %}
-                                            {% set decades = decades | merge([genre]) %}
-                                        {% elseif genre.type == 'instrument' %}
-                                            {% set instruments = instruments | merge([genre]) %}
-                                        {% else %}
+                                {% for cat in categories.all() %}
+                                    {% if cat.show %}
+                                        <li>
+                                            <a href="{{ cat.url }}">
+                                                {{ cat.title }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
+                                AI Studio {% include '_includes/icons' with { type: 'down' } %}
+                            </a>
+                            <ul>
+                                {% set bpUrl = siteUrl %}
+                                {% if bpUrl | slice(-1) != '/' %}
+                                    {% set bpUrl = bpUrl ~ '/' %}
+                                {% endif %}
+                                <li>
+                                    <h3>AI Music Studio</h3>
+                                    <h4>What do you play?</h4>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
+                                </li>
+                                <li>
+                                    <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="dropdown" href="/" aria-label="Open the blog topics menu">
+                                About {% include '_includes/icons' with { type: 'down' } %}
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="/about">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="/contact">Contact Us</a>
+                                </li>
+                            </ul>
+                        </li>                    
+                    </ul>
+                    <a class="logo" href="/">
+                        <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
+                            width="180" height="117" 
+                            src="/assets/images/bp-logo-small.png" 
+                            srcset="/assets/images/bp-logo-2x.png 2x">
+                        <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer" 
+                            width="180" height="56" 
+                            src="/assets/images/bp-logo-alt-small.png" 
+                            srcset="/assets/images/bp-logo-alt-2x.png 2x" />
+                    </a>
+                    <ul> 
+                        {% set decades = [] %}
+                        {% set instruments = [] %}
+                        {% if genresAndDecades.count %}
+                            <li>
+                                <a class="dropdown" href="/" aria-label="Open the blog genres menu">
+                                    Genres {% include '_includes/icons' with { type: 'down' } %}
+                                </a>
+                                <ul>
+                                    <li>
+                                        <h3>Genres</h3>
+                                    </li>
+                                    {% for genre in genresAndDecades.all() %}
+                                        {% if genre.show %}
+                                            {% if genre.type == 'decade' %}
+                                                {% set decades = decades | merge([genre]) %}
+                                            {% elseif genre.type == 'instrument' %}
+                                                {% set instruments = instruments | merge([genre]) %}
+                                            {% else %}
+                                                <li>
+                                                    <a href="/genre/{{ genre.slug }}">
+                                                        {{ genre.title }}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if decades | length %}
+                            <li>
+                                <a class="dropdown" href="/" aria-label="Open the blog decades menu">
+                                    Decades {% include '_includes/icons' with { type: 'down' } %}
+                                </a>
+                                <ul>
+                                    <li>
+                                        <h3>Decades</h3>
+                                    </li>
+                                    {% for decade in decades %}
+                                        {% if decade.show %}
                                             <li>
-                                                <a href="/genre/{{ genre.slug }}">
-                                                    {{ genre.title }}
+                                                <a href="/decade/{{ decade.slug }}">
+                                                    {{ decade.title }}
                                                 </a>
                                             </li>
                                         {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if instruments | length %}
+                            <li>
+                                <a class="dropdown" href="/" aria-label="Open the blog instruments menu">
+                                    Instruments {% include '_includes/icons' with { type: 'down' } %}
+                                </a>
+                                <ul>
+                                    <li>
+                                        <h3>Instruments</h3>
+                                    </li>
+                                    {% for instrument in instruments %}
+                                        {% if instrument.show %}
+                                            <li>
+                                                <a href="/instrument/{{ instrument.slug }}">
+                                                    {{ instrument.title }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li class="search">
+                            <a href="/search">Search</a>
+                            <label for="search-toggle">
+                                {% include '_includes/icons' with { type: 'search' } %}
+                            </label>
                         </li>
-                    {% endif %}
-                    {% if decades | length %}
-                        <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog decades menu">
-                                Decades {% include '_includes/icons' with { type: 'down' } %}
-                            </a>
-                            <ul>
-                                <li>
-                                    <h3>Decades</h3>
-                                </li>
-                                {% for decade in decades %}
-                                    {% if decade.show %}
-                                        <li>
-                                            <a href="/decade/{{ decade.slug }}">
-                                                {{ decade.title }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if instruments | length %}
-                        <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog instruments menu">
-                                Instruments {% include '_includes/icons' with { type: 'down' } %}
-                            </a>
-                            <ul>
-                                <li>
-                                    <h3>Instruments</h3>
-                                </li>
-                                {% for instrument in instruments %}
-                                    {% if instrument.show %}
-                                        <li>
-                                            <a href="/instrument/{{ instrument.slug }}">
-                                                {{ instrument.title }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    <li class="search">
-                        <a href="/search">Search</a>
-                        <label for="search-toggle">
-                            {% include '_includes/icons' with { type: 'search' } %}
-                        </label>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+                    </ul>
+                </nav>
+            </header>
+        {% endcache %}
 
         <input type="checkbox" id="search-toggle">
         <div class="search-dropdown">
