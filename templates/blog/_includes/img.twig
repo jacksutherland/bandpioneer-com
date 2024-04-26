@@ -4,7 +4,7 @@
 	<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
 	<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
 	<img src="{{ img.url('blogImageMobile') }}"
-		srcset="{{ img.url('blogImageMobile') }} 2x"
+		srcset="{{ img.url('blogImageMobile2x') }} 2x"
 	 	alt="{{ img.title }}"
 	 	loading="{{ isFeatured ? "eager" : "lazy" }}"
 	 	class="{{ isFeatured ? "featured-image" : "" }}" 
