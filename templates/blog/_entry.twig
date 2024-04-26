@@ -56,7 +56,7 @@
 
 			{# removing img above the fold on mobile, to prevent long LCP #}
 			{% if not isMobile and entry.blogImage.count %}
-				<div class="sharethis-inline-share-buttons"></div>
+				{# <div class="sharethis-inline-share-buttons"></div> #}
 				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 			{% endif %}
 		</div>
