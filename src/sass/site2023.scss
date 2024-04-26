@@ -427,6 +427,9 @@ section {
 			.category {
 				margin-bottom: $object-spacing; 
 			}
+			img {
+				width: auto;
+			}
 		}
 
 		@media (min-width: $breakpoint-md) {
