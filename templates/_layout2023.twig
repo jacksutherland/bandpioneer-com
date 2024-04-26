@@ -1,8 +1,8 @@
 {% set versionNumber = '2.086' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
-
 {% set isSticky = isSticky is defined ? isSticky : false %}
+{% set isMobile = craft.app.request.isMobileBrowser(false) %}
 
 {# ai.bandpioneer.com ONLY on Prod ENV #}
 {# {% if 'ai.bandpioneer.com' in craft.app.request.absoluteUrl and entrySlug != 'battle' %}
@@ -80,7 +80,8 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% cache globally %}
+        {% set headerCacheKey = "header-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% cache using key headerCacheKey %}
             <header class="site-header">
                 <button id="open-menu" aria-label="Open the mobile navigation menu">
                     {% include '_includes/icons' with { type: 'bars' } %}
@@ -154,11 +155,13 @@
                         </li>                    
                     </ul>
                     <a class="logo" href="/">
-                        <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
-                            width="180" height="117" 
-                            src="/assets/images/bp-logo-small.png" 
-                            srcset="/assets/images/bp-logo-2x.png 2x">
-                        <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer" 
+                        {% if (not isMobile) %}
+                            <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
+                                width="180" height="117" 
+                                src="/assets/images/bp-logo-small.png" 
+                                srcset="/assets/images/bp-logo-2x.png 2x">
+                        {% endif %}
+                        <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
                             width="180" height="56" 
                             src="/assets/images/bp-logo-alt-small.png" 
                             srcset="/assets/images/bp-logo-alt-2x.png 2x" />
@@ -324,14 +327,14 @@
             </footer>
         {% endcache %}
         
-        <script defer src="{{ url('js/site2023.min.js') }}?version={{ versionNumber }}"></script>
+        {# <script defer src="{{ url('js/site2023.min.js') }}?version={{ versionNumber }}"></script>
         <script defer>
             var bp = null;
             document.addEventListener("DOMContentLoaded", function()
             {
                 bp = new BandPioneerUX();
             });
-        </script>
+        </script> #}
         {% block scripts %}{# Load template scripts here #}{% endblock %}
 
     </body>
