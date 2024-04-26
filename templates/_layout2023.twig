@@ -1,4 +1,4 @@
-{% set versionNumber = '2.085' %}
+{% set versionNumber = '2.086' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 
@@ -62,7 +62,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
         <link rel="manifest" href="/assets/favicon/site.webmanifest">
         <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
-        <link rel="preload" href="/assets/fonts/conthrax-sb.woff2" as="font" type="font/woff2" crossorigin>
+        {# <link rel="preload" href="/assets/fonts/conthrax-sb.woff2" as="font" type="font/woff2" crossorigin> #}
 
         {% block styles %}
             <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
