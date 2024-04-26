@@ -4,9 +4,9 @@
 	<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
 	<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
 	<img src="{{ img.url('blogImageMobile') }}"
-		srcset="{{ img.url('blogImageMobile2x') }} 2x"
+		srcset="{{ img.url('blogImageMobile') }} 2x"
 	 	alt="{{ img.title }}"
 	 	loading="{{ isFeatured ? "eager" : "lazy" }}"
 	 	class="{{ isFeatured ? "featured-image" : "" }}" 
-		width="{{ img.width('blogImageMobile2x') }}" height="{{ img.height('blogImageMobile2x') }}">
+		width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
 </picture>
