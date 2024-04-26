@@ -16,9 +16,9 @@
 
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
-	{% if entry.blogImage.count %}
+	{# {% if entry.blogImage.count %}
 		<link rel="preload" as="image" href="{{ entry.blogImage.one().url('blogImageMobile') }}">
-	{% endif %}
+	{% endif %} #}
 {% endblock %}
 
 {% block scripts %}
@@ -54,8 +54,8 @@
 				{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
 				{# removing img above the fold on mobile, to prevent long LCP #}
-				{# {% if (not isMobile) and entry.blogImage.count %} #}
-				{% if entry.blogImage.count %}
+				{% if (not isMobile) and entry.blogImage.count %}
+				{# {% if entry.blogImage.count %} #}
 					{# <div class="sharethis-inline-share-buttons"></div> #}
 					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 				{% endif %}
