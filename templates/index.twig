@@ -156,14 +156,21 @@
 						<div>
 							{% if featured.blogImage.count %}
 								{% set img = featured.blogImage.one() %}
+								{% set featuredMobile = { mode: 'fit', width: 380, quality: 80 } %}
+								{% set featuredMobile2x = { mode: 'fit', width: 760, quality: 80 } %}
+								{% set featuredSm = { mode: 'fit', width: 544, quality: 80 } %}
+								{% set featuredSm2x = { mode: 'fit', width: 1088, quality: 80 } %}
+								{% set featuredMd = { mode: 'fit', width: 564, quality: 80 } %}
+								{% set featuredMd2x = { mode: 'fit', width: 1128, quality: 80 } %}
 								<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
-				        			<picture>
-									 	{# <source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" /> #}
-										<img src="{{ img.url }}"
-											srcset="{{ img.url }} 2x"
+									<picture>
+										<source srcset="{{ img.url(featuredMd) }}, {{ img.url(featuredMd2x) }} 2x" media="(min-width: 576px)" />
+										<source srcset="{{ img.url(featuredMobile) }}, {{ img.url(featuredMobile2x) }} 2x" media="(max-width:575px)" />
+										<img src="{{ img.url(featuredMobile) }}"
+											srcset="{{ img.url(featuredMobile2x) }} 2x"
 										 	alt="{{ img.title }}"
 										 	loading="lazy"
-											width="{{ img.width }}" height="{{ img.height }}">
+											width="{{ img.width(featuredMobile) }}" height="{{ img.height(featuredMobile) }}">
 									</picture>
 								</a>
 							{% endif %}
