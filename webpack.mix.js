@@ -24,6 +24,7 @@ mix.setPublicPath('./web')
 .options({
   processCssUrls: false,
 })
+.minify('web/css/site2023.css', 'web/css/site2023.min.css')
 .minify('src/js/site2023.js', 'web/js/site2023.min.js')
 .browserSync({
   files: ['web/css/*', 'web/js/*'],
@@ -38,6 +39,7 @@ mix.setPublicPath('./web')
 .options({
   processCssUrls: false,
 })
+.minify('web/css/homepage2023.css', 'web/css/homepage2023.min.css')
 .browserSync({
   files: ['web/css/*'],
   proxy: baseUrl,
@@ -51,6 +53,7 @@ mix.setPublicPath('./web')
 .options({
   processCssUrls: false,
 })
+.minify('web/css/blogpost2023.css', 'web/css/blogpost2023.min.css')
 .browserSync({
   files: ['web/css/*'],
   proxy: baseUrl,
@@ -64,6 +67,7 @@ mix.setPublicPath('./web')
 .options({
   processCssUrls: false,
 })
+.minify('web/css/search.css', 'web/css/search.min.css')
 .browserSync({
   files: ['web/css/*'],
   proxy: baseUrl,

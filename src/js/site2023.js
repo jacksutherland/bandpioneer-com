@@ -532,12 +532,12 @@ class BandPioneerUX
 				});
 			}
 			
-			const breakpoint = BandPioneerUX.getBreakpoint();
+			// const breakpoint = BandPioneerUX.getBreakpoint();
 
-			if(breakpoint === "sm" || breakpoint === "md")
-			{
-				toc.querySelector('ul').classList.add('close');
-			}
+			// if(breakpoint === "sm" || breakpoint === "md")
+			// {
+			// 	toc.querySelector('ul').classList.add('close');
+			// }
 		}
 
 		readingProgress()

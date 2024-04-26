@@ -4,7 +4,8 @@
   },
   "scripts": {
     "dev": "mix",
-    "watch": "mix watch"
+    "watch": "mix watch",
+    "production": "mix --production"
   },
   "devDependencies": {
     "browser-sync": "^2.27.10",

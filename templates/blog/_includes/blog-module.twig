@@ -145,7 +145,7 @@
 				<span>Table of Contents</span>
 				<i>{% include '_includes/icons' with { type: 'down' } %}</i>
 			</label>
-			<ul>
+			<ul class="close">
 				{% for tl in tocLinks %}
 					<li>
 						{% if tl.children is defined %}
