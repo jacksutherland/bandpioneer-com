@@ -1,11 +1,12 @@
 {% set showLink = showLink is defined ? showLink : true %}
+{% set showImage = showImage is defined ? showImage : true %}
 {% if blog.type == "external" %}
 	{% set showLink = false %}
 {% endif %}
 {% if blog.fullName | length %} 
 	<address rel="author">
 		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% else %}<span>{% endif %}
-			{% if blog.writerPicture.count %}
+			{% if showImage and blog.writerPicture.count %}
 				{% set writerPic = blog.writerPicture.one() %}
 				<img src="{{ writerPic.url('writerPicture') }}"
 					width="{{ writerPic.width('writerPicture') }}"

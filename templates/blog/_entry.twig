@@ -1,6 +1,7 @@
 {% extends '_layout2023' %}
 
 {% set fixedHeader = true %}
+{% set isMobile = craft.app.request.isMobileBrowser(false) %}
 
 {% set categories = craft.entries.section('topics') %}
 {% if entry.tags.count %}
@@ -51,10 +52,10 @@
 				<h2>{{ entry.subheadline }}</h2>
 			{% endif %}
 
-			{% include '_includes/author' with { blog: entry } %}
+			{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
 			{# removing img above the fold on mobile, to prevent long LCP #}
-			{% if not craft.app.request.isMobileBrowser(false) and entry.blogImage.count %}
+			{% if not isMobile and entry.blogImage.count %}
 				<div class="sharethis-inline-share-buttons"></div>
 				{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 			{% endif %}
