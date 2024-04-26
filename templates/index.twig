@@ -156,12 +156,12 @@
 						<div>
 							{% if featured.blogImage.count %}
 								{% set img = featured.blogImage.one() %}
-								{% set featuredMobile = { mode: 'fit', width: 380, quality: 80 } %}
-								{% set featuredMobile2x = { mode: 'fit', width: 760, quality: 80 } %}
-								{% set featuredSm = { mode: 'fit', width: 544, quality: 80 } %}
-								{% set featuredSm2x = { mode: 'fit', width: 1088, quality: 80 } %}
-								{% set featuredMd = { mode: 'fit', width: 564, quality: 80 } %}
-								{% set featuredMd2x = { mode: 'fit', width: 1128, quality: 80 } %}
+								{% set featuredMobile = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
+								{% set featuredMobile2x = { mode: 'fit', format: 'webp', width: 760, quality: 80 } %}
+								{% set featuredSm = { mode: 'fit', format: 'webp', width: 544, quality: 80 } %}
+								{% set featuredSm2x = { mode: 'fit', format: 'webp', width: 1088, quality: 80 } %}
+								{% set featuredMd = { mode: 'fit', format: 'webp', width: 564, quality: 80 } %}
+								{% set featuredMd2x = { mode: 'fit', format: 'webp', width: 1128, quality: 80 } %}
 								<a href="{{ featured.url }}" onclick="sendClickEvent('featured_article_clicked', '{{ featured.url }}')">
 									<picture>
 										<source srcset="{{ img.url(featuredMd) }}, {{ img.url(featuredMd2x) }} 2x" media="(min-width: 576px)" />

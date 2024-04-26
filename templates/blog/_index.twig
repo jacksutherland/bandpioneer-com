@@ -132,13 +132,21 @@
 								{% set img = featured.blogImage.one() %}
 								{% set cat = featured.topic.one() %}
 								<a href="{{ featured.url }}">
-				        			<picture>
-									 	<source srcset="{{ img.url("halfWidthDesktop") }}, {{ img.url('halfWidthDesktop2x') }} 2x" media="(min-width: 576px)" />
-										<img src="{{ img.url('fullWidthMobile') }}"
-											srcset="{{ img.url('fullWidthMobile2x') }} 2x"
+				        			{% set img = featured.blogImage.one() %}
+									{% set featuredMobile = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
+									{% set featuredMobile2x = { mode: 'fit', format: 'webp', width: 760, quality: 80 } %}
+									{% set featuredSm = { mode: 'fit', format: 'webp', width: 544, quality: 80 } %}
+									{% set featuredSm2x = { mode: 'fit', format: 'webp', width: 1088, quality: 80 } %}
+									{% set featuredMd = { mode: 'fit', format: 'webp', width: 564, quality: 80 } %}
+									{% set featuredMd2x = { mode: 'fit', format: 'webp', width: 1128, quality: 80 } %}
+									<picture>
+										<source srcset="{{ img.url(featuredMd) }}, {{ img.url(featuredMd2x) }} 2x" media="(min-width: 576px)" />
+										<source srcset="{{ img.url(featuredMobile) }}, {{ img.url(featuredMobile2x) }} 2x" media="(max-width:575px)" />
+										<img src="{{ img.url(featuredMobile) }}"
+											srcset="{{ img.url(featuredMobile2x) }} 2x"
 										 	alt="{{ img.title }}"
 										 	loading="lazy"
-											width="{{ img.width }}" height="{{ img.height }}">
+											width="{{ img.width(featuredMobile) }}" height="{{ img.height(featuredMobile) }}">
 									</picture>
 								</a>
 							{% endif %}
