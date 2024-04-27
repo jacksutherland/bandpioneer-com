@@ -9,14 +9,17 @@
 {% set blogModules = entry.blogContent.all() %}
 
 {% macro youtubeVideo(mediaId, caption, minuteMark, sectionTitle) %}
-	<figure class="video">
+	<div class="yt-loader" data-id="{{ mediaId }}" data-caption="{{ caption }}" data-minute="{{ minuteMark }}" data-title="{{ caption | length ? caption : sectionTitle }}"></div>
+	
+	{# <figure class="video">
 		<div class="player">
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ mediaId }}{% if minuteMark | length %}?start={{ minuteMark }}{% endif %}" title="{{ caption | length ? caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
 		{% if caption | length %}
 			<figcaption>{{ caption }}</figcaption>
 		{% endif %}
-	</figure>
+	</figure> #}
+	
 {% endmacro %}
 
 {% macro moduleImage(module) %}

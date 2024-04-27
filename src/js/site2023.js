@@ -456,6 +456,7 @@ class BandPioneerUX
 			this.readingProgress();
 			this.toc();
 			this.instagram();
+			this.youtubeLoader();
 		}
 
 		toc()
@@ -531,13 +532,45 @@ class BandPioneerUX
 					toc.querySelector('ul').classList.toggle('close');
 				});
 			}
-			
-			// const breakpoint = BandPioneerUX.getBreakpoint();
+		}
 
-			// if(breakpoint === "sm" || breakpoint === "md")
-			// {
-			// 	toc.querySelector('ul').classList.add('close');
-			// }
+		youtubeLoader()
+		{
+			const yts = document.querySelectorAll('.yt-loader');
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting)
+					{
+						observer.unobserve(entry.target);
+
+						let title = entry.target.dataset.caption.length > 0 ? entry.target.dataset.caption : entry.target.dataset.title;
+						let url = `https://www.youtube.com/embed/${entry.target.dataset.id}`;
+						if(entry.target.dataset.minute.length)
+						{
+							url += `?start=${entry.target.dataset.minute}`;
+						}
+
+						let html = `<figure class="video">
+										<div class="player">
+											<iframe width="560" height="315" src="${url}" title="${title}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										</div>`;
+
+						if(entry.target.dataset.caption.length > 0)
+						{
+							html += `<figcaption>${entry.target.dataset.caption}</figcaption>`;
+						}
+
+						html += "</figure>";
+
+						entry.target.outerHTML = html;
+					}
+				});
+			}, { threshold: 0, rootMargin: `150px` });
+
+			yts.forEach((yt) => {
+				observer.observe(yt);
+			});
 		}
 
 		readingProgress()
