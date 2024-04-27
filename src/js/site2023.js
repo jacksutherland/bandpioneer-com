@@ -13,6 +13,20 @@ class BandPioneerUX
 		this.addHeaderEvents();
 		this.addTopicMenuEvents();
 		this.startAnimations();
+
+		window.addEventListener('load', function()
+		{
+			setTimeout(function()
+			{
+			    var mvscript = document.createElement('script');
+			    mvscript.type = 'text/javascript';
+			    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
+			    mvscript.dataset.noptimize = "1";
+			    mvscript.dataset.cfasync = "false";
+			    mvscript.async = true;
+			    document.head.appendChild(mvscript);
+		    }, 1000);
+		});
 	}
 
 	static getBreakpoint()
