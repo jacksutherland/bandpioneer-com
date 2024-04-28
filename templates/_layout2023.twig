@@ -1,4 +1,4 @@
-{% set versionNumber = '2.087' %}
+{% set versionNumber = '2.088' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
@@ -62,7 +62,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
         <link rel="manifest" href="/assets/favicon/site.webmanifest">
         <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
-        {# <link rel="preload" href="/assets/fonts/conthrax-sb.woff2" as="font" type="font/woff2" crossorigin> #}
+        <link rel="preload" href="/assets/fonts/conthrax-sb.woff2" as="font" type="font/woff2" crossorigin>
 
         {% block styles %}
             <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
@@ -72,8 +72,8 @@
 
         {# <script defer type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=60f99a793b1d5d001213a396&product=inline-share-buttons' async='async'></script> #}
 
+        {# Mediavine loaded in site2023.js constructor #}
         {# <script type="text/javascript" async="async" data-noptimize="1" data-cfasync="false" src="//scripts.mediavine.com/tags/band-pioneer.js"></script> #}
-
         {# <script defer type="text/javascript" data-noptimize="1" data-cfasync="false" src="//scripts.mediavine.com/tags/band-pioneer.js"></script> #}
 
         {% block headerScripts %}{% endblock %}
