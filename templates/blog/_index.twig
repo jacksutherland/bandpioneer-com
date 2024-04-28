@@ -6,6 +6,7 @@
 {# {% set genreSlug = craft.app.request.segments | first %} #}
 {% set isGenrePage = false %}
 {% set isSticky = false %}
+{% set isMobile = craft.app.request.isMobileBrowser(false) %}
 
 {% if categorySlug == 'dynamic' %}
 
@@ -60,6 +61,15 @@
 	{% endif %}
 
 {% endif %}
+
+ {% block headerScripts %}
+ 	{% if isFirstPage and isMobile and featured and featured.blogImage.count  %}
+ 		{% set img = featured.blogImage.one() %}
+		{% set featuredMobile = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
+		{% set featuredMobile2x = { mode: 'fit', format: 'webp', width: 760, quality: 80 } %}
+ 		<link rel="preload" as="image" href="{{ img.url(featuredMobile) }}" imagesrcset="{{ img.url(featuredMobile) }} 1x, {{ img.url(featuredMobile2x) }} 2x">
+ 	{% endif %}
+ {% endblock %}
 
 {% block header %}
 	{% if entry is defined %}
@@ -145,7 +155,7 @@
 										<img src="{{ img.url(featuredMobile) }}"
 											srcset="{{ img.url(featuredMobile2x) }} 2x"
 										 	alt="{{ img.title }}"
-										 	loading="lazy"
+										 	loading="eager"
 											width="{{ img.width(featuredMobile) }}" height="{{ img.height(featuredMobile) }}">
 									</picture>
 								</a>
