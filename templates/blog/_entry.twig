@@ -77,9 +77,9 @@
 
 {% block content %}
 
-	{% cache %}
-	
-		{% include 'blog/_includes/blog-module' %}
+		{% cache %}
+			{% include 'blog/_includes/blog-module' %}
+		{% endcache %}
 		
 		<div class="blog-comments">
 			<div class="container narrow-container">
@@ -91,43 +91,40 @@
 			</div>
 		</div>
 
-		<div class="container narrow-container">
+		{% cache %}
+			<div class="container narrow-container">
+				<h3 class="section-title"><span>Keep Reading!</span></h3>
+				<section class="blog-row related-content">
+					{% for blog in relatedPosts %}
+						<article>
+							{% if blog.blogImage.count %}
+								{% set img = blog.blogImage.one() %}
+								{% set cat = blog.topic.one() %}
+								<a class="blog-img" href="{{ blog.url }}">
+				        			<picture>
+									 	<source srcset="{{ img.url("blogRelatedContent") }}, {{ img.url('blogRelatedContent2x') }} 2x" media="(min-width: 768px)" />
+										<img src="{{ img.url('recentPostsMobile2023') }}"
+											srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+										 	alt="{{ img.title }}"
+										 	loading="lazy"
+											width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+									</picture>
+								</a>
+								<a class="category" href="{{ cat.url }}">
+									{% include '_includes/icons' with { type: 'tag' } %}
+									<span>{{ cat.ctaText }}</span>
+								</a>
+								<a class="blog-title" href="{{ blog.url }}">
+									<h4 class="related-title">{{ blog.title }}</h4>
+								</a>
+							{% endif %}
+		        		</article>
+					{% endfor %}
+				</section>
+				{% include '_includes/related-categories' with { categories: entry.topic } %}
+			</div>
+		{% endcache %}
 
-			<h3 class="section-title"><span>Keep Reading!</span></h3>
-
-			<section class="blog-row related-content">
-				{# {% for blog in relatedPosts.all() %} #}
-				{% for blog in relatedPosts %}
-					<article>
-						{% if blog.blogImage.count %}
-							{% set img = blog.blogImage.one() %}
-							{% set cat = blog.topic.one() %}
-							<a class="blog-img" href="{{ blog.url }}">
-			        			<picture>
-								 	<source srcset="{{ img.url("blogRelatedContent") }}, {{ img.url('blogRelatedContent2x') }} 2x" media="(min-width: 768px)" />
-									<img src="{{ img.url('recentPostsMobile2023') }}"
-										srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
-									 	alt="{{ img.title }}"
-									 	loading="lazy"
-										width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
-								</picture>
-							</a>
-							<a class="category" href="{{ cat.url }}">
-								{% include '_includes/icons' with { type: 'tag' } %}
-								<span>{{ cat.ctaText }}</span>
-							</a>
-							<a class="blog-title" href="{{ blog.url }}">
-								<h4 class="related-title">{{ blog.title }}</h4>
-							</a>
-						{% endif %}
-	        		</article>
-				{% endfor %}
-			</section>
-
-			{% include '_includes/related-categories' with { categories: entry.topic } %}
-
-		</div>
-
-	{% endcache %}
+	
 
 {% endblock %}
