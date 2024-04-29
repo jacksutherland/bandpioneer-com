@@ -1,4 +1,4 @@
-dateModified: 1714173433
+dateModified: 1714413923
 elementSources:
   craft\elements\Asset:
     -
@@ -104,7 +104,7 @@ elementSources:
         - 'field:ed962f96-407c-48ee-9fe2-daccbb4b7a16' # Headline
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
         - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
-        - 'field:a3e2f22e-d4a1-4050-a8a8-5a2588565002' # Show Ads
+        - 'field:a3e2f22e-d4a1-4050-a8a8-5a2588565002' # Disable Ads
         - slug
         - dateUpdated
         - link
@@ -311,7 +311,7 @@ meta:
     73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: Background # Background
-    a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Show Ads' # Show Ads
+    a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Disable Ads' # Disable Ads
     a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
     a8e014fb-e647-47d8-af5a-e9648fff7a69: Categories # Categories
     a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image

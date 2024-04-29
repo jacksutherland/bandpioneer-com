@@ -30,7 +30,19 @@ fieldLayouts:
             uid: 96930d58-0a4d-42e7-a0e7-51004fca1ea2
             userCondition: null
             warning: null
-            width: 100
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: a3e2f22e-d4a1-4050-a8a8-5a2588565002 # Disable Ads
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6969e6e7-dfff-4dc9-8a66-5ba7b8d9b758
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline

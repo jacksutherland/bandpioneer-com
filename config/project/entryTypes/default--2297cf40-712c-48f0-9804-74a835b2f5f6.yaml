@@ -12,6 +12,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            inputType: null
             instructions: null
             label: null
             max: null
@@ -29,7 +30,19 @@ fieldLayouts:
             uid: c82ae511-0c1b-478f-b202-965810ca6d91
             userCondition: null
             warning: null
-            width: 100
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: a3e2f22e-d4a1-4050-a8a8-5a2588565002 # Disable Ads
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f25b2eff-67b4-48be-ba30-93561246baa9
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             heading: 'Page Options'

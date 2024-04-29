@@ -1,12 +1,12 @@
 columnSuffix: nyqrnzwp
 contentColumnType: boolean
 fieldGroup: afa97089-7ca5-4bf4-978a-baa1d5a60614 # Ads
-handle: showAds
+handle: disableAds
 instructions: null
-name: 'Show Ads'
+name: 'Disable Ads'
 searchable: false
 settings:
-  default: true
+  default: false
   offLabel: null
   onLabel: null
 translationKeyFormat: null

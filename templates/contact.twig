@@ -1,9 +1,8 @@
 {% extends '_layout2023' %}
 
+{% set disableAds = true %} 
 {% set entry = { slug: 'contact', title: 'Contact Us', section: { handle: 'contact' } } %}
-
 {% set submission = submission ?? null %}
-
 {% set articles = craft.entries.section('blog').limit(6).orderBy('RAND()') %}
 
 {% macro errorList(errors) %}
