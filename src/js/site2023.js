@@ -59,6 +59,51 @@ class BandPioneerUX
 		this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
 	}
 
+	alert(message, onCloseCallback)
+	{
+		const overlay = document.createElement('div');
+		overlay.classList.add('overlay');
+
+		const messageIsHTML = this.isHTML(message);
+		const maxWidth = (message.length > 100 || messageIsHTML) ? '600px' : '400px';
+		const modal = document.createElement('div');
+		modal.classList.add('modal');
+		modal.style.cssText = 'max-width:' + maxWidth + ';';
+
+		const closeButton = document.createElement('a');
+		closeButton.classList.add('close-button');
+		closeButton.innerHTML = 'x';
+		closeButton.href = '/';
+		closeButton.onclick = function(e)
+		{
+			e.preventDefault();
+			document.body.removeChild(overlay);
+			if(typeof(onCloseCallback) === 'function') onCloseCallback();
+		};
+
+		const messageElem = document.createElement(messageIsHTML ? 'div' : 'p');
+		messageElem.innerHTML = message;
+
+		overlay.onclick = function(event)
+		{
+			if (event.target === overlay)
+			{
+				document.body.removeChild(overlay);
+				if(typeof(onCloseCallback) === 'function') onCloseCallback();
+			}
+		};
+
+		modal.appendChild(closeButton);
+		modal.appendChild(messageElem);
+		overlay.appendChild(modal);
+		document.body.appendChild(overlay);
+	}
+
+	isHTML(str)
+	{
+		return str.charAt(0) === '<';
+	}
+
 	addHeaderEvents()
 	{
 		/***** SEARCH DROPDOWN *****/
