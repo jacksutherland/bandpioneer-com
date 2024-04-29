@@ -833,6 +833,8 @@ address[rel="author"] {
 	// comment plugin CSS
 
 	.cc-w {
+		opacity: 0.3;
+		
 		input, textarea {
 			font-size: $normal-font-size;
 			font-family: $font-family;
