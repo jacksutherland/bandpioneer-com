@@ -14,9 +14,8 @@ class BandPioneerUX
 		this.addTopicMenuEvents();
 		this.startAnimations();
 
-		window.addEventListener('load', function()
-		{
-			console.log('window loaded');
+		// window.addEventListener('load', function()
+		// {
 			// setTimeout(function()
 			// {
 			//     var mvscript = document.createElement('script');
@@ -27,7 +26,7 @@ class BandPioneerUX
 			//     mvscript.async = true;
 			//     document.head.appendChild(mvscript);
 		    // }, 4000);
-		});
+		// });
 	}
 
 	static getBreakpoint()
