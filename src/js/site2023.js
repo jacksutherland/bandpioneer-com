@@ -54,6 +54,11 @@ class BandPioneerUX
 	    BandPioneerUX.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
+	signUp()
+	{
+		this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
+	}
+
 	addHeaderEvents()
 	{
 		/***** SEARCH DROPDOWN *****/
