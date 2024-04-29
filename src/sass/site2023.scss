@@ -124,7 +124,7 @@
     max-width: 600px;
     padding: 20px;
     position: relative;
-    border-radius: $small-border-radius;
+    border-radius: $small-radius;
     box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
 
     .close-button {
@@ -140,6 +140,12 @@
     	width: 350px;
     	height: 440px;
     	border: none;
+    }
+
+    form {
+    	[data-role="submit-error"], [data-role="identifier-error"] {
+    		display: none;
+    	}
     }
   }
 }
