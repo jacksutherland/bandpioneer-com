@@ -201,6 +201,12 @@ class ProjectConfig extends Component
     public const EVENT_AFTER_APPLY_CHANGES = 'afterApplyChanges';
 
     /**
+     * @event Event The event that is triggered after the YAML files have been written out.
+     * @since 4.8.0
+     */
+    public const EVENT_AFTER_WRITE_YAML_FILES = 'afterWriteYamlFiles';
+
+    /**
      * @event RebuildConfigEvent The event that is triggered when the project config is being rebuilt.
      *
      * ---
@@ -902,6 +908,17 @@ class ProjectConfig extends Component
         }
 
         return $summary;
+    }
+
+    /**
+     * Get the list of applied changes
+     *
+     * @return array
+     * @since 4.9.0
+     */
+    public function getAppliedChanges(): array
+    {
+        return $this->_appliedChanges;
     }
 
     /**
@@ -1627,6 +1644,9 @@ class ProjectConfig extends Component
         }
 
         Craft::$app->getCache()->delete(self::FILE_ISSUES_CACHE_KEY);
+
+        // Let plugins know about it
+        $this->trigger(self::EVENT_AFTER_WRITE_YAML_FILES);
     }
 
     /**

@@ -457,7 +457,10 @@ class ElementQuery extends Query implements ElementQueryInterface
     /**
      * @var array The default [[orderBy]] value to use if [[orderBy]] is empty but not null.
      */
-    protected array $defaultOrderBy = ['elements.dateCreated' => SORT_DESC];
+    protected array $defaultOrderBy = [
+        'elements.dateCreated' => SORT_DESC,
+        'elements.id' => SORT_DESC,
+    ];
 
     // For internal use
     // -------------------------------------------------------------------------
@@ -968,6 +971,37 @@ class ElementQuery extends Query implements ElementQueryInterface
             }
         } else {
             $this->siteId = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     * @uses $siteId
+     * @return static
+     */
+    public function language($value): self
+    {
+        if (is_string($value)) {
+            $sites = Craft::$app->getSites()->getSitesByLanguage($value);
+            if (empty($sites)) {
+                throw new InvalidArgumentException("Invalid language: $value");
+            }
+            $this->siteId = array_map(fn(Site $site) => $site->id, $sites);
+        } else {
+            if ($not = (strtolower(reset($value)) === 'not')) {
+                array_shift($value);
+            }
+            $this->siteId = [];
+            foreach (Craft::$app->getSites()->getAllSites() as $site) {
+                if (in_array($site->language, $value, true) === !$not) {
+                    $this->siteId[] = $site->id;
+                }
+            }
+            if (empty($this->siteId)) {
+                throw new InvalidArgumentException('Invalid language param: [' . ($not ? 'not, ' : '') . implode(', ', $value) . ']');
+            }
         }
 
         return $this;
@@ -1566,11 +1600,67 @@ class ElementQuery extends Query implements ElementQueryInterface
     public function count($q = '*', $db = null): bool|int|string|null
     {
         // Cached?
-        if (($cachedResult = $this->getCachedResult()) !== null) {
+        if (
+            !$this->offset &&
+            !$this->limit &&
+            ($cachedResult = $this->getCachedResult()) !== null
+        ) {
             return count($cachedResult);
         }
 
-        return parent::count($q, $db) ?: 0;
+        try {
+            return $this->prepareSubquery()->count($q, $db) ?: 0;
+        } catch (QueryAbortedException) {
+            return 0;
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function sum($q, $db = null)
+    {
+        try {
+            return $this->prepareSubquery()->sum($q, $db);
+        } catch (QueryAbortedException) {
+            return false;
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function average($q, $db = null)
+    {
+        try {
+            return $this->prepareSubquery()->average($q, $db);
+        } catch (QueryAbortedException) {
+            return false;
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function min($q, $db = null)
+    {
+        try {
+            return $this->prepareSubquery()->min($q, $db);
+        } catch (QueryAbortedException) {
+            return false;
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function max($q, $db = null)
+    {
+        try {
+            return $this->prepareSubquery()->max($q, $db);
+        } catch (QueryAbortedException) {
+            return false;
+        }
     }
 
     /**
@@ -2600,7 +2690,17 @@ class ElementQuery extends Query implements ElementQueryInterface
         }
 
         if ($this->level) {
-            $this->subQuery->andWhere(Db::parseNumericParam('structureelements.level', $this->level));
+            $allowNull = is_array($this->level) && in_array(null, $this->level, true);
+            if ($allowNull) {
+                $levelCondition = [
+                    'or',
+                    Db::parseNumericParam('structureelements.level', array_filter($this->level, fn($v) => $v !== null)),
+                    ['structureelements.level' => null],
+                ];
+            } else {
+                $levelCondition = Db::parseNumericParam('structureelements.level', $this->level);
+            }
+            $this->subQuery->andWhere($levelCondition);
         }
 
         if ($this->leaves) {
@@ -2776,9 +2876,11 @@ class ElementQuery extends Query implements ElementQueryInterface
             return;
         }
 
-        if (isset($this->orderBy['score'])) {
+        $searchService = Craft::$app->getSearch();
+
+        if (isset($this->orderBy['score']) || $searchService->shouldCallSearchElements($this)) {
             // Get the scored results up front
-            $searchResults = Craft::$app->getSearch()->searchElements($this);
+            $searchResults = $searchService->searchElements($this);
 
             if ($this->orderBy['score'] === SORT_ASC) {
                 $searchResults = array_reverse($searchResults, true);
@@ -2804,7 +2906,7 @@ class ElementQuery extends Query implements ElementQueryInterface
             $this->subQuery->andWhere(['elements.id' => array_keys($searchResults)]);
         } else {
             // Just filter the main query by the search query
-            $searchQuery = Craft::$app->getSearch()->createDbQuery($this->search, $this);
+            $searchQuery = $searchService->createDbQuery($this->search, $this);
 
             if ($searchQuery === false) {
                 throw new QueryAbortedException();

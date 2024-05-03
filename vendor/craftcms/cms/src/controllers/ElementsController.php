@@ -340,14 +340,15 @@ class ElementsController extends Controller
         );
 
         // Preview targets
-        $previewTargets = (
-            $element->id &&
+        $previewTargets = $element->id ? $element->getPreviewTargets() : [];
+        $enablePreview = (
+            !empty($previewTargets) &&
+            !$this->request->isMobileBrowser(true) &&
             (
                 ($isDraft && $canSave) ||
                 ($isCurrent && $canCreateDrafts)
             )
-        ) ? $element->getPreviewTargets() : [];
-        $enablePreview = $previewTargets && !$this->request->isMobileBrowser(true);
+        );
 
         if ($previewTargets) {
             if ($isDraft && !$element->isProvisionalDraft) {
@@ -424,6 +425,7 @@ class ElementsController extends Controller
                         'additionalSites' => $addlEditableSites,
                         'canCreateDrafts' => $canCreateDrafts,
                         'canEditMultipleSites' => $canEditMultipleSites,
+                        'canSave' => $canSave,
                         'canSaveCanonical' => $canSaveCanonical,
                         'elementId' => $element->id,
                         'canonicalId' => $canonical->id,
@@ -773,7 +775,7 @@ class ElementsController extends Controller
         ];
 
         // Preview (View will be added later by JS)
-        if ($canSave && $previewTargets) {
+        if ($previewTargets) {
             $components[] =
                 Html::beginTag('div', [
                     'class' => ['preview-btn-container', 'btngroup'],
@@ -904,13 +906,11 @@ class ElementsController extends Controller
             ->content($contentHtml)
             ->sidebar($sidebarHtml);
 
-        if ($canSave && !$element->getIsRevision()) {
-            $this->view->registerJsWithVars(fn($settingsJs) => <<<JS
+        $this->view->registerJsWithVars(fn($settingsJs) => <<<JS
 new Craft.ElementEditor($('#$containerId'), $settingsJs);
 JS, [
-                $jsSettingsFn($form),
-            ]);
-        }
+            $jsSettingsFn($form),
+        ]);
 
         // Give the element a chance to do things here too
         $element->prepareEditScreen($response, $containerId);
@@ -1787,6 +1787,10 @@ JS, [
     {
         $element = $this->_element();
 
+        if ($element instanceof Response) {
+            return $element;
+        }
+
         if (!$element || $element->getIsRevision()) {
             throw new BadRequestHttpException('No element was identified by the request.');
         }
@@ -1839,14 +1843,18 @@ JS, [
      *
      * @param int|null $elementId
      * @param string|null $elementUid
-     * @param bool|null $provisional
+     * @param bool $checkForProvisionalDraft
      * @param bool $strictSite
      * @return ElementInterface|Response|null
      * @throws BadRequestHttpException
      * @throws ForbiddenHttpException
      */
-    private function _element(?int $elementId = null, ?string $elementUid = null, ?bool $provisional = null, bool $strictSite = true): ElementInterface|Response|null
-    {
+    private function _element(
+        ?int $elementId = null,
+        ?string $elementUid = null,
+        bool $checkForProvisionalDraft = false,
+        bool $strictSite = true,
+    ): ElementInterface|Response|null {
         $elementId = $elementId ?? $this->_elementId;
         $elementUid = $elementUid ?? $this->_elementUid;
 
@@ -1909,42 +1917,15 @@ JS, [
                 ->one();
 
             if (!$element) {
+                // check for the canonical element as a fallback
+                $element = $this->_elementById($elementId, $elementUid, false, $elementType, $user, $siteId, $preferSites);
+                if ($element && $elementsService->canView($element, $user)) {
+                    return $this->redirect($element->getCpEditUrl());
+                }
                 throw new BadRequestHttpException($this->_draftId ? "Invalid draft ID: $this->_draftId" : "Invalid revision ID: $this->_revisionId");
             }
         } elseif ($elementId || $elementUid) {
-            if ($elementId) {
-                // First check for a provisional draft, if we're open to it
-                if ($provisional) {
-                    $element = $elementType::find()
-                        ->provisionalDrafts()
-                        ->draftOf($elementId)
-                        ->draftCreator($user)
-                        ->siteId($siteId)
-                        ->preferSites($preferSites)
-                        ->unique()
-                        ->status(null)
-                        ->one();
-                }
-
-                if (!isset($element) || !$this->_canSave($element, $user)) {
-                    $element = $elementType::find()
-                        ->id($elementId)
-                        ->siteId($siteId)
-                        ->preferSites($preferSites)
-                        ->unique()
-                        ->status(null)
-                        ->one();
-                }
-            } else {
-                $element = $elementType::find()
-                    ->uid($elementUid)
-                    ->siteId($siteId)
-                    ->preferSites($preferSites)
-                    ->unique()
-                    ->status(null)
-                    ->one();
-            }
-
+            $element = $this->_elementById($elementId, $elementUid, $checkForProvisionalDraft, $elementType, $user, $siteId, $preferSites);
             if (!$element) {
                 throw new BadRequestHttpException($elementId ? "Invalid element ID: $elementId" : "Invalid element UUID: $elementUid");
             }
@@ -1952,7 +1933,7 @@ JS, [
             return null;
         }
 
-        if (!$elementsService->canView($element, static::currentUser())) {
+        if (!$elementsService->canView($element, $user)) {
             throw new ForbiddenHttpException('User not authorized to edit this element.');
         }
 
@@ -1961,6 +1942,71 @@ JS, [
         }
 
         return $element;
+    }
+
+    private function _elementById(
+        ?int $elementId,
+        ?string $elementUid,
+        bool $checkForProvisionalDraft,
+        string $elementType,
+        User $user,
+        int|array $siteId,
+        ?array $preferSites,
+    ): ?ElementInterface {
+        /** @var string|ElementInterface $elementType */
+        if ($elementId) {
+            // First check for a provisional draft, if we're open to it
+            if ($checkForProvisionalDraft) {
+                $element = $elementType::find()
+                    ->provisionalDrafts()
+                    ->draftOf($elementId)
+                    ->draftCreator($user)
+                    ->siteId($siteId)
+                    ->preferSites($preferSites)
+                    ->unique()
+                    ->status(null)
+                    ->one();
+
+                if ($element && $this->_canSave($element, $user)) {
+                    return $element;
+                }
+            }
+
+            $element = $elementType::find()
+                ->id($elementId)
+                ->siteId($siteId)
+                ->preferSites($preferSites)
+                ->unique()
+                ->status(null)
+                ->one();
+
+            if ($element) {
+                return $element;
+            }
+
+            // finally, check for an unpublished draft
+            // (see https://github.com/craftcms/cms/issues/14199)
+            return $elementType::find()
+                ->id($elementId)
+                ->siteId($siteId)
+                ->preferSites($preferSites)
+                ->unique()
+                ->draftOf(false)
+                ->status(null)
+                ->one();
+        }
+
+        if ($elementUid) {
+            return $elementType::find()
+                ->uid($elementUid)
+                ->siteId($siteId)
+                ->preferSites($preferSites)
+                ->unique()
+                ->status(null)
+                ->one();
+        }
+
+        return null;
     }
 
     /**

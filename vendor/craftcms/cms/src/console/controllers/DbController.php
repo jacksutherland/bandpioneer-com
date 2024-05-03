@@ -214,7 +214,7 @@ class DbController extends Controller
             $db->backupTo($path);
             if ($this->zip) {
                 $zipPath = FileHelper::zip($path);
-                unlink($path);
+                FileHelper::unlink($path);
                 $path = $zipPath;
             }
         } catch (Throwable $e) {
@@ -242,8 +242,13 @@ class DbController extends Controller
      */
     public function actionRestore(?string $path = null): int
     {
-        if (!is_file($path)) {
-            $this->stderr("Backup file doesn't exist: $path" . PHP_EOL);
+        if (!is_readable($path)) {
+            if (!is_dir($path) && Craft::$app->getConfig()->getGeneral()->backupCommandFormat === 'directory') {
+                $this->stderr("Backup directory doesn't exist: $path" . PHP_EOL);
+            } else {
+                $this->stderr("Backup file doesn't exist: $path" . PHP_EOL);
+            }
+
             return ExitCode::UNSPECIFIED_ERROR;
         }
 
@@ -358,6 +363,10 @@ class DbController extends Controller
             ]);
         }
 
+        // Disable FK checks
+        $queryBuilder = $db->getSchema()->getQueryBuilder();
+        $db->createCommand($queryBuilder->checkIntegrity(false))->execute();
+
         foreach ($tableNames as $tableName) {
             $tableName = $schema->getRawTableName($tableName);
             $this->stdout('Converting ');
@@ -366,6 +375,8 @@ class DbController extends Controller
             $db->createCommand("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET $charset COLLATE $collation")->execute();
             $this->stdout('done' . PHP_EOL, Console::FG_GREEN);
         }
+
+        $db->createCommand()->checkIntegrity(true)->execute();
 
         $this->stdout("Finished converting tables to $charset/$collation." . PHP_EOL, Console::FG_GREEN);
         return ExitCode::OK;

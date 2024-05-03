@@ -51,9 +51,9 @@ class Composer extends PartialComposer
      *
      * @see getVersion()
      */
-    public const VERSION = '2.7.1';
+    public const VERSION = '2.7.5';
     public const BRANCH_ALIAS_VERSION = '';
-    public const RELEASE_DATE = '2024-02-09 15:26:28';
+    public const RELEASE_DATE = '2024-05-03 16:23:40';
     public const SOURCE_VERSION = '';
 
     /**

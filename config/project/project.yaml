@@ -1,4 +1,4 @@
-dateModified: 1714413923
+dateModified: 1714777448
 elementSources:
   craft\elements\Asset:
     -
@@ -461,11 +461,6 @@ plugins:
       prependSubject: 'Band Pioneer'
       successFlashMessage: 'Thank you! Your message has been sent.'
       toEmail: jack@bandpioneer.com
-  instant-analytics-ga4:
-    edition: standard
-    enabled: true
-    licenseKey: NNEI81USTRT97WWKO5A7ZXCL
-    schemaVersion: 1.0.0
   logs:
     edition: standard
     enabled: true

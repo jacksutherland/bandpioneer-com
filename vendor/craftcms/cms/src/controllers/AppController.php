@@ -20,6 +20,7 @@ use craft\helpers\ArrayHelper;
 use craft\helpers\Cp;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Html;
+use craft\helpers\Json;
 use craft\helpers\Update as UpdateHelper;
 use craft\helpers\UrlHelper;
 use craft\models\Update;
@@ -30,6 +31,7 @@ use DateInterval;
 use Throwable;
 use yii\base\InvalidConfigException;
 use yii\web\BadRequestHttpException;
+use yii\web\Cookie;
 use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 use yii\web\ServerErrorHttpException;
@@ -52,6 +54,7 @@ class AppController extends Controller
         'migrate' => self::ALLOW_ANONYMOUS_LIVE | self::ALLOW_ANONYMOUS_OFFLINE,
         'broken-image' => self::ALLOW_ANONYMOUS_LIVE | self::ALLOW_ANONYMOUS_OFFLINE,
         'health-check' => self::ALLOW_ANONYMOUS_LIVE,
+        'resource-js' => self::ALLOW_ANONYMOUS_LIVE | self::ALLOW_ANONYMOUS_OFFLINE,
     ];
 
     /**
@@ -393,6 +396,76 @@ class AppController extends Controller
     }
 
     /**
+     * Displays a licensing issues takeover page.
+     *
+     * @param array $issues
+     * @param string $hash
+     * @return Response
+     * @internal
+     */
+    public function actionLicensingIssues(array $issues, string $hash): Response
+    {
+        $this->requireCpRequest();
+
+        $consoleUrl = rtrim(Craft::$app->getPluginStore()->craftIdEndpoint, '/');
+        $cartUrl = UrlHelper::urlWithParams("$consoleUrl/cart/new", [
+            'items' => array_map(fn($issue) => $issue[2], $issues),
+        ]);
+
+        $cookie = $this->request->getCookies()->get(App::licenseShunCookieName());
+        $data = $cookie ? Json::decode($cookie->value) : null;
+        if (($data['hash'] ?? null) !== $hash) {
+            $data = null;
+        }
+
+        $duration = match ($data['count'] ?? 0) {
+            0 => 21,
+            1 => 34,
+            2 => 55,
+            3 => 89,
+            4 => 144,
+            5 => 233,
+            6 => 377,
+            7 => 610,
+            8 => 987,
+            default => 1597,
+        };
+
+        return $this->renderTemplate('_special/licensing-issues.twig', [
+            'issues' => $issues,
+            'hash' => $hash,
+            'cartUrl' => $cartUrl,
+            'duration' => $duration,
+        ])->setStatusCode(402);
+    }
+
+    /**
+     * Sets the license shun cookie.
+     *
+     * @return Response
+     * @internal
+     */
+    public function actionSetLicenseShunCookie(): Response
+    {
+        $cookieName = App::licenseShunCookieName();
+        $oldCookie = $this->request->getCookies()->get($cookieName);
+        $data = $oldCookie ? Json::decode($oldCookie->value) : [];
+
+        $newCookie = new Cookie(Craft::cookieConfig([
+            'name' => $cookieName,
+            'value' => Json::encode([
+                'hash' => $this->request->getRequiredBodyParam('hash'),
+                'timestamp' => DateTimeHelper::toIso8601(DateTimeHelper::now()),
+                'count' => ($data['count'] ?? 0) + 1,
+            ]),
+            'expire' => DateTimeHelper::now()->modify('+1 year')->getTimestamp(),
+        ], $this->request));
+
+        $this->response->getCookies()->add($newCookie);
+        return $this->asSuccess();
+    }
+
+    /**
      * Tries a Craft edition on for size.
      *
      * @return Response
@@ -502,20 +575,15 @@ class AppController extends Controller
         $arr['name'] = $name;
         $arr['latestVersion'] = $update->getLatest()->version ?? null;
 
-        if ($update->abandoned) {
-            $arr['statusText'] = Html::tag('strong', Craft::t('app', 'This plugin is no longer maintained.'));
-            if ($update->replacementName) {
-                if (Craft::$app->getUser()->getIsAdmin() && Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
-                    $replacementUrl = UrlHelper::url("plugin-store/$update->replacementHandle");
-                } else {
-                    $replacementUrl = $update->replacementUrl;
-                }
-                $arr['statusText'] .= ' ' .
-                    Craft::t('app', 'The developer recommends using <a href="{url}">{name}</a> instead.', [
-                        'url' => $replacementUrl,
-                        'name' => $update->replacementName,
-                    ]);
-            }
+        // Make sure that the platform & composer.json PHP version are compatible
+        $phpConstraintError = null;
+        if (
+            $update->phpConstraint &&
+            !UpdateHelper::checkPhpConstraint($update->phpConstraint, $phpConstraintError, true)
+        ) {
+            $arr['status'] = 'phpIssue';
+            $arr['statusText'] = $phpConstraintError;
+            $arr['ctaUrl'] = false;
         } elseif ($update->status === Update::STATUS_EXPIRED) {
             $arr['statusText'] = Craft::t('app', '<strong>Your license has expired!</strong> Renew your {name} license for another year of amazing updates.', [
                 'name' => $name,
@@ -524,23 +592,33 @@ class AppController extends Controller
                 'price' => Craft::$app->getFormatter()->asCurrency($update->renewalPrice, $update->renewalCurrency),
             ]);
             $arr['ctaUrl'] = UrlHelper::url($update->renewalUrl);
-        } else {
-            // Make sure that the platform & composer.json PHP version are compatible
-            $phpConstraintError = null;
-            if ($update->phpConstraint && !UpdateHelper::checkPhpConstraint($update->phpConstraint, $phpConstraintError, true)) {
-                $arr['status'] = 'phpIssue';
-                $arr['statusText'] = $phpConstraintError;
-                $arr['ctaUrl'] = false;
-            } else {
-                if ($update->status === Update::STATUS_BREAKPOINT) {
-                    $arr['statusText'] = Craft::t('app', '<strong>You’ve reached a breakpoint!</strong> More updates will become available after you install {update}.', [
-                        'update' => $name . ' ' . ($update->getLatest()->version ?? ''),
-                    ]);
-                }
 
-                if ($allowUpdates) {
-                    $arr['ctaText'] = Craft::t('app', 'Update');
+            if ($allowUpdates && Craft::$app->getCanTestEditions()) {
+                $arr['altCtaText'] = Craft::t('app', 'Update anyway');
+            }
+        } else {
+            if ($update->abandoned) {
+                $arr['statusText'] = Html::tag('strong', Craft::t('app', 'This plugin is no longer maintained.'));
+                if ($update->replacementName) {
+                    if (Craft::$app->getUser()->getIsAdmin() && Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
+                        $replacementUrl = UrlHelper::url("plugin-store/$update->replacementHandle");
+                    } else {
+                        $replacementUrl = $update->replacementUrl;
+                    }
+                    $arr['statusText'] .= ' ' .
+                        Craft::t('app', 'The developer recommends using <a href="{url}">{name}</a> instead.', [
+                            'url' => $replacementUrl,
+                            'name' => $update->replacementName,
+                        ]);
                 }
+            } elseif ($update->status === Update::STATUS_BREAKPOINT) {
+                $arr['statusText'] = Craft::t('app', '<strong>You’ve reached a breakpoint!</strong> More updates will become available after you install {update}.', [
+                    'update' => $name . ' ' . ($update->getLatest()->version ?? ''),
+                ]);
+            }
+
+            if ($allowUpdates) {
+                $arr['ctaText'] = Craft::t('app', 'Update');
             }
         }
 

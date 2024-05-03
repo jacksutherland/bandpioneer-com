@@ -38,27 +38,6 @@ return array (
     'documentationUrl' => 'https://bandpioneer.com',
     'changelogUrl' => 'https://bandpioneer.com',
   ),
-  'craftcms/contact-form' => 
-  array (
-    'class' => 'craft\\contactform\\Plugin',
-    'basePath' => $vendorDir . '/craftcms/contact-form/src',
-    'handle' => 'contact-form',
-    'aliases' => 
-    array (
-      '@craft/contactform' => $vendorDir . '/craftcms/contact-form/src',
-    ),
-    'name' => 'Contact Form',
-    'version' => '3.0.1',
-    'description' => 'Add a simple contact form to your Craft CMS site',
-    'developer' => 'Pixel & Tonic',
-    'developerUrl' => 'https://pixelandtonic.com/',
-    'developerEmail' => 'support@craftcms.com',
-    'documentationUrl' => 'https://github.com/craftcms/contact-form/blob/v2/README.md',
-    'components' => 
-    array (
-      'mailer' => 'craft\\contactform\\Mailer',
-    ),
-  ),
   'craftcms/redactor' => 
   array (
     'class' => 'craft\\redactor\\Plugin',
@@ -111,21 +90,26 @@ return array (
     'developer' => 'Ether Creative',
     'developerUrl' => 'https://ethercreative.co.uk',
   ),
-  'nystudio107/craft-instantanalytics-ga4' => 
+  'craftcms/contact-form' => 
   array (
-    'class' => 'nystudio107\\instantanalyticsGa4\\InstantAnalytics',
-    'basePath' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
-    'handle' => 'instant-analytics-ga4',
+    'class' => 'craft\\contactform\\Plugin',
+    'basePath' => $vendorDir . '/craftcms/contact-form/src',
+    'handle' => 'contact-form',
     'aliases' => 
     array (
-      '@nystudio107/instantanalyticsGa4' => $vendorDir . '/nystudio107/craft-instantanalytics-ga4/src',
+      '@craft/contactform' => $vendorDir . '/craftcms/contact-form/src',
     ),
-    'name' => 'Instant Analytics GA4',
-    'version' => '4.0.1',
-    'description' => 'Instant Analytics brings full Google GA4 server-side analytics support to your Twig templates and automatic Craft Commerce integration',
-    'developer' => 'nystudio107',
-    'developerUrl' => 'https://nystudio107.com',
-    'documentationUrl' => 'https://nystudio107.com/docs/instant-analytics-ga4/',
+    'name' => 'Contact Form',
+    'version' => '3.1.0',
+    'description' => 'Add a simple contact form to your Craft CMS site',
+    'developer' => 'Pixel & Tonic',
+    'developerUrl' => 'https://pixelandtonic.com/',
+    'developerEmail' => 'support@craftcms.com',
+    'documentationUrl' => 'https://github.com/craftcms/contact-form/blob/v2/README.md',
+    'components' => 
+    array (
+      'mailer' => 'craft\\contactform\\Mailer',
+    ),
   ),
   'verbb/comments' => 
   array (
@@ -137,7 +121,7 @@ return array (
       '@verbb/comments' => $vendorDir . '/verbb/comments/src',
     ),
     'name' => 'Comments',
-    'version' => '2.0.10',
+    'version' => '2.0.12',
     'description' => 'Add comments to your site.',
     'developer' => 'Verbb',
     'developerUrl' => 'https://verbb.io',
