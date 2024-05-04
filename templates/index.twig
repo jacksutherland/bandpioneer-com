@@ -69,7 +69,7 @@
 		{% cache using key popularPostsCacheKey %}
 			<section class="blog-row">
 				<div class="container">
-					<h2>Popular Articles</h2>
+					<h2>{{ entry.ctaText2 | length ? entry.ctaText2 : 'Popular Articles' }}</h2>
 					<div class="scroll-pane">
 						<div>
 							{% for blog in blog.popularPosts %}

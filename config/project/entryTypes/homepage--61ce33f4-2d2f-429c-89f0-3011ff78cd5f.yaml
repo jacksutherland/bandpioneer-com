@@ -33,16 +33,28 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
+            fieldUid: 8bb43633-4a68-4f44-93b1-84ef2584a366 # CTA Text 2
             instructions: null
-            label: 'CTA Headline'
+            label: 'Popular Articles Headline'
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: d742b8bb-19a8-4ee2-b3be-b332bf29745a
+            uid: 4627ae5e-a9e4-4c6d-87e4-49ad6a9d8f9a
             userCondition: null
             warning: null
-            width: 75
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
+            instructions: null
+            label: 'Show CTA'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: daa7254f-0111-468e-98a4-b17dd40ede55
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             fieldUid: a3e2f22e-d4a1-4050-a8a8-5a2588565002 # Disable Ads
@@ -62,6 +74,18 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
+            fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
+            instructions: null
+            label: 'CTA Headline'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d742b8bb-19a8-4ee2-b3be-b332bf29745a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
             instructions: null
             label: 'CTA Subheadline'
@@ -71,19 +95,7 @@ fieldLayouts:
             uid: 61676ce3-32d2-4b70-a990-b01bb72df917
             userCondition: null
             warning: null
-            width: 75
-          -
-            elementCondition: null
-            fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
-            instructions: null
-            label: 'Show CTA'
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: daa7254f-0111-468e-98a4-b17dd40ede55
-            userCondition: null
-            warning: null
-            width: 25
+            width: 50
           -
             elementCondition: null
             type: craft\fieldlayoutelements\LineBreak
