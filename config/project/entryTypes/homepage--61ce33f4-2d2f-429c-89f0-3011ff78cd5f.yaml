@@ -35,7 +35,7 @@ fieldLayouts:
             elementCondition: null
             fieldUid: 8bb43633-4a68-4f44-93b1-84ef2584a366 # CTA Text 2
             instructions: null
-            label: 'Popular Articles Headline'
+            label: 'Popular Articles (mobile headline~desktop headline)'
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

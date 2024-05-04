@@ -32,6 +32,28 @@ body {
 	text-align: justify;
 }
 
+/***** RESPONSIVE CLASSES *****/
+
+@media (max-width: ($breakpoint-sm - 1px)) {
+	.hide-sm-down {
+		display: none;
+	}
+}
+@media (max-width: ($breakpoint-md - 1px)) {
+	.hide-md-down {
+		display: none;
+	}
+}
+@media (min-width: $breakpoint-sm) {
+	.hide-sm-up {
+		display: none;
+	}
+}
+@media (min-width: $breakpoint-md) {
+	.hide-md-up {
+		display: none;
+	}
+}
 
 /***** TYPOGRAPHY *****/
 

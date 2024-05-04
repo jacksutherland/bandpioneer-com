@@ -65,11 +65,21 @@
 
 {% block header %}
 	{% if isFirstPage and blog.popularPosts.count %}
-		{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
-		{% cache using key popularPostsCacheKey %}
+	{# 	{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
+		{% cache using key popularPostsCacheKey %} #}
 			<section class="blog-row">
 				<div class="container">
-					<h2>{{ entry.ctaText2 | length ? entry.ctaText2 : 'Popular Articles' }}</h2>
+					{% if entry.ctaText2 | length %}
+						{% set h2CTAs = entry.ctaText2 | split('~') %}
+						{% if h2CTAs | length > 1 %}
+							<h2 class="hide-sm-up">{{ h2CTAs[0] }}</h2>
+							<h2 class="hide-sm-down">{{ h2CTAs[1] }}</h2>
+						{% else %}
+							<h2>{{ entry.ctaText2 }}</h2>
+						{% endif %}
+					{% else %}
+						<h2>Popular Articles</h2>
+					{% endif %}
 					<div class="scroll-pane">
 						<div>
 							{% for blog in blog.popularPosts %}
@@ -101,7 +111,7 @@
 			        </div>
 				</div>
 			</section>
-		{% endcache %}
+		{# {% endcache %} #}
 	{% endif %}
 {% endblock %}
 
