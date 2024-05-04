@@ -2,7 +2,7 @@ columnSuffix: wkkqqsdj
 contentColumnType: text
 fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
 handle: featuredSnippet
-instructions: 'The optimal snippet length is 40-50 words, with a maximum of 320 characters'
+instructions: 'The optimal snippet length is 40-50 words, with a maximum of 320 characters.'
 name: 'Featured Snippet'
 searchable: true
 settings:
