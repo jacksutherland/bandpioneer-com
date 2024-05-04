@@ -10,8 +10,16 @@ options:
     options:
       - left
       - right
+  style:
+    definitions:
+      -
+        classes:
+          - btn
+        element: a
+        name: Button
 toolbar:
   - heading
+  - style
   - bold
   - italic
   - underline
