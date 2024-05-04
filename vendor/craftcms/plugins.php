@@ -129,4 +129,21 @@ return array (
     'documentationUrl' => 'https://github.com/verbb/comments',
     'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-4/CHANGELOG.md',
   ),
+  'craftcms/ckeditor' => 
+  array (
+    'class' => 'craft\\ckeditor\\Plugin',
+    'basePath' => $vendorDir . '/craftcms/ckeditor/src',
+    'handle' => 'ckeditor',
+    'aliases' => 
+    array (
+      '@craft/ckeditor' => $vendorDir . '/craftcms/ckeditor/src',
+    ),
+    'name' => 'CKEditor',
+    'version' => '3.8.3',
+    'description' => 'Edit rich text content in Craft CMS using CKEditor.',
+    'developer' => 'Pixel & Tonic',
+    'developerUrl' => 'https://pixelandtonic.com/',
+    'developerEmail' => 'support@craftcms.com',
+    'documentationUrl' => 'https://github.com/craftcms/ckeditor/blob/master/README.md',
+  ),
 );

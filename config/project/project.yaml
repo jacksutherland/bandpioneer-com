@@ -1,4 +1,4 @@
-dateModified: 1714777448
+dateModified: 1714779833
 elementSources:
   craft\elements\Asset:
     -
@@ -340,6 +340,7 @@ meta:
     c8882f0f-9f15-47b0-a3ba-c71265503cc1: 'Minute Mark 2' # Minute Mark 2
     c4817296-2368-46b6-9127-4bd175f84a4a: 'Dynamic SEO' # Dynamic SEO
     cb12ca30-b685-4547-a81e-f978eb629278: Internal # Internal
+    cc64f857-3e97-42d7-8a16-79223c695a98: Default # Default
     cd4a38c4-94ce-4c20-9d8b-62288944ef87: 'Media Type' # Media Type
     cdaef71d-1a83-462b-92b2-4d96fd8d8b32: 'Related SEO Keywords' # Related SEO Keywords
     d0343e16-9877-458f-88e4-13b343d2cbae: Tags # Tags
@@ -371,7 +372,12 @@ meta:
     fa511e02-7c6f-4081-9701-b14c76ecf31a: Common # Common
     fab3405a-11f1-4389-b8fb-d7f3fae15087: 'Featured Snippet' # Featured Snippet
     fd86eaf9-b505-4c30-8bd9-37be31ad6209: Default # Default
+    fe1cd76f-41da-4ad3-bf83-7289c909ad2d: Simple # Simple
 plugins:
+  ckeditor:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0.0
   comments:
     edition: standard
     enabled: true

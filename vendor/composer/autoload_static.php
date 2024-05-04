@@ -9,8 +9,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
@@ -72,6 +72,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'putyourlightson\\sendgrid\\' => 25,
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'n' => 
+        array (
+            'nystudio107\\codeeditor\\' => 23,
+        ),
         'm' => 
         array (
             'modules\\' => 8,
@@ -90,6 +94,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'craft\\htmlfield\\' => 16,
             'craft\\contactform\\' => 18,
             'craft\\composer\\' => 15,
+            'craft\\ckeditor\\' => 15,
             'craft\\' => 6,
             'cebe\\markdown\\' => 14,
         ),
@@ -340,8 +345,12 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'nystudio107\\codeeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src',
         ),
         'modules\\' => 
         array (
@@ -382,6 +391,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/craftcms/plugin-installer/src',
+        ),
+        'craft\\ckeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/craftcms/ckeditor/src',
         ),
         'craft\\' => 
         array (
@@ -3973,6 +3986,21 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'craft\\cache\\DbCache' => __DIR__ . '/..' . '/craftcms/cms/src/cache/DbCache.php',
         'craft\\cache\\ElementQueryTagDependency' => __DIR__ . '/..' . '/craftcms/cms/src/cache/ElementQueryTagDependency.php',
         'craft\\cache\\FileCache' => __DIR__ . '/..' . '/craftcms/cms/src/cache/FileCache.php',
+        'craft\\ckeditor\\CkeConfig' => __DIR__ . '/..' . '/craftcms/ckeditor/src/CkeConfig.php',
+        'craft\\ckeditor\\CkeConfigs' => __DIR__ . '/..' . '/craftcms/ckeditor/src/CkeConfigs.php',
+        'craft\\ckeditor\\Field' => __DIR__ . '/..' . '/craftcms/ckeditor/src/Field.php',
+        'craft\\ckeditor\\Plugin' => __DIR__ . '/..' . '/craftcms/ckeditor/src/Plugin.php',
+        'craft\\ckeditor\\console\\controllers\\ConvertController' => __DIR__ . '/..' . '/craftcms/ckeditor/src/console/controllers/ConvertController.php',
+        'craft\\ckeditor\\controllers\\CkeConfigsController' => __DIR__ . '/..' . '/craftcms/ckeditor/src/controllers/CkeConfigsController.php',
+        'craft\\ckeditor\\controllers\\CkeditorController' => __DIR__ . '/..' . '/craftcms/ckeditor/src/controllers/CkeditorController.php',
+        'craft\\ckeditor\\events\\DefineLinkOptionsEvent' => __DIR__ . '/..' . '/craftcms/ckeditor/src/events/DefineLinkOptionsEvent.php',
+        'craft\\ckeditor\\events\\ModifyConfigEvent' => __DIR__ . '/..' . '/craftcms/ckeditor/src/events/ModifyConfigEvent.php',
+        'craft\\ckeditor\\helpers\\CkeditorConfigSchema' => __DIR__ . '/..' . '/craftcms/ckeditor/src/helpers/CkeditorConfigSchema.php',
+        'craft\\ckeditor\\migrations\\Install' => __DIR__ . '/..' . '/craftcms/ckeditor/src/migrations/Install.php',
+        'craft\\ckeditor\\migrations\\m230408_163704_v3_upgrade' => __DIR__ . '/..' . '/craftcms/ckeditor/src/migrations/m230408_163704_v3_upgrade.php',
+        'craft\\ckeditor\\web\\assets\\BaseCkeditorPackageAsset' => __DIR__ . '/..' . '/craftcms/ckeditor/src/web/assets/BaseCkeditorPackageAsset.php',
+        'craft\\ckeditor\\web\\assets\\ckeconfig\\CkeConfigAsset' => __DIR__ . '/..' . '/craftcms/ckeditor/src/web/assets/ckeconfig/CkeConfigAsset.php',
+        'craft\\ckeditor\\web\\assets\\ckeditor\\CkeditorAsset' => __DIR__ . '/..' . '/craftcms/ckeditor/src/web/assets/ckeditor/CkeditorAsset.php',
         'craft\\composer\\Installer' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/Installer.php',
         'craft\\composer\\InvalidPluginException' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/InvalidPluginException.php',
         'craft\\composer\\Plugin' => __DIR__ . '/..' . '/craftcms/plugin-installer/src/Plugin.php',
@@ -5134,6 +5162,29 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'ether\\sidebarentrytypes\\SidebarEntryTypes' => __DIR__ . '/..' . '/ether/sidebarentrytypes/src/SidebarEntryTypes.php',
         'mikehaertl\\shellcommand\\Command' => __DIR__ . '/..' . '/mikehaertl/php-shellcommand/src/Command.php',
         'modules\\Module' => __DIR__ . '/../..' . '/modules/Module.php',
+        'nystudio107\\codeeditor\\CodeEditor' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/CodeEditor.php',
+        'nystudio107\\codeeditor\\assetbundles\\codeeditor\\CodeEditorAsset' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/assetbundles/codeeditor/CodeEditorAsset.php',
+        'nystudio107\\codeeditor\\autocompletes\\CraftApiAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/autocompletes/CraftApiAutocomplete.php',
+        'nystudio107\\codeeditor\\autocompletes\\EnvironmentVariableAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/autocompletes/EnvironmentVariableAutocomplete.php',
+        'nystudio107\\codeeditor\\autocompletes\\ObjectAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/autocompletes/ObjectAutocomplete.php',
+        'nystudio107\\codeeditor\\autocompletes\\SectionShorthandFieldsAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/autocompletes/SectionShorthandFieldsAutocomplete.php',
+        'nystudio107\\codeeditor\\autocompletes\\TwigLanguageAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/autocompletes/TwigLanguageAutocomplete.php',
+        'nystudio107\\codeeditor\\base\\Autocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/base/Autocomplete.php',
+        'nystudio107\\codeeditor\\base\\AutocompleteInterface' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/base/AutocompleteInterface.php',
+        'nystudio107\\codeeditor\\base\\ObjectParserAutocomplete' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/base/ObjectParserAutocomplete.php',
+        'nystudio107\\codeeditor\\base\\ObjectParserInterface' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/base/ObjectParserInterface.php',
+        'nystudio107\\codeeditor\\controllers\\AutocompleteController' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/controllers/AutocompleteController.php',
+        'nystudio107\\codeeditor\\events\\RegisterCodeEditorAutocompletesEvent' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/events/RegisterCodeEditorAutocompletesEvent.php',
+        'nystudio107\\codeeditor\\events\\RegisterTwigValidatorVariablesEvent' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/events/RegisterTwigValidatorVariablesEvent.php',
+        'nystudio107\\codeeditor\\helpers\\Config' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/helpers/Config.php',
+        'nystudio107\\codeeditor\\models\\CompleteItem' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/models/CompleteItem.php',
+        'nystudio107\\codeeditor\\models\\Settings' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/models/Settings.php',
+        'nystudio107\\codeeditor\\services\\AutocompleteService' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/services/AutocompleteService.php',
+        'nystudio107\\codeeditor\\types\\AutocompleteTypes' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/types/AutocompleteTypes.php',
+        'nystudio107\\codeeditor\\types\\CompleteItemKind' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/types/CompleteItemKind.php',
+        'nystudio107\\codeeditor\\types\\CompletionItemInsertTextRule' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/types/CompletionItemInsertTextRule.php',
+        'nystudio107\\codeeditor\\validators\\TwigObjectTemplateValidator' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/validators/TwigObjectTemplateValidator.php',
+        'nystudio107\\codeeditor\\validators\\TwigTemplateValidator' => __DIR__ . '/..' . '/nystudio107/craft-code-editor/src/validators/TwigTemplateValidator.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

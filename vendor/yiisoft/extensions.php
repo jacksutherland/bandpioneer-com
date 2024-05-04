@@ -69,4 +69,14 @@ return array (
       '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
     ),
   ),
+  'nystudio107/craft-code-editor' => 
+  array (
+    'name' => 'nystudio107/craft-code-editor',
+    'version' => '1.0.19.0',
+    'alias' => 
+    array (
+      '@nystudio107/codeeditor' => $vendorDir . '/nystudio107/craft-code-editor/src',
+    ),
+    'bootstrap' => 'nystudio107\\codeeditor\\CodeEditor',
+  ),
 );

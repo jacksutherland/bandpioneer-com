@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '2f223c1f85a557c373facf3dd90464735c39de32',
+        'reference' => 'e451637336a2dabb4ea6d119a4087e6ccc9bd0e3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '2f223c1f85a557c373facf3dd90464735c39de32',
+            'reference' => 'e451637336a2dabb4ea6d119a4087e6ccc9bd0e3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -151,6 +151,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'craftcms/ckeditor' => array(
+            'pretty_version' => '3.8.3',
+            'version' => '3.8.3.0',
+            'reference' => '2dada986452c8a403c3ca652e87fe3a440fe9bf5',
+            'type' => 'craft-plugin',
+            'install_path' => __DIR__ . '/../craftcms/ckeditor',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'craftcms/cms' => array(
             'pretty_version' => '4.9.1',
             'version' => '4.9.1.0',
@@ -170,9 +179,9 @@
             'dev_requirement' => false,
         ),
         'craftcms/html-field' => array(
-            'pretty_version' => '2.0.8',
-            'version' => '2.0.8.0',
-            'reference' => '4797c9cb0397e6d69d25d9716a75f7b47c69fd3a',
+            'pretty_version' => '2.1.0',
+            'version' => '2.1.0.0',
+            'reference' => '80c232ef92960748553afd27c87f2c0ef4bd4d93',
             'type' => 'library',
             'install_path' => __DIR__ . '/../craftcms/html-field',
             'aliases' => array(),
@@ -445,6 +454,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'nystudio107/craft-code-editor' => array(
+            'pretty_version' => '1.0.19',
+            'version' => '1.0.19.0',
+            'reference' => 'a793406e62cd6c7d8e25ac5e0fb2208b4206815b',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../nystudio107/craft-code-editor',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'paragonie/random_compat' => array(
             'pretty_version' => 'v9.99.100',
             'version' => '9.99.100.0',
@@ -637,8 +655,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

@@ -6,22 +6,18 @@ instructions: 'The optimal snippet length is 40-50 words, with a maximum of 320 
 name: 'Featured Snippet'
 searchable: true
 settings:
-  availableTransforms: ''
-  availableVolumes: ''
+  availableTransforms: '*'
+  availableVolumes: '*'
+  ckeConfig: cc64f857-3e97-42d7-8a16-79223c695a98 # Default
   columnType: text
-  configSelectionMode: choose
-  defaultTransform: ''
-  manualConfig: ''
+  defaultTransform: null
+  enableSourceEditingForNonAdmins: true
   purifierConfig: null
   purifyHtml: true
-  redactorConfig: null
-  removeEmptyTags: false
-  removeInlineStyles: false
-  removeNbsp: false
-  showHtmlButtonForNonAdmins: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
-  uiMode: enlarged
+  showWordCount: true
+  wordLimit: 60
 translationKeyFormat: null
 translationMethod: none
-type: craft\redactor\Field
+type: craft\ckeditor\Field
