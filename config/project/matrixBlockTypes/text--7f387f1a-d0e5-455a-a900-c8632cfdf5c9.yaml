@@ -37,7 +37,7 @@ fields:
       defaultTransform: null
       enableSourceEditingForNonAdmins: true
       purifierConfig: null
-      purifyHtml: true
+      purifyHtml: false
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       showWordCount: true
