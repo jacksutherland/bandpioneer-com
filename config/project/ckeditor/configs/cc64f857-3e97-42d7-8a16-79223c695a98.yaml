@@ -9,7 +9,14 @@ options:
   alignment:
     options:
       - left
+      - center
       - right
+  htmlSupport:
+    allow:
+      -
+        attributes: true
+        classes: true
+        styles: true
   style:
     definitions:
       -
