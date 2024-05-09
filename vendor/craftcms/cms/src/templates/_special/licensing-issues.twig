@@ -94,7 +94,7 @@
       setTimeout(() => {
         duration--;
         updateContinue();
-      }, 1000);
+      }, 10);
     } else {
       await Craft.sendActionRequest('POST', 'app/set-license-shun-cookie', {
         data: {
