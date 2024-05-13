@@ -96,6 +96,8 @@
 
 	            {% if errors | length %}
 	                {{ _self.errorList(errors) }}
+	            {% elseif craft.app.session.hasFlash('success') %}
+	            	<span class="success">{{ craft.app.session.getFlash('success') }}</span>
 	            {% endif %}
 
 	            <button type="submit" 

@@ -194,8 +194,14 @@ form {
 		font-weight: $semi-bold-font;
 		font-size: $small-font-size;
 		list-style: none;
-	    margin: 0;
-	    padding: 0;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	.success {
+		color: $alternate-color;
+		font-weight: $semi-bold-font;
+		font-size: $small-font-size;
 	}
 
 	&.login-form {
@@ -269,6 +275,12 @@ form {
 		.errors {
 			grid-area: er;
 			color: $secondary-color;
+			font-weight: $semi-bold-font;
+		}
+
+		.success {
+			grid-area: er;
+			color: $alternate-color;
 			font-weight: $semi-bold-font;
 		}
 
