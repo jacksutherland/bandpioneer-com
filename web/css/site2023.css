@@ -1163,6 +1163,8 @@ form.contact-form .success {
   grid-area: er;
   color: #0a79a4;
   font-weight: 700;
+  line-height: 50px;
+  vertical-align: middle;
 }
 @media (min-width: 576px) {
   form.contact-form {

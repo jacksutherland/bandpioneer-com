@@ -281,6 +281,8 @@ form {
 			grid-area: er;
 			color: $alternate-color;
 			font-weight: $semi-bold-font;
+			line-height: 50px;
+			vertical-align: middle;
 		}
 
 		@media (min-width: $breakpoint-sm) {
