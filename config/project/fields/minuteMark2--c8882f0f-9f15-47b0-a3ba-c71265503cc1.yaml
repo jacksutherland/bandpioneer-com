@@ -1,0 +1,16 @@
+columnSuffix: ymusuxfl
+handle: minuteMark2
+instructions: null
+name: 'Blog Content - Media - Minute Mark 2'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  initialRows: 4
+  multiline: false
+  placeholder: 'in seconds (i.e. "264" for 4:24)'
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

@@ -1,0 +1,12 @@
+columnSuffix: etzinoqo
+handle: noTransform2
+instructions: null
+name: 'Blog Content - Image & Text - No Transform'
+searchable: false
+settings:
+  default: false
+  offLabel: null
+  onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

@@ -32,7 +32,7 @@
 	{% else %}
 		{% set categoryEntry = craft.entries.section('topics').slug(categorySlug) %}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
-		{% if entry.featuredBlogPost.count %}
+		{% if entry.featuredBlogPost and entry.featuredBlogPost.count %}
 			{% set blogQuery = blogQuery.id('and, not '~ entry.featuredBlogPost.one().id) %}
 		{% endif %}
 	{% endif %}
@@ -42,7 +42,7 @@
 	{% if not isGenrePage and firstPageInfo.currentPage == 1 %}
 		{% set isFirstPage = true %}
 		
-		{% if entry.featuredBlogPost.count %}
+		{% if entry.featuredBlogPost and entry.featuredBlogPost.count %}
 			{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 			{% set featured = entry.featuredBlogPost.one() %}
 			{% set recentPosts = posts %}
@@ -53,7 +53,7 @@
 		{% endif %}
 	{% else %}
 		{% set isFirstPage = false %}
-		{% if entry.featuredBlogPost.count %}
+		{% if entry.featuredBlogPost and entry.featuredBlogPost.count %}
 			{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
 		{% else %}
 			{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}

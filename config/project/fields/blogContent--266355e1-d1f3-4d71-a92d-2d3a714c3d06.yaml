@@ -1,16 +1,22 @@
 columnSuffix: null
 contentColumnType: string
-fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
 handle: blogContent
 instructions: null
 name: 'Blog Content'
 searchable: true
 settings:
-  contentTable: '{{%matrixcontent_blogcontent}}'
-  maxBlocks: null
-  minBlocks: null
+  entryTypes:
+    - 7f387f1a-d0e5-455a-a900-c8632cfdf5c9
+    - 18b5ed4a-3fe4-4566-8c78-9cff10344f5b
+    - 30fa7a57-b433-476a-9e42-ca0ad4755591
+    - 067eba0e-b12d-4661-a61b-9c4a22c91bb4
+    - bf3a1156-52e7-4016-99df-ff11094abd4b
+    - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72
+  maxEntries: null
+  minEntries: null
   propagationKeyFormat: null
   propagationMethod: all
+  viewMode: blocks
 translationKeyFormat: null
 translationMethod: site
 type: craft\fields\Matrix

@@ -9,6 +9,7 @@ namespace craft\services;
 
 use Craft;
 use craft\base\UtilityInterface;
+use craft\enums\CmsEdition;
 use craft\events\RegisterComponentTypesEvent;
 use craft\queue\QueueInterface;
 use craft\utilities\AssetIndexes;
@@ -23,7 +24,6 @@ use craft\utilities\QueueManager;
 use craft\utilities\SystemMessages as SystemMessagesUtility;
 use craft\utilities\SystemReport;
 use craft\utilities\Updates as UpdatesUtility;
-use craft\utilities\Upgrade;
 use yii\base\Component;
 
 /**
@@ -49,14 +49,14 @@ class Utilities extends Component
      * use yii\base\Event;
      *
      * Event::on(Utilities::class,
-     *     Utilities::EVENT_REGISTER_UTILITY_TYPES,
+     *     Utilities::EVENT_REGISTER_UTILITIES,
      *     function(RegisterComponentTypesEvent $event) {
      *         $event->types[] = MyUtilityType::class;
      *     }
      * );
      * ```
      */
-    public const EVENT_REGISTER_UTILITY_TYPES = 'registerUtilityTypes';
+    public const EVENT_REGISTER_UTILITIES = 'registerUtilities';
 
     /**
      * Returns all available utility type classes.
@@ -67,14 +67,13 @@ class Utilities extends Component
     public function getAllUtilityTypes(): array
     {
         $utilityTypes = [
-            Upgrade::class,
             UpdatesUtility::class,
             SystemReport::class,
             ProjectConfigUtility::class,
             PhpInfo::class,
         ];
 
-        if (Craft::$app->getEdition() === Craft::Pro) {
+        if (Craft::$app->edition === CmsEdition::Pro) {
             $utilityTypes[] = SystemMessagesUtility::class;
         }
 
@@ -101,7 +100,7 @@ class Utilities extends Component
         $event = new RegisterComponentTypesEvent([
             'types' => $utilityTypes,
         ]);
-        $this->trigger(self::EVENT_REGISTER_UTILITY_TYPES, $event);
+        $this->trigger(self::EVENT_REGISTER_UTILITIES, $event);
 
         $disabledUtilities = array_flip($generalConfig->disabledUtilities);
 

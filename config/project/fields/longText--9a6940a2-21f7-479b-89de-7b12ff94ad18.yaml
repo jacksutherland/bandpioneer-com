@@ -1,6 +1,4 @@
 columnSuffix: qprczrqo
-contentColumnType: text
-fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
 handle: longText
 instructions: null
 name: 'Long Text'
@@ -9,7 +7,7 @@ settings:
   availableTransforms: '*'
   availableVolumes: '*'
   ckeConfig: cc64f857-3e97-42d7-8a16-79223c695a98 # Default
-  columnType: text
+  createButtonLabel: null
   defaultTransform: null
   enableSourceEditingForNonAdmins: true
   purifierConfig: null

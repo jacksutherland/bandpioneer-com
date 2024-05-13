@@ -185,7 +185,7 @@ fieldLayouts:
                     - zPattern
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 01207986-f2f4-40a3-99e7-b4bc3a3fd701
+            fieldUid: 01207986-f2f4-40a3-99e7-b4bc3a3fd701 # Page Image 2
             instructions: null
             label: null
             required: false
@@ -267,7 +267,6 @@ fieldLayouts:
 handle: default
 hasTitleField: true
 name: Default
-section: 73181943-f37b-46c9-bd22-4f9c35a4af07 # Pages
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

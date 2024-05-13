@@ -7,10 +7,12 @@
 
 namespace craft\db\pgsql;
 
-use Composer\Util\Platform;
 use Craft;
 use craft\db\Connection;
+use craft\db\ExpressionBuilder;
+use craft\db\ExpressionInterface;
 use craft\db\TableSchema;
+use craft\helpers\App;
 use mikehaertl\shellcommand\Command as ShellCommand;
 use yii\db\Exception;
 
@@ -29,6 +31,18 @@ class Schema extends \yii\db\pgsql\Schema
     public int $maxObjectNameLength = 63;
 
     /**
+     * Returns whether a table supports 4-byte characters.
+     *
+     * @param string $table The table to check
+     * @return bool
+     * @since 5.0.0
+     */
+    public function supportsMb4(string $table): bool
+    {
+        return true;
+    }
+
+    /**
      * Creates a query builder for the database.
      *
      * This method may be overridden by child classes to create a DBMS-specific query builder.
@@ -38,6 +52,9 @@ class Schema extends \yii\db\pgsql\Schema
     public function createQueryBuilder(): QueryBuilder
     {
         return new QueryBuilder($this->db, [
+            'expressionBuilders' => [
+                ExpressionInterface::class => ExpressionBuilder::class,
+            ],
             'separator' => "\n",
         ]);
     }
@@ -147,7 +164,7 @@ class Schema extends \yii\db\pgsql\Schema
             $command = $commandFromConfig($command);
         }
 
-        return $command->getExecCommand();
+        return $this->_pgpasswordCommand() . $command->getExecCommand();
     }
 
     /**
@@ -357,6 +374,6 @@ ORDER BY i.relname, k';
      */
     private function _pgpasswordCommand(): string
     {
-        return Platform::isWindows() ? 'set PGPASSWORD="{password}" && ' : 'PGPASSWORD="{password}" ';
+        return App::isWindows() ? 'set PGPASSWORD="{password}" && ' : 'PGPASSWORD="{password}" ';
     }
 }

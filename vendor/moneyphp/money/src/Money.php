@@ -59,8 +59,6 @@ final class Money implements JsonSerializable
      */
     private string $amount;
 
-    private Currency $currency;
-
     /**
      * @var Calculator
      * @psalm-var class-string<Calculator>
@@ -73,10 +71,8 @@ final class Money implements JsonSerializable
      *
      * @throws InvalidArgumentException If amount is not integer(ish).
      */
-    public function __construct(int|string $amount, Currency $currency)
+    public function __construct(int|string $amount, private readonly Currency $currency)
     {
-        $this->currency = $currency;
-
         if (filter_var($amount, FILTER_VALIDATE_INT) === false) {
             $numberFromString = Number::fromString((string) $amount);
             if (! $numberFromString->isInteger()) {
@@ -399,7 +395,7 @@ final class Money implements JsonSerializable
     /**
      * Round to a specific unit.
      *
-     * @psalm-param positive-int|0  $unit
+     * @psalm-param non-negative-int  $unit
      * @psalm-param self::ROUND_* $roundingMode
      */
     public function roundToUnit(int $unit, int $roundingMode = self::ROUND_HALF_UP): self
@@ -464,7 +460,7 @@ final class Money implements JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @psalm-return array{amount: string, currency: string}
      */

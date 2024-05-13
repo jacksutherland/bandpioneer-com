@@ -108,12 +108,18 @@
       "oAP" : "\/src\/Base.php",
       "oF" : 0
     },
-    "\/src\/BaseHelper.php" : {
+    "\/src\/helpers" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/src\/helpers",
+      "oF" : 0
+    },
+    "\/src\/LogTrait.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/BaseHelper.php",
+      "oAP" : "\/src\/LogTrait.php",
       "oF" : 0
     },
     "\/src\/resources\/dist" : {

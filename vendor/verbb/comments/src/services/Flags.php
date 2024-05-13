@@ -10,6 +10,7 @@ use verbb\comments\records\Flag as FlagRecord;
 use Craft;
 use craft\base\Component;
 use craft\helpers\ArrayHelper;
+use craft\helpers\Db;
 use craft\db\Query;
 
 class Flags extends Component
@@ -109,7 +110,7 @@ class Flags extends Component
         }
 
         if ($runValidation && !$flag->validate()) {
-            Craft::info('Flag not saved due to validation error.', __METHOD__);
+            Comments::info('Flag not saved due to validation error.');
             return false;
         }
 
@@ -149,9 +150,7 @@ class Flags extends Component
             ]));
         }
 
-        Craft::$app->getDb()->createCommand()
-            ->delete('{{%comments_flags}}', ['id' => $flag->id])
-            ->execute();
+        Db::delete('{{%comments_flags}}', ['id' => $flag->id]);
 
         if ($this->hasEventHandlers(self::EVENT_AFTER_DELETE_FLAG)) {
             $this->trigger(self::EVENT_AFTER_DELETE_FLAG, new FlagEvent([

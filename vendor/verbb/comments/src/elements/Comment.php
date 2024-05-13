@@ -3,6 +3,7 @@ namespace verbb\comments\elements;
 
 use verbb\comments\Comments;
 use verbb\comments\elements\actions\SetCommentStatus;
+use verbb\comments\elements\conditions\CommentCondition;
 use verbb\comments\elements\db\CommentQuery;
 use verbb\comments\fieldlayoutelements\CommentsField as CommentsFieldLayoutElement;
 use verbb\comments\helpers\CommentsHelper;
@@ -14,12 +15,14 @@ use Craft;
 use craft\base\Element;
 use craft\base\ElementInterface;
 use craft\db\Query;
-use craft\elements\User;
 use craft\elements\actions\Delete;
+use craft\elements\conditions\ElementConditionInterface;
+use craft\elements\db\EagerLoadPlan;
+use craft\elements\db\ElementQueryInterface;
 use craft\elements\Asset;
 use craft\elements\Category;
-use craft\elements\db\ElementQueryInterface;
 use craft\elements\Entry;
+use craft\elements\User;
 use craft\helpers\ArrayHelper;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Html;
@@ -69,11 +72,6 @@ class Comment extends Element
         return true;
     }
 
-    public static function hasContent(): bool
-    {
-        return true;
-    }
-
     public static function hasTitles(): bool
     {
         return false;
@@ -104,30 +102,14 @@ class Comment extends Element
         return new CommentQuery(static::class);
     }
 
+    public static function createCondition(): ElementConditionInterface
+    {
+        return Craft::createObject(CommentCondition::class, [static::class]);
+    }
+
     public static function getStructureId(): int
     {
         return Comments::$plugin->getSettings()->getStructureId();
-    }
-
-    public static function getCommentElementTitleHtml(&$context): string
-    {
-        if (!isset($context['element'])) {
-            return '';
-        }
-
-        // Only do this for a Comment ElementType
-        if ($context['element']::class === static::class) {
-            $span1 = Html::tag('span', '', ['class' => 'status ' . $context['element']->status]);
-            $span2 = Html::tag('span', Html::encode($context['element']->getAuthor()), ['class' => 'username']);
-            $small = Html::tag('small', Html::encode($context['element']->getExcerpt(0, 100)));
-            $a = Html::a($span2 . $small, $context['element']->getCpEditUrl());
-
-            $html = Html::tag('div', $span1 . $a, ['class' => 'comment-block']);
-
-            return Template::raw($html);
-        }
-
-        return '';
     }
 
     public static function eagerLoadingMap(array $sourceElements, string $handle): array|false|null
@@ -194,103 +176,6 @@ class Comment extends Element
                 'defaultSort' => [$settings->sortDefaultKey, $settings->sortDefaultDirection],
             ],
         ];
-
-        $indexSidebarLimit = $settings->indexSidebarLimit;
-        $indexSidebarGroup = $settings->indexSidebarGroup;
-        $indexSidebarIndividualElements = $settings->indexSidebarIndividualElements;
-
-        $query = (new Query())
-            ->select(['elements.id', 'elements.type', 'comments.ownerId', 'content.title', 'entries.sectionId'])
-            ->from(['{{%elements}} elements'])
-            ->innerJoin('{{%content}} content', '[[content.elementId]] = [[elements.id]]')
-            ->innerJoin('{{%comments_comments}} comments', '[[comments.ownerId]] = [[elements.id]]')
-            ->leftJoin('{{%entries}} entries', '[[comments.ownerId]] = [[entries.id]]')
-            ->limit($indexSidebarLimit)
-            ->groupBy(['ownerId', 'title', 'elements.id', 'entries.sectionId']);
-
-        // Support Craft 3.1+
-        if (Craft::$app->getDb()->columnExists('{{%elements}}', 'dateDeleted')) {
-            $query
-                ->addSelect(['elements.dateDeleted'])
-                ->where(['is', 'elements.dateDeleted', null]);
-        }
-
-        $commentedElements = $query->all();
-
-        // Keep a cache of sections here
-        $sectionsById = [];
-
-        foreach (Craft::$app->getSections()->getAllSections() as $section) {
-            $sectionsById[$section->id] = $section;
-        }
-
-        foreach ($commentedElements as $element) {
-            try {
-                $elementGroupPrefix = '';
-                $displayName = $element['type']::pluralDisplayName();
-
-                switch ($element['type']) {
-                    case Entry::class:
-                        $elementGroupPrefix = 'section';
-                        break;
-                    case Category::class:
-                        $elementGroupPrefix = 'categorygroup';
-                        break;
-                    case Asset::class:
-                        $elementGroupPrefix = 'volume';
-                        break;
-                    case User::class:
-                        $elementGroupPrefix = 'usergroup';
-                        break;
-                }
-
-                $key = 'type:' . $element['type'];
-
-                $sources[$key] = ['heading' => $displayName];
-
-                $sources[$key . ':all'] = [
-                    'key' => $key . ':all',
-                    'label' => Craft::t('comments', 'All {elements}', ['elements' => $displayName]),
-                    'structureId' => self::getStructureId(),
-                    'structureEditable' => false,
-                    'criteria' => [
-                        'ownerType' => $element['type'],
-                    ],
-                    'defaultSort' => [$settings->sortDefaultKey, $settings->sortDefaultDirection],
-                ];
-
-                // Just do sections for the moment
-                if ($indexSidebarGroup && $elementGroupPrefix == 'section' && $element['sectionId']) {
-                    $section = $sectionsById[$element['sectionId']] ?? '';
-
-                    $sources[$elementGroupPrefix . ':' . $element['sectionId']] = [
-                        'key' => $elementGroupPrefix . ':' . $element['sectionId'],
-                        'label' => $section->name ?? '',
-                        'structureId' => self::getStructureId(),
-                        'structureEditable' => false,
-                        'criteria' => [
-                            'ownerSectionId' => $element['sectionId'],
-                        ],
-                        'defaultSort' => [$settings->sortDefaultKey, $settings->sortDefaultDirection],
-                    ];
-                }
-
-                if ($indexSidebarIndividualElements) {
-                    $sources['elements:' . $element['ownerId']] = [
-                        'key' => 'elements:' . $element['ownerId'],
-                        'label' => $element['title'],
-                        'structureId' => self::getStructureId(),
-                        'structureEditable' => false,
-                        'criteria' => [
-                            'ownerId' => $element['ownerId'],
-                        ],
-                        'defaultSort' => ['structure', 'asc'],
-                    ];
-                }
-            } catch (Throwable $e) {
-                continue;
-            }
-        }
 
         return $sources;
     }
@@ -392,6 +277,7 @@ class Comment extends Element
     public ?int $ownerId = null;
     public ?int $ownerSiteId = null;
     public ?int $userId = null;
+    public ?string $comment = null;
     public ?string $status = null;
     public ?string $name = null;
     public ?string $email = null;
@@ -402,7 +288,6 @@ class Comment extends Element
 
     public ?int $newParentId = null;
     private ?bool $_hasNewParent = null;
-    private ?string $comment = null;
     private ?ElementInterface $_owner = null;
     private ?User $_author = null;
     private mixed $_user = null;
@@ -412,6 +297,11 @@ class Comment extends Element
 
     // Public Methods
     // =========================================================================
+
+    public function __toString(): string
+    {
+        return $this->comment;
+    }
 
     public function init(): void
     {
@@ -443,26 +333,13 @@ class Comment extends Element
         return $scenarios;
     }
 
-    public function rules(): array
+    public function getChipLabelHtml(): string
     {
-        $rules = parent::rules();
-        $rules[] = [['ownerId'], 'number', 'integerOnly' => true];
-        $rules[] = [['ownerSiteId'], SiteIdValidator::class];
+        $span2 = Html::tag('span', Html::encode($this->getAuthor()), ['class' => 'username']);
+        $small = Html::tag('small', Html::encode($this->getExcerpt(0, 100)));
+        $html = Html::tag('div', $span2 . $small, ['class' => 'comment-block']);
 
-        // Check for custom fields. Craft will only check this for `SCENARIO_LIVE`, and we use custom scenarios
-        if ($fieldLayout = $this->getFieldLayout()) {
-            foreach ($fieldLayout->getCustomFields() as $field) {
-                $attribute = 'field:' . $field->handle;
-                $isEmpty = [$this, 'isFieldEmpty:' . $field->handle];
-
-                if ($field->required) {
-                    // Allow custom field validation with our custom scenarios
-                    $rules[] = [[$attribute], 'required', 'isEmpty' => $isEmpty, 'on' => [self::SCENARIO_CP, self::SCENARIO_FRONT_END]];
-                }
-            }
-        }
-
-        return $rules;
+        return Template::raw($html);
     }
 
     public function canView(User $user): bool
@@ -472,11 +349,7 @@ class Comment extends Element
 
     public function canSave(User $user): bool
     {
-        if (parent::canSave($user)) {
-            return true;
-        }
-
-        return ($this->userId === $user->id || $user->can('comments-edit'));
+        return false;
     }
 
     public function canDelete(User $user): bool
@@ -496,11 +369,6 @@ class Comment extends Element
         return [$siteId];
     }
 
-    public function getCpEditUrl(): ?string
-    {
-        return UrlHelper::cpUrl('comments/' . $this->id);
-    }
-
     public function getFieldLayout(): ?FieldLayout
     {
         return Craft::$app->getFields()->getLayoutByType(self::class);
@@ -514,32 +382,6 @@ class Comment extends Element
     public function getAction(): ?string
     {
         return $this->_action;
-    }
-
-    public function getComment(): ?string
-    {
-        $comment = $this->comment;
-
-        // Add Emoji support
-        if ($comment !== null) {
-            $comment = StringHelper::shortcodesToEmoji($comment);
-            $comment = trim(preg_replace('/\R/u', "\n", $comment));
-        }
-
-        return $comment;
-    }
-
-    public function setComment($comment): void
-    {
-        // Add Emoji support
-        if ($comment !== null) {
-            $comment = StringHelper::emojiToShortcodes($comment);
-        }
-
-        // Replace any 4-byte string that've been missed
-        $comment = preg_replace('%(?:\xF0[\x90-\xBF][\x80-\xBF]{2}|[\xF1-\xF3][\x80-\xBF]{3}|\xF4[\x80-\x8F][\x80-\xBF]{2})%xs', '', $comment);
-
-        $this->comment = $comment;
     }
 
     public function getRawComment(): ?string
@@ -568,6 +410,12 @@ class Comment extends Element
     public function getStatus(): ?string
     {
         return $this->status;
+    }
+
+    public function getComment(): ?string
+    {
+        // Decode any emoji's encoded in Craft 4 and earlier
+        return StringHelper::shortcodesToEmoji((string)$this->comment);
     }
 
     public function getExcerpt($startPos = 0, $maxLength = 100): ?string
@@ -1075,18 +923,18 @@ class Comment extends Element
             if ($settings->notificationModeratorEnabled && $this->status == self::STATUS_PENDING) {
                 Comments::$plugin->getComments()->sendNotificationEmail('moderator', $this);
             } else {
-                Comments::log('Moderator Notifications disabled.');
+                Comments::info('Moderator Notifications disabled.');
             }
 
             // Don't send reply or author emails if we're moderating first
             if ($settings->doesRequireModeration()) {
-                Comments::log('Not sending reply or author notification - marked as pending (to be moderated).');
+                Comments::info('Not sending reply or author notification - marked as pending (to be moderated).');
             } else {
                 // Should we send a Notification email to the author of this comment?
                 if ($settings->notificationAuthorEnabled) {
                     Comments::$plugin->getComments()->sendNotificationEmail('author', $this);
                 } else {
-                    Comments::log('Author Notifications disabled.');
+                    Comments::info('Author Notifications disabled.');
                 }
 
                 // If a reply to another comment, should we send a Notification email
@@ -1096,7 +944,7 @@ class Comment extends Element
                         Comments::$plugin->getComments()->sendNotificationEmail('reply', $this);
                     }
                 } else {
-                    Comments::log('Reply Notifications disabled.');
+                    Comments::info('Reply Notifications disabled.');
                 }
 
                 // Do we need to auto-subscribe the user?
@@ -1121,14 +969,14 @@ class Comment extends Element
             if ($settings->notificationModeratorApprovedEnabled) {
                 Comments::$plugin->getComments()->sendNotificationEmail('moderator-approved', $this);
             } else {
-                Comments::log('Moderator Approved Notifications disabled.');
+                Comments::info('Moderator Approved Notifications disabled.');
             }
 
             // Should we send a Notification email to the author of this comment?
             if ($settings->notificationAuthorEnabled) {
                 Comments::$plugin->getComments()->sendNotificationEmail('author', $this);
             } else {
-                Comments::log('Author Notifications disabled.');
+                Comments::info('Author Notifications disabled.');
             }
 
             // If a reply to another comment, should we send a Notification email
@@ -1138,7 +986,7 @@ class Comment extends Element
                     Comments::$plugin->getComments()->sendNotificationEmail('reply', $this);
                 }
             } else {
-                Comments::log('Reply Notifications disabled.');
+                Comments::info('Reply Notifications disabled.');
             }
 
             // Do we need to auto-subscribe the user?
@@ -1177,14 +1025,14 @@ class Comment extends Element
         return static::gqlTypeNameByContext($this);
     }
 
-    public function setEagerLoadedElements(string $handle, array $elements): void
+    public function setEagerLoadedElements(string $handle, array $elements, EagerLoadPlan $plan): void
     {
         if ($handle === 'user') {
             $this->_user = $elements[0] ?? false;
         } else if ($handle === 'owner') {
             $this->_owner = $elements[0] ?? false;
         } else {
-            parent::setEagerLoadedElements($handle, $elements);
+            parent::setEagerLoadedElements($handle, $elements, $plan);
         }
     }
 
@@ -1192,47 +1040,59 @@ class Comment extends Element
     // Protected Methods
     // =========================================================================
 
-    protected function tableAttributeHtml(string $attribute): string
+    protected function defineRules(): array
     {
-        switch ($attribute) {
-            case 'ownerId':
-            {
-                $owner = $this->getOwner();
+        $rules = parent::defineRules();
+        $rules[] = [['ownerId'], 'number', 'integerOnly' => true];
+        $rules[] = [['ownerSiteId'], SiteIdValidator::class];
 
-                if ($owner) {
-                    $a = Html::a(Html::encode($owner->title), $owner->cpEditUrl);
+        // Check for custom fields. Craft will only check this for `SCENARIO_LIVE`, and we use custom scenarios
+        if ($fieldLayout = $this->getFieldLayout()) {
+            foreach ($fieldLayout->getCustomFields() as $field) {
+                $attribute = 'field:' . $field->handle;
+                $isEmpty = [$this, 'isFieldEmpty:' . $field->handle];
 
-                    return Template::raw($a);
+                if ($field->required) {
+                    // Allow custom field validation with our custom scenarios
+                    $rules[] = [[$attribute], 'required', 'isEmpty' => $isEmpty, 'on' => [self::SCENARIO_CP, self::SCENARIO_FRONT_END]];
                 }
-
-                return Craft::t('comments', '[Deleted element]');
-            }
-            case 'name':
-            {
-                return Html::encode($this->getAuthorName()) ?? '-';
-            }
-            case 'email':
-            {
-                return Html::encode($this->getAuthorEmail()) ?? '-';
-            }
-            case 'voteCount':
-            {
-                return $this->getVotes();
-            }
-            case 'flagCount':
-            {
-                return $this->hasFlagged() ? '<span class="status off"></span>' : '<span class="status"></span>';
-            }
-            case 'comment':
-            {
-                return Html::encode($this->getComment());
-            }
-            default:
-            {
-                return parent::tableAttributeHtml($attribute);
             }
         }
+
+        return $rules;
     }
+
+    protected function attributeHtml(string $attribute): string
+    {
+        if ($attribute == 'ownerId') {
+            if ($owner = $this->getOwner()) {
+                $a = Html::a(Html::encode($owner->title), $owner->getCpEditUrl());
+
+                return Template::raw($a);
+            }
+
+            return Craft::t('comments', '[Deleted element]');
+        } else if ($attribute == 'name') {
+            return Html::encode($this->getAuthorName()) ?? '-';
+        } else if ($attribute == 'email') {
+            return Html::encode($this->getAuthorEmail()) ?? '-';
+        } else if ($attribute == 'voteCount') {
+            return $this->getVotes();
+        } else if ($attribute == 'flagCount') {
+            return $this->hasFlagged() ? '<span class="status off"></span>' : '<span class="status"></span>';
+        } else if ($attribute == 'comment') {
+            return $this->getExcerpt(0, 100);
+        }
+
+        return parent::attributeHtml($attribute);
+    }
+
+    protected function cpEditUrl(): ?string
+    {
+        return UrlHelper::cpUrl('comments/' . $this->id);
+    }
+
+    
 
 
     // Private Methods

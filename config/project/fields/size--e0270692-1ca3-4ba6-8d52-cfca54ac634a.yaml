@@ -1,0 +1,18 @@
+columnSuffix: ncvbdlpf
+handle: size
+instructions: null
+name: 'Blog Content - Image - Size'
+searchable: false
+settings:
+  decimals: 0
+  defaultValue: 100
+  max: 100
+  min: 1
+  prefix: null
+  previewCurrency: null
+  previewFormat: decimal
+  size: null
+  suffix: '%'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

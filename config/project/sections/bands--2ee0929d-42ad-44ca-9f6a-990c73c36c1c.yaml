@@ -1,5 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
+entryTypes:
+  - fd86eaf9-b505-4c30-8bd9-37be31ad6209 # Bands - Default
 handle: bands
 name: Bands
 propagationMethod: all

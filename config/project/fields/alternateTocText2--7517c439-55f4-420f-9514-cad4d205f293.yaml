@@ -1,0 +1,16 @@
+columnSuffix: yseuvkoe
+handle: alternateTocText2
+instructions: null
+name: 'Blog Content - Image & Text - Alternate TOC Text'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  initialRows: 4
+  multiline: false
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

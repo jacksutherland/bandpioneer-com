@@ -90,6 +90,7 @@ class GeneralConfig extends BaseConfig
         'alwaysShowFocusRings' => false,
         'useShapes' => false,
         'underlineLinks' => false,
+        'disableAutofocus' => false,
         'notificationDuration' => 5000,
     ];
 
@@ -846,16 +847,16 @@ class GeneralConfig extends BaseConfig
      *
      * ::: code
      * ```php Static Config
-     * ->defaultTemplateExtensions(['html', 'twig', 'txt'])
+     * ->defaultTemplateExtensions(['twig', 'html', 'txt'])
      * ```
      * ```shell Environment Override
-     * CRAFT_DEFAULT_TEMPLATE_EXTENSIONS=html,twig,txt
+     * CRAFT_DEFAULT_TEMPLATE_EXTENSIONS=twig,html,txt
      * ```
      * :::
      *
      * @group System
      */
-    public array $defaultTemplateExtensions = ['html', 'twig'];
+    public array $defaultTemplateExtensions = ['twig', 'html'];
 
     /**
      * @var mixed The default amount of time tokens can be used before expiring.
@@ -1640,6 +1641,20 @@ class GeneralConfig extends BaseConfig
     public bool $limitAutoSlugsToAscii = false;
 
     /**
+     * @var array Custom locale aliases, which will be included when fetching all known locales.
+     *
+     * Each locale alias should be defined as an array with the following keys:
+     *
+     * - `id`: The alias locale ID
+     * - `aliasOf`: The original locale ID
+     * - `displayName`: The locale alias’s display name _(optional)_
+     *
+     * @since 5.0.0
+     * @group System
+     */
+    public array $localeAliases = [];
+
+    /**
      * @var mixed The URI Craft should use for user login on the front end.
      *
      * This can be set to `false` to disable front-end login.
@@ -1937,6 +1952,36 @@ class GeneralConfig extends BaseConfig
      * @group Routing
      */
     public string $pageTrigger = 'p';
+
+    /**
+     * @var string The path within the `templates` folder where element partial templates will live.
+     *
+     * Partial templates are used to render elements when calling [[\craft\elements\db\ElementQuery::render()]],
+     * [[\craft\elements\ElementCollection::render()]], or [[\craft\base\Element::render()]].
+     *
+     * For example, you could render all the entries within a Matrix field like so:
+     *
+     * ```twig
+     * {{ entry.myMatrixField.render() }}
+     * ```
+     *
+     * The full path to a partial template will also include the element type handle (e.g. `asset` or `entry`) and the
+     * field layout provider’s handle (e.g. the volume handle or entry type handle). For an entry of type `article`,
+     * that would be: `_partials/entry/article.twig`.
+     *
+     * ::: code
+     * ```php Static Config
+     * ->partialTemplatesPath('_cp/partials')
+     * ```
+     * ```shell Environment Override
+     * CRAFT_PARTIAL_TEMPLATES_PATH=_cp/partials
+     * ```
+     * :::
+     *
+     * @group System
+     * @since 5.0.0
+     */
+    public string $partialTemplatesPath = '_partials';
 
     /**
      * @var string|null The query string param that Craft will check when determining the request’s path.
@@ -2878,6 +2923,24 @@ class GeneralConfig extends BaseConfig
     public bool $storeUserIps = false;
 
     /**
+     * @var string|null The handle of the filesystem that should be used for storing temporary asset uploads. A local temp folder will
+     * be used by default.
+     *
+     * ::: code
+     * ```php Static Config
+     * ->tempAssetUploadFs('$TEMP_ASSET_UPLOADS_FS')
+     * ```
+     * ```shell Environment Override
+     * CRAFT_TEMP_ASSET_UPLOAD_FS=tempAssetUploads
+     * ```
+     * :::
+     *
+     * @group Assets
+     * @since 5.0.0
+     */
+    public ?string $tempAssetUploadFs = null;
+
+    /**
      * @var string|array|null|false Configures Craft to send all system emails to either a single email address or an array of email addresses
      * for testing purposes.
      *
@@ -3295,6 +3358,7 @@ class GeneralConfig extends BaseConfig
      * - `alwaysShowFocusRings` - Whether focus rings should always be shown when an element has focus.
      * - `useShapes` – Whether shapes should be used to represent statuses.
      * - `underlineLinks` – Whether links should be underlined.
+     * - `disableAutofocus` – Whether search inputs should be focused on page load.
      * - `notificationDuration` – How long notifications should be shown before they disappear automatically (in
      *   milliseconds). Set to `0` to show them indefinitely.
      *
@@ -4064,7 +4128,7 @@ class GeneralConfig extends BaseConfig
      * The template file extensions Craft will look for when matching a template path to a file on the front end.
      *
      * ```php
-     * ->defaultTemplateExtensions(['html', 'twig', 'txt'])
+     * ->defaultTemplateExtensions(['twig', 'html', 'txt'])
      * ```
      *
      * @group System
@@ -4974,6 +5038,26 @@ class GeneralConfig extends BaseConfig
     }
 
     /**
+     * Custom locale aliases, which will be included when fetching all known locales.
+     *
+     * Each item in the array should have a key that defines the custom locale ID, and its value should be set
+     * to an array with the following keys:
+     *
+     * - `aliasOf`: The original locale ID
+     * - `displayName`: The locale alias’s display name _(optional)_
+     *
+     * @param array $value
+     * @return self
+     * @group System
+     * @since 5.0.0
+     */
+    public function localeAliases(array $value): self
+    {
+        $this->localeAliases = $value;
+        return $this;
+    }
+
+    /**
      * The URI Craft should use for user login on the front end.
      *
      * This can be set to `false` to disable front-end login.
@@ -5298,6 +5382,43 @@ class GeneralConfig extends BaseConfig
     public function pageTrigger(string $value): self
     {
         $this->pageTrigger = $value;
+        return $this;
+    }
+
+    /**
+     * The path within the `templates` folder where element partial templates will live.
+     *
+     * Partial templates are used to render elements when calling [[\craft\elements\db\ElementQuery::render()]],
+     * [[\craft\elements\ElementCollection::render()]], or [[\craft\base\Element::render()]].
+     *
+     * For example, you could render all the entries within a Matrix field like so:
+     *
+     * ```twig
+     * {{ entry.myMatrixField.render() }}
+     * ```
+     *
+     * The full path to a partial template will also include the element type handle (e.g. `asset` or `entry`) and the
+     * field layout provider’s handle (e.g. the volume handle or entry type handle). For an entry of type `article`,
+     * that would be: `_partials/entry/article.twig`.
+     *
+     * ::: code
+     * ```php Static Config
+     * ->partialTemplatesPath('_cp/partials')
+     * ```
+     * ```shell Environment Override
+     * CRAFT_PARTIAL_TEMPLATES_PATH=_cp/partials
+     * ```
+     * :::
+     *
+     * @group System
+     * @param string $value
+     * @return self
+     * @see $partialTemplatesPath
+     * @since 5.0.0
+     */
+    public function partialTemplatesPath(string $value): self
+    {
+        $this->partialTemplatesPath = $value;
         return $this;
     }
 
@@ -6380,6 +6501,26 @@ class GeneralConfig extends BaseConfig
     public function storeUserIps(bool $value = true): self
     {
         $this->storeUserIps = $value;
+        return $this;
+    }
+
+    /**
+     * The handle of the filesystem that should be used for storing temporary asset uploads. A local temp folder will
+     * be used by default.
+     *
+     *  ```php
+     *  ->tempAssetUploadFs('$TEMP_ASSET_UPLOADS_FS')
+     *  ```
+     *
+     * @group Assets
+     * @param string|null $value
+     * @return self
+     * @see $tempAssetUploadFs
+     * @since 5.0.0
+     */
+    public function tempAssetUploadFs(string|null $value): self
+    {
+        $this->tempAssetUploadFs = $value;
         return $this;
     }
 

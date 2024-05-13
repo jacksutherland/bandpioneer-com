@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0 - 2024-05-11
+
+### Added
+- Add support for Craft and plugin Twig extensions in allowed Twig.
+- Add `ArrayHelper::filterNullFalse()`.
+
+### Changed
+- Now requires PHP `8.2.0+`.
+- Now requires Craft `5.0.0+`.
+
 ## 2.0.5 - 2024-03-14
 
 ### Added

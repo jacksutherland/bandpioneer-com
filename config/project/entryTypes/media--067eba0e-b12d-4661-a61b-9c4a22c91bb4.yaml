@@ -1,0 +1,126 @@
+color: null
+fieldLayouts:
+  77b6799b-9d26-43ec-8d71-67d7262e1650:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: cd4a38c4-94ce-4c20-9d8b-62288944ef87
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: 'Media Type'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c8cba6eb-3a13-46a5-a516-eba19c972454
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 5eff53ba-9583-4e3e-92ce-d1d630f3f363
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Media ID'
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e959dae5-2795-47aa-86b2-b9ca2965eea3
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: de2bb280-3465-478f-a8b2-bb03f3c7be35
+            handle: caption
+            includeInCards: false
+            instructions: null
+            label: Caption
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a5b64367-d4d7-4e1d-8c49-64687153306a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 67862bf2-294a-4e45-af45-324c297cbea8
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Minute Mark'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8220b926-b3e6-4e57-adb2-22f8eb60fe27
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 29031305-9467-4d00-bc36-cea8076d10ac
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Media ID 2'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9c3692da-a6f7-4c5e-9830-8de748050b60
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 01d0c5e2-4c3a-4623-9699-331c764e4643
+            handle: caption2
+            includeInCards: false
+            instructions: null
+            label: 'Caption 2'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9238f9c8-6f87-4cf8-970e-42881fd9be6f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: c8882f0f-9f15-47b0-a3ba-c71265503cc1
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Minute Mark 2'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7e983344-9417-485e-a501-f8b7a6f25873
+            userCondition: null
+            warning: null
+            width: 25
+        name: Content
+        uid: 9e4f5e34-13f8-422b-bcd3-f2aca3653926
+        userCondition: null
+handle: media
+hasTitleField: false
+icon: null
+name: Media
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

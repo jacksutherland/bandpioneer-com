@@ -1,6 +1,5 @@
 columnSuffix: null
 contentColumnType: string
-fieldGroup: fa511e02-7c6f-4081-9701-b14c76ecf31a # Common
 handle: featuredBlogPost
 instructions: 'If not entered the most recent article will be highlighted on the homepage.'
 name: 'Featured Blog Post'
@@ -12,17 +11,6 @@ settings:
   maintainHierarchy: false
   maxRelations: 1
   minRelations: null
-  selectionCondition:
-    __assoc__:
-      -
-        - elementType
-        - craft\elements\Entry
-      -
-        - fieldContext
-        - global
-      -
-        - class
-        - craft\elements\conditions\entries\EntryCondition
   selectionLabel: null
   showSiteMenu: false
   sources:

@@ -1,0 +1,12 @@
+columnSuffix: krukznax
+handle: linkUrl
+instructions: null
+name: 'Blog Content - Image - Link URL'
+searchable: false
+settings:
+  maxLength: 255
+  types:
+    - url
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

@@ -1,0 +1,18 @@
+columnSuffix: fapcidau
+handle: size2
+instructions: null
+name: 'Blog Content - Image & Text - Size'
+searchable: false
+settings:
+  decimals: 0
+  defaultValue: 100
+  max: 100
+  min: 1
+  prefix: null
+  previewCurrency: null
+  previewFormat: decimal
+  size: null
+  suffix: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Number

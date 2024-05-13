@@ -7,14 +7,21 @@ use verbb\comments\elements\Comment;
 use Craft;
 use craft\console\Controller;
 use craft\helpers\Console;
+use craft\helpers\Db;
 
 use yii\console\ExitCode;
 
+/**
+ * Manages comments.
+ */
 class BaseController extends Controller
 {
     // Public Methods
     // =========================================================================
 
+    /**
+     * Resaves the Structure for comments, in case there's been an issue creating it.
+     */
     public function actionResaveStructure(): int
     {
         $settings = Comments::$plugin->getSettings();
@@ -28,6 +35,9 @@ class BaseController extends Controller
         return ExitCode::OK;
     }
 
+    /**
+     * Sets the Comments plugin's Structure to the provided UID.
+     */
     public function actionSetStructure($structureUid = null): int
     {
         if (!$structureUid) {
@@ -53,7 +63,6 @@ class BaseController extends Controller
             return ExitCode::OK;
         }
 
-        $db = Craft::$app->getDb()->createCommand();
         $comments = Comment::find()->all();
 
         foreach ($comments as $comment) {
@@ -61,9 +70,7 @@ class BaseController extends Controller
                 continue;
             }
 
-            $db->update('{{%structureelements}}', [
-                'structureId' => $structure->id,
-            ], ['elementId' => $comment->id])->execute();
+            Db::update('{{%structureelements}}', ['structureId' => $structure->id], ['elementId' => $comment->id]);
 
             $this->stdout("Updating comment #$comment->id to structure ID $structure->id." . PHP_EOL, Console::FG_GREEN);
         }

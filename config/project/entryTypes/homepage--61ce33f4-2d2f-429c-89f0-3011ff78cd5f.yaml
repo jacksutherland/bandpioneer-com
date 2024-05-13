@@ -185,7 +185,6 @@ fieldLayouts:
 handle: homepage
 hasTitleField: false
 name: Homepage
-section: eb6cec15-707d-4542-8311-cb925d61ee30 # Homepage
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

@@ -86,6 +86,8 @@ class MonologTarget extends PsrTarget
      */
     public function init(): void
     {
+        parent::init();
+
         $this->formatter = $this->formatter ?? new LineFormatter(
             format: "%datetime% [%channel%.%level_name%] [%extra.yii_category%] %message% %context% %extra%\n",
             dateFormat: 'Y-m-d H:i:s',
@@ -165,7 +167,7 @@ class MonologTarget extends PsrTarget
                 $level = $message[1];
                 $psrLevel = is_int($level) ? $levelMap->get($level) : $level;
 
-                return Logger::toMonologLevel($psrLevel) >= $monologLevel;
+                return Logger::toMonologLevel($psrLevel)->value >= $monologLevel->value;
             });
 
         return $messages->all();

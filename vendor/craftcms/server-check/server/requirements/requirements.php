@@ -6,10 +6,10 @@
 /** @var RequirementsChecker $this */
 $requirements = array(
     array(
-        'name' => 'PHP 8.0.2+',
+        'name' => 'PHP 8.2+',
         'mandatory' => true,
-        'condition' => PHP_VERSION_ID >= 80002,
-        'memo' => 'PHP 8.0.2 or later is required.',
+        'condition' => PHP_VERSION_ID >= 80200,
+        'memo' => 'PHP 8.2 or later is required.',
     ),
 );
 
@@ -35,7 +35,7 @@ switch ($this->dbDriver) {
             } else {
                 $name = 'MySQL';
                 $requiredVersion = $this->requiredMySqlVersion;
-                $tzUrl = 'https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html';
+                $tzUrl = 'https://dev.mysql.com/doc/refman/8.0/en/time-zone-support.html';
             }
             $requirements[] = array(
                 'name' => "{$name} {$requiredVersion}+",

@@ -32,7 +32,7 @@ return [
     'comments_moderator_notification_subject' => 'A new comment requires moderation on {{ siteName }}',
     'comments_moderator_notification_body' => "Hi {{user.friendlyName}},\n\n" .
         "A new comment on the post \"{{ element.title }}\" has been made and requires moderation.\n\n" .
-        "{{comment.cpEditUrl}}.",
+        "{{comment.getCpEditUrl()}}.",
 
     'comments_moderator_edit_notification_heading' => 'When a comment has been edited, and awaits moderation:',
     'comments_moderator_edit_notification_subject' => 'Someone has edited their comment and requires moderation on {{siteName}}.',
@@ -50,13 +50,13 @@ return [
     'comments_admin_notification_subject' => '"{{element.title}}" has received a comment on {{siteName}}.',
     'comments_admin_notification_body' => "Hi,\n\n" .
         "A new comment on the post \"{{ element.title }}\" has been made.\n\n" .
-        "{{comment.cpEditUrl}}.",
+        "{{comment.getCpEditUrl()}}.",
 
     'comments_flag_notification_heading' => 'When a comment has received a flag:',
     'comments_flag_notification_subject' => '"{{element.title}}" has received a comment flag on {{siteName}}.',
     'comments_flag_notification_body' => "Hi,\n\n" .
         "A comment has been flagged on the post \"{{ element.title }}\".\n\n" .
-        "{{comment.cpEditUrl}}.",
+        "{{comment.getCpEditUrl()}}.",
 
     //  
     // Email templates

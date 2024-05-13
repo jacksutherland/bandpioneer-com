@@ -1,0 +1,54 @@
+columnSuffix: nyiemkxc
+handle: margins
+instructions: null
+name: 'Blog Content - Image - Margins'
+searchable: false
+settings:
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Default
+        -
+          - value
+          - default
+        -
+          - default
+          - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - 'Top Margin'
+        -
+          - value
+          - top-margin
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Bottom Margin'
+        -
+          - value
+          - bottom-margin
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Top & Bottom Margin'
+        -
+          - value
+          - 'top-margin bottom-margin'
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

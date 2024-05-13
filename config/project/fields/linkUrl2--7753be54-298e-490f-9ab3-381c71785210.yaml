@@ -1,0 +1,12 @@
+columnSuffix: mlehtxum
+handle: linkUrl2
+instructions: null
+name: 'Blog Content - Image & Text - Link URL'
+searchable: false
+settings:
+  maxLength: 255
+  types:
+    - url
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Url

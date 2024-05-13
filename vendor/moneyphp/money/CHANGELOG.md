@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [4.5.0] - 2024-02-15
+
+### Fixed
+
+- PHPUnit 10 support
+- Update currencies
+- Updated doctrine/coding-standard
+- Updated other dev dependencies
+
+### Removed
+
+- PHP 8.0 support
+
 ## [4.4.0] - 2024-01-24
 
 ### Added
@@ -487,6 +500,7 @@ convert a float to string (e.g. `sprintf('%.14F', $float)`) before calling the c
 - 2012-12-10 Renamed Money::getUnits() to Money::getAmount()
 
 [Unreleased]: https://github.com/moneyphp/money/compare/v4.4.0...HEAD
+[4.5.0]: https://github.com/moneyphp/money/compare/v4.4.0...v4.5.0
 [4.4.0]: https://github.com/moneyphp/money/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/moneyphp/money/compare/v4.2.0...v4.3.0
 [4.2.0]: https://github.com/moneyphp/money/compare/v4.1.1...v4.2.0

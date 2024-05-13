@@ -282,16 +282,25 @@ class Application extends \yii\web\Application
                     }
                 }
 
-                if (!$userSession->getIsGuest() && !$this->getCanTestEditions()) {
-                    // Are there are any licensing issues cached?
-                    $licenseIssues = App::licensingIssues(false);
-                    if (!empty($licenseIssues)) {
-                        $hash = App::licensingIssuesHash($licenseIssues);
-                        if ($this->_showLicensingIssuesScreen($hash)) {
-                            return $this->runAction('app/licensing-issues', [
-                                'issues' => $licenseIssues,
-                                'hash' => $hash,
-                            ]);
+                if (!$userSession->getIsGuest()) {
+                    // See if the user is expected to have 2FA enabled
+                    $auth = $this->getAuth();
+                    $user = $userSession->getIdentity();
+                    if ($auth->is2faRequired($user) && !$auth->hasActiveMethod($user)) {
+                        return $this->runAction('users/setup-2fa');
+                    }
+
+                    if (!$this->getCanTestEditions()) {
+                        // Are there are any licensing issues cached?
+                        $licenseIssues = App::licensingIssues(false);
+                        if (!empty($licenseIssues)) {
+                            $hash = App::licensingIssuesHash($licenseIssues);
+                            if ($this->_showLicensingIssuesScreen($hash)) {
+                                return $this->runAction('app/licensing-issues', [
+                                    'issues' => $licenseIssues,
+                                    'hash' => $hash,
+                                ]);
+                            }
                         }
                     }
                 }
@@ -442,7 +451,7 @@ class Application extends \yii\web\Application
             return;
         }
 
-        $svg = rawurlencode(file_get_contents(dirname(__DIR__) . '/icons/c-debug.svg'));
+        $svg = rawurlencode(file_get_contents(dirname(__DIR__) . '/icons/custom-icons/c-debug.svg'));
         DebugModule::setYiiLogo("data:image/svg+xml;charset=utf-8,$svg");
 
         // Determine the base path using reflection in case it wasn't loaded from @vendor

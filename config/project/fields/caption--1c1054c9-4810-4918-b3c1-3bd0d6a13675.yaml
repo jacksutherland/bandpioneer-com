@@ -1,0 +1,16 @@
+columnSuffix: kgnvuymj
+handle: caption
+instructions: null
+name: 'Blog Content - Image - Caption'
+searchable: true
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  initialRows: 4
+  multiline: false
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

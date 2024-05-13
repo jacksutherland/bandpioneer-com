@@ -1,0 +1,32 @@
+columnSuffix: qnjolmmo
+handle: figureType
+instructions: null
+name: 'Blog Content - Embed Code - Figure Type'
+searchable: false
+settings:
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - None
+        -
+          - value
+          - ''
+        -
+          - default
+          - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - TikTok
+        -
+          - value
+          - tiktok
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown
