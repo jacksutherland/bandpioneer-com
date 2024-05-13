@@ -1092,6 +1092,11 @@ form .errors {
   margin: 0;
   padding: 0;
 }
+form .success {
+  color: #0a79a4;
+  font-weight: 700;
+  font-size: 0.86rem;
+}
 form.login-form {
   display: block;
   max-width: 400px;
@@ -1152,6 +1157,11 @@ form.contact-form button {
 form.contact-form .errors {
   grid-area: er;
   color: #f90215;
+  font-weight: 700;
+}
+form.contact-form .success {
+  grid-area: er;
+  color: #0a79a4;
   font-weight: 700;
 }
 @media (min-width: 576px) {
