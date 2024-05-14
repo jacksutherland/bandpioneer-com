@@ -94,4 +94,22 @@ return array (
     'documentationUrl' => 'https://github.com/verbb/comments',
     'changelogUrl' => 'https://raw.githubusercontent.com/verbb/comments/craft-5/CHANGELOG.md',
   ),
+  'verbb/social-login' => 
+  array (
+    'class' => 'verbb\\sociallogin\\SocialLogin',
+    'basePath' => $vendorDir . '/verbb/social-login/src',
+    'handle' => 'social-login',
+    'aliases' => 
+    array (
+      '@verbb/sociallogin' => $vendorDir . '/verbb/social-login/src',
+    ),
+    'name' => 'Social Login',
+    'version' => '2.0.0',
+    'description' => 'Add SSO (Single Sign-On) user login, registration and connecting to social media platforms.',
+    'developer' => 'Verbb',
+    'developerUrl' => 'https://verbb.io',
+    'developerEmail' => 'support@verbb.io',
+    'documentationUrl' => 'https://github.com/verbb/social-login',
+    'changelogUrl' => 'https://raw.githubusercontent.com/verbb/social-login/craft-5/CHANGELOG.md',
+  ),
 );
