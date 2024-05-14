@@ -185,12 +185,12 @@ fieldLayouts:
         userCondition: null
 handle: external
 hasTitleField: true
-icon: ''
+icon: null
 name: 'Blog - External'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: ''
+slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
-titleTranslationKeyFormat: ''
+titleFormat: null
+titleTranslationKeyFormat: null
 titleTranslationMethod: site

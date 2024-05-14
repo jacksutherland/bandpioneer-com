@@ -3,6 +3,7 @@ enableVersioning: true
 entryTypes:
   - ab942308-a9f7-48a6-9dbd-6b80da1b5105 # AI Battle
 handle: aiBattle
+maxAuthors: 1
 name: 'AI Battle'
 previewTargets:
   -
@@ -11,11 +12,11 @@ previewTargets:
         - label
         - 'Primary entry page'
       -
-        - urlFormat
-        - '{url}'
-      -
         - refresh
         - '1'
+      -
+        - urlFormat
+        - '{url}'
 propagationMethod: all
 siteSettings:
   10710afa-12e3-48a9-bb9d-2155b47cac47: # Band Pioneer AI

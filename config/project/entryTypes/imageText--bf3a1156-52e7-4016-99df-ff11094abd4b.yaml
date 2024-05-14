@@ -6,8 +6,37 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
             elementCondition: null
-            fieldUid: 3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: c39066dc-350a-44ca-b7b7-625659cbf4a6
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4 # Blog Content - Image & Text - Headline
             handle: headline
             includeInCards: true
             instructions: null
@@ -22,7 +51,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 9ea32fa5-e1b5-4900-96a6-86c01b8dbc68
+            fieldUid: 9ea32fa5-e1b5-4900-96a6-86c01b8dbc68 # Blog Content - Image & Text - Subheadline
             handle: subheadline
             includeInCards: false
             instructions: null
@@ -37,7 +66,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 7517c439-55f4-420f-9514-cad4d205f293
+            fieldUid: 7517c439-55f4-420f-9514-cad4d205f293 # Blog Content - Image & Text - Alternate TOC Text
             handle: alternateTocText
             includeInCards: false
             instructions: null
@@ -52,7 +81,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 9b6b4041-451d-480f-bfb4-9116294162ad
+            fieldUid: 9b6b4041-451d-480f-bfb4-9116294162ad # Blog Content - Image & Text - Blog Image
             handle: blogImage
             includeInCards: false
             instructions: null
@@ -67,7 +96,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: d30b8ce1-04a4-4e95-a1e6-570d2e4f339f
+            fieldUid: d30b8ce1-04a4-4e95-a1e6-570d2e4f339f # Blog Content - Image & Text - No Transform
             handle: noTransform
             includeInCards: false
             instructions: null
@@ -82,7 +111,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 6c48f2a4-30de-4d42-a211-268e766bd9b1
+            fieldUid: 6c48f2a4-30de-4d42-a211-268e766bd9b1 # Blog Content - Image & Text - Size
             handle: size
             includeInCards: false
             instructions: null
@@ -97,7 +126,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 055b60fb-8617-44d9-aa31-c628008126b0
+            fieldUid: 055b60fb-8617-44d9-aa31-c628008126b0 # Blog Content - Image & Text - Caption
             handle: caption
             includeInCards: false
             instructions: null
@@ -112,7 +141,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 7753be54-298e-490f-9ab3-381c71785210
+            fieldUid: 7753be54-298e-490f-9ab3-381c71785210 # Blog Content - Image & Text - Link URL
             handle: linkUrl
             includeInCards: false
             instructions: null
@@ -127,7 +156,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 555e19eb-df0c-48bc-b4b9-bdc423af2204
+            fieldUid: 555e19eb-df0c-48bc-b4b9-bdc423af2204 # Blog Content - Image & Text - Rich Text
             handle: richText
             includeInCards: false
             instructions: null

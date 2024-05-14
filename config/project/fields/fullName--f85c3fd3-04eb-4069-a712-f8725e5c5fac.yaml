@@ -1,5 +1,4 @@
 columnSuffix: tyoweuik
-contentColumnType: text
 handle: fullName
 instructions: null
 name: 'Full Name'
@@ -8,7 +7,6 @@ settings:
   byteLimit: null
   charLimit: null
   code: false
-  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

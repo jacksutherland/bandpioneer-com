@@ -1,5 +1,4 @@
 columnSuffix: tnrvjnsj
-contentColumnType: text
 handle: ctaText
 instructions: null
 name: 'CTA Text'
@@ -8,7 +7,6 @@ settings:
   byteLimit: null
   charLimit: null
   code: false
-  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

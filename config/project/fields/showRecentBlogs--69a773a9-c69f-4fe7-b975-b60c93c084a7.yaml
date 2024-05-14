@@ -1,5 +1,4 @@
 columnSuffix: cjrpbnao
-contentColumnType: boolean
 handle: showRecentBlogs
 instructions: null
 name: 'Show Recent Blogs'

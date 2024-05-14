@@ -1,0 +1,560 @@
+dateModified: 1715647599
+elementSources:
+  craft\elements\Asset:
+    -
+      heading: Website
+      type: heading
+    -
+      key: 'volume:3098d7ae-88a8-4d10-9c0f-b138a839a277' # Band Images
+      type: native
+    -
+      key: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
+      type: native
+    -
+      key: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
+      type: native
+    -
+      key: 'volume:f0b910e3-c8e6-448c-b884-50e6ab61d4da' # Writer Pictures
+      type: native
+    -
+      heading: Rockstars
+      type: heading
+    -
+      defaultSort:
+        - dateCreated
+        - desc
+      disabled: false
+      key: 'volume:eedcf843-b27f-4c8b-a016-8ed1d7bbbd43' # Rockstars Assets
+      tableAttributes:
+        - filename
+        - size
+        - dateUpdated
+        - uploader
+        - link
+      type: native
+    -
+      heading: ''
+      type: heading
+    -
+      key: 'folder:e546f4f6-5e1f-47e3-9e1c-33efa1e4dc5d'
+      type: native
+  craft\elements\Entry:
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: '*'
+      tableAttributes:
+        - section
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      heading: 'Web Pages'
+      type: heading
+    -
+      defaultSort:
+        - title
+        - asc
+      disabled: false
+      key: singles
+      tableAttributes:
+        - link
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
+      key: 'section:73181943-f37b-46c9-bd22-4f9c35a4af07' # Pages
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - author
+        - link
+      type: native
+    -
+      heading: Blog
+      type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
+      tableAttributes:
+        - type
+        - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Topic
+        - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Categories
+        - 'field:f977de61-4eb7-4324-ac92-3b5a651b832c' # Tags
+        - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
+        - postDate
+        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Ranking
+        - link
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
+      key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Topics
+      tableAttributes:
+        - 'field:ed962f96-407c-48ee-9fe2-daccbb4b7a16' # Headline
+        - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
+        - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
+        - 'field:a3e2f22e-d4a1-4050-a8a8-5a2588565002' # Disable Ads
+        - slug
+        - dateUpdated
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories
+      tableAttributes:
+        - type
+        - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
+      type: native
+    -
+      heading: Components
+      type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:2ee0929d-42ad-44ca-9f6a-990c73c36c1c' # Bands
+      tableAttributes:
+        - 'field:37ff1ae6-ced2-4eaf-b107-93e6e3dd94be' # Band Image
+        - dateUpdated
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:63d793d3-b3e1-4701-9042-5ad2e0cde7df' # Roles
+      tableAttributes:
+        - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
+      type: native
+  craft\elements\User:
+    -
+      key: '*'
+      type: native
+    -
+      defaultSort:
+        - email
+        - asc
+      disabled: false
+      key: admins
+      tableAttributes:
+        - fullName
+        - username
+        - email
+        - dateCreated
+        - lastLoginDate
+      type: native
+    -
+      heading: 'Account Type'
+      type: heading
+    -
+      key: credentialed
+      type: native
+    -
+      key: inactive
+      type: native
+    -
+      heading: Groups
+      type: heading
+    -
+      key: 'group:1e42cdc3-f360-43ac-b612-8de6f081ad47' # Rockstars
+      type: native
+email:
+  fromEmail: support@realitygems.com
+  fromName: 'Band Pioneer'
+  replyToEmail: support@realitygems.com
+  template: ''
+  transportSettings:
+    apiKey: $SENDGRID_API_KEY
+    categories: ''
+  transportType: putyourlightson\sendgrid\mail\SendgridAdapter
+fs:
+  bandImages:
+    hasUrls: true
+    name: 'Band Images'
+    settings:
+      path: assets/images/bands
+    type: craft\fs\Local
+    url: /assets/images/bands
+  blogImages:
+    hasUrls: true
+    name: 'Blog Images'
+    settings:
+      path: assets/images/blog
+    type: craft\fs\Local
+    url: /assets/images/blog
+  pageImages:
+    hasUrls: true
+    name: 'Page Images'
+    settings:
+      path: assets/images/pages
+    type: craft\fs\Local
+    url: /assets/images/pages
+  rockstarFiles:
+    hasUrls: true
+    name: 'Rockstar Files'
+    settings:
+      path: assets/rockstars
+    type: craft\fs\Local
+    url: /assets/rockstars
+  writerPictures:
+    hasUrls: true
+    name: 'Writer Pictures'
+    settings:
+      path: assets/images/writers
+    type: craft\fs\Local
+    url: /assets/images/writers
+meta:
+  __names__:
+    00db73da-9688-48d8-b88d-cf5fc233f346: 'Show Image Carousel' # Show Image Carousel
+    1a69adf3-7129-4f03-a788-c50df99aa120: 'Band Pioneer' # Band Pioneer
+    1b12d4c8-a449-4b45-99db-cdcf801d8fa4: 'Hero Image' # Hero Image
+    1c1054c9-4810-4918-b3c1-3bd0d6a13675: 'Blog Content - Image - Caption' # Blog Content - Image - Caption
+    01d0c5e2-4c3a-4623-9699-331c764e4643: 'Blog Content - Media - Caption 2' # Blog Content - Media - Caption 2
+    1d894e72-ea22-4785-8c26-c43a3b823625: 'Popular Posts' # Popular Posts
+    1e42cdc3-f360-43ac-b612-8de6f081ad47: Rockstars # Rockstars
+    2abdf5c6-4ea5-4720-abbc-8c97cd3249f7: 'Full Width Mobile Square' # Full Width Mobile Square
+    2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Content - Image - Blog Image' # Blog Content - Image - Blog Image
+    2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
+    02fb6a1a-8498-4b48-ad99-b61ac895f168: 'CTA Text' # CTA Text
+    2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
+    2ff42ac0-c01a-484a-9e78-a524d5d85090: 'Half Width Desktop' # Half Width Desktop
+    3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
+    3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
+    3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4: 'Blog Content - Image & Text - Headline' # Blog Content - Image & Text - Headline
+    3f54aa64-f831-4c65-b372-2d31e7ef7644: 'Full Width Mobile 2x' # Full Width Mobile 2x
+    4ad976b2-17b2-41da-8eb1-0e8f74b96a93: 'Blog Listing Mobile 2x' # Blog Listing Mobile 2x
+    4ae9fce4-7aa0-4e58-aae6-a6844fe1fedc: 'Section Style' # Section Style
+    5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'Blog Content - Media - Media ID' # Blog Content - Media - Media ID
+    6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: 'Blog - External' # Blog - External
+    6c48f2a4-30de-4d42-a211-268e766bd9b1: 'Blog Content - Image & Text - Size' # Blog Content - Image & Text - Size
+    7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
+    7b1bec99-65ba-4a02-8235-745b4595d2fe: 'Full Width Mobile' # Full Width Mobile
+    7e7f111f-d34d-4ad9-976c-0ec0e45dd053: 'Popular Post' # Popular Post
+    7e654447-0f77-4257-9dd9-302624c91c15: 'Rich Text Width 2x' # Rich Text Width 2x
+    7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text
+    8a780297-6f26-445e-ab9a-59602ffc5dbc: 'SEO Image' # SEO Image
+    8bb43633-4a68-4f44-93b1-84ef2584a366: 'CTA Text 2' # CTA Text 2
+    8c0e4ec9-bf67-46e2-9302-82d3a602160c: Genre # Genre
+    9a6940a2-21f7-479b-89de-7b12ff94ad18: 'Long Text' # Long Text
+    9b6b4041-451d-480f-bfb4-9116294162ad: 'Blog Content - Image & Text - Blog Image' # Blog Content - Image & Text - Blog Image
+    09c9f08d-1475-4099-81fb-50a41a1eca8e: 'Blog Image' # Blog Image
+    9d9d41d0-9e17-402e-8e87-a5d4346dce47: 'Short Description' # Short Description
+    9ea32fa5-e1b5-4900-96a6-86c01b8dbc68: 'Blog Content - Image & Text - Subheadline' # Blog Content - Image & Text - Subheadline
+    9fb102dd-839a-4229-82ce-229ed6669f92: Ranking # Ranking
+    16f6ab19-b9a9-4d9d-bef0-1b25bf8877ef: 'Blog Header' # Blog Header
+    18b5ed4a-3fe4-4566-8c78-9cff10344f5b: 'Section Title' # Section Title
+    21c3bed7-573e-4590-a1f1-9255d64cd4d0: 'Website Name' # Website Name
+    26e93876-a78a-402d-b49e-a55f7d4e5374: 'Blog Content - Image - Link URL' # Blog Content - Image - Link URL
+    30fa7a57-b433-476a-9e42-ca0ad4755591: Image # Image
+    36f3fdb8-39d1-4d2a-a865-79cc5fcd0f57: 'Full Width Mobile Square 2x' # Full Width Mobile Square 2x
+    37ff1ae6-ced2-4eaf-b107-93e6e3dd94be: 'Band Image' # Band Image
+    48b77470-3ec0-4627-80f5-674447e5975c: 'Popular Post Mobile 2023 2x' # Popular Post Mobile 2023 2x
+    055b60fb-8617-44d9-aa31-c628008126b0: 'Blog Content - Image & Text - Caption' # Blog Content - Image & Text - Caption
+    55fe6bf6-54b5-47c3-af24-9173740cadc0: 'AI Battle' # AI Battle
+    61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
+    63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
+    067eba0e-b12d-4661-a61b-9c4a22c91bb4: Media # Media
+    68b78cac-18bc-49d2-a702-d76dfdfcfc89: 'Band Carousel Small' # Band Carousel Small
+    68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Blog Content - Text - Rich Text' # Blog Content - Text - Rich Text
+    69a773a9-c69f-4fe7-b975-b60c93c084a7: 'Show Recent Blogs' # Show Recent Blogs
+    76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
+    77bee9c6-a3ce-4ca6-ae83-75613901a67e: 'Default Blog Image' # Default Blog Image
+    80a9c5e0-fb80-420c-a7df-676f56ac600d: 'Blog Image' # Blog Image
+    82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc: 'Blog Content - Image - Margins' # Blog Content - Image - Margins
+    82e52c13-cbb5-435e-936b-296b40cf8f27: 'Featured Blog Post' # Featured Blog Post
+    89ac4662-d8f3-4ecb-83aa-2331b37d7775: 'Half Width Desktop 2x' # Half Width Desktop 2x
+    93fff5a3-a54a-4da7-9196-e349dadd2acf: 'Blog Header Mobile' # Blog Header Mobile
+    240b171c-f828-4004-ab96-26ec79e03694: 'Blog Content - Embed Code - Figure Type' # Blog Content - Embed Code - Figure Type
+    350ca85e-fc53-44c8-a062-e0256f1967e4: 'Blog - Dynamic' # Blog - Dynamic
+    350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
+    555e19eb-df0c-48bc-b4b9-bdc423af2204: 'Blog Content - Image & Text - Rich Text' # Blog Content - Image & Text - Rich Text
+    774ccc9c-38af-4883-8507-dc63a256627a: Instrument # Instrument
+    780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
+    820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
+    851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
+    2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
+    3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
+    4741f9c5-9672-4145-968f-8b2d0a418435: 'Popular Post Mobile 2023' # Popular Post Mobile 2023
+    4841ea5f-6862-49c1-a232-c06320791c17: 'Blog Listing Desktop' # Blog Listing Desktop
+    6783d966-6cc3-4df4-afa4-e9790815a363: 'Long Description' # Long Description
+    7149d8a6-d74b-4e10-b59b-80f37708aaa0: 'TOC Style' # TOC Style
+    7338fd63-9ce2-4696-a9b3-113b5d6015c3: Subheadline # Subheadline
+    7517c439-55f4-420f-9514-cad4d205f293: 'Blog Content - Image & Text - Alternate TOC Text' # Blog Content - Image & Text - Alternate TOC Text
+    7713ee4e-e1ca-4aeb-a2c4-ef6b725b1a18: 'Page Image' # Page Image
+    7753be54-298e-490f-9ab3-381c71785210: 'Blog Content - Image & Text - Link URL' # Blog Content - Image & Text - Link URL
+    8297f5ab-0624-4ef9-bdba-8bef1cc43523: 'Blog Content - Embed Code - Figure Caption' # Blog Content - Embed Code - Figure Caption
+    10710afa-12e3-48a9-bb9d-2155b47cac47: 'Band Pioneer AI' # Band Pioneer AI
+    24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
+    67862bf2-294a-4e45-af45-324c297cbea8: 'Blog Content - Media - Minute Mark' # Blog Content - Media - Minute Mark
+    266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
+    01207986-f2f4-40a3-99e7-b4bc3a3fd701: 'Page Image 2' # Page Image 2
+    2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
+    04623371-fa0e-4ff7-84f9-93dcf4e31080: Topics # Topics
+    04833123-aa51-4fae-b2c2-80377911b8ae: 'Blog Related Content' # Blog Related Content
+    6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
+    29031305-9467-4d00-bc36-cea8076d10ac: 'Blog Content - Media - Media ID 2' # Blog Content - Media - Media ID 2
+    33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: 'Blog Content - Embed Code - Markup' # Blog Content - Embed Code - Markup
+    73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
+    a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
+    a070ee30-4cf4-4a25-8bb8-7768d85f66f7: 'Blog Content - Image - Background' # Blog Content - Image - Background
+    a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Disable Ads' # Disable Ads
+    a7a58192-5546-4595-bb65-35dc012b65cc: 'Band Carousel' # Band Carousel
+    a8e014fb-e647-47d8-af5a-e9648fff7a69: Categories # Categories
+    a8e7e839-8b79-4e99-a8e2-a2ba56f6e057: 'OG Image' # OG Image
+    a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Four Row Post 2023' # Four Row Post 2023
+    a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Topic # Topic
+    a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
+    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Categories # Categories
+    ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
+    ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
+    acdcd6cb-c200-42d3-a723-ea131a1387dd: 'Blog Content - Section Title - Subheadline' # Blog Content - Section Title - Subheadline
+    b5c0f1ed-7691-4280-a0a0-4ea1bc447989: 'Blog Listing Medium' # Blog Listing Medium
+    b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
+    b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
+    b9eaa895-752b-4102-8fac-49d7662c399d: 'Roles - Default' # Roles - Default
+    b89e4608-4a0c-49c1-a0d9-d9758eec6f4b: 'Blog Listing Mobile' # Blog Listing Mobile
+    bc9d16b4-6012-428a-b78c-758da4e7c8e9: 'Blog Image Mobile' # Blog Image Mobile
+    bf3a1156-52e7-4016-99df-ff11094abd4b: 'Image & Text' # Image & Text
+    bfe10380-5bde-4f7c-b4a8-eca75b87c28f: 'Public Schema' # Public Schema
+    c021f2dc-243d-458f-b0b4-c00db3a1a673: 'Blog Post Mobile' # Blog Post Mobile
+    c56a7022-7df1-419e-9c88-6a2090e76065: 'Content Layout' # Content Layout
+    c391d039-c741-426d-85a3-d52c21725ce9: 'Blog Listing Medium 2x' # Blog Listing Medium 2x
+    c974eade-af8a-4f73-a577-d015bbb0f5f4: 'Related Post' # Related Post
+    c1052de8-6217-41e9-8c24-2b4da3d48b10: 'Blog Images' # Blog Images
+    c8882f0f-9f15-47b0-a3ba-c71265503cc1: 'Blog Content - Media - Minute Mark 2' # Blog Content - Media - Minute Mark 2
+    c4817296-2368-46b6-9127-4bd175f84a4a: 'Dynamic SEO' # Dynamic SEO
+    cb12ca30-b685-4547-a81e-f978eb629278: 'Blog - Internal' # Blog - Internal
+    cc64f857-3e97-42d7-8a16-79223c695a98: Default # Default
+    cd4a38c4-94ce-4c20-9d8b-62288944ef87: 'Blog Content - Media - Media Type' # Blog Content - Media - Media Type
+    cdaef71d-1a83-462b-92b2-4d96fd8d8b32: 'Related SEO Keywords' # Related SEO Keywords
+    d0343e16-9877-458f-88e4-13b343d2cbae: Tags # Tags
+    d30b8ce1-04a4-4e95-a1e6-570d2e4f339f: 'Blog Content - Image & Text - No Transform' # Blog Content - Image & Text - No Transform
+    d70ad590-bed7-4878-a8d8-ca2759e4ae4d: Decade # Decade
+    d868a59a-8531-43b1-88a2-eb8eea29254c: 'Band Pioneer' # Band Pioneer
+    d99087f8-d76e-43c8-86f5-afc78b3f4430: 'Blog Content - Image - No Transform' # Blog Content - Image - No Transform
+    dc2a5508-39c8-4963-bf3b-159da3ef325b: 'Topics - Default' # Topics - Default
+    de2bb280-3465-478f-a8b2-bb03f3c7be35: 'Blog Content - Media - Caption' # Blog Content - Media - Caption
+    e0270692-1ca3-4ba6-8d52-cfca54ac634a: 'Blog Content - Image - Size' # Blog Content - Image - Size
+    e1e2658d-253a-4426-b447-fce24b18410a: 'Website URL' # Website URL
+    e8ce77e6-c957-4290-8a2d-87ba28953701: 'Bands Media' # Bands Media
+    e47520eb-bf67-40c5-b8e9-b5e219b14003: 'Blog Content - Section Title - Alternate TOC Text' # Blog Content - Section Title - Alternate TOC Text
+    e55684f7-379f-42d4-8c46-0d4bca63ecee: 'Meta Description' # Meta Description
+    eb6cec15-707d-4542-8311-cb925d61ee30: Homepage # Homepage
+    ebb182f2-2a4c-47ef-b783-e0b89ffec769: 'Four Row Post 2023 2x' # Four Row Post 2023 2x
+    ec1072a8-598a-42fe-9c6f-4db8ec7406ef: 'Blog Listing Desktop 2x' # Blog Listing Desktop 2x
+    ed3ddcd0-5218-490f-a4b7-d5000594dcf2: 'Blog Post' # Blog Post
+    ed962f96-407c-48ee-9fe2-daccbb4b7a16: Headline # Headline
+    ee13e705-afd8-41c1-a111-b472a62a15f2: 'Blog Content - Section Title - Headline' # Blog Content - Section Title - Headline
+    eedcf843-b27f-4c8b-a016-8ed1d7bbbd43: 'Rockstars Assets' # Rockstars Assets
+    ef55f37c-e778-431e-9a74-e11190cf7a76: 'Recent Posts Mobile 2023 2x' # Recent Posts Mobile 2023 2x
+    efb11c10-ff82-4015-931f-aa5434ba6128: 'Rich Text Width' # Rich Text Width
+    f0b910e3-c8e6-448c-b884-50e6ab61d4da: 'Writer Pictures' # Writer Pictures
+    f56dcf7f-956d-4a14-b4e8-8bfd842d5b72: 'Embed Code' # Embed Code
+    f85c3fd3-04eb-4069-a712-f8725e5c5fac: 'Full Name' # Full Name
+    f663d014-30ef-4783-b5bd-8c974833fe36: Opacity # Opacity
+    f977de61-4eb7-4324-ac92-3b5a651b832c: Tags # Tags
+    fab3405a-11f1-4389-b8fb-d7f3fae15087: 'Featured Snippet' # Featured Snippet
+    fd86eaf9-b505-4c30-8bd9-37be31ad6209: 'Bands - Default' # Bands - Default
+    fe1cd76f-41da-4ad3-bf83-7289c909ad2d: Simple # Simple
+plugins:
+  ckeditor:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0.0
+  comments:
+    edition: standard
+    enabled: true
+    licenseKey: BBH82OI6SFY4ZXR0TIXEYSUT
+    schemaVersion: 1.2.0
+    settings:
+      allowFlagging: true
+      allowGuest: true
+      allowGuestFlagging: false
+      allowGuestVoting: false
+      allowVoting: false
+      autoCloseDays: null
+      closed: false
+      defaultQueryStatus:
+        - approved
+      downvoteCommentLimit: 5
+      enableGravatar: false
+      enableSpamChecks: true
+      flaggedCommentLimit: 5
+      guestNotice: null
+      guestRequireEmailName: true
+      guestShowEmailName: false
+      hideVotingForThreshold: false
+      indexSidebarGroup: true
+      indexSidebarIndividualElements: false
+      indexSidebarLimit: 25
+      maxReplyDepth: null
+      maxUserComments: null
+      moderatorUserGroup: null
+      notificationAdminEnabled: false
+      notificationAuthorEnabled: true
+      notificationFlaggedEnabled: false
+      notificationModeratorApprovedEnabled: false
+      notificationModeratorEnabled: false
+      notificationReplyEnabled: true
+      notificationSubscribeAuto: false
+      notificationSubscribeCommentEnabled: false
+      notificationSubscribeDefault: true
+      notificationSubscribeEnabled: false
+      outputDefaultCss: true
+      outputDefaultJs: true
+      permissions:
+        __assoc__:
+          -
+            - craft\elements\Asset
+            - '*'
+          -
+            - craft\elements\Category
+            - '*'
+          -
+            - craft\elements\Entry
+            - '*'
+          -
+            - craft\elements\User
+            - '*'
+      placeholderAvatar: null
+      recaptchaEnabled: false
+      recaptchaKey: null
+      recaptchaMinScore: 0.5
+      recaptchaSecret: null
+      requireModeration: true
+      securityBanned: null
+      securityFlooding: null
+      securityMatchExact: false
+      securityMaxLength: null
+      securityModeration: null
+      securitySpamlist: null
+      showAvatar: true
+      showCustomFieldInstructions: false
+      showCustomFieldNames: false
+      showTimeAgo: true
+      sortDefaultDirection: asc
+      sortDefaultKey: structure
+      structureUid: 4cf07fcd-fffb-4883-8066-1202ee8c9ea8
+      templateEmail: null
+      templateFolderOverride: _comments
+      useQueueForNotifications: false
+  contact-form:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+    settings:
+      allowAttachments: ''
+      allowedMessageFields:
+        - Phone
+      prependSender: 'Band Pioneer'
+      prependSubject: 'Band Pioneer'
+      successFlashMessage: 'Thank you! Your message has been sent.'
+      toEmail: jack@bandpioneer.com
+  logs:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0
+  rockstar:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  sendgrid:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  sidebarentrytypes:
+    edition: standard
+    enabled: true
+    licenseKey: T9ZZ68THXSBAAMJ3D7HHYTCX
+    schemaVersion: 2.0.0
+  social-login:
+    edition: standard
+    enabled: true
+    licenseKey: 1TSX9LD7VA6DD6S7F65EIFT4
+    schemaVersion: 1.0.1
+    settings:
+      cpLoginTemplate: ''
+      enableCpLogin: false
+      enableLogin: true
+      enableRegistration: true
+      forceActivate: true
+      populateProfile: true
+      providers:
+        __assoc__:
+          -
+            - google
+            -
+              __assoc__:
+                -
+                  - proxyRedirect
+                  - '0'
+                -
+                  - enabled
+                  - true
+                -
+                  - matchUserSource
+                  - email
+                -
+                  - matchUserDestination
+                  - email
+                -
+                  - loginEnabled
+                  - true
+                -
+                  - cpLoginEnabled
+                  - false
+                -
+                  - fieldMapping
+                  -
+                    __assoc__:
+                      -
+                        - username
+                        - email
+                      -
+                        - email
+                        - email
+                      -
+                        - name
+                        - name
+                      -
+                        - firstName
+                        - firstName
+                      -
+                        - lastName
+                        - lastName
+                      -
+                        - fullName
+                        - name
+                      -
+                        - photo
+                        - ''
+                -
+                  - clientId
+                  - $GOOGLE_SSO_CLIENT_ID
+                -
+                  - clientSecret
+                  - $GOOGLE_SSO_CLIENT_SECRET
+      userGroups:
+        - 3A1e42cdc3-f360-43ac-b612-8de6f081ad47 # Rockstars
+system:
+  edition: pro
+  live: true
+  name: 'Band Pioneer'
+  retryDuration: null
+  schemaVersion: 5.0.0.20
+  timeZone: America/New_York

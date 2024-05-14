@@ -7,8 +7,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 82e52c13-cbb5-435e-936b-296b40cf8f27 # Featured Blog Post
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -19,8 +22,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 1d894e72-ea22-4785-8c26-c43a3b823625 # Popular Posts
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -31,8 +37,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 77bee9c6-a3ce-4ca6-ae83-75613901a67e # Default Blog Image
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

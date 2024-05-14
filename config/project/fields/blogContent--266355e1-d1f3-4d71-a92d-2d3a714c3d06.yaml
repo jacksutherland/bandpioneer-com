@@ -1,21 +1,24 @@
 columnSuffix: null
-contentColumnType: string
 handle: blogContent
 instructions: null
 name: 'Blog Content'
 searchable: true
 settings:
+  createButtonLabel: null
   entryTypes:
-    - 7f387f1a-d0e5-455a-a900-c8632cfdf5c9
-    - 18b5ed4a-3fe4-4566-8c78-9cff10344f5b
-    - 30fa7a57-b433-476a-9e42-ca0ad4755591
-    - 067eba0e-b12d-4661-a61b-9c4a22c91bb4
-    - bf3a1156-52e7-4016-99df-ff11094abd4b
-    - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72
+    - 7f387f1a-d0e5-455a-a900-c8632cfdf5c9 # Text
+    - 18b5ed4a-3fe4-4566-8c78-9cff10344f5b # Section Title
+    - 30fa7a57-b433-476a-9e42-ca0ad4755591 # Image
+    - 067eba0e-b12d-4661-a61b-9c4a22c91bb4 # Media
+    - bf3a1156-52e7-4016-99df-ff11094abd4b # Image & Text
+    - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72 # Embed Code
+  includeTableView: false
   maxEntries: null
   minEntries: null
+  pageSize: null
   propagationKeyFormat: null
   propagationMethod: all
+  showCardsInGrid: false
   viewMode: blocks
 translationKeyFormat: null
 translationMethod: site

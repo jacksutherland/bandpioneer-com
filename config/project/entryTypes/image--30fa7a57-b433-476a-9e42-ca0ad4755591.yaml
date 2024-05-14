@@ -6,8 +6,37 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
             elementCondition: null
-            fieldUid: 2d08e6f3-ae71-4a17-a1f5-97abeb7193f9
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 5510b903-d9a3-4845-a4c7-3f7d30e233b2
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 2d08e6f3-ae71-4a17-a1f5-97abeb7193f9 # Blog Content - Image - Blog Image
             handle: blogImage
             includeInCards: false
             instructions: null
@@ -22,7 +51,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: d99087f8-d76e-43c8-86f5-afc78b3f4430
+            fieldUid: d99087f8-d76e-43c8-86f5-afc78b3f4430 # Blog Content - Image - No Transform
             handle: null
             includeInCards: true
             instructions: null
@@ -37,7 +66,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a
+            fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Blog Content - Image - Size
             handle: null
             includeInCards: false
             instructions: null
@@ -52,7 +81,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: a070ee30-4cf4-4a25-8bb8-7768d85f66f7
+            fieldUid: a070ee30-4cf4-4a25-8bb8-7768d85f66f7 # Blog Content - Image - Background
             handle: null
             includeInCards: false
             instructions: null
@@ -67,7 +96,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc
+            fieldUid: 82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc # Blog Content - Image - Margins
             handle: null
             includeInCards: false
             instructions: null
@@ -82,7 +111,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 1c1054c9-4810-4918-b3c1-3bd0d6a13675
+            fieldUid: 1c1054c9-4810-4918-b3c1-3bd0d6a13675 # Blog Content - Image - Caption
             handle: null
             includeInCards: false
             instructions: null
@@ -97,7 +126,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 26e93876-a78a-402d-b49e-a55f7d4e5374
+            fieldUid: 26e93876-a78a-402d-b49e-a55f7d4e5374 # Blog Content - Image - Link URL
             handle: null
             includeInCards: false
             instructions: null

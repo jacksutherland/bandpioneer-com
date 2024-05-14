@@ -3,6 +3,7 @@ enableVersioning: true
 entryTypes:
   - 61ce33f4-2d2f-429c-89f0-3011ff78cd5f # Homepage
 handle: homepage
+maxAuthors: 1
 name: Homepage
 propagationMethod: all
 siteSettings:

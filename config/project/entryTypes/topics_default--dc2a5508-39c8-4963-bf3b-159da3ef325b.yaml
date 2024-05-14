@@ -1,3 +1,4 @@
+color: null
 fieldLayouts:
   705149bd-e05b-41c7-94b8-f3e0253ba2c5:
     tabs:
@@ -12,6 +13,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -20,6 +22,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -34,8 +37,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: a3e2f22e-d4a1-4050-a8a8-5a2588565002 # Disable Ads
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -46,8 +52,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
+            handle: null
+            includeInCards: false
             instructions: 'H1 Tag (Menu Items Use Title)'
             label: null
+            providesThumbs: false
             required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -58,8 +67,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 02fb6a1a-8498-4b48-ad99-b61ac895f168 # CTA Text
+            handle: null
+            includeInCards: false
             instructions: 'Text used in the tag icon'
             label: Label
+            providesThumbs: false
             required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -70,8 +82,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 1b12d4c8-a449-4b45-99db-cdcf801d8fa4 # Hero Image
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -82,8 +97,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
+            handle: null
+            includeInCards: false
             instructions: null
             label: 'Description Headline'
+            providesThumbs: false
             required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -94,8 +112,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
+            handle: null
+            includeInCards: false
             instructions: null
             label: 'Description Text'
+            providesThumbs: false
             required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -106,8 +127,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 8bb43633-4a68-4f44-93b1-84ef2584a366 # CTA Text 2
+            handle: null
+            includeInCards: false
             instructions: null
             label: 'Search Placeholder'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -118,8 +142,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 82e52c13-cbb5-435e-936b-296b40cf8f27 # Featured Blog Post
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -130,8 +157,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
+            handle: null
+            includeInCards: false
             instructions: null
             label: 'Show In Menu'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -148,8 +178,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -160,8 +193,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -172,8 +208,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -186,11 +225,12 @@ fieldLayouts:
         userCondition: null
 handle: topics_default
 hasTitleField: true
+icon: null
 name: 'Topics - Default'
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

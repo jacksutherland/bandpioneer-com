@@ -1,11 +1,9 @@
 columnSuffix: egvlomut
-contentColumnType: string(21)
 handle: sectionStyle
 instructions: null
 name: 'Section Style'
 searchable: false
 settings:
-  columnType: null
   options:
     -
       __assoc__:

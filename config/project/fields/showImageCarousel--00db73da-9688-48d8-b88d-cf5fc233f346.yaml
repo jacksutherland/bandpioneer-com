@@ -1,5 +1,4 @@
 columnSuffix: mskyifeo
-contentColumnType: boolean
 handle: showImageCarousel
 instructions: null
 name: 'Show Image Carousel'

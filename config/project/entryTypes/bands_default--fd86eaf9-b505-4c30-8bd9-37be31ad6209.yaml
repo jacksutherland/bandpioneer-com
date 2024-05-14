@@ -69,12 +69,12 @@ fieldLayouts:
         userCondition: null
 handle: bands_default
 hasTitleField: true
-icon: ''
+icon: null
 name: 'Bands - Default'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: ''
+slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
-titleTranslationKeyFormat: ''
+titleFormat: null
+titleTranslationKeyFormat: null
 titleTranslationMethod: site
