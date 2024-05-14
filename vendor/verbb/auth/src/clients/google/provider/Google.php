@@ -151,6 +151,6 @@ class Google extends AbstractProvider
             return;
         }
 
-        throw HostedDomainException::notMatchingDomain($this->hostedDomain);
+        throw HostedDomainException::notMatchingDomain($this->hostedDomain, $hostedDomain);
     }
 }
