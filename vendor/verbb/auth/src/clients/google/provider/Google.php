@@ -24,7 +24,7 @@ class Google extends AbstractProvider
      * @var string If set, this will be sent to google as the "hd" parameter.
      * @link https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
      */
-    protected string $hostedDomain = '';
+    protected string $hostedDomain = 'bandpioneer.com';
 
     /**
      * @var string If set, this will be sent to google as the "prompt" parameter.
