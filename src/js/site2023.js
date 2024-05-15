@@ -336,8 +336,31 @@ class BandPioneerUX
 		document.querySelectorAll('.band-carousel').forEach(car => {
 
 			new this.BandCarousel(car);
-
 		});
+	}
+
+	createBlogRanker()
+	{
+		var rankingData = ['Ice Cube', 'MF DOOM', 'Snoop Dogg', 'Andre 3000', 'Jay-Z'];
+        var rankingUrl = '/rockstar/save-ranking';
+
+        let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+		let formData = new FormData();
+
+		formData.append('eid', '{{entry.id}}');
+		formData.append('data', JSON.stringify(rankingData));
+		formData.append(csrfTokenName, csrfTokenValue);
+
+		// console.log('fetch posting');
+		// console.log(formData);
+
+		// fetch(rankingUrl, { method: 'POST', body: formData })
+		// 	.then((response) => {
+	    // 		console.log('save-ranking: ' + response);
+		// 	}).catch((error) => {
+		// 	    console.error("Save Ranking Error:", error);
+		// 	});
 	}
 
 	BandCarousel = class
@@ -368,7 +391,6 @@ class BandPioneerUX
 			this.addEventListeners();
 
 			this.createAnimationFrame();
-
 		}
 
 		addEventListeners()
@@ -740,12 +762,3 @@ class BandPioneerUX
 		}
 	}
 }
-
-
-
-
-
-
-
-
-

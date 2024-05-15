@@ -25,6 +25,7 @@ use bandpioneer\rockstar\services\AIService;
 use bandpioneer\rockstar\services\KeywordService;
 use bandpioneer\rockstar\services\RockstarService;
 use bandpioneer\rockstar\variables\BandsVariable;
+use bandpioneer\rockstar\variables\RockstarVariable;
 
 use yii\base\Event;
 
@@ -73,6 +74,7 @@ class Rockstar extends craft\base\Plugin
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function(RegisterUrlRulesEvent $event)
             {
+                /*
                 $event->rules['bands/dashboard'] = 'rockstar/bands/dashboard';
 
                 $event->rules['bands/dashboard/edit/<slug>'] = 'rockstar/bands/dashboard';
@@ -86,10 +88,14 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/delete-logo'] = 'rockstar/bands/delete-logo';
                 $event->rules['bands/delete-image'] = 'rockstar/bands/delete-image';
                 $event->rules['bands/delete-song'] = 'rockstar/bands/delete-song';
+                */
 
                 $event->rules['keywords/data'] = 'rockstar/keywords/data';
                 $event->rules['keywords/related'] = 'rockstar/keywords/related';
                 $event->rules['keywords/create-entries'] = 'rockstar/keywords/create-entries';
+
+                $event->rules['rockstar/data'] = 'rockstar/rockstar/data';
+                $event->rules['rockstar/save-ranking'] = 'rockstar/rockstar/save-ranking';
             });
         }
 
@@ -101,6 +107,7 @@ class Rockstar extends craft\base\Plugin
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event)
         {
             $event->sender->set('bands', BandsVariable::class);
+            $event->sender->set('rockstar', RockstarVariable::class);
         });
 
         Event::on(Entry::class, Entry::EVENT_DEFINE_SIDEBAR_HTML, static function (DefineHtmlEvent $event)

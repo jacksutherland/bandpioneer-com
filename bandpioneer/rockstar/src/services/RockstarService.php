@@ -27,6 +27,7 @@ use craft\errors\ImageException;
 
 use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\records\BandRecord as BandRecord;
+use bandpioneer\rockstar\records\RankingRecord as RankingRecord;
 use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
 use bandpioneer\rockstar\models\EpkModel as EpkModel;
 
@@ -129,6 +130,54 @@ class RockstarService extends Component
     }
 
     /*** PUBLIC MEMBERS ***/
+
+    public function getCurrentUserRankingData($entryId)
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId]) ?? new RankingRecord();
+
+        if($rankingRecord->getIsNewRecord())
+        {
+            return [];
+        }
+
+        return $rankingRecord->getIsNewRecord()
+            ? json_encode("")
+            : json_encode($rankingRecord->data);
+    }
+
+    public function saveCurrentUserRankingData($entryId, $data)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $now = Db::prepareDateForDb(DateTimeHelper::now());
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId]) ?? new RankingRecord();
+
+            if($rankingRecord->getIsNewRecord())
+            {
+                $rankingRecord->dateCreated = $now;
+                $rankingRecord->userId = $currentUser->id;
+                $rankingRecord->entryId = $entryId;
+                $rankingRecord->enabled = true;
+            }
+
+            $rankingRecord->dateUpdated = $now;
+            $rankingRecord->data = json_encode($data);
+
+            $rankingRecord->save();
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+        return true;
+    }
 
     public function getEpkBySlug($slug)
     {
@@ -600,6 +649,8 @@ class RockstarService extends Component
             return false;
         }
     }
+
+    
 
     public function validateText(array $vals, $msg = "", $required = false):bool
     {

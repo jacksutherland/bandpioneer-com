@@ -14,8 +14,8 @@ class HostedDomainException extends Exception
      *
      * @return static
      */
-    public static function notMatchingDomain($configuredDomain, $userDomain = 'na'): self
+    public static function notMatchingDomain($configuredDomain): self
     {
-        return new static("User is not part of domain '$configuredDomain', but is part of '$userDomain'");
+        return new static("User is not part of domain '$configuredDomain'");
     }
 }

@@ -86,12 +86,12 @@
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
         {% set headerCacheKey = "header-20240501-" ~ (isMobile ? 'mobile' : 'desktop') %}
-        {% cache using key headerCacheKey %}
+        {# {% cache using key headerCacheKey %} #}
             <header class="site-header">
                 <button id="open-menu" aria-label="Open the mobile navigation menu">
                     {% include '_includes/icons' with { type: 'bars' } %}
                 </button>
-                {#
+                
                 <nav class="container" role="navigation">
                     <ul>
                         <li>
@@ -224,7 +224,11 @@
                             <a href="/contact">Contact</a>
                         </li>
                         <li>
-                            <a href="{{ craft.socialLogin.getLoginUrl('google') }}">Login</a>
+                            {% if currentUser %}
+                                <a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a>
+                            {% else %}
+                                <a href="{{ craft.socialLogin.getLoginUrl('google') }}">Login</a>
+                            {% endif %}
                         </li>
                         <li class="search">
                             <a href="/search">Search</a>
@@ -234,8 +238,8 @@
                         </li>
                     </ul>
                 </nav>
-                #}
                 
+                {#
                 <nav class="container" role="navigation">
                     <ul>
                         <li>
@@ -396,9 +400,9 @@
                         </li>
                     </ul>
                 </nav>
-
+                #}
             </header>
-        {% endcache %}
+        {# {% endcache %} #}
 
         <input type="checkbox" id="search-toggle">
         <div class="search-dropdown">
@@ -473,22 +477,20 @@
                             {% endfor %}
                         </ul>
                         <ul class="copyright">
-                            <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
-                            <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
                             <li>
-                                <a href="{{ craft.socialLogin.getLoginUrl('google') }}">L</a>, 
-                                {% if craft.socialLogin.isConnected('google') %}
-                                    <a href="{{ craft.socialLogin.getDisconnectUrl('google') }}">D</a>, 
-                                {% else %}
-                                    <a href="{{ craft.socialLogin.getConnectUrl('google') }}">C</a>
-                                {% endif %}
                                 {% if currentUser %}
-                                    {{ currentUser.email }} 
-                                    <a href="{{ url('logout') }}">lo</a>
+                                    {% if currentUser.fullName | length %}
+                                        Logged in as {{currentUser.fullName}} ({{currentUser.email}}) 
+                                    {% else %}
+                                        Logged in as {{currentUser.email}} 
+                                    {% endif %}
+                                    <a href="{{ url('logout') }}">Logout</a>
                                 {% else %}
-                                    lout
+                                    <a href="{{ craft.socialLogin.getLoginUrl('google') }}">Login</a> to Band Pioneer
                                 {% endif %}
                             </li>
+                            <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
+                            <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
                         </ul>
                     </nav>
                 </div>

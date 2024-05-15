@@ -14,6 +14,13 @@
 	{% set relatedPosts = craft.entries.section('blog').relatedTo(entry.topic).id('not ' ~ entry.id).limit(6).all() %}
 {% endif %}
 
+{% block headerScripts %}
+	 {% if currentUser %}
+		<meta name="csrf-token-name" content="{{ craft.app.config.general.csrfTokenName | e('html') }}">
+		<meta name="csrf-token-value" content="{{ craft.app.request.csrfToken | e('html') }}">
+	{% endif %}
+{% endblock %}
+
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
 	{% if (not isMobile) and entry.blogImage.count %}
@@ -29,11 +36,10 @@
             if (typeof(bp) !== undefined)
             {
             	bp.createBlogPost();
-            }
+            }    
         });
     </script>
 {% endblock %}
-
 
 {% block header %}
 
@@ -76,6 +82,10 @@
 
 
 {% block content %}
+
+	{# {% set rankingData = craft.rockstar.getCurrentUserRanking(entry.id) %}
+	<h3>Ranking Data</h3>
+	<h5>{{rankingData}}</h5> #}
 
 		{% cache %}
 			{% include 'blog/_includes/blog-module' %}
