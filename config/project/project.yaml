@@ -1,4 +1,4 @@
-dateModified: 1715647599
+dateModified: 1715911422
 elementSources:
   craft\elements\Asset:
     -
@@ -234,6 +234,7 @@ meta:
     2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
     2ff42ac0-c01a-484a-9e78-a524d5d85090: 'Half Width Desktop' # Half Width Desktop
     3a004cc4-6ba5-45b9-8767-56d39280f6f8: 'Twitter Image' # Twitter Image
+    3d8afd6b-d100-47e2-a8fe-0be9e0dab4d4: 'Ranker Key' # Ranker Key
     3da0f593-6bb6-42b6-834b-85a544cbc005: 'Page Images' # Page Images
     3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4: 'Blog Content - Image & Text - Headline' # Blog Content - Image & Text - Headline
     3f54aa64-f831-4c65-b372-2d31e7ef7644: 'Full Width Mobile 2x' # Full Width Mobile 2x
@@ -283,6 +284,7 @@ meta:
     350ca85e-fc53-44c8-a062-e0256f1967e4: 'Blog - Dynamic' # Blog - Dynamic
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     555e19eb-df0c-48bc-b4b9-bdc423af2204: 'Blog Content - Image & Text - Rich Text' # Blog Content - Image & Text - Rich Text
+    602a04aa-8d14-4db6-93a0-9c9f79d8d72d: 'Ranker Value' # Ranker Value
     774ccc9c-38af-4883-8507-dc63a256627a: Instrument # Instrument
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
@@ -300,6 +302,7 @@ meta:
     8297f5ab-0624-4ef9-bdba-8bef1cc43523: 'Blog Content - Embed Code - Figure Caption' # Blog Content - Embed Code - Figure Caption
     10710afa-12e3-48a9-bb9d-2155b47cac47: 'Band Pioneer AI' # Band Pioneer AI
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
+    32918d13-fbf2-4148-85a3-4bdb7a1d8468: 'Enable Ranking' # Enable Ranking
     67862bf2-294a-4e45-af45-324c297cbea8: 'Blog Content - Media - Minute Mark' # Blog Content - Media - Minute Mark
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     01207986-f2f4-40a3-99e7-b4bc3a3fd701: 'Page Image 2' # Page Image 2
@@ -549,6 +552,156 @@ plugins:
                 -
                   - clientSecret
                   - $GOOGLE_SSO_CLIENT_SECRET
+          -
+            - amazon
+            -
+              __assoc__:
+                -
+                  - enabled
+                  - true
+                -
+                  - matchUserSource
+                  - email
+                -
+                  - matchUserDestination
+                  - email
+                -
+                  - loginEnabled
+                  - true
+                -
+                  - cpLoginEnabled
+                  - false
+                -
+                  - fieldMapping
+                  -
+                    __assoc__:
+                      -
+                        - username
+                        - email
+                      -
+                        - email
+                        - email
+                      -
+                        - name
+                        - name
+                      -
+                        - firstName
+                        - ''
+                      -
+                        - lastName
+                        - ''
+                      -
+                        - fullName
+                        - name
+                      -
+                        - photo
+                        - ''
+                -
+                  - clientId
+                  - $AMAZON_SSO_CLIENT_ID
+                -
+                  - clientSecret
+                  - AMAZON_SSO_CLIENT_SECRET
+          -
+            - discord
+            -
+              __assoc__:
+                -
+                  - enabled
+                  - true
+                -
+                  - matchUserSource
+                  - email
+                -
+                  - matchUserDestination
+                  - email
+                -
+                  - loginEnabled
+                  - true
+                -
+                  - cpLoginEnabled
+                  - false
+                -
+                  - fieldMapping
+                  -
+                    __assoc__:
+                      -
+                        - username
+                        - email
+                      -
+                        - email
+                        - email
+                      -
+                        - name
+                        - username
+                      -
+                        - firstName
+                        - ''
+                      -
+                        - lastName
+                        - ''
+                      -
+                        - fullName
+                        - username
+                      -
+                        - photo
+                        - ''
+                -
+                  - clientId
+                  - $DISCORD_SSO_CLIENT_ID
+                -
+                  - clientSecret
+                  - $DISCORD_SSO_CLIENT_SECRET
+          -
+            - tikTok
+            -
+              __assoc__:
+                -
+                  - enabled
+                  - true
+                -
+                  - matchUserSource
+                  - email
+                -
+                  - matchUserDestination
+                  - email
+                -
+                  - loginEnabled
+                  - true
+                -
+                  - cpLoginEnabled
+                  - false
+                -
+                  - fieldMapping
+                  -
+                    __assoc__:
+                      -
+                        - username
+                        - email
+                      -
+                        - email
+                        - email
+                      -
+                        - name
+                        - ''
+                      -
+                        - firstName
+                        - ''
+                      -
+                        - lastName
+                        - ''
+                      -
+                        - fullName
+                        - ''
+                      -
+                        - photo
+                        - ''
+                -
+                  - clientId
+                  - $TIKTOK_SSO_CLIENT_ID
+                -
+                  - clientSecret
+                  - $TIKTOK_SSO_CLIENT_SECRET
       userGroups:
         - 3A1e42cdc3-f360-43ac-b612-8de6f081ad47 # Rockstars
 system:

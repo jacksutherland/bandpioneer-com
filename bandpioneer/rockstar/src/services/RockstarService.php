@@ -131,22 +131,27 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
-    public function getCurrentUserRankingData($entryId)
+    public function getCurrentUserKeys($entryId)
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId]) ?? new RankingRecord();
+        // $rankingRecords = RankingRecord::findAll(['userId' => $currentUser->id, 'entryId' => $entryId]);
+        $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id, 'entryId' => $entryId])->orderBy(['sort' => SORT_ASC])->all();
+        $rankingData = [];
 
-        if($rankingRecord->getIsNewRecord())
+        foreach($rankingRecords as &$rankingRecord)
         {
-            return [];
+            array_push($rankingData, [
+                'key' => $rankingRecord->key,
+                'value' => $rankingRecord->value,
+                'liked' => $rankingRecord->liked === null ? '' : $rankingRecord->liked,
+                'sort' => $rankingRecord->sort === null ? '' : $rankingRecord->sort
+            ]);
         }
 
-        return $rankingRecord->getIsNewRecord()
-            ? json_encode("")
-            : json_encode($rankingRecord->data);
+        return $rankingData;
     }
 
-    public function saveCurrentUserRankingData($entryId, $data)
+    public function likeCurrentUserKey($entryId, $key, $liked)
     {
         $transaction = Craft::$app->getDb()->beginTransaction();
 
@@ -154,20 +159,74 @@ class RockstarService extends Component
         {
             $now = Db::prepareDateForDb(DateTimeHelper::now());
             $currentUser = Craft::$app->getUser()->getIdentity();
-            $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId]) ?? new RankingRecord();
+            $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId, 'key' => $key]) ?? new RankingRecord();
 
             if($rankingRecord->getIsNewRecord())
             {
                 $rankingRecord->dateCreated = $now;
                 $rankingRecord->userId = $currentUser->id;
                 $rankingRecord->entryId = $entryId;
+                $rankingRecord->key = $key;
+                // $rankingRecord->value = $key;
+                // $rankingRecord->sort = NULL;
                 $rankingRecord->enabled = true;
             }
 
             $rankingRecord->dateUpdated = $now;
-            $rankingRecord->data = json_encode($data);
+            if($liked === "liked")
+            {
+                $rankingRecord->liked = true;
+            }
+            elseif($liked === "disliked")
+            {
+                $rankingRecord->liked = false;
+            }
+            else
+            {
+                $rankingRecord->liked = NULL;
+            }
 
             $rankingRecord->save();
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+        return true;
+    }
+
+    public function saveCurrentUserRankingOrder($entryId, $jsonData)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $rankingKeys = json_decode($jsonData);
+            $now = Db::prepareDateForDb(DateTimeHelper::now());
+            $currentUser = Craft::$app->getUser()->getIdentity();
+
+            foreach($rankingKeys as $idx=>$key)
+            {
+                $rankingRecord = RankingRecord::findOne(['userId' => $currentUser->id, 'entryId' => $entryId, 'key' => $key]) ?? new RankingRecord();
+
+                if($rankingRecord->getIsNewRecord())
+                {
+                    $rankingRecord->dateCreated = $now;
+                    $rankingRecord->userId = $currentUser->id;
+                    $rankingRecord->entryId = $entryId;
+                    $rankingRecord->key = $key;
+                    $rankingRecord->enabled = true;
+                }
+
+                $rankingRecord->dateUpdated = $now;
+                $rankingRecord->sort = $idx;
+
+                $rankingRecord->save();
+            }
+
             $transaction->commit();
         }
         catch (Throwable $e)

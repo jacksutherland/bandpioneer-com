@@ -27,22 +27,7 @@ use yii\log\Logger;
  */
 class RockstarController extends Controller
 {
-    public function actionData(): string
-    {
-        $this->requireLogin();
-
-        // $request = Craft::$app->getRequest();
-
-        // $keyword = $request->getParam('keyword');
-
-        // $service = Rockstar::$plugin->getKeywordService();
-
-        // $keywordHtml = $service->getKeywordDataHtml($keyword);
-
-        return "This is Rockstar Controller Action Data";
-    }
-
-	public function actionSaveRanking(): string
+    public function actionSaveRankingOrder(): string
     {
         $this->requirePostRequest();
 
@@ -57,7 +42,31 @@ class RockstarController extends Controller
         {
             /*** SAVE ***/
 
-            $service->saveCurrentUserRankingData($entryId, $data);
+            $service->saveCurrentUserRankingOrder($entryId, $data);
+
+            return "success";
+        }
+
+        return "error";
+    }
+
+    public function actionRankingLikeIt(): string
+    {
+        $this->requirePostRequest();
+
+        $service = Rockstar::$plugin->getService();
+        $request = Craft::$app->getRequest();
+        $entryId = trim($request->getParam('eid'));
+        $key = trim($request->getParam('key'));
+        $liked = trim($request->getParam('liked'));
+
+        /*** VALIDATION ***/
+
+        if (is_numeric($entryId) && is_string($key) && !empty($key) && is_string($liked) && !empty($liked))
+        {
+            /*** SAVE ***/
+
+            $service->likeCurrentUserKey($entryId, $key, $liked);
 
             return "success";
         }

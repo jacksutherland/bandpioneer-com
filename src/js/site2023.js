@@ -54,6 +54,15 @@ class BandPioneerUX
 	    BandPioneerUX.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
+	login()
+	{
+		// document.querySelector('#login-modal').classList.add('show');
+
+		this.openModal('#login-modal');
+
+		return false;
+	}
+
 	signUp()
 	{
 		this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
@@ -97,6 +106,37 @@ class BandPioneerUX
 		modal.appendChild(messageElem);
 		overlay.appendChild(modal);
 		document.body.appendChild(overlay);
+	}
+
+	openModal(selector, onCloseCallback)
+	{
+		const overlay = document.querySelector(selector);
+		const modal = overlay.querySelector('.modal');
+		const closeButton = modal.querySelector('.close-button') || modal.querySelector('.close-icon-button');
+
+		closeButton.onclick = function(e)
+		{
+			e.preventDefault();
+
+			if(typeof(onCloseCallback) === 'function') onCloseCallback();
+			overlay.classList.remove('show');
+		};
+
+		overlay.onclick = function(e)
+		{
+			if(!e.target.classList.contains('login-provider'))
+			{
+				e.preventDefault();
+			}
+
+			if (e.target === overlay)
+			{
+				if(typeof(onCloseCallback) === 'function') onCloseCallback();
+				overlay.classList.remove('show');
+			}
+		};
+
+		overlay.classList.add('show');
 	}
 
 	isHTML(str)
@@ -339,28 +379,261 @@ class BandPioneerUX
 		});
 	}
 
-	createBlogRanker()
+	openRankerModal(eid, rankerKey)
 	{
-		var rankingData = ['Ice Cube', 'MF DOOM', 'Snoop Dogg', 'Andre 3000', 'Jay-Z'];
-        var rankingUrl = '/rockstar/save-ranking';
+		bp.openModal('.ranker-modal', function()
+		{
+			this.saveRankerOrder(eid);
+		}.bind(this));
 
-        let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
-		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+		document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
+		{
+			li.classList.remove('pulsate');
+			if(li.dataset.key == rankerKey)
+			{
+				setTimeout(function()
+				{
+					this.classList.add('pulsate');
+				}.bind(li), 200);
+			}
+		});
+	}
+
+	saveRankerOrder(eid)
+	{
+ 		var saveUrl = '/rockstar/save-ranking-order';
+		var data = [];
+		document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
+		{
+			data.push(li.dataset.key);
+		});
+
+		let jsonData = JSON.stringify(data);
 		let formData = new FormData();
+		let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
-		formData.append('eid', '{{entry.id}}');
-		formData.append('data', JSON.stringify(rankingData));
+		formData.append('eid', eid);
+        formData.append('data', jsonData);
 		formData.append(csrfTokenName, csrfTokenValue);
 
-		// console.log('fetch posting');
-		// console.log(formData);
+		fetch(saveUrl, { method: 'POST', body: formData })
+			.then((response) => {
+			    if (response.ok)
+			    {
+			    	return response.text();
+			    }
+			}).then((response) => {
+			}).catch((error) => {
+			    console.error("Error:", error);
+			});
+	}
 
-		// fetch(rankingUrl, { method: 'POST', body: formData })
-		// 	.then((response) => {
-	    // 		console.log('save-ranking: ' + response);
-		// 	}).catch((error) => {
-		// 	    console.error("Save Ranking Error:", error);
-		// 	});
+	createBlogRanker(eid, rankingData)
+	{
+        var likeUrl = '/rockstar/ranking-like-it';
+		let formData = new FormData();
+		var likesAndDislikes = document.querySelectorAll('.ranker-like, .ranker-dislike');
+
+		// Set like buttons selected
+
+		rankingData.forEach(function(rdata)
+		{
+			var rform = document.querySelector(`[data-ranker="${rdata.key}"]`);
+
+			if(rdata.liked === '1')
+			{
+				rform.querySelector('.ranker-like').classList.add('selected');
+			}
+			else if(rdata.liked === '0')
+			{
+				rform.querySelector('.ranker-dislike').classList.add('selected');
+			}
+		});
+
+		// add events to like buttons
+		
+		likesAndDislikes.forEach(function(btn)
+		{
+			btn.addEventListener('click', function(e)
+			{
+				e.preventDefault();
+
+				this.classList.toggle('selected');
+
+				var selected = this.classList.contains('selected');
+				var parentContainer = this.closest('.ranker-buttons');
+        		var keyInput = parentContainer.querySelector('[name="key"]');
+        		var likedInput = parentContainer.querySelector('[name="liked"]');
+        		var likedValue = 'unselected';
+
+		        if (likedInput)
+		        {
+		            if (btn.classList.contains('ranker-like'))
+			        {
+			        	parentContainer.querySelector('.ranker-dislike').classList.remove('selected');
+			            likedValue = selected ? 'liked' : 'unselected';
+			        }
+			        else if (btn.classList.contains('ranker-dislike'))
+			        {
+			        	parentContainer.querySelector('.ranker-like').classList.remove('selected');
+			            likedValue = selected ? 'disliked' : 'unselected';
+			        }
+
+			        likedInput.value = likedValue;
+			        
+					let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+					let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+
+			        formData.append('eid', eid);
+			        formData.append('key', keyInput.value);
+					formData.append('liked', likedValue);
+					formData.append(csrfTokenName, csrfTokenValue);
+
+			        fetch(likeUrl, { method: 'POST', body: formData })
+					.then((response) => {
+					    if (response.ok)
+					    {
+					    	return response.text();
+					    }
+					}).then((response) => {
+					}).catch((error) => {
+					    console.error("Error:", error);
+					});
+		        }
+			});
+		});
+
+		// Create sortable rank list
+
+		const modal = document.querySelector('.ranker-modal .modal');
+		const ul = modal.querySelector('ul');
+		let draggedItem = null;
+		let placeholder = document.createElement('li');
+		placeholder.className = 'placeholder';
+
+		// Order rank list by sort from DB
+
+		const liItems = Array.from(ul.querySelectorAll('li'));
+
+		// Create a mapping from key to sort order
+		
+		const sortOrder = {};
+		rankingData.forEach(item => {
+			sortOrder[item.key] = item.sort;
+		});
+
+		// Sort the items array based on the sortOrder mapping
+
+		liItems.sort((a, b) => {
+			const keyA = a.getAttribute('data-key');
+			const keyB = b.getAttribute('data-key');
+			return sortOrder[keyA] - sortOrder[keyB];
+		});
+
+		// Append the sorted items back to the ul
+
+		liItems.forEach(item => {
+			ul.appendChild(item);
+		});
+
+		// Make rank like sortable
+
+		function handleDragStart(e)
+		{
+			draggedItem = e.target;
+			e.target.classList.add('dragging');
+			setTimeout(() => {
+			 	e.target.style.display = 'none';
+			 	ul.insertBefore(placeholder, draggedItem.nextSibling);
+			}, 0);
+		}
+
+		function handleDragEnd(e)
+		{
+			e.target.classList.remove('dragging');
+			e.target.classList.add('pulsate');
+			e.target.style.display = 'flex';
+			ul.insertBefore(draggedItem, placeholder);
+			ul.removeChild(placeholder);
+			draggedItem = null;
+		}
+
+		function handleDragOver(e)
+		{
+			e.preventDefault();
+			const afterElement = getDragAfterElement(ul, e.clientY);
+			if (afterElement == null)
+			{
+				ul.appendChild(placeholder);
+			}
+			else
+			{
+				ul.insertBefore(placeholder, afterElement);
+			}
+		}
+
+		function handleTouchStart(e)
+		{
+			e.preventDefault();
+			draggedItem = e.target;
+			e.target.classList.add('dragging');
+			setTimeout(() => {
+				e.target.style.display = 'none';
+				ul.insertBefore(placeholder, draggedItem.nextSibling);
+			}, 0);
+		}
+
+		function handleTouchMove(e)
+		{
+			const touch = e.touches[0];
+			const afterElement = getDragAfterElement(ul, touch.clientY);
+			if (afterElement == null)
+			{
+				ul.appendChild(placeholder);
+			}
+			else
+			{
+				ul.insertBefore(placeholder, afterElement);
+			}
+		}
+
+		function handleTouchEnd(e) {
+			e.target.classList.remove('dragging');
+			e.target.style.display = 'flex';
+			ul.insertBefore(draggedItem, placeholder);
+			ul.removeChild(placeholder);
+			draggedItem = null;
+		}
+
+		ul.querySelectorAll('li').forEach(item => {
+			item.addEventListener('dragstart', handleDragStart);
+			item.addEventListener('dragend', handleDragEnd);
+			item.addEventListener('touchstart', handleTouchStart);
+			item.addEventListener('touchmove', handleTouchMove);
+			item.addEventListener('touchend', handleTouchEnd);
+		});
+
+		ul.addEventListener('dragover', handleDragOver);
+		ul.addEventListener('touchmove', handleTouchMove);
+
+		function getDragAfterElement(container, y)
+		{
+			const draggableElements = [...container.querySelectorAll('li:not(.dragging):not(.placeholder)')];
+
+			return draggableElements.reduce((closest, child) => {
+				const box = child.getBoundingClientRect();
+				const offset = y - box.top - box.height / 2;
+				if (offset < 0 && offset > closest.offset)
+				{
+					return { offset: offset, element: child };
+				}
+				else
+				{
+					return closest;
+				}
+			}, { offset: Number.NEGATIVE_INFINITY }).element;
+		}
 	}
 
 	BandCarousel = class

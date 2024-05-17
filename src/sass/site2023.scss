@@ -102,55 +102,6 @@
 	}
 }
 
-
-/***** MODALS *****/
-
-.overlay {
-	position: fixed;
-  z-index: 1000;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .modal {
-  	background-color: white;
-    font-weight: bold;
-    text-align: center;
-    max-width: 600px;
-    padding: 20px;
-    position: relative;
-    border-radius: $small-radius;
-    box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
-
-    .close-button {
-    	position: absolute;
-	    top: -1px;
-	    right: 6px;
-	    border: none;
-	    font-weight: bold;
-	    font-size: 1.25rem;
-    }
-
-    iframe {
-    	width: 350px;
-    	height: 440px;
-    	border: none;
-    }
-
-    form {
-    	[data-role="submit-error"], [data-role="identifier-error"] {
-    		display: none;
-    	}
-    }
-  }
-}
-
-
 /***** FORMS *****/
 
 

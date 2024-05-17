@@ -238,6 +238,55 @@ button:hover,
   background-color: #064e6a;
   color: #FFFFFF;
 }
+button.ranker-like, button.ranker-dislike, button.ranker-sort,
+.btn.ranker-like,
+.btn.ranker-dislike,
+.btn.ranker-sort {
+  background-color: transparent;
+  border: none;
+  height: auto;
+  padding: 0;
+}
+button.ranker-like:hover svg path, button.ranker-dislike:hover svg path, button.ranker-sort:hover svg path,
+.btn.ranker-like:hover svg path,
+.btn.ranker-dislike:hover svg path,
+.btn.ranker-sort:hover svg path {
+  fill: #064e6a;
+}
+button.ranker-like svg, button.ranker-dislike svg, button.ranker-sort svg,
+.btn.ranker-like svg,
+.btn.ranker-dislike svg,
+.btn.ranker-sort svg {
+  height: 22px;
+  margin: 0 0 -1px 10px;
+}
+button.ranker-like svg path, button.ranker-dislike svg path, button.ranker-sort svg path,
+.btn.ranker-like svg path,
+.btn.ranker-dislike svg path,
+.btn.ranker-sort svg path {
+  fill: #0a79a4;
+  transition: fill 0.3s;
+}
+button.ranker-like.selected svg:first-child, button.ranker-dislike.selected svg:first-child,
+.btn.ranker-like.selected svg:first-child,
+.btn.ranker-dislike.selected svg:first-child {
+  display: none;
+}
+button.ranker-like.selected svg:last-child, button.ranker-dislike.selected svg:last-child,
+.btn.ranker-like.selected svg:last-child,
+.btn.ranker-dislike.selected svg:last-child {
+  display: inline;
+}
+button.ranker-like svg:last-child, button.ranker-dislike svg:last-child,
+.btn.ranker-like svg:last-child,
+.btn.ranker-dislike svg:last-child {
+  display: none;
+}
+button.ranker-like svg,
+.btn.ranker-like svg {
+  margin: 0;
+  transform: rotate(180deg);
+}
 
 a {
   color: #0a79a4;
@@ -283,6 +332,106 @@ a.category span {
   line-height: 24px;
   margin-left: 4px;
   vertical-align: middle;
+}
+
+/***** MODALS *****/
+.overlay {
+  position: fixed;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay .modal {
+  background-color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 16px;
+  max-width: 600px;
+  padding: 20px;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
+}
+.overlay .modal > div h3 {
+  margin-top: 0;
+}
+.overlay .modal .close-button {
+  position: absolute;
+  top: -1px;
+  right: 6px;
+  border: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.overlay .modal .close-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  transition: background-color 0.3s;
+}
+.overlay .modal .close-icon-button:hover {
+  background-color: #F0F3F3;
+}
+.overlay .modal .close-icon-button:hover svg path {
+  fill: #444444;
+}
+.overlay .modal .close-icon-button svg {
+  height: 20px;
+  width: 20px;
+}
+.overlay .modal .close-icon-button svg path {
+  fill: #777777;
+  transition: fill 0.3s;
+}
+.overlay .modal iframe {
+  width: 350px;
+  height: 440px;
+  border: none;
+}
+.overlay .modal form [data-role=submit-error], .overlay .modal form [data-role=identifier-error] {
+  display: none;
+}
+
+.login-modal {
+  display: none;
+}
+.login-modal.show {
+  display: flex;
+}
+.login-modal .modal > div a {
+  align-items: center;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 1px 2px 1px #ddd;
+  color: #444444;
+  cursor: pointer;
+  display: flex;
+  font-family: Roboto-Medium, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 15px;
+  outline: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+}
+.login-modal .modal > div a:hover {
+  background-color: #F0F3F3;
+  color: #111111;
 }
 
 /***** CONTAINERS *****/
@@ -1606,6 +1755,63 @@ address[rel=author] span {
 }
 .blog-comments .cc-w .cc-i-image-icon:after {
   background-color: transparent;
+}
+
+/************************/
+/***** RANKER MODAL *****/
+/************************/
+@keyframes pulse-bkg {
+  0% {
+    background-color: #E0E0E0;
+  }
+  25% {
+    background-color: #bababa;
+  }
+  50% {
+    background-color: #E0E0E0;
+  }
+  75% {
+    background-color: #bababa;
+  }
+  100% {
+    background-color: #E0E0E0;
+  }
+}
+.ranker-modal {
+  display: none;
+}
+.ranker-modal.show {
+  display: flex;
+}
+.ranker-modal .modal > div ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ranker-modal .modal > div ul li {
+  display: flex;
+  align-items: center;
+  background-color: #E0E0E0;
+  border-radius: 3px;
+  color: #131b28;
+  font-size: 0.94rem;
+  font-weight: 600;
+  min-height: 34px;
+  padding: 0 12px;
+  transition: color 0.3s, padding-left 0.3s;
+}
+.ranker-modal .modal > div ul li:hover {
+  cursor: move;
+}
+.ranker-modal .modal > div ul li.dragging {
+  opacity: 0.5;
+}
+.ranker-modal .modal > div ul li.placeholder {
+  background-color: #F0F3F3;
+  outline: 2px dashed #e0e0e0;
+}
+.ranker-modal .modal > div ul li.pulsate {
+  animation: pulse-bkg 1s ease-in-out;
 }
 
 /*************************/

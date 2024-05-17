@@ -95,7 +95,8 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['keywords/create-entries'] = 'rockstar/keywords/create-entries';
 
                 $event->rules['rockstar/data'] = 'rockstar/rockstar/data';
-                $event->rules['rockstar/save-ranking'] = 'rockstar/rockstar/save-ranking';
+                $event->rules['rockstar/save-ranking-order'] = 'rockstar/rockstar/save-ranking-order';
+                $event->rules['rockstar/ranking-like-it'] = 'rockstar/rockstar/ranking-like-it';
             });
         }
 

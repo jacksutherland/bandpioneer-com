@@ -15,7 +15,7 @@ class RankingRecord extends ActiveRecord
 
     public static function tableName(): string
     {
-        return '{{%rockstar_rankings}}';
+        return '{{%rockstar_ranking_items}}';
     }
 
     public function getElement(): ActiveQueryInterface

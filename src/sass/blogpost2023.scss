@@ -1,13 +1,6 @@
 @import 'vars2023';
 @import 'layout2023';
 
-
-// @media (max-height: 800px) {
-// 	.blog .blog-container .table-of-contents {
-// 		overflow-y: auto;
-// 	}
-// }
-
 .blog {
 
 	h1 {
@@ -885,6 +878,89 @@ address[rel="author"] {
 		}
 	}
 
+}
+
+
+/************************/
+/***** RANKER MODAL *****/
+/************************/
+
+// @keyframes pulse-bkg {
+//     0% {
+//       background-color: $alternate-color;
+//     }
+//     50% {
+//       background-color: $medium-gray;
+//     }
+//     100% {
+//       background-color: $alternate-color;
+//     }
+// }
+
+@keyframes pulse-bkg {
+    0% {
+      background-color: $medium-gray;
+    }
+    25% {
+      background-color: darken($medium-gray, 15%);
+    }
+    50% {
+      background-color: $medium-gray;
+    }
+    75% {
+      background-color: darken($medium-gray, 15%);
+    }
+    100% {
+      background-color: $medium-gray;
+    }
+}
+
+.ranker-modal {
+	display: none;
+
+	&.show {
+		display: flex;
+	}
+
+	.modal {
+		> div {
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				li {
+				    display: flex;
+				    align-items: center;
+					background-color: $medium-gray;
+				    border-radius: 3px;
+				    color: $primary-dark;
+				    font-size: $nav-font-size;
+				    font-weight: 600;
+				    min-height: 34px;
+				    padding: 0 12px;
+				    transition: color 0.3s, padding-left 0.3s;
+
+				    &:hover {
+				    	cursor: move;
+				    }
+
+				    &.dragging {
+						opacity: 0.5;
+					}
+
+					&.placeholder {
+						background-color: $light-gray;
+						outline: 2px dashed $border-color;
+					}
+
+					&.pulsate {
+						animation: pulse-bkg 1s ease-in-out;
+					}
+				}
+			}
+		}
+	}
 }
 
 

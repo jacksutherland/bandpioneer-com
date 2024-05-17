@@ -14,8 +14,8 @@ use Twig\Markup;
 
 class RockstarVariable
 {
-	public function getCurrentUserRanking($entryId)
+	public function getCurrentUserKeys($entryId)
     {
-    	return Rockstar::$plugin->getService()->getCurrentUserRankingData($entryId);
+    	return Rockstar::$plugin->getService()->getCurrentUserKeys($entryId);
     }
 }

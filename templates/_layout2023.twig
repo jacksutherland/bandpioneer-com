@@ -86,13 +86,14 @@
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
         {% set headerCacheKey = "header-20240501-" ~ (isMobile ? 'mobile' : 'desktop') %}
-        {# {% cache using key headerCacheKey %} #}
-            <header class="site-header">
-                <button id="open-menu" aria-label="Open the mobile navigation menu">
-                    {% include '_includes/icons' with { type: 'bars' } %}
-                </button>
-                
-                <nav class="container" role="navigation">
+
+        <header class="site-header">
+            <button id="open-menu" aria-label="Open the mobile navigation menu">
+                {% include '_includes/icons' with { type: 'bars' } %}
+            </button>
+            
+            <nav class="container" role="navigation">
+                {% cache using key headerCacheKey %}
                     <ul>
                         <li>
                             <a class="dropdown" href="/" aria-label="Open the blog topics menu">
@@ -216,193 +217,30 @@
                             src="/assets/images/bp-logo-alt-small.png" 
                             srcset="/assets/images/bp-logo-alt-2x.png 2x" />
                     </a>
-                    <ul> 
-                        <li>
-                            <a href="/about">About Us</a>
-                        </li>
-                        <li>
-                            <a href="/contact">Contact</a>
-                        </li>
-                        <li>
-                            {% if currentUser %}
-                                <a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a>
-                            {% else %}
-                                <a href="{{ craft.socialLogin.getLoginUrl('google') }}">Login</a>
-                            {% endif %}
-                        </li>
-                        <li class="search">
-                            <a href="/search">Search</a>
-                            <label for="search-toggle">
-                                {% include '_includes/icons' with { type: 'search' } %}
-                            </label>
-                        </li>
-                    </ul>
-                </nav>
-                
-                {#
-                <nav class="container" role="navigation">
-                    <ul>
-                        <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog topics menu">
-                                Topics {% include '_includes/icons' with { type: 'down' } %}
-                            </a>
-                            <ul>
-                                <li>
-                                    <h3>Topics</h3>
-                                </li>
-                                {% for cat in categories.all() %}
-                                    {% if cat.show %}
-                                        <li>
-                                            <a href="{{ cat.url }}">
-                                                {{ cat.title }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
-                                AI Studio {% include '_includes/icons' with { type: 'down' } %}
-                            </a>
-                            <ul>
-                                {% set bpUrl = siteUrl %}
-                                {% if bpUrl | slice(-1) != '/' %}
-                                    {% set bpUrl = bpUrl ~ '/' %}
-                                {% endif %}
-                                <li>
-                                    <h3>AI Music Studio</h3>
-                                    <h4>What do you play?</h4>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=singer">Vocalist</a>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=guitarist">Guitarist</a>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=bassist">Bassist</a>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=drummer">Drummer</a>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=keyboardist">Keyboardist</a>
-                                </li>
-                                <li>
-                                    <a href="{{ bpUrl }}ai-studio?role=musician">Other</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog topics menu">
-                                About {% include '_includes/icons' with { type: 'down' } %}
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="/about">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="/contact">Contact Us</a>
-                                </li>
-                            </ul>
-                        </li>                    
-                    </ul>
-                    <a class="logo" href="/">
-                        {% if (not isMobile) %}
-                            <img alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
-                                width="180" height="117" 
-                                src="/assets/images/bp-logo-small.png" 
-                                srcset="/assets/images/bp-logo-2x.png 2x">
+                {% endcache %}
+                <ul> 
+                    <li>
+                        <a href="/about">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/contact">Contact</a>
+                    </li>
+                    <li>
+                        {% if currentUser %}
+                            <a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a>
+                        {% else %}
+                            <a href="/" onclick="return bp.login();">Sign in</a>
                         {% endif %}
-                        <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
-                            width="180" height="56" 
-                            src="/assets/images/bp-logo-alt-small.png" 
-                            srcset="/assets/images/bp-logo-alt-2x.png 2x" />
-                    </a>
-                    <ul> 
-                        {% set decades = [] %}
-                        {% set instruments = [] %}
-                        {% if genresAndDecades.count %}
-                            <li>
-                                <a class="dropdown" href="/" aria-label="Open the blog genres menu">
-                                    Genres {% include '_includes/icons' with { type: 'down' } %}
-                                </a>
-                                <ul>
-                                    <li>
-                                        <h3>Genres</h3>
-                                    </li>
-                                    {% for genre in genresAndDecades.all() %}
-                                        {% if genre.show %}
-                                            {% if genre.type == 'decade' %}
-                                                {% set decades = decades | merge([genre]) %}
-                                            {% elseif genre.type == 'instrument' %}
-                                                {% set instruments = instruments | merge([genre]) %}
-                                            {% else %}
-                                                <li>
-                                                    <a href="/genre/{{ genre.slug }}">
-                                                        {{ genre.title }}
-                                                    </a>
-                                                </li>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endif %}
-                        {% if decades | length %}
-                            <li>
-                                <a class="dropdown" href="/" aria-label="Open the blog decades menu">
-                                    Decades {% include '_includes/icons' with { type: 'down' } %}
-                                </a>
-                                <ul>
-                                    <li>
-                                        <h3>Decades</h3>
-                                    </li>
-                                    {% for decade in decades %}
-                                        {% if decade.show %}
-                                            <li>
-                                                <a href="/decade/{{ decade.slug }}">
-                                                    {{ decade.title }}
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endif %}
-                        {% if instruments | length %}
-                            <li>
-                                <a class="dropdown" href="/" aria-label="Open the blog instruments menu">
-                                    Instruments {% include '_includes/icons' with { type: 'down' } %}
-                                </a>
-                                <ul>
-                                    <li>
-                                        <h3>Instruments</h3>
-                                    </li>
-                                    {% for instrument in instruments %}
-                                        {% if instrument.show %}
-                                            <li>
-                                                <a href="/instrument/{{ instrument.slug }}">
-                                                    {{ instrument.title }}
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endif %}
-                        <li class="search">
-                            <a href="/search">Search</a>
-                            <label for="search-toggle">
-                                {% include '_includes/icons' with { type: 'search' } %}
-                            </label>
-                        </li>
-                    </ul>
-                </nav>
-                #}
-            </header>
-        {# {% endcache %} #}
+                    </li>
+                    <li class="search">
+                        <a href="/search">Search</a>
+                        <label for="search-toggle">
+                            {% include '_includes/icons' with { type: 'search' } %}
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
         <input type="checkbox" id="search-toggle">
         <div class="search-dropdown">
@@ -417,25 +255,28 @@
         {% block header %}
         {% endblock %}
 
-        <nav role="navigation" class="categories" aria-label="Primary Navigation">
-            <div class="container">
-                <ul>
-                    {% for cat in categories.all() %}
-                        {% if cat.show %}
-                            <li>
-                                <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == (craft.app.request.segments | first) %} class="active"{% endif %}>
-                                    {{ cat.title }}
-                                </a>
-                                <div id="topic-{{ cat.id }}" class="popup">
-                                    <h3>{{ cat.headline }}</h3>
-                                    <p>{{ cat.shortDescription }}</p>
-                                </div>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </nav>
+        {% cache %}
+            <nav role="navigation" class="categories" aria-label="Primary Navigation">
+                <div class="container">
+                    <ul>
+                        {% for cat in categories.all() %}
+                            {% if cat.show %}
+                                <li>
+                                    <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == (craft.app.request.segments | first) %} class="active"{% endif %}>
+                                        {{ cat.title }}
+                                    </a>
+                                    <div id="topic-{{ cat.id }}" class="popup">
+                                        <h3>{{ cat.headline }}</h3>
+                                        <p>{{ cat.shortDescription }}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        {% endcache %}
+
         <div class="sticky-tracker"></div>
 
         {% apply spaceless %}
@@ -449,9 +290,9 @@
             <div id="mediavine-settings" data-blocklist-leaderboard="1" data-blocklist-sidebar-atf="1" data-blocklist-sidebar-btf="1" data-blocklist-content-desktop="1" data-blocklist-content-mobile="1" data-blocklist-adhesion-mobile="1" data-blocklist-adhesion-tablet="1" data-blocklist-adhesion-desktop="1" data-blocklist-recipe="1" data-blocklist-auto-insert-sticky="1" data-blocklist-in-image="1" data-blocklist-chicory="1" data-blocklist-zergnet="1" data-blocklist-interstitial-mobile="1" data-blocklist-interstitial-desktop="1" data-blocklist-universal-player-desktop="1" data-blocklist-universal-player-mobile="1" ></div>
         {% endif %}
 
-        {# {% cache globally %} #}
-            <footer>
-                <div class="container">
+        <footer>
+            <div class="container">
+                {% cache globally %}
                     <div>    
                         <a href="/" class="logo">
                             <img loading="lazy" alt="Band Pioneer: Empowering Profitable Musicians" title="Band Pioneer: Empowering Profitable Musicians" 
@@ -460,7 +301,9 @@
                                 srcset="/assets/images/bp-logo-2x.png 2x" />
                         </a>
                     </div>
-                    <nav>
+                {% endcache %}
+                <nav>
+                    {% cache globally %}
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
@@ -476,26 +319,41 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
-                        <ul class="copyright">
-                            <li>
-                                {% if currentUser %}
-                                    {% if currentUser.fullName | length %}
-                                        Logged in as {{currentUser.fullName}} ({{currentUser.email}}) 
-                                    {% else %}
-                                        Logged in as {{currentUser.email}} 
-                                    {% endif %}
-                                    <a href="{{ url('logout') }}">Logout</a>
+                    {% endcache %}
+                    <ul class="copyright">
+                        <li>
+                            {% if currentUser %}
+                                {% if currentUser.fullName | length %}
+                                    Logged in as {{currentUser.fullName}} ({{currentUser.email}}) 
                                 {% else %}
-                                    <a href="{{ craft.socialLogin.getLoginUrl('google') }}">Login</a> to Band Pioneer
+                                    Logged in as {{currentUser.email}} 
                                 {% endif %}
-                            </li>
-                            <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
-                            <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
-                        </ul>
-                    </nav>
+                                <a href="{{ url('logout') }}">Logout</a>
+                            {% else %}
+                                <a href="/" onclick="return bp.login();">Sign in</a> to Band Pioneer
+                            {% endif %}
+                        </li>
+                        <li>Copyright © {{ now|date('Y') }} Band Pioneer. All rights reserved.</li>
+                        <li>Website Engineered by <a href="https://realitygems.com" title="Reality Gems: Ushering in a New Era of Web 3.0" target="_blank">Reality Gems</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+
+        {% if not currentUser %}
+            <div id="login-modal" class="overlay login-modal">
+                <div class="modal" style="max-width: 600px;">
+                    <a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
+                    <div>
+                        <h3>Sign in to Band Pioneer</h3>
+                        <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('google') }}">Sign in with Google</a>
+                        <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('amazon') }}">Sign in with Amazon</a>
+                        <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('discord') }}">Sign in with Discord</a>
+                        {# <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('tiktok') }}">Sign in with TikTok</a> #}
+                    </div>
                 </div>
-            </footer>
-        {# {% endcache %} #}
+            </div>
+        {% endif %}
         
         <script defer src="{{ url('js/site2023.min.js') }}?version={{ versionNumber }}"></script>
         <script defer>
