@@ -1,4 +1,4 @@
-dateModified: 1715911422
+dateModified: 1715982032
 elementSources:
   craft\elements\Asset:
     -
@@ -703,7 +703,7 @@ plugins:
                   - clientSecret
                   - $TIKTOK_SSO_CLIENT_SECRET
       userGroups:
-        - 3A1e42cdc3-f360-43ac-b612-8de6f081ad47 # Rockstars
+        - 1e42cdc3-f360-43ac-b612-8de6f081ad47 # Rockstars
 system:
   edition: pro
   live: true
