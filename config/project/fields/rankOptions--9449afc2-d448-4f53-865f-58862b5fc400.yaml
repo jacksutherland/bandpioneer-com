@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: rankOptions
 instructions: null
-name: 'Rank Options'
+name: 'Ranking Options'
 searchable: false
 settings:
   options:

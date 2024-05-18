@@ -1,4 +1,4 @@
-dateModified: 1716070464
+dateModified: 1716070956
 elementSources:
   craft\elements\Asset:
     -
@@ -301,7 +301,7 @@ meta:
     7713ee4e-e1ca-4aeb-a2c4-ef6b725b1a18: 'Page Image' # Page Image
     7753be54-298e-490f-9ab3-381c71785210: 'Blog Content - Image & Text - Link URL' # Blog Content - Image & Text - Link URL
     8297f5ab-0624-4ef9-bdba-8bef1cc43523: 'Blog Content - Embed Code - Figure Caption' # Blog Content - Embed Code - Figure Caption
-    9449afc2-d448-4f53-865f-58862b5fc400: 'Rank Options' # Rank Options
+    9449afc2-d448-4f53-865f-58862b5fc400: 'Ranking Options' # Ranking Options
     10710afa-12e3-48a9-bb9d-2155b47cac47: 'Band Pioneer AI' # Band Pioneer AI
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
     32918d13-fbf2-4148-85a3-4bdb7a1d8468: 'Enable Rank' # Enable Rank

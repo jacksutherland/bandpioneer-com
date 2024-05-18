@@ -300,7 +300,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 9449afc2-d448-4f53-865f-58862b5fc400 # Rank Options
+            fieldUid: 9449afc2-d448-4f53-865f-58862b5fc400 # Ranking Options
             handle: null
             includeInCards: false
             instructions: null
