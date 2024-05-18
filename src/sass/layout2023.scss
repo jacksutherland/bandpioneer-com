@@ -234,6 +234,10 @@ figure {
     }
 }
 
+.ranker-buttons {
+	margin: $paragraph-spacing 0;
+}
+
 button,
 .btn {
 	background-color: $link-color;
@@ -274,8 +278,8 @@ button,
 		}
 
 		svg {
-			height: 22px;
-			margin: 0 0 -1px 10px;
+			height: 25px;
+			margin: 0 0 -1px 15px;
 
 			path {
 				fill: $link-color;

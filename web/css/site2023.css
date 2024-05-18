@@ -215,6 +215,10 @@ figure figcaption {
   }
 }
 
+.ranker-buttons {
+  margin: 16px 0;
+}
+
 button,
 .btn {
   background-color: #0a79a4;
@@ -257,8 +261,8 @@ button.ranker-like svg, button.ranker-dislike svg, button.ranker-sort svg,
 .btn.ranker-like svg,
 .btn.ranker-dislike svg,
 .btn.ranker-sort svg {
-  height: 22px;
-  margin: 0 0 -1px 10px;
+  height: 25px;
+  margin: 0 0 -1px 15px;
 }
 button.ranker-like svg path, button.ranker-dislike svg path, button.ranker-sort svg path,
 .btn.ranker-like svg path,
