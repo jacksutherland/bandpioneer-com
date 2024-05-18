@@ -54,11 +54,14 @@ class BandPioneerUX
 	    BandPioneerUX.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
-	login()
+	login(modalMessage)
 	{
-		// document.querySelector('#login-modal').classList.add('show');
+		if(typeof(modalMessage) === 'undefined')
+		{
+			modalMessage = 'Sign in to Band Pioneer';
+		}
 
-		this.openModal('#login-modal');
+		this.openModal('#login-modal', null, modalMessage);
 
 		return false;
 	}
@@ -108,11 +111,20 @@ class BandPioneerUX
 		document.body.appendChild(overlay);
 	}
 
-	openModal(selector, onCloseCallback)
+	openModal(selector, onCloseCallback, modalMessage)
 	{
 		const overlay = document.querySelector(selector);
 		const modal = overlay.querySelector('.modal');
 		const closeButton = modal.querySelector('.close-button') || modal.querySelector('.close-icon-button');
+
+		if(typeof(modalMessage) === 'string')
+		{
+			let h3 = modal.querySelector('h3');
+			if(h3)
+			{
+				h3.innerText = modalMessage;
+			}
+		}
 
 		closeButton.onclick = function(e)
 		{
@@ -517,7 +529,7 @@ class BandPioneerUX
 		const liItems = Array.from(ul.querySelectorAll('li'));
 
 		// Create a mapping from key to sort order
-		
+
 		const sortOrder = {};
 		rankingData.forEach(item => {
 			sortOrder[item.key] = item.sort;
