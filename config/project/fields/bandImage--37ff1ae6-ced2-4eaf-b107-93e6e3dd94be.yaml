@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: bandImage
 instructions: null
 name: 'Band Image'
@@ -22,7 +23,6 @@ settings:
   restrictedLocationSource: 'volume:3098d7ae-88a8-4d10-9c0f-b138a839a277' # Band Images
   restrictedLocationSubpath: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

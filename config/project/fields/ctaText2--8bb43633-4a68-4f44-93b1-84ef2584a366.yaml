@@ -1,4 +1,5 @@
 columnSuffix: ctfamrlw
+contentColumnType: text
 handle: ctaText2
 instructions: null
 name: 'CTA Text 2'
@@ -7,6 +8,7 @@ settings:
   byteLimit: null
   charLimit: null
   code: false
+  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

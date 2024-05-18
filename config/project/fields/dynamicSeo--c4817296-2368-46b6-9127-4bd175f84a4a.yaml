@@ -1,4 +1,5 @@
 columnSuffix: diserads
+contentColumnType: boolean
 handle: dynamicSeo
 instructions: null
 name: 'Dynamic SEO'

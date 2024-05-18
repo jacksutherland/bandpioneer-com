@@ -1,4 +1,5 @@
 columnSuffix: plyjqqxp
+contentColumnType: smallint(3)
 handle: percent
 instructions: null
 name: Percent

@@ -1,20 +1,18 @@
-columnSuffix: sejwfnam
-contentColumnType: string(8)
-handle: contentLayout
+columnSuffix: null
+handle: rankOptions
 instructions: null
-name: 'Content Layout'
+name: 'Rank Options'
 searchable: false
 settings:
-  columnType: null
   options:
     -
       __assoc__:
         -
           - label
-          - 'Rich Text'
+          - 'All Options'
         -
           - value
-          - richText
+          - allOptions
         -
           - default
           - '1'
@@ -22,10 +20,10 @@ settings:
       __assoc__:
         -
           - label
-          - 'Z Pattern'
+          - 'Like Buttons Only'
         -
           - value
-          - zPattern
+          - likeButtonsOnly
         -
           - default
           - ''

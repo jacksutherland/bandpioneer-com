@@ -1,4 +1,5 @@
 columnSuffix: nwifwctt
+contentColumnType: text
 handle: shortDescription
 instructions: null
 name: 'Short Description'
@@ -7,6 +8,7 @@ settings:
   byteLimit: null
   charLimit: null
   code: false
+  columnType: null
   initialRows: 2
   multiline: true
   placeholder: null

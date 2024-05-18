@@ -1,4 +1,5 @@
 columnSuffix: ysesehfe
+contentColumnType: string(255)
 handle: websiteUrl
 instructions: null
 name: 'Website URL'

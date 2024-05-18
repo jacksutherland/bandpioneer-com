@@ -3,7 +3,6 @@ enableVersioning: true
 entryTypes:
   - 2297cf40-712c-48f0-9804-74a835b2f5f6 # Default
 handle: pages
-maxAuthors: 1
 name: Pages
 previewTargets:
   -
@@ -12,11 +11,11 @@ previewTargets:
         - label
         - 'Primary entry page'
       -
-        - refresh
-        - '1'
-      -
         - urlFormat
         - '{url}'
+      -
+        - refresh
+        - '1'
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer

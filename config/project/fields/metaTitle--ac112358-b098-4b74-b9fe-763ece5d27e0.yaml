@@ -1,4 +1,5 @@
 columnSuffix: lelbwxkj
+contentColumnType: string(256)
 handle: metaTitle
 instructions: null
 name: 'Meta Title'
@@ -7,6 +8,7 @@ settings:
   byteLimit: null
   charLimit: 64
   code: false
+  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

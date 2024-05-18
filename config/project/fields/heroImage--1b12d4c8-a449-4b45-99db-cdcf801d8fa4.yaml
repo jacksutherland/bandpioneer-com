@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: heroImage
 instructions: null
 name: 'Hero Image'
@@ -22,7 +23,6 @@ settings:
   restrictedLocationSource: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
   restrictedLocationSubpath: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

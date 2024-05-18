@@ -360,12 +360,12 @@ fieldLayouts:
         userCondition: null
 handle: dynamic
 hasTitleField: true
-icon: null
+icon: ''
 name: 'Blog - Dynamic'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
-titleFormat: null
-titleTranslationKeyFormat: null
+titleFormat: ''
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

@@ -1543,6 +1543,14 @@ address[rel=author] span {
   content: close-quote;
   font-weight: 900;
 }
+.blog section.rank-buttons-right {
+  position: relative;
+}
+.blog section.rank-buttons-right .ranker-buttons {
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
 .blog section.rich-text + .rich-text {
   margin-top: -20px;
 }

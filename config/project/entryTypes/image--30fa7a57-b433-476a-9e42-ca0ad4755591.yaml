@@ -6,35 +6,6 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
-            autocapitalize: true
-            autocomplete: false
-            autocorrect: true
-            class: null
-            disabled: false
-            elementCondition: null
-            id: null
-            includeInCards: false
-            inputType: null
-            instructions: null
-            label: null
-            max: null
-            min: null
-            name: null
-            orientation: null
-            placeholder: null
-            providesThumbs: false
-            readonly: false
-            requirable: false
-            size: null
-            step: null
-            tip: null
-            title: null
-            type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 5510b903-d9a3-4845-a4c7-3f7d30e233b2
-            userCondition: null
-            warning: null
-            width: 100
-          -
             elementCondition: null
             fieldUid: 2d08e6f3-ae71-4a17-a1f5-97abeb7193f9 # Blog Content - Image - Blog Image
             handle: blogImage

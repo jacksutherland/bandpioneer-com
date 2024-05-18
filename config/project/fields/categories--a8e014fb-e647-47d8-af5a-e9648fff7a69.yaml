@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: categories
 instructions: null
 name: Categories
@@ -11,7 +12,6 @@ settings:
   maxRelations: null
   minRelations: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: false
   sources:
     - 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories

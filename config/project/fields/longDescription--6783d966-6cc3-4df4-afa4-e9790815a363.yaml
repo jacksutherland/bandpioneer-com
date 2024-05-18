@@ -1,4 +1,5 @@
 columnSuffix: vwjuhafb
+contentColumnType: text
 handle: longDescription
 instructions: null
 name: 'Long Description'
@@ -7,7 +8,7 @@ settings:
   availableTransforms: '*'
   availableVolumes: '*'
   ckeConfig: cc64f857-3e97-42d7-8a16-79223c695a98 # Default
-  createButtonLabel: null
+  columnType: text
   defaultTransform: null
   enableSourceEditingForNonAdmins: true
   purifierConfig: null

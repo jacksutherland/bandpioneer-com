@@ -1,5 +1,3 @@
-altTranslationKeyFormat: null
-altTranslationMethod: site
 fieldLayouts:
   b7ff7a7b-a68a-404b-a3ce-d986db042031:
     tabs:
@@ -14,7 +12,6 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
-            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -23,7 +20,6 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
-            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -42,7 +38,6 @@ fs: rockstarFiles
 handle: rockstarAssets
 name: 'Rockstars Assets'
 sortOrder: 4
-subpath: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
 transformFs: ''

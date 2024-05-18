@@ -1,4 +1,4 @@
-dateModified: 1715982032
+dateModified: 1716069849
 elementSources:
   craft\elements\Asset:
     -
@@ -289,6 +289,7 @@ meta:
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
     851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
+    955dfe3a-2c73-4743-9657-2692b4655139: 'Rank Button Location' # Rank Button Location
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
     4741f9c5-9672-4145-968f-8b2d0a418435: 'Popular Post Mobile 2023' # Popular Post Mobile 2023
@@ -300,6 +301,7 @@ meta:
     7713ee4e-e1ca-4aeb-a2c4-ef6b725b1a18: 'Page Image' # Page Image
     7753be54-298e-490f-9ab3-381c71785210: 'Blog Content - Image & Text - Link URL' # Blog Content - Image & Text - Link URL
     8297f5ab-0624-4ef9-bdba-8bef1cc43523: 'Blog Content - Embed Code - Figure Caption' # Blog Content - Embed Code - Figure Caption
+    9449afc2-d448-4f53-865f-58862b5fc400: 'Rank Options' # Rank Options
     10710afa-12e3-48a9-bb9d-2155b47cac47: 'Band Pioneer AI' # Band Pioneer AI
     24792e71-a84c-4970-acf7-c69480e02e11: 'Writer Picture' # Writer Picture
     32918d13-fbf2-4148-85a3-4bdb7a1d8468: 'Enable Ranking' # Enable Ranking

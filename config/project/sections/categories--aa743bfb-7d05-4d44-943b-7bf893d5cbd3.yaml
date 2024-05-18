@@ -2,10 +2,9 @@ defaultPlacement: end
 enableVersioning: true
 entryTypes:
   - 8c0e4ec9-bf67-46e2-9302-82d3a602160c # Genre
-  - d70ad590-bed7-4878-a8d8-ca2759e4ae4d # Decade
   - 774ccc9c-38af-4883-8507-dc63a256627a # Instrument
+  - d70ad590-bed7-4878-a8d8-ca2759e4ae4d # Decade
 handle: categories
-maxAuthors: 1
 name: Categories
 propagationMethod: all
 siteSettings:

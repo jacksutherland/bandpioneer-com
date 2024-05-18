@@ -1,9 +1,11 @@
 columnSuffix: urbietqu
+contentColumnType: string
 handle: tocStyle
 instructions: null
 name: 'TOC Style'
 searchable: false
 settings:
+  columnType: string
   options:
     -
       __assoc__:

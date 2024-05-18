@@ -1,4 +1,5 @@
 columnSuffix: mmlrtbal
+contentColumnType: boolean
 handle: show
 instructions: null
 name: Show

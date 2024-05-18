@@ -562,6 +562,16 @@ address[rel="author"] {
 			}
 		}
 
+		&.rank-buttons-right {
+			position: relative;
+
+			.ranker-buttons {
+				position: absolute;
+			    right: 0;
+			    top: -10px;
+			}
+		}
+
 		&.rich-text {
 			& + .rich-text {
 				margin-top: -20px;

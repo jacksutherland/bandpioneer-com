@@ -3,7 +3,6 @@ enableVersioning: true
 entryTypes:
   - dc2a5508-39c8-4963-bf3b-159da3ef325b # Topics - Default
 handle: topics
-maxAuthors: 1
 name: Topics
 previewTargets:
   -
@@ -12,11 +11,11 @@ previewTargets:
         - label
         - 'Category Preview'
       -
-        - refresh
-        - '1'
-      -
         - urlFormat
         - '{url}'
+      -
+        - refresh
+        - '1'
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer

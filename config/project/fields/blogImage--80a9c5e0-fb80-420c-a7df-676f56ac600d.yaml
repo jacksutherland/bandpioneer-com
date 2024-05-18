@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: blogImage
 instructions: null
 name: 'Blog Image'
@@ -23,7 +24,6 @@ settings:
   restrictedLocationSource: 'volume:c1052de8-6217-41e9-8c24-2b4da3d48b10' # Blog Images
   restrictedLocationSubpath: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

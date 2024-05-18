@@ -1,4 +1,5 @@
 columnSuffix: ohacztqp
+contentColumnType: boolean
 handle: indexed
 instructions: null
 name: Ranking

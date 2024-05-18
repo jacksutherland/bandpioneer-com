@@ -1,4 +1,5 @@
 columnSuffix: rvinvhah
+contentColumnType: text
 handle: headline
 instructions: null
 name: Headline
@@ -7,6 +8,7 @@ settings:
   byteLimit: null
   charLimit: null
   code: false
+  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

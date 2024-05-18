@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: featuredBlogPost
 instructions: 'If not entered the most recent article will be highlighted on the homepage.'
 name: 'Featured Blog Post'
@@ -11,7 +12,6 @@ settings:
   maxRelations: 1
   minRelations: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: false
   sources:
     - 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post

@@ -1,4 +1,5 @@
 columnSuffix: null
+contentColumnType: string
 handle: popularPosts
 instructions: 'Must be multiples of 4 to keep an even UX.'
 name: 'Popular Posts'
@@ -11,7 +12,6 @@ settings:
   maxRelations: null
   minRelations: null
   selectionLabel: null
-  showCardsInGrid: false
   showSiteMenu: false
   sources:
     - 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
