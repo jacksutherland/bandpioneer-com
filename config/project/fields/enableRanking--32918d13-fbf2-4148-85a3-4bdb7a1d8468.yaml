@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: enableRanking
 instructions: null
-name: 'Enable Ranking'
+name: 'Enable Rank'
 searchable: false
 settings:
   default: false

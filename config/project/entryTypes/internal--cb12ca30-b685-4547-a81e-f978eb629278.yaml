@@ -330,7 +330,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: 32918d13-fbf2-4148-85a3-4bdb7a1d8468 # Enable Ranking
+            fieldUid: 32918d13-fbf2-4148-85a3-4bdb7a1d8468 # Enable Rank
             handle: null
             includeInCards: false
             instructions: null
