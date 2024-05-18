@@ -156,17 +156,19 @@
 					{% else %}
 						<h3>Reorder this list</h3>
 					{% endif %}
-					<ul>
-						{% for module in entry.blogContent.all() %}
-							{% switch module.type %}
-								{% case "sectionTitle" %}
-								{% case "imageText" %}
-									{% if module.rankerKey | length %}
-										<li draggable="true" data-key="{{ module.rankerKey }}">{{ module.rankerValue }}</li>
-									{% endif %}
-							{% endswitch %}
-						{% endfor %}
-					</ul>
+					<div class="scroll-container">
+						<ul>
+							{% for module in entry.blogContent.all() %}
+								{% switch module.type %}
+									{% case "sectionTitle" %}
+									{% case "imageText" %}
+										{% if module.rankerKey | length %}
+											<li draggable="true" data-key="{{ module.rankerKey }}">{{ module.rankerValue }}</li>
+										{% endif %}
+								{% endswitch %}
+							{% endfor %}
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
