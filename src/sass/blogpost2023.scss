@@ -562,17 +562,19 @@ address[rel="author"] {
 			}
 		}
 
-		&.rank-buttons-right {
-			position: relative;
+		@media (min-width: $breakpoint-sm) {
+			&.rank-buttons-right {
+				position: relative;
 
-			h2 + .ranker-buttons {
-				top: 40px;
-			}
+				h2 + .ranker-buttons {
+					top: 40px;
+				}
 
-			.ranker-buttons {
-				position: absolute;
-			    right: 0;
-			    top: -10px;
+				.ranker-buttons {
+					position: absolute;
+				    right: 0;
+				    top: -10px;
+				}
 			}
 		}
 
@@ -765,20 +767,10 @@ address[rel="author"] {
 	}
 
 	h1 {
-		// text-transform: capitalize;
 		margin: 25px 0;
-
-		// Michroma Google Font
-		// font-size: 2.1rem;
-    	// line-height: 3.2rem;
-    	// font-size: 1.8rem;
-    	// line-height: 2.8rem;
-
-    	// letter-spacing: 0.04rem;
 
     	& + h2 {
     		font-family: $header-font-family;
-				
     		margin: -20px 0 25px 0;
 		    font-weight: 400;
 		    letter-spacing: $header-font-spacing;
