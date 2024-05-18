@@ -1546,6 +1546,9 @@ address[rel=author] span {
 .blog section.rank-buttons-right {
   position: relative;
 }
+.blog section.rank-buttons-right h2 + .ranker-buttons {
+  top: 40px;
+}
 .blog section.rank-buttons-right .ranker-buttons {
   position: absolute;
   right: 0;

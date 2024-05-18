@@ -565,6 +565,10 @@ address[rel="author"] {
 		&.rank-buttons-right {
 			position: relative;
 
+			h2 + .ranker-buttons {
+				top: 40px;
+			}
+
 			.ranker-buttons {
 				position: absolute;
 			    right: 0;
