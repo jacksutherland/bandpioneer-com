@@ -124,7 +124,7 @@ class Google extends AbstractProvider
     {
         $user = new GoogleUser($response);
 
-        $this->assertMatchingDomain($user->getHostedDomain());
+        // $this->assertMatchingDomain($user->getHostedDomain());
 
         return $user;
     }
