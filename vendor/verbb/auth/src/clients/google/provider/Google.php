@@ -24,8 +24,7 @@ class Google extends AbstractProvider
      * @var string If set, this will be sent to google as the "hd" parameter.
      * @link https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
      */
-    // protected string $hostedDomain = 'bandpioneer.com';
-    protected string $hostedDomain = '';
+    protected string $hostedDomain = 'bandpioneer.com';
 
     /**
      * @var string If set, this will be sent to google as the "prompt" parameter.
@@ -56,9 +55,9 @@ class Google extends AbstractProvider
 
     protected function getAuthorizationParameters(array $options): array
     {
-        if (empty($options['hd']) && $this->hostedDomain) {
-            $options['hd'] = $this->hostedDomain;
-        }
+        // if (empty($options['hd']) && $this->hostedDomain) {
+        //     $options['hd'] = $this->hostedDomain;
+        // }
 
         if (empty($options['access_type']) && $this->accessType) {
             $options['access_type'] = $this->accessType;
@@ -125,7 +124,7 @@ class Google extends AbstractProvider
     {
         $user = new GoogleUser($response);
 
-        $this->assertMatchingDomain($user->getHostedDomain());
+        // $this->assertMatchingDomain($user->getHostedDomain());
 
         return $user;
     }
