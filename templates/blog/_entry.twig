@@ -133,9 +133,7 @@
 
 			    if(scrollContainer.scrollTop > 0)
 			    {
-			    	console.log('scrolling up: ' + scrollAmount);
-
-				    scrollContainer.scrollBy({
+			    	scrollContainer.scrollBy({
 				      top: scrollAmount,
 				      behavior: 'smooth'
 				    });
@@ -150,9 +148,7 @@
 
 			    if(scrollContainer.scrollHeight - scrollContainer.scrollTop > scrollContainer.clientHeight)
 			    {
-			    	console.log('scrolling down: ' + scrollAmount);
-
-				    scrollContainer.scrollBy({
+			    	scrollContainer.scrollBy({
 				      top: scrollAmount,
 				      behavior: 'smooth'
 				    });
@@ -214,8 +210,6 @@
 			    const clientY = touch.clientY;
 			    draggedItem.style.top = `${clientY - draggedItem.draggedOffsetY - scrollContainer.scrollTop}px`;
 			    const afterElement = getDragAfterElement(ul, touch.clientY);
-
-			    console.log(afterElement.innerText);
 
 			    ul.insertBefore(placeholder, afterElement || null);
 			}

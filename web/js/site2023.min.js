@@ -409,6 +409,13 @@ class BandPioneerUX
 				}.bind(li), 200);
 			}
 		});
+
+		const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
+
+		if(scrollContainer.scrollHeight <= scrollContainer.clientHeight)
+		{
+			document.querySelector('.ranker-modal aside').remove();
+		}
 	}
 
 	saveRankerOrder(eid)
@@ -441,8 +448,8 @@ class BandPioneerUX
 			});
 	}
 
-	createBlogRanker(eid, rankingData)
-	{
+	// createBlogRanker(eid, rankingData)
+	// {
         // var likeUrl = '/rockstar/ranking-like-it';
 		// let formData = new FormData();
 		// var likesAndDislikes = document.querySelectorAll('.ranker-like, .ranker-dislike');
@@ -630,7 +637,7 @@ class BandPioneerUX
 		// }
 
 
-	}
+	// }
 
 	BandCarousel = class
 	{
