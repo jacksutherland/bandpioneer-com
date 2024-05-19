@@ -550,153 +550,240 @@ class BandPioneerUX
 		placeholder.className = 'placeholder';
 
 		// Order rank list by sort from DB
-
 		const liItems = Array.from(ul.querySelectorAll('li'));
-
-		// Create a mapping from key to sort order
-
 		const sortOrder = {};
-		rankingData.forEach(item => {
-			sortOrder[item.key] = item.sort;
-		});
+		rankingData.forEach(item => sortOrder[item.key] = item.sort);
 
-		// Sort the items array based on the sortOrder mapping
+		// Sort and append items based on sortOrder
+		liItems.sort((a, b) => sortOrder[a.getAttribute('data-key')] - sortOrder[b.getAttribute('data-key')])
+		       .forEach(item => ul.appendChild(item));
 
-		liItems.sort((a, b) => {
-			const keyA = a.getAttribute('data-key');
-			const keyB = b.getAttribute('data-key');
-			return sortOrder[keyA] - sortOrder[keyB];
-		});
-
-		// Append the sorted items back to the ul
-
-		liItems.forEach(item => {
-			ul.appendChild(item);
-		});
-
-		// Make rank like sortable
-
-		function handleDragStart(e)
-		{
-			draggedItem = e.target;
-			e.target.classList.add('dragging');
-			setTimeout(() => {
-			 	e.target.style.display = 'none';
-			 	ul.insertBefore(placeholder, draggedItem.nextSibling);
-			}, 0);
+		// Event handlers
+		function handleDragStart(e) {
+		    draggedItem = e.target;
+		    draggedItem.classList.add('dragging');
+		    setTimeout(() => ul.insertBefore(placeholder, draggedItem.nextSibling), 0);
 		}
 
-		function handleDragEnd(e)
-		{
-			e.target.classList.remove('dragging');
-			e.target.classList.add('pulsate');
-			e.target.style.display = 'flex';
-			ul.insertBefore(draggedItem, placeholder);
-			ul.removeChild(placeholder);
-			draggedItem = null;
+		function handleDragEnd() {
+		    draggedItem.classList.remove('dragging');
+		    ul.insertBefore(draggedItem, placeholder);
+		    ul.removeChild(placeholder);
+		    draggedItem = null;
 		}
 
-		function handleDragOver(e)
-		{
-			e.preventDefault();
-			const afterElement = getDragAfterElement(ul, e.clientY);
-			if (afterElement == null)
-			{
-				ul.appendChild(placeholder);
-			}
-			else
-			{
-				ul.insertBefore(placeholder, afterElement);
-			}
+		function handleDragOver(e) {
+		    e.preventDefault();
+		    const afterElement = getDragAfterElement(ul, e.clientY);
+		    ul.insertBefore(placeholder, afterElement || null);
 		}
 
-		var draggedElement = null;
-		var draggedOffsetY = 0;
-		// var containerScrollTop = 0;
-
-		function handleTouchStart(e)
-		{
-			e.preventDefault();
-			draggedItem = e.target;
-			e.target.classList.add('mobile-dragging');
-
-			draggedElement = e.target;
-			
-			const scrollContainer = draggedElement.parentElement.parentElement;
-			const draggedRect = draggedElement.getBoundingClientRect();
-
-    		draggedOffsetY = e.touches[0].clientY - draggedRect.top;
-    		// containerScrollTop = scrollContainer.scrollTop;
-
-    		draggedElement.style.top = `${e.touches[0].clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
-
-			setTimeout(() => {
-				ul.insertBefore(placeholder, draggedItem.nextSibling);
-			}, 0);
+		function handleTouchStart(e) {
+		    e.preventDefault();
+		    draggedItem = e.target;
+		    draggedItem.classList.add('mobile-dragging');
+		    const scrollContainer = ul.parentElement;
+		    const draggedRect = draggedItem.getBoundingClientRect();
+		    draggedItem.draggedOffsetY = e.touches[0].clientY - draggedRect.top;
+		    setTimeout(() => ul.insertBefore(placeholder, draggedItem.nextSibling), 0);
 		}
 
-		function handleTouchMove(e)
-		{
-			const touch = e.touches[0];
-			const afterElement = getDragAfterElement(ul, touch.clientY);
-			
-			if(draggedElement !== null)
-			{
-				const scrollContainer = draggedElement.parentElement.parentElement;
-		        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-		        // draggedElement.style.top = `${clientY - draggedOffsetY}px`;
-		        console.log((clientY - draggedOffsetY));
-		        console.log(scrollContainer.scrollTop);
-		        // draggedElement.style.top = `${clientY - draggedOffsetY + scrollContainer.scrollTop}px`;
-		        draggedElement.style.top = `${clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
-	        }
+		function handleTouchMove(e) {
+		    if (!draggedItem) return;
+		    const touch = e.touches[0];
+		    const scrollContainer = ul.parentElement;
+		    const clientY = touch.clientY;
+		    draggedItem.style.top = `${clientY - draggedItem.draggedOffsetY - scrollContainer.scrollTop}px`;
+		    const afterElement = getDragAfterElement(ul, touch.clientY);
 
-			if (afterElement == null)
-			{
-				ul.appendChild(placeholder);
-			}
-			else
-			{
-				ul.insertBefore(placeholder, afterElement);
-			}
+		    console.log(afterElement.innerText);
+
+		    ul.insertBefore(placeholder, afterElement || null);
 		}
 
-		function handleTouchEnd(e) {
-			e.target.classList.remove('mobile-dragging');
-			e.target.style.display = 'flex';
-			ul.insertBefore(draggedItem, placeholder);
-			ul.removeChild(placeholder);
-			draggedItem = null;
+		function handleTouchEnd() {
+		    draggedItem.classList.remove('mobile-dragging');
+		    ul.insertBefore(draggedItem, placeholder);
+		    ul.removeChild(placeholder);
+		    draggedItem = null;
 		}
 
+		// Attach event listeners
 		ul.querySelectorAll('li').forEach(item => {
-			item.addEventListener('dragstart', handleDragStart);
-			item.addEventListener('dragend', handleDragEnd);
-			item.addEventListener('touchstart', handleTouchStart);
-			item.addEventListener('touchmove', handleTouchMove);
-			item.addEventListener('touchend', handleTouchEnd);
+		    item.draggable = true;
+		    item.addEventListener('dragstart', handleDragStart);
+		    item.addEventListener('dragend', handleDragEnd);
+		    item.addEventListener('touchstart', handleTouchStart);
+		    item.addEventListener('touchmove', handleTouchMove);
+		    item.addEventListener('touchend', handleTouchEnd);
 		});
-
 		ul.addEventListener('dragover', handleDragOver);
 		ul.addEventListener('touchmove', handleTouchMove);
 
-		function getDragAfterElement(container, y)
-		{
-			const draggableElements = [...container.querySelectorAll('li:not(.dragging):not(.placeholder)')];
-
-			return draggableElements.reduce((closest, child) => {
-				const box = child.getBoundingClientRect();
-				const offset = y - box.top - box.height / 2;
-				if (offset < 0 && offset > closest.offset)
-				{
-					return { offset: offset, element: child };
-				}
-				else
-				{
-					return closest;
-				}
-			}, { offset: Number.NEGATIVE_INFINITY }).element;
+		function getDragAfterElement(container, y) {
+		    const draggableElements = [...container.querySelectorAll('li:not(.mobile-dragging):not(.dragging):not(.placeholder)')];
+		    return draggableElements.reduce((closest, child) => {
+		        const box = child.getBoundingClientRect();
+		        const offset = y - box.top - box.height / 2;
+		        return offset < 0 && offset > closest.offset ? { offset, element: child } : closest;
+		    }, { offset: Number.NEGATIVE_INFINITY }).element;
 		}
+
+
+		// const modal = document.querySelector('.ranker-modal .modal');
+		// const ul = modal.querySelector('ul');
+		// let draggedItem = null;
+		// let placeholder = document.createElement('li');
+		// placeholder.className = 'placeholder';
+
+		// // Order rank list by sort from DB
+
+		// const liItems = Array.from(ul.querySelectorAll('li'));
+
+		// // Create a mapping from key to sort order
+
+		// const sortOrder = {};
+		// rankingData.forEach(item => {
+		// 	sortOrder[item.key] = item.sort;
+		// });
+
+		// // Sort the items array based on the sortOrder mapping
+
+		// liItems.sort((a, b) => {
+		// 	const keyA = a.getAttribute('data-key');
+		// 	const keyB = b.getAttribute('data-key');
+		// 	return sortOrder[keyA] - sortOrder[keyB];
+		// });
+
+		// // Append the sorted items back to the ul
+
+		// liItems.forEach(item => {
+		// 	ul.appendChild(item);
+		// });
+
+		// // Make rank like sortable
+
+		// function handleDragStart(e)
+		// {
+		// 	draggedItem = e.target;
+		// 	e.target.classList.add('dragging');
+		// 	setTimeout(() => {
+		// 	 	e.target.style.display = 'none';
+		// 	 	ul.insertBefore(placeholder, draggedItem.nextSibling);
+		// 	}, 0);
+		// }
+
+		// function handleDragEnd(e)
+		// {
+		// 	e.target.classList.remove('dragging');
+		// 	e.target.classList.add('pulsate');
+		// 	e.target.style.display = 'flex';
+		// 	ul.insertBefore(draggedItem, placeholder);
+		// 	ul.removeChild(placeholder);
+		// 	draggedItem = null;
+		// }
+
+		// function handleDragOver(e)
+		// {
+		// 	e.preventDefault();
+		// 	const afterElement = getDragAfterElement(ul, e.clientY);
+		// 	if (afterElement == null)
+		// 	{
+		// 		ul.appendChild(placeholder);
+		// 	}
+		// 	else
+		// 	{
+		// 		ul.insertBefore(placeholder, afterElement);
+		// 	}
+		// }
+
+		// var draggedElement = null;
+		// var draggedOffsetY = 0;
+		// // var containerScrollTop = 0;
+
+		// function handleTouchStart(e)
+		// {
+		// 	e.preventDefault();
+		// 	draggedItem = e.target;
+		// 	e.target.classList.add('mobile-dragging');
+
+		// 	draggedElement = e.target;
+			
+		// 	const scrollContainer = draggedElement.parentElement.parentElement;
+		// 	const draggedRect = draggedElement.getBoundingClientRect();
+
+    	// 	draggedOffsetY = e.touches[0].clientY - draggedRect.top;
+    	// 	// containerScrollTop = scrollContainer.scrollTop;
+
+    	// 	draggedElement.style.top = `${e.touches[0].clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
+
+		// 	setTimeout(() => {
+		// 		ul.insertBefore(placeholder, draggedItem.nextSibling);
+		// 	}, 0);
+		// }
+
+		// function handleTouchMove(e)
+		// {
+		// 	const touch = e.touches[0];
+		// 	const afterElement = getDragAfterElement(ul, touch.clientY);
+			
+		// 	if(draggedElement !== null)
+		// 	{
+		// 		const scrollContainer = draggedElement.parentElement.parentElement;
+		//         const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+		//         // draggedElement.style.top = `${clientY - draggedOffsetY}px`;
+		//         console.log((clientY - draggedOffsetY));
+		//         console.log(scrollContainer.scrollTop);
+		//         // draggedElement.style.top = `${clientY - draggedOffsetY + scrollContainer.scrollTop}px`;
+		//         draggedElement.style.top = `${clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
+	    //     }
+
+		// 	if (afterElement == null)
+		// 	{
+		// 		ul.appendChild(placeholder);
+		// 	}
+		// 	else
+		// 	{
+		// 		ul.insertBefore(placeholder, afterElement);
+		// 	}
+		// }
+
+		// function handleTouchEnd(e) {
+		// 	e.target.classList.remove('mobile-dragging');
+		// 	e.target.style.display = 'flex';
+		// 	ul.insertBefore(draggedItem, placeholder);
+		// 	ul.removeChild(placeholder);
+		// 	draggedItem = null;
+		// }
+
+		// ul.querySelectorAll('li').forEach(item => {
+		// 	item.addEventListener('dragstart', handleDragStart);
+		// 	item.addEventListener('dragend', handleDragEnd);
+		// 	item.addEventListener('touchstart', handleTouchStart);
+		// 	item.addEventListener('touchmove', handleTouchMove);
+		// 	item.addEventListener('touchend', handleTouchEnd);
+		// });
+
+		// ul.addEventListener('dragover', handleDragOver);
+		// ul.addEventListener('touchmove', handleTouchMove);
+
+		// function getDragAfterElement(container, y)
+		// {
+		// 	const draggableElements = [...container.querySelectorAll('li:not(.dragging):not(.placeholder)')];
+
+		// 	return draggableElements.reduce((closest, child) => {
+		// 		const box = child.getBoundingClientRect();
+		// 		const offset = y - box.top - box.height / 2;
+		// 		if (offset < 0 && offset > closest.offset)
+		// 		{
+		// 			return { offset: offset, element: child };
+		// 		}
+		// 		else
+		// 		{
+		// 			return closest;
+		// 		}
+		// 	}, { offset: Number.NEGATIVE_INFINITY }).element;
+		// }
 	}
 
 	BandCarousel = class
