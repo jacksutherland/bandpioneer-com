@@ -390,11 +390,11 @@ a.category span {
   justify-content: center;
   background-color: #FFFFFF;
   border-radius: 50%;
-  height: 24px;
-  width: 24px;
+  height: 34px;
+  width: 34px;
   position: absolute;
-  right: -4px;
-  top: -4px;
+  right: -8px;
+  top: -8px;
   transition: background-color 0.3s;
 }
 .overlay .modal .close-icon-button:hover {

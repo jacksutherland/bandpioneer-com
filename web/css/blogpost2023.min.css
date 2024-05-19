@@ -390,11 +390,11 @@ a.category span {
   justify-content: center;
   background-color: #FFFFFF;
   border-radius: 50%;
-  height: 24px;
-  width: 24px;
+  height: 34px;
+  width: 34px;
   position: absolute;
-  right: -4px;
-  top: -4px;
+  right: -8px;
+  top: -8px;
   transition: background-color 0.3s;
 }
 .overlay .modal .close-icon-button:hover {
@@ -1835,12 +1835,55 @@ address[rel=author] span {
 .ranker-modal .modal > div ul li.dragging {
   opacity: 0.5;
 }
+.ranker-modal .modal > div ul li.mobile-dragging {
+  position: fixed;
+  left: 50px;
+  right: 50px;
+  z-index: 200;
+  opacity: 1;
+  background-color: #c7c7c7;
+  box-shadow: 0 1px 2px 1px #ddd;
+}
 .ranker-modal .modal > div ul li.placeholder {
   background-color: #F0F3F3;
-  outline: 2px dashed #e0e0e0;
 }
 .ranker-modal .modal > div ul li.pulsate {
   animation: pulse-bkg 1s ease-in-out;
+}
+.ranker-modal .modal aside {
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ranker-modal .modal aside .scroll-up, .ranker-modal .modal aside .scroll-down {
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 2px 1px #ddd;
+  justify-content: center;
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
+}
+.ranker-modal .modal aside .scroll-up svg, .ranker-modal .modal aside .scroll-down svg {
+  height: 30px;
+  width: 30px;
+}
+.ranker-modal .modal aside .scroll-up svg path, .ranker-modal .modal aside .scroll-down svg path {
+  fill: #777777;
+}
+.ranker-modal .modal aside .scroll-up {
+  margin-bottom: 20px;
+  top: 30%;
+}
+.ranker-modal .modal aside .scroll-up svg {
+  transform: rotate(180deg);
+}
+@media (min-width: 576px) {
+  .ranker-modal .modal aside {
+    display: none;
+  }
 }
 
 /*************************/

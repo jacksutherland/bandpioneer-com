@@ -150,6 +150,10 @@
 		<div class="overlay ranker-modal">
 			<div class="modal" style="max-width: 600px;">
 				<a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
+				<aside>
+					<a class="scroll-up" href="/">{% include '_includes/icons' with { type: 'down' } %}</a>
+					<a class="scroll-down" href="/">{% include '_includes/icons' with { type: 'down' } %}</a>
+				</aside>
 				<div>
 					{% if entry.ctaText %}
 						<h3>{{ entry.ctaText }}</h3>

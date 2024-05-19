@@ -956,15 +956,63 @@ address[rel="author"] {
 						opacity: 0.5;
 					}
 
+					&.mobile-dragging {
+						position: fixed;
+						left: 50px;
+						right: 50px;
+						z-index: 200;
+						opacity: 1;
+						background-color: darken($medium-gray, 10%);
+						box-shadow: $border-shadow;
+					}
+
 					&.placeholder {
 						background-color: $light-gray;
-						outline: 2px dashed $border-color;
 					}
 
 					&.pulsate {
 						animation: pulse-bkg 1s ease-in-out;
 					}
 				}
+			}
+		}
+		aside {
+			position: absolute;
+			right: -18px;
+			top: 50%;
+			transform: translateY(-50%);
+
+			.scroll-up, .scroll-down {
+				display: flex;
+				align-items: center;
+				background-color: $white;
+				box-shadow: $border-shadow;
+				justify-content: center;
+				border-radius: 20px;
+				height: 40px;
+				width: 40px;
+
+				svg {
+					height: 30px;
+					width: 30px;
+
+					path {
+						fill: $lightest-font-color;
+					}
+				}
+			}
+			.scroll-up {
+				margin-bottom: 20px;
+				top: 30%;
+
+				svg {
+					transform: rotate(180deg);
+				}
+			}
+		}
+		@media (min-width: $breakpoint-sm) {
+			aside {
+				display: none;
 			}
 		}
 	}

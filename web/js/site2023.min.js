@@ -516,6 +516,31 @@ class BandPioneerUX
 			});
 		});
 
+		document.querySelector('.scroll-up').addEventListener('click', function(e)
+		{
+			e.preventDefault();
+
+			const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
+		    const scrollAmount = -(scrollContainer.clientHeight * 0.25);
+		    
+		    scrollContainer.scrollBy({
+		      top: scrollAmount,
+		      behavior: 'smooth'
+		    });
+		});
+		document.querySelector('.scroll-down').addEventListener('click', function(e)
+		{
+			e.preventDefault();
+
+			const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
+		    const scrollAmount = scrollContainer.clientHeight * 0.25;
+
+		    scrollContainer.scrollBy({
+		      top: scrollAmount,
+		      behavior: 'smooth'
+		    });
+		});
+
 		// Create sortable rank list
 
 		const modal = document.querySelector('.ranker-modal .modal');
@@ -585,13 +610,27 @@ class BandPioneerUX
 			}
 		}
 
+		var draggedElement = null;
+		var draggedOffsetY = 0;
+		// var containerScrollTop = 0;
+
 		function handleTouchStart(e)
 		{
 			e.preventDefault();
 			draggedItem = e.target;
-			e.target.classList.add('dragging');
+			e.target.classList.add('mobile-dragging');
+
+			draggedElement = e.target;
+			
+			const scrollContainer = draggedElement.parentElement.parentElement;
+			const draggedRect = draggedElement.getBoundingClientRect();
+
+    		draggedOffsetY = e.touches[0].clientY - draggedRect.top;
+    		// containerScrollTop = scrollContainer.scrollTop;
+
+    		draggedElement.style.top = `${e.touches[0].clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
+
 			setTimeout(() => {
-				e.target.style.display = 'none';
 				ul.insertBefore(placeholder, draggedItem.nextSibling);
 			}, 0);
 		}
@@ -600,6 +639,18 @@ class BandPioneerUX
 		{
 			const touch = e.touches[0];
 			const afterElement = getDragAfterElement(ul, touch.clientY);
+			
+			if(draggedElement !== null)
+			{
+				const scrollContainer = draggedElement.parentElement.parentElement;
+		        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+		        // draggedElement.style.top = `${clientY - draggedOffsetY}px`;
+		        console.log((clientY - draggedOffsetY));
+		        console.log(scrollContainer.scrollTop);
+		        // draggedElement.style.top = `${clientY - draggedOffsetY + scrollContainer.scrollTop}px`;
+		        draggedElement.style.top = `${clientY - draggedOffsetY - scrollContainer.scrollTop}px`;
+	        }
+
 			if (afterElement == null)
 			{
 				ul.appendChild(placeholder);
@@ -611,7 +662,7 @@ class BandPioneerUX
 		}
 
 		function handleTouchEnd(e) {
-			e.target.classList.remove('dragging');
+			e.target.classList.remove('mobile-dragging');
 			e.target.style.display = 'flex';
 			ul.insertBefore(draggedItem, placeholder);
 			ul.removeChild(placeholder);
