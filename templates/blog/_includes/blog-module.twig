@@ -85,7 +85,7 @@
 		{% endif %} #}
 		<span>
 		{% if likePercent == 0 %}
-			Nobody has liked this yet
+			Nobody has liked this yet. {% if not currentUser %}<a href="/" onclick="return bp.login();">Login to be the first!{% endif %}
 		{% else %}
 			{{ likePercent }}% of users like this
 		{% endif %}
