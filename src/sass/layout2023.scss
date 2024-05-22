@@ -235,7 +235,25 @@ figure {
 }
 
 .ranker-buttons {
+	display: flex;
+	align-items: center;
+	background-color: $light-gray;
+	border-radius: $img-radius;
+	gap: 12px;
 	margin: $paragraph-spacing 0;
+	padding: 6px 9px;
+
+	button {
+		&:nth-child(2n) {
+			margin-bottom: -2px;
+		}
+	}
+
+	span {
+		color: $secondary-darker;
+		font-size: $nav-font-size;
+		font-weight: $slightly-bold-font;
+	}
 }
 
 button,
@@ -267,6 +285,7 @@ button,
 		background-color: transparent;
 		border: none;
 		height: auto;
+		line-height: 0;
 		padding: 0;
 
 		&:hover {
@@ -279,7 +298,7 @@ button,
 
 		svg {
 			height: 25px;
-			margin: 0 0 -1px 15px;
+			// margin: 0 0 -1px 15px;
 
 			path {
 				fill: $link-color;

@@ -562,21 +562,25 @@ address[rel="author"] {
 			}
 		}
 
-		@media (min-width: $breakpoint-sm) {
-			&.rank-buttons-right {
-				position: relative;
-
-				h2 + .ranker-buttons {
-					top: 40px;
-				}
-
-				.ranker-buttons {
-					position: absolute;
-				    right: 0;
-				    top: -10px;
-				}
-			}
+		h3 + .ranker-buttons {
+			margin-top: -7px;
 		}
+
+		// @media (min-width: $breakpoint-sm) {
+		// 	&.rank-buttons-right {
+		// 		position: relative;
+
+		// 		h2 + .ranker-buttons {
+		// 			top: 40px;
+		// 		}
+
+		// 		.ranker-buttons {
+		// 			position: absolute;
+		// 		    right: 0;
+		// 		    top: -12px;
+		// 		}
+		// 	}
+		// }
 
 		&.rich-text {
 			& + .rich-text {

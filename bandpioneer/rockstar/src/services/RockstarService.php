@@ -131,6 +131,46 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
+    public function getRankItemLikePercent($entryId, $rankerKey)
+    {
+        $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'key' => $rankerKey])->all();
+        $totalRecords = 0;
+        $likedRecords = 0;
+        $dislikedRecords = 0;
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            $totalRecords++;
+            
+            if($rankingRecord->liked === 1)
+            {
+                $likedRecords++;
+            }
+            elseif($rankingRecord->liked === 0)
+            {
+                $dislikedRecords++;
+            }
+            
+        }
+
+        // return $dislikedRecords;
+
+        if($likedRecords > 0)
+        {
+            return round(($likedRecords / $totalRecords) * 100);
+        }
+        elseif($dislikedRecords > 0)
+        {
+            // Item has only received dislikes
+            return 0;
+        }
+        else
+        {
+            // Show as 100% until users have started voting.
+            return 100;
+        }
+    }
+
     public function getCurrentUserKeys($entryId)
     {
         $currentUser = Craft::$app->getUser()->getIdentity();

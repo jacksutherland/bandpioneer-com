@@ -297,7 +297,7 @@ fieldLayouts:
             uid: 548d132f-3254-4aff-be9d-7d696c0a30c7
             userCondition: null
             warning: null
-            width: 25
+            width: 50
           -
             elementCondition: null
             fieldUid: 9449afc2-d448-4f53-865f-58862b5fc400 # Ranking Options
@@ -310,21 +310,6 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: eea275f5-73c2-44aa-a70f-5f41f51b6881
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: 955dfe3a-2c73-4743-9657-2692b4655139 # Rank Button Location
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: bf0afc7b-8c72-4b1d-b922-6d487a5622b8
             userCondition: null
             warning: null
             width: 25

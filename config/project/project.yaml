@@ -1,4 +1,4 @@
-dateModified: 1716071576
+dateModified: 1716400290
 elementSources:
   craft\elements\Asset:
     -
@@ -289,7 +289,6 @@ meta:
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
     851dc649-39e3-43e8-a649-4c735a3d9a1e: 'Blog Image 2x' # Blog Image 2x
-    955dfe3a-2c73-4743-9657-2692b4655139: 'Rank Button Location' # Rank Button Location
     2297cf40-712c-48f0-9804-74a835b2f5f6: Default # Default
     3098d7ae-88a8-4d10-9c0f-b138a839a277: 'Band Images' # Band Images
     4741f9c5-9672-4145-968f-8b2d0a418435: 'Popular Post Mobile 2023' # Popular Post Mobile 2023
