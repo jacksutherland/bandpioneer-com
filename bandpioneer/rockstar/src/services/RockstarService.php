@@ -166,8 +166,8 @@ class RockstarService extends Component
         }
         else
         {
-            // Show as 100% until users have started voting.
-            return 100;
+            // Show as 80-100% until users have started voting.
+            return rand(80, 100);
         }
     }
 
