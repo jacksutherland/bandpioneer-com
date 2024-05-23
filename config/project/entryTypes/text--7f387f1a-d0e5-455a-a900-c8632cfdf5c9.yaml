@@ -36,7 +36,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 68c36b78-e56c-45f0-90a2-b93ccc0f1ee6 # Blog Content - Text - Rich Text
+            fieldUid: 68c36b78-e56c-45f0-90a2-b93ccc0f1ee6 # Rich Text
             handle: null
             includeInCards: false
             instructions: null

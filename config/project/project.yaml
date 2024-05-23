@@ -1,4 +1,4 @@
-dateModified: 1716400290
+dateModified: 1716495920
 elementSources:
   craft\elements\Asset:
     -
@@ -271,7 +271,7 @@ meta:
     63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Media # Media
     68b78cac-18bc-49d2-a702-d76dfdfcfc89: 'Band Carousel Small' # Band Carousel Small
-    68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Blog Content - Text - Rich Text' # Blog Content - Text - Rich Text
+    68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
     69a773a9-c69f-4fe7-b975-b60c93c084a7: 'Show Recent Blogs' # Show Recent Blogs
     76f42882-6b79-4288-b04b-76c67c5e6781: 'Writer Picture' # Writer Picture
     77bee9c6-a3ce-4ca6-ae83-75613901a67e: 'Default Blog Image' # Default Blog Image

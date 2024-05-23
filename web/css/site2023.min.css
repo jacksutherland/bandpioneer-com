@@ -1396,6 +1396,25 @@ section.cta-text * {
 section.cta-text p {
   font-weight: 500;
 }
+section.cta-text a {
+  position: relative;
+  color: #7acced;
+  font-weight: 600;
+}
+section.cta-text a:after {
+  position: absolute;
+  bottom: -4px;
+  left: 49%;
+  width: 2%;
+  border-bottom: solid transparent 1px;
+  content: "";
+  transition: border-bottom 0.3s, left 0.3s, width 0.3s;
+}
+section.cta-text a:hover:after {
+  border-color: #7acced;
+  left: 5%;
+  width: 90%;
+}
 section.cta-text .z-pattern {
   max-width: 500px;
   margin: 0 auto;
@@ -1419,6 +1438,13 @@ section.cta-text .z-pattern div:nth-child(2n) img.blur-out {
   section.cta-text .z-pattern {
     display: flex;
     gap: 0;
+  }
+  section.cta-text .z-pattern div:first-child {
+    max-width: 100%;
+    width: 600px;
+  }
+  section.cta-text .z-pattern div:first-child h1 {
+    font-size: 2rem;
   }
   section.cta-text .z-pattern div:nth-child(2n) img {
     margin-top: 24px;

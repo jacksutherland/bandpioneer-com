@@ -50,6 +50,7 @@ $breakpoint-xxl: 1400px;
 /***** COLORS *****/
 
 $primary-light: #20aae1;
+$primary-lighter: lighten($primary-light, 20%);
 $primary-dark: #131b28;
 $secondary-color: #f90215;
 $secondary-dark: #d0000e;

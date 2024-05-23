@@ -127,7 +127,10 @@
 							{% if entry.headline | length %}
 								<h1>{{ entry.headline }}</h1>
 							{% endif %}
-							{% if entry.subheadline | length %}
+							{% if entry.richText | length %}
+								{{ entry.richText }}
+							{% endif %}
+						{# 	{% if entry.subheadline | length %}
 								<h2>{{ entry.subheadline }}</h2>
 							{% endif %}
 							{% if entry.shortDescription | length %}
@@ -138,7 +141,7 @@
 								<p>
 									<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
 								</p>
-							{% endif %}
+							{% endif %} #}
 						</div>
 						<div>
 							{% if isMobile %}
