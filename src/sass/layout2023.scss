@@ -239,9 +239,9 @@ figure {
 	align-items: center;
 	background-color: $light-gray;
 	border-radius: $img-radius;
-	gap: 12px;
+	gap: 10px;
 	margin: $paragraph-spacing 0;
-	padding: 6px 9px;
+	padding: 7px 10px;
 
 	button {
 		&:nth-child(2n) {
@@ -281,6 +281,7 @@ button,
 
 	&.ranker-like,
 	&.ranker-dislike,
+	&.ranker-data,
 	&.ranker-sort {
 		background-color: transparent;
 		border: none;
@@ -298,14 +299,25 @@ button,
 
 		svg {
 			height: 25px;
-			// margin: 0 0 -1px 15px;
 
 			path {
 				fill: $link-color;
+				fill: darken($medium-gray, 30%);
 				transition: fill $transition-time;
 			}
 		}
 	}
+
+	&.ranker-data {
+		margin-left: auto;
+
+		svg {
+			path {
+				fill: darken($medium-gray, 30%);
+			}
+		}
+	}
+
 	&.ranker-like,
 	&.ranker-dislike {
 		&.selected {
@@ -324,10 +336,23 @@ button,
 			}
 		}
 	}
+
+	&.ranker-like,
+	&.ranker-dislike,
+	&.ranker-data {
+		transition: transform $transition-time;
+
+		&:hover {
+			transform: scale(1.1);
+		}
+		svg {
+			transform: translateY(1.5px);
+		}
+	}
 	&.ranker-like {
 		svg {
 			margin: 0;
-			transform: rotate(180deg);
+			transform: rotate(180deg) translateY(1px);
 		}
 	}
 }
@@ -653,12 +678,16 @@ header.site-header {
 
 	& + section.rich-text,
 	& + #search-toggle + .search-dropdown + section.rich-text {
-		background-color: $white;
+		background-color: $light-gray;
 		border-bottom: solid 1px $white;
 		margin: 0;
 		overflow: hidden;
 		padding: 35px 0 40px 0;
 		position: relative;
+
+		+ .sticky-tracker + main .bands {
+			margin-top: -30px;
+		}
 
 		picture {
 			.hero-img {
@@ -669,7 +698,7 @@ header.site-header {
 				height: 100%;
 				object-fit: cover;
 				transition: filter 5s;
-				filter: opacity(0.30) grayscale(1);
+				filter: blur(1px) brightness(0.5) grayscale(1);
 				z-index: 10;
 			}
 
@@ -678,14 +707,16 @@ header.site-header {
 				z-index: 20;
 
 				h1 {
-					text-shadow: 0 0 14px $white;
+					color: $white;
+					text-shadow: 0 0 14px #000;
 					transition: text-shadow 5s;
 				}
 				h2, p {
-					// text-shadow: 0 0 14px $white;
+					color: $white;
 					transition: text-shadow 5s;
 				}
 				p {
+					color: $white;
 					font-weight: 500;
 				}
 			}
@@ -703,7 +734,7 @@ header.site-header {
 		svg {
 			fill: $white;
 			height: 32px;
-		    width: 32px;
+		  width: 32px;
 		}
 	}
 
@@ -774,7 +805,7 @@ header.site-header {
 						float: right;
 					    margin-right: 34px;
 					    margin-top: 6px;
-					    width: 13px;
+					    width: 16px;
 
 						path {
 							fill: $link-color;
@@ -887,10 +918,7 @@ header.site-header {
 
 		& + section.rich-text,
 		& + #search-toggle + .search-dropdown + section.rich-text {
-			// padding: ($section-spacing * 1.5) 0 $section-spacing 0;
-			// padding: 80px 0 60px 0;
-			// padding: 90px 0 80px 0;
-			padding: 80px 0 60px 0;
+			padding: 95px 0 90px 0;
 		}
 
 		#open-menu {
@@ -987,9 +1015,15 @@ header.site-header {
     					border-bottom: 0;
 						color: $white;
 
+						&.dropdown {
+							svg {
+								margin: 0 0 0 2px;
+							}
+						}
+
 						svg {
 							float: none;
-    						margin: 0 0 0 6px;
+    						margin: 0 0 -2px 0;
 
 							path {
 								fill: $white;

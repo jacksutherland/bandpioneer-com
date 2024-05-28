@@ -1,12 +1,17 @@
 {# Responsive Full Width Blog Image #}
 {% set isFeatured = isFeatured is defined ? isFeatured : false %}
+{% set mobileTrans = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
+{% set smTrans = { mode: 'fit', format: 'webp', width: 544, quality: 80 } %}
+{% set smTrans2x = { mode: 'fit', format: 'webp', width: 1088, quality: 80 } %}
+{% set mdTrans = { mode: 'fit', format: 'webp', width: 800, quality: 80 } %}
+{% set mdTrans2x = { mode: 'fit', format: 'webp', width: 1600, quality: 80 } %}
 <picture>
-	<source srcset="{{ img.url("blogImage") }}, {{ img.url('blogImage2x') }} 2x" media="(min-width: 768px)" />
-	<source srcset="{{ img.url("blogImageMobile") }}, {{ img.url('blogImageMobile2x') }} 2x" media="(max-width:575px)" />
-	<img src="{{ img.url('blogImageMobile') }}"
-		srcset="{{ img.url('blogImageMobile2x') }} 2x"
+	<source srcset="{{ img.url(mdTrans) }}, {{ img.url(mdTrans2x) }} 2x" media="(min-width: 768px)" />
+	<source srcset="{{ img.url(smTrans) }}, {{ img.url(smTrans2x) }} 2x" media="(min-width: 576px)" />
+	<img src="{{ img.url(mobileTrans) }}"
+		srcset="{{ img.url(mobileTrans) }} 2x"
 	 	alt="{{ img.title }}"
 	 	loading="{{ isFeatured ? "eager" : "lazy" }}"
 	 	class="{{ isFeatured ? "featured-image" : "" }}" 
-		width="{{ img.width('blogImageMobile') }}" height="{{ img.height('blogImageMobile') }}">
+		width="{{ img.width(mobileTrans) }}" height="{{ img.height(mobileTrans) }}">
 </picture>

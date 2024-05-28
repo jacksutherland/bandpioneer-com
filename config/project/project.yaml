@@ -1,4 +1,4 @@
-dateModified: 1716495920
+dateModified: 1716842244
 elementSources:
   craft\elements\Asset:
     -
@@ -86,12 +86,12 @@ elementSources:
       key: 'section:ed3ddcd0-5218-490f-a4b7-d5000594dcf2' # Blog Post
       tableAttributes:
         - type
+        - 'field:32918d13-fbf2-4148-85a3-4bdb7a1d8468' # Enable Rank
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Topic
         - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Categories
         - 'field:f977de61-4eb7-4324-ac92-3b5a651b832c' # Tags
         - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
         - postDate
-        - 'field:9fb102dd-839a-4229-82ce-229ed6669f92' # Ranking
         - link
       type: native
     -

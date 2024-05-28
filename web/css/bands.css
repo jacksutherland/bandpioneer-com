@@ -115,6 +115,15 @@ nav.tab-menu ul li label.active {
   margin: 0 20px;
   padding-bottom: 80px;
 }
+.bands-container .two-col {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 0;
+}
+.bands-container .two-col p {
+  flex: 1 1 50%;
+  margin: 0;
+}
 .bands-container.dashboard {
   display: grid;
   gap: 20px;
@@ -132,14 +141,31 @@ nav.tab-menu ul li label.active {
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
 }
-.bands-container.dashboard section h3 {
+.bands-container.dashboard section > h1, .bands-container.dashboard section > h2, .bands-container.dashboard section > h3 {
+  margin-top: 0;
+}
+.bands-container.dashboard section h1, .bands-container.dashboard section h2, .bands-container.dashboard section h3 {
   font-family: "BandPioneerHeader", sans-serif;
   letter-spacing: 0.05rem;
-  margin: 0 0 20px 0;
-  color: #0a79a4;
-}
-.bands-container.dashboard section p {
   margin: 10px 0;
+  color: #d0000e;
+}
+.bands-container.dashboard section h1 {
+  font-size: 2rem;
+}
+.bands-container.dashboard section h4 a:hover svg {
+  margin-left: 2px;
+}
+.bands-container.dashboard section h4 a:hover svg path {
+  fill: #f90215;
+}
+.bands-container.dashboard section h4 a svg {
+  vertical-align: bottom;
+  margin-left: -4px;
+  transition: margin-left 0.3s, color 0.3s;
+}
+.bands-container.dashboard section h4 a svg path {
+  fill: #0a79a4;
 }
 .bands-container.dashboard section a.link-symbol {
   font-size: 1.05rem;
@@ -147,6 +173,26 @@ nav.tab-menu ul li label.active {
   vertical-align: middle;
   transform: rotate(90deg);
   display: inline-block;
+}
+.bands-container.dashboard section article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.bands-container.dashboard section article a {
+  flex: 1;
+}
+.bands-container.dashboard section article figure {
+  background-color: #F0F3F3;
+  border-radius: 3px;
+  min-height: 80px;
+  overflow: hidden;
+  width: 150px;
+}
+.bands-container.dashboard section article figure img {
+  border-radius: 3px;
+  width: 100%;
 }
 .bands-container.dashboard section .action-icon svg {
   width: 16px;
@@ -368,9 +414,6 @@ nav.tab-menu ul li label.active {
   }
 }
 @media (min-width: 768px) {
-  body main {
-    margin-top: 40px !important;
-  }
   .bands-container {
     margin: 0 auto;
   }

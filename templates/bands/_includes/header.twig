@@ -16,7 +16,7 @@
             <ul>
                 {% if currentUser %}
                     <li>
-                        <a href="/bands" title="{{ currentUser.fullName ~ ' (' ~ currentUser.email ~ ')' }}">
+                        <a href="/account" title="{{ currentUser.fullName ~ ' (' ~ currentUser.email ~ ')' }}">
                             {% include '_includes/icons' with { type: 'user' } %}
                         </a>
                     </li>

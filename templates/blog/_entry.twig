@@ -2,6 +2,7 @@
 
 {% set fixedHeader = true %}
 {% set isMobile = craft.app.request.isMobileBrowser(false) %}
+{% set showRankModal = (currentUser and entry.enableRanking) %}
 
 {% set categories = craft.entries.section('topics') %}
 {% if entry.tags.count %}
@@ -23,7 +24,8 @@
 
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
-	{% if (not isMobile) and entry.blogImage.count %}
+	{# {% if (not isMobile) and entry.blogImage.count %} #}
+	{% if entry.blogImage.count %}
 		<link rel="preload" as="image" href="{{ entry.blogImage.one().url('blogImage') }}" 
 			imagesrcset="{{ entry.blogImage.one().url('blogImage') }} 1x, {{ entry.blogImage.one().url('blogImage2x') }} 2x">
 	{% endif %}
@@ -41,7 +43,7 @@
         	var rdata = [];
 
         	{% if currentUser and entry.enableRanking %}
-            	{% set rankingData = craft.rockstar.getCurrentUserKeys(entry.id) %}
+            	{% set rankingData = craft.rockstar.getCurrentUserKeysByEntry(entry.id) %}
             	{% for rd in rankingData %}
             		rdata.push({ key: '{{rd.key}}', value: '{{rd.value}}', liked: '{{rd.liked}}', sort: '{{rd.sort}}' });
             	{% endfor %}
@@ -83,6 +85,7 @@
 					var selected = this.classList.contains('selected');
 					var parentContainer = this.closest('.ranker-buttons');
 	        		var keyInput = parentContainer.querySelector('[name="key"]');
+	        		var valInput = parentContainer.querySelector('[name="val"]');
 	        		var likedInput = parentContainer.querySelector('[name="liked"]');
 	        		var likedValue = 'unselected';
 
@@ -106,6 +109,7 @@
 
 				        formData.append('eid', eid);
 				        formData.append('key', keyInput.value);
+				        formData.append('val', valInput.value);
 						formData.append('liked', likedValue);
 						formData.append(csrfTokenName, csrfTokenValue);
 
@@ -247,7 +251,7 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile' : 'desktop') %}
+	{% set blogHeadCacheKey = "blog-post-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
 	{% cache using key blogHeadCacheKey %}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
@@ -266,8 +270,8 @@
 				{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
 				{# removing img above the fold on mobile, to prevent long LCP #}
-				{% if (not isMobile) and entry.blogImage.count %}
-					{# <div class="sharethis-inline-share-buttons"></div> #}
+				{# {% if (not isMobile) and entry.blogImage.count %} #}
+				{% if entry.blogImage.count %}
 					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 				{% endif %}
 			</div>
@@ -339,7 +343,64 @@
 		</div>
 	{% endcache %}
 
-	{% if currentUser and entry.enableRanking %}
+	{% if showRankModal %}
+		{% set orderedData = craft.rockstar.getUserOrderedItemsForEntry(entry.id) %}
+        <div id="rank-comparison-modal" class="overlay rank-comparison-modal">
+            <div class="modal">
+                <a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
+	            <div>   
+                	<div class="split-panel">
+	                	<div class="d-md">
+		                    <h3>Editor's Ranking</h3>
+		                </div>
+		                <div>
+							<h3>Reader's Ranking</h3>
+						</div>
+		            </div>
+		            <div class="scroll-panel">
+		                <div class="split-panel">
+		                	<div class="d-md">
+			                    <div class="scroll-container">
+									<ul>
+										{% set counter = 0 %}
+										{% for module in entry.blogContent.all() %}
+											{% switch module.type %}
+												{% case "sectionTitle" or "imageText" %}
+													{% if module.rankerKey | length %}
+														{% set counter = counter + 1 %}
+														<li draggable="true" data-key="{{ module.rankerKey }}">
+															{{ counter }}. {{ module.rankerValue }}
+														</li>
+													{% endif %}
+											{% endswitch %}
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+							<div>
+			                    <div class="scroll-container">
+									<ul>
+										{% for item in orderedData %}
+											<li draggable="true" data-key="{{ item.key }}">
+												{{ loop.index }}. {{ item.value }} 
+												{% if item.percentLiked > 0 %}
+													<span>
+														({{ item.percentLiked }}% {% include '_includes/icons' with { type: 'like-solid' } %})
+													</span>
+												{% endif %}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+		                </div>
+		            </div>
+	           	</div>
+            </div>
+        </div>
+    {% endif %}
+
+{# 	{% if currentUser and entry.enableRanking %}
 		<div class="overlay ranker-modal">
 			<div class="modal" style="max-width: 600px;">
 				<a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
@@ -369,6 +430,6 @@
 				</div>
 			</div>
 		</div>
-	{% endif %}
+	{% endif %} #}
 
 {% endblock %}

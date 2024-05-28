@@ -58,6 +58,7 @@ class RockstarController extends Controller
         $request = Craft::$app->getRequest();
         $entryId = trim($request->getParam('eid'));
         $key = trim($request->getParam('key'));
+        $val = trim($request->getParam('val'));
         $liked = trim($request->getParam('liked'));
 
         /*** VALIDATION ***/
@@ -66,7 +67,7 @@ class RockstarController extends Controller
         {
             /*** SAVE ***/
 
-            $service->likeCurrentUserKey($entryId, $key, $liked);
+            $service->likeCurrentUserKey($entryId, $key, $val, $liked);
 
             return "success";
         }

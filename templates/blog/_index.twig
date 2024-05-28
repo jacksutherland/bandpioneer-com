@@ -1,15 +1,12 @@
 {% extends '_layout2023' %}
 
-{# {% set showAds = entry is defined and entry['showAds'] is defined ? entry.showAds : true %}
-{% set postsPerPage = showAds ? 9 : 12 %} #}
 {% set postsPerPage = 12 %}
-{% set categorySlug = craft.app.request.segments | last %}
-{# {% set genreSlug = craft.app.request.segments | first %} #}
+{% set topicSlug = craft.app.request.segments | last %}
 {% set isGenrePage = false %}
 {% set isSticky = false %}
 {% set isMobile = craft.app.request.isMobileBrowser(false) %}
 
-{% if categorySlug == 'dynamic' %}
+{% if topicSlug == 'dynamic' %}
 
 	{% set blogQuery = craft.entries.section('blog').type('dynamic') %}
 	{% paginate blogQuery.limit(postsPerPage).offset(1).orderBy('postDate DESC') as pageInfo, posts %}
@@ -21,17 +18,19 @@
 	{% if entry.type.handle in ['decade', 'genre', 'instrument'] %}
 		{% set isGenrePage = true %}
 		{% set postsPerPage = 8 %}
-		{# {% set genreEntry = craft.entries.section('categories').slug(categorySlug) %} #}
 		{% set blogQuery = craft.entries.section('blog').relatedTo(entry) %}
-		{# {% set entry = genreEntry.one() %} #}
 		{% if not entry.show %}
 			{# If this isn't in the Menu, don't allow access to it! #}
 			{% exit 404 %}
 		{% endif %}
-		{# {% set showAds = false %} #}
 	{% else %}
-		{% set categoryEntry = craft.entries.section('topics').slug(categorySlug) %}
-		{% set blogQuery = craft.entries.section('blog').relatedTo(categoryEntry) %}
+		{% set topicEntry = craft.entries.section('topics').slug(topicSlug) %}
+		{% if topicSlug == 'rankings' %}
+			{% set blogQuery = craft.entries.section('blog').enableRanking(true) %}
+		{% else %}
+			{% set topicEntry = craft.entries.section('topics').slug(topicSlug) %}
+			{% set blogQuery = craft.entries.section('blog').relatedTo(topicEntry).enableRanking(false) %}
+		{% endif %}
 		{% if entry.featuredBlogPost and entry.featuredBlogPost.count %}
 			{% set blogQuery = blogQuery.id('and, not '~ entry.featuredBlogPost.one().id) %}
 		{% endif %}
@@ -224,16 +223,6 @@
 									<h4>{{ blog.title }}</h4>
 								</a>
 			        		</article>
-			        		
-			        		{# {% if showAds %}
-								{% if loop.index == 2 %}
-									<article class="advert{% if recentPosts | length is even %} full-width-advert{% endif %}"><div id="ezoic-pub-ad-placeholder-142"><span class="ad-loader"></span></div></article>
-								{% elseif loop.index == 4 %}
-									<article class="advert"><div id="ezoic-pub-ad-placeholder-140"><span class="ad-loader"></span></div></article>
-								{% elseif loop.index == 8 %}
-									<article class="advert"><div id="ezoic-pub-ad-placeholder-141"><span class="ad-loader"></span></div></article>
-								{% endif %}
-							{% endif %} #}
 
 			        	{% endfor %}
 		        	</div>

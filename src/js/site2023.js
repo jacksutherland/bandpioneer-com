@@ -61,7 +61,10 @@ class BandPioneerUX
 			modalMessage = 'Sign in to Band Pioneer';
 		}
 
-		this.openModal('#login-modal', null, modalMessage);
+		if(!this.openModal('#login-modal', null, modalMessage))
+		{
+			window.location.href = "/account";
+		}
 
 		return false;
 	}
@@ -114,6 +117,12 @@ class BandPioneerUX
 	openModal(selector, onCloseCallback, modalMessage)
 	{
 		const overlay = document.querySelector(selector);
+
+		if(!overlay)
+		{
+			return false;
+		}
+
 		const modal = overlay.querySelector('.modal');
 		const closeButton = modal.querySelector('.close-button') || modal.querySelector('.close-icon-button');
 
@@ -149,6 +158,8 @@ class BandPioneerUX
 		};
 
 		overlay.classList.add('show');
+
+		return true;
 	}
 
 	isHTML(str)
@@ -262,7 +273,7 @@ class BandPioneerUX
 			
 			const observer = new window.IntersectionObserver((entries) => {
 
-				if(entries[0].boundingClientRect.top < 200)
+				if(entries[0].boundingClientRect.top < 250)
 				{
 					if (!entries[0].isIntersecting)
 					{
@@ -391,63 +402,68 @@ class BandPioneerUX
 		});
 	}
 
-	openRankerModal(eid, rankerKey)
+	openRankComparisonModal()
 	{
-		bp.openModal('.ranker-modal', function()
-		{
-			this.saveRankerOrder(eid);
-		}.bind(this));
-
-		document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
-		{
-			li.classList.remove('pulsate');
-			if(li.dataset.key == rankerKey)
-			{
-				setTimeout(function()
-				{
-					this.classList.add('pulsate');
-				}.bind(li), 200);
-			}
-		});
-
-		const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
-		const aside = document.querySelector('.ranker-modal aside');
-
-		if(aside && scrollContainer.scrollHeight <= scrollContainer.clientHeight)
-		{
-			aside.remove();
-		}
+		bp.openModal('.rank-comparison-modal');
 	}
 
-	saveRankerOrder(eid)
-	{
- 		var saveUrl = '/rockstar/save-ranking-order';
-		var data = [];
-		document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
-		{
-			data.push(li.dataset.key);
-		});
+	// openRankerModal(eid, rankerKey)
+	// {
+	// 	bp.openModal('.ranker-modal', function()
+	// 	{
+	// 		this.saveRankerOrder(eid);
+	// 	}.bind(this));
 
-		let jsonData = JSON.stringify(data);
-		let formData = new FormData();
-		let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
-		let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+	// 	document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
+	// 	{
+	// 		li.classList.remove('pulsate');
+	// 		if(li.dataset.key == rankerKey)
+	// 		{
+	// 			setTimeout(function()
+	// 			{
+	// 				this.classList.add('pulsate');
+	// 			}.bind(li), 200);
+	// 		}
+	// 	});
 
-		formData.append('eid', eid);
-        formData.append('data', jsonData);
-		formData.append(csrfTokenName, csrfTokenValue);
+	// 	const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
+	// 	const aside = document.querySelector('.ranker-modal aside');
 
-		fetch(saveUrl, { method: 'POST', body: formData })
-			.then((response) => {
-			    if (response.ok)
-			    {
-			    	return response.text();
-			    }
-			}).then((response) => {
-			}).catch((error) => {
-			    console.error("Error:", error);
-			});
-	}
+	// 	if(aside && scrollContainer.scrollHeight <= scrollContainer.clientHeight)
+	// 	{
+	// 		aside.remove();
+	// 	}
+	// }
+
+	// saveRankerOrder(eid)
+	// {
+ 	// 	var saveUrl = '/rockstar/save-ranking-order';
+	// 	var data = [];
+	// 	document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
+	// 	{
+	// 		data.push(li.dataset.key);
+	// 	});
+
+	// 	let jsonData = JSON.stringify(data);
+	// 	let formData = new FormData();
+	// 	let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+	// 	let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+
+	// 	formData.append('eid', eid);
+    //     formData.append('data', jsonData);
+	// 	formData.append(csrfTokenName, csrfTokenValue);
+
+	// 	fetch(saveUrl, { method: 'POST', body: formData })
+	// 		.then((response) => {
+	// 		    if (response.ok)
+	// 		    {
+	// 		    	return response.text();
+	// 		    }
+	// 		}).then((response) => {
+	// 		}).catch((error) => {
+	// 		    console.error("Error:", error);
+	// 		});
+	// }
 
 	BandCarousel = class
 	{

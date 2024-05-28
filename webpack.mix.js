@@ -78,15 +78,31 @@ mix.setPublicPath('./web')
 
 //*** AUTHENTICATED BAND WEBSITE ***//
 
+// don't use .minify()
+// npm run production - will minify rockstars.css via .sass() below
+
 mix.setPublicPath('./web')
-.sass('src/sass/bands.scss', 'web/css/bands.css')
-.sass('src/sass/epk.scss', 'web/css/epk.css')
+.sass('src/sass/rockstars2024.scss', 'web/css/rockstars.css')
 .options({
   processCssUrls: false,
 })
-.minify('src/js/bands.js', 'web/js/bands.min.js')
-.minify('src/js/epk.js', 'web/js/epk.min.js')
-.minify('src/js/studio.js', 'web/js/studio.min.js')
-.minify('src/js/debate.js', 'web/js/debate.min.js')
+.browserSync({
+  files: ['web/css/*'],
+  proxy: baseUrl,
+  notify: false,
+})
 .version()
 .disableNotifications()
+
+// mix.setPublicPath('./web')
+// .sass('src/sass/bands.scss', 'web/css/bands.css')
+// .sass('src/sass/epk.scss', 'web/css/epk.css')
+// .options({
+//   processCssUrls: false,
+// })
+// .minify('src/js/bands.js', 'web/js/bands.min.js')
+// .minify('src/js/epk.js', 'web/js/epk.min.js')
+// .minify('src/js/studio.js', 'web/js/studio.min.js')
+// .minify('src/js/debate.js', 'web/js/debate.min.js')
+// .version()
+// .disableNotifications()

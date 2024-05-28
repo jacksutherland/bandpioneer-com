@@ -3,6 +3,7 @@
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
 {% set isMobile = craft.app.request.isMobileBrowser(false) %}
+{% set showCategoryNav = showCategoryNav is defined ? showCategoryNav : true %}
 {% set disableAds = disableAds is defined ? disableAds : (entry is defined and entry['disableAds'] is defined ? entry.disableAds : false) %}
 
 {# ai.bandpioneer.com ONLY on Prod ENV #}
@@ -85,7 +86,7 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% set headerCacheKey = "header-20240501-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% set headerCacheKey = "header-20240524-" ~ (isMobile ? 'mobile' : 'desktop') %}
 
         <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">
@@ -96,7 +97,7 @@
                 {% cache using key headerCacheKey %}
                     <ul>
                         <li>
-                            <a class="dropdown" href="/" aria-label="Open the blog topics menu">
+                            <a class="dropdown" href="/" aria-label="Open the blog topics menu" title="View Article Topics">
                                 Topics {% include '_includes/icons' with { type: 'down' } %}
                             </a>
                             <ul>
@@ -118,7 +119,7 @@
                         {% set instruments = [] %}
                         {% if genresAndDecades.count %}
                             <li>
-                                <a class="dropdown" href="/" aria-label="Open the blog genres menu">
+                                <a class="dropdown" href="/" aria-label="Open the blog genres menu" title="View Article Categories">
                                     Categories {% include '_includes/icons' with { type: 'down' } %}
                                 </a>
                                 <ul>
@@ -172,7 +173,7 @@
                             </li>
                         {% endif %}
                         <li>
-                            <a class="dropdown" href="/" aria-label="Open the AI Studio menu">
+                            <a class="dropdown" href="/" aria-label="Open the AI Studio menu" title="Custom AI Music Tips">
                                 AI Studio {% include '_includes/icons' with { type: 'down' } %}
                             </a>
                             <ul>
@@ -220,11 +221,11 @@
                 {% endcache %}
                 <ul> 
                     <li>
-                        <a href="/about">About Us</a>
+                        <a href="/about" title="About Band Pioneer">About Us</a>
                     </li>
                     <li>
-                        <a href="/contact">Contact</a>
-                    </li>
+                        <a href="/contact" title="Contact Us">Contact</a>
+                    </li> 
                     <li>
                         {% if currentUser %}
                             <a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a>
@@ -232,8 +233,15 @@
                             <a href="/" onclick="return bp.login();">Sign in</a>
                         {% endif %}
                     </li>
+                    {% if currentUser %}
+                        <li>
+                            <a href="/account" title="{{ currentUser.fullName ~ ' (' ~ currentUser.email ~ ')' }}">
+                                {% include '_includes/icons' with { type: 'user' } %}
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="search">
-                        <a href="/search">Search</a>
+                        <a href="/search" title="Search Band Pioneer">Search</a>
                         <label for="search-toggle">
                             {% include '_includes/icons' with { type: 'search' } %}
                         </label>
@@ -255,27 +263,29 @@
         {% block header %}
         {% endblock %}
 
-        {% cache %}
-            <nav role="navigation" class="categories" aria-label="Primary Navigation">
-                <div class="container">
-                    <ul>
-                        {% for cat in categories.all() %}
-                            {% if cat.show %}
-                                <li>
-                                    <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == (craft.app.request.segments | first) %} class="active"{% endif %}>
-                                        {{ cat.title }}
-                                    </a>
-                                    <div id="topic-{{ cat.id }}" class="popup">
-                                        <h3>{{ cat.headline }}</h3>
-                                        <p>{{ cat.shortDescription }}</p>
-                                    </div>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </nav>
-        {% endcache %}
+        {% if showCategoryNav %}
+            {% cache %}
+                <nav role="navigation" class="categories" aria-label="Primary Navigation">
+                    <div class="container">
+                        <ul>
+                            {% for cat in categories.all() %}
+                                {% if cat.show %}
+                                    <li>
+                                        <a data-popup="topic-{{ cat.id }}" href="{{ cat.url }}"{% if cat.slug == (craft.app.request.segments | first) %} class="active"{% endif %}>
+                                            {{ cat.title }}
+                                        </a>
+                                        <div id="topic-{{ cat.id }}" class="popup">
+                                            <h3>{{ cat.headline }}</h3>
+                                            <p>{{ cat.shortDescription }}</p>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </nav>
+            {% endcache %}
+        {% endif %}
 
         <div class="sticky-tracker"></div>
 

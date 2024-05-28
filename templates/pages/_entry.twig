@@ -1,5 +1,8 @@
 {% extends '_layout2023' %}
 
+
+{% set showCategoryNav = false %}
+
 {% block styles %}
 	{% if entry.showImageCarousel %}
     	<link rel="stylesheet" href="{{ url('css/homepage2023.min.css') }}?version={{ versionNumber }}" /> 

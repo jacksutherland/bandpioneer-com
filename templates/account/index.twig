@@ -1,0 +1,89 @@
+{% extends '_layout2023' %}
+
+{% set pageTitle = "My Account" %}
+{% set entry = { slug: 'my-account', title: 'My Account', section: { handle: 'account' } } %}
+{% set versionNumber = 'rockstars-1.001' %}
+
+{% set showCategoryNav = false %}
+
+{% set rankingEntries = craft.rockstar.getRankEntries() %}
+{% set rankingData = craft.rockstar.getCurrentUserLikedKeys() %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
+    <link rel="stylesheet" href="{{ url('css/rockstars.css') }}?version={{ versionNumber }}" /> 
+{% endblock %}
+
+{% block content %}
+
+	<div class="rockstars-container">
+
+		<section>
+			<h1>My Account:</h1>
+			<p>
+				<strong>Name:</strong> {{ currentUser.fullName }}
+			</p>
+			<p>
+				<strong>Email:</strong> {{ currentUser.email }} (<strong><a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a></strong>)
+			</p>
+		</section>
+
+		{% if rankingEntries | length %}
+			<section>
+				<h2>More Articles to Rank:</h2>
+				{% set itemsShown = false %}
+				{% for re in rankingEntries %}
+					{% set showItem = true %}
+					{% for rd in rankingData %}
+						{% if rd.entryId == re.entryId %}
+							{% set showItem = false %}
+						{% endif %}		
+					{% endfor %}
+					{% if showItem %}
+						{% set itemsShown = true %}
+						<article>
+							<figure>
+								{% if re.blogImage %}
+									<img src="{{ re.blogImage.url }}" />
+								{% endif %}
+							</figure>
+							<a href="{{re.entryUrl}}">{{re.entryTitle}}</a>
+						</article>
+					{% endif %}
+				{% endfor %}
+				{% if not itemsShown %}
+					<article>You've visited all rankable articles. Nice work!</article>
+				{% endif %}
+			</section>
+		{% endif %}
+
+		{% if rankingData | length %}
+			<section>
+				{% set entryTitle = '' %}
+				<h2>Articles You've Ranked:</h2>
+				{% for rd in rankingData %}
+					{# {% if rd.liked %} #}
+						{% if entryTitle != rd.entryTitle %}
+							{% set entryTitle = rd.entryTitle %}
+							{% if loop.index > 1 %}
+								</div>
+							{% endif %}
+							<h3>
+								<a href="{{ rd.entryUrl }}">
+									{{ entryTitle }}
+								</a>
+							</h3>
+							<div class="two-col">
+						{% endif %}
+						<p>
+							{{ rd.value | length ? rd.value : rd.key }}
+						</p>
+					{# {% endif %} #}
+				{% endfor %}
+				</div>
+			</section>
+		{% endif %}
+
+	</div>
+
+{% endblock %}

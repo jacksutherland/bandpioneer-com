@@ -131,6 +131,34 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
+    public function getUserOrderedItemsForEntry($entryId)
+    {
+        $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => 1])->all();
+        $rankingData = [];
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            $keyTotalCount = RankingRecord::find()->where(['key' => $rankingRecord->key, 'entryId' => $entryId])->count();
+            $keyLikedCount = RankingRecord::find()->where(['key' => $rankingRecord->key, 'entryId' => $entryId, 'liked' => 1])->count();
+            $percentageLiked = ($keyTotalCount > 0) ? ($keyLikedCount / $keyTotalCount) * 100 : 0;
+
+            array_push($rankingData, [
+                'key' => $rankingRecord->key,
+                'value' => strlen($rankingRecord->value) > 0 ? $rankingRecord->value : $rankingRecord->key,
+                'percentLiked' => $percentageLiked
+            ]);
+        }
+
+        // Sort $rankingData by  percentageLiked
+
+        usort($rankingData, function($a, $b)
+        {
+            return $b['percentLiked'] <=> $a['percentLiked'];
+        });
+
+        return $rankingData;
+    }
+
     public function getRankItemLikePercent($entryId, $rankerKey)
     {
         $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'key' => $rankerKey])->all();
@@ -171,10 +199,94 @@ class RockstarService extends Component
         }
     }
 
-    public function getCurrentUserKeys($entryId)
+    public function getRankEntries()
+    {
+        $rankingRecords = RankingRecord::find()->select(['entryId'])->groupBy('entryId')->orderBy(['entryId' => SORT_ASC])->all();
+        $rankingData = [];
+        $entryId = 0;
+        $entry = null;
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            $entryId = $rankingRecord->entryId;
+            $entry = Entry::find()->id($entryId)->one();
+
+            if($entry !== null && $entry->enableRanking)
+            {
+                array_push($rankingData, [
+                    'entryId' => $entry->id,
+                    'entryTitle' => $entry->title,
+                    'entryUrl' => $entry->url,
+                    'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
+                ]);
+            }
+        }
+
+        return $rankingData;
+    }
+
+    public function getCurrentUserKeys()
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
-        // $rankingRecords = RankingRecord::findAll(['userId' => $currentUser->id, 'entryId' => $entryId]);
+        $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id])->orderBy(['entryId' => SORT_ASC, 'dateUpdated' => SORT_DESC])->all();
+        $rankingData = [];
+        $entryId = 0;
+        $entry = null;
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            if($entryId !== $rankingRecord->entryId)
+            {
+                $entryId = $rankingRecord->entryId;
+                $entry = Entry::find()->id($entryId)->one();
+            }
+
+            array_push($rankingData, [
+                'entryTitle' => $entry !== null ? $entry->title : '',
+                'entryUrl' => $entry !== null ? $entry->url : '',
+                'key' => $rankingRecord->key,
+                'value' => $rankingRecord->value,
+                'liked' => $rankingRecord->liked === null ? '' : $rankingRecord->liked,
+                'sort' => $rankingRecord->sort === null ? '' : $rankingRecord->sort
+            ]);
+        }
+
+        return $rankingData;
+    }
+
+    public function getCurrentUserLikedKeys()
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id, 'liked' => 1])->orderBy(['entryId' => SORT_ASC, 'dateUpdated' => SORT_DESC])->limit(50)->all();
+        $rankingData = [];
+        $entryId = 0;
+        $entry = null;
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            if($entryId !== $rankingRecord->entryId)
+            {
+                $entryId = $rankingRecord->entryId;
+                $entry = Entry::find()->id($entryId)->one();
+            }
+
+            array_push($rankingData, [
+                'entryId' => $entry !== null ? $entry->id : 0,
+                'entryTitle' => $entry !== null ? $entry->title : '',
+                'entryUrl' => $entry !== null ? $entry->url : '',
+                'key' => $rankingRecord->key,
+                'value' => $rankingRecord->value,
+                'liked' => $rankingRecord->liked === null ? '' : $rankingRecord->liked,
+                'sort' => $rankingRecord->sort === null ? '' : $rankingRecord->sort
+            ]);
+        }
+
+        return $rankingData;
+    }
+
+    public function getCurrentUserKeysByEntry($entryId)
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
         $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id, 'entryId' => $entryId])->orderBy(['sort' => SORT_ASC])->all();
         $rankingData = [];
 
@@ -191,7 +303,7 @@ class RockstarService extends Component
         return $rankingData;
     }
 
-    public function likeCurrentUserKey($entryId, $key, $liked)
+    public function likeCurrentUserKey($entryId, $key, $val, $liked)
     {
         $transaction = Craft::$app->getDb()->beginTransaction();
 
@@ -207,11 +319,12 @@ class RockstarService extends Component
                 $rankingRecord->userId = $currentUser->id;
                 $rankingRecord->entryId = $entryId;
                 $rankingRecord->key = $key;
-                // $rankingRecord->value = $key;
+                // $rankingRecord->value = $val;
                 // $rankingRecord->sort = NULL;
                 $rankingRecord->enabled = true;
             }
 
+            $rankingRecord->value = $val; // Update in case name has changed
             $rankingRecord->dateUpdated = $now;
             if($liked === "liked")
             {

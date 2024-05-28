@@ -14,9 +14,24 @@ use Twig\Markup;
 
 class RockstarVariable
 {
-	public function getCurrentUserKeys($entryId)
+	public function getRankEntries()
     {
-    	return Rockstar::$plugin->getService()->getCurrentUserKeys($entryId);
+    	return Rockstar::$plugin->getService()->getRankEntries();
+    }
+
+    public function getUserOrderedItemsForEntry($entryId)
+    {
+        return Rockstar::$plugin->getService()->getUserOrderedItemsForEntry($entryId);
+    }
+
+    public function getCurrentUserLikedKeys()
+    {
+        return Rockstar::$plugin->getService()->getCurrentUserLikedKeys();
+    }
+
+    public function getCurrentUserKeysByEntry($entryId)
+    {
+        return Rockstar::$plugin->getService()->getCurrentUserKeysByEntry($entryId);
     }
 
     public function getRankItemLikePercent($entryId, $rankerKey)

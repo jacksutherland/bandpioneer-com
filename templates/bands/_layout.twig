@@ -1,6 +1,6 @@
 {% requireLogin %}
 
-{% set versionNumber = '1.06' %}
+{% set versionNumber = '1.07' %}
 {% set error = craft.app.session.getFlash('error') %}
 {% set notice = craft.app.session.getFlash('notice') %}
 
@@ -30,7 +30,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
 
         {% block styles %}
-            <link rel="stylesheet" href="{{ url('css/site.css') }}?version={{ versionNumber }}" /> 
+            {# <link rel="stylesheet" href="{{ url('css/site2023.css') }}?version={{ versionNumber }}" />  #}
             <link rel="stylesheet" href="{{ url('css/bands.css') }}?version={{ versionNumber }}" /> 
         {% endblock %}
 

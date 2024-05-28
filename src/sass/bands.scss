@@ -144,6 +144,17 @@ nav.tab-menu {
 	margin: 0 $bands-gap;
 	padding-bottom: 80px;
 
+	.two-col {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 0;
+
+		p {
+			flex: 1 1 50%;
+			margin: 0;
+		}
+	}
+
 	&.dashboard {
 		display: grid;
 		gap: $bands-gap;
@@ -164,16 +175,43 @@ nav.tab-menu {
 			border-radius: 4px;
 			box-shadow: $bands-box-shadow;
 
-			h3 {
+			> h1, > h2, > h3 {
+				margin-top: 0;
+			}
+
+			h1, h2, h3 {
 				@include headerFontFamily;
 				
 				letter-spacing: $header-font-spacing;
-				margin: 0 0 $bands-gap 0;
-				color: $alternate-color;
+				margin: 10px 0;
+				color: $secondary-dark;
 			}
 
-			p {
-				margin: 10px 0;
+			h1 {
+				font-size: 2rem;
+			}
+
+			h4 {
+				a {
+					&:hover {
+						svg {
+							margin-left: 2px;
+
+							path {
+								fill: $link-hover-color;
+							}
+						}
+					}
+					svg {
+						vertical-align: bottom;
+						margin-left: -4px;
+						transition: margin-left $transition-time, color $transition-time;
+
+						path {
+							fill: $link-color;
+						}
+					}
+				}
 			}
 
 			a {
@@ -183,6 +221,30 @@ nav.tab-menu {
     				vertical-align: middle;
     				transform: rotate(90deg);
     				display: inline-block;
+				}
+			}
+
+			article {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin: 10px 0;
+
+				a {
+					flex: 1;
+				}
+
+				figure {
+					background-color: $light-gray;
+					border-radius: 3px;
+					min-height: 80px;
+					overflow: hidden;
+					width: 150px;
+
+					img {
+						border-radius: 3px;
+						width: 100%;
+					}
 				}
 			}
 
@@ -458,9 +520,9 @@ nav.tab-menu {
 
 @media (min-width: $breakpoint-md) {
 	
-	body main {
-		margin-top: 40px !important;
-	}
+	// body main {
+	// 	margin-top: 40px !important;
+	// }
 
 	.bands-container {
 		margin: 0 auto;

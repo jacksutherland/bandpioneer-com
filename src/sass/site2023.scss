@@ -338,6 +338,34 @@ section {
 		}
 	}
 
+	// UNDERLINE EFFECT!!!
+
+	&.cta-text,
+	&.z-pattern {
+		a {
+    		position: relative;
+
+    		&:after {
+    			position: absolute;
+			    bottom: -4px;
+			    left: 49%;
+			    width: 2%;
+
+    			border-bottom: solid transparent 1px;
+    			content: "";
+    			transition: border-bottom $transition-time, left $transition-time, width $transition-time;	
+    		}
+
+    		&:hover {
+    			&:after {
+	    			border-color: $link-color;
+	    			left: 5%;
+	    			width: 90%;
+	    		}
+    		}
+    	}
+	}
+
 	&.cta-text {
 		background-color: $light-gray;
 		margin-top: 0;
@@ -358,26 +386,12 @@ section {
     	}
 
     	a {
-    		position: relative;
     		color: $primary-lighter;
     		font-weight: 600;
-
-    		&:after {
-    			position: absolute;
-			    bottom: -4px;
-			    left: 49%;
-			    width: 2%;
-
-    			border-bottom: solid transparent 1px;
-    			content: "";
-    			transition: border-bottom $transition-time, left $transition-time, width $transition-time;	
-    		}
 
     		&:hover {
     			&:after {
 	    			border-color: $primary-lighter;
-	    			left: 5%;
-	    			width: 90%;
 	    		}
     		}
     	}
