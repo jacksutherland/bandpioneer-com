@@ -1,5 +1,9 @@
 {% extends '_layout2023' %}
 
+{% if not currentUser %}
+	{% exit 403 %}
+{% endif %}
+
 {% set pageTitle = "My Account" %}
 {% set entry = { slug: 'my-account', title: 'My Account', section: { handle: 'account' } } %}
 {% set versionNumber = 'rockstars-1.002' %}
@@ -8,6 +12,7 @@
 
 {% set rankingEntries = craft.rockstar.getRankEntries() %}
 {% set rankingData = craft.rockstar.getCurrentUserLikedKeys() %}
+{% set leftColumnMinWidth = 360 %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
@@ -19,8 +24,9 @@
 	<div class="rockstars-container">
 
 		<div class="col">
-			<section>
-				<h1>My Account:</h1>
+			<section class="my-account" style="min-width:{{ leftColumnMinWidth }}px;">
+				<h2 style="text-wrap:nowrap;">Hey {{ currentUser.fullName }}!</h2>
+				<h1>Your Account</h1>
 				<p>
 					<strong>Name:</strong> {{ currentUser.fullName }}
 				</p>
@@ -29,8 +35,8 @@
 				</p>
 			</section>
 			{% if rankingEntries | length %}
-				<section>
-					<h2>More Articles to Rank:</h2>
+				<section style="min-width:{{ leftColumnMinWidth }}px;">
+					<h2 style="text-wrap:nowrap;">More Articles to Rank</h2>
 					{% set itemsShown = false %}
 					{% for re in rankingEntries %}
 						{% set showItem = true %}
@@ -61,7 +67,7 @@
 		{% if rankingData | length %}
 			<section class="col">
 				{% set entryTitle = '' %}
-				<h2>Articles You've Ranked:</h2>
+				<h2>Articles You've Ranked</h2>
 				{% for rd in rankingData %}
 					{# {% if rd.liked %} #}
 						{% if entryTitle != rd.entryTitle %}

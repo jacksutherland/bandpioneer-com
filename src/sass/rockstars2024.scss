@@ -1,7 +1,7 @@
 @import 'vars2023';
 
 $rockstars-gap: 20px;
-$rockstars-width: 1024px;
+$rockstars-width: 1050px;
 $rockstars-box-shadow: 0 3px 6px rgb(0 0 0 / 3%), 0 7px 14px rgb(0 17 35 / 3%);
 
 body {
@@ -14,13 +14,10 @@ nav.categories {
 }
 
 .rockstars-container {
-	display: grid;
+	display: block;
 	align-items: stretch;
 	gap: 0 $rockstars-gap;
-	grid-template-areas:
-		    "col1"
-		    "col2";
-	max-width: 1024px;
+	max-width: $rockstars-width;
 	margin: $rockstars-gap;
 
 	@media (min-width: ($rockstars-width + $rockstars-gap + $rockstars-gap)) {
@@ -28,19 +25,8 @@ nav.categories {
 	}
 
 	@media (min-width: $breakpoint-md) {
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-areas: 
-			"col1 col2"
-			"col1 col2";
-	}
-
-	.col {
-		&:first-child {
-			grid-area: col1;
-		}
-		&:last-child {
-			grid-area: col2;
-		}
+		display: flex;
+		justify-content: center;
 	}
 }
 
@@ -82,6 +68,20 @@ section {
 	box-shadow: $rockstars-box-shadow;
 	margin: 0 0 $rockstars-gap 0;
 	padding: $rockstars-gap;
+
+	&.my-account {
+		position: relative;
+
+		h1 {
+			position: absolute;
+			left: -200px;
+			top: 140px;
+
+			color: $white;
+			transform: rotate(-90deg);
+
+		}
+	}
 
 	h1, h2, h3 {
 		margin: $rockstars-gap 0 10px 0;
