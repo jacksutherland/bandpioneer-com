@@ -16,11 +16,10 @@ nav.categories {
 .rockstars-container {
 	display: grid;
 	align-items: stretch;
-	gap: $rockstars-gap;
+	gap: 0 $rockstars-gap;
 	grid-template-areas:
-		    "s1"
-		    "s2"
-		    "s3";
+		    "col1"
+		    "col2";
 	max-width: 1024px;
 	margin: $rockstars-gap;
 
@@ -30,22 +29,17 @@ nav.categories {
 
 	@media (min-width: $breakpoint-md) {
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-areas:
-		    "s1 s3"
-		    "s2 s3";
+		grid-template-areas: 
+			"col1 col2"
+			"col1 col2";
 	}
 
-	section {
-		margin: 0;
-
+	.col {
 		&:first-child {
-			grid-area: s1;
+			grid-area: col1;
 		}
-		&:nth-child(2n) {
-			grid-area: s2;
-		}
-		&:nth-child(3n) {
-			grid-area: s3;
+		&:last-child {
+			grid-area: col2;
 		}
 	}
 }
@@ -86,7 +80,7 @@ section {
 	background-color: lighten($light-gray, 6%);
 	border-radius: 4px;
 	box-shadow: $rockstars-box-shadow;
-	margin: $rockstars-gap 0;
+	margin: 0 0 $rockstars-gap 0;
 	padding: $rockstars-gap;
 
 	h1, h2, h3 {
