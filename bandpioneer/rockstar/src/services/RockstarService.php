@@ -145,7 +145,7 @@ class RockstarService extends Component
             array_push($rankingData, [
                 'key' => $rankingRecord->key,
                 'value' => strlen($rankingRecord->value) > 0 ? $rankingRecord->value : $rankingRecord->key,
-                'percentLiked' => $percentageLiked
+                'percentLiked' => round($percentageLiked, 0)
             ]);
         }
 

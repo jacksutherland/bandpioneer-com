@@ -69,23 +69,21 @@
 				{% set entryTitle = '' %}
 				<h2>Articles You've Ranked</h2>
 				{% for rd in rankingData %}
-					{# {% if rd.liked %} #}
-						{% if entryTitle != rd.entryTitle %}
-							{% set entryTitle = rd.entryTitle %}
-							{% if loop.index > 1 %}
-								</div>
-							{% endif %}
-							<h3>
-								<a href="{{ rd.entryUrl }}">
-									{{ entryTitle }}
-								</a>
-							</h3>
-							<div class="two-col">
+					{% if entryTitle != rd.entryTitle %}
+						{% set entryTitle = rd.entryTitle %}
+						{% if loop.index > 1 %}
+							</div>
 						{% endif %}
-						<p>
-							{{ rd.value | length ? rd.value : rd.key }}
-						</p>
-					{# {% endif %} #}
+						<h3>
+							<a href="{{ rd.entryUrl }}">
+								{{ entryTitle }}
+							</a>
+						</h3>
+						<div class="two-col">
+					{% endif %}
+					<p>
+						{{ rd.value | length ? rd.value : rd.key }}
+					</p>
 				{% endfor %}
 				</div>
 			</section>
