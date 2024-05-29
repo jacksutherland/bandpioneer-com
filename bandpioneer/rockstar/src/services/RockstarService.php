@@ -201,7 +201,7 @@ class RockstarService extends Component
 
     public function getRankEntries()
     {
-        $rankableEntries = Entry::find()->enableRanking(true)->all();
+        $rankableEntries = Entry::find()->section('blog')->all();
         $rankingData = [];
 
         foreach($rankableEntries as $entry)
