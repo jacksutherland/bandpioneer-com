@@ -211,7 +211,7 @@ class RockstarService extends Component
             }
         }
 
-        return Entry::find()->section('blog').type('internal')->enableRanking(true)->count();
+        return Entry::find()->section('blog')->type('internal')->enableRanking(true)->count();
     }
 
     public function getRankEntries()
