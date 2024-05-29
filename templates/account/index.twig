@@ -1,7 +1,8 @@
 {% extends '_layout2023' %}
 
 {% if not currentUser %}
-	{% exit 403 %}
+	{# {% exit 403 %} #}
+	{% redirect '/?login=true' %}
 {% endif %}
 
 {% set versionNumber = 'rockstars-1.003' %}

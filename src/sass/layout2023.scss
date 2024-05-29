@@ -803,9 +803,9 @@ header.site-header {
 
 					svg {
 						float: right;
-					    margin-right: 34px;
-					    margin-top: 6px;
-					    width: 16px;
+					  margin-right: 34px;
+					  margin-top: 6px;
+					  width: 16px;
 
 						path {
 							fill: $link-color;
@@ -1024,6 +1024,10 @@ header.site-header {
 						svg {
 							float: none;
     						margin: 0 0 -2px 0;
+
+    						+ span {
+    							display: none;
+    						}
 
 							path {
 								fill: $white;

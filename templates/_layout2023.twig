@@ -3,6 +3,7 @@
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
 {% set isMobile = craft.app.request.isMobileBrowser(false) %}
+{% set showLogin = craft.app.request.getQueryParam('login') ?? '' %}
 {% set showCategoryNav = showCategoryNav is defined ? showCategoryNav : true %}
 {% set disableAds = disableAds is defined ? disableAds : (entry is defined and entry['disableAds'] is defined ? entry.disableAds : false) %}
 
@@ -237,6 +238,7 @@
                         <li>
                             <a href="/account" title="{{ currentUser.fullName ~ ' (' ~ currentUser.email ~ ')' }}">
                                 {% include '_includes/icons' with { type: 'user' } %}
+                                <span>Account</span>
                             </a>
                         </li>
                     {% endif %}
@@ -371,6 +373,13 @@
             document.addEventListener("DOMContentLoaded", function()
             {
                 bp = new BandPioneerUX();
+
+                {% if showLogin %}
+                    console.log('showLogin');
+                    bp.login();
+                {% else %}
+                    console.log('NO showLogin');
+                {% endif %}
             });
         </script>
         {% block scripts %}{# Load template scripts here #}{% endblock %}
