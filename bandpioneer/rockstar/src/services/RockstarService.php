@@ -201,7 +201,17 @@ class RockstarService extends Component
 
     public function getRankTest()
     {
-        return Entry::find()->section('blog')->enableRanking(true)->count();
+        $count = 0;
+        $rankableEntries = Entry::find()->section('blog')->all();
+        foreach($rankableEntries as $entry)
+        {
+            if($entry->enableRanking())
+            {
+                $count = $count + 1;
+            }
+        }
+
+        return $count;
     }
 
     public function getRankEntries()
