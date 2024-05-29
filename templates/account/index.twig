@@ -48,7 +48,7 @@
 						</article>
 					{% endfor %}
 				{% else %}
-					<article>You've visited all rankable articles. {{rankingEntries | length}} Nice work!</article>
+					<article>You've visited all rankable articles. {{rankingEntries | length}} Nice work! {{craft.rockstar.getRankTest()}}</article>
 				{% endif %}
 			</section>
 			
