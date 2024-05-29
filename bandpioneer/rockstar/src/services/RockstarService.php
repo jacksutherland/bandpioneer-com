@@ -218,22 +218,47 @@ class RockstarService extends Component
 
     public function getRankEntries()
     {
-        $rankableEntries = Entry::find()->section('blog')->enableRanking([true])->all();
+        // $rankableEntries = Entry::find()->section('blog')->enableRanking([true])->all();
+        // $rankingData = [];
+
+        // foreach($rankableEntries as $entry)
+        // {
+        //     $currentUser = Craft::$app->getUser()->getIdentity();
+        //     $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
+
+        //     if($rankingCount == 0)
+        //     {
+        //         array_push($rankingData, [
+        //             'entryId' => $entry->id,
+        //             'entryTitle' => $entry->title,
+        //             'entryUrl' => $entry->url,
+        //             'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
+        //         ]);
+        //     }
+        // }
+
+        // return $rankingData;
+
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $rankableEntries = Entry::find()->section('blog')->type('internal')->all();
         $rankingData = [];
 
         foreach($rankableEntries as $entry)
         {
-            $currentUser = Craft::$app->getUser()->getIdentity();
-            $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
-
-            if($rankingCount == 0)
+            if($entry->enableRanking)
             {
-                array_push($rankingData, [
-                    'entryId' => $entry->id,
-                    'entryTitle' => $entry->title,
-                    'entryUrl' => $entry->url,
-                    'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
-                ]);
+                
+                $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
+
+                if($rankingCount == 0)
+                {
+                    array_push($rankingData, [
+                        'entryId' => $entry->id,
+                        'entryTitle' => $entry->title,
+                        'entryUrl' => $entry->url,
+                        'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
+                    ]);
+                }
             }
         }
 
