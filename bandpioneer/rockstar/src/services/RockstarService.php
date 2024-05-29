@@ -190,7 +190,7 @@ class RockstarService extends Component
 
             if($dislikedRecords > 0)
             {
-                $returnVal .= ', while ' . round(($dislikedRecords / $totalRecords) * 100) . '% dislike it';
+                $returnVal .= ', and ' . round(($dislikedRecords / $totalRecords) * 100) . '% dislike it';
             }
         }
 
