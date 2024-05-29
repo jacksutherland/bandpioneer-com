@@ -209,15 +209,15 @@ class RockstarService extends Component
             $currentUser = Craft::$app->getUser()->getIdentity();
             $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id, 'liked' => [1, 0]])->count();
 
-            if($rankingCount == 0)
-            {
+            // if($rankingCount == 0)
+            // {
                 array_push($rankingData, [
                     'entryId' => $entry->id,
-                    'entryTitle' => $entry->title,
+                    'entryTitle' => $entry->title . ' ' . $rankingCount,
                     'entryUrl' => $entry->url,
                     'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
                 ]);
-            }
+            // }
         }
 
         return $rankingData;
