@@ -429,87 +429,94 @@ a {
   justify-content: center;
   padding: $object-padding;
 
-  .modal {
-  	display: flex;
-  	background-color: white;
-    font-weight: bold;
-    text-align: center;
-    margin: $gutter-width 0;
-    max-height: 100%;
-    max-width: 600px;
-    position: relative;
-    border-radius: $small-radius;
-    box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
-
-    > div {
-    	display: flex;
-    	flex-direction: column;
-    	padding: $object-padding;
-
-    	h3 {
-			margin-top: 0;
-		}
-
-		.scroll-container {
-    		overflow: auto;
-    	}
-    }
-
-    .close-button {
-    	position: absolute;
-	    top: -1px;
-	    right: 6px;
-	    border: none;
+	.modal {
+	  	display: flex;
+	  	background-color: white;
 	    font-weight: bold;
-	    font-size: 1.25rem;
-    }
+	    text-align: center;
+	    margin: $gutter-width 0;
+	    max-height: 100%;
+	    max-width: 600px;
+	    width: 100%;
+	    position: relative;
+	    border-radius: $small-radius;
+	    box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 10px;
 
-    .close-icon-button {
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		    background-color: $white;
-		    border-radius: 50%;
-		    height: 34px;
-		    width: 34px;
-		    position: absolute;
-		    right: -8px;
-		    top: -8px;
-		    transition: background-color $transition-time;
+	    > div {
+	    	display: flex;
+	    	flex-direction: column;
+	    	padding: $object-padding;
+	    	width: calc(100% - ($object-padding + $object-padding));
 
-		    &:hover {
-		    	background-color: $light-gray;
+	    	h3 {
+				margin-top: 0;
+			}
 
-		    	svg {
-						path {
-							fill: $lighter-font-color;
+			.scroll-container {
+	    		overflow: auto;
+	    	}
+	    }
+
+	    .close-button {
+	    	position: absolute;
+		    top: -1px;
+		    right: 6px;
+		    border: none;
+		    font-weight: bold;
+		    font-size: 1.25rem;
+	    }
+
+	    .close-icon-button {
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    background-color: $white;
+			    border-radius: 50%;
+			    height: 34px;
+			    width: 34px;
+			    position: absolute;
+			    right: -8px;
+			    top: -8px;
+			    transition: background-color $transition-time;
+
+			    &:hover {
+			    	background-color: $light-gray;
+
+			    	svg {
+							path {
+								fill: $lighter-font-color;
+							}
 						}
+			    }
+
+				svg {
+					height: 20px;
+					width: 20px;
+
+					path {
+						fill: $lightest-font-color;
+			    		transition: fill $transition-time;
 					}
-		    }
-
-			svg {
-				height: 20px;
-				width: 20px;
-
-				path {
-					fill: $lightest-font-color;
-		    		transition: fill $transition-time;
 				}
 			}
-		}
 
-    iframe {
-    	width: 350px;
-    	height: 440px;
-    	border: none;
-    }
+	    iframe {
+	    	width: 350px;
+	    	height: 440px;
+	    	border: none;
+	    }
 
-    form {
-    	[data-role="submit-error"], [data-role="identifier-error"] {
-    		display: none;
-    	}
-    }
-  }
+	    form {
+	    	[data-role="submit-error"], [data-role="identifier-error"] {
+	    		display: none;
+	    	}
+	    }
+	}
+  	@media (min-width: $breakpoint-sm) {
+  		.modal {
+  			width: auto;
+  		}
+  	}
 }
 
 .login-modal {
