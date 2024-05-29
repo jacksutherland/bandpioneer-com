@@ -218,7 +218,7 @@ class RockstarService extends Component
         // return count(Entry::findAll(['section' => 'blog', 'enableRanking' => 'true']));
 
         return RankingRecord::find()->where(['entryId' => 303637])->groupBy(['key', 'value'])
-            ->select(['key', 'value']) ->all();
+            ->select(['key', 'value']) ->count();
     }
 
     public function getRankEntries()
