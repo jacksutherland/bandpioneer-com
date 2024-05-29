@@ -344,44 +344,42 @@
 	{% endcache %}
 
 	{% if showRankModal %}
-		{% set orderedData = craft.rockstar.getUserOrderedItemsForEntry(entry.id) %}
+		{% set editorData = craft.rockstar.getEntryItemsOrderedByLikes(entry.id, true) %}
+		{% set userData = craft.rockstar.getEntryItemsOrderedByLikes(entry.id, false) %}
         <div id="rank-comparison-modal" class="overlay rank-comparison-modal">
             <div class="modal">
                 <a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
 	            <div>   
                 	<div class="split-panel">
-	                	{# <div class="d-md">
-		                    <h3>Editor's Ranking</h3>
-		                </div> #}
+                		{% if editorData | length > 0 %}
+		                	<div class="d-md">
+			                    <h3>Editor's Ranking</h3>
+			                </div>
+		                {% endif %}
 		                <div>
 							<h3>Reader's Ranking</h3>
 						</div>
 		            </div>
 		            <div class="scroll-panel">
 		                <div class="split-panel">
-		                {# 	<div class="d-md">
-			                    <div class="scroll-container">
-									<ul>
-										{% set counter = 0 %}
-										{% for module in entry.blogContent.all() %}
-											{% switch module.type %}
-												{% case "sectionTitle" or "imageText" %}
-													{% if module.rankerKey | length %}
-														{% set counter = counter + 1 %}
-														<li draggable="true" data-key="{{ module.rankerKey }}">
-															{{ counter }}. {{ module.rankerValue }}
-														</li>
-													{% endif %}
-											{% endswitch %}
-										{% endfor %}
-									</ul>
+		                	{% if editorData | length > 0 %}
+			                	<div class="d-md">
+				                    <div class="scroll-container">
+										<ul>
+											{% for item in editorData %}
+												<li draggable="true" data-key="{{ item.key }}">
+													{{ loop.index }}. {{ item.value }} 
+												</li>
+											{% endfor %}
+										</ul>
+									</div>
 								</div>
-							</div> #}
+							{% endif %}
 							<div>
 			                    <div class="scroll-container">
 									<ul>
-										{% if orderedData | length > 0 %}
-											{% for item in orderedData %}
+										{% if userData | length > 0 %}
+											{% for item in userData %}
 												<li draggable="true" data-key="{{ item.key }}">
 													{{ loop.index }}. {{ item.value }} 
 													{% if item.percentLiked > 0 %}
@@ -403,37 +401,5 @@
             </div>
         </div>
     {% endif %}
-
-{# 	{% if currentUser and entry.enableRanking %}
-		<div class="overlay ranker-modal">
-			<div class="modal" style="max-width: 600px;">
-				<a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
-				<aside>
-					<a class="scroll-up" href="/">{% include '_includes/icons' with { type: 'down' } %}</a>
-					<a class="scroll-down" href="/">{% include '_includes/icons' with { type: 'down' } %}</a>
-				</aside>
-				<div>
-					{% if entry.ctaText %}
-						<h3>{{ entry.ctaText }}</h3>
-					{% else %}
-						<h3>Reorder this list</h3>
-					{% endif %}
-					<div class="scroll-container">
-						<ul>
-							{% for module in entry.blogContent.all() %}
-								{% switch module.type %}
-									{% case "sectionTitle" %}
-									{% case "imageText" %}
-										{% if module.rankerKey | length %}
-											<li draggable="true" data-key="{{ module.rankerKey }}">{{ module.rankerValue }}</li>
-										{% endif %}
-								{% endswitch %}
-							{% endfor %}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	{% endif %} #}
 
 {% endblock %}

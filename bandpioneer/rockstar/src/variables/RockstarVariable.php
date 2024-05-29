@@ -24,9 +24,18 @@ class RockstarVariable
         return Rockstar::$plugin->getService()->getRankTest();
     }
 
-    public function getUserOrderedItemsForEntry($entryId)
+    public function getEntryItemsOrderedByLikes($entryId, $getAdminData = false)
     {
-        return Rockstar::$plugin->getService()->getUserOrderedItemsForEntry($entryId);
+        // $getAdminData==true, returns data for just Jack
+        // $getAdminData==false, returns data for all users
+        if($getAdminData)
+        {
+            return Rockstar::$plugin->getService()->getEntryItemsOrderedByLikesForAdmin($entryId);
+        }
+        else
+        {
+            return Rockstar::$plugin->getService()->getEntryItemsOrderedByLikes($entryId, null);
+        }
     }
 
     public function getCurrentUserLikedKeys()

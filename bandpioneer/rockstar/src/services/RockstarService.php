@@ -21,8 +21,9 @@ use craft\helpers\Db;
 use craft\helpers\Image;
 use craft\helpers\Assets as AssetsHelper;
 
-use craft\elements\Entry;
 use craft\elements\Asset;
+use craft\elements\Entry;
+use craft\elements\User;
 use craft\errors\ImageException;
 
 use bandpioneer\rockstar\Rockstar;
@@ -39,6 +40,7 @@ class RockstarService extends Component
 {
     const MAX_IMAGE_SIZE = 500000; // (0.5 MB) in bytes
     const IMAGE_VOLUME_HANDLE = 'rockstarAssets';
+    const ADMIN_EMAIL = 'jacksutherl@gmail.com';
 
     /*** PRIVATE MEMBERS ***/
 
@@ -131,11 +133,34 @@ class RockstarService extends Component
 
     /*** PUBLIC MEMBERS ***/
 
-    public function getUserOrderedItemsForEntry($entryId)
+    public function getEntryItemsOrderedByLikesForAdmin($entryId)
     {
-        // $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => 1])->all();
-        $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId])->groupBy(['key', 'value'])
-            ->select(['key', 'value']) ->all();
+        $admin = User::findOne(['email' => self::ADMIN_EMAIL]);
+
+        if ($admin === null)
+        {
+            return [];
+        }
+        else
+        {
+            return $this->getEntryItemsOrderedByLikes($entryId, $admin->id);
+        }
+    }
+
+    public function getEntryItemsOrderedByLikes($entryId, $userId = null)
+    {
+        if($userId === null)
+        {
+            // data aggregate of all users
+            $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId])->groupBy(['key', 'value'])
+                ->select(['key', 'value']) ->all();
+        }
+        else
+        {
+            // data from just one user
+            $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => $userId])->select(['key', 'value']) ->all();
+        }
+
         $rankingData = [];
 
         foreach($rankingRecords as &$rankingRecord)
@@ -199,20 +224,6 @@ class RockstarService extends Component
 
     public function getRankTest()
     {
-        // $count = 0;
-        // $rankableEntries = Entry::find()->section('blog')->all();
-        // foreach($rankableEntries as $entry)
-        // {
-        //     if($entry->enableRanking)
-        //     {
-        //         $count = $count + 1;
-        //     }
-        // }
-
-        // return Entry::find()->section('blog')->type('internal')->enableRanking(true)->count();
-
-        // return count(Entry::findAll(['section' => 'blog', 'enableRanking' => 'true']));
-
         return RankingRecord::find()->where(['entryId' => 303637])->groupBy(['key', 'value'])
             ->select(['key', 'value']) ->count();
     }

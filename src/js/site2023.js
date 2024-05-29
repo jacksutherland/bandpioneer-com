@@ -402,9 +402,21 @@ class BandPioneerUX
 		});
 	}
 
-	openRankComparisonModal()
+	openRankComparisonModal(rankerKey)
 	{
 		bp.openModal('.rank-comparison-modal');
+
+		document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
+		{
+			li.classList.remove('pulsate');
+			if(li.dataset.key == rankerKey)
+			{
+				setTimeout(function()
+				{
+					this.classList.add('pulsate');
+				}.bind(li), 200);
+			}
+		});
 	}
 
 	// openRankerModal(eid, rankerKey)
