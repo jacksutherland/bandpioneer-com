@@ -220,12 +220,12 @@ class RockstarService extends Component
             // }
         }
 
-        // array_push($rankingData, [
-        //             'entryId' => 123,
-        //             'entryTitle' => 'Article Title ' . $rankableEntries->count(),
-        //             'entryUrl' => 'asdf',
-        //             'blogImage' => null,
-        //         ]);
+        array_push($rankingData, [
+                    'entryId' => 123,
+                    'entryTitle' => 'Article Title ' . $rankableEntries->count(),
+                    'entryUrl' => 'asdf',
+                    'blogImage' => null,
+                ]);
 
         return $rankingData;
     }
