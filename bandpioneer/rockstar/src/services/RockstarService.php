@@ -204,7 +204,7 @@ class RockstarService extends Component
         $rankableEntries = Entry::find()->section('blog')->enableRanking(true);
         $rankingData = [];
 
-        foreach($rankableEntries as &$entry)
+        foreach($rankableEntries as $entry)
         {
             $currentUser = Craft::$app->getUser()->getIdentity();
             $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
@@ -219,6 +219,13 @@ class RockstarService extends Component
                 ]);
             // }
         }
+
+        array_push($rankingData, [
+                    'entryId' => 123,
+                    'entryTitle' => 'Article Title ' . $rankableEntries->count(),
+                    'entryUrl' => 'asdf',
+                    'blogImage' => null,
+                ]);
 
         return $rankingData;
     }
