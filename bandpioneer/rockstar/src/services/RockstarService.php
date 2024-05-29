@@ -133,7 +133,9 @@ class RockstarService extends Component
 
     public function getUserOrderedItemsForEntry($entryId)
     {
-        $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => 1])->all();
+        // $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => 1])->all();
+        $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'userId' => 1])->groupBy(['key', 'value'])
+            ->select(['key', 'value']) ->all();
         $rankingData = [];
 
         foreach($rankingRecords as &$rankingRecord)
