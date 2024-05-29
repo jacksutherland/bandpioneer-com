@@ -48,7 +48,7 @@
 						</article>
 					{% endfor %}
 				{% else %}
-					<article>You've visited all rankable articles. {{rankingEntries | length}} Nice work! {{craft.rockstar.getRankTest()}}</article>
+					<article>You've visited all rankable articles. Nice work! </article>
 				{% endif %}
 			</section>
 			
@@ -57,7 +57,7 @@
 		{% if rankingData | length %}
 			<section class="col">
 				{% set entryTitle = '' %}
-				<h2>Articles You've Ranked {{craft.rockstar.getRankTest()}}</h2>
+				<h2>Articles You've Ranked</h2>
 				{% for rd in rankingData %}
 					{% if entryTitle != rd.entryTitle %}
 						{% set entryTitle = rd.entryTitle %}
