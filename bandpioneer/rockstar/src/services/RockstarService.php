@@ -213,7 +213,7 @@ class RockstarService extends Component
             // {
                 array_push($rankingData, [
                     'entryId' => $entry->id,
-                    'entryTitle' => $entry->title . ' ' . $rankingCount,
+                    'entryTitle' => $entry->title . ' ' . $entry->enableRanking,
                     'entryUrl' => $entry->url,
                     'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
                 ]);
