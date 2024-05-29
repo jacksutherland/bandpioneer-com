@@ -42,7 +42,7 @@
 						<article>
 							<figure>
 								{% if re.blogImage %}
-									<img src="{{ re.blogImage.url }}" />
+									<img src="{{ re.blogImage.url({ mode: 'fit', width: 150, quality: 80 }) }}" />
 								{% endif %}
 							</figure>
 							<a href="{{re.entryUrl}}">{{re.entryTitle}}</a>

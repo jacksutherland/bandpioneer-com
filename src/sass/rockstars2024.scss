@@ -38,7 +38,8 @@ p {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	gap: 10px;
+	gap: 5px;
+	margin: 5px 0 $rockstars-gap 0;
 
 	p {
 		display: flex;
@@ -53,7 +54,7 @@ p {
 		font-size: $nav-font-size;
 		font-weight: 600;
 		margin: 0;
-		padding: 2px 7px;
+		padding: 1px 7px;
 
 		&.dislike {
 			font-weight: 400;
@@ -108,12 +109,19 @@ section {
 	}
 
 	h1, h2, h3 {
-		margin: $rockstars-gap 0 10px 0;
+		margin: 6px 0;
 		color: $secondary-dark;
 
 		&:first-child {
 			margin-top: 0;
 		}
+	}
+	h2 {
+		line-height: 2rem;
+		margin-bottom: 10px;
+	}
+	h3 {
+		line-height: 1.6rem;
 	}
 
 	article {
@@ -121,6 +129,10 @@ section {
 		align-items: center;
 		gap: 10px;
 		margin: 10px 0;
+
+		// &:nth-child(odd) {
+		// 	flex-direction: row-reverse;
+		// }
 
 		a {
 			flex: 1;
