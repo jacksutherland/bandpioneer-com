@@ -201,17 +201,15 @@ class RockstarService extends Component
 
     public function getRankEntries()
     {
-        $rankingRecords = RankingRecord::find()->select(['entryId'])->groupBy('entryId')->orderBy(['entryId' => SORT_ASC])->all();
+        $rankableEntries = Entry::find()->section('blog')->enableRanking(true);
         $rankingData = [];
-        $entryId = 0;
-        $entry = null;
 
-        foreach($rankingRecords as &$rankingRecord)
+        foreach($rankableEntries as &$entry)
         {
-            $entryId = $rankingRecord->entryId;
-            $entry = Entry::find()->id($entryId)->one();
+            $currentUser = Craft::$app->getUser()->getIdentity();
+            $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id, 'liked' => [1, 0]])->count();
 
-            if($entry !== null && $entry->enableRanking)
+            if($rankingCount == 0)
             {
                 array_push($rankingData, [
                     'entryId' => $entry->id,
@@ -258,6 +256,36 @@ class RockstarService extends Component
     {
         $currentUser = Craft::$app->getUser()->getIdentity();
         $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id, 'liked' => 1])->orderBy(['entryId' => SORT_ASC, 'dateUpdated' => SORT_DESC])->limit(50)->all();
+        $rankingData = [];
+        $entryId = 0;
+        $entry = null;
+
+        foreach($rankingRecords as &$rankingRecord)
+        {
+            if($entryId !== $rankingRecord->entryId)
+            {
+                $entryId = $rankingRecord->entryId;
+                $entry = Entry::find()->id($entryId)->one();
+            }
+
+            array_push($rankingData, [
+                'entryId' => $entry !== null ? $entry->id : 0,
+                'entryTitle' => $entry !== null ? $entry->title : '',
+                'entryUrl' => $entry !== null ? $entry->url : '',
+                'key' => $rankingRecord->key,
+                'value' => $rankingRecord->value,
+                'liked' => $rankingRecord->liked === null ? '' : $rankingRecord->liked,
+                'sort' => $rankingRecord->sort === null ? '' : $rankingRecord->sort
+            ]);
+        }
+
+        return $rankingData;
+    }
+
+    public function getCurrentUserRankedKeys()
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $rankingRecords = RankingRecord::find()->where(['userId' => $currentUser->id, 'liked' => [0, 1]])->orderBy(['entryId' => SORT_ASC, 'liked' => SORT_DESC, 'dateUpdated' => SORT_DESC])->limit(50)->all();
         $rankingData = [];
         $entryId = 0;
         $entry = null;

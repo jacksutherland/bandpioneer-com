@@ -41,14 +41,33 @@ p {
 	gap: 10px;
 
 	p {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
 		background-color: $light-gray;
 		border-radius: 3px;
 		box-sizing: border-box;
+		color: darken($caption-color, 12%);
 		flex: 1 1 calc(50% - 5px);
-		font-size: 0.925rem;
-		font-weight: 500;
+		font-size: $nav-font-size;
+		font-weight: 600;
 		margin: 0;
 		padding: 2px 7px;
+
+		&.dislike {
+			font-weight: 400;
+			text-decoration: line-through;
+		}
+
+		svg {
+			height: 18px;
+			width: 18px;
+
+			path {
+				fill: darken($medium-gray, 10%);
+			}
+		}
 	}
 
 	@media (min-width: $breakpoint-sm) {
@@ -67,7 +86,12 @@ section {
 	border-radius: 4px;
 	box-shadow: $rockstars-box-shadow;
 	margin: 0 0 $rockstars-gap 0;
+	overflow: hidden;
 	padding: $rockstars-gap;
+
+	@media (min-width: $breakpoint-sm) {
+		min-width: 360px;
+	}
 
 	&.my-account {
 		position: relative;

@@ -11,8 +11,7 @@
 {% set showCategoryNav = false %}
 
 {% set rankingEntries = craft.rockstar.getRankEntries() %}
-{% set rankingData = craft.rockstar.getCurrentUserLikedKeys() %}
-{% set leftColumnMinWidth = 360 %}
+{% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
@@ -24,7 +23,7 @@
 	<div class="rockstars-container">
 
 		<div class="col">
-			<section class="my-account" style="min-width:{{ leftColumnMinWidth }}px;">
+			<section class="my-account">
 				<h2 style="text-wrap:nowrap;">Hey {{ currentUser.fullName }}!</h2>
 				<h1>Your Account</h1>
 				<p>
@@ -34,34 +33,25 @@
 					<strong>Email:</strong> {{ currentUser.email }} (<strong><a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a></strong>)
 				</p>
 			</section>
-			{% if rankingEntries | length %}
-				<section style="min-width:{{ leftColumnMinWidth }}px;">
-					<h2 style="text-wrap:nowrap;">More Articles to Rank</h2>
-					{% set itemsShown = false %}
+			
+			<section>
+				<h2 style="text-wrap:nowrap;">More Articles to Rank</h2>
+				{% if rankingEntries | length %}
 					{% for re in rankingEntries %}
-						{% set showItem = true %}
-						{% for rd in rankingData %}
-							{% if rd.entryId == re.entryId %}
-								{% set showItem = false %}
-							{% endif %}		
-						{% endfor %}
-						{% if showItem %}
-							{% set itemsShown = true %}
-							<article>
-								<figure>
-									{% if re.blogImage %}
-										<img src="{{ re.blogImage.url }}" />
-									{% endif %}
-								</figure>
-								<a href="{{re.entryUrl}}">{{re.entryTitle}}</a>
-							</article>
-						{% endif %}
+						<article>
+							<figure>
+								{% if re.blogImage %}
+									<img src="{{ re.blogImage.url }}" />
+								{% endif %}
+							</figure>
+							<a href="{{re.entryUrl}}">{{re.entryTitle}}</a>
+						</article>
 					{% endfor %}
-					{% if not itemsShown %}
-						<article>You've visited all rankable articles. Nice work!</article>
-					{% endif %}
-				</section>
-			{% endif %}
+				{% else %}
+					<article>You've visited all rankable articles. Nice work!</article>
+				{% endif %}
+			</section>
+			
 		</div>
 
 		{% if rankingData | length %}
@@ -81,8 +71,9 @@
 						</h3>
 						<div class="two-col">
 					{% endif %}
-					<p>
+					<p{% if rd.liked == 0 %} class="dislike"{% endif %}>
 						{{ rd.value | length ? rd.value : rd.key }}
+						{% include '_includes/icons' with { type: (rd.liked == 1 ? 'like' : 'dislike') } %}
 					</p>
 				{% endfor %}
 				</div>

@@ -29,6 +29,11 @@ class RockstarVariable
         return Rockstar::$plugin->getService()->getCurrentUserLikedKeys();
     }
 
+    public function getCurrentUserRankedKeys()
+    {
+        return Rockstar::$plugin->getService()->getCurrentUserRankedKeys();
+    }
+
     public function getCurrentUserKeysByEntry($entryId)
     {
         return Rockstar::$plugin->getService()->getCurrentUserKeysByEntry($entryId);
