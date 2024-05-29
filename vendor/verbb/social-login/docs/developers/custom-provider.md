@@ -224,6 +224,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 use verbb\auth\base\ProviderTrait;
+use verbb\auth\models\Token;
 
 class Example2 extends AbstractProvider
 {
@@ -257,7 +258,7 @@ class Example2 extends AbstractProvider
         return 'https://www.zohoapis.com';
     }
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->getApiUrl();
     }

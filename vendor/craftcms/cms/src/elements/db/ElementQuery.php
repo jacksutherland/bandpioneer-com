@@ -1719,59 +1719,7 @@ class ElementQuery extends Query implements ElementQueryInterface
             return $eagerLoadedCount;
         }
 
-        try {
-            return $this->prepareSubquery()->count($q, $db) ?: 0;
-        } catch (QueryAbortedException) {
-            return 0;
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function sum($q, $db = null)
-    {
-        try {
-            return $this->prepareSubquery()->sum($q, $db);
-        } catch (QueryAbortedException) {
-            return false;
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function average($q, $db = null)
-    {
-        try {
-            return $this->prepareSubquery()->average($q, $db);
-        } catch (QueryAbortedException) {
-            return false;
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function min($q, $db = null)
-    {
-        try {
-            return $this->prepareSubquery()->min($q, $db);
-        } catch (QueryAbortedException) {
-            return false;
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function max($q, $db = null)
-    {
-        try {
-            return $this->prepareSubquery()->max($q, $db);
-        } catch (QueryAbortedException) {
-            return false;
-        }
+        return parent::count($q, $db) ?: 0;
     }
 
     /**
@@ -1807,15 +1755,19 @@ class ElementQuery extends Query implements ElementQueryInterface
             return null;
         }
 
-        $planHandle = $this->eagerLoadHandle;
-        if (str_contains($planHandle, ':')) {
-            $planHandle = explode(':', $planHandle, 2)[1];
+        if (isset($this->eagerLoadAlias)) {
+            $alias = $this->eagerLoadAlias;
+        } else {
+            $alias = $this->eagerLoadHandle;
+            if (str_contains($alias, ':')) {
+                $alias = explode(':', $alias, 2)[1];
+            }
         }
 
         // see if it was already eager-loaded
         $eagerLoaded = match ($count) {
-            true => $this->wasCountEagerLoaded($this->eagerLoadAlias),
-            false => $this->wasEagerLoaded($this->eagerLoadAlias),
+            true => $this->wasCountEagerLoaded($alias),
+            false => $this->wasEagerLoaded($alias),
         };
 
         if (!$eagerLoaded) {
@@ -1825,7 +1777,7 @@ class ElementQuery extends Query implements ElementQueryInterface
                 [
                     new EagerLoadPlan([
                         'handle' => $this->eagerLoadHandle,
-                        'alias' => $this->eagerLoadAlias ?? $planHandle,
+                        'alias' => $alias,
                         'criteria' => $criteria + $this->getCriteria() + ['with' => $this->with],
                         'all' => !$count,
                         'count' => $count,
@@ -1836,10 +1788,10 @@ class ElementQuery extends Query implements ElementQueryInterface
         }
 
         if ($count) {
-            return $this->eagerLoadSourceElement->getEagerLoadedElementCount($planHandle);
+            return $this->eagerLoadSourceElement->getEagerLoadedElementCount($alias);
         }
 
-        return $this->eagerLoadSourceElement->getEagerLoadedElements($planHandle);
+        return $this->eagerLoadSourceElement->getEagerLoadedElements($alias);
     }
 
     /**
@@ -1893,7 +1845,11 @@ class ElementQuery extends Query implements ElementQueryInterface
      */
     public function exists($db = null): bool
     {
-        return $this->getCachedResult() !== null || parent::exists($db);
+        $cachedResult = $this->getCachedResult();
+        if ($cachedResult !== null) {
+            return !empty($cachedResult);
+        }
+        return parent::exists($db);
     }
 
     /**
@@ -2062,6 +2018,62 @@ class ElementQuery extends Query implements ElementQueryInterface
 
         /** @var Query */
         return $this->prepare($builder)->from['subquery'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function queryScalar($selectExpression, $db): bool|string|null
+    {
+        // Mostly copied from yii\db\Query::queryScalar(),
+        // except that createCommand() is called on the prepared subquery rather than this query.
+        // (We still temporarily override $select, $orderBy, $limit, and $offset on this query,
+        // so those values look right from EVENT_BEFORE_PREPARE/EVENT_AFTER_PREPARE listeners.)
+
+        if ($this->emulateExecution) {
+            return null;
+        }
+
+        if (
+            !$this->distinct
+            && empty($this->groupBy)
+            && empty($this->having)
+            && empty($this->union)
+        ) {
+            // Set $orderBy, $limit, and $offset on this query just so it more closely resembles the
+            // actual query that will be executed for `beforePrepare`/`afterPrepare` listeners
+            // (https://github.com/craftcms/cms/issues/15001)
+
+            // DON’T set $select though, in case this query ends up being cloned and executed from
+            // an event handler, like BaseRelationField does. (https://github.com/craftcms/cms/issues/15071)
+
+            $order = $this->orderBy;
+            $limit = $this->limit;
+            $offset = $this->offset;
+
+            $this->orderBy = null;
+            $this->limit = null;
+            $this->offset = null;
+
+            try {
+                $subquery = $this->prepareSubquery();
+                $subquery->select = [$selectExpression];
+                $subquery->orderBy = null;
+                $subquery->limit = null;
+                $subquery->offset = null;
+                $command = $subquery->createCommand($db);
+            } catch (QueryAbortedException) {
+                return false;
+            } finally {
+                $this->orderBy = $order;
+                $this->limit = $limit;
+                $this->offset = $offset;
+            }
+
+            return $command->queryScalar();
+        }
+
+        return parent::queryScalar($selectExpression, $db);
     }
 
     // Arrayable methods

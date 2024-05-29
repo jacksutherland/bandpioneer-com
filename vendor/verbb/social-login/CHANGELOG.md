@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1 - 2024-05-14
+
+### Fixed
+- Fix an error with Salesforce.
+
 ## 2.0.0 - 2024-05-13
 
 ### Added

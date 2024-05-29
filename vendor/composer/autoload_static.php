@@ -358,8 +358,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'nystudio107\\codeeditor\\' => 
         array (
@@ -685,9 +685,9 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/collections',
+            0 => __DIR__ . '/..' . '/illuminate/macroable',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/macroable',
+            2 => __DIR__ . '/..' . '/illuminate/collections',
         ),
         'Illuminate\\Contracts\\' => 
         array (
@@ -4758,17 +4758,21 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'bandpioneer\\rockstar\\Rockstar' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/Rockstar.php',
         'bandpioneer\\rockstar\\controllers\\BandsController' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/controllers/BandsController.php',
         'bandpioneer\\rockstar\\controllers\\KeywordsController' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/controllers/KeywordsController.php',
+        'bandpioneer\\rockstar\\controllers\\RockstarController' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/controllers/RockstarController.php',
         'bandpioneer\\rockstar\\fields\\SeoKeywords' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/fields/SeoKeywords.php',
         'bandpioneer\\rockstar\\migrations\\Install' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/migrations/Install.php',
+        'bandpioneer\\rockstar\\migrations\\m240514_204408_add_rankings_table' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/migrations/m240514_204408_add_rankings_table.php',
         'bandpioneer\\rockstar\\models\\EpkModel' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/models/EpkModel.php',
         'bandpioneer\\rockstar\\queue\\jobs\\PopulateEntries' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/queue/jobs/PopulateEntries.php',
         'bandpioneer\\rockstar\\records\\BandRecord' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/records/BandRecord.php',
         'bandpioneer\\rockstar\\records\\EpkRecord' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/records/EpkRecord.php',
         'bandpioneer\\rockstar\\records\\KeywordRecord' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/records/KeywordRecord.php',
+        'bandpioneer\\rockstar\\records\\RankingRecord' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/records/RankingRecord.php',
         'bandpioneer\\rockstar\\services\\AIService' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/services/AIService.php',
         'bandpioneer\\rockstar\\services\\KeywordService' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/services/KeywordService.php',
         'bandpioneer\\rockstar\\services\\RockstarService' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/services/RockstarService.php',
         'bandpioneer\\rockstar\\variables\\BandsVariable' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/variables/BandsVariable.php',
+        'bandpioneer\\rockstar\\variables\\RockstarVariable' => __DIR__ . '/..' . '/bandpioneer/rockstar/src/variables/RockstarVariable.php',
         'cebe\\markdown\\GithubMarkdown' => __DIR__ . '/..' . '/cebe/markdown/GithubMarkdown.php',
         'cebe\\markdown\\Markdown' => __DIR__ . '/..' . '/cebe/markdown/Markdown.php',
         'cebe\\markdown\\MarkdownExtra' => __DIR__ . '/..' . '/cebe/markdown/MarkdownExtra.php',
@@ -6624,6 +6628,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'verbb\\base\\helpers\\Plugin' => __DIR__ . '/..' . '/verbb/base/src/helpers/Plugin.php',
         'verbb\\base\\helpers\\UrlHelper' => __DIR__ . '/..' . '/verbb/base/src/helpers/UrlHelper.php',
         'verbb\\base\\services\\Templates' => __DIR__ . '/..' . '/verbb/base/src/services/Templates.php',
+        'verbb\\base\\twig\\SecurityPolicy' => __DIR__ . '/..' . '/verbb/base/src/twig/SecurityPolicy.php',
         'verbb\\base\\twigextensions\\Extension' => __DIR__ . '/..' . '/verbb/base/src/twigextensions/Extension.php',
         'verbb\\comments\\Comments' => __DIR__ . '/..' . '/verbb/comments/src/Comments.php',
         'verbb\\comments\\assetbundles\\AdminAsset' => __DIR__ . '/..' . '/verbb/comments/src/assetbundles/AdminAsset.php',

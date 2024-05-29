@@ -5,9 +5,8 @@ use verbb\sociallogin\base\OAuthProvider;
 
 use craft\helpers\App;
 
-use verbb\auth\providers\Salesforce as SalesforceProvider;
-
 use verbb\auth\models\Token;
+use verbb\auth\providers\Salesforce as SalesforceProvider;
 
 class Salesforce extends OAuthProvider
 {
