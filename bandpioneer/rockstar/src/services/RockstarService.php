@@ -169,18 +169,42 @@ class RockstarService extends Component
             $keyLikedCount = RankingRecord::find()->where(['key' => $rankingRecord->key, 'entryId' => $entryId, 'liked' => 1])->count();
             $percentageLiked = ($keyTotalCount > 0) ? ($keyLikedCount / $keyTotalCount) * 100 : 0;
 
+            $likedStatus = RankingRecord::find()->where(['key' => $rankingRecord->key, 'entryId' => $entryId])->select('liked')->scalar();
+
             array_push($rankingData, [
                 'key' => $rankingRecord->key,
                 'value' => strlen($rankingRecord->value) > 0 ? $rankingRecord->value : $rankingRecord->key,
-                'percentLiked' => round($percentageLiked, 0)
+                'percentLiked' => round($percentageLiked, 0),
+                'liked' => $likedStatus
             ]);
         }
 
         // Sort $rankingData by  percentageLiked
 
-        usort($rankingData, function($a, $b)
-        {
-            return $b['percentLiked'] <=> $a['percentLiked'];
+        // usort($rankingData, function($a, $b)
+        // {
+        //     return $b['percentLiked'] <=> $a['percentLiked'];
+        // });
+
+        usort($rankingData, function($a, $b) {
+            // Sort liked (1) first, then null, then disliked (0)
+            if ($a['liked'] === $b['liked']) {
+                // If liked status is the same, sort by percent liked descending
+                return $b['percentLiked'] <=> $a['percentLiked'];
+            }
+            if ($a['liked'] === 1) {
+                return -1;
+            }
+            if ($b['liked'] === 1) {
+                return 1;
+            }
+            if ($a['liked'] === 0) {
+                return 1;
+            }
+            if ($b['liked'] === 0) {
+                return -1;
+            }
+            return 0;
         });
 
         return $rankingData;
