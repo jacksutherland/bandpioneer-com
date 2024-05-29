@@ -207,7 +207,7 @@ class RockstarService extends Component
         foreach($rankableEntries as &$entry)
         {
             $currentUser = Craft::$app->getUser()->getIdentity();
-            $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id)->count();
+            $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
 
             // if($rankingCount == 0)
             // {
