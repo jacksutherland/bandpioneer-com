@@ -247,7 +247,6 @@ class RockstarService extends Component
         {
             if($entry->enableRanking)
             {
-                
                 $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
 
                 if($rankingCount == 0)

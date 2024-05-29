@@ -285,36 +285,6 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
-            fieldUid: 02fb6a1a-8498-4b48-ad99-b61ac895f168 # CTA Text
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 548d132f-3254-4aff-be9d-7d696c0a30c7
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 9449afc2-d448-4f53-865f-58862b5fc400 # Ranking Options
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: eea275f5-73c2-44aa-a70f-5f41f51b6881
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
             fieldUid: 32918d13-fbf2-4148-85a3-4bdb7a1d8468 # Enable Rank
             handle: null
             includeInCards: false

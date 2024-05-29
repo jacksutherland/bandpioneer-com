@@ -1,4 +1,4 @@
-dateModified: 1716842244
+dateModified: 1716951966
 elementSources:
   craft\elements\Asset:
     -
@@ -245,6 +245,7 @@ meta:
     6c48f2a4-30de-4d42-a211-268e766bd9b1: 'Blog Content - Image & Text - Size' # Blog Content - Image & Text - Size
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2
     7b1bec99-65ba-4a02-8235-745b4595d2fe: 'Full Width Mobile' # Full Width Mobile
+    7e7e5849-e92b-4707-80cc-a23e8d89b766: Reverse # Reverse
     7e7f111f-d34d-4ad9-976c-0ec0e45dd053: 'Popular Post' # Popular Post
     7e654447-0f77-4257-9dd9-302624c91c15: 'Rich Text Width 2x' # Rich Text Width 2x
     7f387f1a-d0e5-455a-a900-c8632cfdf5c9: Text # Text

@@ -350,16 +350,16 @@
                 <a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
 	            <div>   
                 	<div class="split-panel">
-	                	<div class="d-md">
+	                	{# <div class="d-md">
 		                    <h3>Editor's Ranking</h3>
-		                </div>
+		                </div> #}
 		                <div>
 							<h3>Reader's Ranking</h3>
 						</div>
 		            </div>
 		            <div class="scroll-panel">
 		                <div class="split-panel">
-		                	<div class="d-md">
+		                {# 	<div class="d-md">
 			                    <div class="scroll-container">
 									<ul>
 										{% set counter = 0 %}
@@ -376,20 +376,24 @@
 										{% endfor %}
 									</ul>
 								</div>
-							</div>
+							</div> #}
 							<div>
 			                    <div class="scroll-container">
 									<ul>
-										{% for item in orderedData %}
-											<li draggable="true" data-key="{{ item.key }}">
-												{{ loop.index }}. {{ item.value }} 
-												{% if item.percentLiked > 0 %}
-													<span>
-														({{ item.percentLiked }}% {% include '_includes/icons' with { type: 'like-solid' } %})
-													</span>
-												{% endif %}
-											</li>
-										{% endfor %}
+										{% if orderedData | length > 0 %}
+											{% for item in orderedData %}
+												<li draggable="true" data-key="{{ item.key }}">
+													{{ loop.index }}. {{ item.value }} 
+													{% if item.percentLiked > 0 %}
+														<span>
+															({{ item.percentLiked }}% {% include '_includes/icons' with { type: 'like-solid' } %})
+														</span>
+													{% endif %}
+												</li>
+											{% endfor %}
+										{% else %}
+											<p>We are still calculating user data for this entry. Please try again later.</p>
+										{% endif %}
 									</ul>
 								</div>
 							</div>
