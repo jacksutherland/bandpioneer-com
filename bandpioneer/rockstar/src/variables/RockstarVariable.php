@@ -19,6 +19,11 @@ class RockstarVariable
     	return Rockstar::$plugin->getService()->getRankEntries();
     }
 
+    public function getRankTest()
+    {
+        return Rockstar::$plugin->getService()->getRankTest();
+    }
+
     public function getUserOrderedItemsForEntry($entryId)
     {
         return Rockstar::$plugin->getService()->getUserOrderedItemsForEntry($entryId);
