@@ -79,20 +79,10 @@
 			{% include '_includes/icons' with { type: 'dislike' } %}
 			{% include '_includes/icons' with { type: 'dislike-solid' } %}
 		</button>
-		{# {% if rankOptions != 'likeButtonsOnly' %}
-			<button class="ranker-sort" type="button" title="Reorder this list"{% if currentUser %} onclick="bp.openRankerModal('{{entryId}}', '{{rankerKey}}');"{% else %} onclick="bp.login('{{signInMsg}}');"{% endif %}>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
-			</button>
-		{% endif %} #}
 		<span>
 			{{ likeDescription }}
-		{# {% if likePercent == 0 %}
-			Nobody has liked this yet. {% if not currentUser %}<a href="/" onclick="return bp.login();">Login to be the first!{% endif %}
-		{% else %}
-			{{ likePercent }}% of our readers like this
-		{% endif %} #}
 		</span>
-		<button class="ranker-data" type="button" title="View User Ranking" onclick="bp.openRankComparisonModal();">
+		<button class="ranker-data" type="button" title="View User Ranking" onclick="bp.openRankComparisonModal('{{rankerKey}}');">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>
 		</button>
 	</div>
