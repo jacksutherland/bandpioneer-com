@@ -205,7 +205,7 @@ class RockstarService extends Component
         $rankableEntries = Entry::find()->section('blog')->all();
         foreach($rankableEntries as $entry)
         {
-            if($entry->enableRanking())
+            if($entry->enableRanking
             {
                 $count = $count + 1;
             }
