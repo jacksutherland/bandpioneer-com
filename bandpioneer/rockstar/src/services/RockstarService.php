@@ -218,7 +218,7 @@ class RockstarService extends Component
 
     public function getRankEntries()
     {
-        $rankableEntries = Entry::find()->section('blog')->enableRanking(true)->all();
+        $rankableEntries = Entry::find()->section('blog')->enableRanking([true])->all();
         $rankingData = [];
 
         foreach($rankableEntries as $entry)
@@ -226,23 +226,16 @@ class RockstarService extends Component
             $currentUser = Craft::$app->getUser()->getIdentity();
             $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
 
-            // if($rankingCount == 0)
-            // {
+            if($rankingCount == 0)
+            {
                 array_push($rankingData, [
                     'entryId' => $entry->id,
                     'entryTitle' => $entry->title,
                     'entryUrl' => $entry->url,
                     'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
                 ]);
-            // }
+            }
         }
-
-        // array_push($rankingData, [
-        //             'entryId' => 123,
-        //             'entryTitle' => 'Article Title ' . $rankableEntries->count(),
-        //             'entryUrl' => 'asdf',
-        //             'blogImage' => null,
-        //         ]);
 
         return $rankingData;
     }
