@@ -44,8 +44,8 @@ class RockstarVariable
         return Rockstar::$plugin->getService()->getCurrentUserKeysByEntry($entryId);
     }
 
-    public function getRankItemLikePercent($entryId, $rankerKey)
+    public function getRankKeyLikeDescription($entryId, $rankerKey)
     {
-        return Rockstar::$plugin->getService()->getRankItemLikePercent($entryId, $rankerKey);
+        return Rockstar::$plugin->getService()->getRankKeyLikeDescription($entryId, $rankerKey);
     }
 }

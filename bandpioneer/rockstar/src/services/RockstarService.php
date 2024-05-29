@@ -161,12 +161,13 @@ class RockstarService extends Component
         return $rankingData;
     }
 
-    public function getRankItemLikePercent($entryId, $rankerKey)
+    public function getRankKeyLikeDescription($entryId, $rankerKey)
     {
         $rankingRecords = RankingRecord::find()->where(['entryId' => $entryId, 'key' => $rankerKey])->all();
         $totalRecords = 0;
         $likedRecords = 0;
         $dislikedRecords = 0;
+        $returnVal = "Do you like or dislike this?";
 
         foreach($rankingRecords as &$rankingRecord)
         {
@@ -183,22 +184,17 @@ class RockstarService extends Component
             
         }
 
-        // return $dislikedRecords;
-
         if($likedRecords > 0)
         {
-            return round(($likedRecords / $totalRecords) * 100);
+            $returnVal = round(($likedRecords / $totalRecords) * 100) . '% of our readers like this';
+
+            if($dislikedRecords > 0)
+            {
+                $returnVal .= ', while ' . round(($dislikedRecords / $totalRecords) * 100) . '% dislike it';
+            }
         }
-        elseif($dislikedRecords > 0)
-        {
-            // Item has only received dislikes
-            return 0;
-        }
-        else
-        {
-            // Show as 80-100% until users have started voting.
-            return rand(80, 100);
-        }
+
+        return $returnVal;
     }
 
     public function getRankTest()
@@ -245,24 +241,20 @@ class RockstarService extends Component
         // return $rankingData;
 
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $rankableEntries = Entry::find()->section('blog')->type('internal')->all();
+        $rankableEntries = Entry::find()->section('blog')->all();
         $rankingData = [];
 
         foreach($rankableEntries as $entry)
         {
             if($entry->enableRanking)
             {
-                $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
-
-                if($rankingCount == 0)
-                {
                     array_push($rankingData, [
                         'entryId' => $entry->id,
                         'entryTitle' => $entry->title,
                         'entryUrl' => $entry->url,
                         'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
                     ]);
-                }
+               
             }
         }
 
