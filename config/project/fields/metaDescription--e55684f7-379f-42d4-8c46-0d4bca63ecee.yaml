@@ -1,5 +1,4 @@
 columnSuffix: wtvfvoio
-contentColumnType: string(640)
 handle: metaDescription
 instructions: 'Optimal length is 155-160 characters.'
 name: 'Meta Description'
@@ -8,7 +7,6 @@ settings:
   byteLimit: null
   charLimit: 160
   code: false
-  columnType: null
   initialRows: 4
   multiline: false
   placeholder: null

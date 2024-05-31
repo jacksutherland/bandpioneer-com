@@ -1,4 +1,4 @@
-color: null
+color: orange
 fieldLayouts:
   0b1cf13f-23a0-4104-9ec8-e18046ded0e0:
     tabs:
@@ -219,7 +219,7 @@ fieldLayouts:
         userCondition: null
 handle: imageText
 hasTitleField: false
-icon: ''
+icon: text
 name: 'Image & Text'
 showSlugField: true
 showStatusField: true

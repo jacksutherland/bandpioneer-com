@@ -1,4 +1,4 @@
-color: null
+color: orange
 fieldLayouts:
   32ff5fa9-ae86-43ff-a044-23279a1bb95f:
     tabs:
@@ -119,7 +119,7 @@ fieldLayouts:
         userCondition: null
 handle: sectionTitle
 hasTitleField: false
-icon: ''
+icon: font
 name: 'Section Title'
 showSlugField: true
 showStatusField: true

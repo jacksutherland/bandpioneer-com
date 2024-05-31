@@ -527,8 +527,15 @@ a {
 	}
 
 	.modal {
+		max-width: 350px;
 
 		> div {
+			h3 {
+				margin-bottom: 10px;
+			}
+			p {
+				font-weight: 500;
+			}
 			a {
 				align-items: center;
 				background-color: #fff;

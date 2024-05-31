@@ -623,6 +623,32 @@ address[rel="author"] {
 			}
 		}
 
+		&.thumbnail-row {
+			display: flex;
+			align-items: start;
+			flex-direction: column;
+
+			img {
+				height: auto;
+				width: 150px;
+			}
+
+			.content {
+				h2, h3, h4, h5, h6, p {
+					margin: 0;
+				}
+				.ranker-buttons {
+					margin: 5px 0 8px 0;
+				}
+			}
+
+			@media (min-width: $breakpoint-sm) {
+				flex-direction: row;
+				align-items: center;
+				gap: $object-spacing;
+			}
+		}
+
 		&.embed-code {
 
 			figure {

@@ -4,8 +4,10 @@ tabs:
     elements:
       -
         elementCondition: null
+        includeInCards: false
         instructions: null
         label: __blank__
+        providesThumbs: false
         required: true
         tip: null
         type: verbb\comments\fieldlayoutelements\CommentsField

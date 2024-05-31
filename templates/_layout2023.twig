@@ -354,10 +354,11 @@
 
         {% if not currentUser %}
             <div id="login-modal" class="overlay login-modal">
-                <div class="modal" style="max-width: 600px;">
+                <div class="modal">
                     <a class="close-icon-button" href="/">{% include '_includes/icons' with { type: 'close' } %}</a>
                     <div>
                         <h3>Sign in to Band Pioneer</h3>
+                        <p>Joining is easy! Just sign in using a Google or Discord account.</p>
                         <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('google') }}">Sign in with Google</a>
                         {# <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('amazon') }}">Sign in with Amazon</a> #}
                         <a class="login-provider" href="{{ craft.socialLogin.getLoginUrl('discord') }}">Sign in with Discord</a>
@@ -375,10 +376,7 @@
                 bp = new BandPioneerUX();
 
                 {% if showLogin %}
-                    console.log('showLogin');
                     bp.login();
-                {% else %}
-                    console.log('NO showLogin');
                 {% endif %}
             });
         </script>

@@ -1,4 +1,4 @@
-dateModified: 1716951966
+dateModified: 1717120488
 elementSources:
   craft\elements\Asset:
     -
@@ -325,11 +325,13 @@ meta:
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Topic # Topic
     a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
     aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Categories # Categories
+    aae926e2-c2e8-4a90-8787-fa6597dacd90: 'Header Tag' # Header Tag
     ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title
     acdcd6cb-c200-42d3-a723-ea131a1387dd: 'Blog Content - Section Title - Subheadline' # Blog Content - Section Title - Subheadline
     b5c0f1ed-7691-4280-a0a0-4ea1bc447989: 'Blog Listing Medium' # Blog Listing Medium
     b5c7b937-2d08-4b03-a22e-83f2879773fe: 'TOC Default' # TOC Default
+    b5d8f674-ac36-4511-8299-74d83a18914c: 'Thumbnail Row' # Thumbnail Row
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     b9eaa895-752b-4102-8fac-49d7662c399d: 'Roles - Default' # Roles - Default
     b89e4608-4a0c-49c1-a0d9-d9758eec6f4b: 'Blog Listing Mobile' # Blog Listing Mobile

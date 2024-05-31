@@ -1,11 +1,9 @@
 columnSuffix: sejwfnam
-contentColumnType: string(8)
 handle: contentLayout
 instructions: null
 name: 'Content Layout'
 searchable: false
 settings:
-  columnType: null
   options:
     -
       __assoc__:

@@ -1,3 +1,4 @@
+color: null
 fieldLayouts:
   4e104703-2570-4fa2-9efa-ebad946f40d0:
     tabs:
@@ -12,6 +13,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -20,6 +22,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -36,11 +39,12 @@ fieldLayouts:
         userCondition: null
 handle: aiBattle
 hasTitleField: false
+icon: null
 name: 'AI Battle'
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-sortOrder: 1
 titleFormat: '{section.name|raw}'
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

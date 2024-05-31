@@ -1,11 +1,9 @@
 columnSuffix: osqggoob
-contentColumnType: string
 handle: tocDefault
 instructions: null
 name: 'TOC Default'
 searchable: false
 settings:
-  columnType: string
   options:
     -
       __assoc__:

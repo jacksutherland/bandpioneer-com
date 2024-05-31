@@ -1,4 +1,4 @@
-color: null
+color: orange
 fieldLayouts:
   4f4ed56c-1fee-4168-801f-70ad11dbe0d5:
     tabs:
@@ -54,7 +54,7 @@ fieldLayouts:
         userCondition: null
 handle: text
 hasTitleField: false
-icon: ''
+icon: text
 name: Text
 showSlugField: true
 showStatusField: true

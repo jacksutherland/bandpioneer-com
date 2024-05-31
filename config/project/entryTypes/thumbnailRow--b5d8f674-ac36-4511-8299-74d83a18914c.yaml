@@ -1,6 +1,6 @@
-color: null
+color: orange
 fieldLayouts:
-  897fbbc1-c932-470a-aab1-705b3db0d8c9:
+  c91726f1-251a-45ca-90c8-c064110379c1:
     tabs:
       -
         elementCondition: null
@@ -15,8 +15,8 @@ fieldLayouts:
             id: null
             includeInCards: false
             inputType: null
-            instructions: null
-            label: null
+            instructions: 'Converted to a slug as the Ranker Key'
+            label: Headline
             max: null
             min: null
             name: null
@@ -30,43 +30,73 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: e94266ce-e44c-485c-b2fb-a6e237a6fe7e
+            uid: 6cd42f77-3790-4e03-b117-55cf32b5d9dc
             userCondition: null
             warning: null
             width: 50
           -
             elementCondition: null
-            fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
+            fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
             handle: null
             includeInCards: false
-            instructions: null
-            label: 'Show In Menu'
+            instructions: 'Optional title under headline'
+            label: null
             providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 004c3c34-9c37-406d-ba8c-0a03ece8a33a
+            uid: c425c16b-9f2b-4647-84c9-6cd2a37624d3
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 68c36b78-e56c-45f0-90a2-b93ccc0f1ee6 # Rich Text
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cc181dc2-53ce-4542-945e-b42948808c39
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 80a9c5e0-fb80-420c-a7df-676f56ac600d # Blog Image
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8a8f18dc-eb7f-4ccd-a132-da570d6960ae
             userCondition: null
             warning: null
             width: 25
           -
             elementCondition: null
-            fieldUid: 1b12d4c8-a449-4b45-99db-cdcf801d8fa4 # Hero Image
+            fieldUid: aae926e2-c2e8-4a90-8787-fa6597dacd90 # Header Tag
             handle: null
             includeInCards: false
             instructions: null
-            label: null
+            label: 'Header Tag'
             providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 9085bc03-1d99-43d2-900c-56d86f4f3832
+            uid: e7ffb1ea-3984-4052-aceb-39d3e6925070
             userCondition: null
             warning: null
-            width: 100
+            width: 25
           -
             elementCondition: null
-            fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
+            fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
             handle: null
             includeInCards: false
             instructions: null
@@ -75,102 +105,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: abb108d4-a4aa-4748-bcda-fee74a417b77
+            uid: ecb9bc8c-de53-4625-842a-21017b8475c2
             userCondition: null
             warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: aed955de-a0bd-40b6-9fb6-01f235182a75
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 2f7f5e70-b339-4d5b-a444-4f1cbe500b7d
-            userCondition: null
-            warning: null
-            width: 100
+            width: 50
         name: Content
-        uid: ea782a44-af09-48df-acd0-433b10739fd7
+        uid: befa7b3c-0af1-4895-83ef-126ba821480e
         userCondition: null
-      -
-        elementCondition: null
-        elements:
-          -
-            elementCondition: null
-            fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: dffa9642-4cad-42c5-ac64-eb1f47a7e8d8
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 449006a3-b20a-4c83-8915-eba010248b13
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 90a883ef-863a-4015-960b-0c48ebbbed9e
-            userCondition: null
-            warning: null
-            width: 100
-        name: SEO
-        uid: 9821a2e9-5781-4262-a49a-eb0b33486d63
-        userCondition: null
-handle: instrument
+handle: thumbnailRow
 hasTitleField: true
-icon: null
-name: Instrument
+icon: list-timeline
+name: 'Thumbnail Row'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
-titleFormat: null
-titleTranslationKeyFormat: null
+titleFormat: ''
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

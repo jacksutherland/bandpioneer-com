@@ -1,5 +1,4 @@
 columnSuffix: null
-contentColumnType: string
 handle: pageImage
 instructions: null
 name: 'Page Image'
@@ -24,6 +23,7 @@ settings:
   restrictedLocationSource: 'volume:3da0f593-6bb6-42b6-834b-85a544cbc005' # Page Images
   restrictedLocationSubpath: null
   selectionLabel: null
+  showCardsInGrid: false
   showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

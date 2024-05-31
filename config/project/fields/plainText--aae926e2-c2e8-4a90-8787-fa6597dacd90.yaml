@@ -1,15 +1,15 @@
-columnSuffix: rhcnsoll
-handle: subheadline
+columnSuffix: null
+handle: plainText
 instructions: null
-name: Subheadline
-searchable: true
+name: 'Header Tag'
+searchable: false
 settings:
   byteLimit: null
-  charLimit: null
+  charLimit: 2
   code: false
   initialRows: 4
   multiline: false
-  placeholder: null
+  placeholder: h2
   uiMode: normal
 translationKeyFormat: null
 translationMethod: none

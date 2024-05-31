@@ -1,3 +1,5 @@
+altTranslationKeyFormat: null
+altTranslationMethod: none
 fieldLayouts:
   0ad652ab-d7a0-408f-8d10-63f9d254292c:
     tabs:
@@ -12,6 +14,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -20,6 +23,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -38,6 +42,7 @@ fs: writerPictures
 handle: writerPictures
 name: 'Writer Pictures'
 sortOrder: 2
+subpath: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
 transformFs: ''

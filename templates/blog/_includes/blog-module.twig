@@ -62,7 +62,7 @@
 	{% if module.linkUrl | length %}</a>{% endif %}
 {% endmacro %}
 
-{% macro rankButtons(rankerKey, rankerValue, entryId, rankOptions) %}
+{% macro rankButtons(rankerKey, rankerValue, entryId) %}
 	
 	{% set signInMsg = 'Sign in to use this feature' %}
 	{% set likeDescription = craft.rockstar.getRankKeyLikeDescription(entryId, rankerKey) %}
@@ -242,7 +242,7 @@
 						{% endif %}
 
 						{% if entry.enableRanking and module.rankerKey | length %}
-							{{ _self.rankButtons(module.rankerKey, module.rankerValue, entry.id, entry.rankOptions) }}
+							{{ _self.rankButtons(module.rankerKey, module.rankerValue, entry.id) }}
 						{% endif %}
 
 					</section>
@@ -270,7 +270,7 @@
 						{% endif %}
 
 						{% if entry.enableRanking and module.rankerKey | length %}
-							{{ _self.rankButtons(module.rankerKey, module.rankerValue, entry.id, entry.rankOptions) }}
+							{{ _self.rankButtons(module.rankerKey, module.rankerValue, entry.id) }}
 						{% endif %}
 
 						{% if module.blogImage.count %}
@@ -282,6 +282,58 @@
 						{% endif %}
 
 					</section>
+
+				{% case "thumbnailRow" %}
+					{% set hTag1 = 'h2' %}
+					{% set hTag2 = 'h3' %}
+					{% if module.plainText | length %}
+						{% set hTag1 = module.plainText %}
+						{% if module.plainText == 'h2' %}
+							{% set hTag2 = 'h3' %}
+						{% elseif module.plainText == 'h3' %}
+							{% set hTag2 = 'h4' %}
+						{% else %}
+							{% set hTag2 = 'h5' %}
+						{% endif %}
+					{% endif %}
+
+					<section class="thumbnail-row{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
+						{% if module.blogImage.count %}
+							{% set img = module.blogImage.one() %}
+							{% set trans = { mode: 'fit', format: 'webp', width: 150, quality: 80 } %}
+							{% set trans2x = { mode: 'fit', format: 'webp', width: 3300, quality: 80 } %}
+							{% set linkIsExternal = 'bandpioneer' in module.websiteUrl ? false : true %}
+
+							{% if module.websiteUrl | length %}
+								<a href="{{ module.websiteUrl }}"{% if linkIsExternal %} target="_blank"{% endif %}>
+							{% endif %}
+								<img src="{{ img.url(trans) }}" srcset="{{ img.url(trans2x) }} 2x"
+									loading="lazy" alt="{{ img.title }}"
+									width="{{ img.width(trans) }}" height="{{ img.height(trans) }}">
+							{% if module.websiteUrl | length %}
+								</a>
+							{% endif %}
+						{% endif %}
+						<div class="content">
+							{% if module.websiteUrl | length %}
+								<a href="{{ module.websiteUrl }}"{% if linkIsExternal %} target="_blank"{% endif %}>
+							{% endif %}
+								<{{ hTag1 }}>{{ module.title }}</{{ hTag1 }}>
+							{% if module.websiteUrl | length %}
+								</a>
+							{% endif %}
+							{% if module.subheadline | length %}
+								<{{ hTag2 }}>{{ module.subheadline }}</{{ hTag2 }}>
+							{% endif %}
+							{% if entry.enableRanking and module.slug | length %}
+								{{ _self.rankButtons(module.slug, module.title, entry.id) }}
+							{% endif %}
+							{% if module.richText | length %}
+								{{ module.richText }}
+							{% endif %}
+						</div>
+					</section>
+
 
 				{% case "embedCode" %}
 
@@ -299,19 +351,6 @@
 							{{ module.markup | raw }}
 						{% endif %}
 					</section>
-
-				{% case "text" %}
-
-					{# If next module is media close after it #}
-
-					{% set nextModule = blogModules[loop.index] ?? null %}
-					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
-
-					<section class="rich-text{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
-						{{ module.richText }}
-					{% if closeSection %}
-						</section>
-					{% endif %}
 
 				{% case "media" %}
 
@@ -341,6 +380,19 @@
 					{% endif %}
 
 					</section>
+
+				{% case "text" %}
+
+					{# If next module is media close after it #}
+
+					{% set nextModule = blogModules[loop.index] ?? null %}
+					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
+
+					<section class="rich-text{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
+						{{ module.richText }}
+					{% if closeSection %}
+						</section>
+					{% endif %}
 
 			{% endswitch %}
 		{% endfor %}

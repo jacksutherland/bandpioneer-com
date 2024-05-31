@@ -59,6 +59,7 @@ class BandPioneerUX
 		if(typeof(modalMessage) === 'undefined')
 		{
 			modalMessage = 'Sign in to Band Pioneer';
+			// modalMessage = 'Joining Band Pioneer Is Easy!';
 		}
 
 		if(!this.openModal('#login-modal', null, modalMessage))

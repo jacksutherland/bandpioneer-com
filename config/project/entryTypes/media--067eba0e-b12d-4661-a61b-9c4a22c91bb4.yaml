@@ -1,10 +1,39 @@
-color: null
+color: blue
 fieldLayouts:
   77b6799b-9d26-43ec-8d71-67d7262e1650:
     tabs:
       -
         elementCondition: null
         elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 8e878c78-1bc7-439c-9340-0092efc1fd7b
+            userCondition: null
+            warning: null
+            width: 100
           -
             elementCondition: null
             fieldUid: cd4a38c4-94ce-4c20-9d8b-62288944ef87 # Blog Content - Media - Media Type
@@ -115,12 +144,12 @@ fieldLayouts:
         userCondition: null
 handle: media
 hasTitleField: false
-icon: null
+icon: film
 name: Media
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
-titleFormat: null
-titleTranslationKeyFormat: null
+titleFormat: ''
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site
