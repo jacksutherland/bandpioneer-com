@@ -644,7 +644,7 @@ address[rel="author"] {
 
 			@media (min-width: $breakpoint-sm) {
 				flex-direction: row;
-				align-items: center;
+				// align-items: center;
 				gap: $object-spacing;
 			}
 		}
