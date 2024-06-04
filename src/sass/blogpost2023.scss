@@ -999,10 +999,9 @@ address[rel="author"] {
 					    padding: 0 12px;
 					    text-align: left;
 
-					    align-items: start;
-
 					    span {
 					    	color: darken($medium-gray, 45%);
+					    	font-size: $small-font-size;
 					    	margin-left: 10px;
 					    	text-wrap: nowrap;
 					    }
@@ -1020,6 +1019,10 @@ address[rel="author"] {
 						li {
 						    flex-wrap: nowrap;
 						    justify-content: space-between;
+
+						    span {
+						    	align-self: start;
+						    }
 						}
 					}
 				}
