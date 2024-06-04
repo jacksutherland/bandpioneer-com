@@ -992,16 +992,19 @@ address[rel="author"] {
 						background-color: $medium-gray;
 					    border-radius: 3px;
 					    color: $primary-dark;
-					    flex-wrap: wrap;
+					    // flex-wrap: wrap;
 					    font-size: $nav-font-size;
 					    font-weight: 600;
 					    min-height: 34px;
 					    padding: 0 12px;
 					    text-align: left;
 
+					    align-items: start;
+
 					    span {
 					    	color: darken($medium-gray, 45%);
 					    	margin-left: 10px;
+					    	text-wrap: nowrap;
 					    }
 
 					    svg {
