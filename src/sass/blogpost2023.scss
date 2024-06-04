@@ -992,7 +992,7 @@ address[rel="author"] {
 						background-color: $medium-gray;
 					    border-radius: 3px;
 					    color: $primary-dark;
-					    // flex-wrap: wrap;
+					    flex-wrap: wrap;
 					    font-size: $nav-font-size;
 					    font-weight: 600;
 					    min-height: 34px;
@@ -1013,6 +1013,13 @@ address[rel="author"] {
 					    	width: 15px;
 					    	margin-left: 5px;
 					    }
+					}
+				}
+				@media (min-width: $breakpoint-sm) {
+					ul {
+						li {
+						    flex-wrap: nowrap;
+						}
 					}
 				}
 			}
