@@ -43,7 +43,7 @@ class BandsController extends Controller
         $bandRecord = $service->getCurrentUserBand();
         $epkModel = $service->getCurrentUserEpkModel();
 
-        return $this->renderTemplate('bands/dashboard', [
+        return $this->renderTemplate('account/band', [
             'band' => $bandRecord,
             'epk' => $epkModel
         ]);

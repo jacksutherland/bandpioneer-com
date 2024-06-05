@@ -14,9 +14,15 @@ use Twig\Markup;
 
 class BandsVariable
 {
-	public function getEpk($slug)
+    // Check if band object has been created yet for the current user
+	public function exists()
     {
-    	return Rockstar::$plugin->getService()->getEpkBySlug($slug);
+    	return Rockstar::$plugin->getService()->bandExistsForCurrentUser();
+    }
+
+    public function getEpk($slug)
+    {
+        return Rockstar::$plugin->getService()->getEpkBySlug($slug);
     }
 
     public function chatQuery($question)

@@ -76,7 +76,19 @@
             on: settings.populateProfile,
             errors: settings.getErrors('populateProfile'),
             warning: macros.configWarning('populateProfile', 'social-login'),
+            toggle: 'sync-profile',
         }) }}
+
+        <div id="sync-profile" class="{{ not settings.populateProfile ? 'hidden' }}">
+            {{ forms.lightswitchField({
+                label: 'Sync User Profile' | t('social-login'),
+                instructions: 'Whether existing users should have their profiles synced with the provider on subsequent logins.' | t('social-login'),
+                name: 'syncProfile',
+                on: settings.syncProfile,
+                errors: settings.getErrors('syncProfile'),
+                warning: macros.configWarning('syncProfile', 'social-login'),
+            }) }}
+        </div>
 
         {% set groups = [] %}
 

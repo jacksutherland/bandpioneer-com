@@ -49,6 +49,9 @@ class AuthController extends Controller
             // Keep track of which provider instance is for, so we can fetch it in the callback
             Session::set('providerHandle', $providerHandle);
 
+            // Allow users to store data to be saved for later
+            Session::set('data', $this->request->getParam('data'));
+
             // Keep track of CP requests and if resuming a session
             Session::set('isCpRequest', $this->request->getIsCpRequest());
             Session::set('loginName', $this->request->getParam('loginName'));
@@ -116,9 +119,9 @@ class AuthController extends Controller
             return $this->redirect($redirect);
         } catch (Throwable $e) {
             Session::setError('social-login', Craft::t('social-login', 'Unable to process callback for “{provider}”: “{message}”', [
-                    'provider' => $providerHandle,
-                    'message' => $e->getMessage(),
-                ]));
+                'provider' => $providerHandle,
+                'message' => $e->getMessage(),
+            ]));
 
             SocialLogin::error('Unable to process callback for “{provider}”: “{message}” {file}:{line}', [
                 'provider' => $providerHandle,

@@ -133,6 +133,12 @@ class Users extends Component
         $user = $this->_matchExistingUser($provider, $userProfile);
 
         if ($user) {
+            // Check if the User profile should be remapped
+            if ($settings->populateProfile && $settings->syncProfile) {
+                $user = $this->_syncUserProfile($provider, $user, $userProfile);
+                Craft::$app->getElements()->saveElement($user);
+            }
+
             return $user;
         }
 
@@ -215,44 +221,50 @@ class Users extends Component
         $user->email = $userProfile->email;
 
         if ($settings->populateProfile) {
-            $userFields = $provider->getCraftUserFields();
+            $user = $this->_syncUserProfile($provider, $user, $userProfile);
+        }
 
-            foreach (array_filter($provider->fieldMapping) as $attribute => $profile) {
-                $value = null;
+        return $user;
+    }
 
-                try {
-                    // Get the raw value from the provider. UserProfile smart enough to return `null`.
-                    $value = $userProfile->$profile;
+    private function _syncUserProfile(Provider $provider, User $user, UserProfile $userProfile): User {
+        $userFields = $provider->getCraftUserFields();
 
-                    // Get the destination field/attribute UserField model to parse mapping
-                    $userField = ArrayHelper::firstWhere($userFields, 'handle', $attribute) ?? UserField::TYPE_STRING;
+        foreach (array_filter($provider->fieldMapping) as $attribute => $profile) {
+            $value = null;
 
-                    // Get the parsed value
-                    $value = $this->_getFieldMappingValue($user, $userField, $value);
+            try {
+                // Get the raw value from the provider. UserProfile smart enough to return `null`.
+                $value = $userProfile->$profile;
 
-                    if (!$value) {
-                        continue;
-                    }
+                // Get the destination field/attribute UserField model to parse mapping
+                $userField = ArrayHelper::firstWhere($userFields, 'handle', $attribute) ?? UserField::TYPE_STRING;
 
-                    $isField = str_starts_with($attribute, 'field:');
-                    $attribute = str_replace('field:', '', $attribute);
+                // Get the parsed value
+                $value = $this->_getFieldMappingValue($user, $userField, $value);
 
-                    if ($isField) {
-                        $user->setFieldValue($attribute, $value);
-                    } else {
-                        $user->$attribute = $value;
-                    }
-                } catch (Throwable $e) {
-                    SocialLogin::error('Error mapping field “{field}:{profile}” - “{value}” for “{provider}”: “{message}” {file}:{line}', [
-                        'value' => Json::encode($value),
-                        'field' => $attribute,
-                        'profile' => $profile,
-                        'provider' => $provider->handle,
-                        'message' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
-                    ]);
+                if (!$value) {
+                    continue;
                 }
+
+                $isField = str_starts_with($attribute, 'field:');
+                $attribute = str_replace('field:', '', $attribute);
+
+                if ($isField) {
+                    $user->setFieldValue($attribute, $value);
+                } else {
+                    $user->$attribute = $value;
+                }
+            } catch (Throwable $e) {
+                SocialLogin::error('Error mapping field “{field}:{profile}” - “{value}” for “{provider}”: “{message}” {file}:{line}', [
+                    'value' => Json::encode($value),
+                    'field' => $attribute,
+                    'profile' => $profile,
+                    'provider' => $provider->handle,
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
             }
         }
 

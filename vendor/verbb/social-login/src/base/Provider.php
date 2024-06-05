@@ -176,8 +176,8 @@ abstract class Provider extends SavableComponent implements ProviderInterface
                 'required' => true,
             ]),
             new UserField([
-                'name' => 'Name',
-                'handle' => 'name',
+                'name' => 'Full Name',
+                'handle' => 'fullName',
             ]),
             new UserField([
                 'name' => 'First Name',

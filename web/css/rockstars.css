@@ -1,1 +1,155 @@
-@font-face{font-display:swap;font-family:BandPioneerHeader;src:url(/assets/fonts/conthrax-sb.woff2) format("woff2"),url(/assets/fonts/conthrax-sb.woff) format("woff")}body{background-color:#f0f3f3;padding-top:70px}nav.categories{display:none}.rockstars-container{align-items:stretch;display:block;gap:0 20px;margin:20px;max-width:1050px}@media (min-width:1090px){.rockstars-container{margin:20px auto}}@media (min-width:768px){.rockstars-container{display:flex;justify-content:center}}p{margin:10px 0}.two-col{display:flex;flex-direction:column;flex-wrap:wrap;gap:5px;margin:5px 0 20px}.two-col p{align-items:center;background-color:#f0f3f3;border-radius:3px;box-sizing:border-box;color:#434343;display:flex;flex:1 1 calc(50% - 5px);font-size:.94rem;font-weight:600;justify-content:space-between;margin:0;padding:1px 7px}.two-col p.dislike{font-weight:400;text-decoration:line-through}.two-col p svg{height:18px;width:18px}.two-col p svg path{fill:#c7c7c7}@media (min-width:576px){.two-col{flex-direction:row}}@media (min-width:768px){.two-col{flex-direction:column}}@media (min-width:992px){.two-col{flex-direction:row}}section{background-color:#fff;border-radius:4px;box-shadow:0 3px 6px rgba(0,0,0,.03),0 7px 14px rgba(0,17,35,.03);margin:0 0 20px;overflow:hidden;padding:20px}@media (min-width:576px){section{min-width:360px}}section.my-account{position:relative}section.my-account h1{color:#fff;left:-200px;position:absolute;top:140px;transform:rotate(-90deg)}section h1,section h2,section h3{color:#d0000e;margin:6px 0}section h1:first-child,section h2:first-child,section h3:first-child{margin-top:0}section h2{line-height:2rem;margin-bottom:10px}section h3{line-height:1.6rem}section article{align-items:center;display:flex;gap:10px;margin:10px 0}section article a{flex:1}section article figure{background-color:#f0f3f3;border-radius:3px;margin:0;min-height:80px;overflow:hidden;width:150px}section article figure img{border-radius:3px;width:100%}
+/**
+ * Band Pioneer, LLC - October 2023
+ * 
+ * The SCSS variables stylesheet
+ */
+/***** FONTS *****/
+@font-face {
+  font-family: "BandPioneerHeader";
+  src: url("/assets/fonts/conthrax-sb.woff2") format("woff2"), url("/assets/fonts/conthrax-sb.woff") format("woff");
+  font-display: swap;
+}
+/***** BREAKPOINTS *****/
+/***** COLORS *****/
+/***** SPACING *****/
+/***** SIZES *****/
+/***** BORDERS *****/
+/***** EFX *****/
+body {
+  background-color: #F0F3F3;
+  padding-top: 70px;
+}
+
+nav.categories {
+  display: none;
+}
+
+.rockstars-container {
+  display: block;
+  align-items: stretch;
+  gap: 0 20px;
+  max-width: 1050px;
+  margin: 20px;
+}
+@media (min-width: 1090px) {
+  .rockstars-container {
+    margin: 20px auto;
+  }
+}
+@media (min-width: 768px) {
+  .rockstars-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+p {
+  margin: 10px 0;
+}
+
+.two-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px 0 20px 0;
+}
+.two-col p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F0F3F3;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #434343;
+  flex: 1 1 calc(50% - 5px);
+  font-size: 0.94rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 1px 7px;
+}
+.two-col p.dislike {
+  font-weight: 400;
+  text-decoration: line-through;
+}
+.two-col p svg {
+  height: 18px;
+  width: 18px;
+}
+.two-col p svg path {
+  fill: #c7c7c7;
+}
+@media (min-width: 576px) {
+  .two-col {
+    flex-direction: row;
+  }
+}
+@media (min-width: 768px) {
+  .two-col {
+    flex-direction: column;
+  }
+}
+@media (min-width: 992px) {
+  .two-col {
+    flex-direction: row;
+  }
+}
+
+section {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
+  margin: 0 0 20px 0;
+  overflow: hidden;
+  padding: 20px;
+}
+@media (min-width: 576px) {
+  section {
+    min-width: 360px;
+  }
+}
+section.my-account {
+  position: relative;
+}
+section.my-account h1 {
+  position: absolute;
+  left: -200px;
+  top: 140px;
+  color: #FFFFFF;
+  transform: rotate(-90deg);
+}
+section h1, section h2, section h3 {
+  margin: 6px 0;
+  color: #d0000e;
+}
+section h1:first-child, section h2:first-child, section h3:first-child {
+  margin-top: 0;
+}
+section h2 {
+  line-height: 2rem;
+  margin-bottom: 10px;
+}
+section h3 {
+  line-height: 1.6rem;
+}
+section article {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+section article a {
+  flex: 1;
+}
+section article figure {
+  background-color: #F0F3F3;
+  border-radius: 3px;
+  margin: 0;
+  min-height: 80px;
+  overflow: hidden;
+  width: 150px;
+}
+section article figure img {
+  border-radius: 3px;
+  width: 100%;
+}

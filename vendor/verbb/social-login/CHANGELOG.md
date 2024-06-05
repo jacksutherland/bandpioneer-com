@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.0.2 - 2024-05-29
+
+### Added
+- Added a new Plugin setting for syncing user profiles for existing accounts (thanks @SwiseWeb).
+- Add the ability to set `data` for a login request, where users might want to store extra information.
+
+### Changed
+- Update English translations.
+
+### Fixed
+- Fix URL normalization for headless redirect URI.
+- Fix an error with `headlessMode` and CP-based logins.
+- Fix LinkedIn provider and the v2 API.
+- Fix an error when using “Name” as a value for matching an existing user. This is now “Full Name”.
+- Fix control panel login not working correctly.
+
 ## 2.0.1 - 2024-05-14
 
 ### Fixed
@@ -21,6 +37,27 @@
 - Fix an error when uninstalling the plugin.
 - Fix Salesforce provider.
 - Fix Apple provider not saving.
+
+## 1.0.15 - 2024-05-29
+
+### Added
+- Added a new Plugin setting for syncing user profiles for existing accounts (thanks @SwiseWeb).
+
+### Changed
+- Update English translations.
+
+### Fixed
+- Fix URL normalization for headless redirect URI.
+- Fix an error with `headlessMode` and CP-based logins.
+- Fix LinkedIn provider and the v2 API.
+
+## 1.0.14 - 2024-04-29
+
+### Added
+- Add support for `headlessMode` redirect URIs.
+
+### Changed
+- Update English translations.
 
 ## 1.0.13 - 2024-04-05
 
@@ -46,7 +83,6 @@
 
 ### Added
 - Add IdentityServer4 provider.
-- Now requires Craft `5.0.0+`.
 
 ## 1.0.9 - 2023-12-08
 

@@ -19,7 +19,7 @@ Craft.SocialLogin.CpLoginForm = Garnish.Base.extend({
 
         this.bindSubmitButtons();
 
-        const $form = $('#login #login-form');
+        const $form = $('.login-form-container');
 
         // Setup regular login form
         if ($form.length) {

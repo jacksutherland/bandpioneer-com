@@ -28,10 +28,9 @@ class LinkedIn extends OAuthProvider
     public function getUserProfileFields(): array
     {
         return [
-            'firstName',
-            'lastName',
-            'imageUrl',
-            'url',
+            'given_name',
+            'family_name',
+            'picture',
         ];
     }
 

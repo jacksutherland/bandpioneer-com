@@ -496,6 +496,13 @@ class RockstarService extends Component
         return true;
     }
 
+    public function bandExistsForCurrentUser():bool
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $bandRecord = BandRecord::findOne(['userId' => $currentUser->id]) ?? new BandRecord();
+        return !$bandRecord->getIsNewRecord();
+    }
+
     public function getEpkBySlug($slug)
     {
         $epk = null;
@@ -620,7 +627,6 @@ class RockstarService extends Component
             $bandRecord->save();
 
             $transaction->commit();
-
         }
         catch (Throwable $e)
         {

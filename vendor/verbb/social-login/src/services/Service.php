@@ -74,33 +74,30 @@ class Service extends Component
 
     public function renderCpLogin(): void
     {
-        // Wait until plugins are loaded to check
-        Event::on(Plugins::class, Plugins::EVENT_AFTER_LOAD_PLUGINS, function(Event $event) {
-            try {
-                $settings = SocialLogin::$plugin->getSettings();
-                $request = Craft::$app->getRequest();
-                $view = Craft::$app->getView();
+        try {
+            $settings = SocialLogin::$plugin->getSettings();
+            $request = Craft::$app->getRequest();
+            $view = Craft::$app->getView();
 
-                if ($settings->enableCpLogin && $request->getIsCpRequest()) {
-                    $template = $this->_getTemplate('social-login/_includes/cp-login', $settings->cpLoginTemplate);
+            if ($settings->enableCpLogin && $request->getIsCpRequest()) {
+                $template = $this->_getTemplate('social-login/_includes/cp-login', $settings->cpLoginTemplate);
 
-                    if ($template) {
-                        $html = $view->renderTemplate($template);
+                if ($template) {
+                    $html = $view->renderTemplate($template);
 
-                        $view->registerAssetBundle(SocialLoginAsset::class);
-                        $view->registerJs('new Craft.SocialLogin.CpLoginForm(' . Json::encode([
-                            'html' => $html,
-                        ]) . ');');
-                    }
+                    $view->registerAssetBundle(SocialLoginAsset::class);
+                    $view->registerJs('new Craft.SocialLogin.CpLoginForm(' . Json::encode([
+                        'html' => $html,
+                    ]) . ');');
                 }
-            } catch (Throwable $e) {
-                SocialLogin::error('Unable to render CP Login template: “{message}” {file}:{line}', [
-                    'message' => $e->getMessage(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                ]);
             }
-        });
+        } catch (Throwable $e) {
+            SocialLogin::error('Unable to render CP Login template: “{message}” {file}:{line}', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+        }
     }
 
 

@@ -1,0 +1,83 @@
+{% extends 'account/_layout' %}
+
+{# {% if not band.exists %}
+	{% redirect '/account' %}
+{% endif %} #}
+
+{% block content %}
+
+	<div class="rockstars-container">
+
+		<div class="col">
+			<section>
+				<h2 style="text-wrap:nowrap;">Hey {{ currentUser.fullName }}!</h2>
+				
+				<form id="edit-account" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/bands/save-band">
+					{# <input type="hidden" name="action" value="/bands/save-band"> #}
+		            {{ csrfInput() }}
+					
+					<div class="edit-field">
+						<label>Full Name of Band or Artist</label>
+						<input type="text" name="name" required placeholder="" value="{{ band.name ?? '' }}">
+					</div>
+
+					<div class="edit-field">
+						<label>Phone Number</label>
+						<input type="tel" name="phone" placeholder="(XXX) XXX-XXXX" value="{{ band.phone ?? '' }}">
+					</div>
+
+					<div class="edit-field">
+						<label>Email Address</label>
+						<input type="email" name="email" placeholder="me@mybandsite.com" value="{{ band.email ?? '' }}">
+					</div>
+
+					<div class="edit-field">
+						<label>Website URL</label>
+						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com" value="{{ band.websiteUrl ?? '' }}">
+					</div>
+
+					{% if band.allGenres | length %}
+						<div class="edit-field">
+							<label>Genre</label>
+							<p>Select up to 5 genres that best describe your sound.</p>
+							<div class="checkboxes">
+								{% for genre in band.allGenres %}
+									<label>
+										<input type="checkbox" name="genres[{{ loop.index }}]" value="{{ genre.id }}"{% if genre.checked %} checked=true{% endif %}>
+										{{ genre.title }}
+									</label>
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+					
+					<div class="edit-field">
+						<label>Description</label>
+						<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
+						<textarea name="description">{{ band.description ?? '' }}</textarea>
+					</div>
+
+					<div class="edit-field">
+						<div class="file-upload">
+							{% if band.logo %}
+								<label data-name="Logo">Logo: <span>{{ band.logo.filename }} <a class="link-symbol" target="_blank" href="{{ band.logo.url() }}">⎋</a></span></label>
+								<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+								<a class="btn gray-btn upload-btn" href="/">Replace</a>
+								<a class="btn gray-btn delete-btn" href="/bands/dashboard" data-logo="{{ band.logo.id }}">Delete</a>
+							{% else %}
+								<label data-name="Logo">Logo</label>
+								<input type="file" name="logo" class="hide" accept="image/png, image/gif, image/jpeg, image/svg+xml, image/webp" />
+								<a class="btn gray-btn upload-btn" href="/">Upload an image</a>
+							{% endif %}
+							<br><br>
+						</div>
+					</div>
+
+					<button type="submit">Save</button>
+				</form>
+				
+			</section>
+
+	</div>
+
+{% endblock %}

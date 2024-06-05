@@ -130,6 +130,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Uid\\' => 22,
+            'Symfony\\Component\\TypeInfo\\' => 27,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Serializer\\' => 29,
             'Symfony\\Component\\PropertyInfo\\' => 31,
@@ -358,8 +359,8 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'nystudio107\\codeeditor\\' => 
         array (
@@ -493,6 +494,10 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Symfony\\Component\\Uid\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/uid',
+        ),
+        'Symfony\\Component\\TypeInfo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/type-info',
         ),
         'Symfony\\Component\\String\\' => 
         array (
@@ -685,9 +690,9 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
         ),
         'Illuminate\\Contracts\\' => 
         array (
@@ -3892,6 +3897,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
         'Symfony\\Component\\Process\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessFailedException.php',
         'Symfony\\Component\\Process\\Exception\\ProcessSignaledException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessSignaledException.php',
+        'Symfony\\Component\\Process\\Exception\\ProcessStartFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessStartFailedException.php',
         'Symfony\\Component\\Process\\Exception\\ProcessTimedOutException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessTimedOutException.php',
         'Symfony\\Component\\Process\\Exception\\RunProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/RunProcessFailedException.php',
         'Symfony\\Component\\Process\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/process/Exception/RuntimeException.php',
@@ -3913,6 +3919,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Symfony\\Component\\PropertyAccess\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/property-access/Exception/ExceptionInterface.php',
         'Symfony\\Component\\PropertyAccess\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/property-access/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\PropertyAccess\\Exception\\InvalidPropertyPathException' => __DIR__ . '/..' . '/symfony/property-access/Exception/InvalidPropertyPathException.php',
+        'Symfony\\Component\\PropertyAccess\\Exception\\InvalidTypeException' => __DIR__ . '/..' . '/symfony/property-access/Exception/InvalidTypeException.php',
         'Symfony\\Component\\PropertyAccess\\Exception\\NoSuchIndexException' => __DIR__ . '/..' . '/symfony/property-access/Exception/NoSuchIndexException.php',
         'Symfony\\Component\\PropertyAccess\\Exception\\NoSuchPropertyException' => __DIR__ . '/..' . '/symfony/property-access/Exception/NoSuchPropertyException.php',
         'Symfony\\Component\\PropertyAccess\\Exception\\OutOfBoundsException' => __DIR__ . '/..' . '/symfony/property-access/Exception/OutOfBoundsException.php',
@@ -3940,6 +3947,7 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Symfony\\Component\\PropertyInfo\\PhpStan\\NameScopeFactory' => __DIR__ . '/..' . '/symfony/property-info/PhpStan/NameScopeFactory.php',
         'Symfony\\Component\\PropertyInfo\\PropertyAccessExtractorInterface' => __DIR__ . '/..' . '/symfony/property-info/PropertyAccessExtractorInterface.php',
         'Symfony\\Component\\PropertyInfo\\PropertyDescriptionExtractorInterface' => __DIR__ . '/..' . '/symfony/property-info/PropertyDescriptionExtractorInterface.php',
+        'Symfony\\Component\\PropertyInfo\\PropertyDocBlockExtractorInterface' => __DIR__ . '/..' . '/symfony/property-info/PropertyDocBlockExtractorInterface.php',
         'Symfony\\Component\\PropertyInfo\\PropertyInfoCacheExtractor' => __DIR__ . '/..' . '/symfony/property-info/PropertyInfoCacheExtractor.php',
         'Symfony\\Component\\PropertyInfo\\PropertyInfoExtractor' => __DIR__ . '/..' . '/symfony/property-info/PropertyInfoExtractor.php',
         'Symfony\\Component\\PropertyInfo\\PropertyInfoExtractorInterface' => __DIR__ . '/..' . '/symfony/property-info/PropertyInfoExtractorInterface.php',
@@ -4099,6 +4107,33 @@ class ComposerStaticInit245d973431c1c565c112e2ba32725c53
         'Symfony\\Component\\String\\Slugger\\AsciiSlugger' => __DIR__ . '/..' . '/symfony/string/Slugger/AsciiSlugger.php',
         'Symfony\\Component\\String\\Slugger\\SluggerInterface' => __DIR__ . '/..' . '/symfony/string/Slugger/SluggerInterface.php',
         'Symfony\\Component\\String\\UnicodeString' => __DIR__ . '/..' . '/symfony/string/UnicodeString.php',
+        'Symfony\\Component\\TypeInfo\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/type-info/Exception/ExceptionInterface.php',
+        'Symfony\\Component\\TypeInfo\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/type-info/Exception/InvalidArgumentException.php',
+        'Symfony\\Component\\TypeInfo\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/type-info/Exception/LogicException.php',
+        'Symfony\\Component\\TypeInfo\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/type-info/Exception/RuntimeException.php',
+        'Symfony\\Component\\TypeInfo\\Exception\\UnsupportedException' => __DIR__ . '/..' . '/symfony/type-info/Exception/UnsupportedException.php',
+        'Symfony\\Component\\TypeInfo\\Type' => __DIR__ . '/..' . '/symfony/type-info/Type.php',
+        'Symfony\\Component\\TypeInfo\\TypeContext\\TypeContext' => __DIR__ . '/..' . '/symfony/type-info/TypeContext/TypeContext.php',
+        'Symfony\\Component\\TypeInfo\\TypeContext\\TypeContextFactory' => __DIR__ . '/..' . '/symfony/type-info/TypeContext/TypeContextFactory.php',
+        'Symfony\\Component\\TypeInfo\\TypeFactoryTrait' => __DIR__ . '/..' . '/symfony/type-info/TypeFactoryTrait.php',
+        'Symfony\\Component\\TypeInfo\\TypeIdentifier' => __DIR__ . '/..' . '/symfony/type-info/TypeIdentifier.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\ReflectionParameterTypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/ReflectionParameterTypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\ReflectionPropertyTypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/ReflectionPropertyTypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\ReflectionReturnTypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/ReflectionReturnTypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\ReflectionTypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/ReflectionTypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\StringTypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/StringTypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\TypeResolver' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/TypeResolver.php',
+        'Symfony\\Component\\TypeInfo\\TypeResolver\\TypeResolverInterface' => __DIR__ . '/..' . '/symfony/type-info/TypeResolver/TypeResolverInterface.php',
+        'Symfony\\Component\\TypeInfo\\Type\\BackedEnumType' => __DIR__ . '/..' . '/symfony/type-info/Type/BackedEnumType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\BuiltinType' => __DIR__ . '/..' . '/symfony/type-info/Type/BuiltinType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\CollectionType' => __DIR__ . '/..' . '/symfony/type-info/Type/CollectionType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\CompositeTypeTrait' => __DIR__ . '/..' . '/symfony/type-info/Type/CompositeTypeTrait.php',
+        'Symfony\\Component\\TypeInfo\\Type\\EnumType' => __DIR__ . '/..' . '/symfony/type-info/Type/EnumType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\GenericType' => __DIR__ . '/..' . '/symfony/type-info/Type/GenericType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\IntersectionType' => __DIR__ . '/..' . '/symfony/type-info/Type/IntersectionType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\ObjectType' => __DIR__ . '/..' . '/symfony/type-info/Type/ObjectType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\TemplateType' => __DIR__ . '/..' . '/symfony/type-info/Type/TemplateType.php',
+        'Symfony\\Component\\TypeInfo\\Type\\UnionType' => __DIR__ . '/..' . '/symfony/type-info/Type/UnionType.php',
         'Symfony\\Component\\Uid\\AbstractUid' => __DIR__ . '/..' . '/symfony/uid/AbstractUid.php',
         'Symfony\\Component\\Uid\\BinaryUtil' => __DIR__ . '/..' . '/symfony/uid/BinaryUtil.php',
         'Symfony\\Component\\Uid\\Command\\GenerateUlidCommand' => __DIR__ . '/..' . '/symfony/uid/Command/GenerateUlidCommand.php',

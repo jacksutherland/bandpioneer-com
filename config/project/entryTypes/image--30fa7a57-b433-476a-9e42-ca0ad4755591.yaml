@@ -148,8 +148,8 @@ icon: image
 name: Image
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: ''
+slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
-titleTranslationKeyFormat: ''
+titleFormat: null
+titleTranslationKeyFormat: null
 titleTranslationMethod: site

@@ -411,12 +411,12 @@ fieldLayouts:
         userCondition: null
 handle: internal
 hasTitleField: true
-icon: ''
+icon: null
 name: 'Blog - Internal'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: ''
+slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
-titleTranslationKeyFormat: ''
+titleFormat: null
+titleTranslationKeyFormat: null
 titleTranslationMethod: site

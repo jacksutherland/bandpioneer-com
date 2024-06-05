@@ -90,6 +90,8 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/delete-song'] = 'rockstar/bands/delete-song';
                 */
 
+                $event->rules['account/band'] = 'rockstar/bands/dashboard';
+
                 $event->rules['keywords/data'] = 'rockstar/keywords/data';
                 $event->rules['keywords/related'] = 'rockstar/keywords/related';
                 $event->rules['keywords/create-entries'] = 'rockstar/keywords/create-entries';

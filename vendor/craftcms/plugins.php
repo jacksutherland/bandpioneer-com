@@ -104,7 +104,7 @@ return array (
       '@verbb/sociallogin' => $vendorDir . '/verbb/social-login/src',
     ),
     'name' => 'Social Login',
-    'version' => '2.0.1',
+    'version' => '2.0.2',
     'description' => 'Add SSO (Single Sign-On) user login, registration and connecting to social media platforms.',
     'developer' => 'Verbb',
     'developerUrl' => 'https://verbb.io',

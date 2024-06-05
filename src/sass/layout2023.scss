@@ -274,6 +274,11 @@ button,
 		display: inline-flex;
 	}
 
+	&.small {
+		height: $small-input-height;
+		font-size: $small-font-size;
+	}
+
 	&:hover {
 		background-color: $link-hover-color;
 		color: $white;

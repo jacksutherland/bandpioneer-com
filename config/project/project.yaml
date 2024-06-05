@@ -1,4 +1,4 @@
-dateModified: 1717120488
+dateModified: 1717623777
 elementSources:
   craft\elements\Asset:
     -
@@ -68,7 +68,7 @@ elementSources:
         - structure
         - asc
       disabled: false
-      key: 'section:73181943-f37b-46c9-bd22-4f9c35a4af07' # Pages
+      key: 'section:73181943-f37b-46c9-bd22-4f9c35a4af07' # Page
       tableAttributes:
         - postDate
         - expiryDate
@@ -99,7 +99,7 @@ elementSources:
         - structure
         - asc
       disabled: false
-      key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Topics
+      key: 'section:04623371-fa0e-4ff7-84f9-93dcf4e31080' # Topic
       tableAttributes:
         - 'field:ed962f96-407c-48ee-9fe2-daccbb4b7a16' # Headline
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
@@ -114,7 +114,7 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories
+      key: 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Category
       tableAttributes:
         - type
         - 'field:2075787e-20ab-458f-81df-dd47b726a51b' # Show
@@ -127,7 +127,7 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:2ee0929d-42ad-44ca-9f6a-990c73c36c1c' # Bands
+      key: 'section:2ee0929d-42ad-44ca-9f6a-990c73c36c1c' # Band Image
       tableAttributes:
         - 'field:37ff1ae6-ced2-4eaf-b107-93e6e3dd94be' # Band Image
         - dateUpdated
@@ -137,7 +137,7 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:63d793d3-b3e1-4701-9042-5ad2e0cde7df' # Roles
+      key: 'section:63d793d3-b3e1-4701-9042-5ad2e0cde7df' # AI Studio Role
       tableAttributes:
         - 'field:9d9d41d0-9e17-402e-8e87-a5d4346dce47' # Short Description
       type: native
@@ -229,7 +229,7 @@ meta:
     1e42cdc3-f360-43ac-b612-8de6f081ad47: Rockstars # Rockstars
     2abdf5c6-4ea5-4720-abbc-8c97cd3249f7: 'Full Width Mobile Square' # Full Width Mobile Square
     2d08e6f3-ae71-4a17-a1f5-97abeb7193f9: 'Blog Content - Image - Blog Image' # Blog Content - Image - Blog Image
-    2ee0929d-42ad-44ca-9f6a-990c73c36c1c: Bands # Bands
+    2ee0929d-42ad-44ca-9f6a-990c73c36c1c: 'Band Image' # Band Image
     02fb6a1a-8498-4b48-ad99-b61ac895f168: 'CTA Text' # CTA Text
     2ff5d678-8373-4299-bf2b-61d8cf51364b: Blog # Blog
     2ff42ac0-c01a-484a-9e78-a524d5d85090: 'Half Width Desktop' # Half Width Desktop
@@ -269,7 +269,7 @@ meta:
     055b60fb-8617-44d9-aa31-c628008126b0: 'Blog Content - Image & Text - Caption' # Blog Content - Image & Text - Caption
     55fe6bf6-54b5-47c3-af24-9173740cadc0: 'AI Battle' # AI Battle
     61ce33f4-2d2f-429c-89f0-3011ff78cd5f: Homepage # Homepage
-    63d793d3-b3e1-4701-9042-5ad2e0cde7df: Roles # Roles
+    63d793d3-b3e1-4701-9042-5ad2e0cde7df: 'AI Studio Role' # AI Studio Role
     067eba0e-b12d-4661-a61b-9c4a22c91bb4: Media # Media
     68b78cac-18bc-49d2-a702-d76dfdfcfc89: 'Band Carousel Small' # Band Carousel Small
     68c36b78-e56c-45f0-90a2-b93ccc0f1ee6: 'Rich Text' # Rich Text
@@ -309,12 +309,12 @@ meta:
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
     01207986-f2f4-40a3-99e7-b4bc3a3fd701: 'Page Image 2' # Page Image 2
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
-    04623371-fa0e-4ff7-84f9-93dcf4e31080: Topics # Topics
+    04623371-fa0e-4ff7-84f9-93dcf4e31080: Topic # Topic
     04833123-aa51-4fae-b2c2-80377911b8ae: 'Blog Related Content' # Blog Related Content
     6025339c-6b5a-4573-bfec-83f93d0f041a: Percent # Percent
     29031305-9467-4d00-bc36-cea8076d10ac: 'Blog Content - Media - Media ID 2' # Blog Content - Media - Media ID 2
     33001227-43a9-4c08-8a5c-5e8bf0e4e3ac: 'Blog Content - Embed Code - Markup' # Blog Content - Embed Code - Markup
-    73181943-f37b-46c9-bd22-4f9c35a4af07: Pages # Pages
+    73181943-f37b-46c9-bd22-4f9c35a4af07: Page # Page
     a05d873a-0743-4aa3-8da6-214e223452fa: 'Blog Post' # Blog Post
     a070ee30-4cf4-4a25-8bb8-7768d85f66f7: 'Blog Content - Image - Background' # Blog Content - Image - Background
     a3e2f22e-d4a1-4050-a8a8-5a2588565002: 'Disable Ads' # Disable Ads
@@ -324,7 +324,7 @@ meta:
     a76d9316-0e09-4681-bfa2-4bda443e9bed: 'Four Row Post 2023' # Four Row Post 2023
     a47603f2-0b4e-42c5-9f37-84cc7ceac8f0: Topic # Topic
     a55513ef-d394-4e38-a817-4888b4e29651: 'Blog Image Mobile 2x' # Blog Image Mobile 2x
-    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Categories # Categories
+    aa743bfb-7d05-4d44-943b-7bf893d5cbd3: Category # Category
     aae926e2-c2e8-4a90-8787-fa6597dacd90: 'Header Tag' # Header Tag
     ab942308-a9f7-48a6-9dbd-6b80da1b5105: 'AI Battle' # AI Battle
     ac112358-b098-4b74-b9fe-763ece5d27e0: 'Meta Title' # Meta Title

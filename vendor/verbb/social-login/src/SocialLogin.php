@@ -83,6 +83,10 @@ class SocialLogin extends Plugin
             $event->rules['social-login/settings/general'] = 'social-login/settings';
             $event->rules['social-login/settings/providers'] = 'social-login/providers';
             $event->rules['social-login/settings/providers/edit/<handle:{handle}>'] = 'social-login/providers/edit';
+
+            if (Craft::$app->getConfig()->getGeneral()->headlessMode || !Craft::$app->getConfig()->getGeneral()->cpTrigger) {
+                $event->rules['social-login/auth/callback'] = 'social-login/auth/callback';
+            }
         });
     }
 

@@ -14,7 +14,7 @@ settings:
   showCardsInGrid: false
   showSiteMenu: false
   sources:
-    - 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Categories
+    - 'section:aa743bfb-7d05-4d44-943b-7bf893d5cbd3' # Category
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null

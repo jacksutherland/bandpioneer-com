@@ -1,23 +1,4 @@
-{% extends '_layout2023' %}
-
-{% if not currentUser %}
-	{# {% exit 403 %} #}
-	{% redirect '/?login=true' %}
-{% endif %}
-
-{% set versionNumber = 'rockstars-1.003' %}
-{% set pageTitle = "My Account" %}
-{% set entry = { slug: 'my-account', title: 'My Account', section: { handle: 'account' } } %}
-
-{% set showCategoryNav = false %}
-
-{% set rankingEntries = craft.rockstar.getRankEntries() %}
-{% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
-
-{% block styles %}
-    <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
-    <link rel="stylesheet" href="{{ url('css/rockstars.css') }}?version={{ versionNumber }}" /> 
-{% endblock %}
+{% extends 'account/_layout' %}
 
 {% block content %}
 
@@ -32,6 +13,13 @@
 				</p>
 				<p>
 					<strong>Email:</strong> {{ currentUser.email }} (<strong><a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a></strong>)
+				</p>
+				<p>
+					{% if craft.bands.exists() %}
+						<a class="btn small" href="account/band">Edit Your Band</a>
+					{% else %}
+						<a class="btn small" href="account/band">Create Your Band</a>
+					{% endif %}
 				</p>
 			</section>
 			

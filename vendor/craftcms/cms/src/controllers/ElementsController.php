@@ -334,7 +334,7 @@ class ElementsController extends Controller
         $type = $element::lowerDisplayName();
         $enabledForSite = $element->getEnabledForSite();
         $hasRoute = $element->getRoute() !== null;
-        $redirectUrl = $element->getPostEditUrl() ?? Craft::$app->getConfig()->getGeneral()->getPostCpLoginRedirect();
+        $redirectUrl = ElementHelper::rootElement($element)->getPostEditUrl() ?? Craft::$app->getConfig()->getGeneral()->getPostCpLoginRedirect();
 
         // Site statuses
         if ($canEditMultipleSites) {
@@ -1482,9 +1482,11 @@ JS, [
 
         // Keep track of all newly-created draft IDs
         $draftElementIds = [];
+        $draftElementUids = [];
         $draftsService = Craft::$app->getDrafts();
-        $draftsService->on(Drafts::EVENT_AFTER_CREATE_DRAFT, function(DraftEvent $event) use (&$draftElementIds) {
+        $draftsService->on(Drafts::EVENT_AFTER_CREATE_DRAFT, function(DraftEvent $event) use (&$draftElementIds,  &$draftElementUids) {
             $draftElementIds[$event->canonical->id] = $event->draft->id;
+            $draftElementUids[$event->canonical->uid] = $event->draft->uid;
         });
 
         $db = Craft::$app->getDb();
@@ -1539,6 +1541,7 @@ JS, [
             'draftNotes' => $element->draftNotes,
             'modifiedAttributes' => $element->getModifiedAttributes(),
             'draftElementIds' => $draftElementIds,
+            'draftElementUids' => $draftElementUids,
         ];
 
         if ($this->request->getIsCpRequest()) {
@@ -1631,8 +1634,13 @@ JS, [
         $this->requirePostRequest();
         $elementsService = Craft::$app->getElements();
 
-        /** @var Element|DraftBehavior|null $element */
+        /** @var Element|DraftBehavior|Response|null $element */
         $element = $this->_element();
+
+        // this can happen if creating element via slideout, and we hit "create entry" before the autosave kicks in
+        if ($element instanceof Response) {
+            return $element;
+        }
 
         if (!$element || !$element->getIsDraft()) {
             throw new BadRequestHttpException('No draft was identified by the request.');

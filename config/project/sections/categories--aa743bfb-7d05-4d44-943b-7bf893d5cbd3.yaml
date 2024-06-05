@@ -6,7 +6,7 @@ entryTypes:
   - d70ad590-bed7-4878-a8d8-ca2759e4ae4d # Decade
 handle: categories
 maxAuthors: 1
-name: Categories
+name: Category
 propagationMethod: all
 siteSettings:
   1a69adf3-7129-4f03-a788-c50df99aa120: # Band Pioneer

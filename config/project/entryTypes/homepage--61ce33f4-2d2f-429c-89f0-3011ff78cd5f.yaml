@@ -170,12 +170,12 @@ fieldLayouts:
         userCondition: null
 handle: homepage
 hasTitleField: false
-icon: ''
+icon: null
 name: Homepage
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: ''
+slugTranslationKeyFormat: null
 slugTranslationMethod: site
 titleFormat: '{section.name|raw}'
-titleTranslationKeyFormat: ''
+titleTranslationKeyFormat: null
 titleTranslationMethod: site
