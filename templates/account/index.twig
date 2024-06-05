@@ -14,13 +14,13 @@
 				<p>
 					<strong>Email:</strong> {{ currentUser.email }} (<strong><a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a></strong>)
 				</p>
-				<p>
+				{# <p>
 					{% if craft.bands.exists() %}
 						<a class="btn small" href="account/band">Edit Your Band</a>
 					{% else %}
 						<a class="btn small" href="account/band">Create Your Band</a>
 					{% endif %}
-				</p>
+				</p> #}
 			</section>
 			
 			<section>

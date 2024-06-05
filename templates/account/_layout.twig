@@ -1,7 +1,5 @@
 {% extends '_layout2023' %}
 
-{% redirect 404 %}
-
 {% if not currentUser %}
 	{% redirect '/?login=true' %}
 {% endif %}
