@@ -56,18 +56,31 @@ $secondary-color: #f90215;
 $secondary-dark: #d0000e;
 $secondary-darker: #bd0a1d;
 $alternate-color: #0a79a4;
-$light-gray: #F0F3F3;
-$medium-gray: #E0E0E0;
 $white: #FFFFFF;
+$black: #000000;
+
+$gray-5: lighten($black, 95%); // $light-gray
+$gray-10: lighten($black, 90%); // $medium-gray
+$gray-20: lighten($black, 80%);
+$gray-40: lighten($black, 60%);
+$gray-50: lighten($black, 50%);
+$gray-70: lighten($black, 30%);
+
+// $light-gray: #F0F3F3;
+// $medium-gray: #E0E0E0;
+// $dark-gray: darken($medium-gray, 45%);
 
 $blog-headline-color: #5e5e5e;
 $border-color: #e0e0e0; //#e3e7e9;
 $darker-border-color: #cccccc;
 $caption-color: #626262;
 $font-color: #111111;
-$error-color: $secondary-color;
 $lighter-font-color: #444444;
 $lightest-font-color: #777777;
+$error-color: $secondary-color;
+$error-background-color: lighten($error-color, 48%);
+$notice-color: darken($alternate-color, 12%);
+$notice-background-color: lighten($alternate-color, 62%);
 $link-color: $alternate-color;
 $link-hover-color: darken($link-color, 12%);
 
@@ -88,6 +101,7 @@ $section-spacing: ($object-spacing * 2);
 
 $site-width: 1200px;
 $blog-width: 800px;
+$community-width: 820px;
 $blog-post-mobile-width: 178px;
 $popular-post-mobile-width: 220px;
 $popular-post-md-width: 282px;

@@ -47,7 +47,7 @@ svg.spinner {
   display: none;
 }
 svg.spinner path {
-  fill: #E0E0E0;
+  fill: #e6e6e6;
 }
 
 #ai-response {

@@ -3,7 +3,7 @@
 @import 'layout2023';
 
 .categories {
-	background-color: $light-gray; //$primary-dark;
+	background-color: $gray-5;
 
 	nav {
 		ul {
@@ -59,7 +59,7 @@
 	#category-description {
 		display: flex;
     	align-items: center;
-		background-color: lighten($light-gray, 5%);
+		background-color: $white;
 		text-align: center;
 		font-size: $font-size-small;
 		line-height: 1.25rem;

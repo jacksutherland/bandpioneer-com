@@ -1,6 +1,6 @@
 {% extends 'account/_layout' %}
 
-{% redirect 404 %}
+{% set entry = { slug: 'my-band', title: 'My Band', section: { handle: 'my-band' } } %}
 
 {% block content %}
 
@@ -14,8 +14,18 @@
 					{# <input type="hidden" name="action" value="/bands/save-band"> #}
 		            {{ csrfInput() }}
 					
+					{% if error %}
+						<div class="flash-error">
+							<span>{{ error }}</span>
+						</div>
+					{% elseif notice %}
+						<div class="flash-notice">
+							<span>{{ notice }}</span>
+						</div>
+					{% endif %}
+
 					<div class="edit-field">
-						<label>Full Name of Band or Artist</label>
+						<label>Band or Artist Name</label>
 						<input type="text" name="name" required placeholder="" value="{{ band.name ?? '' }}">
 					</div>
 
@@ -34,7 +44,7 @@
 						<input type="url" name="websiteUrl" placeholder="https://mybandsite.com" value="{{ band.websiteUrl ?? '' }}">
 					</div>
 
-					{% if band.allGenres | length %}
+{# 					{% if band.allGenres | length %}
 						<div class="edit-field">
 							<label>Genre</label>
 							<p>Select up to 5 genres that best describe your sound.</p>
@@ -47,15 +57,14 @@
 								{% endfor %}
 							</div>
 						</div>
-					{% endif %}
+					{% endif %} #}
 					
 					<div class="edit-field">
 						<label>Description</label>
-						<p>A short 1 paragraph description about your band, style of music, and what people can expect when seeing you perform.</p>
 						<textarea name="description">{{ band.description ?? '' }}</textarea>
 					</div>
 
-					<div class="edit-field">
+			{# 		<div class="edit-field">
 						<div class="file-upload">
 							{% if band.logo %}
 								<label data-name="Logo">Logo: <span>{{ band.logo.filename }} <a class="link-symbol" target="_blank" href="{{ band.logo.url() }}">⎋</a></span></label>
@@ -69,9 +78,12 @@
 							{% endif %}
 							<br><br>
 						</div>
-					</div>
+					</div> #}
 
-					<button type="submit">Save</button>
+					<div class="buttons">
+						<a href="/account">Back to Account</a>
+						<button type="submit">Save</button>
+					</div>
 				</form>
 				
 			</section>

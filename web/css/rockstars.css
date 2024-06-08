@@ -16,7 +16,7 @@
 /***** BORDERS *****/
 /***** EFX *****/
 body {
-  background-color: #F0F3F3;
+  background-color: #f2f2f2;
   padding-top: 70px;
 }
 
@@ -58,7 +58,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F0F3F3;
+  background-color: #f2f2f2;
   border-radius: 3px;
   box-sizing: border-box;
   color: #434343;
@@ -77,7 +77,7 @@ p {
   width: 18px;
 }
 .two-col p svg path {
-  fill: #c7c7c7;
+  fill: #cccccc;
 }
 @media (min-width: 576px) {
   .two-col {
@@ -96,7 +96,7 @@ p {
 }
 
 section {
-  background-color: white;
+  background-color: #FFFFFF;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
   margin: 0 0 20px 0;
@@ -108,6 +108,13 @@ section {
     min-width: 360px;
   }
 }
+section.page-header {
+  padding: 20px 0;
+}
+section:not(.page-header) {
+  max-width: 780px;
+  padding: 20px;
+}
 section.my-account {
   position: relative;
 }
@@ -117,6 +124,9 @@ section.my-account h1 {
   top: 140px;
   color: #FFFFFF;
   transform: rotate(-90deg);
+}
+section.my-account .btn + br + .btn {
+  margin-top: 10px;
 }
 section h1, section h2, section h3 {
   margin: 6px 0;
@@ -142,7 +152,7 @@ section article a {
   flex: 1;
 }
 section article figure {
-  background-color: #F0F3F3;
+  background-color: #f2f2f2;
   border-radius: 3px;
   margin: 0;
   min-height: 80px;
@@ -152,4 +162,186 @@ section article figure {
 section article figure img {
   border-radius: 3px;
   width: 100%;
+}
+section form.long-form .buttons {
+  max-width: 600px;
+}
+section form.long-form .edit-field input, section form.long-form .edit-field textarea {
+  width: 600px;
+}
+section form.long-form .edit-field textarea {
+  height: 150px;
+}
+section form .flash-error, section form .flash-notice {
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-align: right;
+}
+section form .flash-error {
+  color: #f90215;
+}
+section form .flash-notice {
+  color: #064e6a;
+}
+section form .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 400px;
+}
+section form .buttons a:not(.btn) {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+section form .buttons button {
+  min-width: 120px;
+}
+section form .edit-field {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin: 10px 0;
+}
+section form .edit-field label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-right: 20px;
+  width: 150px;
+}
+section form .edit-field label.status {
+  display: none;
+  width: 220px;
+  text-align: left;
+  margin-right: 0;
+  margin-top: -10px;
+  font-weight: 500;
+  color: #4d4d4d;
+}
+section form .edit-field input, section form .edit-field textarea {
+  width: 350px;
+}
+section form .edit-field textarea {
+  height: 200px;
+}
+section form .edit-field textarea.long-field {
+  height: 300px;
+}
+section form .edit-field textarea.short-field {
+  height: 100px;
+}
+section form .edit-field select {
+  min-width: 225px;
+}
+section form .edit-field select + label {
+  margin-top: 10px;
+  width: auto;
+}
+@media (min-width: 768px) {
+  section form .buttons {
+    margin-left: 170px;
+  }
+  section form .edit-field {
+    align-items: center;
+    flex-direction: row;
+  }
+  section form .edit-field label {
+    text-align: right;
+  }
+  section form .edit-field label.status {
+    display: inline;
+  }
+  section form .edit-field select + label {
+    margin-left: auto;
+    margin-top: 0;
+  }
+  section form .edit-field select + label + select {
+    margin-left: 0;
+  }
+}
+section .bubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background-color: #f2f2f2;
+  border-radius: 15px;
+  color: gray;
+  font-size: 0.86rem;
+  line-height: 0.86rem;
+  height: 30px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 12px;
+}
+section .bubble svg {
+  height: 14px;
+}
+section .bubble svg path {
+  fill: gray;
+}
+
+.bulletin-board .flash-error, .bulletin-board .flash-notice {
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.bulletin-board .flash-error {
+  background-color: #fff1f2;
+}
+.bulletin-board .flash-notice {
+  background-color: #ecf9fe;
+}
+.bulletin-board a > section {
+  transition: box-shadow 0.3s;
+}
+.bulletin-board a > section:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 7px 14px rgba(0, 17, 35, 0.1);
+}
+.bulletin-board a > section:hover h3 {
+  color: #064e6a;
+}
+.bulletin-board a > section:hover > div .bubble {
+  background-color: #e6e6e6;
+}
+.bulletin-board a > section:hover > div h5 {
+  color: #064e6a;
+}
+.bulletin-board section {
+  box-shadow: none;
+}
+.bulletin-board section *:not(a, button, .flash-error, .flash-error span, .flash-notice, .flash-notice span) {
+  color: #111111;
+}
+.bulletin-board section h2, .bulletin-board section h3, .bulletin-board section h4, .bulletin-board section p {
+  margin: 6px 0;
+}
+.bulletin-board section h2, .bulletin-board section h3 {
+  color: #d0000e;
+}
+.bulletin-board section p {
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+.bulletin-board section p + h3 {
+  margin-top: 20px;
+}
+.bulletin-board section > div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+.bulletin-board section > div h5 {
+  margin: 0;
+  transition: color 0.3s;
+}
+.bulletin-board section > div h5 + span {
+  font-size: 0.86rem;
+  line-height: 0.86rem;
+  color: gray;
+}
+.bulletin-board section > div .bubble {
+  margin-left: auto;
+  transition: background-color 0.3s;
 }

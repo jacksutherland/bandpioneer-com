@@ -22,6 +22,7 @@ use craft\web\twig\variables\CraftVariable;
 
 use bandpioneer\rockstar\fields\SeoKeywords as SeoKeywordsField;
 use bandpioneer\rockstar\services\AIService;
+use bandpioneer\rockstar\services\BulletinService;
 use bandpioneer\rockstar\services\KeywordService;
 use bandpioneer\rockstar\services\RockstarService;
 use bandpioneer\rockstar\variables\BandsVariable;
@@ -78,7 +79,6 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/dashboard'] = 'rockstar/bands/dashboard';
 
                 $event->rules['bands/dashboard/edit/<slug>'] = 'rockstar/bands/dashboard';
-                $event->rules['bands/save-band'] = 'rockstar/bands/save-band';
                 $event->rules['bands/save-epk-info'] = 'rockstar/bands/save-epk-info';
                 $event->rules['bands/save-video'] = 'rockstar/bands/save-video';
                 $event->rules['bands/save-song'] = 'rockstar/bands/save-song';
@@ -91,6 +91,10 @@ class Rockstar extends craft\base\Plugin
                 */
 
                 $event->rules['account/band'] = 'rockstar/bands/dashboard';
+                $event->rules['bands/save-band'] = 'rockstar/bands/save-band';
+
+                $event->rules['community/create-bulletin-post'] = 'rockstar/rockstar/create-bulletin-post';
+                $event->rules['community/bulletin-post/<slug>'] = 'rockstar/rockstar/bulletin-post';
 
                 $event->rules['keywords/data'] = 'rockstar/keywords/data';
                 $event->rules['keywords/related'] = 'rockstar/keywords/related';
@@ -142,6 +146,11 @@ class Rockstar extends craft\base\Plugin
         return $this->get('keywordService');
     }
 
+    public function getBulletinService(): BulletinService
+    {
+        return $this->get('bulletinService');
+    }
+
 
     // Private Methods
     // =========================================================================
@@ -151,7 +160,8 @@ class Rockstar extends craft\base\Plugin
         $this->setComponents([
             'service' => RockstarService::class,
             'aiService' => AIService::class,
-            'keywordService' => KeywordService::class
+            'keywordService' => KeywordService::class,
+            'bulletinService' => BulletinService::class
         ]);
     }
 

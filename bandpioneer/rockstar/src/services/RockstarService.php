@@ -28,6 +28,8 @@ use craft\errors\ImageException;
 
 use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\records\BandRecord as BandRecord;
+use bandpioneer\rockstar\records\BulletinPostRecord as BulletinPostRecord;
+use bandpioneer\rockstar\records\BulletinReplyRecord as BulletinReplyRecord;
 use bandpioneer\rockstar\records\RankingRecord as RankingRecord;
 use bandpioneer\rockstar\records\EpkRecord as EpkRecord;
 use bandpioneer\rockstar\models\EpkModel as EpkModel;
@@ -254,27 +256,6 @@ class RockstarService extends Component
 
     public function getRankEntries()
     {
-        // $rankableEntries = Entry::find()->section('blog')->enableRanking([true])->all();
-        // $rankingData = [];
-
-        // foreach($rankableEntries as $entry)
-        // {
-        //     $currentUser = Craft::$app->getUser()->getIdentity();
-        //     $rankingCount = RankingRecord::find()->where(['entryId' => $entry->id, 'userId' => $currentUser->id])->count();
-
-        //     if($rankingCount == 0)
-        //     {
-        //         array_push($rankingData, [
-        //             'entryId' => $entry->id,
-        //             'entryTitle' => $entry->title,
-        //             'entryUrl' => $entry->url,
-        //             'blogImage' => $entry->blogImage->count() ? $entry->blogImage->one() : null,
-        //         ]);
-        //     }
-        // }
-
-        // return $rankingData;
-
         $currentUser = Craft::$app->getUser()->getIdentity();
         $rankableEntries = Entry::find()->section('blog')->type('internal')->all();
         $rankingData = [];
@@ -618,11 +599,11 @@ class RockstarService extends Component
             $bandRecord->phone = $band['phone'];
             $bandRecord->email = $band['email'];
             $bandRecord->description = $band['description'];
-            $bandRecord->genres = json_encode($band['genres']);
-            if($band['logoId'])
-            {
-                $bandRecord->logoId = $band['logoId'];
-            }
+            // $bandRecord->genres = json_encode($band['genres']);
+            // if($band['logoId'])
+            // {
+            //     $bandRecord->logoId = $band['logoId'];
+            // }
             
             $bandRecord->save();
 

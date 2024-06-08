@@ -237,7 +237,7 @@ figure {
 .ranker-buttons {
 	display: flex;
 	align-items: center;
-	background-color: $light-gray;
+	background-color: $gray-5;
 	border-radius: $img-radius;
 	gap: 10px;
 	margin: $paragraph-spacing 0;
@@ -267,6 +267,7 @@ button,
 	font-weight: $semi-bold-font;
 	height: $input-height;
 	padding: 0 $object-padding;
+	text-align: center;
 	transition: background-color $transition-time;
 
 	&.btn {
@@ -307,7 +308,7 @@ button,
 
 			path {
 				fill: $link-color;
-				fill: darken($medium-gray, 30%);
+				fill: $gray-40;
 				transition: fill $transition-time;
 			}
 		}
@@ -318,7 +319,7 @@ button,
 
 		svg {
 			path {
-				fill: darken($medium-gray, 30%);
+				fill: $gray-40;
 			}
 		}
 	}
@@ -402,9 +403,12 @@ a {
 		}
 
 		svg {
-			width: 15px;
     		fill: $white;
     		vertical-align: middle;
+
+    		path {
+    			fill: $white;
+    		}
 		}
 
 		span {
@@ -413,6 +417,15 @@ a {
 			line-height: $category-label-height;
 			margin-left: 4px;
 			vertical-align: middle;
+		}
+	}
+
+	svg {
+		width: 15px;
+		vertical-align: text-top;
+
+		path {
+			fill: $link-color;
 		}
 	}
 }
@@ -485,7 +498,7 @@ a {
 			    transition: background-color $transition-time;
 
 			    &:hover {
-			    	background-color: $light-gray;
+			    	background-color: $gray-5;
 
 			    	svg {
 							path {
@@ -560,7 +573,7 @@ a {
 				width: 100%;
 
 				&:hover {
-					background-color: $light-gray;
+					background-color: $gray-5;
 					color: $font-color;
 				}
 			}
@@ -590,7 +603,7 @@ a {
 .popup {
 	display: none;
 	position: absolute;
-	background-color: $medium-gray;
+	background-color: $gray-10;
     border-radius: $small-radius;
     box-shadow: $container-shadow;
 	flex-direction: column;
@@ -612,7 +625,7 @@ a {
 	    position: absolute;
 	    border: 10px solid transparent;
 	    border-top: 0;
-	    border-bottom: 10px solid $medium-gray;
+	    border-bottom: 10px solid $gray-10;
 	    content: " ";
 	    height: 0;
 	    left: 50%;
@@ -624,11 +637,29 @@ a {
 }
 
 section {
+	&.page-header {
+		.container {
+		    max-width: $community-width;
+		}
+
+		h1, h2, h3, h4 {
+			margin: 10px 0;
+		}
+
+		h1 {
+			line-height: 2.6rem;
+			margin-top: 10px !important;
+		}
+
+		h4 {
+			font-weight: 500;
+		}
+	}
 	&.blog-row {
 
 		article {
 
-			background-color: $light-gray;
+			background-color: $gray-5;
 			border-radius: $small-radius;
 			// overflow: hidden;
 
@@ -640,20 +671,20 @@ section {
 
 			&.advert {
 				aspect-ratio: 1 / 1;
-				background-color: $light-gray;
+				background-color: $gray-5;
 				overflow: hidden;
 			}
 
 			a.blog-img {
 				display: block;
 				aspect-ratio: 1/1;
-				background-color: $light-gray;
+				background-color: $gray-5;
 				border-radius: $img-radius;
 				line-height: 0;
 				transition: background-color $transition-time;
 
 				&:hover {
-					background-color: $medium-gray;
+					background-color: $gray-10;
 				}
 			}
 
@@ -697,7 +728,7 @@ header.site-header {
 
 	& + section.rich-text,
 	& + #search-toggle + .search-dropdown + section.rich-text {
-		background-color: $light-gray;
+		background-color: $gray-5;
 		border-bottom: solid 1px $white;
 		margin: 0;
 		overflow: hidden;
@@ -812,7 +843,7 @@ header.site-header {
 					display: block;
 					color: $link-color;
 					cursor: pointer;
-					border-bottom: solid 1px $medium-gray;
+					border-bottom: solid 1px $gray-10;
 					font-weight: $semi-bold-font;
 					font-size: $nav-font-size;
 					padding: $gutter-width;
@@ -842,7 +873,7 @@ header.site-header {
 					}
 
 					li {
-						background-color: $light-gray;
+						background-color: $gray-5;
 
 						&:first-child {
 							a {
@@ -1059,7 +1090,7 @@ header.site-header {
 
 					ul {
 						position: absolute;
-						background-color: $medium-gray;
+						background-color: $gray-10;
 					    border-radius: 0 0 $small-radius $small-radius;
 					    box-shadow: $container-shadow !important;
 						flex-direction: column;
@@ -1081,7 +1112,7 @@ header.site-header {
 						    position: absolute;
 						    border: 10px solid transparent;
 						    border-top: 0;
-						    border-bottom: 10px solid $medium-gray;
+						    border-bottom: 10px solid $gray-10;
 						    content: " ";
 						    height: 0;
 						    left: 50%;
@@ -1290,7 +1321,7 @@ footer {
 
 nav.categories {
 	display: none;
-	background-color: $medium-gray; //$light-gray;
+	background-color: $gray-10;
 	height: $categories-height;
 	transition: height $transition-time, background-color $transition-time;
 	width: 100%;
@@ -1334,7 +1365,7 @@ nav.categories {
 					&.active {
 						color: $font-color !important;
 						cursor: default;
-						background-color: darken($medium-gray, 8%);
+						background-color: $gray-20;
 					}
 				}
 
@@ -1356,7 +1387,7 @@ nav.categories {
 	body.sticky {
 		nav.categories {
 			position: fixed;
-			background-color: $light-gray;
+			background-color: $gray-5;
 			box-shadow: $container-shadow;
 			height: $categories-sticky-height;
 			top: $header-sticky-height;
@@ -1370,7 +1401,7 @@ nav.categories {
 							line-height: $categories-sticky-height;
 
 							&.active {
-								background-color: $medium-gray;
+								background-color: $gray-10;
 							}
 						}
 					}

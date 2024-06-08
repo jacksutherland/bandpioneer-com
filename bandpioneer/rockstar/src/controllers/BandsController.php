@@ -60,7 +60,7 @@ class BandsController extends Controller
         $phone = trim($request->getParam('phone'));
         $email = trim($request->getParam('email'));
         $description = trim($request->getParam('description'));
-        $genres = $request->getParam('genres');
+        // $genres = $request->getParam('genres');
 
         // Store the submitted values in session flash data
         Craft::$app->getSession()->setFlash('name', $name);
@@ -68,19 +68,21 @@ class BandsController extends Controller
         Craft::$app->getSession()->setFlash('phone', $phone);
         Craft::$app->getSession()->setFlash('email', $email);
         Craft::$app->getSession()->setFlash('description', $description);
-        Craft::$app->getSession()->setFlash('genres', $genres);
+        // Craft::$app->getSession()->setFlash('genres', $genres);
 
         /*** VALIDATION ***/
 
         if(empty($name))
         {
             Craft::$app->getSession()->setError("A band name is required");
-            return $this->redirect('bands/dashboard/edit/band');
+            // return $this->redirect('bands/dashboard/edit/band');
+            return $this->redirect('account/band');
         }
 
         if(!$service->validateText([$name, $websiteUrl, $phone, $email, $description], 'Band not saved.'))
         {
-            return $this->redirect('bands/dashboard/edit/band');
+            // return $this->redirect('bands/dashboard/edit/band');
+            return $this->redirect('account/band');
         }
 
         /*** SAVE ***/
@@ -88,34 +90,35 @@ class BandsController extends Controller
         $session = Craft::$app->getSession();
         $logoId = null;
 
-        if($logo = UploadedFile::getInstanceByName('logo'))
-        {
-            if(!$service->validateImage([$logo]))
-            {
-                return $this->redirect('bands/dashboard/edit/band');
-            }
+        // if($logo = UploadedFile::getInstanceByName('logo'))
+        // {
+        //     if(!$service->validateImage([$logo]))
+        //     {
+        //         // return $this->redirect('bands/dashboard/edit/band');
+        //         return $this->redirect('account/band');
+        //     }
 
-            $logoLocation = Assets::tempFilePath($logo->getExtension());
-            move_uploaded_file($logo->tempName, $logoLocation);
+        //     $logoLocation = Assets::tempFilePath($logo->getExtension());
+        //     move_uploaded_file($logo->tempName, $logoLocation);
 
-            $logoId = $service->saveCurrentUserBandLogo($logoLocation, $logo->name);
-        }
+        //     $logoId = $service->saveCurrentUserBandLogo($logoLocation, $logo->name);
+        // }
 
         $band = [
             'name' => $name,
             'websiteUrl' => $websiteUrl,
             'phone' => $phone,
             'email' => $email,
-            'description' => $description,
-            'logoId' => $logoId,
-            'genres' => $genres
+            'description' => $description
+            // 'logoId' => $logoId,
+            // 'genres' => $genres
         ];
 
         $service->saveCurrentUserBand($band);
 
         Craft::$app->getSession()->setNotice("Band saved successfully.");
 
-        return $this->redirect('bands/dashboard');
+        return $this->redirect('account/band');
     }
 
     public function actionSaveEpkInfo(): ?Response

@@ -1,17 +1,14 @@
 {% extends '_layout2023' %}
 
-{% if not currentUser %}
+{% set allowAnonymous = allowAnonymous is defined ? allowAnonymous : false %}
+
+{% if not allowAnonymous and not currentUser %}
 	{% redirect '/?login=true' %}
 {% endif %}
 
 {% set versionNumber = 'rockstars-1.003' %}
-{% set pageTitle = "My Account" %}
-{% set entry = { slug: 'my-account', title: 'My Account', section: { handle: 'account' } } %}
-
-{% set showCategoryNav = false %}
-
-{% set rankingEntries = craft.rockstar.getRankEntries() %}
-{% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
+{% set error = craft.app.session.getFlash('error') %}
+{% set notice = craft.app.session.getFlash('notice') %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url('css/site2023.min.css') }}?version={{ versionNumber }}" /> 
