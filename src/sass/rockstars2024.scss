@@ -34,6 +34,21 @@ p {
 	margin: 10px 0;
 }
 
+a {
+	&.bulletin-post {
+		&:hover {
+			svg {
+				transform: rotate(-30deg) translate(0, -3px);
+			}
+		}
+
+		svg {
+			transform: rotate(-20deg);
+			transition: transform $transition-time;
+		}
+	}
+}
+
 .two-col {
 	display: flex;
 	flex-wrap: wrap;
@@ -119,6 +134,11 @@ section {
 			+ br + .btn {
 				margin-top: 10px;
 			}
+		}
+
+		a:not(.btn) {
+			font-size: $nav-font-size;
+			font-weight: 600;
 		}
 	}
 
@@ -328,10 +348,35 @@ section {
 	}
 	a {
 		> section {
+			position: relative;
+			overflow: visible;
 			transition: box-shadow $transition-time;
 
+			> svg {
+				position: absolute;
+				left: -9px;
+    			top: -2px;
+    			transform: rotate(-45deg);
+    			transition: transform $transition-time, left $transition-time, top $transition-time;
+
+				path {
+					fill: lighten($gray-20, 5%);
+					transition: fill $transition-time;
+				}
+			}
+
 			&:hover {
-				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 7px 14px rgba(0, 17, 35, 0.1);
+				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
+
+				> svg {
+    				transform: rotate(-35deg);
+    				left: -3px;
+    				top: -1px;
+
+    				path {
+						fill: $gray-20;
+					}
+				}
 
 				h3 {
 					color: $link-hover-color;

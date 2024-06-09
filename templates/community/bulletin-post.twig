@@ -1,10 +1,7 @@
 {% extends 'account/_layout' %}
+{% import '_includes/macros' as macros %}
 
 {% set allowAnonymous = true %}
-
-{% if post is not defined %}
-	{% exit 404 %}
-{% endif %}
 
 {% set entry = { slug: slug, title: 'Bulletin Board Post', section: { handle: 'bulletin-post' } } %}
 
@@ -13,8 +10,7 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>Band Bulletin Board</h1>
-			<h2>(Beta Version: 1.10)</h2>
-			{# <h4>Are you looking to join a band or find musicians to collaborate with on a project? Browse the posts on this page to connect with other musicians with similar interests and start making music together! Or post details about your skillset, music projects, and the type of collaborations you're working on to help others find you.</h4> #}
+			<h3>(Beta Version: 1.10)</h3>
 		</div>
 	</section>
 
@@ -51,6 +47,21 @@
 				<br>
 				<h4>Description</h4>
 				<p>{{ post.description | nl2br }}</p>
+
+				{% if post.audioUrl | length %}
+					<br>
+					<p>
+						<a href="{{ post.audioUrl }}" target="_blank" class="btn">Play Audio Example</a>
+					</p>
+				{% endif %}
+
+				{% if post.videoUrl | length %}
+					<figure class="video">
+						<div class="player">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ macros.getYoutubeId(post.videoUrl) | trim }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						</div>
+					</figure>
+				{% endif %}
 				
 				{% if post.details | length %}
 					<br>
@@ -129,7 +140,7 @@
 							<textarea name="message">{% if reply and reply.message | length %}{{ reply.message }}{% endif %}</textarea>
 						</div>
 						<div class="buttons">
-							<a href="/account">Return to Bulletin Board</a>
+							<a href="/community/bulletin-board">Return to Bulletin Board</a>
 							<button type="submit">{% if reply and reply.status != 'new' %}Update{% else %}Apply{% endif %}</button>
 						</div>
 					</form>

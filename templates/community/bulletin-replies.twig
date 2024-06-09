@@ -1,0 +1,50 @@
+{% extends 'account/_layout' %}
+{% import '_includes/macros' as macros %}
+
+{% set allowAnonymous = true %}
+
+{% set entry = { slug: 'bulletin-replies', title: 'Bulletin Board Replies', section: { handle: 'bulletin-replies' } } %}
+{% set post = craft.rockstar.getCurrentUserBulletinPost() %}
+{% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies() %}
+
+{% block content %}
+
+	<section class="page-header">
+		<div class="container">
+			<h1>Bulletin Board Replies</h1>
+			<h3>(Beta Version: 1.10)</h3>
+			<h2 class="color-primary-dark">{{ post.title }}</h2>
+		</div>
+	</section>
+
+	<div class="rockstars-container bulletin-board">
+		<div class="col">
+			
+			{% for reply in bulletinReplies %}
+				<section>
+					<h3>{{ reply.role }}</h3>
+					<p>{{ reply.message }}</p>
+					<p>
+						<strong>Email: </strong>
+						<a href="mailto:{{ reply.email }}">{{ reply.email }}</a>
+					</p>
+					{% if reply.audioUrl | length %}
+						<p>
+							<strong>Audio: </strong>
+							<a href="{{ reply.audioUrl }}" target="_blank">{{ reply.audioUrl }}</a>
+						</p>
+					{% endif %}
+					{% if reply.videoUrl | length %}
+						<figure class="video">
+							<div class="player">
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ macros.getYoutubeId(reply.videoUrl) | trim }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+							</div>
+						</figure>
+					{% endif %}
+				</section>
+			{% endfor %}
+
+		</div>
+	</div>
+
+{% endblock %}

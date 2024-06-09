@@ -17,8 +17,9 @@ use Craft;
 use craft\helpers\Json;
 use craft\web\Controller;
 
-use yii\web\Response;
 use yii\log\Logger;
+use yii\web\Response;
+use yii\web\NotFoundHttpException;
 
 /**
  * @author    Band Pioneer
@@ -92,6 +93,11 @@ class RockstarController extends Controller
 
         if (!$this->request->getIsPost())
         {
+            if ($post['status'] == 'new')
+            {
+                throw new NotFoundHttpException('Page not found');
+            }  
+
             if ($reply['status'] != 'new')
             {
                 Craft::$app->getSession()->setNotice($replySentMessage);
@@ -157,7 +163,7 @@ class RockstarController extends Controller
 
         if($isValid)
         {
-            if($bulletinService->saveBulletinPostReply($reply))
+            if($bulletinService->saveBulletinReply($reply))
             {
                 Craft::$app->getSession()->setNotice($replySentMessage);
             }
@@ -186,6 +192,11 @@ class RockstarController extends Controller
 
         if (!$this->request->getIsPost())
         {
+            if($post['status'] == 'new')
+            {
+                Craft::$app->getSession()->setNotice("Your post is pending admin approval.");
+            }
+
             return $this->renderTemplate($template, [
                 'post' => $post,
                 'isNew' => empty($post['slug'])
@@ -249,24 +260,22 @@ class RockstarController extends Controller
 
         if($isValid)
         {
-            $returnVal = $bulletinService->saveBulletinPost($post);
+            $savedPost = $bulletinService->saveBulletinPost($post);
 
-            if(is_string($returnVal))
+            $post['slug'] = $savedPost->slug;
+            $post['status'] = $savedPost->status;
+
+            if($savedPost->status == 'new')
             {
-                $post['slug'] = $returnVal;
-
-                if($post['status'] == 'pending')
-                {
-                    Craft::$app->getSession()->setNotice("Your post has been saved.<br>Change the status to 'Live' when you're ready to show it on the bulletin board.");
-                }
-                else
-                {
-                    Craft::$app->getSession()->setNotice("Your post has been saved, and is live on the bulletin board!");
-                }
+                Craft::$app->getSession()->setNotice("Your post has been saved, and is pending admin approval.");
+            }
+            elseif($savedPost->status == 'pending')
+            {
+                Craft::$app->getSession()->setNotice("Your post has been saved.<br>Change the status to 'Live' when you're ready to show it on the bulletin board.");
             }
             else
             {
-                Craft::$app->getSession()->setError("Server error. Bulletin post not saved.");
+                Craft::$app->getSession()->setNotice("Your post has been saved, and is live on the bulletin board!");
             }
         }
 

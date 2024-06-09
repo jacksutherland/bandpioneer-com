@@ -11,8 +11,13 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>Band Bulletin Board</h1>
-			<h2>(Beta Version: 1.10)</h2>
+			<h3>(Beta Version: 1.10)</h3>
 			<h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Browse the posts on this page to connect with other musicians with similar interests and start making music together! Or post details about your skillset, music projects, and the type of collaborations you're working on to help others find you.</h4>
+			<p class="text-right">
+				<a class="bulletin-post" href="/community/create-bulletin-post">
+					{% include '_includes/icons' with { type: 'thumbtack' } %} Post a bulletin
+				</a>
+			</p>
 		</div>
 	</section>
 
@@ -23,6 +28,7 @@
 			{% for post in posts %}
 				<a href="/community/bulletin-post/{{ post.slug }}" title="Reply to this post?">
 					<section>
+						{% include '_includes/icons' with { type: 'thumbtack' } %}
 						<div>
 							{% switch post.type %}
 								{% case 'management' %}
@@ -50,46 +56,6 @@
 					</section>
 				</a>
 			{% endfor %}
-{# 
-			<a href="/community/bulletin-post" title="Reply to this post?">
-				<section>
-					<div>
-						<h5>Band Members</h5>
-						<span>1 hr ago</span>
-						<span class="bubble">
-							{% include '_includes/icons' with { type: 'message' } %} 5
-						</span>
-					</div>
-					<h3>Bass Player looking for band to join</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				</section>
-			</a>
-			<a href="/community/bulletin-post" title="Reply to this post?">
-				<section>
-					<div>
-						<h5>Music Production</h5>
-						<span>3 days ago</span>
-						<span class="bubble">
-							{% include '_includes/icons' with { type: 'message' } %} 126
-						</span>
-					</div>
-					<h3>Need keyboardist to write and record for a Hip Hop track</h3>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-				</section>
-			</a>
-			<a href="/community/bulletin-post" title="Reply to this post?">
-				<section>
-					<div>
-						<h5>Band Members</h5>
-						<span>1 month ago</span>
-						<span class="bubble">
-							{% include '_includes/icons' with { type: 'message' } %} 15
-						</span>
-					</div>
-					<h3>Heavy Metal band looking for drummer</h3>
-					<p>Duis aute voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt est laborum.</p>
-				</section>
-			</a> #}
 		</div>
 
 	</div>

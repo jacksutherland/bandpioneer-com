@@ -32,6 +32,14 @@ body {
 	text-align: justify;
 }
 
+.text-right {
+	text-align: right;
+}
+
+.color-primary-dark {
+	color: $primary-dark;
+}
+
 /***** RESPONSIVE CLASSES *****/
 
 @media (max-width: ($breakpoint-sm - 1px)) {
@@ -1074,6 +1082,7 @@ header.site-header {
 						svg {
 							float: none;
     						margin: 0 0 -2px 0;
+    						vertical-align: middle;
 
     						+ span {
     							display: none;

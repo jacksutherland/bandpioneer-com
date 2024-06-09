@@ -5,3 +5,17 @@
 		{{ blog.title }}
 	{% endif %}
 {% endmacro %}
+
+{% macro getYoutubeId(url) %}
+    {% set youtubeId = '' %}
+
+    {% if 'youtube.com/watch?v=' in url %}
+        {% set parts = url|split('v=') %}
+        {% set youtubeId = parts[1] | split('&')[0] %}
+   
+    {% elseif 'youtu.be/' in url %}
+        {% set parts = url|split('youtu.be/') %}
+        {% set youtubeId = parts[1] | split('?')[0] %}
+    {% endif %}
+    {{ youtubeId }}
+{% endmacro %}

@@ -62,4 +62,24 @@ class RockstarVariable
     {
         return Rockstar::$plugin->getBulletinService()->getBulletinBoardPosts($liveOnly);
     }
+
+    public function currentUserBulletinPostExists()
+    {
+        return Rockstar::$plugin->getBulletinService()->currentUserBulletinPostExists();
+    }
+
+    public function getCurrentUserBulletinPost()
+    {
+        return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinPost();
+    }
+
+    public function getCurrentUserBulletinReplies()
+    {
+        return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinReplies();
+    }
+
+    public function countCurrentUserBulletinReplies()
+    {
+        return Rockstar::$plugin->getBulletinService()->countCurrentUserBulletinReplies();
+    }
 }

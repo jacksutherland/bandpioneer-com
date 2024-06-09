@@ -157,6 +157,59 @@ class BulletinService extends Component
         return $posts;
     }
 
+    public function currentUserBulletinPostExists()
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postExists = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])->count() > 0;
+
+        return $postExists;
+    }
+
+    public function getCurrentUserBulletinReplies()
+    {
+        $replies = [];
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postRecord = BulletinPostRecord::findOne(['userId' => $currentUser->id, 'enabled' => 1]);
+
+        if($postRecord)
+        {
+            $replyRecords = BulletinReplyRecord::find()->where(['bulletinPostId' => $postRecord->id, 'enabled' => 1])
+                ->orderBy(['dateCreated' => SORT_DESC])
+                ->select(['status', 'role', 'email', 'phone', 'message', 'audioUrl', 'videoUrl', 'dateCreated'])
+                ->all();
+
+            foreach ($replyRecords as $replyRecord)
+            {
+                array_push($replies, [
+                    'status' => $replyRecord->status,
+                    'role' => $replyRecord->role,
+                    'email' => $replyRecord->email,
+                    'phone' => $replyRecord->phone,
+                    'message' => $replyRecord->message,
+                    'audioUrl' => $replyRecord->audioUrl,
+                    'videoUrl' => $replyRecord->videoUrl,
+                    'daysAgo' => $this->getDaysAgo($replyRecord->dateCreated)
+                ]);
+            }
+        }
+
+        return $replies;
+    }
+
+    public function countCurrentUserBulletinReplies()
+    {
+        $replyCount = 0;
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postRecord = BulletinPostRecord::findOne(['userId' => $currentUser->id, 'enabled' => 1]);
+
+        if($postRecord)
+        {
+            $replyCount = BulletinReplyRecord::find()->where(['bulletinPostId' => $postRecord->id, 'enabled' => 1])->count();
+        }
+
+        return $replyCount;
+    }
+
     public function getBulletinPostBySlug($slug)
     {
         $postRecord = BulletinPostRecord::findOne(['slug' => $slug, 'enabled' => 1]);
@@ -236,6 +289,7 @@ class BulletinService extends Component
                 $postRecord->slug = ElementHelper::generateSlug($post['title'], null, 'en');
                 $postRecord->replyCount = 0;
                 $postRecord->enabled = 1;
+                $postRecord->status = 'new';
             }
 
             $postRecord->dateUpdated = $now;
@@ -246,7 +300,11 @@ class BulletinService extends Component
             $postRecord->videoUrl = $post['videoUrl'];
             $postRecord->description = $post['description'];
             $postRecord->details = $post['details'];
-            $postRecord->status = $post['status'];
+
+            if($postRecord->status != 'new')
+            {
+                $postRecord->status = $post['status'];
+            }
             
             $postRecord->save();
 
@@ -258,7 +316,7 @@ class BulletinService extends Component
             throw $e;
         }
 
-        return $postRecord->slug;
+        return $postRecord;
     }
 
     public function getCurrentUserBulletinPostReply($postId)
@@ -298,7 +356,7 @@ class BulletinService extends Component
         }
     }
 
-    public function saveBulletinPostReply($reply)
+    public function saveBulletinReply($reply)
     {
         $transaction = Craft::$app->getDb()->beginTransaction();
 

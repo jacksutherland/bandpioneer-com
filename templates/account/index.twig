@@ -7,6 +7,8 @@
 
 {% set rankingEntries = craft.rockstar.getRankEntries() %}
 {% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
+{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
+{% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %}
 
 {% block content %}
 
@@ -22,15 +24,39 @@
 				<p>
 					<strong>Email:</strong> {{ currentUser.email }} (<strong><a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a></strong>)
 				</p>
-				<p>
+				{# <p>
 					{% if craft.bands.exists() %}
-						<a class="btn small" href="account/band">Edit Your Band</a>
-						<br>
-						<a class="btn small" href="community/create-bulletin-post">Post to Bulletin Board</a>
+						<p>
+							<a href="account/band">
+								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Edit Your Band
+							</a>
+						</p>
 					{% else %}
-						<a class="btn small" href="account/band">Create Your Band</a>
+						<p>
+							<a href="account/band">
+								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Create Your Band
+							</a>
+						</p>
 					{% endif %}
-				</p>
+					<p>
+						<a href="/community/create-bulletin-post">
+							{% include '_includes/icons' with { type: 'thumbtack' } %}
+							&nbsp;
+							{% if bulletinPostExists %}
+								Edit bulletin board post
+							{% else %}
+								Post to bulletin board
+							{% endif %}
+						</a>
+					</p>
+					{% if bulletinReplyCount > 0 %}
+						<p>
+							<a href="/community/bulletin-replies">
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;&nbsp;Bulletin Replies ({{ bulletinReplyCount }})
+							</a>
+						</p>
+					{% endif %}
+				</p> #}
 			</section>
 			
 			<section>
