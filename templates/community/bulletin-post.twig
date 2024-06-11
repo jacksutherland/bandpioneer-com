@@ -3,17 +3,17 @@
 
 {% set allowAnonymous = true %}
 
-{% set entry = { slug: slug, title: 'Bulletin Board Post', section: { handle: 'bulletin-post' } } %}
+{% set entry = { slug: slug, title: 'Musician Classified Post', section: { handle: 'bulletin-post' } } %}
 
 {% block content %}
 
 	<section class="page-header">
 		<div class="container">
 			<h1>
-				<a href="/community/bulletin-board" title="Bulletin Board">
+				<a href="/community/bulletin-board" title="Musician Classifieds">
 					{% include '_includes/icons' with { type: 'thumbtack' } %}
 				</a>
-				Band Bulletin Board
+				Musician Classifieds
 			</h1>
 			<h3>(Beta Version: 1.10)</h3>
 		</div>
@@ -171,7 +171,7 @@
 									<textarea name="message">{% if reply and reply.message | length %}{{ reply.message }}{% endif %}</textarea>
 								</div>
 								<div class="buttons">
-									<a href="/community/bulletin-board">Return to Bulletin Board</a>
+									<a href="/community/bulletin-board">Return to Musician Classifieds</a>
 									<button type="submit">{% if reply and reply.status != 'new' %}Update{% else %}Apply{% endif %}</button>
 								</div>
 							</form>

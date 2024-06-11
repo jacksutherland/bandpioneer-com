@@ -1,6 +1,7 @@
 {% extends 'account/_layout' %}
 
-{% set entry = { slug: 'bulletin-post', title: 'Bulletin Board Post', section: { handle: 'bulletin-post' } } %}
+{% set entry = { slug: 'bulletin-post', title: 'Create a Musician Classified Post', section: { handle: 'bulletin-post' } } %}
+{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
 
 {% macro option(post, prop, value, label) %}
 	<option value="{{ value }}"{% if post[prop] == value %} selected {% endif %}>{{ label }}</option>
@@ -33,14 +34,13 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>
-				<a href="/community/bulletin-board" title="Bulletin Board">
+				<a href="/community/bulletin-board" title="Musician Classifieds">
 					{% include '_includes/icons' with { type: 'thumbtack' } %}
 				</a>
-				Band Bulletin Board
+				Musician Classifieds
 			</h1>
 			<h3>(Beta Version: 1.10)</h3>
-			<h2>{% if isNew %}Create{% else %}Edit{% endif %} Your Bulletin Board Post</h2>
-			{# <h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Add details about it below and we'll display it on our bulletin board for other like-minded artists to see.</h4> #}
+			<h2>{% if isNew %}Create{% else %}Edit{% endif %} Your Post</h2>
 			<p>
 				* Each user is only allowed one post, so update it as your needs change.
 				<br>
@@ -54,6 +54,14 @@
 	<div class="rockstars-container bulletin-board">
 
 		<div class="col">
+
+			{% if bulletinReplyCount > 0 %}
+				<section>
+					<a href="/community/bulletin-replies">
+						{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
+					</a>
+				</section>
+			{% endif %}
 
 			<section>
 				<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/create-bulletin-post">

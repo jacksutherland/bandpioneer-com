@@ -3,7 +3,7 @@
 
 {% set allowAnonymous = true %}
 
-{% set entry = { slug: 'bulletin-replies', title: 'Bulletin Board Replies', section: { handle: 'bulletin-replies' } } %}
+{% set entry = { slug: 'bulletin-replies', title: 'Musician Classified Replies', section: { handle: 'bulletin-replies' } } %}
 {% set post = craft.rockstar.getCurrentUserBulletinPost() %}
 {% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies() %}
 
@@ -50,10 +50,10 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>
-				<a href="/community/bulletin-board" title="Bulletin Board">
+				<a href="/community/bulletin-board" title="Musician Classifieds">
 					{% include '_includes/icons' with { type: 'thumbtack' } %}
 				</a>
-				Bulletin Board Replies
+				Musician Classifieds: Replies
 			</h1>
 			<h3>(Beta Version: 1.10)</h3>
 			<h2 class="color-primary-dark">{{ post.title }}</h2>

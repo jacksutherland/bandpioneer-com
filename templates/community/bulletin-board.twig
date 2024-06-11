@@ -2,9 +2,9 @@
 
 {% set allowAnonymous = true %}
 
-{% set entry = { slug: 'bulletin-board', title: 'Bulletin Board', section: { handle: 'bulletin-board' } } %}
-
+{% set entry = { slug: 'bulletin-board', title: 'Musician Classifieds', section: { handle: 'bulletin-board' } } %}
 {% set posts = craft.rockstar.getBulletinBoardPosts(25) %}
+{% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %}
 
 {% block content %}
 
@@ -12,20 +12,20 @@
 		<div class="container">
 			<div class="two-col">
 				<h1>
-					<a href="/community/bulletin-board" title="Bulletin Board">
+					<a href="/community/bulletin-board" title="Musician Classifieds">
 						{% include '_includes/icons' with { type: 'thumbtack' } %}
 					</a> 
-					Band Bulletin Board
+					Musician Classifieds
 				</h1>
 				<a class="btn small" {% if currentUser %}href="/community/create-bulletin-post"{% else %}href="/" onclick="return bp.login('Sign in to view this');"{% endif %}>
-					{% include '_includes/icons' with { type: 'plus' } %} Post a Bulletin
+					{% include '_includes/icons' with { type: 'plus' } %} {% if bulletinPostExists %}Create a Post{% else %}Edit Your Post{% endif %}
 				</a>
 			</div>
 			<h3>(Beta Version: 1.10)</h3>
 			<h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Browse the posts on this page to connect with other musicians with similar interests and start making music together! Or post details about your skillset, music projects, and the type of collaborations you're working on to help others find you.</h4>
 			<p class="mobile-btn">
 				<a class="btn small" {% if currentUser %}href="/community/create-bulletin-post"{% else %}href="/" onclick="return bp.login('Sign in to view this');"{% endif %}>
-					{% include '_includes/icons' with { type: 'plus' } %} Post a Bulletin
+					{% include '_includes/icons' with { type: 'plus' } %} {% if bulletinPostExists %}Create a Post{% else %}Edit Your Post{% endif %}
 				</a>
 			</p>
 		</div>

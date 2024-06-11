@@ -287,11 +287,11 @@ class RockstarController extends Controller
             }
             elseif($savedPost->status == 'pending')
             {
-                Craft::$app->getSession()->setNotice("Your post has been saved.<br>Change the status to 'Live' when you're ready to show it on the bulletin board.");
+                Craft::$app->getSession()->setNotice("Your post has been saved.<br>Change the status to 'Live' when you're ready to show it on the classifieds board.");
             }
             else
             {
-                Craft::$app->getSession()->setNotice("Your post has been saved, and is live on the bulletin board!");
+                Craft::$app->getSession()->setNotice("Your post has been saved, and is live on the classifieds board!");
             }
         }
 

@@ -28,13 +28,13 @@
 					{% if craft.bands.exists() %}
 						<p>
 							<a href="account/band">
-								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Edit Your Band
+								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Edit your band
 							</a>
 						</p>
 					{% else %}
 						<p>
 							<a href="account/band">
-								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Create Your Band
+								{% include '_includes/icons' with { type: 'guitar' } %}&nbsp;&nbsp;Create your band
 							</a>
 						</p>
 					{% endif %}
@@ -43,16 +43,16 @@
 							{% include '_includes/icons' with { type: 'thumbtack' } %}
 							&nbsp;
 							{% if bulletinPostExists %}
-								Edit bulletin board post
+								Edit your classified post
 							{% else %}
-								Post to bulletin board
+								Create a classified post
 							{% endif %}
 						</a>
 					</p>
 					{% if bulletinReplyCount > 0 %}
 						<p>
 							<a href="/community/bulletin-replies">
-								{% include '_includes/icons' with { type: 'message' } %}&nbsp;&nbsp;Bulletin Replies ({{ bulletinReplyCount }})
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;&nbsp;Classified replies ({{ bulletinReplyCount }})
 							</a>
 						</p>
 					{% endif %}
