@@ -274,13 +274,15 @@ button,
 	font-family: $font-family;
 	font-weight: $semi-bold-font;
 	height: $input-height;
-	padding: 0 $object-padding;
+	padding: 0 $gutter-width;
 	text-align: center;
 	transition: background-color $transition-time;
 
 	&.btn {
 		align-items: center;
 		display: inline-flex;
+		justify-content: center;
+		max-width: fit-content;
 	}
 
 	&.small {
@@ -369,6 +371,15 @@ button,
 			transform: rotate(180deg) translateY(1px);
 		}
 	}
+
+	svg {
+		margin-right: 6px;
+		width: 13px;
+
+		path {
+			fill: $white !important;
+		}
+	}
 }
 
 a {
@@ -386,6 +397,12 @@ a {
 
 		img:first-of-type {	
 			filter: brightness(1.15);
+		}
+
+		svg {
+			path {
+				fill: $link-hover-color;
+			}
 		}
 	}
 
@@ -434,6 +451,7 @@ a {
 
 		path {
 			fill: $link-color;
+			transition: fill $transition-time;
 		}
 	}
 }
@@ -657,6 +675,13 @@ section {
 		h1 {
 			line-height: 2.6rem;
 			margin-top: 10px !important;
+
+			svg {
+				margin-bottom: -2px;
+				height: 30px;
+				width: 30px;
+				vertical-align: unset;
+			}
 		}
 
 		h4 {

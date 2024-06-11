@@ -34,17 +34,28 @@ p {
 	margin: 10px 0;
 }
 
-a {
-	&.bulletin-post {
-		&:hover {
-			svg {
-				transform: rotate(-30deg) translate(0, -3px);
+.bulletin-board-header {
+	.two-col {
+		align-items: center;
+		margin: 0;
+
+		h1 + .btn {
+			display: none;
+		}
+	}
+
+	@media (min-width: 640px) {
+		.two-col {
+			flex-direction: row !important;
+
+			h1 + .btn {
+				display: flex;
+				margin-left: auto;
 			}
 		}
 
-		svg {
-			transform: rotate(-20deg);
-			transition: transform $transition-time;
+		.mobile-btn {
+			display: none;
 		}
 	}
 }
@@ -115,7 +126,7 @@ section {
 
 	&:not(.page-header) {
 		max-width: $community-width - $rockstars-gap - $rockstars-gap;
-		padding: $rockstars-gap;
+		padding: ($rockstars-gap - 4px) $rockstars-gap;
 	}
 
 	&.my-account {

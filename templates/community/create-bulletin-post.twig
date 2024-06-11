@@ -6,15 +6,48 @@
 	<option value="{{ value }}"{% if post[prop] == value %} selected {% endif %}>{{ label }}</option>
 {% endmacro %}
 
+{% block scripts %}
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function ()
+		{
+			const select = document.querySelector('[name="medium"]');
+			const location = document.querySelector('.location-field');
+		    	
+	    	select.addEventListener('change', function (event)
+		    {
+				if(this.value == 'physical')
+				{
+					location.style.display = 'flex';
+				}
+				else
+				{
+					location.style.display = 'none';
+				}
+			});
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
 
 	<section class="page-header">
 		<div class="container">
-			<h1>{% if isNew %}Create{% else %}Edit{% endif %} Your Bulletin Board Post</h1>
+			<h1>
+				<a href="/community/bulletin-board" title="Bulletin Board">
+					{% include '_includes/icons' with { type: 'thumbtack' } %}
+				</a>
+				Band Bulletin Board
+			</h1>
 			<h3>(Beta Version: 1.10)</h3>
-			<h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Add details about it below and we'll display it on our bulletin board for other like-minded artists to see.</h4>
-			<h4>Each user is only allowed one post, so be specific and update it as your needs change.</h4>
-			<h4>Include a YouTube or Audio Url to help improve your odds of fiding artists that are a good match.</h4>
+			<h2>{% if isNew %}Create{% else %}Edit{% endif %} Your Bulletin Board Post</h2>
+			{# <h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Add details about it below and we'll display it on our bulletin board for other like-minded artists to see.</h4> #}
+			<p>
+				* Each user is only allowed one post, so update it as your needs change.
+				<br>
+				* Include a location so applicants know if they're in your area.
+				<br>
+				* Include a YouTube or Audio Url to help improve your odds of fiding artists that are a good match.
+			</p>
 		</div>
 	</section>
 
@@ -37,7 +70,7 @@
 					{% endif %}
 
 					<div class="edit-field">
-						<label>Post Type</label>
+						<label>Post Type *</label>
 						<select name="type" value="members">
 							<option value="">Select a Type</option>
 							{% set prop = 'type' %}
@@ -63,7 +96,7 @@
 						{% endif %}
 					</div>
 					<div class="edit-field">
-						<label>Genre</label>
+						<label>Genre *</label>
 						<select name="genre">
 							<option value="">Select a Genre</option>
 							{% set prop = 'genre' %}
@@ -86,6 +119,19 @@
 						{% if not isNew and post.status != 'new' %}
 							<label class="hide-md-down status">"Pending" while working on it<br>"Live" for others to see<br>"Inactive" when you're done</label>
 						{% endif %}
+					</div>
+					<div class="edit-field">
+						<label>Location Type *</label>
+						<select name="medium">
+							<option value="">Select a Location Type</option>
+							{% set prop = 'medium' %}
+							{{ _self.option(post, prop, 'physical', 'Physical Location') }}
+							{{ _self.option(post, prop, 'virtual', 'Virtual/Remote') }}
+						</select>
+					</div>
+					<div class="edit-field location-field"{% if post.medium != 'physical' %} style="display:none;"{% endif %}>
+						<label>City or Town</label>
+						<input type="text" name="location" required value="{% if post.location | length %}{{ post.location }}{% endif %}">
 					</div>
 					<div class="edit-field">
 						<label>Post Title *</label>
@@ -120,7 +166,7 @@
 								Return to Account 
 							</a> #}
 						</div>
-						<button type="submit">Apply</button>
+						<button type="submit">Save</button>
 					</div>
 				</form>
 			</section> 

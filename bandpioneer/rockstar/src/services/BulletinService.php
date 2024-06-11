@@ -128,13 +128,14 @@ class BulletinService extends Component
         return $isValid;
     }
 
-    public function getBulletinBoardPosts($liveOnly)
+    public function getBulletinBoardPosts($limit, $liveOnly)
     {
         $posts = [];
+        $where = $liveOnly ? ['status' => 'live', 'enabled' => 1] : ['enabled' => 1];
+        $select = ['slug', 'userId', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount', 'dateCreated'];
+        $query = BulletinPostRecord::find()->where($where)->orderBy(['dateCreated' => SORT_DESC])->select($select);
 
-        $postRecords = BulletinPostRecord::find()->where($liveOnly ? ['status' => 'live', 'enabled' => 1] : ['enabled' => 1])
-            ->select(['slug', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount', 'dateCreated'])
-            ->all();
+        $postRecords = $limit == null ? $query->all() : $query->limit($limit)->all();
 
         foreach ($postRecords as $postRecord)
         {
@@ -149,6 +150,7 @@ class BulletinService extends Component
                 'videoUrl' => $postRecord->videoUrl,
                 'description' => $postRecord->description,
                 'details' => $postRecord->details,
+                'userId' => $postRecord->userId,
                 'replyCount' => $postRecord->replyCount == null ? 0 : $postRecord->replyCount,
                 'daysAgo' => $this->getDaysAgo($postRecord->dateCreated)
             ]);
@@ -175,12 +177,13 @@ class BulletinService extends Component
         {
             $replyRecords = BulletinReplyRecord::find()->where(['bulletinPostId' => $postRecord->id, 'enabled' => 1])
                 ->orderBy(['dateCreated' => SORT_DESC])
-                ->select(['status', 'role', 'email', 'phone', 'message', 'audioUrl', 'videoUrl', 'dateCreated'])
+                ->select(['id', 'status', 'role', 'email', 'phone', 'message', 'audioUrl', 'videoUrl', 'dateCreated'])
                 ->all();
 
             foreach ($replyRecords as $replyRecord)
             {
                 array_push($replies, [
+                    'id' => $replyRecord->id,
                     'status' => $replyRecord->status,
                     'role' => $replyRecord->role,
                     'email' => $replyRecord->email,
@@ -194,6 +197,31 @@ class BulletinService extends Component
         }
 
         return $replies;
+    }
+
+    public function updateReplyStatus($replyId, $status)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $replyRecord = BulletinReplyRecord::findOne(['id' => $replyId]);
+
+            if($replyRecord)
+            {
+                $replyRecord->status = $status;
+
+                $replyRecord->save();
+
+                $transaction->commit();
+            }
+
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+        }
     }
 
     public function countCurrentUserBulletinReplies()
@@ -227,6 +255,9 @@ class BulletinService extends Component
                 'status' => $postRecord->status,
                 'id' => $postRecord->id,
                 'uid' => $postRecord->uid,
+                'userId' => $postRecord->userId,
+                'medium' => $postRecord->medium,
+                'location' => $postRecord->location,
                 'replyCount' => $postRecord->replyCount == null ? 0 : $postRecord->replyCount,
                 'daysAgo' => $this->getDaysAgo($postRecord->dateCreated)
             ];
@@ -251,6 +282,8 @@ class BulletinService extends Component
                 'description' => '',
                 'details' => '',
                 'slug' => '',
+                'medium' => '',
+                'location' => '',
                 'status' => 'pending',
                 'replyCount' => 0,
             ];
@@ -266,6 +299,8 @@ class BulletinService extends Component
                 'description' => $postRecord->description,
                 'details' => $postRecord->details,
                 'status' => $postRecord->status,
+                'medium' => $postRecord->medium,
+                'location' => $postRecord->location,
                 'replyCount' => $postRecord->replyCount == null ? 0 : $postRecord->replyCount,
                 'slug' => $postRecord->slug,
             ];
@@ -300,6 +335,8 @@ class BulletinService extends Component
             $postRecord->videoUrl = $post['videoUrl'];
             $postRecord->description = $post['description'];
             $postRecord->details = $post['details'];
+            $postRecord->medium = $post['medium'];
+            $postRecord->location = $post['location'];
 
             if($postRecord->status != 'new')
             {

@@ -180,6 +180,15 @@ class RockstarController extends Controller
         ]);
     }
 
+    public function actionBulletinReplyStatus()
+    {
+        $request = Craft::$app->getRequest();
+        $bulletinService = Rockstar::$plugin->getBulletinService();
+        $replyId = trim($request->getParam('reply'));
+        $status = trim($request->getParam('status'));
+        $bulletinService->updateReplyStatus($replyId, $status);
+        return 'success';
+    }
 
     public function actionCreateBulletinPost():post
     {
@@ -217,6 +226,8 @@ class RockstarController extends Controller
             'description' => trim($request->getParam('description')),
             'details' => trim($request->getParam('details')),
             'status' => trim($request->getParam('status')),
+            'medium' => trim($request->getParam('medium')),
+            'location' => trim($request->getParam('location')),
             'slug' => $post['slug']
         ];
 
@@ -231,6 +242,11 @@ class RockstarController extends Controller
         {
             $isValid = false;
             Craft::$app->getSession()->setError("Genre is required.");
+        }
+        elseif(empty($post['medium']))
+        {
+            $isValid = false;
+            Craft::$app->getSession()->setError("Location Type is required.");
         }
         elseif(empty($post['title']))
         {

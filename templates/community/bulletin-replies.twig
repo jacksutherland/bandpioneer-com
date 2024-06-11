@@ -7,13 +7,57 @@
 {% set post = craft.rockstar.getCurrentUserBulletinPost() %}
 {% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies() %}
 
+{% macro option(post, prop, value, label) %}
+	<option value="{{ value }}"{% if post[prop] == value %} selected {% endif %}>{{ label }}</option>
+{% endmacro %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		const url = '/community/bulletin-reply-status';
+
+		document.addEventListener('DOMContentLoaded', function ()
+		{
+			document.querySelectorAll('.reply-status').forEach(select => {
+		    	
+		    	select.addEventListener('change', function (event)
+			    {
+					let formData = new FormData();
+					let form = event.target.closest('form');
+					let token = form.querySelector('[name="CRAFT_CSRF_TOKEN"]');
+					
+					formData.append('reply', this.dataset.reply);
+			        formData.append('status', this.value);
+					formData.append('CRAFT_CSRF_TOKEN', token.value);
+
+					fetch(url, { method: 'POST', body: formData })
+						.then((response) => {
+						    if (response.ok)
+						    {
+						    	return response.text();
+						    }
+						}).then((response) => {
+						}).catch((error) => {
+						    console.error("Error:", error);
+						});
+				});
+			});
+		});
+	</script>
+{% endblock %}
+
 {% block content %}
 
 	<section class="page-header">
 		<div class="container">
-			<h1>Bulletin Board Replies</h1>
+			<h1>
+				<a href="/community/bulletin-board" title="Bulletin Board">
+					{% include '_includes/icons' with { type: 'thumbtack' } %}
+				</a>
+				Bulletin Board Replies
+			</h1>
 			<h3>(Beta Version: 1.10)</h3>
 			<h2 class="color-primary-dark">{{ post.title }}</h2>
+			<p>Review applicants for your post below. Declined applicants will no longer be able to reply.</p>
 		</div>
 	</section>
 
@@ -22,14 +66,25 @@
 			
 			{% for reply in bulletinReplies %}
 				<section>
-					<h3>{{ reply.role }}</h3>
+					<div class="two-col" style="margin:0;">
+						<h3 style="flex:1;">{{ reply.role }}</h3>
+						<form style="margin-left:auto;" novalidate class="long-form">
+							{{ csrfInput() }}
+							<select class="reply-status" name="type" value="members" data-reply="{{ reply.id }}">
+								{% set prop = 'status' %}
+								{{ _self.option(reply, prop, 'under-review', 'Under Review') }}
+								{{ _self.option(reply, prop, 'accepted', 'Accepted') }}
+								{{ _self.option(reply, prop, 'declined', 'Declined') }}
+							</select>
+						</form>
+					</div>
 					<p>{{ reply.message }}</p>
 					<p>
 						<strong>Email: </strong>
 						<a href="mailto:{{ reply.email }}">{{ reply.email }}</a>
 					</p>
 					{% if reply.audioUrl | length %}
-						<p>
+						<p style="text-wrap:nowrap;overflow:hidden;text-overflow:ellipsis;">
 							<strong>Audio: </strong>
 							<a href="{{ reply.audioUrl }}" target="_blank">{{ reply.audioUrl }}</a>
 						</p>

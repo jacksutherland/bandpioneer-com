@@ -58,9 +58,9 @@ class RockstarVariable
         return Rockstar::$plugin->getService()->getRankKeyLikeDescription($entryId, $rankerKey);
     }
 
-    public function getBulletinBoardPosts($liveOnly = true)
+    public function getBulletinBoardPosts($limit = null, $liveOnly = true)
     {
-        return Rockstar::$plugin->getBulletinService()->getBulletinBoardPosts($liveOnly);
+        return Rockstar::$plugin->getBulletinService()->getBulletinBoardPosts($limit, $liveOnly);
     }
 
     public function currentUserBulletinPostExists()

@@ -9,7 +9,12 @@
 
 	<section class="page-header">
 		<div class="container">
-			<h1>Band Bulletin Board</h1>
+			<h1>
+				<a href="/community/bulletin-board" title="Bulletin Board">
+					{% include '_includes/icons' with { type: 'thumbtack' } %}
+				</a>
+				Band Bulletin Board
+			</h1>
 			<h3>(Beta Version: 1.10)</h3>
 		</div>
 	</section>
@@ -45,7 +50,25 @@
 				<h2>{{ post.title }}</h2>
 
 				<br>
-				<h4>Description</h4>
+				<h4>Location: 
+				{% if post.medium == 'virtual' %}
+					<span style="font-weight:400;">Virtual/Remote</span>
+				{% elseif post.medium == 'physical' %}
+					{% if post.location | length %}
+						<span style="font-weight:400;">{{ post.location }}</span>
+					{% else %}
+						<span style="font-weight:400;">Physical Location</span>
+					{% endif %}
+				{% endif %}
+				</h4>
+				{% if post.medium == 'physical' and post.location | length %}
+					{% set src = "https://maps.google.com/maps?&q=" ~ post.location ~ "&output=embed" %}
+					<iframe style="width:100%;height:180px;border:none;" src="{{ src }}" width="400" height="180" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					<br>
+				{% endif %}
+
+				<br>
+				<h4>Description:</h4>
 				<p>{{ post.description | nl2br }}</p>
 
 				{% if post.audioUrl | length %}
@@ -65,85 +88,95 @@
 				
 				{% if post.details | length %}
 					<br>
-					<h4>Additional Details</h4>
+					<h4>Additional Details:</h4>
 					<p>{{ post.details | nl2br }}</p>
 				{% endif %}
 
-				<br>
+				{% if currentUser.id != post.userId %}
 
-				{% switch post.type %}
-					{% case 'management' %}
-						<h3>Interested in this?</h3>
-					{% case 'members' %}
-						<h3>Interested in joining?</h3>
-					{% case 'composition' %}
-						<h3>Want to collaborate on this?</h3>
-					{% case 'lessons' %}
-						<h3>Interested in this?</h3>
-					{% case 'marketing' %}
-						<h3>Interested in this?</h3>
-					{% case 'production' %}
-						<h3>Want to collaborate on this?</h3>
-					{% default %}
-						<h3>Interested in this?</h3>
-				{% endswitch %}
-
-				{% if not currentUser %}
-
-					<p>Sign in with a Google or Discord account to let them know who you are and why interested.</p>
-					<p style="margin-top:16px;"><a class="btn small" href="/" onclick="return bp.login();">Click here to sign in to apply</a></p>
-
-				{% else %}
-
-					<strong>Fill out the information below and we'll notify them that you're interested.</strong>
-
-					<p>Include what instrument you play or the role you'd be filling, a valid email address for them to contact you at, a message, and an audio or video url of your music that show why you'd be a good fit.</p>
 					<br>
-					<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/bulletin-post/{{ slug }}">
-						{{ csrfInput() }}
 
-						{% if error %}
-							<div class="flash-error">
-								<span>{{ error }}</span>
-							</div>
-						{% elseif notice %}
-							<div class="flash-notice">
-								<span>{{ notice | raw }}</span>
-							</div>
+					{% switch post.type %}
+						{% case 'management' %}
+							<h3>Interested in this?</h3>
+						{% case 'members' %}
+							<h3>Interested in joining?</h3>
+						{% case 'composition' %}
+							<h3>Want to collaborate on this?</h3>
+						{% case 'lessons' %}
+							<h3>Interested in this?</h3>
+						{% case 'marketing' %}
+							<h3>Interested in this?</h3>
+						{% case 'production' %}
+							<h3>Want to collaborate on this?</h3>
+						{% default %}
+							<h3>Interested in this?</h3>
+					{% endswitch %}
+
+					{% if not currentUser %}
+
+						<p>Sign in with a Google or Discord account to let them know who you are and why interested.</p>
+						<p style="margin-top:16px;"><a class="btn small" href="/" onclick="return bp.login();">Click here to sign in to apply</a></p>
+
+					{% else %}
+
+						<strong>Fill out the information below and we'll notify them that you're interested.</strong>
+
+						<p>Include what instrument you play or the role you'd be filling, a valid email address for them to contact you at, a message, and an audio or video url of your music that show why you'd be a good fit.</p>
+						<br>
+
+						{% if reply.status == 'declined' %}
+							<form><div class="flash-notice"><span>Your request has been declined.</span></div></form>
+						{% elseif reply.status == 'accepted' %}
+							<form><div class="flash-notice"><span>Congratulations, you've been approved fopr this project!</span></div></form>
+						{% else %}
+							<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/bulletin-post/{{ slug }}">
+								{{ csrfInput() }}
+
+								{% if error %}
+									<div class="flash-error">
+										<span>{{ error }}</span>
+									</div>
+								{% elseif notice %}
+									<div class="flash-notice">
+										<span>{{ notice | raw }}</span>
+									</div>
+								{% endif %}
+
+								<input type="hidden" name="uid" value="{{ post.uid }}">
+								<input type="hidden" name="slug" value="{{ slug }}">
+								
+								<div class="edit-field">
+									<label>Instrument or Role *</label>
+									<input type="text" name="role" required title="The instrument you play or the role you'd be filling" 
+										value="{% if reply and reply.role | length %}{{ reply.role }}{% endif %}">
+								</div>
+								<div class="edit-field">
+									<label>Email Address *</label>
+									<input type="email" name="email" placeholder="me@emailaddress.com" title="A valid email address for them to contact you at"
+										value="{% if reply and reply.email | length %}{{ reply.email }}{% endif %}">
+								</div>
+								<div class="edit-field">
+									<label>Audio Track URL</label>
+									<input type="text" name="audioUrl" title="A personal audio example of you"
+										value="{% if reply and reply.audioUrl | length %}{{ reply.audioUrl }}{% endif %}">
+								</div>
+								<div class="edit-field">
+									<label>YouTube URL</label>
+									<input type="text" name="videoUrl"
+										value="{% if reply and reply.videoUrl | length %}{{ reply.videoUrl }}{% endif %}">
+								</div>
+								<div class="edit-field">
+									<label>Message *</label>
+									<textarea name="message">{% if reply and reply.message | length %}{{ reply.message }}{% endif %}</textarea>
+								</div>
+								<div class="buttons">
+									<a href="/community/bulletin-board">Return to Bulletin Board</a>
+									<button type="submit">{% if reply and reply.status != 'new' %}Update{% else %}Apply{% endif %}</button>
+								</div>
+							</form>
 						{% endif %}
-
-						<input type="hidden" name="uid" value="{{ post.uid }}">
-						<input type="hidden" name="slug" value="{{ slug }}">
-						
-						<div class="edit-field">
-							<label>Instrument or Role *</label>
-							<input type="text" name="role" required title="The instrument you play or the role you'd be filling" 
-								value="{% if reply and reply.role | length %}{{ reply.role }}{% endif %}">
-						</div>
-						<div class="edit-field">
-							<label>Email Address *</label>
-							<input type="email" name="email" placeholder="me@emailaddress.com" title="A valid email address for them to contact you at"
-								value="{% if reply and reply.email | length %}{{ reply.email }}{% endif %}">
-						</div>
-						<div class="edit-field">
-							<label>Audio Track URL</label>
-							<input type="text" name="audioUrl" title="A personal audio example of you"
-								value="{% if reply and reply.audioUrl | length %}{{ reply.audioUrl }}{% endif %}">
-						</div>
-						<div class="edit-field">
-							<label>YouTube URL</label>
-							<input type="text" name="videoUrl"
-								value="{% if reply and reply.videoUrl | length %}{{ reply.videoUrl }}{% endif %}">
-						</div>
-						<div class="edit-field">
-							<label>Message *</label>
-							<textarea name="message">{% if reply and reply.message | length %}{{ reply.message }}{% endif %}</textarea>
-						</div>
-						<div class="buttons">
-							<a href="/community/bulletin-board">Return to Bulletin Board</a>
-							<button type="submit">{% if reply and reply.status != 'new' %}Update{% else %}Apply{% endif %}</button>
-						</div>
-					</form>
+					{% endif %}
 
 				{% endif %}
 

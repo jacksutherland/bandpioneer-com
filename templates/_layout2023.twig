@@ -222,10 +222,20 @@
                 {% endcache %}
                 <ul> 
                     <li>
-                        <a href="/about" title="About Band Pioneer">About Us</a>
+                        <a href="/community/bulletin-board" title="Bulletin Board">Bulletin</a>
                     </li>
                     <li>
-                        <a href="/contact" title="Contact Us">Contact</a>
+                        <a class="dropdown" href="/" aria-label="Open the About menu" title="About Band Pioneer">
+                            About {% include '_includes/icons' with { type: 'down' } %}
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/about" title="About Band Pioneer">About Us</a>
+                            </li>
+                            <li>
+                                <a href="/contact" title="Contact Us">Contact</a>
+                            </li>
+                        </ul>
                     </li> 
                     <li>
                         {% if currentUser %}
