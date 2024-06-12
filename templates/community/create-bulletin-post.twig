@@ -89,6 +89,7 @@
 						<select name="type" value="members">
 							<option value="">Select a Type</option>
 							{% set prop = 'type' %}
+							{{ _self.option(post, prop, 'promotion', 'Artist Promotion') }}
 							{{ _self.option(post, prop, 'management', 'Band Management') }}
 							{{ _self.option(post, prop, 'members', 'Band Members') }}
 							{{ _self.option(post, prop, 'composition', 'Music Composition') }}
