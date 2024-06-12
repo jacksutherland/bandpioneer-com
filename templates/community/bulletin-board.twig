@@ -44,6 +44,8 @@
 								<h5>Your Post</h5>
 							{% else %}
 								{% switch post.type %}
+									{% case 'promotion' %}
+										<h5>Artist Promotion</h5>
 									{% case 'management' %}
 										<h5>Band Management</h5>
 									{% case 'members' %}
