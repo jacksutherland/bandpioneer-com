@@ -161,9 +161,12 @@ class BulletinService extends Component
 
     public function currentUserBulletinPostExists()
     {
+        $postExists = false;
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $postExists = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])->count() > 0;
-
+        if($currentUser)
+        {
+            $postExists = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])->count() > 0;
+        }
         return $postExists;
     }
 
