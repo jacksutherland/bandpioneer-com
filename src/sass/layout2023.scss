@@ -837,9 +837,12 @@ header.site-header {
 				height: auto;
 				width: auto;
 
-				&:first-child {
-					display: none;
-				}
+				&.logo-alt {
+	    			display: inline !important;
+	    		}
+	    		&.logo-mark {
+	    			display: none;
+	    		}
 			}
 		}
 
