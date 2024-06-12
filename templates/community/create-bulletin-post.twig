@@ -55,7 +55,7 @@
 
 		<div class="col">
 
-			<div class="two-col your-post">
+			<div class="{% if bulletinReplyCount > 0 %}two-col {% endif %}your-post">
 				<section>
 					<a href="/community/bulletin-board">
 						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View all classifieds

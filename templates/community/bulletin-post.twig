@@ -23,10 +23,9 @@
 		<div class="col">
 
 			{% if post.userId == currentUser.id %}
-				{# {% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %} #}
 				{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
 
-				<div class="two-col your-post">
+				<div class="{% if bulletinReplyCount > 0 %}two-col {% endif %}your-post">
 					<section>
 						<a href="/community/create-bulletin-post">
 							{% include '_includes/icons' with { type: 'plus' } %} Click here to edit this post
