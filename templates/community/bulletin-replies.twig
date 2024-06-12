@@ -63,6 +63,19 @@
 
 	<div class="rockstars-container bulletin-board">
 		<div class="col">
+
+			<div class="two-col your-post">
+				<section>
+					<a href="/community/bulletin-board">
+						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View all classifieds
+					</a>
+				</section>
+				<section>
+					<a href="/community/create-bulletin-post">
+						{% include '_includes/icons' with { type: 'plus' } %}&nbsp;Click here to edit your post
+					</a>
+				</section>
+			</div>
 			
 			{% for reply in bulletinReplies %}
 				<section>

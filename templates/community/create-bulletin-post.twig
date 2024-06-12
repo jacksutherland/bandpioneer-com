@@ -55,13 +55,20 @@
 
 		<div class="col">
 
-			{% if bulletinReplyCount > 0 %}
+			<div class="two-col your-post">
 				<section>
-					<a href="/community/bulletin-replies">
-						{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
+					<a href="/community/bulletin-board">
+						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View all classifieds
 					</a>
 				</section>
-			{% endif %}
+				{% if bulletinReplyCount > 0 %}
+					<section>
+						<a href="/community/bulletin-replies">
+							{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
+						</a>
+					</section>
+				{% endif %}
+			</div>
 
 			<section>
 				<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/create-bulletin-post">

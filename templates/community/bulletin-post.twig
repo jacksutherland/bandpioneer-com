@@ -2,7 +2,6 @@
 {% import '_includes/macros' as macros %}
 
 {% set allowAnonymous = true %}
-
 {% set entry = { slug: slug, title: 'Musician Classified Post', section: { handle: 'bulletin-post' } } %}
 
 {% block content %}
@@ -22,6 +21,27 @@
 	<div class="rockstars-container bulletin-board">
 
 		<div class="col">
+
+			{% if post.userId == currentUser.id %}
+				{# {% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %} #}
+				{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
+
+				<div class="two-col your-post">
+					<section>
+						<a href="/community/create-bulletin-post">
+							{% include '_includes/icons' with { type: 'plus' } %} Click here to edit this post
+						</a>
+					</section>
+					{% if bulletinReplyCount > 0 %}
+						<section>
+							<a href="/community/bulletin-replies">
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
+							</a>
+						</section>
+					{% endif %}
+				</div>
+
+			{% endif %}
 
 			<section>
 				<div>
