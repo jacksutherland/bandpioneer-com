@@ -371,15 +371,6 @@ button,
 			transform: rotate(180deg) translateY(1px);
 		}
 	}
-
-	svg {
-		margin-right: 6px;
-		width: 13px;
-
-		path {
-			fill: $white !important;
-		}
-	}
 }
 
 a {

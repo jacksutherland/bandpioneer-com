@@ -34,6 +34,17 @@ p {
 	margin: 10px 0;
 }
 
+.btn {
+	svg {
+		margin-right: 6px;
+		width: 13px;
+
+		path {
+			fill: $white !important;
+		}
+	}
+}
+
 .two-col {
 	display: flex;
 	flex-wrap: wrap;
