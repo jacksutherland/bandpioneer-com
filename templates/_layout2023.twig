@@ -87,8 +87,9 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% set headerCacheKey = "header-20240617b-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% set headerCacheKey = "header-20240617c-" ~ (isMobile ? 'mobile' : 'desktop') %}
 
+        {% if (not isMobile) %}
         <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">
                 {% include '_includes/icons' with { type: 'bars' } %}
@@ -264,6 +265,7 @@
                 </ul>
             </nav>
         </header>
+        {% endif %}
 
         <input type="checkbox" id="search-toggle">
         <div class="search-dropdown">
