@@ -1,4 +1,4 @@
-{% set versionNumber = '2.127' %}
+{% set versionNumber = '2.128' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
@@ -214,10 +214,14 @@
                                 src="/assets/images/bp-logo-small.png" 
                                 srcset="/assets/images/bp-logo-2x.png 2x">
                         {% endif %}
-                        <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
+                         <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
                             width="180" height="56" 
                             src="/assets/images/bp-logo-alt-small.png" 
-                            srcset="/assets/images/bp-logo-alt-2x.png 2x" />
+                            srcset="/assets/images/bp-logo-alt-small.png 2x" />
+                       {#  <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
+                            width="180" height="56" 
+                            src="/assets/images/bp-logo-alt-small.png" 
+                            srcset="/assets/images/bp-logo-alt-2x.png 2x" /> #}
                     </a>
                 {% endcache %}
                 <ul> 
