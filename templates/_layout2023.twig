@@ -1,4 +1,4 @@
-{% set versionNumber = '2.132' %}
+{% set versionNumber = '2.133' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
@@ -87,7 +87,7 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% set headerCacheKey = "header-20240617e-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% set headerCacheKey = "header-20240617f-" ~ (isMobile ? 'mobile' : 'desktop') %}
 
         <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">
@@ -216,7 +216,7 @@
                         {% endif %}
                          <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
                             width="180" height="56" 
-                            src="/assets/images/bp-logo-alt-small.png" />
+                            src="/assets/images/bp-logo-alt-small.webp" />
                        {#  <img loading="eager" class="logo-alt" alt="Band Pioneer" title="Band Pioneer: Empowering Profitable Musicians" 
                             width="180" height="56" 
                             src="/assets/images/bp-logo-alt-small.png" 
