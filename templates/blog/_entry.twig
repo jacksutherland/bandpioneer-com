@@ -131,124 +131,6 @@
 			        }
 				});
 			});
-
-			// document.querySelector('.scroll-up').addEventListener('click', function(e)
-			// {
-			// 	e.preventDefault();
-
-			// 	const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
-			//     const scrollAmount = -(scrollContainer.clientHeight * 0.5);
-
-			//     if(scrollContainer.scrollTop > 0)
-			//     {
-			//     	scrollContainer.scrollBy({
-			// 	      top: scrollAmount,
-			// 	      behavior: 'smooth'
-			// 	    });
-			// 	}
-			// });
-			// document.querySelector('.scroll-down').addEventListener('click', function(e)
-			// {
-			// 	e.preventDefault();
-
-			// 	const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
-			//     const scrollAmount = scrollContainer.clientHeight * 0.5;
-
-			//     if(scrollContainer.scrollHeight - scrollContainer.scrollTop > scrollContainer.clientHeight)
-			//     {
-			//     	scrollContainer.scrollBy({
-			// 	      top: scrollAmount,
-			// 	      behavior: 'smooth'
-			// 	    });
-			// 	}
-			// });
-
-			// // Create sortable rank list
-
-			// const modal = document.querySelector('.ranker-modal .modal');
-			// const ul = modal.querySelector('ul');
-			// let draggedItem = null;
-			// let placeholder = document.createElement('li');
-			// placeholder.className = 'placeholder';
-
-			// // Order rank list by sort from DB
-			// const liItems = Array.from(ul.querySelectorAll('li'));
-			// const sortOrder = {};
-			// rankingData.forEach(item => sortOrder[item.key] = item.sort);
-
-			// // Sort and append items based on sortOrder
-			// liItems.sort((a, b) => sortOrder[a.getAttribute('data-key')] - sortOrder[b.getAttribute('data-key')])
-			//        .forEach(item => ul.appendChild(item));
-
-			// // Event handlers
-			// function handleDragStart(e) {
-			//     draggedItem = e.target;
-			//     draggedItem.classList.add('dragging');
-			//     setTimeout(() => ul.insertBefore(placeholder, draggedItem.nextSibling), 0);
-			// }
-
-			// function handleDragEnd() {
-			//     draggedItem.classList.remove('dragging');
-			//     ul.insertBefore(draggedItem, placeholder);
-			//     ul.removeChild(placeholder);
-			//     draggedItem = null;
-			// }
-
-			// function handleDragOver(e) {
-			//     e.preventDefault();
-			//     const afterElement = getDragAfterElement(ul, e.clientY);
-			//     ul.insertBefore(placeholder, afterElement || null);
-			// }
-
-			// function handleTouchStart(e) {
-			//     e.preventDefault();
-			//     draggedItem = e.target;
-			//     draggedItem.classList.add('mobile-dragging');
-			//     const scrollContainer = ul.parentElement;
-			//     const draggedRect = draggedItem.getBoundingClientRect();
-			//     draggedItem.draggedOffsetY = e.touches[0].clientY - draggedRect.top;
-			//     draggedItem.style.top = `${e.touches[0].clientY - draggedItem.draggedOffsetY - scrollContainer.scrollTop}px`;
-			//     setTimeout(() => ul.insertBefore(placeholder, draggedItem.nextSibling), 0);
-			// }
-
-			// function handleTouchMove(e) {
-			//     if (!draggedItem) return;
-			//     const touch = e.touches[0];
-			//     const scrollContainer = ul.parentElement;
-			//     const clientY = touch.clientY;
-			//     draggedItem.style.top = `${clientY - draggedItem.draggedOffsetY - scrollContainer.scrollTop}px`;
-			//     const afterElement = getDragAfterElement(ul, touch.clientY);
-
-			//     ul.insertBefore(placeholder, afterElement || null);
-			// }
-
-			// function handleTouchEnd() {
-			//     draggedItem.classList.remove('mobile-dragging');
-			//     ul.insertBefore(draggedItem, placeholder);
-			//     ul.removeChild(placeholder);
-			//     draggedItem = null;
-			// }
-
-			// // Attach event listeners
-			// ul.querySelectorAll('li').forEach(item => {
-			//     item.draggable = true;
-			//     item.addEventListener('dragstart', handleDragStart);
-			//     item.addEventListener('dragend', handleDragEnd);
-			//     item.addEventListener('touchstart', handleTouchStart);
-			//     item.addEventListener('touchmove', handleTouchMove);
-			//     item.addEventListener('touchend', handleTouchEnd);
-			// });
-			// ul.addEventListener('dragover', handleDragOver);
-			// ul.addEventListener('touchmove', handleTouchMove);
-
-			// function getDragAfterElement(container, y) {
-			//     const draggableElements = [...container.querySelectorAll('li:not(.mobile-dragging):not(.dragging):not(.placeholder)')];
-			//     return draggableElements.reduce((closest, child) => {
-			//         const box = child.getBoundingClientRect();
-			//         const offset = y - box.top - box.height / 2;
-			//         return offset < 0 && offset > closest.offset ? { offset, element: child } : closest;
-			//     }, { offset: Number.NEGATIVE_INFINITY }).element;
-			// }
         }
     </script>
 {% endblock %}
@@ -256,8 +138,8 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-20240617-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
-	{# {% cache using key blogHeadCacheKey %} #}
+	{% set blogHeadCacheKey = "blog-post-20240617a-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
+	{% cache using key blogHeadCacheKey %}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
 
@@ -293,7 +175,7 @@
 				</div>
 			{% endif %}
 		</section>
-	{# {% endcache %} #}
+	{% endcache %}
 
 {% endblock %}
 
