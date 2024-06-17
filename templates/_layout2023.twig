@@ -87,7 +87,7 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% set headerCacheKey = "header-20240617d-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% set headerCacheKey = "header-20240617e-" ~ (isMobile ? 'mobile' : 'desktop') %}
 
         <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">

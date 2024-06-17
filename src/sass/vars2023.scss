@@ -24,14 +24,12 @@ $small-font-size: 0.86rem;
 $nav-font-size: 0.94rem;
 $quote-font-size: 1.1rem;
 
-// @media (min-width: $breakpoint-sm) {
-  @font-face {
-    font-family: "BandPioneerHeader";
-    src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
-         url('/assets/fonts/conthrax-sb.woff') format('woff'); 
-    font-display: swap;
-  }
-// }
+@font-face {
+  font-family: "BandPioneerHeader";
+  src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
+       url('/assets/fonts/conthrax-sb.woff') format('woff'); 
+  font-display: swap;
+}
 
 @mixin defaultFontFamily {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
