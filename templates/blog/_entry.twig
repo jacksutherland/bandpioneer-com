@@ -49,6 +49,11 @@
             	{% endfor %}
             	createBlogRanker("{{ entry.id }}", rdata);
             {% endif %}
+
+            document.getElementById('scroll-down').addEventListener('click', function()
+            {
+            	document.querySelector('main').scrollIntoView();
+            });
         });
         function createBlogRanker(eid, rankingData)
         {
@@ -251,8 +256,8 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
-	{% cache using key blogHeadCacheKey %}
+	{% set blogHeadCacheKey = "blog-post-20240617-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
+	{# {% cache using key blogHeadCacheKey %} #}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
 
@@ -276,6 +281,10 @@
 				{% endif %}
 			</div>
 
+			<span id="scroll-down" class="scroll-down">
+				{% include '_includes/icons' with { type: 'down' } %}
+			</span>
+
 			{% if entry.featuredSnippet | length %}
 				<div class="container narrow-container">
 					<div class="featured-snippet">
@@ -284,7 +293,7 @@
 				</div>
 			{% endif %}
 		</section>
-	{% endcache %}
+	{# {% endcache %} #}
 
 {% endblock %}
 
