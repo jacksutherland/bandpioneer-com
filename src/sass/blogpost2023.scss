@@ -99,7 +99,7 @@
 	@media (max-width: $breakpoint-sm) {
 		.blog-header {
 			position: relative;
-			min-height: calc(100vh - 80px - $section-spacing); // minus header height and h1 top margin
+			min-height: calc(100vh - $section-spacing); // minus header height and h1 top margin
 
 			h1, .breadcrumb, address[rel=author], picture {
 				margin: $object-spacing * 1.5 0;
