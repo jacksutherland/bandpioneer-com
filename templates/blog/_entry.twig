@@ -144,8 +144,8 @@
 		<section class="blog-header">
 
 			<div class="container narrow-container">
+				<h1>{{ entry.title }}</h1>
 				{% if (not isMobile) %}
-					<h1>{{ entry.title }}</h1>
 					{% if entry.topic.count %}
 						<nav aria-label="breadcrumbs" class="breadcrumb">
 							<a href="{{ siteUrl }}"><span>Home</span></a>
