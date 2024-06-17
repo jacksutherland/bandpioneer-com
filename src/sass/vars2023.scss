@@ -5,6 +5,17 @@
  */
 
 
+/***** BREAKPOINTS *****/
+
+$breakpoint-xs: 375px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-air: 1180px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+
 /***** FONTS *****/
 
 $root-font-size: 16px;
@@ -13,11 +24,13 @@ $small-font-size: 0.86rem;
 $nav-font-size: 0.94rem;
 $quote-font-size: 1.1rem;
 
-@font-face {
-  font-family: "BandPioneerHeader";
-  src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
-       url('/assets/fonts/conthrax-sb.woff') format('woff'); 
-  font-display: swap;
+@media (min-width: $breakpoint-sm) {
+  @font-face {
+    font-family: "BandPioneerHeader";
+    src: url('/assets/fonts/conthrax-sb.woff2') format('woff2'),
+         url('/assets/fonts/conthrax-sb.woff') format('woff'); 
+    font-display: swap;
+  }
 }
 
 @mixin defaultFontFamily {
@@ -34,17 +47,6 @@ $regular-font: 400;
 $slightly-bold-font: 500;
 $semi-bold-font: 700;
 $bold-font: 800;
-
-
-/***** BREAKPOINTS *****/
-
-$breakpoint-xs: 375px;
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-air: 1180px;
-$breakpoint-xl: 1200px;
-$breakpoint-xxl: 1400px;
 
 
 /***** COLORS *****/
