@@ -98,43 +98,43 @@
 	// Full height to push content below fold on mobile
 	@media (max-width: $breakpoint-sm) {
 		.blog-header {
-			position: relative;
-			min-height: calc(100vh - $section-spacing); // minus header height and h1 top margin
+			// position: relative;
+			// min-height: calc(100vh - $section-spacing); // minus header height and h1 top margin
 
 			h1, .breadcrumb, address[rel=author], picture {
-				margin: $object-spacing * 1.5 0;
+				margin: $object-spacing 0;
 			}
-			h1 {
-				margin-top: $section-spacing;
-			}
-			.scroll-down {
-				display: inline;
-				cursor: pointer;
-				position: absolute;
-				bottom: $section-spacing;
-				left: 50%;
-				transform: translate(-50%, 0);
-				transition: transform $transition-time;
+			// h1 {
+			// 	margin-top: $section-spacing;
+			// }
+			// .scroll-down {
+			// 	display: inline;
+			// 	cursor: pointer;
+			// 	position: absolute;
+			// 	bottom: $section-spacing;
+			// 	left: 50%;
+			// 	transform: translate(-50%, 0);
+			// 	transition: transform $transition-time;
 
-				&:hover {
-					transform: translate(-50%, 8px);
-					svg {
-						path {
-							fill: $link-hover-color;
-						}
-					}
-				}
+			// 	&:hover {
+			// 		transform: translate(-50%, 8px);
+			// 		svg {
+			// 			path {
+			// 				fill: $link-hover-color;
+			// 			}
+			// 		}
+			// 	}
 
-				svg {
-					height: 40px;
-					width: 40px;
+			// 	svg {
+			// 		height: 40px;
+			// 		width: 40px;
 
-					path {
-						fill: $link-color;
-						transition: fill $transition-time;
-					}
-				}
-			}
+			// 		path {
+			// 			fill: $link-color;
+			// 			transition: fill $transition-time;
+			// 		}
+			// 	}
+			// }
 		}
 	}
 
