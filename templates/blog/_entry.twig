@@ -24,17 +24,12 @@
 
 {% block styles %}
 	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
-	{# {% if (not isMobile) and entry.blogImage.count %} #}
 	{% if entry.blogImage.count %}
 		{% set mobileTrans = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
-		<link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}" >
+		<link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}">
 		{# <link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}" 
 			imagesrcset="{{ entry.blogImage.one().url(mobileTrans) }} 1x, {{ entry.blogImage.one().url(mobileTrans) }} 2x"> #}
 	{% endif %}
-
-	{% if entry.blogImage.count %}
-					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
-				{% endif %}
 {% endblock %}
 
 {% block scripts %}
