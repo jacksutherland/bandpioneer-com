@@ -27,7 +27,7 @@
                 {% set avatar = craft.comments.getAvatar() %}
 
                 {% if avatar %}
-                    <img src="{{ avatar.url({ width: 35, height: 35, mode: 'fit' }) }}" />
+                    <img src="{{ avatar.url({ width: 35, height: 35, mode: 'fit' }) }}" width="35" height="35" />
                 {% else %}
                     <span class="cc-i-image-icon"></span>
                 {% endif %}
