@@ -5,7 +5,7 @@
                 {% set avatar = comment.getAvatar() %}
 
                 {% if avatar %}
-                    <img src="{{ avatar.url({ width: 35, height: 35, mode: 'fit' }) }}" width="35" height="35" />
+                    <img src="{{ avatar.url({ width: 35, height: 35, mode: 'fit' }) }}" width="35" height="35" loading="lazy" />
                 {% else %}
                     <span class="cc-i-image-icon"></span>
                 {% endif %}
