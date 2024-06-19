@@ -27,14 +27,14 @@
 
 				<div class="{% if bulletinReplyCount > 0 %}two-col {% endif %}your-post">
 					<section>
-						<a href="/community/create-bulletin-post">
-							{% include '_includes/icons' with { type: 'plus' } %} Click here to edit this post
+						<a href="/community/create-bulletin-post?post={{ post.id }}">
+							{% include '_includes/icons' with { type: 'plus' } %} Edit this post
 						</a>
 					</section>
 					{% if bulletinReplyCount > 0 %}
 						<section>
-							<a href="/community/bulletin-replies">
-								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
+							<a href="/community/bulletin-replies?post={{ post.id }}">
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ post.replyCount }} replies to this post
 							</a>
 						</section>
 					{% endif %}

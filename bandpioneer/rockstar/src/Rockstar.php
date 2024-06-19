@@ -94,6 +94,7 @@ class Rockstar extends craft\base\Plugin
                 $event->rules['bands/save-band'] = 'rockstar/bands/save-band';
 
                 $event->rules['community/create-bulletin-post'] = 'rockstar/rockstar/create-bulletin-post';
+                $event->rules['community/delete-bulletin-post'] = 'rockstar/rockstar/delete-bulletin-post';
                 $event->rules['community/bulletin-post/<slug>'] = 'rockstar/rockstar/bulletin-post';
                 $event->rules['community/bulletin-reply-status'] = 'rockstar/rockstar/bulletin-reply-status';
 

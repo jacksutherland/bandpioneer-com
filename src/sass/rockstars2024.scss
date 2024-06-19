@@ -120,11 +120,33 @@ p {
 }
 
 .your-post {
-	margin: 0;
-	gap: $object-padding;
+	display: flex;
+	flex-direction: column;
+	gap: $gutter-width;
 
 	section {
 		place-content: center;
+		flex: auto;
+		min-width: auto;
+		text-align: center;
+
+		&:not(:last-child) {
+			margin: 0;
+		}
+
+		a, .link {
+			font-size: $small-font-size;
+    		font-weight: 600;
+		}
+	}
+
+	@media (min-width: $breakpoint-sm) {
+		flex-direction: row;
+		margin-bottom: $gutter-width;
+
+		section {
+			margin: 0;
+		}
 	}
 }
 
@@ -383,40 +405,70 @@ section {
 			overflow: visible;
 			transition: box-shadow $transition-time;
 
-			> svg {
+			> .post-icon {
 				position: absolute;
-				left: -9px;
-    			top: -2px;
-    			transform: rotate(-45deg);
-    			transition: transform $transition-time, left $transition-time, top $transition-time;
+				left: -7px;
+    			top: -8px;
 
-				path {
-					fill: lighten($gray-20, 5%);
-					transition: fill $transition-time;
+    			&.thumbtack {
+    				svg {
+		    			transform: rotate(-45deg);
+		    			width: 15px;
+		    		}
+    			}
+
+				svg {
+	    			transition: transform $transition-time, left $transition-time, top $transition-time;
+	    			width: 18px;
+	    			vertical-align: middle;
+
+					path {
+						fill: $gray-20;
+						transition: fill $transition-time;
+					}
+				}
+
+    			span {
+	    			color: darken($gray-20, 15%) !important;
+	    			font-size: 0.65rem;
+				    font-weight: 800;
+				    margin-left: 4px;
+				    opacity: 0;
+				    text-transform: uppercase;
+				    transition: opacity $transition-time;
 				}
 			}
 
 			&:hover {
 				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03), 0 7px 14px rgba(0, 17, 35, 0.03);
 
-				> svg {
-    				transform: rotate(-35deg);
-    				left: -3px;
-    				top: -1px;
+				>  .post-icon {
+					&.thumbtack {
+	    				svg {
+	    					transform: rotate(-35deg);
+			    		}
+	    			}
+					svg {
+	    				left: -3px;
+	    				top: -1px;
 
-    				path {
-						fill: $gray-20;
+	    				path {
+							fill: darken($gray-20, 10%);
+						}
+					}
+					span {
+						opacity: 1;
 					}
 				}
 
 				h3 {
-					color: $link-hover-color;
+					color: $link-color !important;
 				}
 
 				> div {
-					.bubble {
-						background-color: $gray-10;
-					}
+					// .bubble {
+					// 	background-color: $gray-10;
+					// }
 					h5 {
 						color: $link-hover-color;
 					}
@@ -437,7 +489,8 @@ section {
 		}
 
 		h2, h3 {
-			color: $secondary-dark;
+			// color: $secondary-dark;
+			color: $link-hover-color !important;
 		}
 
 		p {
@@ -456,13 +509,18 @@ section {
     		gap: 10px;
 
 			h5 {
+				// color: $gray-65 !important;
 				margin: 0;
 				transition: color $transition-time;
+
+				+ h5 {
+					color: $gray-65 !important;
+				}
 
 				+ span {
 					font-size: $small-font-size;
 					line-height: $small-font-size;
-					color: $gray-50;
+					color: $gray-65 !important;
 				}
 			}
 

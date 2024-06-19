@@ -1,7 +1,11 @@
 {% extends 'account/_layout' %}
 
 {% set entry = { slug: 'bulletin-post', title: 'Create a Musician Classified Post', section: { handle: 'bulletin-post' } } %}
-{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
+{% set postId = craft.app.request.getQueryParam('post') %}
+{% set isCreatePost = postId == '' %}
+{# {% set bulletinReplyCount = isCreatePost ? 0 : craft.rockstar.countCurrentUserBulletinReplies(postId) %} #}
+{# {% set status = craft.app.request.getQueryParam('status') ?? '' %} #}
+
 
 {% macro option(post, prop, value, label) %}
 	<option value="{{ value }}"{% if post[prop] == value %} selected {% endif %}>{{ label }}</option>
@@ -55,25 +59,35 @@
 
 		<div class="col">
 
-			<div class="{% if bulletinReplyCount > 0 %}two-col {% endif %}your-post">
+			<div class="your-post">
 				<section>
-					<a href="/community/bulletin-board">
-						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View all classifieds
+					<a href="/account">
+						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View your posts
 					</a>
 				</section>
-				{% if bulletinReplyCount > 0 %}
+				{% if not isCreatePost %}
+					{% if post.replyCount > 0 %}
+						<section>
+							<a href="/community/bulletin-replies?post={{ post.id }}">
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ post.replyCount }} replies to this post
+							</a>
+						</section>
+					{% endif %}
 					<section>
-						<a href="/community/bulletin-replies">
-							{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ bulletinReplyCount }} replies to this post
-						</a>
+						<form method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="/community/delete-bulletin-post" onsubmit="return confirm('Are you sure you want to delete this post?');">
+							{{ csrfInput() }}
+							<input type="hidden" name="post" value="{{ post.id }}">
+							<button class="link">
+								{% include '_includes/icons' with { type: 'delete' } %}&nbsp;Delete this post
+							</button>
+						</form>
 					</section>
 				{% endif %}
 			</div>
 
 			<section>
 				<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/create-bulletin-post">
-					{{ csrfInput() }}
-
+					
 					{% if error %}
 						<div class="flash-error">
 							<span>{{ error }}</span>
@@ -84,106 +98,114 @@
 						</div>
 					{% endif %}
 
-					<div class="edit-field">
-						<label>Post Type *</label>
-						<select name="type" value="members">
-							<option value="">Select a Type</option>
-							{% set prop = 'type' %}
-							{{ _self.option(post, prop, 'promotion', 'Artist Promotion') }}
-							{{ _self.option(post, prop, 'management', 'Band Management') }}
-							{{ _self.option(post, prop, 'members', 'Band Members') }}
-							{{ _self.option(post, prop, 'composition', 'Music Composition') }}
-							{{ _self.option(post, prop, 'lessons', 'Music Lessons') }}
-							{{ _self.option(post, prop, 'marketing', 'Music Marketing') }}
-							{{ _self.option(post, prop, 'production', 'Music Production') }}
-							{{ _self.option(post, prop, 'other', 'Other') }}
-						</select>
+					{# {% if status != 'deleted' %} #}
 
-						{% if not isNew and post.status != 'new' %}
-							<label>Status</label>
-							<select name="status">
-								{% set prop = 'status' %}
-								{{ _self.option(post, prop, 'pending', 'Pending') }}
-								{{ _self.option(post, prop, 'live', 'Live') }}
-								{{ _self.option(post, prop, 'inactive', 'Inactive') }}
+						{{ csrfInput() }}
+						<input type="hidden" name="post" value="{{ post.id }}">
+
+						<div class="edit-field">
+							<label>Post Type *</label>
+							<select name="type" value="members">
+								<option value="">Select a Type</option>
+								{% set prop = 'type' %}
+								{{ _self.option(post, prop, 'promotion', 'Artist Promotion') }}
+								{{ _self.option(post, prop, 'management', 'Band Management') }}
+								{{ _self.option(post, prop, 'members', 'Band Members') }}
+								{{ _self.option(post, prop, 'composition', 'Music Composition') }}
+								{{ _self.option(post, prop, 'lessons', 'Music Lessons') }}
+								{{ _self.option(post, prop, 'marketing', 'Music Marketing') }}
+								{{ _self.option(post, prop, 'production', 'Music Production') }}
+								{{ _self.option(post, prop, 'other', 'Other') }}
 							</select>
-						{% else %}
-							<input type="hidden" name="status" value="new">
-						{% endif %}
-					</div>
-					<div class="edit-field">
-						<label>Genre *</label>
-						<select name="genre">
-							<option value="">Select a Genre</option>
-							{% set prop = 'genre' %}
-							{{ _self.option(post, prop, 'blues', 'Blues') }}
-							{{ _self.option(post, prop, 'classical', 'Classical') }}
-							{{ _self.option(post, prop, 'country', 'Country') }}
-							{{ _self.option(post, prop, 'edm', 'EDM') }}
-							{{ _self.option(post, prop, 'folk', 'Folk') }}
-							{{ _self.option(post, prop, 'funk', 'Funk') }}
-							{{ _self.option(post, prop, 'hip-hop', 'Hip Hop') }}
-							{{ _self.option(post, prop, 'jazz', 'Jazz') }}
-							{{ _self.option(post, prop, 'latin', 'Latin') }}
-							{{ _self.option(post, prop, 'pop', 'Pop') }}
-							{{ _self.option(post, prop, 'rb', 'R&B/Soul') }}
-							{{ _self.option(post, prop, 'reggae', 'Reggae') }}
-							{{ _self.option(post, prop, 'rock', 'Rock') }}
-							{{ _self.option(post, prop, 'world', 'World') }}
-							{{ _self.option(post, prop, 'other', 'Other') }}
-						</select>
-						{% if not isNew and post.status != 'new' %}
-							<label class="hide-md-down status">"Pending" while working on it<br>"Live" for others to see<br>"Inactive" when you're done</label>
-						{% endif %}
-					</div>
-					<div class="edit-field">
-						<label>Location Type *</label>
-						<select name="medium">
-							<option value="">Select a Location Type</option>
-							{% set prop = 'medium' %}
-							{{ _self.option(post, prop, 'physical', 'Physical Location') }}
-							{{ _self.option(post, prop, 'virtual', 'Virtual/Remote') }}
-						</select>
-					</div>
-					<div class="edit-field location-field"{% if post.medium != 'physical' %} style="display:none;"{% endif %}>
-						<label>City or Town</label>
-						<input type="text" name="location" required value="{% if post.location | length %}{{ post.location }}{% endif %}">
-					</div>
-					<div class="edit-field">
-						<label>Post Title *</label>
-						<input type="text" name="title" required value="{% if post.title | length %}{{ post.title }}{% endif %}">
-					</div>
-					<div class="edit-field">
-						<label>Short Description *</label>
-						<textarea name="description" class="short-field">{% if post.description | length %}{{ post.description }}{% endif %}</textarea>
-					</div>
-					<div class="edit-field">
-						<label>Audio Track URL</label>
-						<input type="text" name="audioUrl" value="{% if post.audioUrl | length %}{{ post.audioUrl }}{% endif %}">
-					</div>
-					<div class="edit-field">
-						<label>YouTube URL</label>
-						<input type="text" name="videoUrl" value="{% if post.videoUrl | length %}{{ post.videoUrl }}{% endif %}">
-					</div>
-					<div class="edit-field">
-						<label>Additional Details</label>
-						<textarea name="details" class="long-field">{% if post.details | length %}{{ post.details }}{% endif %}</textarea>
-					</div>
-					<div class="buttons">
-						<div>
+
 							{% if not isNew and post.status != 'new' %}
-								<a href="/community/bulletin-post/{{ post.slug }}" style="margin-bottom:6px;display:inline-block;">
-									Preview Your Post 
-									{% include '_includes/icons' with { type: 'preview' } %}
-								</a>
-								{# <br> #}
+								<label>Status</label>
+								<select name="status">
+									{% set prop = 'status' %}
+									{{ _self.option(post, prop, 'pending', 'Pending') }}
+									{{ _self.option(post, prop, 'live', 'Live') }}
+									{{ _self.option(post, prop, 'inactive', 'Inactive') }}
+								</select>
+							{% else %}
+								<input type="hidden" name="status" value="new">
 							{% endif %}
-							{# <a href="/account">
-								Return to Account 
-							</a> #}
 						</div>
-						<button type="submit">Save</button>
-					</div>
+						<div class="edit-field">
+							<label>Genre *</label>
+							<select name="genre">
+								<option value="">Select a Genre</option>
+								{% set prop = 'genre' %}
+								{{ _self.option(post, prop, 'blues', 'Blues') }}
+								{{ _self.option(post, prop, 'classical', 'Classical') }}
+								{{ _self.option(post, prop, 'country', 'Country') }}
+								{{ _self.option(post, prop, 'edm', 'EDM') }}
+								{{ _self.option(post, prop, 'folk', 'Folk') }}
+								{{ _self.option(post, prop, 'funk', 'Funk') }}
+								{{ _self.option(post, prop, 'hip-hop', 'Hip Hop') }}
+								{{ _self.option(post, prop, 'jazz', 'Jazz') }}
+								{{ _self.option(post, prop, 'latin', 'Latin') }}
+								{{ _self.option(post, prop, 'pop', 'Pop') }}
+								{{ _self.option(post, prop, 'rb', 'R&B/Soul') }}
+								{{ _self.option(post, prop, 'reggae', 'Reggae') }}
+								{{ _self.option(post, prop, 'rock', 'Rock') }}
+								{{ _self.option(post, prop, 'world', 'World') }}
+								{{ _self.option(post, prop, 'other', 'Other') }}
+							</select>
+							{% if not isNew and post.status != 'new' %}
+								<label class="hide-md-down status">"Pending" while working on it<br>"Live" for others to see<br>"Inactive" when you're done</label>
+							{% endif %}
+						</div>
+						<div class="edit-field">
+							<label>Location Type *</label>
+							<select name="medium">
+								<option value="">Select a Location Type</option>
+								{% set prop = 'medium' %}
+								{{ _self.option(post, prop, 'physical', 'Physical Location') }}
+								{{ _self.option(post, prop, 'virtual', 'Virtual/Remote') }}
+							</select>
+						</div>
+						<div class="edit-field location-field"{% if post.medium != 'physical' %} style="display:none;"{% endif %}>
+							<label>City or Town</label>
+							<input type="text" name="location" required value="{% if post.location | length %}{{ post.location }}{% endif %}">
+						</div>
+						<div class="edit-field">
+							<label>Post Title *</label>
+							<input type="text" name="title" required value="{% if post.title | length %}{{ post.title }}{% endif %}">
+						</div>
+						<div class="edit-field">
+							<label>Short Description *</label>
+							<textarea name="description" class="short-field">{% if post.description | length %}{{ post.description }}{% endif %}</textarea>
+						</div>
+						<div class="edit-field">
+							<label>Audio Track URL</label>
+							<input type="text" name="audioUrl" value="{% if post.audioUrl | length %}{{ post.audioUrl }}{% endif %}">
+						</div>
+						<div class="edit-field">
+							<label>YouTube URL</label>
+							<input type="text" name="videoUrl" value="{% if post.videoUrl | length %}{{ post.videoUrl }}{% endif %}">
+						</div>
+						<div class="edit-field">
+							<label>Additional Details</label>
+							<textarea name="details" class="long-field">{% if post.details | length %}{{ post.details }}{% endif %}</textarea>
+						</div>
+						<div class="buttons">
+							<div>
+								{% if not isNew and post.status != 'new' %}
+									<a href="/community/bulletin-post/{{ post.slug }}" style="margin-bottom:6px;display:inline-block;">
+										Preview Your Post 
+										{% include '_includes/icons' with { type: 'preview' } %}
+									</a>
+									{# <br> #}
+								{% endif %}
+								{# <a href="/account">
+									Return to Account 
+								</a> #}
+							</div>
+							<button type="submit">Save</button>
+						</div>
+
+					{# {% endif %} #}
+
 				</form>
 			</section> 
 

@@ -14,7 +14,11 @@ use bandpioneer\rockstar\Rockstar;
 use bandpioneer\rockstar\services\RockstarService;
 
 use Craft;
+use Exception;
+
 use craft\helpers\Json;
+use craft\helpers\UrlHelper;
+
 use craft\web\Controller;
 
 use yii\log\Logger;
@@ -190,17 +194,50 @@ class RockstarController extends Controller
         return 'success';
     }
 
+    public function actionDeleteBulletinPost(): ?Response
+    {
+        $request = Craft::$app->getRequest();
+        $bulletinService = Rockstar::$plugin->getBulletinService();
+        $postId = trim($request->getParam('post'));
+
+        if (!$this->request->getIsPost())
+        {
+            throw new NotFoundHttpException('Page not found');
+        }
+
+        $bulletinService->deleteBulletinPost($postId);
+
+        Craft::$app->getSession()->setNotice("Your post has been deleted.");
+
+        // return $this->redirect('community/create-bulletin-post?post=' . $postId . '&status=deleted');
+        return $this->redirect('account');
+    }
+
     public function actionCreateBulletinPost():post
     {
         $template = 'community/create-bulletin-post';
         $request = Craft::$app->getRequest();
         $bulletinService = Rockstar::$plugin->getBulletinService();
-        $post = $bulletinService->getCurrentUserBulletinPost();
+        $postId = trim($request->getParam('post'));
 
         // GET Request
 
         if (!$this->request->getIsPost())
         {
+            if (empty($postId))
+            {
+                $post = $bulletinService->getEmptyBulletinPost();
+            }
+            else
+            {
+                $post = $bulletinService->getCurrentUserPostById($postId);
+            }
+
+            if(!$post)
+            {
+                throw new NotFoundHttpException('Page not found');
+            }
+
             if($post['status'] == 'new')
             {
                 Craft::$app->getSession()->setNotice("Your post is pending admin approval.");
@@ -218,6 +255,7 @@ class RockstarController extends Controller
         $service = Rockstar::$plugin->getService();
 
         $post = [
+            'id' => trim($request->getParam('post')),
             'type' => trim($request->getParam('type')),
             'genre' => trim($request->getParam('genre')),
             'title' => trim($request->getParam('title')),
@@ -227,8 +265,8 @@ class RockstarController extends Controller
             'details' => trim($request->getParam('details')),
             'status' => trim($request->getParam('status')),
             'medium' => trim($request->getParam('medium')),
-            'location' => trim($request->getParam('location')),
-            'slug' => $post['slug']
+            'location' => trim($request->getParam('location'))
+            // 'slug' => $post['slug']
         ];
 
         /*** VALIDATION ***/
@@ -276,8 +314,9 @@ class RockstarController extends Controller
 
         if($isValid)
         {
-            $savedPost = $bulletinService->saveBulletinPost($post);
+            $savedPost = $bulletinService->saveBulletinPost($postId, $post);
 
+            $post['id'] = $savedPost->id;
             $post['slug'] = $savedPost->slug;
             $post['status'] = $savedPost->status;
 

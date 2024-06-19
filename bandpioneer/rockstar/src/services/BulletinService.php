@@ -10,6 +10,8 @@
 
 namespace bandpioneer\rockstar\services;
 
+use Exception;
+
 use Craft;
 use craft\gql\base\ObjectType;
 use yii\base\Component;
@@ -170,11 +172,11 @@ class BulletinService extends Component
         return $postExists;
     }
 
-    public function getCurrentUserBulletinReplies()
+    public function getCurrentUserBulletinReplies($postId)
     {
         $replies = [];
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $postRecord = BulletinPostRecord::findOne(['userId' => $currentUser->id, 'enabled' => 1]);
+        $postRecord = BulletinPostRecord::findOne(['id' => $postId, 'userId' => $currentUser->id, 'enabled' => 1]);
 
         if($postRecord)
         {
@@ -256,6 +258,7 @@ class BulletinService extends Component
                 'description' => $postRecord->description,
                 'details' => $postRecord->details,
                 'status' => $postRecord->status,
+                'slug' => $postRecord->slug,
                 'id' => $postRecord->id,
                 'uid' => $postRecord->uid,
                 'userId' => $postRecord->userId,
@@ -267,6 +270,84 @@ class BulletinService extends Component
         }
 
         return null;
+    }
+
+    public function getCurrentUserPostById($postId)
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postRecord = BulletinPostRecord::findOne(['id' => $postId, 'enabled' => 1]);
+
+        if($postRecord)
+        {
+            if($postRecord->userId !== $currentUser->id)
+            {
+                throw new Exception("User '{$currentUser->id}' cannot access postRecord '{$postId}'");
+            }
+
+            return [
+                'type' => $postRecord->type,
+                'genre' => $postRecord->genre,
+                'title' => $postRecord->title,
+                'audioUrl' => $postRecord->audioUrl,
+                'videoUrl' => $postRecord->videoUrl,
+                'description' => $postRecord->description,
+                'details' => $postRecord->details,
+                'status' => $postRecord->status,
+                'slug' => $postRecord->slug,
+                'id' => $postRecord->id,
+                'uid' => $postRecord->uid,
+                'userId' => $postRecord->userId,
+                'medium' => $postRecord->medium,
+                'location' => $postRecord->location,
+                'replyCount' => $postRecord->replyCount == null ? 0 : $postRecord->replyCount,
+                'daysAgo' => $this->getDaysAgo($postRecord->dateCreated)
+            ];
+        }
+
+        return null;
+
+        // return [
+        //     'type' => '',
+        //     'genre' => '',
+        //     'title' => '',
+        //     'audioUrl' => '',
+        //     'videoUrl' => '',
+        //     'description' => '',
+        //     'details' => '',
+        //     'slug' => '',
+        //     'id' => '',
+        //     'uid' => '',
+        //     'userId' => $currentUser->id,
+        //     'medium' => '',
+        //     'location' => '',
+        //     'status' => 'pending',
+        //     'replyCount' => 0,
+        //     'daysAgo' => 'Now'
+        // ];
+    }
+
+    public function getEmptyBulletinPost()
+    {
+        $currentUser = Craft::$app->getUser()->getIdentity();
+
+        return [
+            'type' => '',
+            'genre' => '',
+            'title' => '',
+            'audioUrl' => '',
+            'videoUrl' => '',
+            'description' => '',
+            'details' => '',
+            'slug' => '',
+            'id' => '',
+            'uid' => '',
+            'userId' => $currentUser->id,
+            'medium' => '',
+            'location' => '',
+            'status' => 'pending',
+            'replyCount' => 0,
+            'daysAgo' => 'Now'
+        ];
     }
 
     public function getCurrentUserBulletinPost()
@@ -310,7 +391,64 @@ class BulletinService extends Component
         }
     }
 
-    public function saveBulletinPost($post)
+    public function getCurrentUserBulletinPosts()
+    {
+        $posts = [];
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postRecords = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])
+            ->orderBy(['dateCreated' => SORT_DESC])
+            ->select(['id', 'slug', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount'])
+            ->all();
+
+        foreach ($postRecords as $postRecord)
+        {
+            array_push($posts, [
+                'id' => $postRecord->id,
+                'slug' => $postRecord->slug,
+                'title' => $postRecord->title,
+                'type' => $postRecord->type,
+                'genre' => $postRecord->genre,
+                'medium' => $postRecord->medium,
+                'location' => $postRecord->location,
+                'audioUrl' => $postRecord->audioUrl,
+                'videoUrl' => $postRecord->videoUrl,
+                'description' => $postRecord->description,
+                'details' => $postRecord->details,
+                'userId' => $postRecord->userId,
+                'replyCount' => $postRecord->replyCount == null ? 0 : $postRecord->replyCount,
+                'daysAgo' => $this->getDaysAgo($postRecord->dateCreated)
+            ]);
+        }
+
+        return $posts;
+    }
+
+    public function deleteBulletinPost($postId)
+    {
+        $transaction = Craft::$app->getDb()->beginTransaction();
+
+        try
+        {
+            $currentUser = Craft::$app->getUser()->getIdentity();
+
+            if($postRecord = BulletinPostRecord::findOne(['userId' => $currentUser->id, 'id' => $postId]))
+            {
+                $postRecord->enabled = 0;
+            }
+
+            $postRecord->save();
+
+            $transaction->commit();
+        }
+        catch (Throwable $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+            return false;
+        }
+    }
+
+    public function saveBulletinPost($postId, $post)
     {
         $transaction = Craft::$app->getDb()->beginTransaction();
 
@@ -318,7 +456,7 @@ class BulletinService extends Component
 
             $now = Db::prepareDateForDb(DateTimeHelper::now());
             $currentUser = Craft::$app->getUser()->getIdentity();
-            $postRecord = BulletinPostRecord::findOne(['userId' => $currentUser->id]) ?? new BulletinPostRecord();
+            $postRecord = BulletinPostRecord::findOne(['id' => $postId]) ?? new BulletinPostRecord();
 
             if($postRecord->getIsNewRecord())
             {
@@ -328,6 +466,10 @@ class BulletinService extends Component
                 $postRecord->replyCount = 0;
                 $postRecord->enabled = 1;
                 $postRecord->status = 'new';
+            }
+            else if($postRecord->userId !== $currentUser->id)
+            {
+                throw new Exception("User '{$currentUser->id}' cannot access postRecord '{$postId}'");
             }
 
             $postRecord->dateUpdated = $now;

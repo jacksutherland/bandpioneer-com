@@ -5,7 +5,8 @@
 
 {% set entry = { slug: 'bulletin-replies', title: 'Musician Classified Replies', section: { handle: 'bulletin-replies' } } %}
 {% set post = craft.rockstar.getCurrentUserBulletinPost() %}
-{% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies() %}
+{% set postId = craft.app.request.getQueryParam('post') %}
+{% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies(postId) %}
 
 {% macro option(post, prop, value, label) %}
 	<option value="{{ value }}"{% if post[prop] == value %} selected {% endif %}>{{ label }}</option>
@@ -71,46 +72,52 @@
 					</a>
 				</section>
 				<section>
-					<a href="/community/create-bulletin-post">
-						{% include '_includes/icons' with { type: 'plus' } %}&nbsp;Click here to edit your post
+					<a href="/community/create-bulletin-post?post={{ postId }}">
+						{% include '_includes/icons' with { type: 'plus' } %}&nbsp;Edit your post
 					</a>
 				</section>
 			</div>
-			
-			{% for reply in bulletinReplies %}
+
+			{% if bulletinReplies | length == 0 %}
 				<section>
-					<div class="two-col" style="margin:0;">
-						<h3 style="flex:1;">{{ reply.role }}</h3>
-						<form style="margin-left:auto;" novalidate class="long-form">
-							{{ csrfInput() }}
-							<select class="reply-status" name="type" value="members" data-reply="{{ reply.id }}">
-								{% set prop = 'status' %}
-								{{ _self.option(reply, prop, 'under-review', 'Under Review') }}
-								{{ _self.option(reply, prop, 'accepted', 'Accepted') }}
-								{{ _self.option(reply, prop, 'declined', 'Declined') }}
-							</select>
-						</form>
-					</div>
-					<p>{{ reply.message }}</p>
-					<p>
-						<strong>Email: </strong>
-						<a href="mailto:{{ reply.email }}">{{ reply.email }}</a>
-					</p>
-					{% if reply.audioUrl | length %}
-						<p style="text-wrap:nowrap;overflow:hidden;text-overflow:ellipsis;">
-							<strong>Audio: </strong>
-							<a href="{{ reply.audioUrl }}" target="_blank">{{ reply.audioUrl }}</a>
-						</p>
-					{% endif %}
-					{% if reply.videoUrl | length %}
-						<figure class="video">
-							<div class="player">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ macros.getYoutubeId(reply.videoUrl) | trim }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-							</div>
-						</figure>
-					{% endif %}
+					<h3 class="text-center">This post has no replies</h3>
 				</section>
-			{% endfor %}
+			{% else %}
+				{% for reply in bulletinReplies %}
+					<section>
+						<div class="two-col" style="margin:0;">
+							<h3 style="flex:1;">{{ reply.role }}</h3>
+							<form style="margin-left:auto;" novalidate class="long-form">
+								{{ csrfInput() }}
+								<select class="reply-status" name="type" value="members" data-reply="{{ reply.id }}">
+									{% set prop = 'status' %}
+									{{ _self.option(reply, prop, 'under-review', 'Under Review') }}
+									{{ _self.option(reply, prop, 'accepted', 'Accepted') }}
+									{{ _self.option(reply, prop, 'declined', 'Declined') }}
+								</select>
+							</form>
+						</div>
+						<p>{{ reply.message }}</p>
+						<p>
+							<strong>Email: </strong>
+							<a href="mailto:{{ reply.email }}">{{ reply.email }}</a>
+						</p>
+						{% if reply.audioUrl | length %}
+							<p style="text-wrap:nowrap;overflow:hidden;text-overflow:ellipsis;">
+								<strong>Audio: </strong>
+								<a href="{{ reply.audioUrl }}" target="_blank">{{ reply.audioUrl }}</a>
+							</p>
+						{% endif %}
+						{% if reply.videoUrl | length %}
+							<figure class="video">
+								<div class="player">
+									<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ macros.getYoutubeId(reply.videoUrl) | trim }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+								</div>
+							</figure>
+						{% endif %}
+					</section>
+				{% endfor %}
+			{% endif %}
 
 		</div>
 	</div>

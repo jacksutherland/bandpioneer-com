@@ -264,8 +264,9 @@ figure {
 	}
 }
 
-button,
-.btn {
+.btn, 
+button:not(.link)
+ {
 	background-color: $link-color;
 	border: 0;
 	border-radius: $small-radius;
@@ -373,7 +374,14 @@ button,
 	}
 }
 
-a {
+button.link {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+a,
+.link {
 	color: $link-color;
 	font-weight: $slightly-bold-font;
 	text-decoration: none;

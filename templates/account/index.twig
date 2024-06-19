@@ -7,8 +7,9 @@
 
 {% set rankingEntries = craft.rockstar.getRankEntries() %}
 {% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
-{% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %}
+{# {% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %} #}
 {% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %}
+{% set userPosts = craft.rockstar.getCurrentUserBulletinPosts() %}
 
 {% block content %}
 
@@ -38,7 +39,19 @@
 							</a>
 						</p>
 					{% endif %}
-					<p>
+					{% if userPosts | length %}
+						<h3>Your Posts</h3>
+						{% for post in userPosts %}
+							<p>
+								<a href="/community/create-bulletin-post?post={{ post.id }}">
+									{% include '_includes/icons' with { type: 'thumbtack' } %}
+									&nbsp;
+									{{ post.title }}
+								</a>
+							</p>
+						{% endfor %}
+					{% endif %}
+					{# <p>
 						<a href="/community/create-bulletin-post">
 							{% include '_includes/icons' with { type: 'thumbtack' } %}
 							&nbsp;
@@ -55,7 +68,7 @@
 								{% include '_includes/icons' with { type: 'message' } %}&nbsp;&nbsp;Classified replies ({{ bulletinReplyCount }})
 							</a>
 						</p>
-					{% endif %}
+					{% endif %} #}
 				</p>
 			</section>
 			

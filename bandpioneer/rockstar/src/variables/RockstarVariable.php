@@ -73,9 +73,14 @@ class RockstarVariable
         return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinPost();
     }
 
-    public function getCurrentUserBulletinReplies()
+    public function getCurrentUserBulletinPosts()
     {
-        return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinReplies();
+        return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinPosts();
+    }
+
+    public function getCurrentUserBulletinReplies($postId)
+    {
+        return Rockstar::$plugin->getBulletinService()->getCurrentUserBulletinReplies($postId);
     }
 
     public function countCurrentUserBulletinReplies()
