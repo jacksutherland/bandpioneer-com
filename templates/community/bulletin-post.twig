@@ -27,22 +27,34 @@
 
 				<div class="{% if bulletinReplyCount > 0 %}two-col {% endif %}your-post">
 					<section>
-						<a href="/community/create-bulletin-post?post={{ post.id }}">
-							{% include '_includes/icons' with { type: 'plus' } %} Edit this post
+						<a href="/community/classifieds?filter=user">
+							{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View your posts
 						</a>
 					</section>
 					{% if bulletinReplyCount > 0 %}
 						<section>
 							<a href="/community/bulletin-replies?post={{ post.id }}">
-								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ post.replyCount }} replies to this post
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;{{ post.replyCount }} replies to this post
 							</a>
 						</section>
 					{% endif %}
+					<section>
+						<a href="/community/create-bulletin-post?post={{ post.id }}">
+							{% include '_includes/icons' with { type: 'plus' } %} Edit this post
+						</a>
+					</section>
 				</div>
 
 			{% endif %}
 
 			<section>
+
+				{% if reply.status == 'declined' %}
+					<form><div class="flash-error"><span>Your request has been declined.</span></div></form>
+				{% elseif reply.status == 'accepted' %}
+					<form><div class="flash-notice"><span>Congratulations, you've been approved fopr this project!</span></div></form>
+				{% endif %}
+
 				<div>
 					{% switch post.type %}
 						{% case 'promotion' %}
@@ -146,11 +158,12 @@
 						<p>Include what instrument you play or the role you'd be filling, a valid email address for them to contact you at, a message, and an audio or video url of your music that show why you'd be a good fit.</p>
 						<br>
 
-						{% if reply.status == 'declined' %}
+						{# {% if reply.status == 'declined' %}
 							<form><div class="flash-notice"><span>Your request has been declined.</span></div></form>
 						{% elseif reply.status == 'accepted' %}
-							<form><div class="flash-notice"><span>Congratulations, you've been approved fopr this project!</span></div></form>
-						{% else %}
+							<form><div class="flash-notice"><span>Congratulations, you've been approved fopr this project!</span></div></form> #}
+
+						{% if reply.status != 'declined' and reply.status != 'accepted' %}
 							<form novalidate class="long-form" method="post"  accept-charset="UTF-8" enctype="multipart/form-data" action="/community/bulletin-post/{{ slug }}">
 								{{ csrfInput() }}
 
@@ -175,7 +188,7 @@
 								<div class="edit-field">
 									<label>Email Address *</label>
 									<input type="email" name="email" placeholder="me@emailaddress.com" title="A valid email address for them to contact you at"
-										value="{% if reply and reply.email | length %}{{ reply.email }}{% endif %}">
+										value="{% if reply and reply.email | length %}{{ reply.email }}{% elseif currentUser.email | length %}{{ currentUser.email }}{% endif %}">
 								</div>
 								<div class="edit-field">
 									<label>Audio Track URL</label>

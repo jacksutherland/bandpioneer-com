@@ -4,8 +4,8 @@
 {% set allowAnonymous = true %}
 
 {% set entry = { slug: 'bulletin-replies', title: 'Musician Classified Replies', section: { handle: 'bulletin-replies' } } %}
-{% set post = craft.rockstar.getCurrentUserBulletinPost() %}
 {% set postId = craft.app.request.getQueryParam('post') %}
+{% set post = craft.rockstar.getCurrentUserPostById(postId) %}
 {% set bulletinReplies = craft.rockstar.getCurrentUserBulletinReplies(postId) %}
 
 {% macro option(post, prop, value, label) %}
@@ -51,14 +51,14 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>
-				<a href="/community/bulletin-board" title="Musician Classifieds">
+				<a href="/community/classifieds" title="Musician Classifieds">
 					{% include '_includes/icons' with { type: 'thumbtack' } %}
 				</a>
 				Musician Classifieds: Replies
 			</h1>
 			<h3>(Beta Version: 1.10)</h3>
 			<h2 class="color-primary-dark">{{ post.title }}</h2>
-			<p>Review applicants for your post below. Declined applicants will no longer be able to reply.</p>
+			<p>Review applicants for your post below. We'll be adding 2-way communication soon. In the meantime please contact them via the email address provided. <strong>Declined applicants will no longer be able to reply.</strong></p>
 		</div>
 	</section>
 
@@ -67,8 +67,8 @@
 
 			<div class="two-col your-post">
 				<section>
-					<a href="/community/bulletin-board">
-						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View all classifieds
+					<a href="/community/classifieds?filter=user">
+						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View your posts
 					</a>
 				</section>
 				<section>
@@ -97,6 +97,7 @@
 								</select>
 							</form>
 						</div>
+
 						<p>{{ reply.message }}</p>
 						<p>
 							<strong>Email: </strong>
@@ -114,7 +115,12 @@
 									<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ macros.getYoutubeId(reply.videoUrl) | trim }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 								</div>
 							</figure>
+						{% else %}
+							<br>
 						{% endif %}
+
+						{# <a class="btn small" href="/community/bulletin-conversation?post={{ post.id }}&reply={{ reply.id }}">Enter Conversation</a> #}
+
 					</section>
 				{% endfor %}
 			{% endif %}

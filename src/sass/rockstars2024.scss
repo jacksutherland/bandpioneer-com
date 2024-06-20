@@ -164,6 +164,10 @@ section {
 
 	&.page-header {
 		padding: $rockstars-gap 0;
+
+		h3 + h2 {
+			color: $font-color;
+		}
 	}
 
 	&:not(.page-header) {
@@ -407,10 +411,12 @@ section {
 
 			> .post-icon {
 				position: absolute;
-				left: -7px;
-    			top: -8px;
+				left: -5px;
+    			top: 1px;
 
     			&.thumbtack {
+    				top: -6px;
+
     				svg {
 		    			transform: rotate(-45deg);
 		    			width: 15px;

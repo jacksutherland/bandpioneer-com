@@ -38,7 +38,7 @@
 	<section class="page-header">
 		<div class="container">
 			<h1>
-				<a href="/community/bulletin-board" title="Musician Classifieds">
+				<a href="/community/classifieds" title="Musician Classifieds">
 					{% include '_includes/icons' with { type: 'thumbtack' } %}
 				</a>
 				Musician Classifieds
@@ -46,8 +46,6 @@
 			<h3>(Beta Version: 1.10)</h3>
 			<h2>{% if isNew %}Create{% else %}Edit{% endif %} Your Post</h2>
 			<p>
-				* Each user is only allowed one post, so update it as your needs change.
-				<br>
 				* Include a location so applicants know if they're in your area.
 				<br>
 				* Include a YouTube or Audio Url to help improve your odds of fiding artists that are a good match.
@@ -61,7 +59,7 @@
 
 			<div class="your-post">
 				<section>
-					<a href="/account">
+					<a href="/community/classifieds?filter=user">
 						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View your posts
 					</a>
 				</section>
@@ -69,7 +67,7 @@
 					{% if post.replyCount > 0 %}
 						<section>
 							<a href="/community/bulletin-replies?post={{ post.id }}">
-								{% include '_includes/icons' with { type: 'message' } %}&nbsp;You have {{ post.replyCount }} replies to this post
+								{% include '_includes/icons' with { type: 'message' } %}&nbsp;{{ post.replyCount }} replies to this post
 							</a>
 						</section>
 					{% endif %}

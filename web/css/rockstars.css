@@ -167,6 +167,9 @@ section {
 section.page-header {
   padding: 20px 0;
 }
+section.page-header h3 + h2 {
+  color: #111111;
+}
 section:not(.page-header) {
   max-width: 780px;
   padding: 16px 20px;
@@ -359,8 +362,11 @@ section .bubble svg path {
 }
 .bulletin-board a > section > .post-icon {
   position: absolute;
-  left: -7px;
-  top: -8px;
+  left: -5px;
+  top: 1px;
+}
+.bulletin-board a > section > .post-icon.thumbtack {
+  top: -6px;
 }
 .bulletin-board a > section > .post-icon.thumbtack svg {
   transform: rotate(-45deg);

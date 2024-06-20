@@ -3,7 +3,9 @@
 {% set allowAnonymous = true %}
 
 {% set entry = { slug: 'bulletin-board', title: 'Musician Classifieds', section: { handle: 'bulletin-board' } } %}
-{% set posts = craft.rockstar.getBulletinBoardPosts(25) %}
+{% set postLimit = 25 %}
+{% set filter = craft.app.request.getQueryParam('filter') ?? '' %}
+{% set posts = filter == 'user' ? craft.rockstar.getCurrentUserBulletinPosts(postLimit) : craft.rockstar.getBulletinBoardPosts(postLimit) %}
 {% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %}
 
 {% block content %}
@@ -12,17 +14,25 @@
 		<div class="container">
 			<div class="two-col">
 				<h1>
-					<a href="/community/bulletin-board" title="Musician Classifieds">
-						{% include '_includes/icons' with { type: 'thumbtack' } %}
-					</a> 
-					Musician Classifieds
+					{% if filter == 'user' %}
+						<a href="/community/classifieds?filter=user" title="Your Classified Posts">
+							{% include '_includes/icons' with { type: 'thumbtack' } %}
+						</a> 
+						Your Classified Posts
+					{% else %}
+						<a href="/community/classifieds" title="Musician Classifieds">
+							{% include '_includes/icons' with { type: 'thumbtack' } %}
+						</a> 
+						Musician Classifieds
+					{% endif %}
 				</h1>
 				<a class="btn small" {% if currentUser %}href="/community/create-bulletin-post"{% else %}href="/" onclick="return bp.login('Sign in to create a post');"{% endif %}>
 					{% include '_includes/icons' with { type: 'plus' } %} Create a Post
 				</a>
 			</div>
-			<h3>(Beta Version: 1.10)</h3>
-			<h4>Are you looking to join a band, start a band, or find musicians to collaborate with on a project? Browse the posts on this page to connect with other musicians with similar interests and start making music together! Or post details about your skillset, music projects, and the type of collaborations you're working on to help others find you.</h4>
+			<h3 style="margin-top:3px;">(Beta Version: 1.10)</h3>
+			<h2>Private conversations with other musicians</h2>
+			<h4>Whether you're looking for band members, searching for musicians to collaborate with, or seeking advice, post it here, and we'll help connect you with others who can assist.</h4>
 			<p class="mobile-btn">
 				<a class="btn small" {% if currentUser %}href="/community/create-bulletin-post"{% else %}href="/" onclick="return bp.login('Sign in to create a post');"{% endif %}>
 					{% include '_includes/icons' with { type: 'plus' } %} Create a Post
@@ -36,12 +46,12 @@
 		<div class="col">
 
 			{% for post in posts %}
-				<a {% if currentUser %}href="/community/bulletin-post/{{ post.slug }}"{% else %}href="/" onclick="return bp.login('Sign in to view this');"{% endif %} title="Reply to this post?">
+				{% set postUrl = (currentUser and currentUser.id == post.userId and post.status == 'new') ? '/community/create-bulletin-post?post=' ~ post.id : '/community/bulletin-post/' ~ post.slug %}
+				<a {% if currentUser %}href="{{ postUrl }}"{% else %}href="/" onclick="return bp.login('Sign in to view this');"{% endif %} title="Reply to this post?">
 					<section>
 						{% if currentUser and currentUser.id == post.userId %}
 							<span class="post-icon user">
 								{% include '_includes/icons' with { type: 'user' } %} 
-								<span>Your Post</span>
 							</span>
 						{% else %}
 							<span class="post-icon thumbtack">{% include '_includes/icons' with { type: 'thumbtack' } %}</span>

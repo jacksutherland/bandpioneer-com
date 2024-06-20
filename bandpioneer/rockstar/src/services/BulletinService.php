@@ -134,7 +134,7 @@ class BulletinService extends Component
     {
         $posts = [];
         $where = $liveOnly ? ['status' => 'live', 'enabled' => 1] : ['enabled' => 1];
-        $select = ['slug', 'userId', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount', 'dateCreated'];
+        $select = ['slug', 'status', 'userId', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount', 'dateCreated'];
         $query = BulletinPostRecord::find()->where($where)->orderBy(['dateCreated' => SORT_DESC])->select($select);
 
         $postRecords = $limit == null ? $query->all() : $query->limit($limit)->all();
@@ -143,6 +143,7 @@ class BulletinService extends Component
         {
             array_push($posts, [
                 'slug' => $postRecord->slug,
+                'status' => $postRecord->status,
                 'title' => $postRecord->title,
                 'type' => $postRecord->type,
                 'genre' => $postRecord->genre,
@@ -227,6 +228,15 @@ class BulletinService extends Component
             $transaction->rollBack();
             throw $e;
         }
+    }
+
+    public function countCurrentUserBulletinPosts()
+    {
+        $replyCount = 0;
+        $currentUser = Craft::$app->getUser()->getIdentity();
+        $postCount = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])->count();
+
+        return $postCount;
     }
 
     public function countCurrentUserBulletinReplies()
@@ -391,20 +401,22 @@ class BulletinService extends Component
         }
     }
 
-    public function getCurrentUserBulletinPosts()
+    public function getCurrentUserBulletinPosts($limit = null)
     {
         $posts = [];
         $currentUser = Craft::$app->getUser()->getIdentity();
-        $postRecords = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])
+        $query = BulletinPostRecord::find()->where(['userId' => $currentUser->id, 'enabled' => 1])
             ->orderBy(['dateCreated' => SORT_DESC])
-            ->select(['id', 'slug', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount'])
-            ->all();
+            ->select(['id', 'userId', 'status', 'slug', 'title', 'type', 'genre', 'medium', 'location', 'audioUrl', 'videoUrl', 'description', 'details', 'replyCount']);
+
+        $postRecords = $limit == null ? $query->all() : $query->limit($limit)->all();
 
         foreach ($postRecords as $postRecord)
         {
             array_push($posts, [
                 'id' => $postRecord->id,
                 'slug' => $postRecord->slug,
+                'status' => $postRecord->status,
                 'title' => $postRecord->title,
                 'type' => $postRecord->type,
                 'genre' => $postRecord->genre,

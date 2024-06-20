@@ -9,7 +9,7 @@
 {% set rankingData = craft.rockstar.getCurrentUserRankedKeys() %}
 {# {% set bulletinReplyCount = craft.rockstar.countCurrentUserBulletinReplies() %} #}
 {% set bulletinPostExists = craft.rockstar.currentUserBulletinPostExists() %}
-{% set userPosts = craft.rockstar.getCurrentUserBulletinPosts() %}
+{% set userPostCount = craft.rockstar.countCurrentUserBulletinPosts() %}
 
 {% block content %}
 
@@ -39,17 +39,14 @@
 							</a>
 						</p>
 					{% endif %}
-					{% if userPosts | length %}
-						<h3>Your Posts</h3>
-						{% for post in userPosts %}
-							<p>
-								<a href="/community/create-bulletin-post?post={{ post.id }}">
-									{% include '_includes/icons' with { type: 'thumbtack' } %}
-									&nbsp;
-									{{ post.title }}
-								</a>
-							</p>
-						{% endfor %}
+					{% if userPostCount > 0 %}
+						<p>
+							<a href="/community/classifieds?filter=user">
+								{% include '_includes/icons' with { type: 'thumbtack' } %}
+								&nbsp;
+								You have {{ userPostCount }} {{ userPostCount == 1 ? 'post' : 'posts' }}
+							</a>
+						</p>
 					{% endif %}
 					{# <p>
 						<a href="/community/create-bulletin-post">

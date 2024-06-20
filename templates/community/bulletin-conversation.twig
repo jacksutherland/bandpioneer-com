@@ -1,0 +1,42 @@
+{% extends 'account/_layout' %}
+
+{% set post = craft.rockstar.getCurrentUserBulletinPost() %}
+{% set postId = 4 %}
+{% set replyId = craft.app.request.getQueryParam('reply') %}
+
+{% block content %}
+
+	<section class="page-header">
+		<div class="container">
+			<h1>
+				<a href="/community/classifieds" title="Musician Classifieds">
+					{% include '_includes/icons' with { type: 'thumbtack' } %}
+				</a>
+				Musician Classifieds: Replies
+			</h1>
+			<h3>(Beta Version: 1.10)</h3>
+			<h2 class="color-primary-dark">{{ post.title }}</h2>
+			<p>Review applicants for your post below. Declined applicants will no longer be able to reply.</p>
+		</div>
+	</section>
+
+	<div class="rockstars-container bulletin-board">
+		<div class="col">
+
+			<div class="two-col your-post">
+				<section>
+					<a href="/community/classifieds?filter=user">
+						{% include '_includes/icons' with { type: 'thumbtack' } %}&nbsp;View your posts
+					</a>
+				</section>
+				<section>
+					<a href="/community/bulletin-replies?post={{ postId }}">
+						{% include '_includes/icons' with { type: 'message' } %}&nbsp;Return to replies
+					</a>
+				</section>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
