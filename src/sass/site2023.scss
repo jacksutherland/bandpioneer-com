@@ -64,6 +64,7 @@
 				}
 			}
 		}
+
 		&.page-arrow {
 			svg {
 				path {
@@ -98,6 +99,10 @@
 			svg {
 				margin: 0 -13px;
 			}
+		}
+
+		svg {
+			width: 32px;
 		}
 	}
 }
