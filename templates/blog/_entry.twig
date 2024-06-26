@@ -23,7 +23,11 @@
 {% endblock %}
 
 {% block styles %}
-	<link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" />
+	{# <link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" /> #}
+	
+	<link rel="preload" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}"></noscript>
+
 	{% if entry.blogImage.count %}
 		{% set mobileTrans = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
 		<link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}">
