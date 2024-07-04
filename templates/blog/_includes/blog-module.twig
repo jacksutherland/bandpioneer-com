@@ -28,6 +28,15 @@
 	{% endif %}
 	{% if module.size | number < 100 %} 
 		<style type="text/css">
+			@media (min-width: 576px) {
+				#blog-img{{ module.id }} {
+					width:{{ module.size }}%;
+				}
+			}
+		</style>
+	{% endif %}
+	{# {% if module.size | number < 100 %} 
+		<style type="text/css">
 			@media (min-width: 375px) {
 				#blog-img{{ module.id }} {
 					width:80%;
@@ -39,7 +48,7 @@
 				}
 			}
 		</style>
-	{% endif %}
+	{% endif %} #}
 	<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
 		{% if module.noTransform %}
 			{% set img = module.blogImage.one() %}
