@@ -14,20 +14,20 @@ class BandPioneerUX
 		this.addTopicMenuEvents();
 		this.startAnimations();
 
-		// Delay the loading of ads, to improve performance scoring
-		window.addEventListener('load', function()
-		{
-			setTimeout(function()
-			{
-			    var mvscript = document.createElement('script');
-			    mvscript.type = 'text/javascript';
-			    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
-			    mvscript.dataset.noptimize = "1";
-			    mvscript.dataset.cfasync = "false";
-			    mvscript.async = true;
-			    document.head.appendChild(mvscript);
-		    }, 4000);
-		});
+		// // Delay the loading of ads, to improve performance scoring
+		// window.addEventListener('load', function()
+		// {
+		// 	setTimeout(function()
+		// 	{
+		// 	    var mvscript = document.createElement('script');
+		// 	    mvscript.type = 'text/javascript';
+		// 	    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
+		// 	    mvscript.dataset.noptimize = "1";
+		// 	    mvscript.dataset.cfasync = "false";
+		// 	    mvscript.async = true;
+		// 	    document.head.appendChild(mvscript);
+		//     }, 4000);
+		// });
 	}
 
 	static getBreakpoint()
