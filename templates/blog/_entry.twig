@@ -143,7 +143,7 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-20240617g-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
+	{% set blogHeadCacheKey = "blog-post-20240704a-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
 	{% cache using key blogHeadCacheKey %}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
@@ -162,8 +162,8 @@
 				{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
 				{# removing img above the fold on mobile, to prevent long LCP #}
-				{# {% if (not isMobile) and entry.blogImage.count %} #}
-				{% if entry.blogImage.count %}
+				{% if (not isMobile) and entry.blogImage.count %}
+				{# {% if entry.blogImage.count %} #}
 					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 				{% endif %}
 			</div>
