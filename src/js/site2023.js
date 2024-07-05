@@ -17,11 +17,11 @@ class BandPioneerUX
 		// Delay the loading of ads, to improve performance scoring
 		window.addEventListener('load', function()
 		{
-			console.log('setting mediavine timeout');
+			// console.log('setting mediavine timeout');
 
 			setTimeout(function()
 			{
-				console.log('loading mediavine');
+				// console.log('loading mediavine');
 			    var mvscript = document.createElement('script');
 			    mvscript.type = 'text/javascript';
 			    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
