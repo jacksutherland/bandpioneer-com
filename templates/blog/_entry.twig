@@ -162,8 +162,8 @@
 				{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
 				{# removing img above the fold on mobile, to prevent long LCP #}
-				{% if (not isMobile) and entry.blogImage.count %}
-				{# {% if entry.blogImage.count %} #}
+				{# {% if (not isMobile) and entry.blogImage.count %} #}
+				{% if entry.blogImage.count %}
 					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 				{% endif %}
 			</div>
