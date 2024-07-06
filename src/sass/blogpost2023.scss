@@ -64,12 +64,12 @@
 		}
 	}
 
-	@media (min-width: $breakpoint-lg) {
+	// @media (min-width: $breakpoint-lg) {
 
-		h2 {
-			margin-bottom: 8px;
-		}
-	}
+	// 	h2 {
+	// 		margin-bottom: 8px;
+	// 	}
+	// }
 
 	.blog-header {
 		margin: 0;
@@ -854,7 +854,7 @@ address[rel="author"] {
 	}
 
 	h2 {
-		margin: 55px 0 0 0;
+		margin: 55px 0 15px 0;
 
 		span {
 			color: $alternate-color;
