@@ -435,12 +435,14 @@ address[rel="author"] {
 			max-height: 1000px;
 			margin: 0;
 			padding: 0;
-			opacity: 1;
+			// opacity: 1;
+			display: block;
 			transition: max-height $transition-time, opacity $transition-time;
 
 			&.close {
 				max-height: 0;
 				opacity: 0;
+				display: none;
 			}
 
 			li {
