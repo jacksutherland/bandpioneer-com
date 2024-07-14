@@ -439,17 +439,15 @@ address[rel="author"] {
 			display: block;
 			transition: max-height $transition-time, opacity $transition-time;
 
-			// &.close {
-			// 	max-height: 0;
-			// 	opacity: 0;
-			// 	display: none;
-			// }
+			&.close {
+				max-height: 0;
+				// opacity: 0;
+				display: none;
+			}
 
 			@media (min-width: $breakpoint-xl) {
 				&.close {
-					max-height: 0;
-					opacity: 0;
-					display: none;
+					display: block;
 				}
 			}
 
