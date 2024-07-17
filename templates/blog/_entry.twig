@@ -1,5 +1,7 @@
 {% extends '_layout2023' %}
 
+{% set customTemplates = ['most-listened-to-songs-on-spotify'] %}
+
 {% set fixedHeader = true %}
 {% set isMobile = craft.app.request.isMobileBrowser(false) %}
 {% set showRankModal = (currentUser and entry.enableRanking) %}
@@ -23,16 +25,17 @@
 {% endblock %}
 
 {% block styles %}
-	{# <link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" /> #}
-	
+
+	{% if entry.slug in customTemplates %}
+		{% include 'blog/_includes/custom-scripts' %}
+	{% endif %}
+
 	<link rel="preload" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript><link rel="stylesheet" href="{{ url('css/blogpost2023.min.css') }}?version={{ versionNumber }}"></noscript>
 
 	{% if entry.blogImage.count %}
 		{% set mobileTrans = { mode: 'fit', format: 'webp', width: 380, quality: 80 } %}
 		<link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}">
-		{# <link rel="preload" as="image" href="{{ entry.blogImage.one().url(mobileTrans) }}" 
-			imagesrcset="{{ entry.blogImage.one().url(mobileTrans) }} 1x, {{ entry.blogImage.one().url(mobileTrans) }} 2x"> #}
 	{% endif %}
 {% endblock %}
 
@@ -55,10 +58,6 @@
             	createBlogRanker("{{ entry.id }}", rdata);
             {% endif %}
 
-            document.getElementById('scroll-down').addEventListener('click', function()
-            {
-            	document.querySelector('main').scrollIntoView();
-            });
         });
         function createBlogRanker(eid, rankingData)
         {
@@ -167,10 +166,6 @@
 					{% include 'blog/_includes/img' with { img: entry.blogImage.one(), isFeatured: true } %}
 				{% endif %}
 			</div>
-
-			{# <span id="scroll-down" class="scroll-down">
-				{% include '_includes/icons' with { type: 'down' } %}
-			</span> #}
 
 			{% if entry.featuredSnippet | length %}
 				<div class="container narrow-container">
