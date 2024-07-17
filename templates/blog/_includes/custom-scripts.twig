@@ -157,9 +157,9 @@
                     }
 
                     html += (track.rank % 20 === 0) ? '<div class="track-before-header">' : '<div>';
-                    html += `<div>${track.rank}</div><div class="album-img"><a title="Open Album on Spotify" href="${track.album.url}" target="_blank"><img src="${track.album.images[0].url}" /></a></div>`;
-                    html += `<div><a title="Open Song on Spotify" href="${track.url}" target="_blank">${track.name}</a><br><span>${track.artist}</span></div>`;
-                    html += `<div><a title="Open Album on Spotify" href="${track.album.url}" target="_blank">${track.album.name}</a> <span>(${track.album.release_date.split('-')[0]})</span></div>`;
+                    html += `<div>${track.rank}</div><div class="album-img"><a title="Open the song '${track.name}' in Spotify" href="${track.url}" target="_blank"><img src="${track.album.images[0].url}" /></a></div>`;
+                    html += `<div><a title="Open the song '${track.name}' in Spotify" href="${track.url}" target="_blank">${track.name}</a><br><span>${track.artist}</span></div>`;
+                    html += `<div><a title="Open the album '${track.album.name}' in Spotify" href="${track.album.url}" target="_blank">${track.album.name}</a> <span>(${track.album.release_date.split('-')[0]})</span></div>`;
                     html += '</div>';
 
                     if(track.rank < numberOfTracks && track.rank % 20 === 0)
