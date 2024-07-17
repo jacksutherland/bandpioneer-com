@@ -41,7 +41,7 @@
             padding-left: 14px;
         }
         .track-list > div > div.album-img {
-            width: 100px;
+            width: 60px;
         }
         .track-list > div > div.album-img a img {
             width: 100%;
@@ -59,6 +59,17 @@
             display: none;
             flex: 1;
         }
+        .track-list > div > div i {
+            cursor: pointer;
+            margin-right: 14px;
+
+        }
+        .track-list > div > div i svg path {
+            transition: fill 0.35s;
+        }
+        .track-list > div > div i:hover svg path {
+            fill: #0a79a4;
+        }
         .track-list > div > div:nth-child(4) span {
             margin-left: 8px;
             color: #575757;
@@ -74,6 +85,9 @@
         @media (min-width: 768px) {
             .track-list > div > div:nth-child(3) {
                 width: 250px;
+            }
+            .track-list > div > div.album-img {
+                width: 100px;
             }
         }
     </style>
@@ -125,6 +139,26 @@
           displayTopTracks(topTracks);
         };
 
+        const loadPlayer = function(ele)
+        {
+            const trackId = ele.dataset.track;
+            const track = ele.closest('.track');
+            const trackPlayers = document.querySelectorAll('.track-player');
+
+            trackPlayers.forEach(player => {
+                player.remove();
+            });
+
+            if (track)
+            {
+                const newDiv = document.createElement('div');
+                newDiv.className = 'track-player';
+                newDiv.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+
+                track.parentNode.insertBefore(newDiv, track.nextSibling);
+            }
+        }
+
         const getHeader = function()
         {
             var html = '<div class="track-header">';
@@ -144,10 +178,13 @@
 
                 tracks.forEach(track => {
 
+                    var trackParts = track.url.split('/');
+                    var trackId = trackParts[trackParts.length - 1];
+
                     if(track.rank === 1)
                     {
-                        var trackParts = track.url.split('/');
-                        var trackId = trackParts[trackParts.length - 1];
+                        // var trackParts = track.url.split('/');
+                        // var trackId = trackParts[trackParts.length - 1];
                         var trackPlayer = document.querySelector('.track-player');
 
                         if(trackPlayer)
@@ -156,10 +193,11 @@
                         }
                     }
 
-                    html += (track.rank % 20 === 0) ? '<div class="track-before-header">' : '<div>';
+                    html += (track.rank % 20 === 0) ? '<div class="track track-before-header">' : '<div class="track">';
                     html += `<div>${track.rank}</div><div class="album-img"><a title="Open the song '${track.name}' in Spotify" href="${track.url}" target="_blank"><img src="${track.album.images[0].url}" /></a></div>`;
                     html += `<div><a title="Open the song '${track.name}' in Spotify" href="${track.url}" target="_blank">${track.name}</a><br><span>${track.artist}</span></div>`;
                     html += `<div><a title="Open the album '${track.album.name}' in Spotify" href="${track.album.url}" target="_blank">${track.album.name}</a> <span>(${track.album.release_date.split('-')[0]})</span></div>`;
+                    html += `<div><i data-track="${trackId}" onclick="loadPlayer(this);">{% include '_includes/icons' with { type: 'play' } %}</i></div>`;
                     html += '</div>';
 
                     if(track.rank < numberOfTracks && track.rank % 20 === 0)
@@ -179,3 +217,5 @@
         });
     </script>
 {% endif %}
+
+{# <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> #}
