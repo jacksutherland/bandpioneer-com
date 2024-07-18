@@ -672,6 +672,8 @@ class BandPioneerUX
 			const blogContainer = document.querySelector('.blog-container');
 			const toc = document.querySelector('.table-of-contents');
 
+			console.log("TOC: " + typeof(toc));
+
 			let commentsVisible = false;
 			let relatedVisible = false;
 
