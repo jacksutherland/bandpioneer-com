@@ -150,7 +150,7 @@
             const playlist = await response.json();
 
             var html = '<section>';
-            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are populating this list using a Spotify playlist titled "<a href="${playlist.external_urls.spotify}" target="_blank">${playlist.name}</a>"`;
+            html += `<p>*The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are populating this list using a Spotify playlist titled "<a href="${playlist.external_urls.spotify}" target="_blank">${playlist.name}</a>"`;
             html += (playlist.owner.display_name !== null) ? ` by ${playlist.owner.display_name}. ` : `. `;
             if(playlist.description !== null)
             {
