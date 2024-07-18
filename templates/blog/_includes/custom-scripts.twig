@@ -160,7 +160,9 @@
             });
 
             var html = '<section>';
-            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are pulling these songs from a playlist titled <a href="${playlist.external_urls.spotify}" target="_blank">${playlistDisplayName}</a>.</p>`
+            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are pulling these songs from a playlist titled "<a href="${playlist.external_urls.spotify}" target="_blank">${playlist.name}</a>"`;
+            html += (playlist.owner.display_name !== null) ? ` by ${playlist.owner.display_name}.` : `.`;
+            html += '</p>';
             html += '</section>';
 
             document.querySelector('.blog-body').innerHTML += html;
@@ -248,13 +250,13 @@
 
                 document.querySelector('.blog-body').innerHTML += html;
             }
+
+            getPlaylist();
         };
 
         getTopTracks().catch(error => {
           console.log('Error fetching top tracks:' + error);
         });
-
-        getPlaylist();
 
     </script>
 {% endif %}
