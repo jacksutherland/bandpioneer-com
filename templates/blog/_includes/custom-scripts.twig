@@ -139,6 +139,34 @@
           displayTopTracks(topTracks);
         };
 
+        const getPlaylist = async () => {
+            const token = await getAccessToken();
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const playlist = await response.json();
+            var playlistDisplayName = `"${playlist.name}"`;
+
+            if(playlist.owner.display_name !== null)
+            {
+                playlistDisplayName += ` by ${playlist.owner.display_name}`;
+            }
+
+            document.querySelectorAll('.playlist-name').forEach(ele => {
+                ele.innerText = playlist.name;
+            });
+
+            var html = '<section>';
+            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are pulling these songs from a playlist titled <a href="${playlist.external_urls.spotify}" target="_blank">${playlistDisplayName}</a>.</p>`
+            html += '</section>';
+
+            document.querySelector('.blog-body').innerHTML += html;
+
+        };
+
         const loadPlayer = function(ele)
         {
             const trackId = ele.dataset.track;
@@ -225,7 +253,8 @@
         getTopTracks().catch(error => {
           console.log('Error fetching top tracks:' + error);
         });
+
+        getPlaylist();
+
     </script>
 {% endif %}
-
-{# <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> #}
