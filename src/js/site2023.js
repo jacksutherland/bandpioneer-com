@@ -666,13 +666,17 @@ class BandPioneerUX
 
 		toc()
 		{
+			const toc = document.querySelector('.table-of-contents');
+
+			if(toc === null)
+			{
+				return false;
+			}
+
 			const blogHeader = document.querySelector('.blog-header');
 			const blogComments = document.querySelector('.blog-comments');
 			const blogRelated = document.querySelector('.related-content');
 			const blogContainer = document.querySelector('.blog-container');
-			const toc = document.querySelector('.table-of-contents');
-
-			console.log("TOC: " + typeof(toc));
 
 			let commentsVisible = false;
 			let relatedVisible = false;
