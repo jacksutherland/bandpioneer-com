@@ -183,14 +183,24 @@
 
                     if(track.rank === 1)
                     {
-                        // var trackParts = track.url.split('/');
-                        // var trackId = trackParts[trackParts.length - 1];
                         var trackPlayer = document.querySelector('.track-player');
 
                         if(trackPlayer)
                         {
                             trackPlayer.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
                         }
+
+                        document.querySelectorAll('.top-track-name').forEach(ele => {
+                            ele.innerText = track.name;
+                        });
+
+                        document.querySelectorAll('.top-artist-name').forEach(ele => {
+                            ele.innerText = track.artist;
+                        });
+
+                        document.querySelectorAll('.top-album-name').forEach(ele => {
+                            ele.innerText = track.album.name;
+                        });
                     }
 
                     html += (track.rank % 20 === 0) ? '<div class="track track-before-header">' : '<div class="track">';
