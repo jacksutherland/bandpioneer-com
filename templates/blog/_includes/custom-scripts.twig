@@ -148,20 +148,14 @@
             });
 
             const playlist = await response.json();
-            var playlistDisplayName = `"${playlist.name}"`;
-
-            if(playlist.owner.display_name !== null)
-            {
-                playlistDisplayName += ` by ${playlist.owner.display_name}`;
-            }
-
-            document.querySelectorAll('.playlist-name').forEach(ele => {
-                ele.innerText = playlist.name;
-            });
 
             var html = '<section>';
-            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are pulling these songs from a playlist titled "<a href="${playlist.external_urls.spotify}" target="_blank">${playlist.name}</a>"`;
-            html += (playlist.owner.display_name !== null) ? ` by ${playlist.owner.display_name}.` : `.`;
+            html += `<p>The data in this article is kept up to date by automatically using Spotify's Web API for Developers. Data for track play count is not accessible via the API, so we are populating this list using a Spotify playlist titled "<a href="${playlist.external_urls.spotify}" target="_blank">${playlist.name}</a>"`;
+            html += (playlist.owner.display_name !== null) ? ` by ${playlist.owner.display_name}. ` : `. `;
+            if(playlist.description !== null)
+            {
+                html += playlist.description;
+            }
             html += '</p>';
             html += '</section>';
 
