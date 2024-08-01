@@ -445,7 +445,7 @@ address[rel="author"] {
 				display: none;
 			}
 
-			@media (min-width: $breakpoint-xl) {
+			@media (min-width: $breakpoint-air) {
 				&.close {
 					display: block;
 				}
