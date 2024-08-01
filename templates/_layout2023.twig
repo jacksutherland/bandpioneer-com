@@ -1,4 +1,4 @@
-{% set versionNumber = '2.157' %}
+{% set versionNumber = '2.158' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
@@ -44,7 +44,7 @@
 
             {# Direct GA4 Implementation - GTM is hurting Web Vitals #}
             <!-- Google tag (gtag.js) -->
-            <link rel="preconnect" href="https://www.googletagmanager.com">
+           {#  <link rel="preconnect" href="https://www.googletagmanager.com">
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-LYH6EW2ZX2"></script>
             <script>
               window.dataLayer = window.dataLayer || [];
@@ -52,7 +52,7 @@
               gtag('js', new Date());
 
               gtag('config', 'G-LYH6EW2ZX2');
-            </script>
+            </script> #}
         {% endif %}
 
         {% include '_includes/metadata' %}
