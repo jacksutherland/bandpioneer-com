@@ -26,7 +26,7 @@ class BandPioneerUX
 			    mvscript.dataset.cfasync = "false";
 			    mvscript.async = true;
 			    document.head.appendChild(mvscript);
-		    }, 20000);
+		    }, 10000);
 		});
 	}
 
