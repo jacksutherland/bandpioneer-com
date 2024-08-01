@@ -50,12 +50,14 @@ class CommentsVariable
 
     public function renderCss($elementId, $attributes = []): Markup
     {
-        $view = Craft::$app->getView();
-        $url = Craft::$app->getAssetManager()->getPublishedUrl('@verbb/comments/resources/dist/css/comments.css', true);
+        // $view = Craft::$app->getView();
+        // $url = Craft::$app->getAssetManager()->getPublishedUrl('@verbb/comments/resources/dist/css/comments.css', true);
 
-        $output = Html::cssFile($url, $attributes);
+        // $output = Html::cssFile($url, $attributes);
 
-        return Template::raw($output);
+        // return Template::raw($output);
+
+        return null;
     }
 
     public function renderJs($elementId, $criteria = [], $loadInline = true, $attributes = []): Markup
