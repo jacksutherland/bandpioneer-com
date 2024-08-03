@@ -142,21 +142,21 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-20240704b-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
+	{% set blogHeadCacheKey = "blog-post-20240803b-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
 	{% cache using key blogHeadCacheKey %}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
 
 			<div class="container narrow-container">
 				<h1>{{ entry.title }}</h1>
+				{% if entry.subheadline | length %}
+					<h2>{{ entry.subheadline }}</h2>
+				{% endif %}
 				{% if entry.topic.count %}
 					<nav aria-label="breadcrumbs" class="breadcrumb">
 						<a href="{{ siteUrl }}"><span>Home</span></a>
 						<a href="{{ entry.topic.one().url }}"><span>{{ entry.topic.one().title }}</span></a>
 					</nav>
-				{% endif %}
-				{% if entry.subheadline | length %}
-					<h2>{{ entry.subheadline }}</h2>
 				{% endif %}
 				{% include '_includes/author' with { blog: entry, showImage: (not isMobile) } %}
 
