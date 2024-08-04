@@ -430,7 +430,15 @@ address[rel="author"] {
 			}
 		}
 
+		#grow-me-sidebar-recs-root {
+			display: none;
+		}
+
 		@media (min-width: $breakpoint-air) {
+			#grow-me-sidebar-recs-root {
+				display: block;
+			}
+
 			.section-title {
 				// styled to match Mediavine Grow Related Content
 				display: block;
@@ -438,7 +446,7 @@ address[rel="author"] {
 				font-family: $font-family;
 				font-size: 1.58rem;
 				font-weight: 700;
-				margin-bottom: 18px;
+				margin-bottom: 11px;
 			}
 		}
 
