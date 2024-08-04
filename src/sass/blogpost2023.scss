@@ -1,6 +1,13 @@
 @import 'vars2023';
 @import 'layout2023';
 
+// Mediavine Grow left column related content
+.uImKx {
+	font-family: $header-font-family;
+	font-size: 1.35rem;
+	line-height: 1.9rem;
+}
+	
 .blog {
 
 	h1 {
@@ -380,13 +387,6 @@ address[rel="author"] {
 		.featured-snippet {
 			background-color: $white;
 		}
-	}
-
-	// Mediavine Grow left column related content
-	.uImKx {
-		font-family: $header-font-family;
-		font-size: 1.35rem;
-		line-height: 1.9rem;
 	}
 
 	.table-of-contents {
