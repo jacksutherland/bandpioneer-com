@@ -431,13 +431,15 @@ address[rel="author"] {
 		}
 
 		@media (min-width: $breakpoint-air) {
-			// styled to match Mediavine Grow Related Content
-			display: block;
-			color: #333333;
-			font-family: $font-family;
-			font-size: 1.58rem;
-			font-weight: 700;
-			margin-bottom: 18px;
+			.section-title {
+				// styled to match Mediavine Grow Related Content
+				display: block;
+				color: #333333;
+				font-family: $font-family;
+				font-size: 1.58rem;
+				font-weight: 700;
+				margin-bottom: 18px;
+			}
 		}
 
 		ul {
