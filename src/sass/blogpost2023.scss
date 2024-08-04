@@ -382,6 +382,13 @@ address[rel="author"] {
 		}
 	}
 
+	// Mediavine Grow left column related content
+	.uImKx {
+		font-family: $header-font-family;
+		font-size: 1.35rem;
+		line-height: 1.9rem;
+	}
+
 	.table-of-contents {
 		margin: 50px 0;
 		padding: 0 0 30px 0;
@@ -410,7 +417,7 @@ address[rel="author"] {
 		.section-title {
 			cursor: pointer;
 			font-family: $header-font-family;
-			font-size: 1.45rem;
+			font-size: 1.35rem;
 			line-height: 1.9rem;
 
 			&:after {
