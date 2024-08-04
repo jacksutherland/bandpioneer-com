@@ -409,15 +409,9 @@ address[rel="author"] {
 
 		.section-title {
 			cursor: pointer;
-			// font-family: $header-font-family;
-			// font-size: 1.35rem;
-			// line-height: 1.9rem;
-
-
-			// styled to match Mediavine Grow Related Content
-			color: #333333;
-			font-size: 1.58rem;
-			font-weight: 700;
+			font-family: $header-font-family;
+			font-size: 1.35rem;
+			line-height: 1.9rem;
 
 			&:after {
 				content: none;
@@ -436,18 +430,26 @@ address[rel="author"] {
 			}
 		}
 
+		@media (min-width: $breakpoint-air) {
+			// styled to match Mediavine Grow Related Content
+			display: block;
+			color: #333333;
+			font-family: $font-family;
+			font-size: 1.58rem;
+			font-weight: 700;
+			margin-bottom: 18px;
+		}
+
 		ul {
 			list-style: none;
 			max-height: 1000px;
 			margin: 0;
 			padding: 0;
-			// opacity: 1;
 			display: block;
 			transition: max-height $transition-time, opacity $transition-time;
 
 			&.close {
 				max-height: 0;
-				// opacity: 0;
 				display: none;
 			}
 
@@ -459,7 +461,6 @@ address[rel="author"] {
 
 			li {
 				font-weight: $semi-bold-font;
-				// margin: $object-half-spacing $object-spacing;
 				margin: 4px 0 0 0;
 
 				position: relative;
