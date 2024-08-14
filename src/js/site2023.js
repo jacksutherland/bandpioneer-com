@@ -15,19 +15,19 @@ class BandPioneerUX
 		this.startAnimations();
 
 		// Delay the loading of ads, to improve performance scoring
-		window.addEventListener('load', function()
-		{
-			setTimeout(function()
-			{
-			    var mvscript = document.createElement('script');
-			    mvscript.type = 'text/javascript';
-			    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
-			    mvscript.dataset.noptimize = "1";
-			    mvscript.dataset.cfasync = "false";
-			    mvscript.async = true;
-			    document.head.appendChild(mvscript);
-		    }, 3500);
-		});
+		// window.addEventListener('load', function()
+		// {
+		// 	setTimeout(function()
+		// 	{
+		// 	    var mvscript = document.createElement('script');
+		// 	    mvscript.type = 'text/javascript';
+		// 	    mvscript.src = "//scripts.mediavine.com/tags/band-pioneer.js";
+		// 	    mvscript.dataset.noptimize = "1";
+		// 	    mvscript.dataset.cfasync = "false";
+		// 	    mvscript.async = true;
+		// 	    document.head.appendChild(mvscript);
+		//     }, 3500);
+		// });
 	}
 
 	static getBreakpoint()
@@ -70,10 +70,10 @@ class BandPioneerUX
 		return false;
 	}
 
-	signUp()
-	{
-		this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
-	}
+	// signUp()
+	// {
+	// 	this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
+	// }
 
 	alert(message, onCloseCallback)
 	{
