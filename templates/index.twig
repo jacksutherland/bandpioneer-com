@@ -102,7 +102,11 @@
 											<span>{{ cat.ctaText }}</span>
 										</a>
 										<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
-											<h4>{{ blog.title }}</h4>
+											{% if blog.subheadline | length and blog.metaTitle != blog.title %}
+												<h4>{{ blog.metaTitle }}</h4>
+											{% else %}
+												<h4>{{ blog.title }}</h4>
+											{% endif %}
 										</a>
 									{% endif %}
 				        		</article>
@@ -245,7 +249,11 @@
 								</a>
 							{% endif %}
 							<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
-								<h4>{{ blog.title }}</h4>
+								{% if blog.subheadline | length and blog.metaTitle != blog.title %}
+									<h4>{{ blog.metaTitle }}</h4>
+								{% else %}
+									<h4>{{ blog.title }}</h4>
+								{% endif %}
 							</a>
 		        		</article>
 		        	{% endfor %}
