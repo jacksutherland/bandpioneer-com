@@ -191,13 +191,13 @@
 	{% endif %}
 	
 	<div class="blog-comments">
-		{# <div class="container narrow-container">
+		<div class="container narrow-container">
 			{% if entry.headline | length %}
 				<h4>{{ entry.headline }}</h4>
 			{% endif %}
 			<h2>Leave a Reply!</h2>
 			{{ craft.comments.render(entry.id) }}
-		</div> #}
+		</div>
 	</div>
 
 	{% cache %}
