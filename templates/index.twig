@@ -220,7 +220,7 @@
 		<div class="container">
 			<h2>Recent Articles</h2>
 
-			{% set recentArticlesCacheKey = "recent-articles-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
+			{% set recentArticlesCacheKey = "recent-articles-1-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
 			{% cache using key recentArticlesCacheKey %}
 				<div class="grid-pane">
 					{% for blog in recentPosts %}
