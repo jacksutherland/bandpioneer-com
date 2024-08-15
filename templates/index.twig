@@ -65,8 +65,8 @@
 
 {% block header %}
 	{% if isFirstPage and blog.popularPosts.count %}
-	{# 	{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
-		{% cache using key popularPostsCacheKey %} #}
+		{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
+		{% cache using key popularPostsCacheKey %}
 			<section class="blog-row">
 				<div class="container">
 					{% if entry.ctaText2 | length %}
@@ -102,7 +102,7 @@
 											<span>{{ cat.ctaText }}</span>
 										</a>
 										<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
-											{% if blog.subheadline | length and blog.metaTitle != blog.title %}
+											{% if blog.subheadline | length and blog.metaTitle | length and blog.metaTitle != blog.title %}
 												<h4>{{ blog.metaTitle }}</h4>
 											{% else %}
 												<h4>{{ blog.title }}</h4>
@@ -115,7 +115,7 @@
 			        </div>
 				</div>
 			</section>
-		{# {% endcache %} #}
+		{% endcache %}
 	{% endif %}
 {% endblock %}
 
@@ -220,7 +220,7 @@
 		<div class="container">
 			<h2>Recent Articles</h2>
 
-			{% set recentArticlesCacheKey = "recent-articles-1-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
+			{% set recentArticlesCacheKey = "recent-articles-2-" ~ recentPosts | length ~ "-" ~ recentPosts[0].slug %}
 			{% cache using key recentArticlesCacheKey %}
 				<div class="grid-pane">
 					{% for blog in recentPosts %}
@@ -249,7 +249,7 @@
 								</a>
 							{% endif %}
 							<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('recent_article_clicked', '{{ blog.url }}')">
-								{% if blog.subheadline | length and blog.metaTitle != blog.title %}
+								{% if blog.subheadline | length and blog.metaTitle | length and blog.metaTitle != blog.title %}
 									<h4>{{ blog.metaTitle }}</h4>
 								{% else %}
 									<h4>{{ blog.title }}</h4>

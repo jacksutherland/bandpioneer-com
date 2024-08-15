@@ -220,7 +220,7 @@
 									{% endif %}
 								</a>
 								<a class="blog-title" href="{{ blog.url }}">
-									{% if blog.subheadline | length and blog.metaTitle != blog.title %}
+									{% if blog.subheadline | length and blog.metaTitle | length and blog.metaTitle != blog.title %}
 										<h4>{{ blog.metaTitle }}</h4>
 									{% else %}
 										<h4>{{ blog.title }}</h4>
