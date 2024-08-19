@@ -1005,6 +1005,7 @@ header.site-header {
 
 		& + section.rich-text,
 		& + #search-toggle + .search-dropdown + section.rich-text {
+			border-top: 1px solid $white;
 			padding: 95px 0 90px 0;
 		}
 
