@@ -63,7 +63,7 @@
 	{% endif %}
 {% endblock %}
 
-{% block header %}
+{# {% block header %}
 	{% if isFirstPage and blog.popularPosts.count %}
 		{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
 		{% cache using key popularPostsCacheKey %}
@@ -117,9 +117,9 @@
 			</section>
 		{% endcache %}
 	{% endif %}
-{% endblock %}
+{% endblock %} #}
 
-{% block content %}
+{% block header %}
 	{% if isFirstPage %}
 
 		{% set homepageCTACacheKey = "homepage-cta-" ~ entry.headline | camel %}
@@ -134,18 +134,6 @@
 							{% if entry.richText | length %}
 								{{ entry.richText }}
 							{% endif %}
-						{# 	{% if entry.subheadline | length %}
-								<h2>{{ entry.subheadline }}</h2>
-							{% endif %}
-							{% if entry.shortDescription | length %}
-								<p>{{ entry.shortDescription }}</p>
-							{% endif %}
-							{% if '~' in entry.ctaText %}
-								{% set ctaParts = entry.ctaText | split('~') %}
-								<p>
-									<a class="btn" href="{{ ctaParts[1] }}">{{ ctaParts[0] }}</a>
-								</p>
-							{% endif %} #}
 						</div>
 						<div>
 							{% if isMobile %}
@@ -162,6 +150,40 @@
 				</div>
 			</section>
 		{% endcache %}
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% if isFirstPage %}
+
+	{# 	{% set homepageCTACacheKey = "homepage-cta-" ~ entry.headline | camel %}
+		{% cache using key homepageCTACacheKey %}
+			<section id="cta-text" class="cta-text">
+				<div class="container">
+					<div class="z-pattern">
+						<div>
+							{% if entry.headline | length %}
+								<h1>{{ entry.headline }}</h1>
+							{% endif %}
+							{% if entry.richText | length %}
+								{{ entry.richText }}
+							{% endif %}
+						</div>
+						<div>
+							{% if isMobile %}
+								{% set max = 7 %}
+								{% set idx = random(range(1, max)) %}
+								<img src="/assets/images/bp-homepage-artist-mobile-{{ idx }}.png" alt="{{ entry.headline }}">
+							{% else %}
+								{% set max = 10 %}
+								{% set idx = random(range(1, max)) %}
+								<img id="cta-image" data-idx="{{ idx }}" data-max="{{ max }}" src="/assets/images/bp-homepage-artist-{{ idx }}.png" alt="{{ entry.headline }}">
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</section>
+		{% endcache %} #}
 
 		{% set featuredCacheKey = "featured-article-" ~ featured.slug %}
 		{% cache using key featuredCacheKey %}
@@ -214,6 +236,61 @@
 				</div>
 			</section>
 		{% endcache %}
+
+		{% if blog.popularPosts.count %}
+			{% set popularPostsCacheKey = "popular-posts-" ~ blog.popularPosts.ids() | join('-') %}
+			{% cache using key popularPostsCacheKey %}
+				<section class="blog-row">
+					<div class="container">
+						{% if entry.ctaText2 | length %}
+							{% set h2CTAs = entry.ctaText2 | split('~') %}
+							{% if h2CTAs | length > 1 %}
+								<h2 class="hide-sm-up">{{ h2CTAs[0] }}</h2>
+								<h2 class="hide-sm-down">{{ h2CTAs[1] }}</h2>
+							{% else %}
+								<h2>{{ entry.ctaText2 }}</h2>
+							{% endif %}
+						{% else %}
+							<h2>Popular Articles</h2>
+						{% endif %}
+						<div class="scroll-pane">
+							<div>
+								{% for blog in blog.popularPosts %}
+									<article>
+										{% if blog.blogImage.count %}
+											{% set img = blog.blogImage.one() %}
+											{% set cat = blog.topic.one() %}
+											<a class="blog-img" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
+							        			<picture>
+												 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 768px)" />
+													<img src="{{ img.url('popularPostMobile2023') }}"
+														srcset="{{ img.url('popularPostMobile20232x') }} 2x"
+													 	alt="{{ img.title }}"
+													 	loading="lazy"
+														width="{{ img.width('popularPostMobile2023') }}" height="{{ img.height('popularPostMobile2023') }}">
+												</picture>
+											</a>
+											<a class="category" href="{{ cat.url }}">
+												{% include '_includes/icons' with { type: 'tag' } %}
+												<span>{{ cat.ctaText }}</span>
+											</a>
+											<a class="blog-title" href="{{ blog.url }}" onclick="sendClickEvent('popular_article_clicked', '{{ blog.url }}')">
+												{% if blog.subheadline | length and blog.metaTitle | length and blog.metaTitle != blog.title %}
+													<h4>{{ blog.metaTitle }}</h4>
+												{% else %}
+													<h4>{{ blog.title }}</h4>
+												{% endif %}
+											</a>
+										{% endif %}
+					        		</article>
+					        	{% endfor %}
+				        	</div>
+				        </div>
+					</div>
+				</section>
+			{% endcache %}
+		{% endif %}
+		
 	{% endif %}
 
 	<section class="blog-row">

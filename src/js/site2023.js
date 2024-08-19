@@ -376,7 +376,11 @@ class BandPioneerUX
 
 				if (entries[0].isIntersecting)
 				{
-					ctaInterval = setInterval(ctaImgRotator, 8000);
+					setTimeout(function()
+					{
+						ctaImgRotator();
+						ctaInterval = setInterval(ctaImgRotator, 8000);	
+					}, 1500);
 				}
 				else
 				{

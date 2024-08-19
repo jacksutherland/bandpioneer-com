@@ -1,4 +1,4 @@
-{% set versionNumber = '2.199' %}
+{% set versionNumber = '2.201' %}
 
 {% set entrySlug = entry is defined ? entry.slug : 'no-slug' %}
 {% set isSticky = isSticky is defined ? isSticky : false %}
@@ -23,7 +23,7 @@
 {% set pageUrl = rootSiteUrl ~ craft.app.request.url %}
 
 {% set categories = craft.entries.section('topics') %}
-{% set genresAndDecades = craft.entries.section('categories') %}
+{# {% set genresAndDecades = craft.entries.section('categories') %} #}
 
 {% import '_includes/macros' as macros %}
 
@@ -87,7 +87,7 @@
 
     <body class="{{ entry is defined ? entry.section.handle | camel : '' }}{% if isSticky %} sticky{% endif %}">
 
-        {% set headerCacheKey = "header-20240617f-" ~ (isMobile ? 'mobile' : 'desktop') %}
+        {% set headerCacheKey = "header-20240617g-" ~ (isMobile ? 'mobile' : 'desktop') %}
 
         <header class="site-header">
             <button id="open-menu" aria-label="Open the mobile navigation menu">
@@ -116,9 +116,9 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        {% set decades = [] %}
-                        {% set instruments = [] %}
-                        {% if genresAndDecades.count %}
+                     {#    {% set decades = [] %}
+                        {% set instruments = [] %} #}
+                        {# {% if genresAndDecades.count %}
                             <li>
                                 <a class="dropdown" href="/" aria-label="Open the blog genres menu" title="View Article Categories">
                                     Categories {% include '_includes/icons' with { type: 'down' } %}
@@ -172,7 +172,7 @@
                                     {% endif %}
                                 </ul>
                             </li>
-                        {% endif %}
+                        {% endif %} #}
                         <li>
                             <a class="dropdown" href="/" aria-label="Open the AI Studio menu" title="Custom AI Music Tips">
                                 AI Studio {% include '_includes/icons' with { type: 'down' } %}
@@ -224,10 +224,13 @@
                     </a>
                 {% endcache %}
                 <ul> 
-                    <li>
+                    {# <li>
                         <a href="/community/classifieds" title="Musician Classifieds">Classifieds</a>
-                    </li>
+                    </li> #}
                     <li>
+                        <a href="/about" title="About Band Pioneer">About</a>
+                    </li>
+                    {# <li>
                         <a class="dropdown" href="/" aria-label="Open the About menu" title="About Band Pioneer">
                             About {% include '_includes/icons' with { type: 'down' } %}
                         </a>
@@ -239,7 +242,7 @@
                                 <a href="/contact" title="Contact Us">Contact</a>
                             </li>
                         </ul>
-                    </li> 
+                    </li>  #}
                     <li>
                         {% if currentUser %}
                             <a title="Logout {{ currentUser.email }}" href="{{ url('logout') }}">Logout</a>
@@ -332,7 +335,7 @@
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
-                            <li><a href="/electronic-press-kit">EPK</a></li>
+                            {# <li><a href="/electronic-press-kit">EPK</a></li> #}
                             {# <li><a href="/" onclick="bp.signUp(); return false;" title="Subscribe to our newsletter">Subscribe</a></li> #}
                             <li><a href="/contact">Contact</a></li>
                             <li><a href="/privacy">Privacy Policy</a></li>
