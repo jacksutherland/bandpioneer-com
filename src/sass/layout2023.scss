@@ -781,7 +781,7 @@ header.site-header {
 				object-fit: cover;
 				transition: filter 5s;
 				// filter: blur(1px) brightness(0.5) grayscale(1);
-				filter: brightness(0.2);
+				filter: brightness(0.2)  grayscale(1);
 				z-index: 10;
 			}
 

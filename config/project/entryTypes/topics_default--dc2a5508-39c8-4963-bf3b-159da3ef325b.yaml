@@ -93,7 +93,22 @@ fieldLayouts:
             uid: 0ef4719b-4b8e-43d7-bc48-6e658ab6d1f0
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 6025339c-6b5a-4573-bfec-83f93d0f041a # Percent
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Header Brightness'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3d415abd-8a4e-41fa-ba5d-2288620503e9
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
@@ -225,12 +240,12 @@ fieldLayouts:
         userCondition: null
 handle: topics_default
 hasTitleField: true
-icon: null
+icon: ''
 name: 'Topics - Default'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
-titleFormat: null
-titleTranslationKeyFormat: null
+titleFormat: ''
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site
