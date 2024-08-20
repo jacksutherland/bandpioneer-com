@@ -53,12 +53,14 @@
   {% endfor %}
 
   {% for blog in blogs %}
+   {% if blog.url | trim | length %}
     <url>
       <loc>{{ blog.url }}</loc>
       <lastmod>{{ blog.dateUpdated | date("Y-m-d") }}</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
+   {% endif %}
   {% endfor %}
 
 </urlset>
