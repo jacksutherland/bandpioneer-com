@@ -42,25 +42,25 @@
    </url>
 
    {% for cat in topics %}
-      {% if cat.show %}
-       <url>
+   {% if cat.show %}
+      <url>
          <loc>{{ cat.url }}</loc>
          <lastmod>{{ cat.dateUpdated | date("Y-m-d") }}</lastmod>
          <changefreq>weekly</changefreq>
          <priority>0.5</priority>
-       </url>
-      {% endif %}
-  {% endfor %}
-
-  {% for blog in blogs %}
-   {% if blog.url | trim | length %}
-    <url>
-      <loc>{{ blog.url }}</loc>
-      <lastmod>{{ blog.dateUpdated | date("Y-m-d") }}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.5</priority>
-    </url>
+      </url>
    {% endif %}
-  {% endfor %}
+   {% endfor %}
+
+   {% for blog in blogs %}
+   {% if blog.url | trim | length %}
+      <url>
+         <loc>{{ blog.url }}</loc>
+         <lastmod>{{ blog.dateUpdated | date("Y-m-d") }}</lastmod>
+         <changefreq>weekly</changefreq>
+         <priority>0.5</priority>
+      </url>
+   {% endif %}
+   {% endfor %}
 
 </urlset>
