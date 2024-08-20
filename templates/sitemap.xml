@@ -15,14 +15,28 @@
 
    <url>
       <loc>https://bandpioneer.com/about</loc>
-      <lastmod>2022-12-08</lastmod>
+      <lastmod>2024-06-01</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
    </url>
 
    <url>
       <loc>https://bandpioneer.com/contact</loc>
-      <lastmod>2022-12-08</lastmod>
+      <lastmod>2024-06-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   <url>
+      <loc>https://bandpioneer.com/privacy</loc>
+      <lastmod>2024-06-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+   </url>
+
+   <url>
+      <loc>https://bandpioneer.com/ai-studio</loc>
+      <lastmod>2024-06-01</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
    </url>
