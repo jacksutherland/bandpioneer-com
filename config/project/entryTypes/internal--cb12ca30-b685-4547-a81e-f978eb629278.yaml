@@ -234,6 +234,21 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
+            fieldUid: bb4111d9-7358-4c86-b30d-cefca64041c1 # Writer
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1849e5d0-eb35-45b7-939d-28f986d2e694
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
             fieldUid: f85c3fd3-04eb-4069-a712-f8725e5c5fac # Full Name
             handle: null
             includeInCards: false
@@ -276,7 +291,7 @@ fieldLayouts:
             uid: 53853e16-3dcc-4c13-b0bc-5908819b9049
             userCondition: null
             warning: null
-            width: 50
+            width: 25
           -
             elementCondition: null
             heading: Ranking
@@ -411,12 +426,12 @@ fieldLayouts:
         userCondition: null
 handle: internal
 hasTitleField: true
-icon: null
+icon: ''
 name: 'Blog - Internal'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
-titleFormat: null
-titleTranslationKeyFormat: null
+titleFormat: ''
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

@@ -1,0 +1,92 @@
+{% extends '_layout2023' %}
+
+{% set postsPerPage = 12 %}
+{% set authorSlug = craft.app.request.segments | last %}
+{% set author = craft.users().group('authors').urlSlug(authorSlug).one() %}
+{% set firstName = author.fullName | split(' ')[0] %}
+
+{% set blogQuery = craft.entries.section('blog').writer(author) %}
+{% paginate blogQuery.limit(postsPerPage).orderBy('postDate DESC') as pageInfo, posts %}
+
+{% block header %}
+	<section class="rich-text">
+		<div class="container">
+			<h1 class="author-name">
+				{% if author.photo %}
+					{% if author.websiteUrl | length %}
+						<a href="{{ author.websiteUrl }}" target="_blank">
+					{% endif %}
+						<picture>
+		    				<source media="(min-width: 992px)" srcset="{{ author.photo.url('writerLargePicture') }}">
+							<img src="{{ author.photo.url('writerPicture') }}"
+								width="{{ author.photo.width('writerPicture') }}"
+								height="{{ author.photo.height('writerPicture') }}" 
+								alt="{{ author.fullName }}" 
+								title="{{ author.fullName }}">
+						</picture>
+					{% if author.websiteUrl | length %}
+						</a>
+					{% endif %}
+				{% endif %}
+				<span>{{ author.fullName }}</span>
+			</h1>
+			{% if author.shortDescription | length %}
+				<p>{{ author.shortDescription }}</p>
+			{% endif %}
+			{% if author.websiteUrl | length %}
+				<p>
+					<a href="{{ author.websiteUrl }}" target="_blank">View {{ firstName }}'s Website</a>
+				</p>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
+
+{% block content %}
+		{% if posts | length %}
+			<section class="blog-row">
+				<div class="container">
+					<h2>Articles by {{ firstName }}</h2>
+
+					<div class="grid-pane">
+						{% for blog in posts %}
+							
+							<article>
+								<a class="blog-img" href="{{ blog.url }}">
+									{% if blog.blogImage.count %}
+										{% set img = blog.blogImage.one() %}
+										{% set cat = blog.topic.one() %}
+					        			<picture>
+					        				<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 819px)" />
+										 	<source srcset="{{ img.url("recentPostsMobile2023") }}, {{ img.url('recentPostsMobile20232x') }} 2x" media="(min-width: 768px)" />
+										 	<source srcset="{{ img.url("fourRowPost2023") }}, {{ img.url('fourRowPost20232x') }} 2x" media="(min-width: 576px)" />
+											<img src="{{ img.url('recentPostsMobile2023') }}"
+												srcset="{{ img.url('recentPostsMobile20232x') }} 2x"
+											 	alt="{{ img.title }}"
+											 	loading="lazy"
+												width="{{ img.width('recentPostsMobile2023') }}" height="{{ img.height('recentPostsMobile2023') }}">
+										</picture>
+									{% endif %}
+								</a>
+								<a class="blog-title" href="{{ blog.url }}">
+									{% if blog.subheadline | length and blog.metaTitle | length and blog.metaTitle != blog.title %}
+										<h4>{{ blog.metaTitle }}</h4>
+									{% else %}
+										<h4>{{ blog.title }}</h4>
+									{% endif %}
+								</a>
+			        		</article>
+
+			        	{% endfor %}
+		        	</div>
+
+		        	{% if pageInfo.total > postsPerPage %}
+						<div class="container">
+					    	{% include '_includes/pagination' %}
+					    </div>
+					{% endif %}
+
+				</div>
+			</section>
+		{% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+siteUid: null
+sortOrder: 5
+template: author/_entry.twig
+uriParts:
+  - author/
+  -
+    - slug
+    - '[^\/]+'
+uriPattern: 'author/<slug:[^\/]+>'

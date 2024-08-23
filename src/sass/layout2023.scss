@@ -74,6 +74,16 @@ h1, h2, h3 {
 h1 {
 	font-size: 1.9rem;
 	line-height: 2.45rem;
+
+	&.author-name {
+		img {
+			display: block;
+			border-radius: 50%;
+			margin-bottom: 10px;
+			height: auto;
+			width: auto;
+		}
+	}
 }
 
 h2 {
@@ -101,25 +111,57 @@ h5 {
 
 	h1 {
 		font-size: 2.35rem;
-		line-height: 3rem
+		line-height: 3rem;
+
+		&.author-name {
+			position: relative;
+
+			span {
+				position: relative;
+				z-index: 2;
+			}
+
+			img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				transform: translateX(-110%);
+				z-index: 1;
+
+				margin-bottom: 0;
+			}
+		}
 	}
 
 	h2 {
 		font-size: 1.55rem;
-		line-height: 2.32rem
+		line-height: 2.32rem;
 	}
 
 	h3 {
 		font-size: 1.2rem;
-		line-height: 1.8rem
+		line-height: 1.8rem;
 	}
 
 	h4 {
 		font-size: $normal-font-size;
-		line-height: 1.5rem
+		line-height: 1.5rem;
 	}
 
 }
+
+// @media (min-width: $breakpoint-lg) {
+
+// 	h1 {
+// 		&.author-name {
+// 			img {
+// 				margin-bottom: 0;
+// 				width: 125px;
+// 				height: 125px;
+// 			}
+// 		}
+// 	}
+// }
 
 p {
 	line-height: 1.65rem;

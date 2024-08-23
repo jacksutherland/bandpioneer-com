@@ -76,6 +76,51 @@ tabs:
         uid: 37579c3b-2535-4f7b-9b82-5d5de862d01e
         userCondition: null
         width: 100
+      -
+        elementCondition: null
+        fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
+        handle: null
+        includeInCards: false
+        instructions: null
+        label: null
+        providesThumbs: false
+        required: false
+        tip: null
+        type: craft\fieldlayoutelements\CustomField
+        uid: 04e7e9fc-6bad-4173-a712-fb3eda1f4361
+        userCondition: null
+        warning: null
+        width: 100
+      -
+        elementCondition: null
+        fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
+        handle: null
+        includeInCards: false
+        instructions: null
+        label: null
+        providesThumbs: false
+        required: false
+        tip: null
+        type: craft\fieldlayoutelements\CustomField
+        uid: 2d8e9f32-6534-4a84-95bf-317386489383
+        userCondition: null
+        warning: null
+        width: 100
+      -
+        elementCondition: null
+        fieldUid: 677a9dea-a907-4391-96ff-bd41e92e8fa5 # URL Slug
+        handle: null
+        includeInCards: false
+        instructions: null
+        label: null
+        providesThumbs: false
+        required: false
+        tip: null
+        type: craft\fieldlayoutelements\CustomField
+        uid: 3cfe2ac7-7da4-4036-8d5c-0912b0f15356
+        userCondition: null
+        warning: null
+        width: 100
     name: Content
     uid: 2f2fcc11-525f-4557-b505-678957dcef14
     userCondition: null

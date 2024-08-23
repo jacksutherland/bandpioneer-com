@@ -3,24 +3,35 @@
 {% if blog.type == "external" %}
 	{% set showLink = false %}
 {% endif %}
-{% if blog.fullName | length %} 
+
+{% if blog.writer.count %}
+	{% set fullName = blog.writer.one().fullName %}
+	{% set url = '/author/' ~ blog.writer.one().urlSlug %}
+	{% set writerPicture = blog.writer.one().photo %}
+{% else %}
+	{% set fullName = blog.fullName %}
+	{% set url = blog.websiteUrl %}
+	{% set writerPicture = blog.writerPicture.count ? blog.writerPicture.one() : null %}
+{% endif %}
+
+
+{% if fullName | length %} 
 	<address rel="author">
-		{% if showLink and blog.websiteUrl %}<a href="{{ blog.websiteUrl }}" target="_blank">{% else %}<span>{% endif %}
-			{% if showImage and blog.writerPicture.count %}
-				{% set writerPic = blog.writerPicture.one() %}
-				<img src="{{ writerPic.url('writerPicture') }}"
-					width="{{ writerPic.width('writerPicture') }}"
-					height="{{ writerPic.height('writerPicture') }}" 
-					alt="{{ writerPic.title }}" 
-					title="{{ writerPic.title }}"{% if 'Band Pioneer' in writerPic.title or 'Exit 85' in writerPic.title %} style="border-radius:0;" {% endif %}>
+		{% if showLink and url | length %}<a href="{{ url }}" target="_blank">{% else %}<span>{% endif %}
+			{% if showImage and writerPicture %}
+				<img src="{{ writerPicture.url('writerPicture') }}"
+					width="{{ writerPicture.width('writerPicture') }}"
+					height="{{ writerPicture.height('writerPicture') }}" 
+					alt="{{ fullName }}" 
+					title="{{ fullName }}"{% if 'Band Pioneer' in writerPicture.title or 'Exit 85' in writerPicture.title %} style="border-radius:0;" {% endif %}>
 			{% endif %}
 			<span>
-				<span>by {{ blog.fullName }} on {{ blog.postDate | date("M d, Y") }}</span>
+				<span>by {{ fullName }} on {{ blog.postDate | date("M d, Y") }}</span>
 				{% if blog.dateUpdated > blog.postDate | date_modify('+1 month') %}
 					<br>
 					<span>Updated on {{ blog.dateUpdated | date("M d, Y") }}</span>
 				{% endif %}
 			</span>
-		{% if showLink and blog.websiteUrl %}</a>{% else %}</span>{% endif %}
+		{% if showLink and url | length %}</a>{% else %}</span>{% endif %}
 	</address>
 {% endif %}

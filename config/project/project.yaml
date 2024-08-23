@@ -1,4 +1,4 @@
-dateModified: 1724079167
+dateModified: 1724452044
 elementSources:
   craft\elements\Asset:
     -
@@ -143,7 +143,16 @@ elementSources:
       type: native
   craft\elements\User:
     -
+      defaultSort:
+        - email
+        - asc
+      disabled: false
       key: '*'
+      tableAttributes:
+        - fullName
+        - email
+        - dateCreated
+        - lastLoginDate
       type: native
     -
       defaultSort:
@@ -157,6 +166,9 @@ elementSources:
         - email
         - dateCreated
         - lastLoginDate
+      type: native
+    -
+      key: 'group:cb18924e-4a19-4f42-b0f6-9d2f98d302a2' # Authors
       type: native
     -
       heading: 'Account Type'
@@ -173,6 +185,9 @@ elementSources:
     -
       key: 'group:1e42cdc3-f360-43ac-b612-8de6f081ad47' # Rockstars
       type: native
+    -
+      heading: ''
+      type: heading
 email:
   fromEmail: support@realitygems.com
   fromName: 'Band Pioneer'
@@ -286,6 +301,7 @@ meta:
     350cc156-50ad-426a-bf12-7c94dac6a8f8: 'Recent Posts Mobile 2023' # Recent Posts Mobile 2023
     555e19eb-df0c-48bc-b4b9-bdc423af2204: 'Blog Content - Image & Text - Rich Text' # Blog Content - Image & Text - Rich Text
     602a04aa-8d14-4db6-93a0-9c9f79d8d72d: 'Ranker Value' # Ranker Value
+    677a9dea-a907-4391-96ff-bd41e92e8fa5: 'URL Slug' # URL Slug
     774ccc9c-38af-4883-8507-dc63a256627a: Instrument # Instrument
     780b6c3d-696e-4d13-8ec9-85dc01bce659: 'Featured Post' # Featured Post
     820f4e54-52d3-4c95-9968-ddefb182c3dd: 'Blog Related Content 2x' # Blog Related Content 2x
@@ -307,6 +323,7 @@ meta:
     32918d13-fbf2-4148-85a3-4bdb7a1d8468: 'Enable Rank' # Enable Rank
     67862bf2-294a-4e45-af45-324c297cbea8: 'Blog Content - Media - Minute Mark' # Blog Content - Media - Minute Mark
     266355e1-d1f3-4d71-a92d-2d3a714c3d06: 'Blog Content' # Blog Content
+    657078e0-7d34-49df-9a77-ed8c89df16b1: 'Writer Large Picture' # Writer Large Picture
     01207986-f2f4-40a3-99e7-b4bc3a3fd701: 'Page Image 2' # Page Image 2
     2075787e-20ab-458f-81df-dd47b726a51b: Show # Show
     04623371-fa0e-4ff7-84f9-93dcf4e31080: Topic # Topic
@@ -335,6 +352,7 @@ meta:
     b7ec030d-fd66-4c86-be9c-5cec826a7638: Change # Change
     b9eaa895-752b-4102-8fac-49d7662c399d: 'Roles - Default' # Roles - Default
     b89e4608-4a0c-49c1-a0d9-d9758eec6f4b: 'Blog Listing Mobile' # Blog Listing Mobile
+    bb4111d9-7358-4c86-b30d-cefca64041c1: Writer # Writer
     bc9d16b4-6012-428a-b78c-758da4e7c8e9: 'Blog Image Mobile' # Blog Image Mobile
     bf3a1156-52e7-4016-99df-ff11094abd4b: 'Image & Text' # Image & Text
     bfe10380-5bde-4f7c-b4a8-eca75b87c28f: 'Public Schema' # Public Schema
@@ -346,6 +364,7 @@ meta:
     c8882f0f-9f15-47b0-a3ba-c71265503cc1: 'Blog Content - Media - Minute Mark 2' # Blog Content - Media - Minute Mark 2
     c4817296-2368-46b6-9127-4bd175f84a4a: 'Dynamic SEO' # Dynamic SEO
     cb12ca30-b685-4547-a81e-f978eb629278: 'Blog - Internal' # Blog - Internal
+    cb18924e-4a19-4f42-b0f6-9d2f98d302a2: Authors # Authors
     cc64f857-3e97-42d7-8a16-79223c695a98: Default # Default
     cd4a38c4-94ce-4c20-9d8b-62288944ef87: 'Blog Content - Media - Media Type' # Blog Content - Media - Media Type
     cdaef71d-1a83-462b-92b2-4d96fd8d8b32: 'Related SEO Keywords' # Related SEO Keywords
