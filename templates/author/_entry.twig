@@ -2,7 +2,16 @@
 
 {% set postsPerPage = 12 %}
 {% set authorSlug = craft.app.request.segments | last %}
-{% set author = craft.users().group('authors').urlSlug(authorSlug).one() %}
+
+{% set author = null %}
+{# {% set author = craft.users().group('authors').urlSlug(authorSlug).one() %} #}
+{% for auth in craft.users().group('authors') %}
+	{% if auth.urlSlug == authorSlug %}
+		{% set author = auth %}
+	{% endif %}
+{% endfor %}
+
+
 {% set firstName = author.fullName | split(' ')[0] %}
 
 {% set blogQuery = craft.entries.section('blog').writer(author) %}
@@ -14,7 +23,7 @@
 			<h4>authorSlug: {{authorSlug}}</h4>
 			<h4>firstName: {{firstName}}</h4>
 			<h4>author.fullName: {{author.fullName}}</h4>
-			<h4>count: {{craft.users().group('authors').count}}</h4>
+			<h4>count: {{craft.users().group('authors').urlSlug(authorSlug).count}}</h4>
 			<h1 class="author-name">
 				{% if author.photo %}
 					{% if author.websiteUrl | length %}
