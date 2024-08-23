@@ -142,7 +142,7 @@
 
 {% block header %}
 
-	{% set blogHeadCacheKey = "blog-post-20240803b-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
+	{% set blogHeadCacheKey = "blog-post-20240803c-" ~ entry.slug ~ "-" ~ (isMobile ? 'mobile2' : 'desktop2') %}
 	{% cache using key blogHeadCacheKey %}
 		<div id="reading-time" class="reading-time"><div class="reading-progress"></div></div>
 		<section class="blog-header">
