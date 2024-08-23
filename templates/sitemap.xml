@@ -41,12 +41,23 @@
       <priority>0.5</priority>
    </url>
 
+   {% for author in craft.users().group('authors') %}
+   {% if author.urlSlug | length and author.fullName | length %}
+      <url>
+         <loc>https://bandpioneer.com/author/{{ author.urlSlug }}</loc>
+         <lastmod>2024-08-01</lastmod>
+         <changefreq>monthly</changefreq>
+         <priority>0.5</priority>
+      </url>
+   {% endif %}
+   {% endfor %}
+
    {% for cat in topics %}
    {% if cat.show %}
       <url>
          <loc>{{ cat.url }}</loc>
          <lastmod>{{ cat.dateUpdated | date("Y-m-d") }}</lastmod>
-         <changefreq>weekly</changefreq>
+         <changefreq>monthly</changefreq>
          <priority>0.5</priority>
       </url>
    {% endif %}
