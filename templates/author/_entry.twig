@@ -11,6 +11,9 @@
 	{% endif %}
 {% endfor %}
 
+{% if author == null %}
+	{% exit 404 %}
+{% endif %}
 
 {% set firstName = author.fullName | split(' ')[0] %}
 
@@ -20,10 +23,6 @@
 {% block header %}
 	<section class="rich-text">
 		<div class="container">
-			<h4>authorSlug: {{authorSlug}}</h4>
-			<h4>firstName: {{firstName}}</h4>
-			<h4>author.fullName: {{author.fullName}}</h4>
-			<h4>count: {{craft.users().group('authors').urlSlug(authorSlug).count}}</h4>
 			<h1 class="author-name">
 				{% if author.photo %}
 					{% if author.websiteUrl | length %}
