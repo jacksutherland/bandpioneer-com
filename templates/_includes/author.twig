@@ -17,7 +17,7 @@
 
 {% if fullName | length %} 
 	<address rel="author">
-		{% if showLink and url | length %}<a href="{{ url }}" target="_blank">{% else %}<span>{% endif %}
+		{% if showLink and url | length %}<a href="{{ url }}"{% if blog.writer.count == 0 %} target="_blank"{% endif %}>{% else %}<span>{% endif %}
 			{% if showImage and writerPicture %}
 				<img src="{{ writerPicture.url('writerPicture') }}"
 					width="{{ writerPicture.width('writerPicture') }}"
