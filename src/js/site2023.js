@@ -466,6 +466,7 @@ class BandPioneerUX
 		}
 		catch (error)
 		{
+			console.error('Failed to parse cachedData JSON:', error.message);
 			var cachedData = null;
 		}
 
