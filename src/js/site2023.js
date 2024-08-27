@@ -460,7 +460,14 @@ class BandPioneerUX
 		var processingComp = false;
 
 		var cachedJsonData = BandPioneerUX.snickerdoodle().get(compKey());
-		var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
+		try
+		{
+			var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
+		}
+		catch (error)
+		{
+			var cachedData = null;
+		}
 
 		// console.log(cachedData);
 		// console.log(compData);
