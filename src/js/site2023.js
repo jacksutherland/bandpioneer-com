@@ -54,6 +54,37 @@ class BandPioneerUX
 	    BandPioneerUX.stickyListeners.forEach((fn) => fn(isSticky));
 	}
 
+	static snickerdoodle()
+	{
+		return  {
+			get: function(name)
+			{
+				let value = `; ${document.cookie}`;
+				let parts = value.split(`; ${name}=`);
+				if (parts.length === 2) return parts.pop().split(';').shift();
+			},
+			set: function(name, val, expirationDays)
+			{
+				if(isNaN(expirationDays))
+				{
+					document.cookie = `${name}=${val};path=/`;
+				}
+				else
+				{
+					let date = new Date();
+					date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+					var expires = "expires=" + date.toUTCString();
+					document.cookie = `${name}=${val};${expires};path=/`;
+				}
+			},
+			delete: function(name)
+			{
+				let val = BandPioneerUX.snickerdoodle.get(name);
+				document.cookie = `${name}=${val}; path=/; max-age=0;`;
+			}
+		}
+	}
+
 	login(modalMessage)
 	{
 		if(typeof(modalMessage) === 'undefined')
@@ -69,11 +100,6 @@ class BandPioneerUX
 
 		return false;
 	}
-
-	// signUp()
-	// {
-	// 	this.alert('<iframe src="https://cdn.forms-content.sg-form.com/dfbe0477-dfb9-11ed-a98c-c641367c2345"/>');
-	// }
 
 	alert(message, onCloseCallback)
 	{
@@ -424,63 +450,232 @@ class BandPioneerUX
 		});
 	}
 
-	// openRankerModal(eid, rankerKey)
-	// {
-	// 	bp.openModal('.ranker-modal', function()
-	// 	{
-	// 		this.saveRankerOrder(eid);
-	// 	}.bind(this));
+	createRankerCompUX(compData, entryId)
+	{
+		const compKey = function()
+		{
+			return `bp-comp-${entryId}`;
+		}
 
-	// 	document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
-	// 	{
-	// 		li.classList.remove('pulsate');
-	// 		if(li.dataset.key == rankerKey)
-	// 		{
-	// 			setTimeout(function()
-	// 			{
-	// 				this.classList.add('pulsate');
-	// 			}.bind(li), 200);
-	// 		}
-	// 	});
+		var processingComp = false;
 
-	// 	const scrollContainer = document.querySelector('.ranker-modal .scroll-container');
-	// 	const aside = document.querySelector('.ranker-modal aside');
+		var cachedJsonData = BandPioneerUX.snickerdoodle().get(compKey());
+		var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
 
-	// 	if(aside && scrollContainer.scrollHeight <= scrollContainer.clientHeight)
-	// 	{
-	// 		aside.remove();
-	// 	}
-	// }
+		console.log(cachedData);
+		console.log(compData);
 
-	// saveRankerOrder(eid)
-	// {
- 	// 	var saveUrl = '/rockstar/save-ranking-order';
-	// 	var data = [];
-	// 	document.querySelectorAll('.ranker-modal ul li').forEach(function(li)
-	// 	{
-	// 		data.push(li.dataset.key);
-	// 	});
+		const setDataItemSelected = function(itemId)
+		{
+			if(cachedData)
+			{
+				const cachedItem = cachedData.find(item => item.id === itemId);
+		    	return cachedItem ? cachedItem.selected : null;
+		    }
+		    else
+		    {
+		    	return null;
+		    }
+		}
 
-	// 	let jsonData = JSON.stringify(data);
-	// 	let formData = new FormData();
-	// 	let csrfTokenName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
-	// 	let csrfTokenValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+		/*** Shuffle and initialize compData ***/
 
-	// 	formData.append('eid', eid);
-    //     formData.append('data', jsonData);
-	// 	formData.append(csrfTokenName, csrfTokenValue);
+		for (let i = compData.length - 1; i > 0; i--)
+		{
+		    const j = Math.floor(Math.random() * (i + 1));
+		    [compData[i], compData[j]] = [compData[j], compData[i]];
+		    compData[i].selected = setDataItemSelected(compData[i].id);
+		}
+		compData[0].selected = setDataItemSelected(compData[0].id); // index 0 was skipped in the for loop
 
-	// 	fetch(saveUrl, { method: 'POST', body: formData })
-	// 		.then((response) => {
-	// 		    if (response.ok)
-	// 		    {
-	// 		    	return response.text();
-	// 		    }
-	// 		}).then((response) => {
-	// 		}).catch((error) => {
-	// 		    console.error("Error:", error);
-	// 		});
-	// }
+		/*** Save comp data method ***/
+
+		const saveComp = function(comp, acceptedObj, rejectedObj)
+		{
+			for (let i = 0; i < compData.length; i++)
+			{
+				if(compData[i].name == acceptedObj)
+				{
+					compData[i].selected = true;
+					updateRankers(compData[i].id, compData[i].name, true);
+				}
+				else if(compData[i].name == rejectedObj)
+				{
+					compData[i].selected = false;
+					updateRankers(compData[i].id, compData[i].name, false);
+				}
+			}
+
+			BandPioneerUX.snickerdoodle().set(compKey(comp), JSON.stringify(compData));
+		}
+
+		/*** Save comp data method ***/
+
+		const updateRankers = function(rankerKey, rankerVal, selected)
+		{
+			let rankerObjSelector = `.ranker-buttons[data-ranker="${rankerKey}"]`;
+
+			document.querySelectorAll(rankerObjSelector).forEach(function(ranker)
+			{
+				if (ranker.nextElementSibling.classList.contains('compare-selection'))
+				{
+					ranker.nextElementSibling.remove();
+				}
+				if(selected)
+				{
+					ranker.insertAdjacentHTML('afterend', `<small class="compare-selection"><strong>${rankerVal} was selected as one of your favorites.</strong></small>`);
+				}
+			});
+		}
+
+		/*** Loop through each comp module and initialize UX ***/
+
+        document.querySelectorAll('.compare-container').forEach(function(comp)
+		{	
+			// Reset Button
+
+			const likeHtml = (comp.nextElementSibling.nextElementSibling.classList.contains('accepted-icon'))
+				? comp.nextElementSibling.nextElementSibling.innerHTML : "";
+
+			if(comp.nextElementSibling.classList.contains('reset-compare-btn'))
+			{
+				comp.nextElementSibling.addEventListener('click', function()
+				{
+					comp.querySelectorAll('.comp.rejected').forEach(reject => {
+						reject.classList.remove('rejected');
+					});
+
+					comp.nextElementSibling.classList.add('hide');
+					comp.classList.remove('favorites');
+					comp.querySelector('.compare-row').classList.add('active');
+
+					processingComp = false;
+				});
+			}
+
+			// Comparison Click Event
+						    	
+			const compClick = function(e)
+			{
+				e.preventDefault();
+
+				if(processingComp)
+				{
+					return false;
+				}
+
+				processingComp = true;
+
+				const parentRow = this.closest('.compare-row');
+				const acceptedComp = this.dataset.name;
+				const rejectedComp = this.dataset.competitor;
+
+				if (parentRow)
+				{
+					for (let i = 0; i < parentRow.children.length; i++)
+					{
+						const child = parentRow.children[i];
+
+						if (child.classList.contains('comp') && this !== child)
+						{
+							this.classList.remove('rejected');
+							this.classList.add('accepted');
+							child.classList.remove('accepted');
+							child.classList.add('rejected');
+						}
+					}
+
+				    setTimeout(function()
+					{
+						parentRow.classList.add('fadeout');
+
+						saveComp(comp, acceptedComp, rejectedComp);
+
+						setTimeout(function()
+						{
+							const nextSiblingRow = this.nextElementSibling;
+
+							this.classList.remove('fadeout');
+							this.classList.remove('active');
+
+						    if (nextSiblingRow && nextSiblingRow.classList.contains('compare-row'))
+						    {
+						        nextSiblingRow.classList.add('active');
+						        processingComp = false;
+						    }
+						    else
+						    {
+						    	comp.classList.add('favorites');
+						    	comp.nextElementSibling.classList.remove('hide');
+						    	processingComp = true;
+						    }
+						}.bind(parentRow), 500);
+					}.bind(parentRow), 1000);
+				}
+			}
+
+			/*** Traverse through each Comparison object to build UX ***/
+
+			for (let i = 0; i < compData.length; i += 2)
+			{
+				const first = compData[i];
+				const second = compData[i + 1];
+
+				const row = document.createElement('div');
+				row.classList.add('compare-row');
+
+				if(i === 0)
+				{
+					row.classList.add('active');
+				}
+
+				const comp1 = document.createElement('div');
+				comp1.classList.add('comp');
+				comp1.dataset.name = first.name;
+				comp1.dataset.competitor = second.name;
+
+				if(first.selected === true)
+				{
+					comp1.classList.add('accepted');
+					updateRankers(first.id, first.name, true);
+				}
+
+				let html1 = `<picture><source srcset="${first.img.desktop}" media="(min-width: 576px)" />`;
+				html1 += `<img src="${first.img.mobile}" alt="${first.name}" loading="lazy" width="168" height="168"></picture>`;
+				html1 += `<span>${first.name}</span>`;
+				html1 += likeHtml;
+				comp1.innerHTML = html1;
+				comp1.addEventListener('click', compClick);
+
+				const vs = document.createElement('div');
+				vs.classList.add('vs');
+				vs.innerHTML = '<span>vs.</span>';
+
+				const comp2 = document.createElement('div');
+				comp2.classList.add('comp');
+				comp2.dataset.name = second.name;
+				comp2.dataset.competitor = first.name;
+
+				if(second.selected === true)
+				{
+					comp2.classList.add('accepted');
+					updateRankers(second.id, second.name, true);
+				}
+				
+				let html2 = `<picture><source srcset="${second.img.desktop}" media="(min-width: 576px)" />`;
+				html2 += `<img src="${second.img.mobile}" alt="${second.name}" loading="lazy" width="168" height="168"></picture>`;
+				html2 += `<span>${second.name}</span>`;
+				html2 += likeHtml;
+				comp2.innerHTML = html2;
+				comp2.addEventListener('click', compClick);
+
+				row.appendChild(comp1);
+				row.appendChild(vs);
+				row.appendChild(comp2);
+				comp.appendChild(row);
+			}
+		});
+	}
 
 	BandCarousel = class
 	{

@@ -1,4 +1,4 @@
-dateModified: 1724452044
+dateModified: 1724602063
 elementSources:
   craft\elements\Asset:
     -
@@ -90,7 +90,7 @@ elementSources:
         - 'field:a47603f2-0b4e-42c5-9f37-84cc7ceac8f0' # Topic
         - 'field:a8e014fb-e647-47d8-af5a-e9648fff7a69' # Categories
         - 'field:f977de61-4eb7-4324-ac92-3b5a651b832c' # Tags
-        - 'field:f85c3fd3-04eb-4069-a712-f8725e5c5fac' # Full Name
+        - 'field:bb4111d9-7358-4c86-b30d-cefca64041c1' # Writer
         - postDate
         - link
       type: native
@@ -256,6 +256,7 @@ meta:
     4ad976b2-17b2-41da-8eb1-0e8f74b96a93: 'Blog Listing Mobile 2x' # Blog Listing Mobile 2x
     4ae9fce4-7aa0-4e58-aae6-a6844fe1fedc: 'Section Style' # Section Style
     5eff53ba-9583-4e3e-92ce-d1d630f3f363: 'Blog Content - Media - Media ID' # Blog Content - Media - Media ID
+    6af6cdf3-9e45-4a1b-9c41-e8301d43086c: 'Ranker Compare' # Ranker Compare
     6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e: 'Blog - External' # Blog - External
     6c48f2a4-30de-4d42-a211-268e766bd9b1: 'Blog Content - Image & Text - Size' # Blog Content - Image & Text - Size
     7a24ff15-e5fa-431b-870a-78cdc208ee76: 'Long Text 2' # Long Text 2

@@ -11,6 +11,7 @@ settings:
     - bf3a1156-52e7-4016-99df-ff11094abd4b # Image & Text
     - 30fa7a57-b433-476a-9e42-ca0ad4755591 # Image
     - b5d8f674-ac36-4511-8299-74d83a18914c # Thumbnail Row
+    - 6af6cdf3-9e45-4a1b-9c41-e8301d43086c # Ranker Compare
     - 067eba0e-b12d-4661-a61b-9c4a22c91bb4 # Media
     - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72 # Embed Code
   includeTableView: false

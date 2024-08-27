@@ -9,17 +9,7 @@
 {% set blogModules = entry.blogContent.all() %}
 
 {% macro youtubeVideo(mediaId, caption, minuteMark, sectionTitle) %}
-	<div class="yt-loader" data-id="{{ mediaId }}" data-caption="{{ caption }}" data-minute="{{ minuteMark }}" data-title="{{ caption | length ? caption : sectionTitle }}"></div>
-	
-	{# <figure class="video">
-		<div class="player">
-			<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ mediaId }}{% if minuteMark | length %}?start={{ minuteMark }}{% endif %}" title="{{ caption | length ? caption : sectionTitle }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</div>
-		{% if caption | length %}
-			<figcaption>{{ caption }}</figcaption>
-		{% endif %}
-	</figure> #}
-	
+	<div class="yt-loader" data-id="{{ mediaId }}" data-caption="{{ caption }}" data-minute="{{ minuteMark }}" data-title="{{ caption | length ? caption : sectionTitle }}"></div>	
 {% endmacro %}
 
 {% macro moduleImage(module) %}
@@ -35,20 +25,6 @@
 			}
 		</style>
 	{% endif %}
-	{# {% if module.size | number < 100 %} 
-		<style type="text/css">
-			@media (min-width: 375px) {
-				#blog-img{{ module.id }} {
-					width:80%;
-				}
-			}
-			@media (min-width: 576px) {
-				#blog-img{{ module.id }} {
-					width:{{ module.size }}%;
-				}
-			}
-		</style>
-	{% endif %} #}
 	<figure id="blog-img{{ module.id }}" class="image {{ module.margins }}">
 		{% if module.noTransform %}
 			{% set img = module.blogImage.one() %}
@@ -256,6 +232,23 @@
 
 					</section>
 
+				{% case "embedCode" %}
+
+					<section class="embed-code">
+						{% if module.figureType | length %}
+							<figure class="{{ module.figureType }}">
+								<div>
+									{{ module.markup | raw }}
+								</div>
+								{% if module.figureCaption | length %}
+									<figcaption>{{ module.figureCaption }}</figcaption>
+								{% endif %}		
+							</figure>
+						{% else %}
+							{{ module.markup | raw }}
+						{% endif %}
+					</section>
+
 				{% case "image" %}
 
 					<section class="image-module"{% if module.background | length %} style="background-color:{{ module.background }}; border-radius: 4px;"{% endif %}>
@@ -291,6 +284,72 @@
 						{% endif %}
 
 					</section>
+
+				{% case "media" %}
+
+					{# Skip opening section tag if following text module #}
+
+					{% set previousModule = blogModules[loop.index - 2] ?? null %}
+					{% set openSection = (previousModule and previousModule.type == "text") ? false : true %}
+
+					{% if openSection %}
+						<section>
+					{% endif %}
+
+					{% if module.mediaType == "instagram" %}
+						<figure class="instagram-media" data-id="{{ module.mediaId }}">
+							{% if module.caption | length %}
+								<figcaption>{{ module.caption }}</figcaption>
+							{% endif %}
+						</figure>
+					{% elseif module.mediaId2 | length %}
+						<div class="side-by-side">
+							{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
+							{{ _self.youtubeVideo(module.mediaId2, module.caption2, module.minuteMark2, sectionTitle) }}	
+						</div>
+					{% else %}
+						{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
+
+					{% endif %}
+
+					</section>
+
+				{% case "rankerCompare" %}
+
+					{% if entry.enableRanking %}
+
+						<section class="ranker-compare">
+
+							{% if  module.headline | length %}
+								<h2>{{ module.headline }}</h2>
+							{% endif %}
+							{% if  module.subheadline | length %}
+								<h3>{{ module.subheadline }}</h3>
+							{% endif %}
+
+							<div class="compare-container" data-entry="{{ entry.id }}" data-module="{{ module.id }}">
+							</div>
+
+							<button class="btn reset-compare-btn hide">Start Over</button>
+
+							<div class="accepted-icon">{% include '_includes/icons' with { type: 'like-solid' } %}</div>
+
+						</section>
+
+					{% endif %}
+
+				{% case "text" %}
+
+					{# If next module is media close after it #}
+
+					{% set nextModule = blogModules[loop.index] ?? null %}
+					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
+
+					<section class="rich-text{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
+						{{ module.richText }}
+					{% if closeSection %}
+						</section>
+					{% endif %}
 
 				{% case "thumbnailRow" %}
 					{% set hTag1 = 'h2' %}
@@ -342,66 +401,6 @@
 							{% endif %}
 						</div>
 					</section>
-
-
-				{% case "embedCode" %}
-
-					<section class="embed-code">
-						{% if module.figureType | length %}
-							<figure class="{{ module.figureType }}">
-								<div>
-									{{ module.markup | raw }}
-								</div>
-								{% if module.figureCaption | length %}
-									<figcaption>{{ module.figureCaption }}</figcaption>
-								{% endif %}		
-							</figure>
-						{% else %}
-							{{ module.markup | raw }}
-						{% endif %}
-					</section>
-
-				{% case "media" %}
-
-					{# Skip opening section tag if following text module #}
-
-					{% set previousModule = blogModules[loop.index - 2] ?? null %}
-					{% set openSection = (previousModule and previousModule.type == "text") ? false : true %}
-
-					{% if openSection %}
-						<section>
-					{% endif %}
-
-					{% if module.mediaType == "instagram" %}
-						<figure class="instagram-media" data-id="{{ module.mediaId }}">
-							{% if module.caption | length %}
-								<figcaption>{{ module.caption }}</figcaption>
-							{% endif %}
-						</figure>
-					{% elseif module.mediaId2 | length %}
-						<div class="side-by-side">
-							{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
-							{{ _self.youtubeVideo(module.mediaId2, module.caption2, module.minuteMark2, sectionTitle) }}	
-						</div>
-					{% else %}
-						{{ _self.youtubeVideo(module.mediaId, module.caption, module.minuteMark, sectionTitle) }}
-
-					{% endif %}
-
-					</section>
-
-				{% case "text" %}
-
-					{# If next module is media close after it #}
-
-					{% set nextModule = blogModules[loop.index] ?? null %}
-					{% set closeSection = (nextModule and nextModule.type == "media") ? false : true %}
-
-					<section class="rich-text{% if entry.sectionStyle and entry.sectionStyle != 'default' %} {{ entry.sectionStyle.value }}{% endif %}">
-						{{ module.richText }}
-					{% if closeSection %}
-						</section>
-					{% endif %}
 
 			{% endswitch %}
 		{% endfor %}

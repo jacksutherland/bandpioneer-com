@@ -41,6 +41,8 @@
 
 {% block scripts %}
 	<script defer>
+		var compData = [];
+
         document.addEventListener("DOMContentLoaded", function()
         {
             if (typeof(bp) !== undefined)
@@ -56,6 +58,23 @@
             		rdata.push({ key: '{{rd.key}}', value: '{{rd.value}}', liked: '{{rd.liked}}', sort: '{{rd.sort}}' });
             	{% endfor %}
             	createBlogRanker("{{ entry.id }}", rdata);
+            {% endif %}
+
+            {% if entry.enableRanking %}
+
+            	{% for mod in entry.blogContent.all() %}
+            		{% if (mod.type == 'imageText' or mod.type == 'thumbnailRow') and mod.rankerKey | length and mod.blogImage.count %}
+            			{% set mobileTrans = { mode: 'crop', format: 'webp', width: 168, height: 168, quality: 80 } %}
+            			{% set desktopTrans = { mode: 'crop', format: 'webp', width: 300, height: 300, quality: 80 } %}
+            			{% set mobileUrl = mod.blogImage.one().url(mobileTrans) %}
+            			{% set desktopUrl = mod.blogImage.one().url(desktopTrans) %}
+            			{% set name = mod.rankerValue | length ? mod.rankerValue : (mod.headline | length ? mod.headline : mod.subheadline) %}
+            			compData.push({id: '{{ mod.rankerKey }}', name: '{{ name }}', img: { mobile: '{{ mobileUrl }}', desktop: '{{ desktopUrl }}' }});
+            		{% endif %}
+            	{% endfor %}
+
+            	bp.createRankerCompUX(compData, '{{ entry.id }}');
+
             {% endif %}
 
         });
