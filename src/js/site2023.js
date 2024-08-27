@@ -450,7 +450,7 @@ class BandPioneerUX
 		});
 	}
 
-	createRankerCompUX(compData, entryId)
+	createRankerCompUX(compData, entryId, loggedIn)
 	{
 		const compKey = function()
 		{
@@ -462,8 +462,8 @@ class BandPioneerUX
 		var cachedJsonData = BandPioneerUX.snickerdoodle().get(compKey());
 		var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
 
-		console.log(cachedData);
-		console.log(compData);
+		// console.log(cachedData);
+		// console.log(compData);
 
 		const setDataItemSelected = function(itemId)
 		{
@@ -524,6 +524,15 @@ class BandPioneerUX
 				if(selected)
 				{
 					ranker.insertAdjacentHTML('afterend', `<small class="compare-selection"><strong>${rankerVal} was selected as one of your favorites.</strong></small>`);
+
+					if(loggedIn)
+					{
+						var rankerLikeBtn = ranker.querySelector('button.ranker-like');
+						if (!rankerLikeBtn.classList.contains('selected'))
+						{
+							rankerLikeBtn.click();
+						}
+					}
 				}
 			});
 		}

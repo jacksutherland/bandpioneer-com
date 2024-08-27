@@ -51,6 +51,7 @@
             }
 
         	var rdata = [];
+        	var loggedIn = false;
 
         	{% if currentUser and entry.enableRanking %}
             	{% set rankingData = craft.rockstar.getCurrentUserKeysByEntry(entry.id) %}
@@ -58,6 +59,7 @@
             		rdata.push({ key: '{{rd.key}}', value: '{{rd.value}}', liked: '{{rd.liked}}', sort: '{{rd.sort}}' });
             	{% endfor %}
             	createBlogRanker("{{ entry.id }}", rdata);
+            	loggedIn = true;
             {% endif %}
 
             {% if entry.enableRanking %}
@@ -73,7 +75,7 @@
             		{% endif %}
             	{% endfor %}
 
-            	bp.createRankerCompUX(compData, '{{ entry.id }}');
+            	bp.createRankerCompUX(compData, '{{ entry.id }}', loggedIn);
 
             {% endif %}
 
