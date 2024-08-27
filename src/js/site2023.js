@@ -525,14 +525,14 @@ class BandPioneerUX
 				{
 					ranker.insertAdjacentHTML('afterend', `<small class="compare-selection"><strong>${rankerVal} was selected as one of your favorites.</strong></small>`);
 
-					if(loggedIn)
-					{
-						var rankerLikeBtn = ranker.querySelector('button.ranker-like');
-						if (!rankerLikeBtn.classList.contains('selected'))
-						{
-							rankerLikeBtn.click();
-						}
-					}
+					// if(loggedIn)
+					// {
+					// 	var rankerLikeBtn = ranker.querySelector('button.ranker-like');
+					// 	if (!rankerLikeBtn.classList.contains('selected'))
+					// 	{
+					// 		rankerLikeBtn.click();
+					// 	}
+					// }
 				}
 			});
 		}
