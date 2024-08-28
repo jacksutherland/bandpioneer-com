@@ -522,7 +522,6 @@ class BandPioneerUX
 
 			debounceTimeout = setTimeout(() => {
 				let jsonData = JSON.stringify(cookieData);
-				console.log('snickerdoodle => ' + jsonData);
 				BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
 			}, 6000);
 
