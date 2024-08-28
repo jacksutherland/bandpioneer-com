@@ -460,6 +460,10 @@ class BandPioneerUX
 		var processingComp = false;
 
 		var cachedJsonData = BandPioneerUX.snickerdoodle().get(compKey());
+
+		console.log('get snickerdoodle');
+		console.log(cachedJsonData);
+
 		try
 		{
 			var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
@@ -514,10 +518,12 @@ class BandPioneerUX
 				}
 			}
 
-			console.log('snickerdoodle')
-			console.log(JSON.stringify(compData).length);
+			let compJsonData = encodeURIComponent(JSON.stringify(compData));
 
-			// BandPioneerUX.snickerdoodle().set(compKey(comp), JSON.stringify(compData));
+			console.log('set snickerdoodle');
+			console.log(compJsonData);
+
+			BandPioneerUX.snickerdoodle().set(compKey(comp), compJsonData);
 		}
 
 		/*** Save comp data method ***/
