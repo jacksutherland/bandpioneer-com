@@ -70,7 +70,7 @@
             			{% set desktopTrans = { mode: 'crop', format: 'webp', width: 300, height: 300, quality: 80 } %}
             			{% set mobileUrl = mod.blogImage.one().url(mobileTrans) %}
             			{% set desktopUrl = mod.blogImage.one().url(desktopTrans) %}
-            			{% set name = mod.rankerValue is defined and mod.rankerValue | length ? mod.rankerValue : (mod.headline | length ? mod.headline : mod.subheadline) %}
+            			{% set name = mod['rankerValue'] is defined and mod.rankerValue | length ? mod.rankerValue : (mod.headline | length ? mod.headline : mod.subheadline) %}
             			compData.push({id: '{{ mod.id }}', name: '{{ name }}', img: { mobile: '{{ mobileUrl }}', desktop: '{{ desktopUrl }}' }});
             		{% endif %}
             	{% endfor %}
