@@ -65,13 +65,13 @@
             {% if entry.enableRanking %}
 
             	{% for mod in entry.blogContent.all() %}
-            		{% if (mod.type == 'imageText' or mod.type == 'thumbnailRow') and mod.rankerKey | length and mod.blogImage.count %}
+            		{% if (mod.type == 'imageText' or mod.type == 'thumbnailRow') and mod.blogImage.count %}
             			{% set mobileTrans = { mode: 'crop', format: 'webp', width: 168, height: 168, quality: 80 } %}
             			{% set desktopTrans = { mode: 'crop', format: 'webp', width: 300, height: 300, quality: 80 } %}
             			{% set mobileUrl = mod.blogImage.one().url(mobileTrans) %}
             			{% set desktopUrl = mod.blogImage.one().url(desktopTrans) %}
             			{% set name = mod.rankerValue | length ? mod.rankerValue : (mod.headline | length ? mod.headline : mod.subheadline) %}
-            			compData.push({id: '{{ mod.rankerKey }}', name: '{{ name }}', img: { mobile: '{{ mobileUrl }}', desktop: '{{ desktopUrl }}' }});
+            			compData.push({id: '{{ mod.id }}', name: '{{ name }}', img: { mobile: '{{ mobileUrl }}', desktop: '{{ desktopUrl }}' }});
             		{% endif %}
             	{% endfor %}
 
@@ -80,6 +80,7 @@
             {% endif %}
 
         });
+
         function createBlogRanker(eid, rankingData)
         {
         	var likeUrl = '/rockstar/ranking-like-it';
