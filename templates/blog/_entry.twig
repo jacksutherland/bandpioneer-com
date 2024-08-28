@@ -74,7 +74,7 @@
             				{% set name = mod.rankerValue %}
             			{% elseif mod['headline'] is defined %}
             				{% set name = mod.headline | length ? mod.headline : mod.subheadline %}
-            			{% if mod['title'] is defined and mod.title | length %}
+            			{% elseif mod['title'] is defined and mod.title | length %}
             				{% set name = mod.title %}
             			{% else %}
             				{% set name = "" %}
