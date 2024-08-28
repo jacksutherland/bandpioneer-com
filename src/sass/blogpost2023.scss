@@ -866,9 +866,9 @@ address[rel="author"] {
 							svg {
 								display: inline;
 							}
-							img {
-								outline: solid 3px $secondary-color;
-	    					}
+							// img {
+							// 	outline: solid 3px $secondary-color;
+	    					// }
 						}
 
 						&.rejected {
