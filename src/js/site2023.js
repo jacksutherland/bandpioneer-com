@@ -461,9 +461,6 @@ class BandPioneerUX
 
 		var cachedJsonData = BandPioneerUX.snickerdoodle().get(compKey());
 
-		console.log('get snickerdoodle');
-		console.log(cachedJsonData);
-
 		try
 		{
 			var cachedData = cachedJsonData ? JSON.parse(cachedJsonData) : null;
@@ -473,9 +470,6 @@ class BandPioneerUX
 			console.error('Failed to parse cachedData JSON:', error.message);
 			var cachedData = null;
 		}
-
-		// console.log(cachedData);
-		// console.log(compData);
 
 		const setDataItemSelected = function(itemId)
 		{
@@ -523,10 +517,6 @@ class BandPioneerUX
 			}
 
 			let jsonData = JSON.stringify(cookieData);
-
-			console.log('set snickerdoodle');
-			console.log(cookieData);
-			console.log(jsonData);
 
 			BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
 		}
