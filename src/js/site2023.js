@@ -496,6 +496,8 @@ class BandPioneerUX
 
 		/*** Save comp data method ***/
 
+		var debounceTimeout;
+
 		const saveComp = function(comp, acceptedObj, rejectedObj)
 		{
 			let cookieData = [];
@@ -516,9 +518,15 @@ class BandPioneerUX
 				cookieData.push({id: compData[i].id, selected: compData[i].selected});
 			}
 
-			let jsonData = JSON.stringify(cookieData);
+			clearTimeout(debounceTimeout);
 
-			BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
+			debounceTimeout = setTimeout(() => {
+				let jsonData = JSON.stringify(cookieData);
+				console.log('snickerdoodle => ' + jsonData);
+				BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
+			}, 5000);
+
+			
 		}
 
 		/*** Save comp data method ***/
@@ -537,14 +545,14 @@ class BandPioneerUX
 				{
 					ranker.insertAdjacentHTML('afterend', `<small class="compare-selection"><strong>${rankerVal} was selected as one of your favorites.</strong></small>`);
 
-					// if(loggedIn)
-					// {
-					// 	var rankerLikeBtn = ranker.querySelector('button.ranker-like');
-					// 	if (!rankerLikeBtn.classList.contains('selected'))
-					// 	{
-					// 		rankerLikeBtn.click();
-					// 	}
-					// }
+					if(loggedIn)
+					{
+						var rankerLikeBtn = ranker.querySelector('button.ranker-like');
+						if (!rankerLikeBtn.classList.contains('selected'))
+						{
+							rankerLikeBtn.click();
+						}
+					}
 				}
 			});
 		}
