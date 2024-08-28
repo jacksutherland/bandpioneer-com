@@ -524,7 +524,7 @@ class BandPioneerUX
 				let jsonData = JSON.stringify(cookieData);
 				console.log('snickerdoodle => ' + jsonData);
 				BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
-			}, 5000);
+			}, 8000);
 
 			
 		}
