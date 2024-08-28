@@ -504,6 +504,8 @@ class BandPioneerUX
 
 		const saveComp = function(comp, acceptedObj, rejectedObj)
 		{
+			let cookieData = [];
+
 			for (let i = 0; i < compData.length; i++)
 			{
 				if(compData[i].name == acceptedObj)
@@ -516,14 +518,17 @@ class BandPioneerUX
 					compData[i].selected = false;
 					updateRankers(compData[i].id, compData[i].name, false);
 				}
+
+				cookieData.push({id: compData[i].id, selected: compData[i].selected});
 			}
 
-			let compJsonData = encodeURIComponent(JSON.stringify(compData));
+			let jsonData = JSON.stringify(cookieData);
 
 			console.log('set snickerdoodle');
-			console.log(compJsonData);
+			console.log(cookieData);
+			console.log(jsonData);
 
-			BandPioneerUX.snickerdoodle().set(compKey(comp), compJsonData);
+			BandPioneerUX.snickerdoodle().set(compKey(comp), jsonData);
 		}
 
 		/*** Save comp data method ***/
