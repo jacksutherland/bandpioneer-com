@@ -514,7 +514,10 @@ class BandPioneerUX
 				}
 			}
 
-			BandPioneerUX.snickerdoodle().set(compKey(comp), JSON.stringify(compData));
+			console.log('snickerdoodle')
+			console.log(JSON.stringify(compData).length);
+
+			// BandPioneerUX.snickerdoodle().set(compKey(comp), JSON.stringify(compData));
 		}
 
 		/*** Save comp data method ***/
