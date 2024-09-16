@@ -42,12 +42,61 @@
 {% block scripts %}
 	{% if isFirstPage %}
 		<script defer>
+			var hero = null;
+			var bkg = null;
+			var imgTop = 0;
+
+			function heroScrollListener()
+			{
+				const { top } = hero.getBoundingClientRect();
+				const sectionHeight = hero.offsetHeight;
+				const imgHeight = bkg.offsetHeight;
+				const windowHeight = window.innerHeight;
+				const scrollProgress = -top / (sectionHeight - windowHeight);
+				const newTop = Math.round((scrollProgress/2) * (sectionHeight - imgHeight));
+
+				// console.log('scrollProgress = ' + scrollProgress);
+				
+
+				if(imgTop !== newTop)
+				{
+					imgTop = newTop;
+					bkg.style.top = `${imgTop}px`;
+				}
+			}
+
             document.addEventListener("DOMContentLoaded", function()
             {
                 if (typeof(bp) !== undefined)
                 {
                 	bp.createBandCarousels();
                 }
+
+                {% if not isMobile %}
+
+	                hero = document.querySelector('#cta-text');
+					bkg = document.querySelector('#hero-plax');
+					let observerOptions = { threshold: [0] };
+					if(window.innerHeight < 900)
+						observerOptions.rootMargin = '15% 0% 15% 0%';
+					else
+						observerOptions.rootMargin = '0% 0% 0% 0%';
+					
+					const observer = new IntersectionObserver((entries, observer) => 
+					{ 
+						entries.forEach(entry => {
+							if(entry.isIntersecting)
+								document.addEventListener('scroll', heroScrollListener);
+							else
+								document.removeEventListener('scroll', heroScrollListener);
+						});
+					}, observerOptions);
+
+					observer.observe(hero);
+
+					heroScrollListener();
+
+				{% endif %}
             });
         </script>
         <script type="text/javascript">
@@ -122,9 +171,29 @@
 {% block header %}
 	{% if isFirstPage %}
 
-		{% set homepageCTACacheKey = "homepage-cta-" ~ entry.headline | camel %}
+		{% set homepageCTACacheKey = "homepage-cta-12-" ~ entry.headline | camel %}
 		{% cache using key homepageCTACacheKey %}
 			<section id="cta-text" class="cta-text">
+				{% if not isMobile %}
+					{% set img = craft.assets().filename('bp-homepage-parallax-bkg.jpg').one() %}
+					{% set transform12 = { mode: 'fit', format: 'webp', width: 1200, quality: 80 } %}
+					{% set transform14 = { mode: 'fit', format: 'webp', width: 1400, quality: 80 } %}
+					{% set transform16 = { mode: 'fit', format: 'webp', width: 1600, quality: 80 } %}
+					{% set transform18 = { mode: 'fit', format: 'webp', width: 1800, quality: 80 } %}
+					{% set transform20 = { mode: 'fit', format: 'webp', width: 2000, quality: 80 } %}
+					<picture>
+						<source srcset="{{ img.url(transform20) }}, {{ img.url(transform20) }} 2x" media="(min-width:1800px)" />
+						<source srcset="{{ img.url(transform18) }}, {{ img.url(transform18) }} 2x" media="(min-width:1600px)" />
+						<source srcset="{{ img.url(transform16) }}, {{ img.url(transform16) }} 2x" media="(min-width:1400px)" />
+						<source srcset="{{ img.url(transform14) }}, {{ img.url(transform14) }} 2x" media="(min-width:1200px)" />
+						<img id="hero-plax" class="hero-plax"
+							src="{{ img.url(transform12) }}"
+							srcset="{{ img.url(transform12) }} 2x"
+						 	alt="{{ img.title }}"
+						 	loading="eager"
+							width="{{ img.width(transform12) }}" height="{{ img.height(transform12) }}">
+					</picture>
+				{% endif %}
 				<div class="container">
 					<div class="z-pattern">
 						<div>

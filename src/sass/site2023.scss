@@ -379,10 +379,30 @@ section {
 		overflow: hidden;
 		text-align: center;
 
-		background-image: url(/assets/images/bp-homepage-bkg.jpg);
+		// background-image: url(/assets/images/bp-homepage-bkg.jpg);
+		background-color: $primary-dark;
     	background-position: center bottom;
     	background-repeat: no-repeat;
     	background-size: cover;
+
+    	position: relative;
+
+    	img.hero-plax {
+    		display: none;
+    		position: absolute;
+    		left: 0;
+    		top: -150px;
+    		transform: translateY(-35%);
+    		height: auto;
+    		width: 100%;
+    		z-index: 1;
+    		opacity: 0.4;
+    	}
+
+    	.container {
+    		position: relative;
+    		z-index: 2;
+    	}
 
     	* {
     		color: $white;
@@ -390,6 +410,10 @@ section {
 
     	p {
     		font-weight: $slightly-bold-font;
+
+    		&:last-child {
+    			margin-bottom: 0;
+    		}
     	}
 
     	a {
@@ -457,6 +481,10 @@ section {
 			border-top: solid 1px $white;
 			padding-top: 0;
 			text-align: left;
+
+			img.hero-plax {
+	    		display: inline;
+	    	}
 
 			.z-pattern {
 				display: grid;

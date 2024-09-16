@@ -298,24 +298,30 @@ class BandPioneerUX
 		{
 			const body = document.querySelector('body');
 			
-			const observer = new window.IntersectionObserver((entries) => {
-
-				if(entries[0].boundingClientRect.top < 250)
+			const observerUp = new window.IntersectionObserver((entries) => {
+				console.log(entries[0].boundingClientRect.top);
+				if (!entries[0].isIntersecting)
 				{
-					if (!entries[0].isIntersecting)
-					{
-						body.classList.add('sticky');
-						BandPioneerUX.callStickyListeners(true);
-					}
-					else
-					{
-						body.classList.remove('sticky');
-						BandPioneerUX.callStickyListeners(false);
-					}
+					body.classList.add('sticky');
+					BandPioneerUX.callStickyListeners(true);
+				}
+				else
+				{
+					body.classList.remove('sticky');
+					BandPioneerUX.callStickyListeners(false);
 				}
 			}, { rootMargin: `-150px 0px 0px 0px` });
 
-			observer.observe(tracker);
+			// const observerDown = new window.IntersectionObserver((entries) => {
+			// 	if (entries[0].isIntersecting)
+			// 	{
+			// 		body.classList.remove('sticky');
+			// 		BandPioneerUX.callStickyListeners(false);
+			// 	}
+			// }, { rootMargin: `-140px 0px 0px 0px` });
+
+			observerUp.observe(tracker);
+			// observerDown.observe(tracker);
 		}
 	}
 

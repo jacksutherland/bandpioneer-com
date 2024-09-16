@@ -992,16 +992,25 @@ header.site-header {
 	}
 }
 
+@media (min-width: $breakpoint-md) {
+
+	body.sticky {
+		padding-top: 150px;
+	}
+}
+
 @media (min-width: $breakpoint-lg) {
 
 	body.sticky {
+		// padding-top: 150px;
+
 		header.site-header {
 			box-shadow: none;
 			height: $header-sticky-height;
 
 			nav {
 				.logo {
-				    margin-top: 8px;
+				    margin-top: 18px;
 
 					img {
 						&:first-child {
