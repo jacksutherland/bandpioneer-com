@@ -55,9 +55,6 @@
 				const scrollProgress = -top / (sectionHeight - windowHeight);
 				const newTop = Math.round((scrollProgress/2) * (sectionHeight - imgHeight));
 
-				// console.log('scrollProgress = ' + scrollProgress);
-				
-
 				if(imgTop !== newTop)
 				{
 					imgTop = newTop;
@@ -171,8 +168,8 @@
 {% block header %}
 	{% if isFirstPage %}
 
-		{% set homepageCTACacheKey = "homepage-cta-12-" ~ entry.headline | camel %}
-		{% cache using key homepageCTACacheKey %}
+		{# {% set homepageCTACacheKey = "homepage-cta-12-" ~ entry.headline | camel %}
+		{% cache using key homepageCTACacheKey %} #}
 			<section id="cta-text" class="cta-text">
 				{% if not isMobile %}
 					{% set img = craft.assets().filename('bp-homepage-parallax-bkg.jpg').one() %}
@@ -218,7 +215,7 @@
 					</div>
 				</div>
 			</section>
-		{% endcache %}
+		{# {% endcache %} #}
 	{% endif %}
 {% endblock %}
 

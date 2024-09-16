@@ -299,7 +299,6 @@ class BandPioneerUX
 			const body = document.querySelector('body');
 			
 			const observerUp = new window.IntersectionObserver((entries) => {
-				console.log(entries[0].boundingClientRect.top);
 				if (!entries[0].isIntersecting)
 				{
 					body.classList.add('sticky');
@@ -312,16 +311,7 @@ class BandPioneerUX
 				}
 			}, { rootMargin: `-150px 0px 0px 0px` });
 
-			// const observerDown = new window.IntersectionObserver((entries) => {
-			// 	if (entries[0].isIntersecting)
-			// 	{
-			// 		body.classList.remove('sticky');
-			// 		BandPioneerUX.callStickyListeners(false);
-			// 	}
-			// }, { rootMargin: `-140px 0px 0px 0px` });
-
 			observerUp.observe(tracker);
-			// observerDown.observe(tracker);
 		}
 	}
 
@@ -380,29 +370,40 @@ class BandPioneerUX
 			const ctaImgRotator = function()
 			{
 				ctaIdx = (ctaIdx === ctaMax) ? 1 : ctaIdx + 1;
-
 				ctaImg.classList.add('blur-out');
 
 				setTimeout(function()
 				{
-					ctaImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
-					ctaImg.classList.remove('blur-out');
+					// ctaImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
+					// setTimeout(function()
+					// {
+					// 	ctaImg.classList.remove('blur-out');
+					// }, 1000);
 
-					preloadNextImg();
+					const newImg = new Image();
+				    newImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
+				    newImg.onload = function() {
+				    	ctaImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
+				    	setTimeout(function()
+						{
+				    		ctaImg.classList.remove('blur-out');
+				    	}, 1000);
+				    };
+
+					// preloadNextImg();
 
 				}, 500);
 			}
 
-			const preloadNextImg = function()
-			{
-				if(preloadCounter < ctaMax)
-				{
-					preloadCounter++;
-
-					var preload = new Image();
-					preload.src = '/assets/images/bp-homepage-artist-' + (ctaIdx == ctaMax ? ctaMin : (ctaIdx + 1)) + '.png';
-				}
-			}
+			// const preloadNextImg = function()
+			// {
+			// 	if(preloadCounter < ctaMax)
+			// 	{
+			// 		preloadCounter++;
+			// 		var preload = new Image();
+			// 		preload.src = '/assets/images/bp-homepage-artist-' + (ctaIdx == ctaMax ? ctaMin : (ctaIdx + 1)) + '.png';
+			// 	}
+			// }
 
 			const ctaObserver = new window.IntersectionObserver((entries) => {
 
@@ -422,7 +423,7 @@ class BandPioneerUX
 
 			ctaObserver.observe(ctaText);
 
-			preloadNextImg();
+			// preloadNextImg();
 		}
 	}
 
