@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 3f0e0a64-f0b3-42c2-b38a-3bd34bf15cb4 # Blog Content - Image & Text - Headline
             handle: headline
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9ea32fa5-e1b5-4900-96a6-86c01b8dbc68 # Blog Content - Image & Text - Subheadline
             handle: subheadline
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7517c439-55f4-420f-9514-cad4d205f293 # Blog Content - Image & Text - Alternate TOC Text
             handle: alternateTocText
@@ -80,11 +87,14 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 13766b7f-d24e-46e5-9254-0013aad2f574
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 602a04aa-8d14-4db6-93a0-9c9f79d8d72d # Ranker Value
             handle: null
@@ -100,6 +110,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 3d8afd6b-d100-47e2-a8fe-0be9e0dab4d4 # Ranker Key
             handle: null
@@ -115,11 +127,14 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 156268e6-7910-431e-b8d6-19255da5977f
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9b6b4041-451d-480f-bfb4-9116294162ad # Blog Content - Image & Text - Blog Image
             handle: blogImage
@@ -135,6 +150,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: d30b8ce1-04a4-4e95-a1e6-570d2e4f339f # Blog Content - Image & Text - No Transform
             handle: noTransform
@@ -150,6 +167,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 6c48f2a4-30de-4d42-a211-268e766bd9b1 # Blog Content - Image & Text - Size
             handle: size
@@ -165,6 +184,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 055b60fb-8617-44d9-aa31-c628008126b0 # Blog Content - Image & Text - Caption
             handle: caption
@@ -180,6 +201,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7753be54-298e-490f-9ab3-381c71785210 # Blog Content - Image & Text - Link URL
             handle: linkUrl
@@ -195,11 +218,14 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 1a8e5526-c428-4e27-8f92-b916aabfb439
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 555e19eb-df0c-48bc-b4b9-bdc423af2204 # Blog Content - Image & Text - Rich Text
             handle: richText

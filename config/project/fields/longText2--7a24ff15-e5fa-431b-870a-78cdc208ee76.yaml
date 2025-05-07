@@ -6,15 +6,17 @@ searchable: true
 settings:
   availableTransforms: '*'
   availableVolumes: '*'
+  characterLimit: null
   ckeConfig: cc64f857-3e97-42d7-8a16-79223c695a98 # Default
   createButtonLabel: null
   defaultTransform: null
-  enableSourceEditingForNonAdmins: true
+  fullGraphqlData: false
   purifierConfig: null
   purifyHtml: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   showWordCount: false
+  sourceEditingGroups: '*'
   wordLimit: null
 translationKeyFormat: null
 translationMethod: none

@@ -4,6 +4,7 @@ instructions: null
 name: 'Blog Content - Embed Code - Figure Type'
 searchable: false
 settings:
+  customOptions: false
   options:
     -
       __assoc__:

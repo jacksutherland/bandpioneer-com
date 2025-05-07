@@ -8,6 +8,7 @@ tabs:
         autocomplete: false
         autocorrect: true
         class: null
+        dateAdded: null
         disabled: false
         elementCondition: null
         id: null
@@ -34,6 +35,7 @@ tabs:
         warning: null
         width: 100
       -
+        dateAdded: null
         elementCondition: null
         id: null
         includeInCards: false
@@ -53,6 +55,7 @@ tabs:
         autocomplete: false
         autocorrect: true
         class: null
+        dateAdded: null
         disabled: false
         elementCondition: null
         id: null
@@ -77,6 +80,8 @@ tabs:
         userCondition: null
         width: 100
       -
+        dateAdded: null
+        editCondition: null
         elementCondition: null
         fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
         handle: null
@@ -92,6 +97,8 @@ tabs:
         warning: null
         width: 100
       -
+        dateAdded: null
+        editCondition: null
         elementCondition: null
         fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
         handle: null
@@ -107,6 +114,8 @@ tabs:
         warning: null
         width: 100
       -
+        dateAdded: null
+        editCondition: null
         elementCondition: null
         fieldUid: 677a9dea-a907-4391-96ff-bd41e92e8fa5 # URL Slug
         handle: null

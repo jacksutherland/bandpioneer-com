@@ -1,7 +1,8 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - ab942308-a9f7-48a6-9dbd-6b80da1b5105 # AI Battle
+  -
+    uid: ab942308-a9f7-48a6-9dbd-6b80da1b5105 # AI Battle
 handle: aiBattle
 maxAuthors: 1
 name: 'AI Battle'

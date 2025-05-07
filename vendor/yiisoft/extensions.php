@@ -12,16 +12,6 @@ return array (
       '@creocoder/nestedsets' => $vendorDir . '/creocoder/yii2-nested-sets/src',
     ),
   ),
-  'yiisoft/yii2-shell' => 
-  array (
-    'name' => 'yiisoft/yii2-shell',
-    'version' => '2.0.5.0',
-    'alias' => 
-    array (
-      '@yii/shell' => $vendorDir . '/yiisoft/yii2-shell',
-    ),
-    'bootstrap' => 'yii\\shell\\Bootstrap',
-  ),
   'samdark/yii2-psr-log-target' => 
   array (
     'name' => 'samdark/yii2-psr-log-target',
@@ -78,5 +68,15 @@ return array (
       '@nystudio107/codeeditor' => $vendorDir . '/nystudio107/craft-code-editor/src',
     ),
     'bootstrap' => 'nystudio107\\codeeditor\\CodeEditor',
+  ),
+  'yiisoft/yii2-shell' => 
+  array (
+    'name' => 'yiisoft/yii2-shell',
+    'version' => '2.0.6.0',
+    'alias' => 
+    array (
+      '@yii/shell' => $vendorDir . '/yiisoft/yii2-shell',
+    ),
+    'bootstrap' => 'yii\\shell\\Bootstrap',
   ),
 );

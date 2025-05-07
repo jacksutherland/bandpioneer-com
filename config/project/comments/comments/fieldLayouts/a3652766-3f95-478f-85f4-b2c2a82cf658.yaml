@@ -3,6 +3,7 @@ tabs:
     elementCondition: null
     elements:
       -
+        dateAdded: null
         elementCondition: null
         includeInCards: false
         instructions: null

@@ -4,6 +4,7 @@ instructions: null
 name: 'TOC Style'
 searchable: false
 settings:
+  customOptions: false
   options:
     -
       __assoc__:

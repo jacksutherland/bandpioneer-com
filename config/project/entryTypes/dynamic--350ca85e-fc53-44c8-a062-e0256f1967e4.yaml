@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
             handle: null
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: fab3405a-11f1-4389-b8fb-d7f3fae15087 # Featured Snippet
             handle: null
@@ -80,12 +87,15 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
             elementCondition: null
             heading: ''
             type: craft\fieldlayoutelements\Heading
             uid: 61536804-3fab-4a0b-bd1a-9113c84f5d73
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 80a9c5e0-fb80-420c-a7df-676f56ac600d # Blog Image
             handle: null
@@ -101,6 +111,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7149d8a6-d74b-4e10-b59b-80f37708aaa0 # TOC Style
             handle: null
@@ -116,6 +128,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: b5c7b937-2d08-4b03-a22e-83f2879773fe # TOC Default
             handle: null
@@ -131,12 +145,15 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             heading: 'Blog Info'
             type: craft\fieldlayoutelements\Heading
             uid: f43b26a5-5e0c-4422-a640-ad004052b6cf
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: a47603f2-0b4e-42c5-9f37-84cc7ceac8f0 # Topic
             handle: null
@@ -152,6 +169,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: a8e014fb-e647-47d8-af5a-e9648fff7a69 # Categories
             handle: null
@@ -167,6 +186,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: b7ec030d-fd66-4c86-be9c-5cec826a7638 # Change
             handle: null
@@ -182,12 +203,15 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             heading: Writer
             type: craft\fieldlayoutelements\Heading
             uid: 71ad2d2d-36ba-49c5-ae8e-3bd5fe1e60be
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: f85c3fd3-04eb-4069-a712-f8725e5c5fac # Full Name
             handle: null
@@ -203,6 +227,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
             handle: null
@@ -218,6 +244,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 24792e71-a84c-4970-acf7-c69480e02e11 # Writer Picture
             handle: null
@@ -239,6 +267,8 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9a6940a2-21f7-479b-89de-7b12ff94ad18 # Long Text
             handle: null
@@ -254,6 +284,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 266355e1-d1f3-4d71-a92d-2d3a714c3d06 # Blog Content
             handle: null
@@ -275,6 +307,8 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
             handle: null
@@ -290,6 +324,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
             handle: null
@@ -305,6 +341,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
             handle: null
@@ -320,6 +358,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9fb102dd-839a-4229-82ce-229ed6669f92 # Ranking
             handle: null
@@ -335,12 +375,15 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             heading: 'SEO Keywords'
             type: craft\fieldlayoutelements\Heading
             uid: f95ed532-69c8-4d93-bba8-1c9b0a28a790
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: cdaef71d-1a83-462b-92b2-4d96fd8d8b32 # Related SEO Keywords
             handle: null

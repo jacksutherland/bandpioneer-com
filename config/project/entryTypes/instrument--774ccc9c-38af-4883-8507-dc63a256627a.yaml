@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
             handle: null
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 1b12d4c8-a449-4b45-99db-cdcf801d8fa4 # Hero Image
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
             handle: null
@@ -80,6 +87,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
             handle: null
@@ -95,6 +104,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 9d9d41d0-9e17-402e-8e87-a5d4346dce47 # Short Description
             handle: null
@@ -116,6 +127,8 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
             handle: null
@@ -131,6 +144,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
             handle: null
@@ -146,6 +161,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
             handle: null

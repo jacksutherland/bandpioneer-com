@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ee13e705-afd8-41c1-a111-b472a62a15f2 # Blog Content - Section Title - Headline
             handle: headline
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: acdcd6cb-c200-42d3-a723-ea131a1387dd # Blog Content - Section Title - Subheadline
             handle: subheadline
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e47520eb-bf67-40c5-b8e9-b5e219b14003 # Blog Content - Section Title - Alternate TOC Text
             handle: null
@@ -80,11 +87,14 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 00e48276-a25a-4a3c-a4a0-a18f0d3c7fe8
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 602a04aa-8d14-4db6-93a0-9c9f79d8d72d # Ranker Value
             handle: null
@@ -100,6 +110,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 3d8afd6b-d100-47e2-a8fe-0be9e0dab4d4 # Ranker Key
             handle: null

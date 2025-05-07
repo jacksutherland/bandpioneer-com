@@ -1,9 +1,12 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - cb12ca30-b685-4547-a81e-f978eb629278 # Blog - Internal
-  - 6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e # Blog - External
-  - 350ca85e-fc53-44c8-a062-e0256f1967e4 # Blog - Dynamic
+  -
+    uid: cb12ca30-b685-4547-a81e-f978eb629278 # Blog - Internal
+  -
+    uid: 6bbbdbbd-d9a0-42e4-acd4-7295e2f1644e # Blog - External
+  -
+    uid: 350ca85e-fc53-44c8-a062-e0256f1967e4 # Blog - Dynamic
 handle: blog
 maxAuthors: 1
 name: 'Blog Post'

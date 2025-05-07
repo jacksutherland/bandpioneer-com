@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 7338fd63-9ce2-4696-a9b3-113b5d6015c3 # Subheadline
             handle: null
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 68c36b78-e56c-45f0-90a2-b93ccc0f1ee6 # Rich Text
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 80a9c5e0-fb80-420c-a7df-676f56ac600d # Blog Image
             handle: null
@@ -80,6 +87,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: aae926e2-c2e8-4a90-8787-fa6597dacd90 # Header Tag
             handle: null
@@ -95,6 +104,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e1e2658d-253a-4426-b447-fce24b18410a # Website URL
             handle: null

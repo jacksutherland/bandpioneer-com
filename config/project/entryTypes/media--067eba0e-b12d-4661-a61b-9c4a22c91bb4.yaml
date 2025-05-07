@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: cd4a38c4-94ce-4c20-9d8b-62288944ef87 # Blog Content - Media - Media Type
             handle: null
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 5eff53ba-9583-4e3e-92ce-d1d630f3f363 # Blog Content - Media - Media ID
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: de2bb280-3465-478f-a8b2-bb03f3c7be35 # Blog Content - Media - Caption
             handle: caption
@@ -80,6 +87,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 67862bf2-294a-4e45-af45-324c297cbea8 # Blog Content - Media - Minute Mark
             handle: null
@@ -95,6 +104,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 29031305-9467-4d00-bc36-cea8076d10ac # Blog Content - Media - Media ID 2
             handle: null
@@ -110,6 +121,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 01d0c5e2-4c3a-4623-9699-331c764e4643 # Blog Content - Media - Caption 2
             handle: caption2
@@ -125,6 +138,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: c8882f0f-9f15-47b0-a3ba-c71265503cc1 # Blog Content - Media - Minute Mark 2
             handle: null

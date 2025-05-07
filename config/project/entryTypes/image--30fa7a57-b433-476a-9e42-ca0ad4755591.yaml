@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 2d08e6f3-ae71-4a17-a1f5-97abeb7193f9 # Blog Content - Image - Blog Image
             handle: blogImage
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: d99087f8-d76e-43c8-86f5-afc78b3f4430 # Blog Content - Image - No Transform
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e0270692-1ca3-4ba6-8d52-cfca54ac634a # Blog Content - Image - Size
             handle: null
@@ -80,6 +87,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: a070ee30-4cf4-4a25-8bb8-7768d85f66f7 # Blog Content - Image - Background
             handle: null
@@ -95,6 +104,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 82e0e8c4-4d0e-4fc4-83f5-1a60298d9dcc # Blog Content - Image - Margins
             handle: null
@@ -110,6 +121,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 1c1054c9-4810-4918-b3c1-3bd0d6a13675 # Blog Content - Image - Caption
             handle: null
@@ -125,6 +138,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 26e93876-a78a-402d-b49e-a55f7d4e5374 # Blog Content - Image - Link URL
             handle: null

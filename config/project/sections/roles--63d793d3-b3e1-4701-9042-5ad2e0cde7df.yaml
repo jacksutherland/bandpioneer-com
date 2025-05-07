@@ -1,7 +1,8 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - b9eaa895-752b-4102-8fac-49d7662c399d # Roles - Default
+  -
+    uid: b9eaa895-752b-4102-8fac-49d7662c399d # Roles - Default
 handle: roles
 maxAuthors: 1
 name: 'AI Studio Role'

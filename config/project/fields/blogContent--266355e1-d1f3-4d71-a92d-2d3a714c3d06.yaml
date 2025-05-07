@@ -5,15 +5,49 @@ name: 'Blog Content'
 searchable: true
 settings:
   createButtonLabel: null
+  defaultIndexViewMode: cards
+  enableVersioning: false
   entryTypes:
-    - 18b5ed4a-3fe4-4566-8c78-9cff10344f5b # Section Title
-    - 7f387f1a-d0e5-455a-a900-c8632cfdf5c9 # Text
-    - bf3a1156-52e7-4016-99df-ff11094abd4b # Image & Text
-    - 30fa7a57-b433-476a-9e42-ca0ad4755591 # Image
-    - b5d8f674-ac36-4511-8299-74d83a18914c # Thumbnail Row
-    - 6af6cdf3-9e45-4a1b-9c41-e8301d43086c # Ranker Compare
-    - 067eba0e-b12d-4661-a61b-9c4a22c91bb4 # Media
-    - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72 # Embed Code
+    -
+      __assoc__:
+        -
+          - uid
+          - 18b5ed4a-3fe4-4566-8c78-9cff10344f5b # Section Title
+    -
+      __assoc__:
+        -
+          - uid
+          - 7f387f1a-d0e5-455a-a900-c8632cfdf5c9 # Text
+    -
+      __assoc__:
+        -
+          - uid
+          - bf3a1156-52e7-4016-99df-ff11094abd4b # Image & Text
+    -
+      __assoc__:
+        -
+          - uid
+          - 30fa7a57-b433-476a-9e42-ca0ad4755591 # Image
+    -
+      __assoc__:
+        -
+          - uid
+          - b5d8f674-ac36-4511-8299-74d83a18914c # Thumbnail Row
+    -
+      __assoc__:
+        -
+          - uid
+          - 6af6cdf3-9e45-4a1b-9c41-e8301d43086c # Ranker Compare
+    -
+      __assoc__:
+        -
+          - uid
+          - 067eba0e-b12d-4661-a61b-9c4a22c91bb4 # Media
+    -
+      __assoc__:
+        -
+          - uid
+          - f56dcf7f-956d-4a14-b4e8-8bfd842d5b72 # Embed Code
   includeTableView: false
   maxEntries: null
   minEntries: null

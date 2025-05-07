@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +25,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +36,8 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 8bb43633-4a68-4f44-93b1-84ef2584a366 # CTA Text 2
             handle: null
@@ -50,6 +53,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 2075787e-20ab-458f-81df-dd47b726a51b # Show
             handle: null
@@ -65,6 +70,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: a3e2f22e-d4a1-4050-a8a8-5a2588565002 # Disable Ads
             handle: null
@@ -80,11 +87,14 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: null
             elementCondition: null
             type: craft\fieldlayoutelements\LineBreak
             uid: 9f8b1321-32e1-43c3-8fd3-5bb348d7da6f
             userCondition: null
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ed962f96-407c-48ee-9fe2-daccbb4b7a16 # Headline
             handle: null
@@ -100,6 +110,8 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 68c36b78-e56c-45f0-90a2-b93ccc0f1ee6 # Rich Text
             handle: null
@@ -121,6 +133,8 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: ac112358-b098-4b74-b9fe-763ece5d27e0 # Meta Title
             handle: null
@@ -136,6 +150,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: e55684f7-379f-42d4-8c46-0d4bca63ecee # Meta Description
             handle: null
@@ -151,6 +167,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
+            editCondition: null
             elementCondition: null
             fieldUid: 8a780297-6f26-445e-ab9a-59602ffc5dbc # SEO Image
             handle: null
