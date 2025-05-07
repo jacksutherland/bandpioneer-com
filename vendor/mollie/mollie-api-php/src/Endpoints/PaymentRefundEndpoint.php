@@ -78,8 +78,8 @@ class PaymentRefundEndpoint extends CollectionEndpointAbstract
      * Create an iterator for iterating over refunds for the given payment, retrieved from Mollie.
      *
      * @param Payment $payment
-     * @param string $from The first resource ID you want to include in your list.
-     * @param int $limit
+     * @param string|null $from The first resource ID you want to include in your list.
+     * @param int|null $limit
      * @param array $parameters
      * @param bool $iterateBackwards Set to true for reverse order iteration (default is false).
      *
@@ -108,8 +108,8 @@ class PaymentRefundEndpoint extends CollectionEndpointAbstract
      * Create an iterator for iterating over refunds for the given payment id, retrieved from Mollie.
      *
      * @param string $paymentId
-     * @param string $from The first resource ID you want to include in your list.
-     * @param int $limit
+     * @param string|null $from The first resource ID you want to include in your list.
+     * @param int|null $limit
      * @param array $parameters
      * @param bool $iterateBackwards Set to true for reverse order iteration (default is false).
      *
@@ -153,5 +153,48 @@ class PaymentRefundEndpoint extends CollectionEndpointAbstract
         $this->parentId = $paymentId;
 
         return parent::rest_create($data, $filters);
+    }
+
+    /**
+     * @param \Mollie\Api\Resources\Payment $payment
+     * @param string $refundId
+     * @param array $parameters
+     * @return null
+     *
+     * @throws \Mollie\Api\Exceptions\ApiException
+     */
+    public function cancelForPayment(Payment $payment, string $refundId, array $parameters = [])
+    {
+        $this->parentId = $payment->id;
+
+        return $this->cancelForId($payment->id, $refundId, $parameters);
+    }
+
+    /**
+     * @param string $paymentId
+     * @param string $refundId
+     * @param array $parameters
+     * @return null
+     *
+     * @throws \Mollie\Api\Exceptions\ApiException
+     */
+    public function cancelForId(string $paymentId, string $refundId, array $parameters = [])
+    {
+        $this->parentId = $paymentId;
+
+        $body = null;
+        if (count($parameters) > 0) {
+            $body = json_encode($parameters);
+        }
+
+        $this->client->performHttpCall(
+            EndpointAbstract::REST_DELETE,
+            $this->getResourcePath() . '/' . $refundId,
+            $body
+        );
+
+        $this->getResourcePath();
+
+        return null;
     }
 }

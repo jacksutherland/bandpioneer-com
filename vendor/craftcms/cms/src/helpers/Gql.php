@@ -271,7 +271,7 @@ class Gql
      *
      * @param string $typeName The union type name.
      * @param array $includedTypes The type the union should include
-     * @param ?callable $resolveFunction The resolver function to use to resolve a specific type. If not provided,
+     * @param callable|null $resolveFunction The resolver function to use to resolve a specific type. If not provided,
      * a default one will be used that is able to resolve Craft elements.
      * @return mixed
      */
@@ -385,15 +385,12 @@ class Gql
     {
         unset($arguments['immediately']);
 
-        if (!empty($arguments['handle'])) {
-            $transform = $arguments['handle'];
-        } elseif (!empty($arguments['transform'])) {
-            $transform = $arguments['transform'];
-        } else {
-            $transform = $arguments;
+        // Remap handle to transform to work with image transform normalization
+        if (isset($arguments['handle'])) {
+            $arguments = $arguments['handle'];
         }
 
-        return $transform;
+        return $arguments;
     }
 
     /**
@@ -449,9 +446,7 @@ class Gql
 
         $sites = Craft::$app->getSites()->getAllSites(true);
 
-        return array_filter($sites, static function(Site $site) use ($allowedSiteUids) {
-            return in_array($site->uid, $allowedSiteUids, true);
-        });
+        return array_filter($sites, static fn(Site $site) => in_array($site->uid, $allowedSiteUids, true));
     }
 
     /**
@@ -466,9 +461,7 @@ class Gql
         }
 
         if ($value instanceof ListValueNode) {
-            return array_map(function($node) {
-                return self::_convertArgumentValue($node);
-            }, iterator_to_array($value->values));
+            return array_map(fn($node) => self::_convertArgumentValue($node), iterator_to_array($value->values));
         }
 
         return $value->value;
@@ -510,9 +503,7 @@ class Gql
      */
     public static function eagerLoadComplexity(): callable
     {
-        return static function($childComplexity) {
-            return $childComplexity + GqlService::GRAPHQL_COMPLEXITY_EAGER_LOAD;
-        };
+        return static fn($childComplexity) => $childComplexity + GqlService::GRAPHQL_COMPLEXITY_EAGER_LOAD;
     }
 
     /**
@@ -523,9 +514,7 @@ class Gql
      */
     public static function singleQueryComplexity(): callable
     {
-        return static function($childComplexity) {
-            return $childComplexity + GqlService::GRAPHQL_COMPLEXITY_QUERY;
-        };
+        return static fn($childComplexity) => $childComplexity + GqlService::GRAPHQL_COMPLEXITY_QUERY;
     }
 
     /**
@@ -566,9 +555,7 @@ class Gql
      */
     public static function nPlus1Complexity(): callable
     {
-        return static function($childComplexity) {
-            return $childComplexity + GqlService::GRAPHQL_COMPLEXITY_NPLUS1;
-        };
+        return static fn($childComplexity) => $childComplexity + GqlService::GRAPHQL_COMPLEXITY_NPLUS1;
     }
 
     /**
@@ -654,7 +641,7 @@ class Gql
      *
      * @param string $query
      * @return bool
-     * @since 4.9.6
+     * @since 5.1.8
      */
     public static function isIntrospectionQuery(string $query): bool
     {

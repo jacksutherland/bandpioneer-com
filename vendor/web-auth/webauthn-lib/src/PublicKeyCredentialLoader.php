@@ -17,6 +17,7 @@ use Webauthn\Util\Base64;
 use function array_key_exists;
 use function is_array;
 use function is_string;
+use function sprintf;
 use const JSON_THROW_ON_ERROR;
 
 /**
@@ -86,7 +87,7 @@ class PublicKeyCredentialLoader implements CanLogData
             hash_equals($id, $rawId) || throw InvalidDataException::create($json, 'Invalid ID');
 
             $publicKeyCredential = PublicKeyCredential::create(
-                $json['id'],
+                null,
                 $json['type'],
                 $rawId,
                 $this->createResponse($json['response'])

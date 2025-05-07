@@ -13,7 +13,6 @@ use craft\db\Query;
 use craft\db\QueryAbortedException;
 use craft\db\Table;
 use craft\elements\Asset;
-use craft\elements\ElementCollection;
 use craft\elements\User;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets;
@@ -21,17 +20,16 @@ use craft\helpers\Db;
 use craft\helpers\StringHelper;
 use craft\models\Volume;
 use yii\base\InvalidArgumentException;
-use yii\db\Connection;
 use yii\db\Schema;
 
 /**
  * AssetQuery represents a SELECT SQL statement for assets in a way that is independent of DBMS.
  *
+ * @template TKey of array-key
+ * @template TElement of Asset
+ * @extends ElementQuery<TKey,TElement>
+ *
  * @property-write string|string[]|Volume|null $volume The volume(s) that resulting assets must belong to
- * @method Asset[]|array all($db = null)
- * @method Asset|array|null one($db = null)
- * @method Asset|array|null nth(int $n, ?Connection $db = null)
- * @method ElementCollection<Asset> collect($db = null)
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
  * @doc-path assets.md
@@ -211,11 +209,11 @@ class AssetQuery extends ElementQuery
     public bool $includeSubfolders = false;
 
     /**
-     * @var string|null The folder path that resulting assets must live within
+     * @var mixed The folder path that resulting assets must live within
      * @used-by folderPath()
      * @since 3.7.39
      */
-    public ?string $folderPath = null;
+    public mixed $folderPath = null;
 
     /**
      * @var mixed The asset transform indexes that should be eager-loaded, if they exist
@@ -906,7 +904,7 @@ class AssetQuery extends ElementQuery
         $this->subQuery->innerJoin(['volumeFolders' => Table::VOLUMEFOLDERS], '[[volumeFolders.id]] = [[assets.folderId]]');
         $this->query->innerJoin(['volumeFolders' => Table::VOLUMEFOLDERS], '[[volumeFolders.id]] = [[assets.folderId]]');
 
-        $this->query->select([
+        $this->query->addSelect([
             'assets.volumeId',
             'assets.folderId',
             'assets.uploaderId',
@@ -932,6 +930,12 @@ class AssetQuery extends ElementQuery
         }
 
         if ($this->folderId) {
+            // [X] => X, so includeSubfolders works with GraphQL
+            // (see https://github.com/craftcms/cms/issues/17023)
+            if (is_array($this->folderId) && count($this->folderId) === 1 && ArrayHelper::isNumeric($this->folderId)) {
+                $this->folderId = reset($this->folderId);
+            }
+
             $folderCondition = Db::parseNumericParam('assets.folderId', $this->folderId);
             if (is_numeric($this->folderId) && $this->includeSubfolders) {
                 $assetsService = Craft::$app->getAssets();
@@ -996,8 +1000,28 @@ class AssetQuery extends ElementQuery
         if ($this->hasAlt !== null) {
             $hasAltCondition = [
                 'or',
-                ['assets.alt' => null],
-                ['assets_sites.alt' => null],
+                ['not', ['assets_sites.alt' => '']],
+                [
+                    'and',
+                    ['assets_sites.alt' => null],
+                    ['not', ['assets.alt' => '']],
+                    ['not', ['assets.alt' => null]],
+                ],
+            ];
+
+            $withoutAltCondition = [
+                'or',
+                ['assets_sites.alt' => ''],
+                [
+                    'and',
+                    ['assets_sites.alt' => null],
+                    [
+                        'or',
+                        ['assets.alt' => ''],
+                        ['assets.alt' => null],
+                    ],
+
+                ],
             ];
 
             $this->subQuery
@@ -1006,7 +1030,7 @@ class AssetQuery extends ElementQuery
                     '[[assets_sites.assetId]] = [[assets.id]]',
                     '[[assets_sites.siteId]] = [[elements_sites.siteId]]',
                 ])
-                ->andWhere($this->hasAlt ? ['not', $hasAltCondition] : $hasAltCondition);
+                ->andWhere($this->hasAlt ? $hasAltCondition : $withoutAltCondition);
         }
 
         return parent::afterPrepare();

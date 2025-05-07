@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Webauthn\Denormalizer;
 
-use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Webauthn\AuthenticationExtensions\AuthenticationExtension;
 use Webauthn\AuthenticationExtensions\AuthenticationExtensions;
 use Webauthn\AuthenticationExtensions\AuthenticationExtensionsClientInputs;
@@ -16,11 +15,9 @@ use function in_array;
 use function is_array;
 use function is_string;
 
-final class AuthenticationExtensionsDenormalizer implements DenormalizerInterface, DenormalizerAwareInterface
+final class AuthenticationExtensionsDenormalizer implements DenormalizerInterface, NormalizerInterface
 {
-    use DenormalizerAwareTrait;
-
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if ($data instanceof AuthenticationExtensions) {
             return AuthenticationExtensions::create($data->extensions);
@@ -36,8 +33,12 @@ final class AuthenticationExtensionsDenormalizer implements DenormalizerInterfac
         return AuthenticationExtensions::create($data);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
-    {
+    public function supportsDenormalization(
+        mixed $data,
+        string $type,
+        ?string $format = null,
+        array $context = []
+    ): bool {
         return in_array(
             $type,
             [
@@ -59,5 +60,24 @@ final class AuthenticationExtensionsDenormalizer implements DenormalizerInterfac
             AuthenticationExtensionsClientInputs::class => true,
             AuthenticationExtensionsClientOutputs::class => true,
         ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
+    {
+        assert($data instanceof AuthenticationExtensions);
+        $extensions = [];
+        foreach ($data->extensions as $extension) {
+            $extensions[$extension->name] = $extension->value;
+        }
+
+        return $extensions;
+    }
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+    {
+        return $data instanceof AuthenticationExtensions;
     }
 }

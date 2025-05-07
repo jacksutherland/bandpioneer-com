@@ -68,7 +68,7 @@ class BaseYii
      */
     public static $classMap = [];
     /**
-     * @var \yii\console\Application|\yii\web\Application|\yii\base\Application the application instance
+     * @var \yii\console\Application|\yii\web\Application the application instance
      */
     public static $app;
     /**
@@ -93,7 +93,7 @@ class BaseYii
      */
     public static function getVersion()
     {
-        return '2.0.48.1';
+        return '2.0.52';
     }
 
     /**
@@ -502,8 +502,7 @@ class BaseYii
     public static function powered()
     {
         return \Yii::t('yii', 'Powered by {yii}', [
-            'yii' => '<a href="https://www.yiiframework.com/" rel="external">' . \Yii::t('yii',
-                    'Yii Framework') . '</a>',
+            'yii' => '<a href="https://www.yiiframework.com/" rel="external">' . \Yii::t('yii', 'Yii Framework') . '</a>',
         ]);
     }
 

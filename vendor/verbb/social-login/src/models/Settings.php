@@ -16,8 +16,9 @@ class Settings extends Model
     public bool $enableRegistration = true;
     public array $userGroups = [];
     public bool $populateProfile = true;
-    public bool $syncProfile = true;
+    public bool $syncProfile = false;
     public bool $forceActivate = true;
+    public bool $sendActivationEmail = true;
 
     public array $providers = [];
 

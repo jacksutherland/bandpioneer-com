@@ -55,6 +55,7 @@ class Plugin extends \craft\base\Plugin
 
     public string $schemaVersion = '3.0.0.0';
     public bool $hasCpSettings = true;
+    public bool $hasReadOnlyCpSettings = true;
 
     public function init()
     {
@@ -92,10 +93,8 @@ class Plugin extends \craft\base\Plugin
         Event::on(Element::class, Element::EVENT_AFTER_PROPAGATE, function(ModelEvent $event) {
             /** @var Element $element */
             $element = $event->sender;
-            if (!$element->resaving) {
-                foreach ($this->entryManagers($element) as $entryManager) {
-                    $entryManager->maintainNestedElements($element, $event->isNew);
-                }
+            foreach ($this->entryManagers($element) as $entryManager) {
+                $entryManager->maintainNestedElements($element, $event->isNew);
             }
         });
 
@@ -138,8 +137,19 @@ class Plugin extends \craft\base\Plugin
         return $this->get('ckeConfigs');
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getSettingsResponse(): mixed
     {
         return Craft::$app->controller->redirect('settings/ckeditor');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getReadOnlySettingsResponse(): mixed
+    {
+        return Craft::$app->getResponse()->redirect('settings/ckeditor');
     }
 }

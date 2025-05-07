@@ -89,7 +89,7 @@ class SubscriptionEndpoint extends CollectionEndpointAbstract
     public function update($customerId, $subscriptionId, array $data = [])
     {
         if (empty($subscriptionId) || strpos($subscriptionId, self::RESOURCE_ID_PREFIX) !== 0) {
-            throw new ApiException("Invalid subscription ID: '{$subscriptionId}'. An subscription ID should start with '" . self::RESOURCE_ID_PREFIX . "'.");
+            throw new ApiException("Invalid subscription ID: '{$subscriptionId}'. A subscription ID should start with '" . self::RESOURCE_ID_PREFIX . "'.");
         }
 
         $this->parentId = $customerId;
@@ -194,7 +194,7 @@ class SubscriptionEndpoint extends CollectionEndpointAbstract
      * @param string $subscriptionId
      * @param array $data
      *
-     * @return null
+     * @return Subscription
      * @throws ApiException
      */
     public function cancelFor(Customer $customer, $subscriptionId, array $data = [])
@@ -207,7 +207,7 @@ class SubscriptionEndpoint extends CollectionEndpointAbstract
      * @param string $subscriptionId
      * @param array $data
      *
-     * @return null
+     * @return Subscription
      * @throws ApiException
      */
     public function cancelForId($customerId, $subscriptionId, array $data = [])

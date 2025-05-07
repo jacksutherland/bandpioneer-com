@@ -13,7 +13,7 @@ import {
   createDropdown,
   addListToDropdown,
 } from 'ckeditor5/src/ui';
-import linkIcon from '@ckeditor/ckeditor5-link/theme/icons/link.svg';
+import linkIcon from '@ckeditor/ckeditor5-icons/theme/icons/link.svg';
 import {LinkUI} from '@ckeditor/ckeditor5-link';
 import {LINK_KEYSTROKE} from '@ckeditor/ckeditor5-link/src/utils';
 import {Range} from 'ckeditor5/src/engine';

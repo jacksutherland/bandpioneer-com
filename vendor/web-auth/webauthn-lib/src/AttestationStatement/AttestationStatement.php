@@ -9,6 +9,7 @@ use Webauthn\Exception\InvalidDataException;
 use Webauthn\TrustPath\TrustPath;
 use Webauthn\TrustPath\TrustPathLoader;
 use function array_key_exists;
+use function sprintf;
 
 class AttestationStatement implements JsonSerializable
 {
@@ -174,6 +175,12 @@ class AttestationStatement implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
+        trigger_deprecation(
+            'web-auth/webauthn-bundle',
+            '4.9.0',
+            'The "%s" method is deprecated and will be removed in 5.0. Please use the serializer instead.',
+            __METHOD__
+        );
         return [
             'fmt' => $this->fmt,
             'attStmt' => $this->attStmt,

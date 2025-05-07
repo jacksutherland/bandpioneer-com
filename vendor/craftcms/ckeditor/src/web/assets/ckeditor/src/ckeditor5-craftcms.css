@@ -30,12 +30,14 @@
   --ck-color-text: var(--text-color) !important;
   --ck-color-toolbar-border: var(--ck-color-base-border) !important;
   --ck-drop-shadow-active: var(--ck-drop-shadow) !important;
-  --ck-drop-shadow: 0 0 0 1px hsl(210, 24%, 16%, 0.1),
-    0 5px 20px hsl(210, 24%, 16%, 0.25) !important;
+  --ck-drop-shadow:
+    0 0 0 1px hsl(210, 24%, 16%, 0.1), 0 5px 20px hsl(210, 24%, 16%, 0.25) !important;
   --ck-spacing-unit: 0.69em !important;
   --ck-powered-by-line-height: 8px;
   --ck-powered-by-padding-vertical: 0px;
   --ck-powered-by-padding-horizontal: 0px;
+  --ck-color-base-background: var(--input-bg) !important;
+  --ck-color-toolbar-background: var(--white) !important;
 }
 
 .ck.ck-sticky-panel .ck-sticky-panel__content_sticky .ck.ck-toolbar {
@@ -50,11 +52,7 @@ a.ck.ck-button:focus {
 }
 
 .ck.ck-editor__editable_inline {
-  padding: calc(var(--m) - 2px) var(--m)
-    calc(
-      var(--m) + var(--ck-powered-by-line-height) +
-        var(--ck-powered-by-padding-vertical)
-    ) !important;
+  padding: calc(var(--m) - 2px) var(--m) !important;
 }
 
 .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
@@ -63,6 +61,15 @@ a.ck.ck-button:focus {
 
 .ck.ck-dropdown__panel {
   border: none !important;
+}
+
+.ck.ck-dropdown__panel-visible {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+.ck-toolbar-dropdown .ck.ck-dropdown__panel-visible {
+  overflow: visible;
 }
 
 .ck.ck-dropdown .ck-button.ck-dropdown__button.ck-on {
@@ -88,6 +95,15 @@ a.ck.ck-button:focus {
 }
 
 /* content */
+.ck.ck-content {
+  color: var(--text-color);
+}
+
+.ck.ck-content ul:last-child,
+.ck.ck-content ol:last-child {
+  padding-bottom: 0 !important;
+}
+
 .ck.ck-content[dir='ltr'] ul {
   padding-left: 40px;
 }
@@ -135,10 +151,34 @@ a.ck.ck-button:focus {
   background: var(--ck-color-base-background);
 }
 
+/* nested entries */
 .cke-entry-card {
   margin: 0.9em auto; /* same as images */
   border-radius: var(--large-border-radius);
 }
+
+.ck-toolbar .entry-type-buttons .icon {
+  color: var(--icon-color);
+}
+/* end nested entries
+
+/* start fix for https://github.com/craftcms/ckeditor/issues/345 */
+.so-body .ck-toolbar_grouping {
+  position: relative !important;
+}
+
+.so-body .ck-toolbar_grouping .ck.ck-dropdown {
+  position: static;
+}
+
+.so-body .ck.ck-toolbar-dropdown > .ck-dropdown__panel {
+  width: 100%;
+}
+
+.so-body .ck.ck-editor .ck-editor__top .ck-sticky-panel .ck-toolbar {
+  z-index: auto;
+}
+/* end fix */
 
 /* patch in https://github.com/ckeditor/ckeditor5/pull/15795 */
 .ck.ck-editor__editable_inline > :last-child,

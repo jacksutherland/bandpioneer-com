@@ -138,7 +138,10 @@ class CategoryGroup extends Model implements
      */
     public function getCpEditUrl(): ?string
     {
-        return $this->id ? UrlHelper::cpUrl("settings/categories/$this->id") : null;
+        if (!$this->id || !Craft::$app->getUser()->getIsAdmin()) {
+            return null;
+        }
+        return UrlHelper::cpUrl("settings/categories/$this->id");
     }
 
     /**
@@ -242,7 +245,7 @@ class CategoryGroup extends Model implements
         }
 
         // Set them with setSiteSettings() so setGroup() gets called on them
-        $this->setSiteSettings(ArrayHelper::index(Craft::$app->getCategories()->getGroupSiteSettings($this->id), 'siteId'));
+        $this->setSiteSettings(Craft::$app->getCategories()->getGroupSiteSettings($this->id));
 
         return $this->_siteSettings;
     }
@@ -254,7 +257,10 @@ class CategoryGroup extends Model implements
      */
     public function setSiteSettings(array $siteSettings): void
     {
-        $this->_siteSettings = $siteSettings;
+        $this->_siteSettings = ArrayHelper::index(
+            $siteSettings,
+            fn(CategoryGroup_SiteSettings $siteSettings) => $siteSettings->siteId,
+        );
 
         foreach ($this->_siteSettings as $settings) {
             $settings->setGroup($this);

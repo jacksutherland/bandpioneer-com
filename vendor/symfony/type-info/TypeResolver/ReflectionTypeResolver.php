@@ -22,16 +22,9 @@ use Symfony\Component\TypeInfo\TypeIdentifier;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  * @author Baptiste Leduc <baptiste.leduc@gmail.com>
- *
- * @internal
  */
 final class ReflectionTypeResolver implements TypeResolverInterface
 {
-    /**
-     * @var array<class-string, \ReflectionEnum>
-     */
-    private static array $reflectionEnumCache = [];
-
     public function resolve(mixed $subject, ?TypeContext $typeContext = null): Type
     {
         if ($subject instanceof \ReflectionUnionType) {
@@ -43,7 +36,7 @@ final class ReflectionTypeResolver implements TypeResolverInterface
         }
 
         if (!$subject instanceof \ReflectionNamedType) {
-            throw new UnsupportedException(sprintf('Expected subject to be a "ReflectionNamedType", a "ReflectionUnionType" or a "ReflectionIntersectionType", "%s" given.', get_debug_type($subject)), $subject);
+            throw new UnsupportedException(\sprintf('Expected subject to be a "ReflectionNamedType", a "ReflectionUnionType" or a "ReflectionIntersectionType", "%s" given.', get_debug_type($subject)), $subject);
         }
 
         $identifier = $subject->getName();
@@ -72,7 +65,7 @@ final class ReflectionTypeResolver implements TypeResolverInterface
         }
 
         if (\in_array(strtolower($identifier), ['self', 'static', 'parent'], true) && !$typeContext) {
-            throw new InvalidArgumentException(sprintf('A "%s" must be provided to resolve "%s".', TypeContext::class, strtolower($identifier)));
+            throw new InvalidArgumentException(\sprintf('A "%s" must be provided to resolve "%s".', TypeContext::class, strtolower($identifier)));
         }
 
         /** @var class-string $className */
@@ -83,11 +76,7 @@ final class ReflectionTypeResolver implements TypeResolverInterface
             default => $identifier,
         };
 
-        if (is_subclass_of($className, \BackedEnum::class)) {
-            $reflectionEnum = (self::$reflectionEnumCache[$className] ??= new \ReflectionEnum($className));
-            $backingType = $this->resolve($reflectionEnum->getBackingType(), $typeContext);
-            $type = Type::enum($className, $backingType);
-        } elseif (is_subclass_of($className, \UnitEnum::class)) {
+        if (is_subclass_of($className, \UnitEnum::class)) {
             $type = Type::enum($className);
         } else {
             $type = Type::object($className);

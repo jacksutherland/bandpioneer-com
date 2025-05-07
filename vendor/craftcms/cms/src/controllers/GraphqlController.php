@@ -23,6 +23,7 @@ use craft\services\Gql as GqlService;
 use craft\web\assets\graphiql\GraphiqlAsset;
 use craft\web\Controller;
 use craft\web\ErrorHandler;
+use DateTimeZone;
 use Throwable;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
@@ -259,8 +260,14 @@ class GraphqlController extends Controller
         }
 
         // Update the lastUsed timestamp
-        $token->lastUsed = DateTimeHelper::currentUTCDateTime();
-        $gqlService->saveToken($token);
+        $now = DateTimeHelper::currentUTCDateTime();
+        if (
+            !$token->lastUsed ||
+            $token->lastUsed->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i') !== $now->format('Y-m-d H:i')
+        ) {
+            $token->lastUsed = $now;
+            $gqlService->saveToken($token);
+        }
 
         return $token->getSchema();
     }
@@ -373,12 +380,17 @@ class GraphqlController extends Controller
         }
 
         $schemas = [
-            Craft::t('app', 'Full Schema') => '*',
+            [
+                'label' => Craft::t('app', 'Full Schema'),
+                'value' => '*',
+            ],
         ];
 
         foreach ($gqlService->getSchemas() as $schema) {
-            $name = $schema->name;
-            $schemas[$name] = $schema->uid;
+            $schemas[] = [
+                'label' => $schema->name,
+                'value' => $schema->uid,
+            ];
         }
 
         return $this->renderTemplate('graphql/graphiql.twig', [
@@ -597,7 +609,6 @@ class GraphqlController extends Controller
             $title = trim($schema->name) ?: Craft::t('app', 'Create a new GraphQL Schema');
         }
 
-
         return $this->renderTemplate('graphql/schemas/_edit.twig', compact(
             'schema',
             'title'
@@ -718,7 +729,7 @@ class GraphqlController extends Controller
         }
 
         $this->setSuccessFlash(Craft::t('app', 'Schema saved.'));
-        return $this->redirectToPostedUrl();
+        return $this->redirectToPostedUrl($schema);
     }
 
     /**

@@ -21,7 +21,7 @@ use yii\db\Expression;
 /**
  * System Messages service.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getSystemMessages()|`Craft::$app->systemMessages`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getSystemMessages()|`Craft::$app->getSystemMessages()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -115,14 +115,15 @@ class SystemMessages extends Component
             ],
         ];
 
-        // Give plugins a chance to add additional messages
-        $event = new RegisterEmailMessagesEvent([
-            'messages' => $messages,
-        ]);
-        $this->trigger(self::EVENT_REGISTER_MESSAGES, $event);
+        // Fire a 'registerMessages' event
+        if ($this->hasEventHandlers(self::EVENT_REGISTER_MESSAGES)) {
+            $event = new RegisterEmailMessagesEvent(['messages' => $messages]);
+            $this->trigger(self::EVENT_REGISTER_MESSAGES, $event);
+            $messages = $event->messages;
+        }
 
         // Sort them all by key
-        $messages = ArrayHelper::index($event->messages, 'key');
+        $messages = ArrayHelper::index($messages, 'key');
 
         // Make sure they're SystemMessage objects
         foreach ($messages as $key => $message) {
@@ -212,7 +213,7 @@ class SystemMessages extends Component
             $languageId = $language;
         }
 
-        if (Craft::$app->edition === CmsEdition::Pro) {
+        if (Craft::$app->edition->value >= CmsEdition::Pro->value) {
             // Fetch the customization (if there is one)
             $override = $this->_createMessagesQuery()
                 ->select(['subject', 'body'])

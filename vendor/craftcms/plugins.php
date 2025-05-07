@@ -59,23 +59,6 @@ return array (
     'documentationUrl' => 'https://putyourlightson.com/plugins/sendgrid',
     'changelogUrl' => 'https://raw.githubusercontent.com/putyourlightson/craft-sendgrid/develop/CHANGELOG.md',
   ),
-  'craftcms/ckeditor' => 
-  array (
-    'class' => 'craft\\ckeditor\\Plugin',
-    'basePath' => $vendorDir . '/craftcms/ckeditor/src',
-    'handle' => 'ckeditor',
-    'aliases' => 
-    array (
-      '@craft/ckeditor' => $vendorDir . '/craftcms/ckeditor/src',
-    ),
-    'name' => 'CKEditor',
-    'version' => '4.0.6',
-    'description' => 'Edit rich text content in Craft CMS using CKEditor.',
-    'developer' => 'Pixel & Tonic',
-    'developerUrl' => 'https://pixelandtonic.com/',
-    'developerEmail' => 'support@craftcms.com',
-    'documentationUrl' => 'https://github.com/craftcms/ckeditor/blob/master/README.md',
-  ),
   'verbb/comments' => 
   array (
     'class' => 'verbb\\comments\\Comments',
@@ -86,7 +69,7 @@ return array (
       '@verbb/comments' => $vendorDir . '/verbb/comments/src',
     ),
     'name' => 'Comments',
-    'version' => '3.0.0',
+    'version' => '3.0.7',
     'description' => 'Add comments to your site.',
     'developer' => 'Verbb',
     'developerUrl' => 'https://verbb.io',
@@ -104,12 +87,29 @@ return array (
       '@verbb/sociallogin' => $vendorDir . '/verbb/social-login/src',
     ),
     'name' => 'Social Login',
-    'version' => '2.0.2',
+    'version' => '2.0.9',
     'description' => 'Add SSO (Single Sign-On) user login, registration and connecting to social media platforms.',
     'developer' => 'Verbb',
     'developerUrl' => 'https://verbb.io',
     'developerEmail' => 'support@verbb.io',
     'documentationUrl' => 'https://github.com/verbb/social-login',
     'changelogUrl' => 'https://raw.githubusercontent.com/verbb/social-login/craft-5/CHANGELOG.md',
+  ),
+  'craftcms/ckeditor' => 
+  array (
+    'class' => 'craft\\ckeditor\\Plugin',
+    'basePath' => $vendorDir . '/craftcms/ckeditor/src',
+    'handle' => 'ckeditor',
+    'aliases' => 
+    array (
+      '@craft/ckeditor' => $vendorDir . '/craftcms/ckeditor/src',
+    ),
+    'name' => 'CKEditor',
+    'version' => '4.8.0',
+    'description' => 'Edit rich text content in Craft CMS using CKEditor.',
+    'developer' => 'Pixel & Tonic',
+    'developerUrl' => 'https://pixelandtonic.com/',
+    'developerEmail' => 'support@craftcms.com',
+    'documentationUrl' => 'https://github.com/craftcms/ckeditor/blob/master/README.md',
   ),
 );

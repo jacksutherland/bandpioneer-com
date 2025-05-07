@@ -1,5 +1,58 @@
 # Changelog
 
+## 2.0.9 - 2025-05-01
+
+### Fixed
+- Fix an error when logging errors for unsupported email providers.
+- Fix status indicator for various UI elements.
+- Fix compatibility with Craft 5.2+ and the session-expired login modal.
+
+## 2.0.8 - 2025-04-12
+
+### Fixed
+- Fix compatibility with Craft 5.2+ and the session-expired login modal.
+- Fix an error for some providers (GitHub, GitLab, PayPal).
+
+## 2.0.7 - 2024-09-14
+
+### Added
+- Add Microsoft Entra provider.
+
+## 2.0.6 - 2024-09-07
+
+### Added
+- Add the ability to set the endpoint version for Azure provider.
+
+## 2.0.5 - 2024-08-11
+
+### Changed
+- CP Login templates now are wrapped with a `.social-login-cp-container` div.
+- Update `syncProfile` to be disabled by default.
+- Update English translations.
+
+### Fixed
+- Fix custom CP login template not resolving correctly.
+- Fix HubSpot default scopes.
+
+## 2.0.4 - 2024-07-17
+
+### Fixed
+- Fix an error with Amazon Cognito provider.
+
+## 2.0.3 - 2024-07-15
+
+### Added
+- Add `sendActivationEmail` plugin setting.
+- Add the ability to set `data` for a login request, where users might want to store extra information.
+- Add Amazon Cognito provider.
+
+### Changed
+- Revert callback URI change for `cpTrigger = null` (for detached CPs).
+
+### Fixed
+- Fix race conditions with plugin initialization. (thanks @nfourtythree).
+- Fix activation email logic.
+
 ## 2.0.2 - 2024-05-29
 
 ### Added
@@ -37,6 +90,52 @@
 - Fix an error when uninstalling the plugin.
 - Fix Salesforce provider.
 - Fix Apple provider not saving.
+
+## 1.0.21 - 2025-05-01
+
+### Fixed
+- Fix an error when logging errors for unsupported email providers.
+
+## 1.0.20 - 2024-09-14
+
+### Added
+- Add Microsoft Entra provider.
+
+## 1.0.19 - 2024-09-07
+
+### Added
+- Add the ability to set the endpoint version for Azure provider.
+
+## 1.0.18 - 2024-08-11
+
+### Changed
+- CP Login templates now are wrapped with a `.social-login-cp-container` div.
+- Update `syncProfile` to be disabled by default.
+- Update English translations.
+
+### Fixed
+- Fix custom CP login template not resolving correctly.
+- Fix HubSpot default scopes.
+
+## 1.0.17 - 2024-07-17
+
+### Fixed
+- Fix an error with Amazon Cognito provider.
+
+## 1.0.16 - 2024-07-15
+
+### Added
+- Add `sendActivationEmail` plugin setting.
+- Add the ability to set `data` for a login request, where users might want to store extra information.
+- Add Amazon Cognito provider.
+
+### Changed
+- Now requires Craft 4.3.5+.
+- Revert callback URI change for `cpTrigger = null` (for detached CPs).
+
+### Fixed
+- Fix race conditions with plugin initialization. (thanks @nfourtythree).
+- Fix activation email logic.
 
 ## 1.0.15 - 2024-05-29
 

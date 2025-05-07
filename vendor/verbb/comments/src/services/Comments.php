@@ -120,7 +120,7 @@ class Comments extends Component
         $query = Comment::find()
             ->ownerId($elementId)
             ->level('1')
-            ->orderBy('commentDate desc')
+            ->orderBy('commentDate ' . $settings->orderBy)
             ->with([
                 'owner',
                 'parent',
@@ -157,6 +157,7 @@ class Comments extends Component
             'csrfToken' => Craft::$app->getRequest()->getCsrfToken(),
             'recaptchaEnabled' => (bool)$settings->recaptchaEnabled,
             'recaptchaKey' => $settings->getRecaptchaKey(),
+            'orderBy' => $settings->orderBy,
             'translations' => [
                 'reply' => Craft::t('comments', 'Reply'),
                 'close' => Craft::t('comments', 'Close'),
@@ -197,7 +198,7 @@ class Comments extends Component
 
         $view->setTemplatesPath(Craft::$app->path->getSiteTemplatesPath());
 
-        return Template::raw($formHtml);
+        return Template::raw(trim($formHtml));
     }
 
     // Checks is there are sufficient permissions for commenting on this element
@@ -687,20 +688,20 @@ class Comments extends Component
         $recipient = null;
         $emailSent = null;
 
-        CommentsPlugin::log('Prepare Moderator Edit Notifications.');
+        CommentsPlugin::info('Prepare Moderator Edit Notifications.');
 
         // Get our commented-on element
         $element = $comment->getOwner();
 
         if (!$element) {
-            CommentsPlugin::log('Cannot send moderator notification: No element ' . Json::encode($element));
+            CommentsPlugin::info('Cannot send moderator notification: No element ' . Json::encode($element));
 
             return;
         }
 
         // Get our recipients - they're a user group
         if (!$settings->moderatorUserGroup) {
-            CommentsPlugin::log('Cannot send moderator notification: No moderator group set.');
+            CommentsPlugin::info('Cannot send moderator notification: No moderator group set.');
 
             return;
         }
@@ -731,14 +732,14 @@ class Comments extends Component
                 $this->trigger(self::EVENT_BEFORE_SEND_MODERATOR_EMAIL, $event);
 
                 if (!$event->isValid) {
-                    CommentsPlugin::log('Email blocked via event hook.');
+                    CommentsPlugin::info('Email blocked via event hook.');
 
                     continue;
                 }
 
                 Craft::$app->getMailer()->send($mail);
 
-                CommentsPlugin::log('Email sent successfully to moderator (' . $user->email . ')');
+                CommentsPlugin::info('Email sent successfully to moderator (' . $user->email . ')');
             } catch (Throwable $e) {
                 CommentsPlugin::error('Unable to send email to moderator (' . $user->email . '): {message} {file}:{line}.', [
                     'message' => $e->getMessage(),
@@ -992,7 +993,9 @@ class Comments extends Component
         $layoutData = $projectConfig->get(self::CONFIG_FIELDLAYOUT_KEY) ?? [];
 
         // If no config data create one from scratch
-        $config = Craft::$app->getRequest()->getBodyParam('settings.fieldLayout');        
+        $config = Craft::$app->getRequest()->isConsoleRequest
+            ? null
+            : Craft::$app->getRequest()->getBodyParam('settings.fieldLayout');
 
         if ($config) {
             $fieldLayout = Craft::$app->getFields()->assembleLayoutFromPost('settings');

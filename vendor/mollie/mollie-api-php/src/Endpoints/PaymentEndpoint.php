@@ -181,4 +181,21 @@ class PaymentEndpoint extends CollectionEndpointAbstract
 
         return ResourceFactory::createFromApiResult($result, new Refund($this->client));
     }
+
+    /**
+     * Release the authorization for the given payment.
+     *
+     * @param Payment|string $paymentId
+     *
+     * @return void
+     * @throws ApiException
+     */
+    public function releaseAuthorization($paymentId): void
+    {
+        $paymentId = $paymentId instanceof Payment ? $paymentId->id : $paymentId;
+
+        $resource = "{$this->getResourcePath()}/" . urlencode($paymentId) . "/release-authorization";
+
+        $this->client->performHttpCall(self::REST_CREATE, $resource);
+    }
 }

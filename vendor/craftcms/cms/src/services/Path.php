@@ -8,6 +8,7 @@
 namespace craft\services;
 
 use Craft;
+use craft\helpers\App;
 use craft\helpers\FileHelper;
 use yii\base\Component;
 use yii\base\Exception;
@@ -15,7 +16,7 @@ use yii\base\Exception;
 /**
  * The Path service provides APIs for getting server paths that are used by Craft.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getPath()|`Craft::$app->path`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getPath()|`Craft::$app->getPath()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -215,7 +216,9 @@ class Path extends Component
      */
     public function getRebrandPath(bool $create = true): string
     {
-        $path = $this->getStoragePath($create) . DIRECTORY_SEPARATOR . 'rebrand';
+        $path = App::env('CRAFT_REBRAND_PATH')
+            ? App::parseEnv('$CRAFT_REBRAND_PATH')
+            : $this->getStoragePath($create) . DIRECTORY_SEPARATOR . 'rebrand';
 
         if ($create) {
             FileHelper::createDirectory($path);

@@ -70,6 +70,15 @@
         }) }}
 
         {{ forms.lightswitchField({
+            label: 'Send Activation Email' | t('social-login'),
+            instructions: 'Whether an activation email should be sent to the user.' | t('social-login'),
+            name: 'sendActivationEmail',
+            on: settings.sendActivationEmail,
+            errors: settings.getErrors('sendActivationEmail'),
+            warning: macros.configWarning('sendActivationEmail', 'social-login'),
+        }) }}
+
+        {{ forms.lightswitchField({
             label: 'Populate User Profile' | t('social-login'),
             instructions: 'Whether new users have their profile populated from providers. This can be fine-tuned with field mapping for each provider.' | t('social-login'),
             name: 'populateProfile',

@@ -2,6 +2,7 @@
 
 {% set sourceOptions = field.getSourceOptions() %}
 {% set elementType = elementType ?? pluralElementType %}
+{% set upperElementType = upperElementType ?? elementType|capitalize %}
 
 {% block fieldSettings %}
     {% block sourcesField %}
@@ -32,7 +33,7 @@
             {% endif %}
         {% else %}
             {{ forms.field({
-                label: (field.allowMultipleSources ? "Sources"|t('app') : "Source"|t('app'))
+                label: (field.allowMultipleSources ? "Sources"|t('app') : "Source"|t('app')),
             }, '<p class="error">' ~ "No sources exist yet."|t('app') ~ '</p>') }}
         {% endif %}
     {% endblock %}
@@ -47,7 +48,7 @@
             instructions: 'Whether the structure of the related {type} should be maintained.'|t('app', { type: pluralElementType }),
             id: 'maintain-hierarchy',
             name: 'maintainHierarchy',
-            on: field.maintainHierarchy
+            on: field.maintainHierarchy,
         }) }}
     {% endblock %}
 
@@ -92,6 +93,22 @@
         }) }}
     {% endblock %}
 
+    {% block defaultPlacementField %}
+        {{ forms.selectField({
+            label: 'Default {type} Placement'|t('app', {type: upperElementType}),
+            instructions: 'Where new {type} should be placed by default in the field.'|t('app', {type: pluralElementType}),
+            id: 'default-placement',
+            name: 'defaultPlacement',
+            options: [
+                {label: 'Before other {type}'|t('app', {type: pluralElementType}), value: 'beginning'},
+                {label: 'After other {type}'|t('app', {type: pluralElementType}), value: 'end'},
+            ],
+            value: field.defaultPlacement,
+            errors: field.getErrors('defaultPlacement'),
+            data: {'error-key': 'defaultPlacement'},
+        })}}
+    {% endblock %}
+
     {% block viewModeField %}
         {{ field.getViewModeFieldHtml()|raw }}
 
@@ -117,7 +134,7 @@
             name: 'selectionLabel',
             value: field.selectionLabel,
             placeholder: field.defaultSelectionLabel(),
-            errors: field.getErrors('selectionLabel')
+            errors: field.getErrors('selectionLabel'),
         }) }}
     {% endblock %}
 
@@ -127,14 +144,14 @@
             instructions: 'Whether validation errors on the related {type} should prevent the source element from being saved.'|t('app', { type: pluralElementType }),
             id: 'validate-related-elements',
             name: 'validateRelatedElements',
-            on: field.validateRelatedElements
+            on: field.validateRelatedElements,
         }) }}
     {% endblock %}
 
     {% block advancedSettings %}
         <hr>
 
-        <a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('app') }}</a>
+        <button type="button" class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('app') }}</button>
         <div id="advanced" class="hidden">
 
             {{ forms.lightswitchField({
@@ -149,15 +166,6 @@
 
                 {% block targetSiteField %}
                     {{ field.getTargetSiteFieldHtml()|raw }}
-                {% endblock %}
-
-                {% block localizeRelationsField %}
-                    {{ forms.lightswitchField({
-                        label: 'Manage relations on a per-site basis'|t('app'),
-                        id: 'localize-relations',
-                        name: 'localizeRelations',
-                        on: field.localizeRelations
-                    }) }}
                 {% endblock %}
             {% endif %}
 

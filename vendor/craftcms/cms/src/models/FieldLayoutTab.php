@@ -54,7 +54,9 @@ class FieldLayoutTab extends FieldLayoutComponent
     public function labelHtml(): string
     {
         return
-            Html::tag('span', Html::encode($this->name)) .
+            Html::tag('h3', Html::encode($this->name), [
+                'class' => 'fld-tab__name',
+            ]) .
             ($this->hasConditions() ? Html::tag('div', Cp::iconSvg('diamond'), [
                 'class' => array_filter(array_merge(['cp-icon', 'puny', 'orange'])),
                 'title' => Craft::t('app', 'This tab is conditional'),
@@ -295,6 +297,11 @@ class FieldLayoutTab extends FieldLayoutComponent
                 $layoutElement->setLayout($this->getLayout());
                 $this->_elements[] = $layoutElement;
             }
+        }
+
+        // Clear caches
+        if (isset($this->_layout)) {
+            $this->_layout->reset();
         }
     }
 

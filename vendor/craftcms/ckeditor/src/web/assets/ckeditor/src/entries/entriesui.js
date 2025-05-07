@@ -9,6 +9,7 @@ import {Range} from 'ckeditor5/src/engine';
 import {Collection} from 'ckeditor5/src/utils';
 import {isWidget, WidgetToolbarRepository} from 'ckeditor5/src/widget';
 import {DoubleClickObserver} from '../observers/domevent';
+import CraftEntryTypesButtonView from './entrytypesbuttonview.js';
 
 export default class CraftEntriesUI extends Plugin {
   /**
@@ -29,9 +30,7 @@ export default class CraftEntriesUI extends Plugin {
    * @inheritDoc
    */
   init() {
-    this.editor.ui.componentFactory.add('createEntry', (locale) => {
-      return this._createToolbarEntriesButton(locale);
-    });
+    this._createToolbarEntriesButtons();
 
     this.editor.ui.componentFactory.add('editEntryBtn', (locale) => {
       return this._createEditEntryBtn(locale);
@@ -90,68 +89,54 @@ export default class CraftEntriesUI extends Plugin {
       );
 
       if (modelElement.name === 'craftEntryModel') {
-        const selection = this.editor.model.document.selection;
-        const viewElement = selection.getSelectedElement();
-        const entryId = viewElement.getAttribute('entryId');
-
-        this._showEditEntrySlideout(entryId);
+        this._initEditEntrySlideout(data, modelElement);
       }
     });
   }
 
+  _initEditEntrySlideout(data = null, modelElement = null) {
+    if (modelElement === null) {
+      const selection = this.editor.model.document.selection;
+      modelElement = selection.getSelectedElement();
+    }
+
+    const entryId = modelElement.getAttribute('entryId');
+    const siteId = modelElement.getAttribute('siteId') ?? null;
+
+    this._showEditEntrySlideout(entryId, siteId, modelElement);
+  }
+
   /**
-   * Creates a toolbar button that allows for an entry to be inserted into the editor
+   * Creates toolbar buttons that allow for an entry of given type to be inserted into the editor
    *
-   * @param locale
    * @private
    */
-  _createToolbarEntriesButton(locale) {
+  _createToolbarEntriesButtons() {
     const editor = this.editor;
     const entryTypeOptions = editor.config.get('entryTypeOptions');
-    const insertEntryCommand = editor.commands.get('insertEntry');
 
     if (!entryTypeOptions || !entryTypeOptions.length) {
       return;
     }
 
-    const dropdownView = createDropdown(locale);
-    dropdownView.buttonView.set({
-      label:
-        editor.config.get('createButtonLabel') ||
-        Craft.t('app', 'New {type}', {
-          type: Craft.t('app', 'entry'),
+    this.editor.ui.componentFactory.add(
+      'createEntry',
+      (locale) =>
+        new CraftEntryTypesButtonView(locale, {
+          entriesUi: this,
+          entryTypeOptions: entryTypeOptions,
         }),
-      tooltip: true,
-      withText: true,
-      //commandValue: null,
-    });
-
-    dropdownView.bind('isEnabled').to(insertEntryCommand);
-    addListToDropdown(
-      dropdownView,
-      () =>
-        this._getDropdownItemsDefinitions(entryTypeOptions, insertEntryCommand),
-      {
-        ariaLabel: Craft.t('ckeditor', 'Entry types list'),
-      },
     );
-    // Execute command when an item from the dropdown is selected.
-    this.listenTo(dropdownView, 'execute', (evt) => {
-      this._showCreateEntrySlideout(evt.source.commandValue);
-    });
-
-    return dropdownView;
   }
 
   /**
    * Creates a list of entry type options that go into the insert entry button
    *
    * @param options
-   * @param command
    * @returns {Collection<Record<string, any>>}
    * @private
    */
-  _getDropdownItemsDefinitions(options, command) {
+  _getEntryTypeButtonsCollection(options) {
     const itemDefinitions = new Collection();
     options.map((option) => {
       const definition = {
@@ -160,6 +145,7 @@ export default class CraftEntriesUI extends Plugin {
           commandValue: option.value, //entry type id
           label: option.label || option.value,
           icon: option.icon,
+          color: option.color,
           withText: true,
         }),
       };
@@ -181,20 +167,43 @@ export default class CraftEntriesUI extends Plugin {
     button.set({
       isEnabled: true,
       label: Craft.t('app', 'Edit {type}', {
-        type: Craft.t('app', 'entry'),
+        type: Craft.elementTypeNames['craft\\elements\\Entry'][2],
       }),
       tooltip: true,
       withText: true,
     });
 
     this.listenTo(button, 'execute', (evt) => {
-      const selection = this.editor.model.document.selection;
-      const viewElement = selection.getSelectedElement();
-      const entryId = viewElement.getAttribute('entryId');
-      this._showEditEntrySlideout(entryId);
+      this._initEditEntrySlideout();
     });
 
     return button;
+  }
+
+  /**
+   * Returns Craft.ElementEditor instance that the CKEditor field belongs to.
+   *
+   * @returns {*}
+   */
+  getElementEditor() {
+    const $editorContainer = $(this.editor.ui.view.element).closest(
+      'form,.lp-editor-container',
+    );
+    const elementEditor = $editorContainer.data('elementEditor');
+
+    return elementEditor;
+  }
+
+  /**
+   * Returns HTML of the card by the entry ID.
+   *
+   * @param entryId
+   * @returns {*}
+   * @private
+   */
+  _getCardElement(entryId) {
+    let $container = $(this.editor.ui.element);
+    return $container.find('.element.card[data-id="' + entryId + '"]');
   }
 
   /**
@@ -203,9 +212,84 @@ export default class CraftEntriesUI extends Plugin {
    * @param entryId
    * @private
    */
-  _showEditEntrySlideout(entryId) {
-    Craft.createElementEditor(this.elementType, {
+  _showEditEntrySlideout(entryId, siteId, modelElement) {
+    const editor = this.editor;
+    const model = editor.model;
+    const elementEditor = this.getElementEditor();
+
+    let $element = this._getCardElement(entryId);
+    const ownerId = $element.data('owner-id');
+
+    const slideout = Craft.createElementEditor(this.elementType, null, {
       elementId: entryId,
+      params: {
+        siteId: siteId,
+      },
+      onLoad: () => {
+        slideout.elementEditor.on('update', () => {
+          Craft.Preview.refresh();
+        });
+      },
+      onBeforeSubmit: async () => {
+        // If the nested element is primarily owned by the canonical entry being edited,
+        // then ensure we're working with a draft and save the nested entry changes to the draft
+        if (
+          $element !== null &&
+          Garnish.hasAttr($element, 'data-owner-is-canonical') &&
+          !elementEditor.settings.isUnpublishedDraft
+        ) {
+          await slideout.elementEditor.checkForm(true, true);
+          let baseInputName = $(editor.sourceElement).attr('name');
+          // mark as dirty
+          if (elementEditor && baseInputName) {
+            await elementEditor.setFormValue(baseInputName, '*');
+          }
+          if (
+            elementEditor.settings.draftId &&
+            slideout.elementEditor.settings.draftId
+          ) {
+            if (!slideout.elementEditor.settings.saveParams) {
+              slideout.elementEditor.settings.saveParams = {};
+            }
+            slideout.elementEditor.settings.saveParams.action =
+              'elements/save-nested-element-for-derivative';
+            slideout.elementEditor.settings.saveParams.newOwnerId =
+              elementEditor.getDraftElementId(ownerId);
+          }
+        }
+      },
+      onSubmit: (ev) => {
+        let $element = this._getCardElement(entryId);
+        if ($element !== null && ev.data.id != $element.data('id')) {
+          // swap the element with the new one
+          $element
+            .attr('data-id', ev.data.id)
+            .data('id', ev.data.id)
+            .data('owner-id', ev.data.ownerId);
+
+          // and tell CKE about it
+          editor.editing.model.change((writer) => {
+            writer.setAttribute('entryId', ev.data.id, modelElement);
+            editor.ui.update();
+          });
+
+          // and refresh the card
+          Craft.refreshElementInstances(ev.data.id);
+        }
+      },
+    });
+
+    // set position on the card we just edited and set focus
+    slideout.on('beforeClose', () => {
+      model.change((writer) => {
+        writer.setSelection(writer.createPositionAfter(modelElement));
+        editor.editing.view.focus();
+      });
+    });
+
+    // return focus to the editor
+    slideout.on('close', () => {
+      editor.editing.view.focus();
     });
   }
 
@@ -217,6 +301,9 @@ export default class CraftEntriesUI extends Plugin {
    */
   async _showCreateEntrySlideout(entryTypeId) {
     const editor = this.editor;
+    const model = editor.model;
+    const selection = model.document.selection;
+    const range = selection.getFirstRange();
     const nestedElementAttributes = editor.config.get(
       'nestedElementAttributes',
     );
@@ -225,10 +312,7 @@ export default class CraftEntriesUI extends Plugin {
       typeId: entryTypeId,
     });
 
-    const $editorContainer = $(editor.ui.view.element).closest(
-      'form,.lp-editor-container',
-    );
-    const elementEditor = $editorContainer.data('elementEditor');
+    const elementEditor = this.getElementEditor();
 
     if (elementEditor) {
       await elementEditor.markDeltaNameAsModified(editor.sourceElement.name);
@@ -259,13 +343,31 @@ export default class CraftEntriesUI extends Plugin {
       draftId: data.element.draftId,
       params: {
         fresh: 1,
+        siteId: data.element.siteId,
+      },
+      onSubmit: (ev) => {
+        editor.commands.execute('insertEntry', {
+          entryId: ev.data.id,
+          siteId: ev.data.siteId,
+        });
       },
     });
 
-    slideout.on('submit', (ev) => {
-      editor.commands.execute('insertEntry', {
-        entryId: ev.data.id,
+    // set position on before the card we just created and set focus
+    slideout.on('beforeClose', () => {
+      // nullify the trigger element, so the focus is not returned to the "New entry" button in the toolbar
+      slideout.$triggerElement = null;
+      // set position
+      model.change((writer) => {
+        writer.setSelection(
+          writer.createPositionAt(
+            editor.model.document.getRoot(),
+            range.end.path[0],
+          ),
+        );
       });
+      // set focus
+      editor.editing.view.focus();
     });
   }
 }

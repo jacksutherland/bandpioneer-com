@@ -12,15 +12,6 @@ return array (
       '@creocoder/nestedsets' => $vendorDir . '/creocoder/yii2-nested-sets/src',
     ),
   ),
-  'yiisoft/yii2-debug' => 
-  array (
-    'name' => 'yiisoft/yii2-debug',
-    'version' => '2.1.22.0',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
-    ),
-  ),
   'yiisoft/yii2-shell' => 
   array (
     'name' => 'yiisoft/yii2-shell',
@@ -60,16 +51,6 @@ return array (
       '@yii/queue/amqp_interop' => $vendorDir . '/yiisoft/yii2-queue/src/drivers/amqp_interop',
     ),
   ),
-  'nystudio107/craft-code-editor' => 
-  array (
-    'name' => 'nystudio107/craft-code-editor',
-    'version' => '1.0.19.0',
-    'alias' => 
-    array (
-      '@nystudio107/codeeditor' => $vendorDir . '/nystudio107/craft-code-editor/src',
-    ),
-    'bootstrap' => 'nystudio107\\codeeditor\\CodeEditor',
-  ),
   'yiisoft/yii2-symfonymailer' => 
   array (
     'name' => 'yiisoft/yii2-symfonymailer',
@@ -78,5 +59,24 @@ return array (
     array (
       '@yii/symfonymailer' => $vendorDir . '/yiisoft/yii2-symfonymailer/src',
     ),
+  ),
+  'yiisoft/yii2-debug' => 
+  array (
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.1.26.0',
+    'alias' => 
+    array (
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug/src',
+    ),
+  ),
+  'nystudio107/craft-code-editor' => 
+  array (
+    'name' => 'nystudio107/craft-code-editor',
+    'version' => '1.0.22.0',
+    'alias' => 
+    array (
+      '@nystudio107/codeeditor' => $vendorDir . '/nystudio107/craft-code-editor/src',
+    ),
+    'bootstrap' => 'nystudio107\\codeeditor\\CodeEditor',
   ),
 );

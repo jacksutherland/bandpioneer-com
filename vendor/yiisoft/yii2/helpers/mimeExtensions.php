@@ -8,6 +8,9 @@
  * Its content is generated from the apache http mime.types file.
  * https://svn.apache.org/viewvc/httpd/httpd/trunk/docs/conf/mime.types?view=markup
  * This file has been placed in the public domain for unlimited redistribution.
+ *
+ * All extra changes made to this file must be comitted to /build/controllers/MimeTypeController.php
+ * otherwise they will be lost on next build.
  */
 return [
     'application/andrew-inset' => 'ez',
@@ -299,6 +302,7 @@ return [
     'application/vnd.fuzzysheet' => 'fzs',
     'application/vnd.genomatix.tuxedo' => 'txd',
     'application/vnd.geogebra.file' => 'ggb',
+    'application/vnd.geogebra.slides' => 'ggs',
     'application/vnd.geogebra.tool' => 'ggt',
     'application/vnd.geometry-explorer' => [
         'gex',
@@ -655,6 +659,7 @@ return [
     ],
     'application/vnd.zzazz.deck+xml' => 'zaz',
     'application/voicexml+xml' => 'vxml',
+    'application/wasm' => 'wasm',
     'application/widget' => 'wgt',
     'application/winhlp' => 'hlp',
     'application/wsdl+xml' => 'wsdl',
@@ -956,6 +961,7 @@ return [
         'pjp',
         'pjpeg',
     ],
+    'image/jxl' => 'jxl',
     'image/ktx' => 'ktx',
     'image/png' => 'png',
     'image/prs.btif' => 'btif',
@@ -1036,7 +1042,6 @@ return [
     'model/vnd.dwf' => 'dwf',
     'model/vnd.gdl' => 'gdl',
     'model/vnd.gtw' => 'gtw',
-    'model/vnd.mts' => 'mts',
     'model/vnd.vtu' => 'vtu',
     'model/vrml' => [
         'wrl',
@@ -1159,6 +1164,12 @@ return [
     'video/mj2' => [
         'mj2',
         'mjp2',
+    ],
+    'video/mp2t' => [
+        'ts',
+        'm2t',
+        'm2ts',
+        'mts',
     ],
     'video/mp4' => [
         'mp4',

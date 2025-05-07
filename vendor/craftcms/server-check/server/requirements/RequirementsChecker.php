@@ -438,7 +438,7 @@ class RequirementsChecker
      */
     function validateDatabaseTimezoneSupport($conn)
     {
-        $query = $conn->query("SELECT CONVERT_TZ('2007-03-11 2:00:00','US/Eastern','US/Central') AS time1");
+        $query = $conn->query("SELECT CONVERT_TZ('2007-03-11 02:00:00','America/Los_Angeles','America/New_York') AS time1");
         $result = $query->fetchColumn();
 
         if (!$result) {
@@ -515,28 +515,6 @@ class RequirementsChecker
             'name' => 'Memory Limit',
             'mandatory' => false,
             'condition' => $bytes === -1 || $bytes >= 268435456,
-            'memo' => $memo,
-        );
-    }
-
-    /**
-     * @return array
-     */
-    function webAliasRequirement()
-    {
-        $aliases = Craft::$app->getConfig()->getGeneral()->aliases;
-        $memo = 'We recommend explicitly overriding the <a rel="noopener" target="_blank" href="https://craftcms.com/docs/4.x/config/#aliases">@web alias</a>.';
-        $pass = false;
-
-        if (isset($aliases['web']) || isset($aliases['@web'])) {
-            $memo = 'Your @web alias is set correctly';
-            $pass = true;
-        }
-
-        return array(
-            'name' => 'Ensure @web alias is explicitly overridden',
-            'mandatory' => false,
-            'condition' => $pass,
             'memo' => $memo,
         );
     }

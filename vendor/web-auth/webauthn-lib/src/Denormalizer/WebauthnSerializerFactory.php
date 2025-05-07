@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Webauthn\AttestationStatement\AttestationStatementSupportManager;
+use function sprintf;
 
 final class WebauthnSerializerFactory
 {
@@ -42,6 +43,11 @@ final class WebauthnSerializerFactory
         }
 
         $denormalizers = [
+            new ExtensionDescriptorDenormalizer(),
+            new VerificationMethodANDCombinationsDenormalizer(),
+            new AuthenticationExtensionNormalizer(),
+            new PublicKeyCredentialDescriptorNormalizer(),
+            new AttestedCredentialDataNormalizer(),
             new AttestationObjectDenormalizer(),
             new AttestationStatementDenormalizer($this->attestationStatementSupportManager),
             new AuthenticationExtensionsDenormalizer(),

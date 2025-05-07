@@ -112,6 +112,7 @@ class Tags extends BaseRelationField
                     'elementType' => static::elementType(),
                     'id' => $this->getInputId(),
                     'describedBy' => $this->describedBy,
+                    'labelId' => $this->getLabelId(),
                     'name' => $this->handle,
                     'elements' => $value,
                     'tagGroupId' => $tagGroup->id,
@@ -119,6 +120,7 @@ class Tags extends BaseRelationField
                     'sourceElementId' => $element?->id,
                     'selectionLabel' => $this->selectionLabel ? Craft::t('site', $this->selectionLabel) : static::defaultSelectionLabel(),
                     'allowSelfRelations' => (bool)$this->allowSelfRelations,
+                    'defaultPlacement' => $this->defaultPlacement,
                 ]);
         }
 

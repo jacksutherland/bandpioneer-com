@@ -84,6 +84,10 @@
                 elements: comment.children.anyStatus().all(),
                 showCheckboxes: false,
                 structureEditable: false,
+                selectable: false,
+                inlineEditing: false,
+                sortable: false,
+                showHeaderColumn: true,
             } %}
 
             <div class="elementindex elements">
@@ -135,6 +139,20 @@
             {% endif %}
         {% else %}
             <p>{{ comment.name }} ({{ comment.email }})</p>
+        {% endif %}
+    </div>
+
+    <hr/>
+
+    <div style="word-break: break-word; margin-bottom: 1em;">
+        <h5>{{ 'Email' | t('comments') }}</h5>
+
+        {% if comment.getAuthorEmail() %}
+            <p>
+                <a class="go" href="mailto:{{ comment.getAuthorEmail() }}">
+                    {{ comment.getAuthorEmail() }}
+                </a>
+            </p>
         {% endif %}
     </div>
 

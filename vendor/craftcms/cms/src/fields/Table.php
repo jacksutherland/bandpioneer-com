@@ -8,6 +8,7 @@
 namespace craft\fields;
 
 use Craft;
+use craft\base\CrossSiteCopyableFieldInterface;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\fields\data\ColorData;
@@ -16,6 +17,7 @@ use craft\gql\types\generators\TableRowType;
 use craft\gql\types\TableRow;
 use craft\helpers\Cp;
 use craft\helpers\DateTimeHelper;
+use craft\helpers\Db;
 use craft\helpers\Json;
 use craft\helpers\StringHelper;
 use craft\validators\ColorValidator;
@@ -35,7 +37,7 @@ use yii\validators\EmailValidator;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
  */
-class Table extends Field
+class Table extends Field implements CrossSiteCopyableFieldInterface
 {
     /**
      * @inheritdoc
@@ -246,6 +248,19 @@ class Table extends Field
      */
     public function getSettingsHtml(): ?string
     {
+        return $this->settingsHtml(false);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getReadOnlySettingsHtml(): ?string
+    {
+        return $this->settingsHtml(true);
+    }
+
+    private function settingsHtml(bool $readOnly): string
+    {
         $typeOptions = [
             'checkbox' => Craft::t('app', 'Checkbox'),
             'color' => Craft::t('app', 'Color'),
@@ -349,6 +364,7 @@ class Table extends Field
             'cols' => $columnSettings,
             'rows' => $this->columns,
             'errors' => $this->getErrors('columns'),
+            'readOnly' => $readOnly,
         ]);
 
         $defaultsField = Cp::editableTableFieldHtml([
@@ -362,12 +378,14 @@ class Table extends Field
             'cols' => $columns,
             'rows' => $this->defaults,
             'initJs' => false,
+            'static' => $readOnly,
         ]);
 
         return $view->renderTemplate('_components/fieldtypes/Table/settings.twig', [
             'field' => $this,
             'columnsField' => $columnsField,
             'defaultsField' => $defaultsField,
+            'readOnly' => $readOnly,
         ]);
     }
 
@@ -525,11 +543,53 @@ class Table extends Field
 
                 $value = $row[$colId];
 
+                if (is_string($value)) {
+                    $value = StringHelper::escapeShortcodes($value);
+                    if (!$supportsMb4) {
+                        $value = StringHelper::emojiToShortcodes($value);
+                    }
+                }
+
+                $serializedRow[$colId] = parent::serializeValue($value ?? null, null);
+            }
+            $serialized[] = $serializedRow;
+        }
+
+        return $serialized;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function serializeValueForDb(mixed $value, ElementInterface $element): mixed
+    {
+        if (!is_array($value) || empty($this->columns)) {
+            return null;
+        }
+
+        $serialized = [];
+        $supportsMb4 = Craft::$app->getDb()->getSupportsMb4();
+
+        foreach ($value as $row) {
+            $serializedRow = [];
+            foreach ($this->columns as $colId => $column) {
+                if ($column['type'] === 'heading') {
+                    continue;
+                }
+
+                $value = $row[$colId];
+
                 if (is_string($value) && !$supportsMb4) {
                     $value = StringHelper::emojiToShortcodes(StringHelper::escapeShortcodes($value));
                 }
 
-                $serializedRow[$colId] = parent::serializeValue($value ?? null, null);
+                // can't call parent::serializeValueForDb() here because that calls $this->serializeValue()
+                // see https://github.com/craftcms/cms/pull/17091
+                if ($value instanceof DateTime || DateTimeHelper::isIso8601($value)) {
+                    $serializedRow[$colId] = Db::prepareDateForDb($value);
+                } else {
+                    $serializedRow[$colId] = parent::serializeValue($value, $element);
+                }
             }
             $serialized[] = $serializedRow;
         }

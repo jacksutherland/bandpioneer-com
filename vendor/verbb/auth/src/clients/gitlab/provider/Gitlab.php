@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Gitlab OAuth2 Provider
+ * GitLab OAuth2 Provider
  * (c) Omines Internetbureau B.V. - https://omines.nl/
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,15 +15,15 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
-use verbb\auth\clients\gitlab\provider\exception\GitlabIdentityProviderException;
+use verbb\auth\clients\gitlab\provider\exception\GitLabIdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Gitlab.
+ * GitLab.
  *
  * @author Niels Keurentjes <niels.keurentjes@omines.com>
  */
-class Gitlab extends AbstractProvider
+class GitLab extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
@@ -36,7 +36,7 @@ class Gitlab extends AbstractProvider
     public string $domain = 'https://gitlab.com';
 
     /**
-     * Gitlab constructor.
+     * GitLab constructor.
      */
     public function __construct(array $options, array $collaborators = [])
     {
@@ -98,11 +98,11 @@ class Gitlab extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, mixed $data): void
     {
         if ($response->getStatusCode() >= 400) {
-            throw GitlabIdentityProviderException::clientException($response, $data);
+            throw GitLabIdentityProviderException::clientException($response, $data);
         }
 
         if (isset($data['error'])) {
-            throw GitlabIdentityProviderException::oauthException($response, $data);
+            throw GitLabIdentityProviderException::oauthException($response, $data);
         }
     }
 
@@ -111,7 +111,7 @@ class Gitlab extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token): ResourceOwnerInterface
     {
-        $user = new GitlabResourceOwner($response, $token);
+        $user = new GitLabResourceOwner($response, $token);
 
         return $user->setDomain($this->domain);
     }

@@ -5,6 +5,7 @@ Social Login supports 60+ providers through OAuth1/OAuth2 protocols. Instruction
 Social Login integrates with the following providers:
 
 - [Amazon](https://amazon.com)
+- [Amazon Cognito](https://amazon.com)
 - [Apple](https://apple.com)
 - [Auth0](https://auth0.com)
 - [Azure](https://azure.microsoft.com)
@@ -117,6 +118,45 @@ Follow the below steps to connect to the Amazon API.
 1. Copy the **Client Secret** from Amazon and paste in the **Client Secret** field in Social Login.
 
 
+## Amazon Cognito
+Follow the below steps to connect to the Amazon Cognito API.
+
+### Connect to the Amazon Cognito API
+1. Go to <a href="https://developer.amazon.com/lwa/sp/overview.html" target="_blank">Amazon Cognito</a> and login to your account.
+1. Navigate to the **Amazon Cognito** product.
+1. Click the **Create a user pool** button to create a new user pool.
+1. For **Cognito user pool sign-in options** enable the **Email** option.
+1. Click the **Next** button.
+1. For **MFA enforcement** select **No MFA**.
+1. Click the **Next** button.
+1. For **Configure sign-up experience** all settings can be kept as their defaults.
+1. Click the **Next** button.
+1. For **Email provider** select **Send email with Cognito**.
+1. Set an appropriate **FROM email address**.
+1. Click the **Next** button.
+1. Enter an appropriate **User pool name**.
+1. Enable the **Use the Cognito Hosted UI** option.
+1. For **Domain type** select **Use a Cognito domain** and enter the domain for your Cognito app.
+1. Enter an appropriate **App client name**.
+1. Check the **Generate a client secret** option.
+1. In the **Allowed callback URLs** field, enter the value from the **Redirect URI** field in Social Login.
+1. Expand the **Advanced app client settings** section.
+1. For **Authentication flows** select **ALLOW_USER_SRP_AUTH** and **ALLOW_CUSTOM_AUTH**.
+1. For **Identity providers** select **Cognito user pool**.
+1. For **OAuth 2.0 grant types** select **Authorization code grant**.
+1. For **OpenID Connect scopes** select **OpenID**, **Email**, and **Profile**.
+1. Click the **Next** button.
+1. Review your settings and click the **Create user pool** button.
+1. Select the User pool that you've just created to view its details.
+1. Under the **Users** tab, click the **Create user** button.
+1. Fill in the required fields to create a user. 
+1. Click the **Create user** button.
+1. Navigate to the **App integration** tab.
+1. Copy the **Cognito domain** from Amazon Cognito and paste in the **Domain** field in Social Login.
+1. Click the **App client list** app client.
+1. Copy the **Client ID** from Amazon Cognito and paste in the **Client ID** field in Social Login.
+1. Copy the **Client Secret** from Amazon Cognito and paste in the **Client Secret** field in Social Login.
+
 
 ## Auth0
 Follow the below steps to connect to the Auth0 API.
@@ -147,7 +187,7 @@ Follow the below steps to connect to the Azure API.
 1. On the **Overview** page copy the **Application ID** from Azure and paste in the **Client ID** field in Social Login.
 1. Navigate to **Certificates & secrets** → **Client secrets**.
 1. Click the **New client secret** button.
-1. Copy the **Client Secret** from Azure and paste in the **Client Secret** field in Social Login.
+1. Copy the **Value** from Azure and paste in the **Client Secret** field in Social Login.
 
 
 ## Basecamp
@@ -580,13 +620,12 @@ Follow the below steps to connect to the Salesforce API.
 1. In the **API (Enable OAuth Settings)** section, tick the **Enable OAuth Settings** checkbox.
     - In the **Callback URL** field, enter the value from the **Redirect URI** field in Social Login.
     - In the **Selected OAuth Scopes** field, select the following permissions from the list and click **Add** arrow button:
-        - **Access and manage your data (api)**
-        - **Allow access to your unique identifier (openid)**.
-        - **Perform requests on your behalf at any time (refresh_token, offline_access)**.
-    - These may also appear named as the following:
         - **Manage user data via APIs (api)**
         - **Access unique user identifiers (openid)**
         - **Perform requests at any time (refresh_token, offline_access)**
+    - Untick **Require Proof Key for Code Exchange (PKCE) Extension for Supported Authorization Flows**.
+    - Tick **Require Secret for Web Server Flow**.
+    - Untick **Require Secret for Refresh Token Flow**.
 1. Click the **Save** button.
 1. Copy the **Consumer Key** from Salesforce and paste in the **Client ID** field in Social Login.
 1. Copy the **Consumer Secret** from Salesforce and paste in the **Client Secret** field in Social Login.
@@ -595,6 +634,9 @@ Follow the below steps to connect to the Salesforce API.
 1. In the **OAuth policies** section:
     - In the **Permitted Users** field, select **All users may self-authorize**.
     - In the **IP Relaxation** field, select **Relax IP restrictions**.
+    - In the **Refresh Token Policy** field, select **Refresh token is valid until revoked**.
+1. In the **Session Policies** section:
+    - Untick **High assurance session required**.
 1. Click the **Save** button.
 
 

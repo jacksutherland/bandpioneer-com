@@ -22,7 +22,7 @@ use yii\db\Expression;
 /**
  * The Tokens service.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getTokens()|`Craft::$app->tokens`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getTokens()|`Craft::$app->getTokens()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -96,7 +96,7 @@ class Tokens extends Component
     }
 
     /**
-     * Creates a new token for previewing content, using the <config4:previewTokenDuration> to determine the duration, if set.
+     * Creates a new token for previewing content, using the <config5:previewTokenDuration> to determine the duration, if set.
      *
      * @param mixed $route Where matching requests should be routed to.
      * @param int|null $usageLimit The maximum number of times this token can be

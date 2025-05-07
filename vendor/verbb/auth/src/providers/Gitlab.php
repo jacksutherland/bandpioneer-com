@@ -2,10 +2,10 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\gitlab\provider\Gitlab as GitlabProvider;
+use verbb\auth\clients\gitlab\provider\GitLab as GitLabProvider;
 use verbb\auth\models\Token;
 
-class Gitlab extends GitlabProvider
+class GitLab extends GitLabProvider
 {
     // Traits
     // =========================================================================

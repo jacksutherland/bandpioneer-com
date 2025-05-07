@@ -13,6 +13,7 @@ use Webauthn\TrustPath\TrustPath;
 use Webauthn\TrustPath\TrustPathLoader;
 use function array_key_exists;
 use function in_array;
+use function sprintf;
 
 /**
  * @see https://www.w3.org/TR/webauthn/#iface-pkcredential
@@ -248,7 +249,13 @@ class PublicKeyCredentialSource implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        return [
+        trigger_deprecation(
+            'web-auth/webauthn-bundle',
+            '4.9.0',
+            'The "%s" method is deprecated and will be removed in 5.0. Please use the serializer instead.',
+            __METHOD__
+        );
+        $result = [
             'publicKeyCredentialId' => Base64UrlSafe::encodeUnpadded($this->publicKeyCredentialId),
             'type' => $this->type,
             'transports' => $this->transports,
@@ -263,5 +270,7 @@ class PublicKeyCredentialSource implements JsonSerializable
             'backupStatus' => $this->backupStatus,
             'uvInitialized' => $this->uvInitialized,
         ];
+
+        return array_filter($result, static fn ($value): bool => $value !== null);
     }
 }

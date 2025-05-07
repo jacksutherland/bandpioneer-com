@@ -2,10 +2,10 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\github\provider\Github as GithubProvider;
+use verbb\auth\clients\github\provider\GitHub as GitHubProvider;
 use verbb\auth\models\Token;
 
-class Github extends GithubProvider
+class GitHub extends GitHubProvider
 {
     // Traits
     // =========================================================================

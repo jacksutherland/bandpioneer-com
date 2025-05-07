@@ -63,7 +63,7 @@ class Comments extends Plugin
 
     public bool $hasCpSection = true;
     public bool $hasCpSettings = true;
-    public string $schemaVersion = '1.2.0';
+    public string $schemaVersion = '1.2.1';
     public string $minVersionRequired = '1.9.2';
 
 
@@ -102,7 +102,7 @@ class Comments extends Plugin
             $this->_registerResaveCommand();
         }
 
-        if (Craft::$app->getEdition() === Craft::Pro) {
+        if (Craft::$app->getEdition() !== Craft::Solo) {
             $this->_registerPermissions();
         }
     }
@@ -120,9 +120,16 @@ class Comments extends Plugin
     public function getCpNavItem(): ?array
     {
         $nav = parent::getCpNavItem();
+
         $nav['label'] = $this->getPluginName();
 
         if (Craft::$app->getUser()->getIsAdmin() && Craft::$app->getConfig()->getGeneral()->allowAdminChanges) {
+            // Only show the Comments page if the settings are also shown, otherwise just show the top-level menu item
+            $nav['subnav']['comments'] = [
+                'label' => Craft::t('comments', 'Comments'),
+                'url' => 'comments',
+            ];
+
             $nav['subnav']['settings'] = [
                 'label' => Craft::t('comments', 'Settings'),
                 'url' => 'comments/settings',

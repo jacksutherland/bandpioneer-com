@@ -21,10 +21,11 @@ use yii\base\Component;
 /**
  * Relations service.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getRelations()|`Craft::$app->relations`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getRelations()|`Craft::$app->getRelations()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
+ * @deprecated in 5.3.0
  */
 class Relations extends Component
 {

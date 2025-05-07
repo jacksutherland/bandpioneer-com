@@ -14,6 +14,7 @@ use Webauthn\Exception\AuthenticationExtensionException;
 use function array_key_exists;
 use function count;
 use function is_string;
+use function sprintf;
 use const COUNT_NORMAL;
 
 /**
@@ -109,6 +110,12 @@ class AuthenticationExtensions implements JsonSerializable, Countable, IteratorA
      */
     public function jsonSerialize(): array
     {
+        trigger_deprecation(
+            'web-auth/webauthn-bundle',
+            '4.9.0',
+            'The "%s" method is deprecated and will be removed in 5.0. Please use the serializer instead.',
+            __METHOD__
+        );
         return $this->extensions;
     }
 

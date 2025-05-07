@@ -15,9 +15,11 @@ use craft\base\FieldInterface;
 use craft\base\FieldLayoutElement;
 use craft\base\MemoizableArray;
 use craft\behaviors\CustomFieldBehavior;
+use craft\db\FixedOrderExpression;
 use craft\db\Query;
 use craft\db\Table;
 use craft\errors\MissingComponentException;
+use craft\events\ApplyFieldSaveEvent;
 use craft\events\ConfigEvent;
 use craft\events\DefineCompatibleFieldTypesEvent;
 use craft\events\FieldEvent;
@@ -28,6 +30,7 @@ use craft\fieldlayoutelements\CustomField;
 use craft\fields\Addresses as AddressesField;
 use craft\fields\Assets as AssetsField;
 use craft\fields\BaseRelationField;
+use craft\fields\ButtonGroup;
 use craft\fields\Categories as CategoriesField;
 use craft\fields\Checkboxes;
 use craft\fields\Color;
@@ -37,7 +40,9 @@ use craft\fields\Dropdown;
 use craft\fields\Email;
 use craft\fields\Entries as EntriesField;
 use craft\fields\Icon;
+use craft\fields\Json;
 use craft\fields\Lightswitch;
+use craft\fields\Link;
 use craft\fields\Matrix as MatrixField;
 use craft\fields\MissingField;
 use craft\fields\Money;
@@ -45,24 +50,25 @@ use craft\fields\MultiSelect;
 use craft\fields\Number;
 use craft\fields\PlainText;
 use craft\fields\RadioButtons;
+use craft\fields\Range;
 use craft\fields\Table as TableField;
 use craft\fields\Tags as TagsField;
 use craft\fields\Time;
-use craft\fields\Url;
 use craft\fields\Users as UsersField;
 use craft\helpers\AdminTable;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Component as ComponentHelper;
 use craft\helpers\Cp;
 use craft\helpers\Db;
-use craft\helpers\Json;
+use craft\helpers\Json as JsonHelper;
 use craft\helpers\ProjectConfig as ProjectConfigHelper;
 use craft\helpers\StringHelper;
-use craft\helpers\UrlHelper;
 use craft\models\FieldLayout;
 use craft\models\FieldLayoutTab;
 use craft\records\Field as FieldRecord;
 use craft\records\FieldLayout as FieldLayoutRecord;
+use DateTime;
+use Illuminate\Support\Collection;
 use Throwable;
 use yii\base\Component;
 use yii\base\Exception;
@@ -72,7 +78,7 @@ use yii\web\BadRequestHttpException;
 /**
  * Fields service.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getFields()|`Craft::$app->fields`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getFields()|`Craft::$app->getFields()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -84,7 +90,7 @@ class Fields extends Component
      *
      * Field types must implement [[FieldInterface]]. [[Field]] provides a base implementation.
      *
-     * See [Field Types](https://craftcms.com/docs/4.x/extend/field-types.html) for documentation on creating field types.
+     * See [Field Types](https://craftcms.com/docs/5.x/extend/field-types.html) for documentation on creating field types.
      * ---
      * ```php
      * use craft\events\RegisterComponentTypesEvent;
@@ -121,6 +127,12 @@ class Fields extends Component
      * @event FieldEvent The event that is triggered before a field is saved.
      */
     public const EVENT_BEFORE_SAVE_FIELD = 'beforeSaveField';
+
+    /**
+     * @event ApplyFieldSaveEvent The event that is triggered before a field save is applied to the database.
+     * @since 5.5.0
+     */
+    public const EVENT_BEFORE_APPLY_FIELD_SAVE = 'beforeApplyFieldSave';
 
     /**
      * @event FieldEvent The event that is triggered after a field is saved.
@@ -212,6 +224,7 @@ class Fields extends Component
         $fieldTypes = [
             AddressesField::class,
             AssetsField::class,
+            ButtonGroup::class,
             CategoriesField::class,
             Checkboxes::class,
             Color::class,
@@ -221,38 +234,43 @@ class Fields extends Component
             Email::class,
             EntriesField::class,
             Icon::class,
+            Json::class,
             Lightswitch::class,
+            Link::class,
             MatrixField::class,
             Money::class,
             MultiSelect::class,
             Number::class,
             PlainText::class,
             RadioButtons::class,
+            Range::class,
             TableField::class,
             TagsField::class,
             Time::class,
-            Url::class,
             UsersField::class,
         ];
 
-        $event = new RegisterComponentTypesEvent([
-            'types' => $fieldTypes,
-        ]);
-        $this->trigger(self::EVENT_REGISTER_FIELD_TYPES, $event);
+        // Fire a 'registerFieldTypes' event
+        if ($this->hasEventHandlers(self::EVENT_REGISTER_FIELD_TYPES)) {
+            $event = new RegisterComponentTypesEvent(['types' => $fieldTypes]);
+            $this->trigger(self::EVENT_REGISTER_FIELD_TYPES, $event);
+            return $event->types;
+        }
 
-        return $event->types;
+        return $fieldTypes;
     }
 
     /**
      * Returns all field types that have a column in the content table.
      *
      * @return string[] The field type classes
+     * @phpstan-return class-string<FieldInterface>[]
      */
     public function getFieldTypesWithContent(): array
     {
         return ArrayHelper::where(
             $this->getAllFieldTypes(),
-            fn(string $class) => /** @var string|FieldInterface $class */ $class::dbType() !== null,
+            fn(string $class) => /** @var class-string<FieldInterface> $class */ $class::dbType() !== null,
             keepKeys: false,
         );
     }
@@ -263,6 +281,7 @@ class Fields extends Component
      * @param FieldInterface $field The current field to base compatible fields on
      * @param bool $includeCurrent Whether $field's class should be included
      * @return string[] The compatible field type classes
+     * @phpstan-return class-string<FieldInterface>[]
      */
     public function getCompatibleFieldTypes(FieldInterface $field, bool $includeCurrent = true): array
     {
@@ -276,28 +295,23 @@ class Fields extends Component
 
         if (is_string($dbType)) {
             foreach ($this->getAllFieldTypes() as $class) {
-                /** @var string|FieldInterface $class */
-                /** @phpstan-var class-string<FieldInterface>|FieldInterface $class */
-                if ($class === get_class($field)) {
-                    if ($includeCurrent) {
-                        $types[] = $class;
-                    }
-                    continue;
-                }
-
-                $otherDbType = $class::dbType();
-
-                if (is_string($otherDbType) && Db::areColumnTypesCompatible($dbType, $otherDbType)) {
+                /** @var class-string<FieldInterface> $class */
+                if (
+                    ($includeCurrent || $class !== $field::class) &&
+                    $this->areFieldTypesCompatible($field::class, $class)
+                ) {
                     $types[] = $class;
                 }
             }
         }
 
         // Make sure the current field class is in there if it's supposed to be
+        /** @var FieldInterface $field */
         if ($includeCurrent && !in_array(get_class($field), $types, true)) {
             $types[] = get_class($field);
         }
 
+        // Fire a 'defineCompatibleFieldTypes' event
         if ($this->hasEventHandlers(self::EVENT_DEFINE_COMPATIBLE_FIELD_TYPES)) {
             $event = new DefineCompatibleFieldTypesEvent([
                 'field' => $field,
@@ -308,6 +322,33 @@ class Fields extends Component
         }
 
         return $types;
+    }
+
+    /**
+     * Returns whether the two given field types are considered compatible with each other.
+     *
+     * @param class-string<FieldInterface> $fieldA
+     * @param class-string<FieldInterface> $fieldB
+     * @return bool
+     * @since 5.3.0
+     */
+    public function areFieldTypesCompatible(string $fieldA, string $fieldB): bool
+    {
+        if ($fieldA === $fieldB) {
+            return true;
+        }
+
+        $dbTypeA = $fieldA::dbType();
+        if (!is_string($dbTypeA)) {
+            return false;
+        }
+
+        $dbTypeB = $fieldB::dbType();
+        if (!is_string($dbTypeB)) {
+            return false;
+        }
+
+        return Db::areColumnTypesCompatible($dbTypeA, $dbTypeB);
     }
 
     /**
@@ -322,12 +363,14 @@ class Fields extends Component
             MatrixField::class,
         ];
 
-        $event = new RegisterComponentTypesEvent([
-            'types' => $fieldTypes,
-        ]);
-        $this->trigger(self::EVENT_REGISTER_NESTED_ENTRY_FIELD_TYPES, $event);
+        // Fire a 'registerNestedEntryFieldTypes' event
+        if ($this->hasEventHandlers(self::EVENT_REGISTER_NESTED_ENTRY_FIELD_TYPES)) {
+            $event = new RegisterComponentTypesEvent(['types' => $fieldTypes]);
+            $this->trigger(self::EVENT_REGISTER_NESTED_ENTRY_FIELD_TYPES, $event);
+            return $event->types;
+        }
 
-        return $event->types;
+        return $fieldTypes;
     }
 
     /**
@@ -353,7 +396,7 @@ class Fields extends Component
      * Creates a field with a given config.
      *
      * @template T of FieldInterface
-     * @param string|array $config The field’s class name, or its config, with a `type` value and optionally a `settings` value
+     * @param class-string<T>|array $config The field’s class name, or its config, with a `type` value and optionally a `settings` value
      * @phpstan-param class-string<T>|array{type:class-string<T>,id?:int|string,uid?:string} $config
      * @return T The field
      */
@@ -459,8 +502,7 @@ class Fields extends Component
     /**
      * Returns all fields of a certain type.
      *
-     * @param string $type The field type
-     * @phpstan-param class-string<FieldInterface> $type
+     * @param class-string<FieldInterface> $type The field type
      * @param string|string[]|false|null $context The field context(s) to fetch fields from. Defaults to [[\craft\services\Fields::$fieldContext]].
      * Set to `false` to get all fields regardless of context.
      * @return FieldInterface[] The fields
@@ -743,10 +785,10 @@ class Fields extends Component
         try {
             $field->beforeApplyDelete();
 
-            // Delete the row in fields
-            Db::delete(Table::FIELDS, [
-                'id' => $fieldRecord->id,
-            ]);
+            // Soft-delete the row in `fields`
+            Craft::$app->getDb()->createCommand()
+                ->softDelete(Table::FIELDS, ['id' => $fieldRecord->id])
+                ->execute();
 
             $field->afterDelete();
 
@@ -803,15 +845,38 @@ class Fields extends Component
         $layouts = [];
 
         foreach ($this->getAllLayouts() as $layout) {
-            if ($layout->isFieldIncluded(fn(BaseField $layoutField) => (
-                $layoutField instanceof CustomField &&
-                $layoutField->getFieldUid() === $field->uid
-            ))) {
+            if (
+                ComponentHelper::validateComponentClass($layout->type, ElementInterface::class) &&
+                $layout->isFieldIncluded(fn(BaseField $layoutField) => (
+                    $layoutField instanceof CustomField &&
+                    $layoutField->getFieldUid() === $field->uid
+                ))
+            ) {
                 $layouts[] = $layout;
             }
         }
 
         return $layouts;
+    }
+
+    /**
+     * @return array<int,FieldLayout[]>
+     */
+    private function allFieldUsages(): array
+    {
+        $usages = [];
+
+        foreach ($this->getAllLayouts() as $layout) {
+            $uniqueFieldIds = [];
+            foreach ($layout->getCustomFields() as $field) {
+                $uniqueFieldIds[$field->id] = true;
+            }
+            foreach (array_keys($uniqueFieldIds) as $fieldId) {
+                $usages[$fieldId][] = $layout;
+            }
+        }
+
+        return $usages;
     }
 
     // Layouts
@@ -835,7 +900,7 @@ class Fields extends Component
                 if (array_key_exists('config', $config)) {
                     $nestedConfig = ArrayHelper::remove($config, 'config');
                     if ($nestedConfig) {
-                        $config += is_string($nestedConfig) ? Json::decode($nestedConfig) : $nestedConfig;
+                        $config += is_string($nestedConfig) ? JsonHelper::decode($nestedConfig) : $nestedConfig;
                     }
                     $loadTabs = false;
                 } else {
@@ -887,13 +952,13 @@ class Fields extends Component
             if (array_key_exists('settings', $tabResult)) {
                 $settings = ArrayHelper::remove($tabResult, 'settings');
                 if ($settings) {
-                    $tabResult += Json::decode($settings);
+                    $tabResult += JsonHelper::decode($settings);
                 }
             }
 
             $elements = ArrayHelper::remove($tabResult, 'elements');
             if ($elements) {
-                $elements = Json::decode($elements);
+                $elements = JsonHelper::decode($elements);
             } else {
                 // old school
                 $elements = [];
@@ -974,21 +1039,23 @@ class Fields extends Component
     /**
      * Returns a field layout by its associated element type.
      *
-     * @param string $type The associated element type
-     * @phpstan-param class-string<ElementInterface> $type
-     * @return FieldLayout The field layout
+     * @param class-string<ElementInterface> $type The associated element type
+     * @param bool $create Whether to create a field layout if one doesn’t exist
+     * @return FieldLayout|null The field layout
      */
-    public function getLayoutByType(string $type): FieldLayout
+    public function getLayoutByType(string $type, bool $create = true): ?FieldLayout
     {
-        return $this->_layouts()->firstWhere('type', $type)
-            ?? new FieldLayout(['type' => $type]);
+        $layout = $this->_layouts()->firstWhere('type', $type);
+        if (!$layout && $create) {
+            return new FieldLayout(['type' => $type]);
+        }
+        return $layout;
     }
 
     /**
      * Returns all of the field layouts associated with a given element type.
      *
-     * @param string $type
-     * @phpstan-param class-string<ElementInterface> $type
+     * @param class-string<ElementInterface> $type
      * @return FieldLayout[] The field layouts
      * @since 3.5.0
      */
@@ -1043,8 +1110,19 @@ class Fields extends Component
     public function assembleLayoutFromPost(?string $namespace = null): FieldLayout
     {
         $paramPrefix = $namespace ? rtrim($namespace, '.') . '.' : '';
-        $config = Json::decode(Craft::$app->getRequest()->getBodyParam($paramPrefix . 'fieldLayout'));
-        return $this->createLayout($config);
+        $config = JsonHelper::decode(Craft::$app->getRequest()->getBodyParam($paramPrefix . 'fieldLayout'));
+        $cardView = Craft::$app->getRequest()->getBodyParam($paramPrefix . 'cardView');
+        $config['cardView'] = empty($cardView) ? null : $cardView;
+        $layout = $this->createLayout($config);
+
+        // Make sure all the elements have a dateAdded value set
+        foreach ($layout->getTabs() as $tab) {
+            foreach ($tab->getElements() as $layoutElement) {
+                $layoutElement->dateAdded ??= new DateTime();
+            }
+        }
+
+        return $layout;
     }
 
     /**
@@ -1193,8 +1271,7 @@ class Fields extends Component
     /**
      * Deletes field layouts associated with a given element type.
      *
-     * @param string $type The element type
-     * @phpstan-param class-string<ElementInterface> $type
+     * @param class-string<ElementInterface> $type The element type
      * @return bool Whether the field layouts were deleted successfully
      */
     public function deleteLayoutsByType(string $type): bool
@@ -1272,14 +1349,26 @@ class Fields extends Component
      */
     public function applyFieldSave(string $fieldUid, array $data, string $context): void
     {
+        $fieldRecord = $this->_getFieldRecord($fieldUid, true);
+        $isNewField = $fieldRecord->getIsNewRecord();
+        $oldSettings = $fieldRecord->getOldAttribute('settings');
+        $oldField = !$isNewField ? $this->getFieldById($fieldRecord->id) : null;
+
+        // For control panel save requests, make sure we have all the custom data already saved on the object.
+        $field = $this->_savingFields[$fieldUid] ?? null;
+
+        // Fire a 'beforeApplyFieldSave' event
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_APPLY_FIELD_SAVE)) {
+            $this->trigger(self::EVENT_BEFORE_APPLY_FIELD_SAVE, new ApplyFieldSaveEvent([
+                'field' => $oldField,
+                'config' => $data,
+            ]));
+        }
+
         $db = Craft::$app->getDb();
         $transaction = $db->beginTransaction();
 
         try {
-            $fieldRecord = $this->_getFieldRecord($fieldUid);
-            $isNewField = $fieldRecord->getIsNewRecord();
-            $oldSettings = $fieldRecord->getOldAttribute('settings');
-
             // Track whether we should remove the field’s search indexes after save
             $searchable = $data['searchable'] ?? false;
             $deleteSearchIndexes = !$isNewField && !$searchable && $fieldRecord->searchable;
@@ -1305,7 +1394,11 @@ class Fields extends Component
             $fieldRecord->type = $data['type'];
             $fieldRecord->settings = $data['settings'] ?? null;
 
-            $fieldRecord->save(false);
+            if ($fieldRecord->dateDeleted) {
+                $fieldRecord->restore();
+            } else {
+                $fieldRecord->save(false);
+            }
 
             $transaction->commit();
         } catch (Throwable $e) {
@@ -1319,21 +1412,16 @@ class Fields extends Component
         // Tell the current CustomFieldBehavior class about the field
         CustomFieldBehavior::$fieldHandles[$fieldRecord->handle] = true;
 
-        // For control panel save requests, make sure we have all the custom data already saved on the object.
-        if (isset($this->_savingFields[$fieldUid])) {
-            $field = $this->_savingFields[$fieldUid];
-
-            if ($isNewField) {
-                $field->id = $fieldRecord->id;
-            }
-        } else {
-            $field = $this->getFieldById($fieldRecord->id);
+        // Now get the field, if it's not a field save request
+        $field ??= $this->getFieldById($fieldRecord->id);
+        if ($isNewField) {
+            $field->id = $fieldRecord->id;
         }
 
         if (!$isNewField) {
-            // Save the old field handle and settings on the model in case the field type needs to do something with it.
+            // Set the old field handle and settings on the model in case the field type needs to do something with it
             $field->oldHandle = $fieldRecord->getOldHandle();
-            $field->oldSettings = is_string($oldSettings) ? Json::decode($oldSettings) : null;
+            $field->oldSettings = is_string($oldSettings) ? JsonHelper::decode($oldSettings) : null;
         }
 
         $field->afterSave($isNewField);
@@ -1365,17 +1453,41 @@ class Fields extends Component
      * @param int $page
      * @param int $limit
      * @param string|null $searchTerm
+     * @param string $orderBy
+     * @param int $sortDir
      * @return array
      * @since 5.0.0
      * @internal
      */
-    public function getTableData(int $page, int $limit, ?string $searchTerm): array
-    {
+    public function getTableData(
+        int $page,
+        int $limit,
+        ?string $searchTerm,
+        string $orderBy = 'name',
+        int $sortDir = SORT_ASC,
+    ): array {
         $searchTerm = $searchTerm ? trim($searchTerm) : $searchTerm;
 
         $offset = ($page - 1) * $limit;
         $query = $this->_createFieldQuery()
             ->andWhere(['context' => 'global']);
+
+        if ($orderBy === 'type') {
+            /** @var Collection<class-string<FieldInterface>> $types */
+            $types = Collection::make($this->getAllFieldTypes())
+                ->sortBy(fn(string $class) => $class::displayName());
+            if ($sortDir === SORT_DESC) {
+                $types = $types->reverse();
+            }
+            $query->orderBy(new FixedOrderExpression('type', $types->all(), Craft::$app->getDb()))
+                ->addOrderBy(['name' => $sortDir])
+                ->addOrderBy(['handle' => $sortDir]);
+        } else {
+            $query->orderBy([$orderBy => $sortDir]);
+            if ($orderBy === 'name') {
+                $query->addOrderBy(['handle' => $sortDir]);
+            }
+        }
 
         if ($searchTerm !== null && $searchTerm !== '') {
             $searchParams = $this->_getSearchParams($searchTerm);
@@ -1392,6 +1504,8 @@ class Fields extends Component
         $result = $query->all();
 
         $tableData = [];
+        $usages = $this->allFieldUsages();
+
         foreach ($result as $item) {
             $field = $this->createField($item);
 
@@ -1400,13 +1514,18 @@ class Fields extends Component
                 'title' => Craft::t('site', $field->name),
                 'translatable' => $field->getIsTranslatable(null) ? ($field->getTranslationDescription(null) ?? Craft::t('app', 'This field is translatable.')) : false,
                 'searchable' => (bool)$field->searchable,
-                'url' => UrlHelper::url('settings/fields/edit/' . $field->id),
+                'url' => $field->getCpEditUrl(),
                 'handle' => $field->handle,
                 'type' => [
                     'isMissing' => $field instanceof MissingField,
                     'label' => $field instanceof MissingField ? $field->expectedType : $field->displayName(),
                     'icon' => Cp::iconSvg($field::icon()),
                 ],
+                'usages' => isset($usages[$field->id])
+                    ? Craft::t('app', '{count, number} {count, plural, =1{layout} other{layouts}}', [
+                        'count' => count($usages[$field->id]),
+                    ])
+                    : null,
             ];
         }
 
@@ -1442,7 +1561,7 @@ class Fields extends Component
      */
     private function _createFieldQuery(): Query
     {
-        return (new Query())
+        $query = (new Query())
             ->select([
                 'fields.id',
                 'fields.dateCreated',
@@ -1461,6 +1580,13 @@ class Fields extends Component
             ])
             ->from(['fields' => Table::FIELDS])
             ->orderBy(['fields.name' => SORT_ASC, 'fields.handle' => SORT_ASC]);
+
+        // todo: remove after the next breakpoint
+        if (Craft::$app->getDb()->columnExists(Table::FIELDS, 'dateDeleted')) {
+            $query->where(['fields.dateDeleted' => null]);
+        }
+
+        return $query;
     }
 
     /**
@@ -1491,10 +1617,15 @@ class Fields extends Component
      * Returns a field record for a given UID
      *
      * @param string $uid
+     * @param bool $withTrashed
      * @return FieldRecord
      */
-    private function _getFieldRecord(string $uid): FieldRecord
+    private function _getFieldRecord(string $uid, bool $withTrashed = false): FieldRecord
     {
-        return FieldRecord::findOne(['uid' => $uid]) ?? new FieldRecord();
+        $query = $withTrashed ? FieldRecord::findWithTrashed() : FieldRecord::find();
+        $query->andWhere(['uid' => $uid]);
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /** @var FieldRecord */
+        return $query->one() ?? new FieldRecord();
     }
 }

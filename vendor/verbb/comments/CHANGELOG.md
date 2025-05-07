@@ -1,5 +1,78 @@
 # Changelog
 
+## 3.0.7 - 2025-04-17
+
+### Added
+- Add “Comments” sub-nav item in the control panel.
+
+### Changed
+- Improve performance of sidebar list of owner elements for large sites when viewing comments in the control panel.
+- Custom fields now include a `data-role="comment-field"` attribute on their container. Consider including this in any custom templates of yours for the next major release.
+- Validation errors for custom fields now target the `data-role="errors"` attribute of the custom field.
+
+### Fixed
+- Fix an error when eager loading owner and user for comments.
+- Fix check of GraphQL Authentication plugin.
+- Fix an error when eager loading owner and user for comments.
+- Fix a JS error for guest comments (when guest comments are disabled).
+- Fix deprecated `log()` function.
+- Fix GraphQL resolvers to use `ElementCollection` correctly.
+- Fix JS to handle whitespace in comment’s HTML.
+
+## 3.0.6 - 2025-03-05
+
+### Added
+- Add support for `notificationAdmins` to be a Closure.
+
+### Fixed
+- Fix an issue creating comments for long URLs.
+- Fix incorrect Unauthorized error caused by checking against random user.
+
+## 3.0.5 - 2025-02-03
+
+### Fixed
+- Fix the `isFlagged` element query not working correctly.
+
+## 3.0.4 - 2024-11-12
+
+### Fixed
+- Fix an XSS issue for comment excerpts.
+
+## 3.0.3 - 2024-10-20
+
+### Added
+- Add French translation. (thanks @scandella).
+
+### Changed
+- Change JSON payload for `comment` when creating a comment from the front-end.
+
+### Fixed
+- Fix an error when calling `craft.comments.renderJs()`.
+- Fix an error where it was possible to change the commenter email/name to an invalid value.
+
+## 3.0.2 - 2024-09-07
+
+### Fixed
+- Fix installation bug. (thanks @timkelty).
+- Fix translations for emails.
+
+## 3.0.1 - 2024-07-21
+
+### Added
+- Add author email to sidebar when editing a comment in the control panel.
+- Add “Comments Order By” plugin setting to control the direction of comments.
+- Add Craft Teams support for permissions.
+- Add JS events for front-end functionality.
+
+### Changed
+- Update English translations.
+- Update non-English translations.
+- Improve reply/edit form cloning.
+
+### Fixed
+- Fix an error when viewing comment replies in the control panel.
+- Fix a type error for a comment’s string representation.
+
 ## 3.0.0 - 2024-05-18
 
 ### Added
@@ -11,6 +84,51 @@
 
 ### Fixed
 - Fix an error when selecting a “Placeholder Avatar” asset.
+
+## 2.0.18 - 2025-04-17
+
+### Changed
+- Improve performance of sidebar list of owner elements for large sites when viewing comments in the control panel.
+
+### Fixed
+- Fix an error when eager loading owner and user for comments.
+
+## 2.0.17 - 2025-03-05
+
+### Added
+- Add support for `notificationAdmins` to be a Closure.
+
+### Fixed
+- Fix an issue creating comments for long URLs.
+- Fix incorrect Unauthorized error caused by checking against random user.
+
+## 2.0.16 - 2025-02-03
+
+### Fixed
+- Fix the `isFlagged` element query not working correctly.
+
+## 2.0.15 - 2024-10-20
+
+### Fixed
+- Fix an error when calling `craft.comments.renderJs()`.
+
+## 2.0.14 - 2024-10-03
+
+### Changed
+- Change JSON payload for `comment` when creating a comment from the front-end.
+
+### Fixed
+- Fix an error where it was possible to change the commenter email/name to an invalid value.
+
+## 2.0.13 - 2024-07-21
+
+### Added
+- Add author email to sidebar when editing a comment in the control panel.
+- Add “Comments Order By” plugin setting to control the direction of comments.
+
+### Changed
+- Update English translations.
+- Update non-English translations.
 
 ## 2.0.12 - 2024-04-10
 

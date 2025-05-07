@@ -18,7 +18,15 @@ class Zoho extends ZohoProvider
 
     public function getBaseApiUrl(?Token $token): ?string
     {
-        // Use the API domain from the token, or fallback to defualts
-        return $token->getToken()->getValues()['api_domain'] ?? $this->getApiUrl();
+        if ($this->useDeveloper) {
+            return 'https://developer.zohoapis.com';
+        }
+
+        if ($token) {
+            // Use the API domain from the token, or fallback to defualts
+            return $token->getToken()?->getValues()['api_domain'] ?? $this->getApiUrl();
+        }
+
+        return $this->getApiUrl();
     }
 }

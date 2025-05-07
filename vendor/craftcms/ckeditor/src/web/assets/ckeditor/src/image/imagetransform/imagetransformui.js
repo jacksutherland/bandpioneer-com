@@ -4,7 +4,8 @@
  * @license GPL-3.0-or-later
  */
 
-import {Plugin, icons} from 'ckeditor5/src/core';
+import {Plugin} from 'ckeditor5/src/core';
+import {IconObjectSizeMedium} from 'ckeditor5/src/icons';
 import {
   DropdownButtonView,
   ViewModel,
@@ -14,7 +15,7 @@ import {
 import {Collection} from 'ckeditor5/src/utils';
 import ImageTransformEditing from './imagetransformediting';
 
-const RESIZE_ICON = icons.objectSizeMedium;
+const RESIZE_ICON = IconObjectSizeMedium;
 
 export default class ImageTransformUI extends Plugin {
   static get requires() {

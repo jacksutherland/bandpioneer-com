@@ -48,7 +48,7 @@ Comments.Base = Base.extend({
     createElement: function(html) {
         var el = document.createElement('div');
         el.innerHTML =  html;
-        return el.firstChild;
+        return el.firstElementChild;
     },
 
     serialize: function(form) {
@@ -149,7 +149,19 @@ Comments.Base = Base.extend({
                     }
 
                     if ($field) {
-                        $field.nextElementSibling.innerHTML = content[key][0];
+                        // Find the parent container - might not be one for backward compatibility
+                        const $parent = $field.closest('[data-role="comment-field"]');
+
+                        if ($parent) {
+                            const $errors = $parent.querySelector('[data-role="errors"]');
+
+                            if ($errors) {
+                                $errors.innerHTML = content[key][0];
+                            }
+                        } else {
+                            // TODO: remove at next breakpoint
+                            $field.nextElementSibling.innerHTML = content[key][0];
+                        }
                     }
                 });
             } else {
@@ -243,6 +255,12 @@ Comments.Base = Base.extend({
 
         return result;
     },
+
+    emit: function(event, data) {
+        const eventName = 'comments:' + event;
+
+        document.dispatchEvent(new CustomEvent(eventName, { detail: data }));
+    },
 });
 
 Comments.Instance = Comments.Base.extend({
@@ -288,6 +306,13 @@ Comments.Instance = Comments.Base.extend({
                 }
             }
         }.bind(this), 2000);
+
+        // Clone the comment form before the `init` event, in case third-parties modify the edit form
+        if (this.$baseForm) {
+            this.commentForm = this.$baseForm.cloneNode(true);
+        }
+
+        this.emit('init', { comments: this });
     },
 
     onSubmit: function(e) {
@@ -297,7 +322,13 @@ Comments.Instance = Comments.Base.extend({
 
             if (xhr.html) {
                 var $html = this.createElement(xhr.html);
-                var $newComment = this.$commentsContainer.insertBefore($html, this.$commentsContainer.firstChild);
+
+                // Insert at top of bottom of list depending on plugin settings
+                if (this.settings.orderBy === 'asc') {
+                    var $newComment = this.$commentsContainer.appendChild($html);
+                } else {
+                    var $newComment = this.$commentsContainer.insertBefore($html, this.$commentsContainer.firstChild);
+                }
 
                 this.comments[xhr.id] = new Comments.Comment(this, $html);
 
@@ -305,11 +336,15 @@ Comments.Instance = Comments.Base.extend({
 
                 // Scroll to the new comment
                 location.hash = '#comment-' + xhr.id;
+
+                this.emit('submit', { comments: this });
             }
 
             // If a comment was successfully submitted but under review
             if (xhr.success) {
                 this.$baseForm.querySelector('form').reset();
+
+                this.emit('submit', { comments: this });
             }
 
         }.bind(this));
@@ -393,9 +428,13 @@ Comments.Comment = Comments.Base.extend({
         if (this.replyForm.isOpen) {
             this.$replyBtn.innerHTML = this.t('reply');
             this.replyForm.closeForm();
+
+            this.instance.emit('reply-close', { comment: this });
         } else {
             this.$replyBtn.innerHTML = this.t('close');
             this.replyForm.openForm();
+
+            this.instance.emit('reply-open', { comment: this });
         }
     },
 
@@ -405,9 +444,13 @@ Comments.Comment = Comments.Base.extend({
         if (this.editForm.isOpen) {
             this.$editBtn.innerHTML = this.t('edit');
             this.editForm.closeForm();
+
+            this.instance.emit('edit-close', { comment: this });
         } else {
             this.$editBtn.innerHTML = this.t('close');
             this.editForm.openForm();
+
+            this.instance.emit('edit-open', { comment: this });
         }
     },
 
@@ -439,6 +482,8 @@ Comments.Comment = Comments.Base.extend({
                     } else if (trashAction === 'refresh') {
                         location.reload();
                     }
+
+                    this.instance.emit('delete', { comment: this });
                 }.bind(this),
                 error: function(errors) {
                     this.setNotifications('error', this.$element, errors);
@@ -465,6 +510,8 @@ Comments.Comment = Comments.Base.extend({
                     console.log(xhr.notice)
                     this.setNotifications('notice', this.$element, xhr.notice);
                 }
+
+                this.instance.emit('flag', { comment: this });
             }.bind(this),
             error: function(errors) {
                 this.setNotifications('error', this.$element, errors);
@@ -483,6 +530,8 @@ Comments.Comment = Comments.Base.extend({
             data: data,
             success: function(xhr) {
                 this.vote(true);
+
+                this.instance.emit('upvote', { comment: this });
             }.bind(this),
             error: function(errors) {
                 this.setNotifications('error', this.$element, errors);
@@ -501,6 +550,8 @@ Comments.Comment = Comments.Base.extend({
             data: data,
             success: function(xhr) {
                 this.vote(false);
+
+                this.instance.emit('downvote', { comment: this });
             }.bind(this),
             error: function(errors) {
                 this.setNotifications('error', this.$element, errors);
@@ -545,6 +596,8 @@ Comments.Comment = Comments.Base.extend({
                 if (!xhr.success) {
                     throw new Error(xhr);
                 }
+
+                this.instance.emit('subscribe', { comment: this });
             }.bind(this),
             error: function(response) {
                 if (response.errors) {
@@ -567,7 +620,7 @@ Comments.ReplyForm = Comments.Base.extend({
     },
 
     setFormHtml: function(comment) {
-        var form = this.instance.$baseForm.cloneNode(true);
+        var form = this.instance.commentForm.cloneNode(true);
 
         // Clear errors and info
         this.clearNotifications(form);
@@ -622,11 +675,15 @@ Comments.ReplyForm = Comments.Base.extend({
                 this.comment.$replyBtn.innerHTML = this.t('reply')
 
                 this.isOpen = false;
+
+                this.instance.emit('reply-submit', { reply: this });
             }
 
             // If a comment was successfully submitted but under review
             if (xhr.success) {
                 this.$form.reset();
+
+                this.instance.emit('reply-submit', { reply: this });
             }
         }.bind(this));
     },
@@ -647,7 +704,7 @@ Comments.EditForm = Comments.Base.extend({
     },
 
     setFormHtml: function() {
-        var form = this.instance.$baseForm.cloneNode(true);
+        var form = this.instance.commentForm.cloneNode(true);
 
         // Clear errors and info
         this.clearNotifications(form);
@@ -702,6 +759,8 @@ Comments.EditForm = Comments.Base.extend({
             this.comment.$editBtn.innerHTML = this.t('edit');
 
             this.isOpen = false;
+
+            this.instance.emit('edit-submit', { edit: this });
         }.bind(this));
     },
 });

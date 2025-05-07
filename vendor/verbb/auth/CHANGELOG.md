@@ -1,5 +1,111 @@
 # Changelog
 
+## 2.0.22 - 2025-04-15
+
+### Added
+- Add `email` for Azure provider resources for common scenarios.
+
+## 2.0.21 - 2025-04-12
+
+### Changed
+- Update GitHub, GitLab and PayPal provider classes to be proper case.
+
+## 2.0.20 - 2025-03-01
+
+### Changed
+- Update `league/oauth2-client` dependency with refresh token fix. Provides official compatibility with PHP 8.3+.
+
+### Fixed
+- Fix OneCRM provider.
+
+## 2.0.19 - 2025-01-03
+
+### Changed
+- Lock `league/oauth2-client` to `2.7.0` to prevent an issue with refresh token scopes on some providers.
+
+## 2.0.18 - 2024-10-20
+
+### Added
+- Add Xero provider.
+- Add CA domain to Zoho provider.
+
+## 2.0.17 - 2024-09-27
+
+### Fixed
+- Update handling for `getBaseApiUrl()` when a token doesn’t yet exist.
+
+## 2.0.16 - 2024-09-26
+
+### Fixed
+- Update handling for `getBaseApiUrl()` when a token doesn’t yet exist.
+- Fix an error when logging error codes.
+
+## 2.0.15 - 2024-09-26
+
+### Fixed
+- Fix an error when making a request with a query string, and refreshing an expired token in the same request.
+
+## 2.0.14 - 2024-09-12
+
+### Added
+- Add Microsoft Entra provider.
+
+## 2.0.13 - 2024-08-29
+
+### Fixed
+- Fix Constant Contact client not working.
+
+## 2.0.12 - 2024-08-27
+
+### Fixed
+- Add conditional for Twitter `code_verifier` check to prevent errors when already supplied.
+- Fix an error with token values not being typed correctly.
+
+## 2.0.11 - 2024-08-09
+
+### Fixed
+- Fix an issue with the Generic provider.
+
+## 2.0.10 - 2024-08-09
+
+### Fixed
+- Fix an issue with the Generic provider and duplicate `baseApiUrl`.
+
+## 2.0.9 - 2024-08-02
+
+### Added
+- Add the ability to set `baseApiUrl` for providers as part of their config. This can be a string, or a callback function.
+
+### Fixed
+- Fix Zoho base API URL not taking into account `useDeveloper` setting.
+
+## 2.0.8 - 2024-07-17
+
+### Changed
+- Updated Amazon Cognito provider.
+
+## 2.0.7 - 2024-07-17
+
+### Fixed
+- Fix an error for IdentityServer4 `getBaseApiUrl()`.
+- Fix an error for Fedex `getBaseApiUrl()`.
+- Fix errors for Amazon Cognito Provider. (thanks @lucbernard).
+
+## 2.0.6 - 2024-07-15
+
+### Added
+- Add Amazon Cognito provider.
+
+## 2.0.5 - 2024-06-21
+
+### Fixed
+- Fix an error with Azure/Entra with login approval.
+
+## 2.0.4 - 2024-06-21
+
+### Fixed
+- Fix Slack provider not setting correct auth token for requests.
+
 ## 2.0.3 - 2024-05-25
 
 ### Fixed
@@ -34,6 +140,67 @@
 - Fix namespace for IdentityServer4 provider.
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
+
+## 1.0.36 - 2025-01-03
+
+### Changed
+- Lock `league/oauth2-client` to `2.7.0` to prevent an issue with refresh token scopes on some providers.
+
+## 1.0.35 - 2024-10-20
+
+### Added
+- Add Xero provider.
+- Add CA domain to Zoho provider.
+
+## 1.0.34 - 2024-09-13
+
+### Fixed
+- Fix an error with Microsoft Entra provider.
+
+## 1.0.33 - 2024-09-13
+
+### Added
+- Add Microsoft Entra provider.
+
+## 1.0.32 - 2024-08-29
+
+### Fixed
+- Fix Constant Contact client not working.
+
+## 1.0.31 - 2024-08-27
+
+### Fixed
+- Add conditional for Twitter `code_verifier` check to prevent errors when already supplied.
+
+## 1.0.30 - 2024-08-09
+
+### Fixed
+- Fix an issue with the Generic provider.
+
+## 1.0.29 - 2024-08-09
+
+### Fixed
+- Fix an issue with the Generic provider and duplicate `baseApiUrl`.
+
+## 1.0.28 - 2024-07-17
+
+### Changed
+- Updated Amazon Cognito provider.
+
+## 1.0.27 - 2024-07-12
+
+### Added
+- Add Amazon Cognito provider.
+
+## 1.0.26 - 2024-06-21
+
+### Fixed
+- Fix an error with Azure/Entra with login approval.
+
+## 1.0.25 - 2024-06-21
+
+### Fixed
+- Fix Slack provider not setting correct auth token for requests.
 
 ## 1.0.24 - 2024-05-24
 

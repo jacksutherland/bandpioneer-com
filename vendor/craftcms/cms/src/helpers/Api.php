@@ -206,7 +206,7 @@ abstract class Api
 
         // license info
         if (isset($headers['x-craft-license-info'])) {
-            $oldLicenseInfo = $cache->get('licenseInfo') ?: [];
+            $oldLicenseInfo = $cache->get(App::CACHE_KEY_LICENSE_INFO) ?: [];
             $licenseInfo = [];
             $allCombinedInfo = array_filter(explode(',', reset($headers['x-craft-license-info'])));
             foreach ($allCombinedInfo as $combinedInfo) {
@@ -225,7 +225,7 @@ abstract class Api
                     ) {
                         $timestamp = $oldLicenseInfo[$handle]['timestamp'];
                     } else {
-                        $timestamp = time();
+                        $timestamp = DateTimeHelper::currentTimeStamp();
                     }
                 }
                 $licenseInfo[$handle] = [
@@ -235,7 +235,14 @@ abstract class Api
                     'timestamp' => $timestamp,
                 ];
             }
-            $cache->set('licenseInfo', $licenseInfo, $duration);
+
+            $cache->set(App::CACHE_KEY_LICENSE_INFO, $licenseInfo, $duration);
+            $request = Craft::$app->getRequest();
+            if ($request->getIsWebRequest()) {
+                $cache->set(App::CACHE_KEY_LICENSE_INFO_HOST, $request->getHostName(), $duration);
+            } else {
+                $cache->delete(App::CACHE_KEY_LICENSE_INFO_HOST);
+            }
         }
     }
 

@@ -300,7 +300,7 @@ class Comment extends Element
 
     public function __toString(): string
     {
-        return $this->comment;
+        return (string)$this->comment;
     }
 
     public function init(): void
@@ -830,6 +830,21 @@ class Comment extends Element
                 if (!Comments::$plugin->getComments()->checkPermissions($this->getOwner())) {
                     $this->addError('comment', Craft::t('comments', 'Comments are disabled for this element.'));
                 }
+
+                // Are they a guest trying to comment using a users details?
+                if (!$this->userId && !empty($this->email)) {
+                    $matchedUser = User::find()->email($this->email)->status(null)->one();
+
+                    if ($matchedUser) {
+                        $this->addError('comment', Craft::t('comments', 'Unauthorized.'));
+                    }
+                }
+
+                // Are they logged in, but altered their email through POST manipulation?
+                if ($user = $this->getUser()) {
+                    $this->email = null;
+                    $this->name = null;
+                }
             }
 
             // Is this user trying to edit/save/delete a comment that’s not their own?
@@ -1028,9 +1043,9 @@ class Comment extends Element
     public function setEagerLoadedElements(string $handle, array $elements, EagerLoadPlan $plan): void
     {
         if ($handle === 'user') {
-            $this->_user = $elements[0] ?? false;
+            $this->_user = $elements[0] ?? null;
         } else if ($handle === 'owner') {
-            $this->_owner = $elements[0] ?? false;
+            $this->_owner = $elements[0] ?? null;
         } else {
             parent::setEagerLoadedElements($handle, $elements, $plan);
         }
@@ -1081,7 +1096,7 @@ class Comment extends Element
         } else if ($attribute == 'flagCount') {
             return $this->hasFlagged() ? '<span class="status off"></span>' : '<span class="status"></span>';
         } else if ($attribute == 'comment') {
-            return $this->getExcerpt(0, 100);
+            return Html::encode($this->getExcerpt(0, 100));
         }
 
         return parent::attributeHtml($attribute);

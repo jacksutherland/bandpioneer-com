@@ -35,7 +35,7 @@ What if the user doesn't have an account already? [User Registration](docs:featu
 ### Redirection
 When returning to your website after being redirected to the providers site, Social Login will use the referrer URL to redirect the user back to. This will be the page that the user was on when they clicked the "login" button.
 
-You can check this behaviour if you require, to specify where to redirect the user once logged in on the remote provider website.
+You can change this behaviour by specifying a redirect. Be sure to use the `hash` Twig filter or the `redirectInput()` function to ensure it's a properly encoded redirect URL to prevent tampering with.
 
 ::: code
 ```twig URL

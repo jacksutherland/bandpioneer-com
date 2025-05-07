@@ -187,7 +187,7 @@ class GlobalSet extends Element implements FieldLayoutProviderInterface
         $behaviors = parent::defineBehaviors();
         $behaviors['fieldLayout'] = [
             'class' => FieldLayoutBehavior::class,
-            'elementType' => __CLASS__,
+            'elementType' => self::class,
         ];
         return $behaviors;
     }

@@ -2,7 +2,7 @@
 
 namespace verbb\auth\clients\github\provider;
 
-use verbb\auth\clients\github\provider\exception\GithubIdentityProviderException;
+use verbb\auth\clients\github\provider\exception\GitHubIdentityProviderException;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
@@ -10,7 +10,7 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
-class Github extends AbstractProvider
+class GitHub extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
@@ -110,11 +110,11 @@ class Github extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
-            throw GithubIdentityProviderException::clientException($response, $data);
+            throw GitHubIdentityProviderException::clientException($response, $data);
         }
 
         if (isset($data['error'])) {
-            throw GithubIdentityProviderException::oauthException($response, $data);
+            throw GitHubIdentityProviderException::oauthException($response, $data);
         }
     }
 
@@ -127,7 +127,7 @@ class Github extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
     {
-        $user = new GithubResourceOwner($response);
+        $user = new GitHubResourceOwner($response);
 
         return $user->setDomain($this->domain);
     }

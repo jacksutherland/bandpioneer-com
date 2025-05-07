@@ -4,14 +4,15 @@ namespace craft\elements;
 
 use CommerceGuys\Addressing\AddressFormat\AddressField;
 use CommerceGuys\Addressing\AddressInterface;
+use CommerceGuys\Addressing\Country\Country;
 use CommerceGuys\Addressing\Subdivision\SubdivisionUpdater;
 use Craft;
 use craft\base\Element;
 use craft\base\NameTrait;
 use craft\base\NestedElementInterface;
 use craft\base\NestedElementTrait;
-use craft\db\Query;
 use craft\db\Table;
+use craft\elements\actions\Copy;
 use craft\elements\conditions\addresses\AddressCondition;
 use craft\elements\conditions\ElementConditionInterface;
 use craft\elements\db\AddressQuery;
@@ -20,7 +21,6 @@ use craft\fieldlayoutelements\addresses\OrganizationField;
 use craft\fieldlayoutelements\addresses\OrganizationTaxIdField;
 use craft\fieldlayoutelements\BaseNativeField;
 use craft\fieldlayoutelements\FullNameField;
-use craft\helpers\Db;
 use craft\models\FieldLayout;
 use craft\records\Address as AddressRecord;
 use yii\base\InvalidConfigException;
@@ -82,7 +82,7 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
     }
 
     /**
-     * @inerhitdoc
+     * @inheritdoc
      */
     public static function hasTitles(): bool
     {
@@ -103,6 +103,72 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
     public static function createCondition(): ElementConditionInterface
     {
         return Craft::createObject(AddressCondition::class, [static::class]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function defineActions(string $source): array
+    {
+        return [
+            Copy::class,
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function defineTableAttributes(): array
+    {
+        return array_merge(parent::defineTableAttributes(), [
+            'country' => ['label' => Craft::t('app', 'Country')],
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function attributeHtml(string $attribute): string
+    {
+        switch ($attribute) {
+            case 'country':
+                return $this->getCountry()->getName();
+            default:
+                return parent::attributeHtml($attribute);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function defineSortOptions(): array
+    {
+        return [
+            [
+                'label' => Craft::t('app', 'Label'),
+                'orderBy' => 'title',
+                'attribute' => 'title',
+            ],
+            [
+                'label' => Craft::t('app', 'Country'),
+                'orderBy' => 'countryCode',
+                'attribute' => 'country',
+            ],
+            [
+                'label' => Craft::t('app', 'Date Created'),
+                'orderBy' => 'dateCreated',
+                'defaultDir' => 'desc',
+            ],
+            [
+                'label' => Craft::t('app', 'Date Updated'),
+                'orderBy' => 'dateUpdated',
+                'defaultDir' => 'desc',
+            ],
+            [
+                'label' => Craft::t('app', 'ID'),
+                'orderBy' => 'id',
+            ],
+        ];
     }
 
     /**
@@ -335,6 +401,31 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
     /**
      * @inheritdoc
      */
+    public function canDuplicate(User $user): bool
+    {
+        if (parent::canDuplicate($user)) {
+            return true;
+        }
+
+        $owner = $this->getOwner()?->getCanonical(true);
+        if (!$owner) {
+            return false;
+        }
+
+        return Craft::$app->getElements()->canSave($owner, $user);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function canCopy(User $user): bool
+    {
+        return Craft::$app->getElements()->canDuplicate($this, $user);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function canDelete(User $user): bool
     {
         if (parent::canDelete($user)) {
@@ -363,6 +454,17 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
     public function getCountryCode(): string
     {
         return $this->countryCode;
+    }
+
+    /**
+     * Returns a [[Country]] object representing the address’ country.
+     *
+     * @return Country
+     * @since 5.3.0
+     */
+    public function getCountry(): Country
+    {
+        return Craft::$app->getAddresses()->getCountryRepository()->get($this->countryCode, Craft::$app->language);
     }
 
     /**
@@ -466,7 +568,7 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
      */
     public function getLocale(): string
     {
-        return 'und';
+        return Craft::$app->language;
     }
 
     /**
@@ -654,64 +756,10 @@ class Address extends Element implements AddressInterface, NestedElementInterfac
 
         // Capture the dirty attributes from the record
         $dirtyAttributes = array_keys($record->getDirtyAttributes());
-
         $record->save(false);
-
-        $ownerId = $this->getOwnerId();
-        if (isset($this->fieldId) && $ownerId && $this->saveOwnership) {
-            if (!isset($this->sortOrder) && (!$isNew || $this->duplicateOf)) {
-                // figure out if we should proceed this way
-                // if we're dealing with an element that's being duplicated, and it has a draftId
-                // it means we're creating a draft of something
-                // if we're duplicating element via duplicate action - draftId would be empty
-                $elementId = null;
-                if ($this->duplicateOf) {
-                    if ($this->draftId) {
-                        $elementId = $this->duplicateOf->id;
-                    }
-                } else {
-                    // if we're not duplicating - use element's id
-                    $elementId = $this->id;
-                }
-                if ($elementId) {
-                    $this->sortOrder = (new Query())
-                        ->select('sortOrder')
-                        ->from(Table::ELEMENTS_OWNERS)
-                        ->where([
-                            'elementId' => $elementId,
-                            'ownerId' => $ownerId,
-                        ])
-                        ->scalar() ?: null;
-                }
-            }
-            if (!isset($this->sortOrder)) {
-                $max = (new Query())
-                    ->from(['eo' => Table::ELEMENTS_OWNERS])
-                    ->innerJoin(['a' => Table::ADDRESSES], '[[a.id]] = [[eo.elementId]]')
-                    ->where([
-                        'eo.ownerId' => $ownerId,
-                        'a.fieldId' => $this->fieldId,
-                    ])
-                    ->max('[[eo.sortOrder]]');
-                $this->sortOrder = $max ? $max + 1 : 1;
-            }
-            if ($isNew) {
-                Db::insert(Table::ELEMENTS_OWNERS, [
-                    'elementId' => $this->id,
-                    'ownerId' => $ownerId,
-                    'sortOrder' => $this->sortOrder,
-                ]);
-            } else {
-                Db::update(Table::ELEMENTS_OWNERS, [
-                    'sortOrder' => $this->sortOrder,
-                ], [
-                    'elementId' => $this->id,
-                    'ownerId' => $ownerId,
-                ]);
-            }
-        }
-
         $this->setDirtyAttributes($dirtyAttributes);
+
+        $this->saveOwnership($isNew, Table::ADDRESSES);
 
         parent::afterSave($isNew);
     }

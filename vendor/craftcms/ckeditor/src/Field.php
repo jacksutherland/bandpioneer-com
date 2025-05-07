@@ -11,16 +11,22 @@ use Craft;
 use craft\base\ElementContainerFieldInterface;
 use craft\base\ElementInterface;
 use craft\base\FieldInterface;
+use craft\base\MergeableFieldInterface;
 use craft\base\NestedElementInterface;
 use craft\behaviors\EventBehavior;
+use craft\ckeditor\data\BaseChunk;
+use craft\ckeditor\data\Entry as EntryChunk;
+use craft\ckeditor\data\FieldData;
+use craft\ckeditor\data\Markup;
 use craft\ckeditor\events\DefineLinkOptionsEvent;
 use craft\ckeditor\events\ModifyConfigEvent;
+use craft\ckeditor\gql\Generator;
 use craft\ckeditor\web\assets\BaseCkeditorPackageAsset;
 use craft\ckeditor\web\assets\ckeditor\CkeditorAsset;
-use craft\controllers\GraphqlController;
 use craft\db\FixedOrderExpression;
 use craft\db\Query;
 use craft\db\Table;
+use craft\db\Table as DbTable;
 use craft\elements\Asset;
 use craft\elements\Category;
 use craft\elements\db\ElementQuery;
@@ -34,8 +40,11 @@ use craft\events\CancelableEvent;
 use craft\events\DuplicateNestedElementsEvent;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Cp;
+use craft\helpers\Db;
+use craft\helpers\ElementHelper;
 use craft\helpers\Html;
 use craft\helpers\Json;
+use craft\helpers\StringHelper;
 use craft\helpers\UrlHelper;
 use craft\htmlfield\events\ModifyPurifierConfigEvent;
 use craft\htmlfield\HtmlField;
@@ -48,20 +57,20 @@ use craft\models\Section;
 use craft\models\Volume;
 use craft\services\ElementSources;
 use craft\web\View;
+use GraphQL\Type\Definition\Type;
 use HTMLPurifier_Config;
 use HTMLPurifier_Exception;
 use HTMLPurifier_HTMLDefinition;
 use Illuminate\Support\Collection;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
-use yii\db\Exception;
 
 /**
  * CKEditor field type
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  */
-class Field extends HtmlField implements ElementContainerFieldInterface
+class Field extends HtmlField implements ElementContainerFieldInterface, MergeableFieldInterface
 {
     /**
      * @event ModifyPurifierConfigEvent The event that is triggered when creating HTML Purifier config
@@ -103,7 +112,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
      * @var NestedElementManager[]
      */
     private static array $entryManagers = [];
-    
+
     /**
      * @inheritdoc
      */
@@ -139,6 +148,14 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function phpType(): string
+    {
+        return sprintf('%s|null', FieldData::class);
+    }
+
+    /**
      * Returns the nested element manager for a given CKEditor field.
      *
      * @param self $field
@@ -166,13 +183,20 @@ class Field extends HtmlField implements ElementContainerFieldInterface
                     ],
                     'valueGetter' => function(ElementInterface $owner, bool $fetchAll = false) use ($field) {
                         $entryIds = array_merge(...array_map(function(self $fieldInstance) use ($owner) {
+                            /** @var FieldData|null $value */
                             $value = $owner->getFieldValue($fieldInstance->handle);
-                            preg_match_all('/<craft-entry\s+data-entry-id="(\d+)"[^>]*>/i', $value, $matches);
-                            return array_map(fn($match) => (int)$match, $matches[1]);
+                            if (!$value) {
+                                return [];
+                            }
+                            return $value->getChunks(false)
+                                ->filter(fn(BaseChunk $chunk) => $chunk instanceof EntryChunk)
+                                ->map(fn(EntryChunk $chunk) => $chunk->entryId)
+                                ->all();
                         }, self::fieldInstances($owner, $field)));
 
                         $query = self::createEntryQuery($owner, $field)
                             ->where(['in', 'elements.id', $entryIds])
+                            ->status(null)
                             ->trashed(null);
 
                         if (!empty($entryIds)) {
@@ -284,9 +308,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
 
     private static function afterDuplicateNestedElements(DuplicateNestedElementsEvent $event, self $field): void
     {
-        $oldEntryIds = array_keys($event->newElementIds);
-        $newElementIds = array_values($event->newElementIds);
-        self::adjustFieldValues($event->target, $field, $oldEntryIds, $newElementIds, true);
+        self::adjustFieldValues($event->target, $field, $event->newElementIds, true);
     }
 
     private static function afterCreateRevisions(DuplicateNestedElementsEvent $event, self $field): void
@@ -296,64 +318,60 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             ...$event->target->getLocalized()->status(null)->all(),
         ];
 
-        $oldElementIds = array_keys($event->newElementIds);
-        $newElementIds = array_values($event->newElementIds);
-
         foreach ($revisionOwners as $revisionOwner) {
-            self::adjustFieldValues($revisionOwner, $field, $oldElementIds, $newElementIds, false);
+            self::adjustFieldValues($revisionOwner, $field, $event->newElementIds, false);
         }
     }
 
     private static function adjustFieldValues(
         ElementInterface $owner,
         self $field,
-        array $oldEntryIds,
         array $newEntryIds,
         bool $propagate,
     ): void {
-        if (empty($oldEntryIds) || $oldEntryIds === $newEntryIds) {
+        // Filter out any IDs that haven't changed
+        $newEntryIds = Collection::make($newEntryIds)
+            ->filter(fn(int $newId, int $oldId) => $newId !== $oldId)
+            ->all();
+        if (empty($newEntryIds)) {
             return;
         }
 
         $resave = false;
 
         foreach (self::fieldInstances($owner, $field) as $fieldInstance) {
-            /** @var HtmlFieldData|null $oldValue */
-            $oldValue = $owner->getFieldValue($fieldInstance->handle);
-            $oldValue = $oldValue?->getRawContent();
-
-            if (!$oldValue) {
+            /** @var FieldData|null $value */
+            $value = $owner->getFieldValue($fieldInstance->handle);
+            if (!$value) {
                 continue;
             }
 
-            // and in the field value replace elementIds from original (duplicateOf) with elementIds from the new owner
-            $newValue = preg_replace_callback(
-                '/(<craft-entry\sdata-entry-id=")(\d+)("[^>]*>)/i',
-                function(array $match) use ($oldEntryIds, $newEntryIds) {
-                    $key = array_search($match[2], $oldEntryIds);
-                    if (isset($newEntryIds[$key])) {
-                        return $match[1] . $newEntryIds[$key] . $match[3];
-                    }
-                    return $match[1] . $match[2] . $match[3];
-                },
-                $oldValue,
-            );
-
-            if ($oldValue !== $newValue) {
-                $owner->setFieldValue($fieldInstance->handle, $newValue);
-                $resave = true;
+            $chunks = $value->getChunks(false);
+            if (!$chunks->contains(fn(BaseChunk $chunk) => (
+                $chunk instanceof EntryChunk &&
+                isset($newEntryIds[$chunk->entryId])
+            ))) {
+                continue;
             }
+
+            $newValue = $chunks
+                ->map(function(BaseChunk $chunk) use ($newEntryIds) {
+                    if ($chunk instanceof Markup) {
+                        return $chunk->rawHtml;
+                    }
+
+                    /** @var EntryChunk $chunk */
+                    $id = $newEntryIds[$chunk->entryId] ?? $chunk->entryId;
+                    return sprintf('<craft-entry data-entry-id="%s">&nbsp;</craft-entry>', $id);
+                })
+                ->join('');
+
+            $owner->setFieldValue($fieldInstance->handle, $newValue);
+            $resave = true;
         }
 
         if ($resave) {
-            // set resaving=true to avoid our EVENT_AFTER_PROPAGATE handler from dealing with the owner recursively,
-            // and to avoid a new revision getting created.
-            $resaving = $owner->resaving;
-            $owner->resaving = true;
-
             Craft::$app->getElements()->saveElement($owner, false, $propagate, false);
-
-            $owner->resaving = $resaving;
         }
     }
 
@@ -368,6 +386,12 @@ class Field extends HtmlField implements ElementContainerFieldInterface
      * @since 3.5.0
      */
     public ?int $wordLimit = null;
+
+    /**
+     * @var int|null The total number of characters allowed.
+     * @since 4.8.0
+     */
+    public ?int $characterLimit = null;
 
     /**
      * @var bool Whether the word count should be shown below the field.
@@ -393,10 +417,10 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     public ?string $defaultTransform = null;
 
     /**
-     * @var bool Whether to enable source editing for non-admin users.
-     * @since 3.3.0
+     * @var string|string[]|null User groups whose members should be able to see the “Source” button
+     * @since 4.5.0
      */
-    public bool $enableSourceEditingForNonAdmins = false;
+    public string|array|null $sourceEditingGroups = ['__ADMINS__'];
 
     /**
      * @var bool Whether to show volumes the user doesn’t have permission to view.
@@ -414,8 +438,15 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     /**
      * @var string|null The “New entry” button label.
      * @since 4.0.0
+     * @deprecated in 4.8.0
      */
     public ?string $createButtonLabel = null;
+
+    /**
+     * @var bool Whether GraphQL values should be returned as objects with `content`, `chunks`, etc., sub-fields.
+     * @since 4.8.0
+     */
+    public bool $fullGraphqlData = true;
 
     /**
      * @var EntryType[] The field’s available entry types
@@ -436,8 +467,33 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             $config['removeNbsp'],
         );
 
+        if (isset($config['enableSourceEditingForNonAdmins'])) {
+            $config['sourceEditingGroups'] = $config['enableSourceEditingForNonAdmins'] ? '*' : ['__ADMINS__'];
+            unset($config['enableSourceEditingForNonAdmins']);
+        } elseif (array_key_exists('sourceEditingGroups', $config) && empty($config['sourceEditingGroups'])) {
+            $config['sourceEditingGroups'] = null;
+        }
+
+        if (isset($config['limitUnit'], $config['fieldLimit'])) {
+            if ($config['limitUnit'] === 'chars') {
+                $config['characterLimit'] = (int)$config['fieldLimit'] ?: null;
+            } else {
+                $config['wordLimit'] = (int)$config['fieldLimit'] ?: null;
+            }
+            unset($config['limitUnit'], $config['fieldLimit']);
+        }
+
         if (isset($config['entryTypes']) && $config['entryTypes'] === '') {
             $config['entryTypes'] = [];
+        }
+
+        if (isset($config['graphqlMode'])) {
+            $config['fullGraphqlData'] = ArrayHelper::remove($config, 'graphqlMode') === 'full';
+        }
+
+        // Default fullGraphqlData to false for existing fields
+        if (isset($config['id']) && !isset($config['fullGraphqlData'])) {
+            $config['fullGraphqlData'] = false;
         }
 
         parent::__construct($config);
@@ -453,6 +509,9 @@ class Field extends HtmlField implements ElementContainerFieldInterface
         if ($this->wordLimit === 0) {
             $this->wordLimit = null;
         }
+        if ($this->characterLimit === 0) {
+            $this->characterLimit = null;
+        }
     }
 
     /**
@@ -462,6 +521,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     {
         return array_merge(parent::defineRules(), [
             ['wordLimit', 'number', 'min' => 1],
+            ['characterLimit', 'number', 'min' => 1],
         ]);
     }
 
@@ -472,13 +532,34 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     {
         $rules = [];
 
-        if ($this->wordLimit) {
+        if ($this->characterLimit) {
             $rules[] = [
                 function(ElementInterface $element) {
                     $value = strip_tags((string)$element->getFieldValue($this->handle));
+                    if (strlen($value) > $this->characterLimit) {
+                        $element->addError(
+                            "field:$this->handle",
+                            Craft::t('ckeditor', '{field} should contain at most {max, number} {max, plural, one{character} other{characters}}.', [
+                                'field' => Craft::t('site', $this->name),
+                                'max' => $this->characterLimit,
+                            ]),
+                        );
+                    }
+                },
+            ];
+        } elseif ($this->wordLimit) {
+            $rules[] = [
+                function(ElementInterface $element) {
+                    $value = html_entity_decode((string)$element->getFieldValue($this->handle));
+                    $value = preg_replace(
+                        ['/<br>/', '/></'],
+                        [' ', '/> </'],
+                        $value
+                    );
+                    $value = strip_tags($value);
                     if (
                         // regex copied from the WordCount plugin, for consistency
-                        preg_match_all('/(?:[\p{L}\p{N}]+\S?)+/', $value, $matches) &&
+                        preg_match_all('/(?:[\p{L}\p{N}]+\S?)+/u', $value, $matches) &&
                         count($matches[0]) > $this->wordLimit
                     ) {
                         $element->addError(
@@ -499,9 +580,21 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     /**
      * @inheritdoc
      */
+    public function getContentGqlType(): Type|array
+    {
+        if (!$this->fullGraphqlData) {
+            return parent::getContentGqlType();
+        }
+
+        return Generator::generateType($this);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function settingsAttributes(): array
     {
-        $attributes = parent::settingsAttributes();
+        $attributes = ArrayHelper::without(parent::settingsAttributes(), 'createButtonLabel');
         $attributes[] = 'entryTypes';
         return $attributes;
     }
@@ -577,7 +670,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
      */
     public function canDeleteElementForSite(NestedElementInterface $element, User $user): ?bool
     {
-        return Craft::$app->getElements()->canSave($element->getOwner(), $user);
+        return false;
     }
 
     /**
@@ -586,6 +679,22 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     public function getSettingsHtml(): ?string
     {
         $view = Craft::$app->getView();
+
+        $userGroupOptions = [
+            [
+                'label' => Craft::t('app', 'Admins'),
+                'value' => '__ADMINS__',
+            ],
+        ];
+
+        foreach (Craft::$app->getUserGroups()->getAllGroups() as $group) {
+            if ($group->can('accessCp')) {
+                $userGroupOptions[] = [
+                    'label' => $group->name,
+                    'value' => $group->uid,
+                ];
+            }
+        }
 
         $volumeOptions = [];
         foreach (Craft::$app->getVolumes()->getAllVolumes() as $volume) {
@@ -605,8 +714,18 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             ];
         }
 
+        $ckeConfig = null;
+        if ($this->ckeConfig) {
+            try {
+                $ckeConfig = Plugin::getInstance()->getCkeConfigs()->getByUid($this->ckeConfig);
+            } catch (InvalidArgumentException) {
+            }
+        }
+
         return $view->renderTemplate('ckeditor/_field-settings.twig', [
             'field' => $this,
+            'ckeConfig' => $ckeConfig,
+            'userGroupOptions' => $userGroupOptions,
             'purifierConfigOptions' => $this->configOptions('htmlpurifier'),
             'volumeOptions' => $volumeOptions,
             'transformOptions' => $transformOptions,
@@ -616,7 +735,6 @@ class Field extends HtmlField implements ElementContainerFieldInterface
                     'value' => null,
                 ],
             ], $transformOptions),
-            'defaultCreateButtonLabel' => $this->defaultCreateButtonLabel(),
         ]);
     }
 
@@ -639,17 +757,10 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     {
         $entriesService = Craft::$app->getEntries();
 
-        $this->_entryTypes = array_values(array_filter(array_map(function(EntryType|string|int $entryType) use ($entriesService) {
-            if (is_numeric($entryType)) {
-                $entryType = $entriesService->getEntryTypeById($entryType);
-            } elseif (is_string($entryType)) {
-                $entryTypeUid = $entryType;
-                $entryType = $entriesService->getEntryTypeByUid($entryTypeUid);
-            } elseif (!$entryType instanceof EntryType) {
-                throw new InvalidArgumentException('Invalid entry type');
-            }
-            return $entryType;
-        }, $entryTypes)));
+        $this->_entryTypes = array_values(array_filter(array_map(
+            fn($entryType) => $entriesService->getEntryType($entryType),
+            $entryTypes,
+        )));
     }
 
     /**
@@ -674,21 +785,12 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             $settings['removeNbsp'],
         );
 
-        $settings['entryTypes'] = array_map(fn(EntryType $entryType) => $entryType->uid, $this->_entryTypes);
+        $settings['entryTypes'] = array_map(
+            fn(EntryType $entryType) => $entryType->getUsageConfig(),
+            $this->getEntryTypes(),
+        );
 
         return $settings;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed
-    {
-        if (is_string($value) && $this->isSiteRequest()) {
-            $value = $this->_prepNestedEntriesForDisplay($value, $element?->siteId);
-        }
-
-        return parent::normalizeValue($value, $element);
     }
 
     /**
@@ -700,13 +802,41 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             $value = $value->getRawContent();
         }
 
-        if ($value !== null) {
-            // Redactor to CKEditor syntax for <figure>
-            // (https://github.com/craftcms/ckeditor/issues/96)
-            $value = $this->_normalizeFigures($value);
+        if (!$value) {
+            return null;
         }
 
-        return parent::serializeValue($value, $element);
+        // Redactor to CKEditor syntax for <figure>
+        // (https://github.com/craftcms/ckeditor/issues/96)
+        $value = $this->_normalizeFigures($value);
+
+        // Protect page breaks
+        $this->escapePageBreaks($value);
+        $value = parent::serializeValue($value, $element);
+        return str_replace(
+            '{PAGEBREAK_MARKER}',
+            '<div class="page-break" style="page-break-after:always;"><span style="display:none;">&nbsp;</span></div>',
+            $value,
+        );
+    }
+
+    private function escapePageBreaks(string &$html): void
+    {
+        $offset = 0;
+        $r = '';
+
+        while (($pos = stripos($html, '<div class="page-break"', $offset)) !== false) {
+            $endPos = strpos($html, '</div>', $pos + 23);
+            if ($endPos === false) {
+                break;
+            }
+            $r .= substr($html, $offset, $pos - $offset) . '{PAGEBREAK_MARKER}';
+            $offset = $endPos + 6;
+        }
+
+        if ($offset !== 0) {
+            $html = $r . substr($html, $offset);
+        }
     }
 
     /**
@@ -727,6 +857,8 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             'attributes' => [
                 'class' => array_filter([$isRevision ? 'cke-entry-card' : null]),
             ],
+            'hyperlink' => false,
+            'showEditButton' => false,
         ]);
     }
 
@@ -770,6 +902,36 @@ class Field extends HtmlField implements ElementContainerFieldInterface
     }
 
     /**
+     * @innheritdoc
+     */
+    public function canMergeInto(FieldInterface $persistingField, ?string &$reason): bool
+    {
+        if (!$persistingField instanceof self) {
+            $reason = 'CKEditor fields can only be merged into other CKEditor fields.';
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterMergeFrom(FieldInterface $outgoingField)
+    {
+        Db::update(DbTable::ENTRIES, ['fieldId' => $this->id], ['fieldId' => $outgoingField->id]);
+        parent::afterMergeFrom($outgoingField);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function createFieldData(string $content, ?int $siteId): HtmlFieldData
+    {
+        return new FieldData($content, $siteId);
+    }
+
+    /**
      * @inheritdoc
      */
     protected function inputHtml(mixed $value, ?ElementInterface $element, $inline): string
@@ -793,7 +955,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             ArrayHelper::removeValue($toolbar, 'createEntry');
         }
 
-        if (!$this->enableSourceEditingForNonAdmins && !Craft::$app->getUser()->getIsAdmin()) {
+        if (!$this->isSourceEditingAllowed(Craft::$app->getUser()->getIdentity())) {
             ArrayHelper::removeValue($toolbar, 'sourceEditing');
         }
 
@@ -810,7 +972,6 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             'accessibleFieldName' => $this->_accessibleFieldName($element),
             'describedBy' => $this->_describedBy($view),
             'entryTypeOptions' => $this->_getEntryTypeOptions(),
-            'createButtonLabel' => $this->createButtonLabel(),
             'findAndReplace' => [
                 'uiType' => 'dropdown',
             ],
@@ -840,6 +1001,8 @@ class Field extends HtmlField implements ElementContainerFieldInterface
                     ...(!empty($transforms) ? ['transformImage', '|'] : []),
                     'toggleImageCaption',
                     'imageTextAlternative',
+                    '|',
+                    'imageEditor',
                 ],
             ],
             'assetSources' => $this->_assetSources(),
@@ -854,9 +1017,9 @@ class Field extends HtmlField implements ElementContainerFieldInterface
             ],
             'transforms' => $transforms,
             'ui' => [
-                'viewportOffset' => ['top' => 50],
+                'viewportOffset' => ['top' => 44],
                 'poweredBy' => [
-                    'position' => 'inside',
+                    'position' => 'outside',
                     'label' => '',
                 ],
             ],
@@ -866,6 +1029,7 @@ class Field extends HtmlField implements ElementContainerFieldInterface
         $event = new ModifyConfigEvent([
             'baseConfig' => $baseConfig,
             'ckeConfig' => $ckeConfig,
+            'toolbar' => $toolbar,
         ]);
         $this->trigger(self::EVENT_MODIFY_CONFIG, $event);
 
@@ -887,17 +1051,24 @@ JS;
         }
 
         $baseConfigJs = Json::encode($event->baseConfig);
-        $toolbarJs = Json::encode($toolbar);
+        $toolbarJs = Json::encode($event->toolbar);
         $languageJs = Json::encode([
             'ui' => BaseCkeditorPackageAsset::uiLanguage(),
             'content' => $element?->getSite()->language ?? Craft::$app->language,
             'textPartLanguage' => static::textPartLanguage(),
         ]);
         $showWordCountJs = Json::encode($this->showWordCount);
-        $wordLimitJs = $this->wordLimit ?: 0;
+        $wordLimitJs = 0;
+        $characterLimitJs = 0;
+        if ($this->characterLimit) {
+            $characterLimitJs = $this->characterLimit;
+        } elseif ($this->wordLimit) {
+            $wordLimitJs = $this->wordLimit;
+        }
 
         $view->registerJs(<<<JS
 (($) => {
+  let instance;
   const config = Object.assign($baseConfigJs, $configOptionsJs);
   if (!jQuery.isPlainObject(config.toolbar)) {
     config.toolbar = {};
@@ -936,6 +1107,15 @@ JS;
           container.removeClass('error warning');
         }
       }
+      if ($characterLimitJs) {
+        if (stats.characters > $characterLimitJs) {
+          container.addClass('error');
+        } else if (stats.characters >= Math.floor($characterLimitJs * .9)) {
+          container.addClass('warning');
+        } else {
+          container.removeClass('error warning');
+        }
+      }
       onUpdate(stats);
     }
   } else {
@@ -947,7 +1127,7 @@ JS;
     }
     config.removePlugins.push(...extraRemovePlugins);
   }
-  CKEditor5.craftcms.create($idJs, config);
+  instance = CKEditor5.craftcms.create($idJs, config);
 })(jQuery)
 JS,
             View::POS_END,
@@ -976,6 +1156,7 @@ JS,
             ]),
             'data' => [
                 'element-id' => $element?->id,
+                'config' => $this->ckeConfig,
             ],
         ]);
     }
@@ -1019,8 +1200,57 @@ JS,
      */
     protected function prepValueForInput($value, ?ElementInterface $element, bool $static = false): string
     {
-        if ($value instanceof HtmlFieldData) {
-            $value = $value->getRawContent();
+        if ($value instanceof FieldData) {
+            $chunks = $value->getChunks(false)
+                ->filter(fn(BaseChunk $chunk) => !$chunk instanceof EntryChunk || $chunk->getEntry() !== null);
+
+            /** @var Entry[] $entries */
+            $entries = $chunks
+                ->filter(fn(BaseChunk $chunk) => $chunk instanceof EntryChunk)
+                ->keyBy(fn(EntryChunk $chunk) => $chunk->entryId)
+                ->map(fn(EntryChunk $chunk) => $chunk->getEntry())
+                ->all();
+
+            if (!$static) {
+                ElementHelper::swapInProvisionalDrafts($entries);
+            }
+
+            $value = $chunks
+                ->map(function(BaseChunk $chunk) use ($static, $entries, $element) {
+                    if ($chunk instanceof Markup) {
+                        return $chunk->rawHtml;
+                    }
+
+                    /** @var EntryChunk $chunk */
+                    $entry = $entries[$chunk->entryId];
+
+                    try {
+                        // set up-to-date owner on the entry
+                        // e.g. when provisional draft was created for the owner and the page was reloaded
+                        $entry->setOwner($element);
+                        if ($entry->id === $entry->getPrimaryOwnerId()) {
+                            $entry->setPrimaryOwner($element);
+                        }
+
+                        $cardHtml = $this->getCardHtml($entry);
+                    } catch (InvalidConfigException) {
+                        // this can happen e.g. when the entry type has been deleted
+                        return '';
+                    }
+
+                    if ($static) {
+                        return $cardHtml;
+                    }
+
+                    return Html::tag('craft-entry', options: [
+                        'data' => [
+                            'entry-id' => $entry->isProvisionalDraft ? $entry->getCanonicalId() : $entry->id,
+                            'site-id' => $entry->siteId,
+                            'card-html' => $cardHtml,
+                        ],
+                    ]);
+                })
+                ->join('');
         }
 
         if ($value !== null) {
@@ -1038,13 +1268,66 @@ JS,
             // Redactor to CKEditor syntax for <figure>
             // (https://github.com/craftcms/ckeditor/issues/96)
             $value = $this->_normalizeFigures($value);
-
-            // without this, nested entries won't show in revisions;
-            // not including it, also causes a layout shift when editing in the CP
-            $value = $this->_prepNestedEntriesForDisplay($value, $element?->siteId, $static);
+            // Redactor to CKEditor syntax for <pre>
+            // (https://github.com/craftcms/ckeditor/issues/258)
+            $value = $this->_normalizePreTags($value);
         }
 
         return parent::prepValueForInput($value, $element);
+    }
+
+    /**
+     * Returns if user belongs to a group whose members are allowed to edit source even if they're not admins
+     * @param User $user
+     * @return bool
+     */
+    private function isSourceEditingAllowed(User $user): bool
+    {
+        if ($this->sourceEditingGroups === '*') {
+            return true;
+        }
+
+        if ($this->sourceEditingGroups === null) {
+            return false;
+        }
+
+        $sourceEditingGroups = array_flip($this->sourceEditingGroups);
+
+        if ($user->admin && isset($sourceEditingGroups['__ADMINS__'])) {
+            return true;
+        }
+
+        foreach ($user->getGroups() as $group) {
+            if (isset($sourceEditingGroups[$group->uid])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function searchKeywords(mixed $value, ElementInterface $element): string
+    {
+        /** @var FieldData|null $value */
+        if (!$value) {
+            return '';
+        }
+
+        $keywords = $value->getChunks()
+            ->filter(fn(BaseChunk $chunk) => $chunk instanceof Markup)
+            ->map(fn(Markup $chunk) => $chunk->getHtml())
+            ->join(' ');
+
+        if (!Craft::$app->getDb()->getSupportsMb4()) {
+            $keywords = StringHelper::encodeMb4($keywords);
+        }
+
+        $keywords .= self::entryManager($this)->getSearchKeywords($element);
+
+        return $keywords;
     }
 
     /**
@@ -1057,6 +1340,7 @@ JS,
         $entryTypeOptions = array_map(
             fn(EntryType $entryType) => [
                 'icon' => $entryType->icon ? Cp::iconSvg($entryType->icon) : null,
+                'color' => $entryType->getColor()?->value,
                 'label' => Craft::t('site', $entryType->name),
                 'value' => $entryType->id,
             ],
@@ -1064,125 +1348,6 @@ JS,
         );
 
         return $entryTypeOptions;
-    }
-
-    /**
-     * Fill the CKE markup (<craft-entry data-entry-id="96"></craft-entry>)
-     *  with actual card or template HTML of the entry it's linking to.
-     * If it's not a CP request - always use the rendered HTML
-     * If it's a CP request - use rendered HTML if that's what's assigned to the entry type in the field's setting; otherwise use card HTML.
-     * If it's a static request
-     *
-     * @param string $value
-     * @param int|null $elementSiteId
-     * @param bool $static
-     * @return string
-     */
-    private function _prepNestedEntriesForDisplay(string $value, ?int $elementSiteId, bool $static = false): string
-    {
-        [$entryIds, $markers] = $this->findEntries($value, true);
-
-        if (empty($entryIds)) {
-            return $value;
-        }
-
-        $isSiteRequest = $this->isSiteRequest();
-        $entries = Entry::find()
-            ->id($entryIds)
-            ->siteId($elementSiteId)
-            ->status(null)
-            ->drafts(null)
-            ->revisions(null)
-            ->trashed(null)
-            ->indexBy('id')
-            ->all();
-
-        foreach ($markers as $i => $marker) {
-            $entryId = $entryIds[$i];
-            /** @var Entry|null $entry */
-            $entry = $entries[$entryId] ?? null;
-
-            if (!$entry || ($isSiteRequest && $entry->trashed && !Craft::$app->getRequest()->getIsPreview())) {
-                $entryHtml = '';
-            } elseif ($isSiteRequest) {
-                $entryHtml = $entry->render();
-            } else {
-                try {
-                    $entryHtml = $this->getCardHtml($entry);
-
-                    if (!$static) {
-                        $entryHtml = Html::tag('craft-entry', options: [
-                            'data' => [
-                                'entry-id' => $entryId,
-                                'card-html' => $entryHtml,
-                            ],
-                        ]);
-                    }
-                } catch (InvalidConfigException) {
-                    // this can happen e.g. when the entry type has been deleted
-                    $entryHtml = '';
-                }
-            }
-
-            $value = str_replace($marker, $entryHtml, $value);
-        }
-
-        return $value;
-    }
-
-    private function createButtonLabel(): string
-    {
-        if (isset($this->createButtonLabel)) {
-            return Craft::t('site', $this->createButtonLabel);
-        }
-        return $this->defaultCreateButtonLabel();
-    }
-
-    private function defaultCreateButtonLabel(): string
-    {
-        return Craft::t('app', 'New {type}', [
-            'type' => Entry::lowerDisplayName(),
-        ]);
-    }
-
-    private function isSiteRequest(): bool
-    {
-        return (
-            Craft::$app->getRequest()->getIsSiteRequest() ||
-            Craft::$app->controller instanceof GraphqlController
-        );
-    }
-
-    private function findEntries(string &$html, bool $replaceWithMarkers = false): array
-    {
-        $entryIds = [];
-        $markers = [];
-        $offset = 0;
-        $r = '';
-
-        while (($pos = stripos($html, '<craft-entry data-entry-id="', $offset)) !== false) {
-            $idStartPos = $pos + 28;
-            $closingTagPos = strpos($html, '</craft-entry>', $idStartPos);
-            if ($closingTagPos === false) {
-                break;
-            }
-            $endPos = $closingTagPos + 14;
-            if (!preg_match('/^\d+/', substr($html, $idStartPos, $closingTagPos - $idStartPos), $match)) {
-                break;
-            }
-            $entryIds[] = $match[0];
-            if ($replaceWithMarkers) {
-                $markers[] = $marker = sprintf('{marker:%s}', mt_rand());
-                $r .= substr($html, $offset, $pos - $offset) . $marker;
-            }
-            $offset = $endPos;
-        }
-
-        if ($replaceWithMarkers && $offset !== 0) {
-            $html = $r . substr($html, $offset);
-        }
-
-        return [$entryIds, $markers];
     }
 
     /**
@@ -1251,6 +1416,39 @@ JS,
             },
             $value,
         );
+
+        return $value;
+    }
+
+    /**
+     * Normalizes <pre> tags, ensuring they have a <code> tag inside them.
+     * If there's no <code> tag in there, ensure it's added with class="language-plaintext".
+     *
+     * @param string $value
+     * @return string
+     */
+    private function _normalizePreTags(string $value): string
+    {
+        $offset = 0;
+        while (preg_match('/<pre\b[^>]*>\s*(.*?)<\/pre>/is', $value, $match, PREG_OFFSET_CAPTURE, $offset)) {
+            /** @var int $startPos */
+            $startPos = $match[1][1];
+            $endPos = $startPos + strlen($match[1][0]);
+            $preContent = $match[1][0];
+
+            // if there's already a <code tag inside, leave it alone and carry on
+            if (str_starts_with($preContent, '<code')) {
+                $offset = $startPos + strlen($preContent);
+                continue;
+            }
+
+            $preContent = Html::tag('code', $preContent, [
+                'class' => 'language-plaintext',
+            ]);
+
+            $value = substr($value, 0, $startPos) . $preContent . substr($value, $endPos);
+            $offset = $startPos + strlen($preContent);
+        }
 
         return $value;
     }
@@ -1364,6 +1562,7 @@ JS,
                 foreach ($sites as $site) {
                     if (isset($sectionSiteSettings[$site->id]) && $sectionSiteSettings[$site->id]->hasUrls) {
                         $sources[] = 'section:' . $section->uid;
+                        break;
                     }
                 }
             }
@@ -1522,6 +1721,9 @@ JS,
      */
     private function _adjustPurifierConfig(HTMLPurifier_Config $purifierConfig): HTMLPurifier_Config
     {
+        /** @var HTMLPurifier_HTMLDefinition|null $def */
+        $def = $purifierConfig->getDefinition('HTML', true);
+
         $ckeConfig = $this->_ckeConfig();
 
         // These will come back as indexed (key => true) arrays
@@ -1545,8 +1747,6 @@ JS,
 
         if (in_array('todoList', $ckeConfig->toolbar)) {
             // Add input[type=checkbox][disabled][checked] to the definition
-            /** @var HTMLPurifier_HTMLDefinition|null $def */
-            $def = $purifierConfig->getDefinition('HTML', true);
             $def?->addElement('input', 'Inline', 'Inline', '', [
                 'type' => 'Enum#checkbox',
                 'disabled' => 'Enum#disabled',
@@ -1555,20 +1755,14 @@ JS,
         }
 
         if (in_array('numberedList', $ckeConfig->toolbar)) {
-            /** @var HTMLPurifier_HTMLDefinition|null $def */
-            $def = $purifierConfig->getDefinition('HTML', true);
             $def?->addAttribute('ol', 'style', 'Text');
         }
 
         if (in_array('bulletedList', $ckeConfig->toolbar)) {
-            /** @var HTMLPurifier_HTMLDefinition|null $def */
-            $def = $purifierConfig->getDefinition('HTML', true);
             $def?->addAttribute('ul', 'style', 'Text');
         }
 
         if (in_array('createEntry', $ckeConfig->toolbar)) {
-            /** @var HTMLPurifier_HTMLDefinition|null $def */
-            $def = $purifierConfig->getDefinition('HTML', true);
             $def?->addElement('craft-entry', 'Inline', 'Inline', '', [
                 'data-entry-id' => 'Number',
             ]);
@@ -1609,5 +1803,21 @@ JS,
         }
 
         return '';
+    }
+
+    /**
+     * @deprecated in 4.5.0
+     */
+    public function getEnableSourceEditingForNonAdmins(): bool
+    {
+        return $this->sourceEditingGroups === '*';
+    }
+
+    /**
+     * @deprecated in 4.5.0
+     */
+    public function setEnableSourceEditingForNonAdmins(bool $value): void
+    {
+        $this->sourceEditingGroups = $value ? '*' : ['__ADMINS__'];
     }
 }

@@ -7,7 +7,7 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
 
-class Paypal extends AbstractProvider
+class PayPal extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
@@ -126,10 +126,10 @@ class Paypal extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return PaypalResourceOwner
+     * @return PayPalResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token): PaypalResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): PayPalResourceOwner
     {
-        return new PaypalResourceOwner($response);
+        return new PayPalResourceOwner($response);
     }
 }

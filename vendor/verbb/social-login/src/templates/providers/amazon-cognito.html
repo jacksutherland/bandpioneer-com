@@ -1,0 +1,15 @@
+{% import '_includes/forms' as forms %}
+{% import 'verbb-base/_macros' as macros %}
+
+{% include 'social-login/providers/_oauth' %}
+
+{{ macros.proxyField(fieldVariables, 'autosuggestField', {
+    label: 'Domain' | t('social-login'),
+    instructions: 'Enter your {provider} {label} here.' | t('social-login'),
+    name: 'domain',
+    required: true,
+    suggestEnvVars: true,
+    value: provider.domain ?? '',
+    warning: macros.configWarning("providers.#{provider.handle}.domain", 'social-login'),
+    errors: provider.getErrors('domain'),
+}) }}

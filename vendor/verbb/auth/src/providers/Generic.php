@@ -14,12 +14,6 @@ class Generic extends GenericProvider
     use ProviderTrait;
 
 
-    // Properties
-    // =========================================================================
-
-    protected ?string $baseApiUrl = null;
-
-
     // Public Methods
     // =========================================================================
 
@@ -31,7 +25,7 @@ class Generic extends GenericProvider
     public function getApiRequestQueryParams(?Token $token): array
     {
         return [
-            'access_token' => (string)$token->getToken(),
+            'access_token' => (string)($token?->getToken() ?? ''),
         ];
     }
 }

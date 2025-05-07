@@ -1,14 +1,14 @@
 {
   "require": {
     "bandpioneer/rockstar": "^1.0",
-    "craftcms/ckeditor": "4.0.6",
-    "craftcms/cms": "5.1.9",
+    "craftcms/ckeditor": "4.8.0",
+    "craftcms/cms": "5.7.5",
     "craftcms/contact-form": "3.1.0",
     "putyourlightson/craft-sendgrid": "3.0.0",
     "sendgrid/sendgrid": "~7",
     "tectalic/openai": "^1.4",
-    "verbb/comments": "3.0.0",
-    "verbb/social-login": "2.0.2",
+    "verbb/comments": "3.0.7",
+    "verbb/social-login": "2.0.9",
     "vlucas/phpdotenv": "^5.4.0"
   },
   "repositories": [

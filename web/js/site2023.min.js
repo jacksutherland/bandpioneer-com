@@ -374,12 +374,6 @@ class BandPioneerUX
 
 				setTimeout(function()
 				{
-					// ctaImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
-					// setTimeout(function()
-					// {
-					// 	ctaImg.classList.remove('blur-out');
-					// }, 1000);
-
 					const newImg = new Image();
 				    newImg.src = '/assets/images/bp-homepage-artist-' + ctaIdx + '.png';
 				    newImg.onload = function() {
@@ -390,20 +384,8 @@ class BandPioneerUX
 				    	}, 1000);
 				    };
 
-					// preloadNextImg();
-
 				}, 500);
 			}
-
-			// const preloadNextImg = function()
-			// {
-			// 	if(preloadCounter < ctaMax)
-			// 	{
-			// 		preloadCounter++;
-			// 		var preload = new Image();
-			// 		preload.src = '/assets/images/bp-homepage-artist-' + (ctaIdx == ctaMax ? ctaMin : (ctaIdx + 1)) + '.png';
-			// 	}
-			// }
 
 			const ctaObserver = new window.IntersectionObserver((entries) => {
 
@@ -422,8 +404,6 @@ class BandPioneerUX
 			});
 
 			ctaObserver.observe(ctaText);
-
-			// preloadNextImg();
 		}
 	}
 

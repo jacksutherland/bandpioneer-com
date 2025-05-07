@@ -11,6 +11,7 @@ use Craft;
 use craft\db\Query;
 use craft\db\Table;
 use craft\elements\Asset;
+use craft\elements\db\UserQuery;
 use craft\elements\User;
 use craft\enums\CmsEdition;
 use craft\errors\ImageException;
@@ -45,11 +46,12 @@ use yii\base\Component;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
 use yii\base\UserException;
+use yii\caching\TagDependency;
 
 /**
  * The Users service provides APIs for managing users.
  *
- * An instance of the service is available via [[\craft\base\ApplicationTrait::getUsers()|`Craft::$app->users`]].
+ * An instance of the service is available via [[\craft\base\ApplicationTrait::getUsers()|`Craft::$app->getUsers()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -204,18 +206,32 @@ class Users extends Component
         /** @var User|null $user */
         $user = User::find()
             ->email($email)
-            ->status(null)
+            ->status([UserQuery::STATUS_CREDENTIALED])
             ->one();
 
-        if (!$user) {
-            $user = new User();
-            $user->email = $email;
-            if (!$user->validate(['email'])) {
-                throw new InvalidArgumentException($user->getFirstError('email'));
-            }
-            if (!Craft::$app->getElements()->saveElement($user, false)) {
-                throw new Exception('Unable to save user: ' . implode(', ', $user->getFirstErrors()));
-            }
+        if ($user) {
+            return $user;
+        }
+
+        /** @var User|null $user */
+        $user = User::find()
+            ->email($email)
+            ->status([User::STATUS_INACTIVE])
+            ->one();
+
+        if ($user) {
+            return $user;
+        }
+
+        $user = new User();
+        $user->email = $email;
+
+        if (!$user->validate(['email'])) {
+            throw new InvalidArgumentException($user->getFirstError('email'));
+        }
+
+        if (!Craft::$app->getElements()->saveElement($user, false)) {
+            throw new Exception('Unable to save user: ' . implode(', ', $user->getFirstErrors()));
         }
 
         return $user;
@@ -304,7 +320,7 @@ class Users extends Component
      * Returns whether a verification code is valid for the given user.
      *
      * This method first checks if the code has expired past the
-     * <config4:verificationCodeDuration> config setting. If it is still valid,
+     * <config5:verificationCodeDuration> config setting. If it is still valid,
      * then, the checks the validity of the contents of the code.
      *
      * @param User $user The user to check the code for.
@@ -334,7 +350,7 @@ class Users extends Component
 
         // Make sure it’s not expired
         if ($user->verificationCodeIssuedDate < $minCodeIssueDate) {
-            $userRecord = $userRecord ?? $this->_getUserRecordById($user->id);
+            $userRecord ??= $this->_getUserRecordById($user->id);
             $userRecord->verificationCode = $user->verificationCode = null;
             $userRecord->verificationCodeIssuedDate = $user->verificationCodeIssuedDate = null;
             $userRecord->save();
@@ -535,6 +551,8 @@ class Users extends Component
         $userRecord->password = null;
         $userRecord->verificationCode = null;
 
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
+
         if (!$userRecord->save()) {
             $user->addErrors($userRecord->getErrors());
             throw new InvalidElementException($user);
@@ -544,6 +562,10 @@ class Users extends Component
         $user->pending = false;
         $user->password = null;
         $user->verificationCode = null;
+
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -564,18 +586,20 @@ class Users extends Component
         }
 
         $assetsService = Craft::$app->getAssets();
+        $photoId = $user->photoId;
 
-        $event = new UserPhotoEvent([
-            'user' => $user,
-            'photoId' => $user->photoId,
-        ]);
-
+        // Fire a 'beforeSaveUserPhoto' event
         if ($this->hasEventHandlers(self::EVENT_BEFORE_SAVE_USER_PHOTO)) {
+            $event = new UserPhotoEvent([
+                'user' => $user,
+                'photoId' => $photoId,
+            ]);
             $this->trigger(self::EVENT_BEFORE_SAVE_USER_PHOTO, $event);
+            $photoId = $event->photoId;
         }
 
         // If the photo exists, just replace the file.
-        if ($event->photoId && ($photo = Craft::$app->getAssets()->getAssetById($event->photoId)) !== null) {
+        if ($photoId && ($photo = Craft::$app->getAssets()->getAssetById($photoId)) !== null) {
             $assetsService->replaceAssetFile($photo, $fileLocation, $filename);
         } else {
             $volume = $this->_userPhotoVolume();
@@ -727,14 +751,16 @@ class Users extends Component
             $userRecord->lastLoginAttemptIp = Craft::$app->getRequest()->getUserIP();
         }
 
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
         $userRecord->save();
 
         // Update the User model too
         $user->lastLoginDate = $now;
         $user->invalidLoginCount = null;
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -781,6 +807,7 @@ class Users extends Component
             $user->invalidLoginCount = $userRecord->invalidLoginCount;
         }
 
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
         $userRecord->save();
 
         // Update the User model too
@@ -793,8 +820,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -806,13 +834,12 @@ class Users extends Component
     public function activateUser(User $user): void
     {
         // Fire a 'beforeActivateUser' event
-        $event = new UserEvent([
-            'user' => $user,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_ACTIVATE_USER, $event);
-
-        if (!$event->isValid) {
-            throw new InvalidElementException($user);
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_ACTIVATE_USER)) {
+            $event = new UserEvent(['user' => $user]);
+            $this->trigger(self::EVENT_BEFORE_ACTIVATE_USER, $event);
+            if (!$event->isValid) {
+                throw new InvalidElementException($user);
+            }
         }
 
         $originalUser = clone $user;
@@ -853,6 +880,8 @@ class Users extends Component
             $userRecord->invalidLoginCount = null;
             $userRecord->lastInvalidLoginDate = null;
             $userRecord->lockoutDate = null;
+
+            $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
             $userRecord->save();
 
             // If they have an unverified email address, now is the time to set it to their primary email address
@@ -871,8 +900,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -886,13 +916,12 @@ class Users extends Component
     public function deactivateUser(User $user): void
     {
         // Fire a 'beforeActivateUser' event
-        $event = new UserEvent([
-            'user' => $user,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_DEACTIVATE_USER, $event);
-
-        if (!$event->isValid) {
-            throw new InvalidElementException($user);
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_DEACTIVATE_USER)) {
+            $event = new UserEvent(['user' => $user]);
+            $this->trigger(self::EVENT_BEFORE_DEACTIVATE_USER, $event);
+            if (!$event->isValid) {
+                throw new InvalidElementException($user);
+            }
         }
 
         $transaction = Craft::$app->getDb()->beginTransaction();
@@ -908,6 +937,8 @@ class Users extends Component
             $userRecord->invalidLoginCount = null;
             $userRecord->lastInvalidLoginDate = null;
             $userRecord->lockoutDate = null;
+
+            $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
             $userRecord->save();
 
             $user->active = false;
@@ -933,8 +964,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -959,6 +991,8 @@ class Users extends Component
             $userRecord->username = $user->unverifiedEmail;
         }
 
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
+
         if (!$userRecord->save()) {
             $user->addErrors($userRecord->getErrors());
             throw new InvalidElementException($user);
@@ -967,6 +1001,8 @@ class Users extends Component
         // If the user status is pending, let's activate them.
         if ($userRecord->pending) {
             $this->activateUser($user);
+        } elseif ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
         }
     }
 
@@ -979,13 +1015,12 @@ class Users extends Component
     public function unlockUser(User $user): void
     {
         // Fire a 'beforeUnlockUser' event
-        $event = new UserEvent([
-            'user' => $user,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_UNLOCK_USER, $event);
-
-        if (!$event->isValid) {
-            throw new InvalidElementException($user);
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_UNLOCK_USER)) {
+            $event = new UserEvent(['user' => $user]);
+            $this->trigger(self::EVENT_BEFORE_UNLOCK_USER, $event);
+            if (!$event->isValid) {
+                throw new InvalidElementException($user);
+            }
         }
 
         $transaction = Craft::$app->getDb()->beginTransaction();
@@ -995,6 +1030,8 @@ class Users extends Component
             $userRecord->invalidLoginCount = null;
             $userRecord->invalidLoginWindowStart = null;
             $userRecord->lockoutDate = null;
+
+            $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
             $userRecord->save();
 
             $transaction->commit();
@@ -1015,8 +1052,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -1028,18 +1066,19 @@ class Users extends Component
     public function suspendUser(User $user): void
     {
         // Fire a 'beforeSuspendUser' event
-        $event = new UserEvent([
-            'user' => $user,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_SUSPEND_USER, $event);
-
-        if (!$event->isValid) {
-            throw new InvalidElementException($user);
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_SUSPEND_USER)) {
+            $event = new UserEvent(['user' => $user]);
+            $this->trigger(self::EVENT_BEFORE_SUSPEND_USER, $event);
+            if (!$event->isValid) {
+                throw new InvalidElementException($user);
+            }
         }
 
         $userRecord = $this->_getUserRecordById($user->id);
         $userRecord->suspended = true;
         $user->suspended = true;
+
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
         $userRecord->save();
 
         // Destroy all sessions for this user
@@ -1052,8 +1091,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -1065,13 +1105,12 @@ class Users extends Component
     public function unsuspendUser(User $user): void
     {
         // Fire a 'beforeUnsuspendUser' event
-        $event = new UserEvent([
-            'user' => $user,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_UNSUSPEND_USER, $event);
-
-        if (!$event->isValid) {
-            throw new InvalidElementException($user);
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_UNSUSPEND_USER)) {
+            $event = new UserEvent(['user' => $user]);
+            $this->trigger(self::EVENT_BEFORE_UNSUSPEND_USER, $event);
+            if (!$event->isValid) {
+                throw new InvalidElementException($user);
+            }
         }
 
         $transaction = Craft::$app->getDb()->beginTransaction();
@@ -1079,6 +1118,8 @@ class Users extends Component
         try {
             $userRecord = $this->_getUserRecordById($user->id);
             $userRecord->suspended = false;
+
+            $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
             $userRecord->save();
 
             $transaction->commit();
@@ -1098,8 +1139,9 @@ class Users extends Component
             ]));
         }
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
     }
 
     /**
@@ -1186,6 +1228,7 @@ class Users extends Component
         }
 
         $transaction = Craft::$app->getDb()->beginTransaction();
+        $indexAttributesChanged = $userRecord->haveIndexAttributesChanged();
         $userRecord->save();
 
         $originalUser = clone $user;
@@ -1204,8 +1247,9 @@ class Users extends Component
 
         $transaction->commit();
 
-        // Invalidate caches
-        Craft::$app->getElements()->invalidateCachesForElement($user);
+        if ($indexAttributesChanged) {
+            $this->invalidateIndexCaches();
+        }
 
         return $unhashedCode;
     }
@@ -1214,7 +1258,7 @@ class Users extends Component
      * Deletes any pending users that have shown zero sense of urgency and are
      * just taking up space.
      *
-     * This method will check the <config4:purgePendingUsersDuration> config
+     * This method will check the <config5:purgePendingUsersDuration> config
      * setting, and if it is set to a valid duration, it will delete any user
      * accounts that were created that duration ago, and have still not
      * activated their account.
@@ -1287,39 +1331,44 @@ class Users extends Component
             return true;
         }
 
-        // Fire a 'beforeAssignUserToGroups' event
-        $event = new UserGroupsAssignEvent([
-            'userId' => $userId,
-            'groupIds' => $groupIds,
-            'removedGroupIds' => $removedGroupIds,
-            'newGroupIds' => array_keys($newGroupIds),
-        ]);
-        $this->trigger(self::EVENT_BEFORE_ASSIGN_USER_TO_GROUPS, $event);
+        $newGroupIds = array_keys($newGroupIds);
 
-        if (!$event->isValid) {
-            return false;
+        // Fire a 'beforeAssignUserToGroups' event
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_ASSIGN_USER_TO_GROUPS)) {
+            $event = new UserGroupsAssignEvent([
+                'userId' => $userId,
+                'groupIds' => $groupIds,
+                'removedGroupIds' => $removedGroupIds,
+                'newGroupIds' => $newGroupIds,
+            ]);
+            $this->trigger(self::EVENT_BEFORE_ASSIGN_USER_TO_GROUPS, $event);
+            if (!$event->isValid) {
+                return false;
+            }
+            $removedGroupIds = $event->removedGroupIds;
+            $newGroupIds = $event->newGroupIds;
         }
 
         // Make sure the event hasn't left us with nothing to do
-        if (empty($event->removedGroupIds) && empty($event->newGroupIds)) {
+        if (empty($removedGroupIds) && empty($newGroupIds)) {
             return true;
         }
 
         $transaction = $db->beginTransaction();
         try {
             // Add the new groups
-            if (!empty($event->newGroupIds)) {
+            if (!empty($newGroupIds)) {
                 $values = [];
-                foreach ($event->newGroupIds as $groupId) {
+                foreach ($newGroupIds as $groupId) {
                     $values[] = [$groupId, $userId];
                 }
                 Db::batchInsert(Table::USERGROUPS_USERS, ['groupId', 'userId'], $values, $db);
             }
 
-            if (!empty($event->removedGroupIds)) {
+            if (!empty($removedGroupIds)) {
                 Db::delete(Table::USERGROUPS_USERS, [
                     'userId' => $userId,
-                    'groupId' => $event->removedGroupIds,
+                    'groupId' => $removedGroupIds,
                 ], [], $db);
             }
 
@@ -1334,10 +1383,12 @@ class Users extends Component
             $this->trigger(self::EVENT_AFTER_ASSIGN_USER_TO_GROUPS, new UserGroupsAssignEvent([
                 'userId' => $userId,
                 'groupIds' => $groupIds,
-                'removedGroupIds' => $event->removedGroupIds,
-                'newGroupIds' => $event->newGroupIds,
+                'removedGroupIds' => $removedGroupIds,
+                'newGroupIds' => $newGroupIds,
             ]));
         }
+
+        $this->invalidateIndexCaches();
 
         return true;
     }
@@ -1360,6 +1411,7 @@ class Users extends Component
             }
         }
 
+        // Fire a 'defineDefaultUserGroups' event
         if ($this->hasEventHandlers(self::EVENT_DEFINE_DEFAULT_USER_GROUPS)) {
             $event = new DefineUserGroupsEvent([
                 'user' => $user,
@@ -1389,14 +1441,15 @@ class Users extends Component
         }
 
         // Fire a 'beforeAssignUserToDefaultGroup' event
-        $event = new UserAssignGroupEvent([
-            'user' => $user,
-            'userGroups' => $groups,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_ASSIGN_USER_TO_DEFAULT_GROUP, $event);
-
-        if (!$event->isValid) {
-            return false;
+        if ($this->hasEventHandlers(self::EVENT_BEFORE_ASSIGN_USER_TO_DEFAULT_GROUP)) {
+            $event = new UserAssignGroupEvent([
+                'user' => $user,
+                'userGroups' => $groups,
+            ]);
+            $this->trigger(self::EVENT_BEFORE_ASSIGN_USER_TO_DEFAULT_GROUP, $event);
+            if (!$event->isValid) {
+                return false;
+            }
         }
 
         $groupIds = array_map(fn(UserGroup $group) => $group->id, $groups);
@@ -1593,24 +1646,28 @@ class Users extends Component
             'id' => $user->uid,
         ];
 
+        $isCpRequest = Craft::$app->getRequest()->getIsCpRequest();
         $generalConfig = Craft::$app->getConfig()->getGeneral();
+
         $cp = (
-            $user->can('accessCp') ||
+            Craft::$app->edition->value < CmsEdition::Pro->value ||
+            ($isCpRequest && $user->can('accessCp')) ||
             ($generalConfig->headlessMode && !UrlHelper::isAbsoluteUrl($fePath))
         );
         $scheme = UrlHelper::getSchemeForTokenizedUrl($cp);
+        $siteId = $isCpRequest ? $user->affiliatedSiteId : null;
 
         if (!$cp) {
-            return UrlHelper::siteUrl($fePath, $params, $scheme);
+            return UrlHelper::siteUrl($fePath, $params, $scheme, siteId: $siteId);
         }
 
         // Only use cpUrl() if this is a control panel request, or the base control panel URL has been explicitly set,
         // so UrlHelper won't use HTTP_HOST
-        if ($generalConfig->baseCpUrl || Craft::$app->getRequest()->getIsCpRequest()) {
+        if ($generalConfig->baseCpUrl || $isCpRequest) {
             $url = UrlHelper::cpUrl($cpPath, $params, $scheme);
         } else {
             $path = UrlHelper::prependCpTrigger($cpPath);
-            $url = UrlHelper::siteUrl($path, $params, $scheme);
+            $url = UrlHelper::siteUrl($path, $params, $scheme, siteId: $siteId);
         }
 
         if (UrlHelper::isRootRelativeUrl($url)) {
@@ -1624,6 +1681,22 @@ class Users extends Component
     }
 
     /**
+     * Returns the maximum number of users the system can have, for the given Craft edition.
+     *
+     * @param CmsEdition $edition
+     * @return int|null
+     * @since 5.5.0
+     */
+    final public function getMaxUsers(CmsEdition $edition): ?int
+    {
+        return match ($edition) {
+            CmsEdition::Solo => 1,
+            CmsEdition::Team => 5,
+            default => null,
+        };
+    }
+
+    /**
      * Returns whether new users can be added to the system.
      *
      * @return bool
@@ -1631,11 +1704,14 @@ class Users extends Component
      */
     final public function canCreateUsers(): bool
     {
-        if (Craft::$app->edition === CmsEdition::Pro) {
-            return true;
-        }
+        $maxUsers = $this->getMaxUsers(Craft::$app->edition);
+        return !$maxUsers || $maxUsers > User::find()->status(null)->count();
+    }
 
-        $max = Craft::$app->edition === CmsEdition::Solo ? 1 : 5;
-        return User::find()->status(null)->count() < $max;
+    private function invalidateIndexCaches(): void
+    {
+        TagDependency::invalidate(Craft::$app->getCache(), [
+            sprintf('element-index-query::%s', User::class),
+        ]);
     }
 }

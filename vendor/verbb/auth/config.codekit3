@@ -259,6 +259,22 @@
       "oAP" : "\/src\/clients\/amazon\/provider\/AmazonResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/amazoncognito\/provider\/AmazonCognito.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/amazoncognito\/provider\/AmazonCognito-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/amazoncognito\/provider\/AmazonCognitoUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/amazoncognito\/provider\/AmazonCognitoUser-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/apple\/provider\/Apple.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -859,52 +875,52 @@
       "oAP" : "\/src\/clients\/freshbooks\/provider\/FreshBooksOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php" : {
+    "\/src\/clients\/github\/provider\/exception\/GitHubIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/exception\/GitHubIdentityProviderException-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/Github.php" : {
+    "\/src\/clients\/github\/provider\/GitHub.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/Github.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/GitHub-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/GithubResourceOwner.php" : {
+    "\/src\/clients\/github\/provider\/GitHubResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/GithubResourceOwner.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/GitHubResourceOwner-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php" : {
+    "\/src\/clients\/gitlab\/provider\/exception\/GitLabIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/exception\/GitLabIdentityProviderException-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/Gitlab.php" : {
+    "\/src\/clients\/gitlab\/provider\/GitLab.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/Gitlab.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/GitLab-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php" : {
+    "\/src\/clients\/gitlab\/provider\/GitLabResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/GitLabResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/google\/exception\/HostedDomainException.php" : {
@@ -1443,6 +1459,22 @@
       "oAP" : "\/src\/clients\/microsoft\/provider\/MicrosoftResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/microsoftentra\/provider\/MicrosoftEntra.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/microsoftentra\/provider\/MicrosoftEntra-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/microsoftentra\/provider\/MicrosoftEntraResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/microsoftentra\/provider\/MicrosoftEntraResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/mixer\/entity\/MixerUser.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1579,20 +1611,20 @@
       "oAP" : "\/src\/clients\/orcid\/provider\/ORCIDResourceOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/paypal\/provider\/Paypal.php" : {
+    "\/src\/clients\/paypal\/provider\/PayPal.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/paypal\/provider\/Paypal.php",
+      "oAP" : "\/src\/clients\/paypal\/provider\/PayPal-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php" : {
+    "\/src\/clients\/paypal\/provider\/PayPalResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php",
+      "oAP" : "\/src\/clients\/paypal\/provider\/PayPalResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/pinterest\/provider\/exception\/PinterestIdentityProviderException.php" : {
@@ -2379,6 +2411,46 @@
       "oAP" : "\/src\/clients\/weibo\/provider\/WeiboResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/xero\/provider\/exception\/XeroProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/exception\/XeroProviderException-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/Xero.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/Xero-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroPkce.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroPkce-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroResourceOwner-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroTenant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroTenant-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/yahoo\/provider\/Yahoo.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2515,6 +2587,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Amazon.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/AmazonCognito.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/AmazonCognito-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Apple.php" : {
@@ -2749,20 +2829,20 @@
       "oAP" : "\/src\/providers\/Generic.php",
       "oF" : 0
     },
-    "\/src\/providers\/Github.php" : {
+    "\/src\/providers\/GitHub.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/providers\/Github.php",
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/GitHub-output.php",
       "oF" : 0
     },
-    "\/src\/providers\/Gitlab.php" : {
+    "\/src\/providers\/GitLab.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/providers\/Gitlab.php",
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/GitLab-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Google.php" : {
@@ -2925,6 +3005,14 @@
       "oAP" : "\/src\/providers\/Microsoft.php",
       "oF" : 0
     },
+    "\/src\/providers\/MicrosoftEntra.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/MicrosoftEntra-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/Mixer.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2989,12 +3077,12 @@
       "oAP" : "\/src\/providers\/ORCID.php",
       "oF" : 0
     },
-    "\/src\/providers\/Paypal.php" : {
+    "\/src\/providers\/PayPal.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/providers\/Paypal.php",
+      "oAP" : "\/src\/providers\/PayPal-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Pinterest.php" : {
@@ -3235,6 +3323,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Weibo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Xero.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/Xero-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Yahoo.php" : {

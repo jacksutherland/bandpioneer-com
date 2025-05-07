@@ -8,6 +8,7 @@
 namespace craft\services;
 
 use Craft;
+use craft\helpers\FileHelper;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -16,7 +17,7 @@ use yii\helpers\Inflector;
 /**
  * Security service.
  *
- * An instance of the service is available via [[\yii\base\Application::getSecurity()|`Craft::$app->security`]].
+ * An instance of the service is available via [[\yii\base\Application::getSecurity()|`Craft::$app->getSecurity()`]].
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -195,5 +196,26 @@ class Security extends \yii\base\Security
         }
 
         return $value;
+    }
+
+    /**
+     * Returns whether the given file path is located within or above any system directories.
+     *
+     * @param string $path
+     * @return bool
+     * @since 5.4.2
+     */
+    public function isSystemDir(string $path): bool
+    {
+        $path = FileHelper::absolutePath($path, '/');
+
+        foreach (Craft::$app->getPath()->getSystemPaths() as $dir) {
+            $dir = FileHelper::absolutePath($dir, '/');
+            if (str_starts_with("$path/", "$dir/") || str_starts_with("$dir/", "$path/")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

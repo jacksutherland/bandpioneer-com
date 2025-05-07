@@ -14,8 +14,8 @@ if (typeof Craft.SocialLogin === typeof undefined) {
 Craft.SocialLogin.CpLoginForm = Garnish.Base.extend({
     init: function(settings) {
         const self = this;
-        this.renderedLogin = false;
-        this.html = settings.html;
+
+        this.html = '<div class="social-login-cp-container">' + settings.html + '</div>';
 
         this.bindSubmitButtons();
 
@@ -31,7 +31,7 @@ Craft.SocialLogin.CpLoginForm = Garnish.Base.extend({
         var observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 mutation.addedNodes.forEach(function(addedNode) {
-                    if (addedNode.id === 'loginmodal') {
+                    if (self.hasClasses(addedNode, ['modal', 'login-modal', 'fitted'])) {
                         self.renderLoginModalForm(addedNode);
                     }
                 });
@@ -39,18 +39,28 @@ Craft.SocialLogin.CpLoginForm = Garnish.Base.extend({
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
+
+        // Easy debug for elevated session login
+        // setTimeout(function() {
+        //     Craft.elevatedSessionManager.showLoginModal();
+        // }, 2000)
     },
 
     renderLoginForm($form) {
+        // Only insert it once, as due to session-pinging, this can fire multiple times
+        if ($('.social-login-cp-container').length) {
+            return;
+        }
+
         $(this.html).insertAfter($form);
     },
 
     renderLoginModalForm(form) {
         const $loginModal = $(form);
-        const $wrapper = $loginModal.find('.body');
+        const $wrapper = $loginModal.find('.body .login-modal-form .login-container');
 
         // Only insert it once, as due to session-pinging, this can fire multiple times
-        if (this.renderedLogin) {
+        if ($('.social-login-cp-container').length) {
             return;
         }
 
@@ -59,28 +69,43 @@ Craft.SocialLogin.CpLoginForm = Garnish.Base.extend({
         // Resize the modal to fit
         $loginModal.trigger('updateSizeAndPosition');
         $(window).trigger('resize');
-
-        this.renderedLogin = true;
     },
 
     bindSubmitButtons() {
         // `click` doesn't seem to work in the login modal...
-        $(document).on('mouseup', 'button[data-social-provider]', function(e) {
+        $(document).on('mouseup', 'button[data-social-provider]', async function(e) {
             e.preventDefault();
 
             let $btn = $(e.currentTarget);
             let $form = $('form#x');
 
-            Craft.submitForm($form, {
+            // Ensure that we ping the session endpoint again to get a valid CSRF token, 
+            // as the previous session has ended, and the current token is invalid.
+            const { data } = await Craft.sendActionRequest('GET', 'users/session-info');
+
+            const payload = {
                 action: 'social-login/auth/login',
                 redirect: null,
                 params: {
                     loginName: Craft.username,
                     provider: $btn.data('social-provider'),
                 },
-            });
+            };
+
+            payload.params[data.csrfTokenName] = data.csrfTokenValue;
+
+            Craft.submitForm($form, payload);
         });
     },
+
+    hasClasses(element, classes) {
+        if (!element || !element.classList) {
+            return false;
+        }
+
+        return classes.every(cls => element.classList.contains(cls));
+    },
+
 });
 
 })(jQuery);

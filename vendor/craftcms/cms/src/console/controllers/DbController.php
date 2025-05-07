@@ -35,6 +35,15 @@ class DbController extends Controller
     public bool $zip = false;
 
     /**
+     * @var string|null The output format that should be used (`custom`, `directory`, `tar`, or `plain`).
+     *
+     * The `backupCommandFormat` config setting will be used by default.
+     *
+     * @since 5.2.0
+     */
+    public ?string $format = null;
+
+    /**
      * @var bool Whether to overwrite an existing backup file, if a specific file path is given.
      */
     public bool $overwrite = false;
@@ -56,13 +65,55 @@ class DbController extends Controller
             case 'backup':
                 $options[] = 'zip';
                 $options[] = 'overwrite';
+
+                if (Craft::$app->getDb()->getIsPgsql()) {
+                    $options[] = 'format';
+                }
                 break;
             case 'restore':
                 $options[] = 'dropAllTables';
+
+                if (Craft::$app->getDb()->getIsPgsql()) {
+                    $options[] = 'format';
+                }
                 break;
         }
 
         return $options;
+    }
+
+    /**
+     * Repairs all tables in the database.
+     *
+     * Note that this can cause table locking, which could interfere with SQL being executed.
+     *
+     * @since 5.7.0
+     * @see https://dev.mysql.com/doc/refman/8.4/en/optimize-table.html
+     * @see https://www.postgresql.org/docs/current/sql-analyze.html
+     */
+    public function actionRepair(): int
+    {
+        if (!$this->_tablesExist()) {
+            $this->stdout('No existing database tables found.' . PHP_EOL, Console::FG_YELLOW);
+            return ExitCode::OK;
+        }
+
+        if ($this->interactive && !$this->confirm('Are you sure you want to repair all tables from the database?')) {
+            $this->stdout('Aborted.' . PHP_EOL, Console::FG_YELLOW);
+            return ExitCode::OK;
+        }
+
+        $this->_backupPrompt();
+
+        try {
+            $this->_repairAllTables();
+        } catch (Throwable $e) {
+            Craft::$app->getErrorHandler()->logException($e);
+            $this->stderr('error: ' . $e->getMessage() . PHP_EOL, Console::FG_RED);
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        return ExitCode::OK;
     }
 
     /**
@@ -124,6 +175,34 @@ class DbController extends Controller
     }
 
     /**
+     * Repairs all tables in the database.
+     *
+     * @throws NotSupportedException
+     * @throws Exception
+     */
+    private function _repairAllTables(): void
+    {
+        $db = Craft::$app->getDb();
+        $tableNames = $db->getSchema()->getTableNames();
+
+        $this->stdout('Repairing all database tables ... ' . PHP_EOL);
+
+        if ($db->getIsMysql()) {
+            $sql = 'OPTIMIZE TABLE [[%s]]';
+        } else {
+            $sql = 'ANALYZE VERBOSE [[%s]]';
+        }
+
+        foreach ($tableNames as $tableName) {
+            $this->do("Repairing `$tableName`", function() use ($db, $sql, $tableName) {
+                $db->createCommand(sprintf($sql, $tableName))->execute();
+            });
+        }
+
+        $this->stdout('Finished repairing all database tables.' . PHP_EOL . PHP_EOL, Console::FG_GREEN);
+    }
+
+    /**
      * Drops all tables in the database.
      *
      * @throws NotSupportedException
@@ -171,6 +250,10 @@ class DbController extends Controller
     {
         $this->stdout('Backing up the database ... ');
         $db = Craft::$app->getDb();
+
+        if (isset($this->format) && $db->getIsPgsql()) {
+            $db->getSchema()->setBackupFormat($this->format);
+        }
 
         if ($path !== null) {
             // Prefix with the working directory if a relative path or no path is given
@@ -224,8 +307,14 @@ class DbController extends Controller
         }
 
         $this->stdout('done' . PHP_EOL, Console::FG_GREEN);
-        $size = Craft::$app->getFormatter()->asShortSize(filesize($path));
-        $this->stdout("Backup file: $path ($size)" . PHP_EOL);
+
+        if (is_dir($path)) {
+            $this->stdout("Backup directory: $path" . PHP_EOL);
+        } else {
+            $size = Craft::$app->getFormatter()->asShortSize(filesize($path));
+            $this->stdout("Backup file: $path ($size)" . PHP_EOL);
+        }
+
         return ExitCode::OK;
     }
 
@@ -243,12 +332,7 @@ class DbController extends Controller
     public function actionRestore(?string $path = null): int
     {
         if (!is_readable($path)) {
-            if (!is_dir($path) && Craft::$app->getConfig()->getGeneral()->backupCommandFormat === 'directory') {
-                $this->stderr("Backup directory doesn't exist: $path" . PHP_EOL);
-            } else {
-                $this->stderr("Backup file doesn't exist: $path" . PHP_EOL);
-            }
-
+            $this->stderr("Backup path doesn't exist: $path" . PHP_EOL);
             return ExitCode::UNSPECIFIED_ERROR;
         }
 
@@ -296,7 +380,17 @@ class DbController extends Controller
         $this->stdout('Restoring database backup ... ');
 
         try {
-            Craft::$app->getDb()->restore($path);
+            $db = Craft::$app->getDb();
+            if ($db->getIsPgsql()) {
+                $restoreFormat = $this->format ?? match (FileHelper::getMimeType($path)) {
+                    'application/octet-stream' => 'custom',
+                    'application/x-tar' => 'tar',
+                    'directory' => 'directory',
+                    default => null,
+                };
+                $db->getSchema()->setRestoreFormat($restoreFormat);
+            }
+            $db->restore($path);
         } catch (Throwable $e) {
             Craft::$app->getErrorHandler()->logException($e);
             $this->stderr('error: ' . $e->getMessage() . PHP_EOL, Console::FG_RED);

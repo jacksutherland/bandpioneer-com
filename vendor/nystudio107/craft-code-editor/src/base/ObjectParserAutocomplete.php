@@ -14,11 +14,13 @@ use craft\base\Element;
 use nystudio107\codeeditor\models\CompleteItem;
 use nystudio107\codeeditor\types\CompleteItemKind;
 use phpDocumentor\Reflection\DocBlockFactory;
+use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionUnionType;
+use Throwable;
 use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\di\ServiceLocator;
@@ -140,11 +142,11 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
 
     /**
      * @param $object
-     * @param DocBlockFactory $factory
+     * @param DocBlockFactoryInterface $factory
      * @param string $name
      * @param $path
      */
-    protected function getClassCompletion($object, DocBlockFactory $factory, string $name, $path): void
+    protected function getClassCompletion($object, DocBlockFactoryInterface $factory, string $name, $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -187,11 +189,11 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
 
     /**
      * @param $object
-     * @param DocBlockFactory $factory
+     * @param DocBlockFactoryInterface $factory
      * @param $recursionDepth
      * @param string $path
      */
-    protected function getPropertyCompletion($object, DocBlockFactory $factory, $recursionDepth, string $path): void
+    protected function getPropertyCompletion($object, DocBlockFactoryInterface $factory, $recursionDepth, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -252,7 +254,7 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
                     if ((PHP_MAJOR_VERSION >= 7 && PHP_MINOR_VERSION >= 4) || (PHP_MAJOR_VERSION >= 8)) {
                         if ($reflectionProperty->hasType()) {
                             $reflectionType = $reflectionProperty->getType();
-                            if ($reflectionType instanceof \ReflectionNamedType) {
+                            if ($reflectionType instanceof ReflectionNamedType) {
                                 $type = $reflectionType->getName();
                                 $detail = $type;
                             }
@@ -261,6 +263,9 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
                             $value = $reflectionProperty->getDefaultValue();
                             if (is_array($value)) {
                                 $value = json_encode($value);
+                            }
+                            if (is_object($value) && !method_exists($value, '__toString')) {
+                                $value = '';
                             }
                             if (!empty($value)) {
                                 $detail = (string)$value;
@@ -281,7 +286,11 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
                 // Recurse through if this is an object
                 if (isset($object->$propertyName) && is_object($object->$propertyName)) {
                     if (!$customField && !in_array($propertyName, self::EXCLUDED_PROPERTY_NAMES, true)) {
-                        $this->parseObject($propertyName, $object->$propertyName, $recursionDepth, $path);
+                        try {
+                            $this->parseObject($propertyName, $object->$propertyName, $recursionDepth, $path);
+                        } catch (Throwable $e) {
+                            // That's fine
+                        }
                     }
                 }
             }
@@ -290,10 +299,10 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
 
     /**
      * @param $object
-     * @param DocBlockFactory $factory
+     * @param DocBlockFactoryInterface $factory
      * @param string $path
      */
-    protected function getMethodCompletion($object, DocBlockFactory $factory, string $path): void
+    protected function getMethodCompletion($object, DocBlockFactoryInterface $factory, string $path): void
     {
         try {
             $reflectionClass = new ReflectionClass($object);
@@ -368,11 +377,11 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
 
     /**
      * @param $object
-     * @param DocBlockFactory $factory
+     * @param DocBlockFactoryInterface $factory
      * @param $recursionDepth
      * @param string $path
      */
-    protected function getBehaviorCompletion($object, DocBlockFactory $factory, $recursionDepth, string $path): void
+    protected function getBehaviorCompletion($object, DocBlockFactoryInterface $factory, $recursionDepth, string $path): void
     {
         if ($object instanceof Element) {
             $behaviorClass = $object->getBehavior('customFields');
@@ -386,10 +395,10 @@ abstract class ObjectParserAutocomplete extends Autocomplete implements ObjectPa
      * Try to get the best documentation block we can
      *
      * @param ReflectionClass|ReflectionMethod $reflection
-     * @param DocBlockFactory $factory
+     * @param DocBlockFactoryInterface $factory
      * @return string
      */
-    protected function getDocs($reflection, DocBlockFactory $factory): string
+    protected function getDocs($reflection, DocBlockFactoryInterface $factory): string
     {
         $docs = $reflection->getDocComment();
         if ($docs) {
